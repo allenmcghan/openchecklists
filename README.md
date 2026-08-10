@@ -43,6 +43,8 @@ preserving history — see [docs/04-roadmap.md](docs/04-roadmap.md) M1.
 | [tools/build_site.py](tools/build_site.py) | Static site generator: filterable catalogue, per-checklist pages, airframe family pages, all download formats, machine catalogue, SHA-256 manifest |
 | [tools/site_editor.py](tools/site_editor.py) | The browser editor: create or fork a checklist, saves to browser storage, records lineage automatically |
 | [tools/airports.py](tools/airports.py) | FAA NASR ingest: 19,426 airports, runways, 37k radio frequencies, into sharded static JSON |
+| [tools/training.py](tools/training.py) | 14 CFR part 61 certificate requirements, and progress computed from a logbook |
+| [tools/site_training.py](tools/site_training.py) | Flight training page: free study library plus client-side progress tracking |
 | [tools/library.py](tools/library.py) | Full-text index over public-domain maintenance documents, plus a registry of the ones we cannot host |
 | [tools/site_airports.py](tools/site_airports.py) | Airport/frequency/weather page, and the Cloudflare Worker weather proxy |
 | [tools/site_library.py](tools/site_library.py) | Troubleshooting search page, projects page, charts page |
@@ -196,6 +198,38 @@ full-text hosting one is wholesale reproduction rather than transcribing a fact.
 Instead there is a registry of what you need and where to get it, which is a fact
 about the world rather than a copy of anything.
 
+### Flight training
+
+`training.html` does two things. It catalogues what the FAA publishes free — sixteen
+handbooks, the ACS documents, the knowledge-test figure supplements, the AIM and the
+regulations — because almost everything a student needs is public domain and almost
+none of it is easy to find.
+
+Then it does the part nothing free does well: reads a logbook against the aeronautical
+experience requirements in 14 CFR part 61, for sport, private, instrument, commercial,
+CFI and ATP. Entirely client-side, so a logbook never leaves the device.
+
+```sh
+python3 tools/training.py list
+python3 tools/training.py requirements private-airplane-sel
+python3 tools/training.py progress examples/example-logbook.oclb.json --for private-airplane-sel
+```
+
+Three rules make it honest, because a student will act on it:
+
+- **Every line cites its CFR paragraph.** If the tool and the regulation disagree, the
+  regulation wins, and the citation is how you find that out.
+- **What a logbook cannot answer is left unchecked, not guessed.** Whether an airport
+  had an operating control tower is not a logged field, so that requirement reports
+  "cannot be determined" rather than failing you. An instructor's endorsement is
+  listed as `confirm`, never counted.
+- **Intersected buckets understate rather than overstate.** A logbook records
+  cross-country and PIC hours but not their overlap, so the tool takes the smaller per
+  entry — and says so when carried-forward totals had to be excluded, rather than
+  silently dropping 78.9 hours.
+
+It reports; it does not certify. Eligibility is your instructor's and examiner's call.
+
 ### Variations, which is the point for experimental and ultralight
 
 Engine swaps, prop changes and panel rebuilds are the norm in this class, so one
@@ -227,6 +261,7 @@ Three pieces make that work:
 | `manifest.sha256` | Hash of every published artifact, so a mirror can be verified |
 | `reviewed.txt` / `unreviewed.txt` | Bundle listings, kept separate on purpose |
 | `airports.html` | 19,426 US airports with runways, radio frequencies, fuel and pattern altitude, plus live weather via the Worker proxy |
+| `training.html` | Free FAA study material, and progress toward a certificate computed from your logbook in the browser |
 | `search.html` | Troubleshooting search over public-domain maintenance documents. Cites passage, document and page — never diagnoses |
 | `charts.html` | Where to get official FAA charts and plates, and why this project links rather than republishes |
 | `projects.html` | The open source projects that produce or consume these formats |

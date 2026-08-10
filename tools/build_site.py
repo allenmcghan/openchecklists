@@ -46,6 +46,7 @@ from render import render as render_html  # noqa: E402
 from site_editor import editor_page  # noqa: E402
 from site_airports import WEATHER_WORKER, airports_page  # noqa: E402
 from site_library import CHARTS, PROJECTS, library_page  # noqa: E402
+from site_training import training_page  # noqa: E402
 from site_pages import (  # noqa: E402
     BRAND_NAME, CONTACT, FAVICON_SVG, LOGO_SVG, PRIVACY, TAGLINE, TAKEDOWN, TERMS,
     contribute_body, landing_body,
@@ -193,6 +194,7 @@ def head(title: str, desc: str, rel: str = "") -> str:
 <nav class="nav">
 <a href="{rel}catalogue.html">Checklists</a>
 <a href="{rel}airports.html">Airports &amp; weather</a>
+<a href="{rel}training.html">Training</a>
 <a href="{rel}search.html">Troubleshooting</a>
 <a href="{rel}editor.html">Editor</a>
 <a href="{rel}projects.html">Projects</a>
@@ -213,6 +215,7 @@ flight. No warranty of any kind &mdash; see <a href="terms.html">terms</a>.</p>
 <a href="index.html">Home</a> &middot;
 <a href="catalogue.html">Catalogue</a> &middot;
 <a href="airports.html">Airports</a> &middot;
+<a href="training.html">Training</a> &middot;
 <a href="search.html">Troubleshooting</a> &middot;
 <a href="charts.html">Charts</a> &middot;
 <a href="projects.html">Projects</a> &middot;
@@ -731,9 +734,11 @@ def main() -> int:
         airports_page(head, FOOT, args.wx_proxy), encoding="utf-8"
     )
     (args.out / "search.html").write_text(library_page(head, FOOT), encoding="utf-8")
+    (args.out / "training.html").write_text(training_page(head, FOOT), encoding="utf-8")
     static_pages += [
         args.out / "airports.html",
         args.out / "search.html",
+        args.out / "training.html",
         page("projects.html", f"Open source aircraft projects — {BRAND_NAME}",
              "Open source aviation projects that produce or consume these formats: "
              "Open Checklists, the Junco flight computer, and an open flight simulator.",
@@ -743,6 +748,11 @@ def main() -> int:
              "project links to them rather than republishing them.",
              CHARTS),
     ]
+
+    training_data = args.data / "training"
+    if (training_data / "certificates.json").exists():
+        shutil.copytree(training_data, args.out / "data" / "training")
+        artifacts.append(args.out / "data" / "training" / "certificates.json")
 
     library_data = args.data / "library"
     library_shipped = 0
@@ -804,7 +814,7 @@ def main() -> int:
     precache = (
         ["index.html", "catalogue.html", "editor.html", "about.html", "contribute.html",
          "privacy.html", "terms.html", "takedown.html", "contact.html", "airports.html",
-         "search.html", "charts.html", "projects.html",
+         "search.html", "charts.html", "projects.html", "training.html",
          "manifest.webmanifest", "icon.svg", "api/index.json"]
         + (["data/airports/index.json", "data/airports/cycle.json", "data/airports/icao.json"]
            if airports_shipped else [])
@@ -858,7 +868,7 @@ def main() -> int:
     urls = [
         "", "catalogue.html", "editor.html", "about.html", "contribute.html",
         "privacy.html", "terms.html", "takedown.html", "contact.html", "airports.html",
-        "search.html", "charts.html", "projects.html",
+        "search.html", "charts.html", "projects.html", "training.html",
     ] + [f"f/{fam}/" for fam in sorted(families)] + [f"c/{e['id']}/" for e in entries]
     (args.out / "sitemap.xml").write_text(
         '<?xml version="1.0" encoding="UTF-8"?>\n'
