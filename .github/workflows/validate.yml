@@ -1,0 +1,80 @@
+# Validate the Open Checklists corpus and build the site.
+#
+# This is the enforcement point for the corpus rules. Schema validity is checked
+# by JSON Schema so any consumer gets the same answer, but the rules that keep an
+# unreviewed transcription from looking like a checked one are cross-field and
+# cannot be expressed in JSON Schema -- they live in tools/validate.py and are
+# only meaningful if something runs them on every change.
+#
+# SPDX-License-Identifier: GPL-2.0-or-later
+
+name: Validate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Validate corpus and build site
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install --quiet jsonschema
+
+      - name: Validate checklists (schema + corpus policy)
+        run: python3 tools/validate.py --strict --check-form
+
+      - name: Prove the safety rules fire
+        run: python3 tools/test_validate.py
+
+      - name: Validate completion logs
+        run: python3 tools/validate_log.py examples/*.ocl-log.json
+
+      - name: Validate field reports
+        run: python3 tools/validate_report.py
+
+      - name: Prove the report demotion rules fire
+        run: python3 tools/test_reports.py
+
+      - name: Validate logbooks
+        run: python3 tools/logbook.py validate examples/*.oclb.json --strict
+
+      - name: Prove the logbook arithmetic and currency boundaries hold
+        run: python3 tools/test_logbook.py
+
+      - name: Prove the library admissibility gate and passage bookkeeping hold
+        run: python3 tools/test_library.py
+
+      - name: Emit certificate requirement data
+        run: python3 tools/training.py emit
+
+      - name: Check certificate progress against the example logbook
+        run: |
+          python3 tools/training.py list
+          python3 tools/training.py progress examples/example-logbook.oclb.json \
+            --for private-airplane-sel
+
+      - name: Export every format, enforcing the safety-preserving contract
+        run: python3 tools/export.py examples/*.ocl.json --formats all
+
+      - name: Build the site
+        run: python3 tools/build_site.py --base-url https://openchecklists.net
+
+      - name: Upload site
+        uses: actions/upload-artifact@v4
+        with:
+          name: openchecklists-site
+          path: build/site
+          if-no-files-found: error

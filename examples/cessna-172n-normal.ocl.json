@@ -1,0 +1,499 @@
+{
+  "open_checklist_version": "1.0",
+  "id": "cessna-172n-normal",
+  "title": "Cessna 172N — Normal Procedures (independently worded)",
+  "description": "Demonstrates the posture the corpus should take with a type whose POH is still under copyright: capture the procedure as fact, in wording that is the contributor's own, and do not reproduce the manufacturer's text, selection or arrangement. The item sequence is the ordinary flow every 172 checklist follows; the phrasing here was written for this file. Values that are limitations have been deliberately left out rather than recalled from memory.",
+  "aircraft": {
+    "make": "Cessna",
+    "model": "172",
+    "variant": "N",
+    "icao_type": "C172",
+    "category": "standard_normal",
+    "engine": [
+      {
+        "make": "Lycoming",
+        "model": "O-320",
+        "type": "piston_4stroke",
+        "count": 1
+      }
+    ],
+    "propeller": "fixed_pitch",
+    "gear": "fixed_tricycle"
+  },
+  "units": {
+    "airspeed": "kt",
+    "altitude": "ft",
+    "fuel": "usgal",
+    "weight": "lb",
+    "pressure": "inhg",
+    "temperature": "f"
+  },
+  "provenance": {
+    "source": {
+      "kind": "none",
+      "notes": "No Cessna document was consulted or copied. Written from general familiarity with the type's normal flow. This is the reason the file carries no airspeeds, no fuel quantities and no power settings: those are limitations that must come from the aircraft's own POH, and inventing or recalling them would be the most dangerous thing this file could do. A contributor holding the POH for their aircraft is expected to fill them in and record that source."
+    },
+    "transcription": {
+      "method": "authored",
+      "tool": "claude-opus-5",
+      "date": "2026-08-10"
+    },
+    "contributors": [
+      {
+        "name": "Open Checklists project (initial schema examples)",
+        "role": [
+          "author"
+        ]
+      }
+    ],
+    "revision": {
+      "file_revision": "0.1.0",
+      "updated": "2026-08-10"
+    }
+  },
+  "verification": {
+    "source_fidelity": "not_applicable",
+    "operational_review": "none",
+    "completeness": "normal_only",
+    "known_issues": [
+      {
+        "severity": "safety_defect",
+        "description": "Contains no airspeeds, power settings, fuel quantities or other limitations. It cannot be used as a working checklist as it stands.",
+        "location": "whole file"
+      },
+      {
+        "severity": "content_gap",
+        "description": "Normal procedures only. No emergency or abnormal sections.",
+        "location": "whole file"
+      },
+      {
+        "severity": "content_gap",
+        "description": "172N airframes differ in equipment. Verify each item exists on the specific aircraft before use.",
+        "location": "whole file"
+      }
+    ]
+  },
+  "rights": {
+    "status": "original_expression",
+    "corpus_license": "CC-BY-4.0",
+    "redistribution": "attribution_required",
+    "notes": "Cessna's POH for this type remains under copyright. This file does not reproduce its wording, its selection of items, or its arrangement beyond the conventional order of flight, which is procedure rather than expression. Contributors adding limitation values from a POH should add them as short factual figures and must not import surrounding prose."
+  },
+  "sections": [
+    {
+      "id": "before-start",
+      "phase": "before_start",
+      "title": "Before Start",
+      "items": [
+        {
+          "type": "action",
+          "text": "Preflight inspection",
+          "response": "COMPLETE",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Seats and belts",
+          "response": "ADJUSTED AND SECURE",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Brakes",
+          "response": "TESTED AND HELD",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Electrical equipment",
+          "response": "OFF",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Fuel selector",
+          "response": "BOTH",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Radios and avionics",
+          "response": "OFF",
+          "tickable": true
+        }
+      ]
+    },
+    {
+      "id": "engine-start",
+      "phase": "engine_start",
+      "title": "Engine Start",
+      "items": [
+        {
+          "type": "action",
+          "text": "Mixture",
+          "response": "RICH",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Carburetor heat",
+          "response": "COLD",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Master switch",
+          "response": "ON",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Beacon",
+          "response": "ON",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Primer",
+          "response": "AS REQUIRED",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "OPEN SLIGHTLY",
+          "tickable": true
+        },
+        {
+          "type": "challenge",
+          "text": "Call \"CLEAR PROP\" and confirm the propeller arc is clear",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Ignition switch",
+          "response": "START, RELEASE ON START",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Oil pressure",
+          "response": "IN GREEN WITHIN 30 SECONDS",
+          "tickable": true
+        },
+        {
+          "type": "caution",
+          "text": "If oil pressure does not reach the green arc, shut the engine down and investigate before the next start attempt.",
+          "tickable": false
+        },
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "SET IDLE RPM",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Ammeter",
+          "response": "CHARGING",
+          "tickable": true
+        }
+      ]
+    },
+    {
+      "id": "before-takeoff",
+      "phase": "before_takeoff",
+      "title": "Before Takeoff",
+      "items": [
+        {
+          "type": "action",
+          "text": "Parking brake",
+          "response": "SET",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Flight controls",
+          "response": "FREE AND CORRECT",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Flight instruments",
+          "response": "SET AND CROSS-CHECKED",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Altimeter",
+          "response": "SET TO FIELD SETTING",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Fuel selector",
+          "response": "BOTH",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Mixture",
+          "response": "RICH",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Elevator trim",
+          "response": "SET FOR TAKEOFF",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "SET FOR RUN-UP",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Magnetos",
+          "response": "CHECK EACH, DROP AND DIFFERENTIAL WITHIN POH LIMITS",
+          "tickable": true,
+          "detail": "The permitted maximum drop and maximum difference between magnetos are POH figures for this aircraft and are not stated in this file."
+        },
+        {
+          "type": "action",
+          "text": "Carburetor heat",
+          "response": "CHECK FOR RPM DROP, THEN COLD",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Engine instruments",
+          "response": "IN RANGE",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Suction gauge",
+          "response": "IN RANGE",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "IDLE, THEN CHECK IDLE RPM",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Flaps",
+          "response": "SET FOR TAKEOFF",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Doors and windows",
+          "response": "CLOSED AND LATCHED",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Lights",
+          "response": "AS REQUIRED",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Takeoff briefing",
+          "response": "COMPLETE",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Parking brake",
+          "response": "RELEASED",
+          "tickable": true
+        }
+      ]
+    },
+    {
+      "id": "cruise",
+      "phase": "cruise",
+      "title": "Cruise",
+      "items": [
+        {
+          "type": "action",
+          "text": "Power",
+          "response": "SET PER POH CRUISE TABLE",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Elevator trim",
+          "response": "ADJUSTED",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Mixture",
+          "response": "LEANED PER POH",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Engine instruments",
+          "response": "MONITORED",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Fuel selector and quantity",
+          "response": "CHECKED",
+          "tickable": true
+        }
+      ]
+    },
+    {
+      "id": "before-landing",
+      "phase": "before_landing",
+      "title": "Before Landing",
+      "items": [
+        {
+          "type": "action",
+          "text": "Seats and belts",
+          "response": "SECURE",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Fuel selector",
+          "response": "BOTH",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Mixture",
+          "response": "RICH",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Carburetor heat",
+          "response": "AS REQUIRED",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Landing light",
+          "response": "AS REQUIRED",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Flaps",
+          "response": "AS REQUIRED",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Approach speed",
+          "response": "SET PER POH",
+          "tickable": true
+        }
+      ]
+    },
+    {
+      "id": "go-around",
+      "phase": "go_around",
+      "title": "Go Around",
+      "criticality": "abnormal",
+      "items": [
+        {
+          "type": "action",
+          "id": "ga-power",
+          "text": "Throttle",
+          "response": "FULL",
+          "memory_item": true,
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "id": "ga-carb",
+          "text": "Carburetor heat",
+          "response": "COLD",
+          "memory_item": true,
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "id": "ga-flaps",
+          "text": "Flaps",
+          "response": "RETRACT PROGRESSIVELY",
+          "memory_item": true,
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Climb attitude and speed",
+          "response": "ESTABLISHED",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Trim",
+          "response": "ADJUSTED",
+          "tickable": true
+        }
+      ]
+    },
+    {
+      "id": "shutdown",
+      "phase": "shutdown",
+      "title": "Shutdown and Securing",
+      "items": [
+        {
+          "type": "action",
+          "text": "Parking brake",
+          "response": "SET",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "IDLE",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Avionics and electrical equipment",
+          "response": "OFF",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Mixture",
+          "response": "IDLE CUTOFF",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Ignition switch",
+          "response": "OFF AND KEY REMOVED",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Master switch",
+          "response": "OFF",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Control lock and tiedowns",
+          "response": "INSTALLED",
+          "tickable": true
+        }
+      ]
+    }
+  ]
+}

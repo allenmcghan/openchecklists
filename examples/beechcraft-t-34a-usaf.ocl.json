@@ -1,0 +1,1081 @@
+{
+  "open_checklist_version": "1.0",
+  "id": "beechcraft-t-34a-usaf",
+  "title": "Beechcraft T-34A Mentor — Condensed Check List (USAF T.O. 1T-34A-1)",
+  "description": "Transcribed from the USAF Flight Handbook for the T-34A, a work of the United States Government carrying no copyright. The first genuinely type-specific file in this corpus: unlike a manufacturer POH, this source can be redistributed freely, and the T-34 is still flown by civilians in the experimental and limited categories. Transcribed from the document's own CONDENSED CHECK LIST section. NOT REVIEWED — no second person has compared it against the source, and the source is a 1958 military document that does not reflect any civil modification, STC, or engine change on a particular airframe.",
+  "aircraft": {
+    "make": "Beechcraft",
+    "model": "T-34A",
+    "variant": "Mentor",
+    "category": "restricted",
+    "engine": [
+      {
+        "make": "Continental",
+        "model": "O-470-13",
+        "type": "piston_4stroke",
+        "count": 1
+      }
+    ],
+    "propeller": "constant_speed",
+    "gear": "retractable"
+  },
+  "units": {
+    "airspeed": "kt",
+    "altitude": "ft",
+    "fuel": "usgal",
+    "weight": "lb",
+    "pressure": "inhg",
+    "temperature": "f"
+  },
+  "provenance": {
+    "source": {
+      "kind": "government_publication",
+      "title": "Flight Handbook, USAF Series T-34A Aircraft",
+      "publisher": "United States Air Force",
+      "document_number": "T.O. 1T-34A-1",
+      "revision": "10 February 1958",
+      "publication_date": "1958",
+      "pages": "Sections II and III, CONDENSED CHECK LIST (PDF pages 48-61, 75-79)",
+      "url": "https://archive.org/details/t-o-1-t-34-a-1-flight-handbook-1958",
+      "retrieved": "2026-08-10",
+      "notes": "Working copy fetched by tools/acquire.py and recorded in sources/public-domain.json with a SHA-256. Item wording follows the handbook's 'control — STATE' convention, which is the form the source itself uses; that convention is not this project's invention and reproducing it is unavoidable to state the facts. Numbered sequences follow the source's numbering. Where the handbook's OCR text was inverted and unreadable, items were omitted rather than guessed — see known_issues."
+    },
+    "transcription": {
+      "method": "ocr_assisted",
+      "tool": "claude-opus-5",
+      "date": "2026-08-10"
+    },
+    "contributors": [
+      {
+        "name": "Open Checklists project (initial public-domain transcription)",
+        "role": [
+          "transcriber"
+        ]
+      }
+    ],
+    "revision": {
+      "file_revision": "0.1.0",
+      "updated": "2026-08-10"
+    }
+  },
+  "verification": {
+    "source_fidelity": "unreviewed",
+    "operational_review": "none",
+    "completeness": "partial",
+    "known_issues": [
+      {
+        "severity": "safety_defect",
+        "description": "A 1958 military flight handbook. A civil-registered T-34A will differ: engine changes, avionics, and STCs are common, and the aircraft's own approved documentation and any supplements govern. This file is not airworthiness data for any airframe.",
+        "location": "whole file"
+      },
+      {
+        "severity": "uncertain_reading",
+        "description": "12 of 164 pages in the source scan extract as inverted mojibake, including pages 49, 51 and 53 inside the cut-out CONDENSED CHECK LIST block. Sections that fell on those pages are omitted here rather than reconstructed: notably DITCHING, ENGINE FIRE IN FLIGHT, FIRE DURING ENGINE START, and part of the exterior inspection right-hand side. Resolving them requires reading the page images.",
+        "location": "whole file"
+      },
+      {
+        "severity": "content_gap",
+        "description": "The ENGINE FAILURE DURING TAKE-OFF (after becoming airborne) sequence lost its list numbering in OCR. Item order follows the surviving text and matches the corresponding pre-airborne sequence, but the numbering should be confirmed against the page image.",
+        "location": "section engine-failure-after-takeoff"
+      },
+      {
+        "severity": "content_gap",
+        "description": "Normal procedures beyond preflight and interior inspection (starting engine, before taxiing, take-off, before landing, after landing) are not yet transcribed. Emergency procedures are transcribed more completely than normal procedures.",
+        "location": "whole file"
+      }
+    ]
+  },
+  "rights": {
+    "status": "public_domain",
+    "public_domain_basis": "us_government_work",
+    "corpus_license": "CC0-1.0",
+    "redistribution": "unrestricted",
+    "notes": "T.O. 1T-34A-1 was prepared by or for the United States Air Force and published as a government technical order; as a work of the US Government it is not subject to copyright under 17 U.S.C. 105. Worth noting the caveat from docs/01-legal-research.md section 1.4: military technical data is sometimes contractor-authored, which would change the analysis. The document carries no copyright notice and no contractor authorship statement was found. This should be confirmed before the file is promoted beyond unreviewed."
+  },
+  "sections": [
+    {
+      "id": "preflight-before-exterior",
+      "phase": "preflight_inspection",
+      "title": "Preflight — Before Exterior Inspection",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "DD Form 781",
+          "response": "CHECK",
+          "tickable": true,
+          "detail": "The military maintenance record. On a civil aircraft, the equivalent check is the airworthiness and maintenance status, including any open discrepancies."
+        },
+        {
+          "type": "action",
+          "text": "Battery and ignition switches",
+          "response": "CHECK OFF",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Aileron trim tab wheel",
+          "response": "0 DEGREES",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Rudder trim tab knob",
+          "response": "0 DEGREES",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Elevator trim tab wheel",
+          "response": "0 DEGREES",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Landing gear handle",
+          "response": "DOWN",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Landing gear emergency retract switch",
+          "response": "OFF AND SAFETIED",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Canopy emergency release handle seal",
+          "response": "UNDAMAGED",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Flight controls",
+          "response": "UNLOCKED",
+          "tickable": true
+        },
+        {
+          "type": "subtitle",
+          "text": "Cockpit check for solo flight",
+          "tickable": false
+        },
+        {
+          "type": "action",
+          "text": "Safety belt",
+          "response": "SECURE",
+          "tickable": true,
+          "indent": 1
+        },
+        {
+          "type": "action",
+          "text": "Shoulder harness",
+          "response": "SECURE",
+          "tickable": true,
+          "indent": 1
+        },
+        {
+          "type": "action",
+          "text": "Headset",
+          "response": "STOWED",
+          "tickable": true,
+          "indent": 1
+        },
+        {
+          "type": "action",
+          "text": "Flight controls",
+          "response": "FREE FROM OBSTRUCTION",
+          "tickable": true,
+          "indent": 1
+        },
+        {
+          "type": "action",
+          "text": "Attitude indicator and directional indicator",
+          "response": "UNCAGED",
+          "tickable": true,
+          "indent": 1
+        },
+        {
+          "type": "action",
+          "text": "Fuel booster pump override switches",
+          "response": "FORWARD COCKPIT CONTROL",
+          "tickable": true,
+          "indent": 1
+        },
+        {
+          "type": "action",
+          "text": "Rear canopy",
+          "response": "CLOSED AND LOCKED",
+          "tickable": true,
+          "indent": 1
+        }
+      ]
+    },
+    {
+      "id": "preflight-exterior",
+      "phase": "preflight_inspection",
+      "title": "Preflight — Exterior Inspection",
+      "criticality": "normal",
+      "notes": "Left wing and the right-hand fuselage, empennage and left fuselage survive in the readable text. The right wing and right main gear detail fell on an inverted page and are omitted.",
+      "items": [
+        {
+          "type": "subtitle",
+          "text": "Left wing",
+          "tickable": false
+        },
+        {
+          "type": "action",
+          "text": "Wing flap",
+          "response": "CHECK",
+          "tickable": true,
+          "indent": 1
+        },
+        {
+          "type": "action",
+          "text": "Aileron",
+          "response": "CHECK; TRIM TAB FOR SERVO ACTION",
+          "tickable": true,
+          "indent": 1
+        },
+        {
+          "type": "action",
+          "text": "Wing tip and navigation light",
+          "response": "CHECK",
+          "tickable": true,
+          "indent": 1
+        },
+        {
+          "type": "action",
+          "text": "Leading edge and landing light",
+          "response": "CHECK",
+          "tickable": true,
+          "indent": 1
+        },
+        {
+          "type": "action",
+          "text": "Pitot tube",
+          "response": "CHECK",
+          "tickable": true,
+          "indent": 1
+        },
+        {
+          "type": "note",
+          "text": "The right wing, right main gear and nose gear items are omitted here: they fall on a page whose scanned text is inverted and unreadable. Work them from the source document or the aircraft.",
+          "tickable": false
+        },
+        {
+          "type": "subtitle",
+          "text": "Fuselage right side",
+          "tickable": false
+        },
+        {
+          "type": "action",
+          "text": "Fuel tank vent",
+          "response": "CHECK, 12 DEGREES FORWARD PITCH",
+          "tickable": true,
+          "indent": 1
+        },
+        {
+          "type": "action",
+          "text": "Antenna",
+          "response": "SECURE",
+          "tickable": true,
+          "indent": 1
+        },
+        {
+          "type": "action",
+          "text": "Static air vent",
+          "response": "UNOBSTRUCTED",
+          "tickable": true,
+          "indent": 1
+        },
+        {
+          "type": "subtitle",
+          "text": "Empennage",
+          "tickable": false
+        },
+        {
+          "type": "action",
+          "text": "Right horizontal stabilizer",
+          "response": "CHECK",
+          "tickable": true,
+          "indent": 1
+        },
+        {
+          "type": "action",
+          "text": "Right elevator and trim tab",
+          "response": "CHECK",
+          "tickable": true,
+          "indent": 1
+        },
+        {
+          "type": "action",
+          "text": "Vertical fin",
+          "response": "CHECK",
+          "tickable": true,
+          "indent": 1
+        },
+        {
+          "type": "action",
+          "text": "Rudder",
+          "response": "CHECK; TRIM TAB FOR ANTI-SERVO ACTION",
+          "tickable": true,
+          "indent": 1
+        },
+        {
+          "type": "action",
+          "text": "Navigation light",
+          "response": "CHECK",
+          "tickable": true,
+          "indent": 1
+        },
+        {
+          "type": "action",
+          "text": "Left elevator and trim tab",
+          "response": "CHECK",
+          "tickable": true,
+          "indent": 1
+        },
+        {
+          "type": "action",
+          "text": "Left horizontal stabilizer",
+          "response": "CHECK",
+          "tickable": true,
+          "indent": 1
+        },
+        {
+          "type": "subtitle",
+          "text": "Fuselage left side",
+          "tickable": false
+        },
+        {
+          "type": "action",
+          "text": "Tail skid",
+          "response": "CHECK",
+          "tickable": true,
+          "indent": 1
+        },
+        {
+          "type": "action",
+          "text": "Under side",
+          "response": "CHECK",
+          "tickable": true,
+          "indent": 1
+        },
+        {
+          "type": "action",
+          "text": "Static air vent",
+          "response": "UNOBSTRUCTED",
+          "tickable": true,
+          "indent": 1
+        },
+        {
+          "type": "action",
+          "text": "Baggage compartment",
+          "response": "CHECK, DOOR SECURED",
+          "tickable": true,
+          "indent": 1
+        },
+        {
+          "type": "action",
+          "text": "Fuel tank vent",
+          "response": "CHECK, 12 DEGREES FORWARD PITCH",
+          "tickable": true,
+          "indent": 1
+        }
+      ]
+    },
+    {
+      "id": "preflight-interior",
+      "phase": "before_start",
+      "title": "Interior Inspection",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Seat",
+          "response": "ADJUST AND LOCK",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Seat belt and shoulder harness",
+          "response": "FASTENED",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Inertia reel lock",
+          "response": "CHECK",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Parking brakes",
+          "response": "SET",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Flight controls",
+          "response": "CHECK FREEDOM OF MOVEMENT AND RESPONSE",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Wing flap lever",
+          "response": "NEUTRAL",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Landing light switches",
+          "response": "OFF",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Fuel selector valve handle",
+          "response": "LEFT TANK",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Fuel booster pump switch",
+          "response": "LEFT",
+          "tickable": true
+        },
+        {
+          "type": "subtitle",
+          "text": "Trim tabs — set for take-off",
+          "tickable": false
+        },
+        {
+          "type": "action",
+          "text": "Aileron trim tab wheel",
+          "response": "0 DEGREES",
+          "tickable": true,
+          "indent": 1
+        },
+        {
+          "type": "action",
+          "text": "Rudder trim tab knob",
+          "response": "3 DEGREES RIGHT",
+          "tickable": true,
+          "indent": 1
+        },
+        {
+          "type": "action",
+          "text": "Elevator trim tab wheel",
+          "response": "3 DEGREES UP",
+          "tickable": true,
+          "indent": 1
+        },
+        {
+          "type": "note",
+          "text": "The remainder of the interior inspection sequence (inverter, radio, pitot heat, circuit breakers, battery switch, gear position indicators, fuel quantity, fuel pressure, warning lights and navigation lights) falls on an inverted page and is omitted.",
+          "tickable": false
+        }
+      ]
+    },
+    {
+      "id": "engine-failure-before-rotation",
+      "phase": "engine_failure_before_rotation",
+      "title": "Engine Failure During Take-Off (prior to becoming airborne)",
+      "criticality": "emergency",
+      "condition": "Engine failure during the take-off roll, before the aircraft is airborne",
+      "items": [
+        {
+          "type": "action",
+          "id": "eft-throttle",
+          "text": "Throttle",
+          "response": "CLOSED",
+          "memory_item": true,
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "id": "eft-brakes",
+          "text": "Brakes",
+          "response": "APPLY",
+          "memory_item": true,
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "id": "eft-canopy",
+          "text": "Canopy position",
+          "response": "OPEN",
+          "memory_item": true,
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "id": "eft-mixture",
+          "text": "Mixture lever",
+          "response": "IDLE CUT-OFF",
+          "memory_item": true,
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "id": "eft-fuel",
+          "text": "Fuel selector valve handle",
+          "response": "OFF",
+          "memory_item": true,
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "id": "eft-ignition",
+          "text": "Ignition switch",
+          "response": "OFF",
+          "memory_item": true,
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "id": "eft-battery",
+          "text": "Battery switch",
+          "response": "OFF",
+          "memory_item": true,
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "id": "eft-generator",
+          "text": "Generator switch",
+          "response": "OFF",
+          "memory_item": true,
+          "tickable": true
+        }
+      ]
+    },
+    {
+      "id": "engine-failure-after-takeoff",
+      "phase": "engine_failure_after_takeoff",
+      "title": "Engine Failure During Take-Off (after becoming airborne)",
+      "criticality": "emergency",
+      "condition": "Engine failure after becoming airborne",
+      "items": [
+        {
+          "type": "note",
+          "text": "This sequence lost its numbering in the source scan. The order follows the surviving text and matches the pre-airborne sequence; confirm against the page image before relying on it.",
+          "tickable": false
+        },
+        {
+          "type": "action",
+          "id": "efat-glide",
+          "text": "Glide",
+          "response": "ESTABLISH",
+          "memory_item": true,
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "id": "efat-canopy",
+          "text": "Canopy position",
+          "response": "OPEN",
+          "memory_item": true,
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "id": "efat-mixture",
+          "text": "Mixture lever",
+          "response": "IDLE CUT-OFF",
+          "memory_item": true,
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "id": "efat-fuel",
+          "text": "Fuel selector valve handle",
+          "response": "OFF",
+          "memory_item": true,
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "id": "efat-ignition",
+          "text": "Ignition switch",
+          "response": "OFF",
+          "memory_item": true,
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "id": "efat-battery",
+          "text": "Battery switch",
+          "response": "OFF",
+          "memory_item": true,
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "id": "efat-generator",
+          "text": "Generator switch",
+          "response": "OFF",
+          "memory_item": true,
+          "tickable": true,
+          "source_confidence": 0.9
+        }
+      ]
+    },
+    {
+      "id": "engine-failure-in-flight-partial",
+      "phase": "engine_failure_in_flight",
+      "title": "Engine Failure During Flight — Partial Power Failure",
+      "criticality": "emergency",
+      "condition": "Partial power failure in flight",
+      "items": [
+        {
+          "type": "action",
+          "text": "Airspeed",
+          "response": "MAINTAIN 90 KNOTS",
+          "tickable": true,
+          "value": {
+            "quantity": "airspeed",
+            "unit": "kt",
+            "target": 90,
+            "comparison": "equal"
+          }
+        },
+        {
+          "type": "action",
+          "text": "Fuel selector valve handle",
+          "response": "SWITCH TANKS",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Fuel booster pump switch",
+          "response": "ON (APPROPRIATE TANK)",
+          "tickable": true
+        }
+      ]
+    },
+    {
+      "id": "simulated-forced-landing",
+      "phase": "forced_landing",
+      "title": "Simulated Forced Landing",
+      "criticality": "abnormal",
+      "condition": "Practice forced landing with the engine available",
+      "items": [
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "CLOSED",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Glide",
+          "response": "ESTABLISH 90 KNOTS IAS",
+          "tickable": true,
+          "value": {
+            "quantity": "airspeed",
+            "unit": "kt",
+            "target": 90,
+            "comparison": "equal"
+          }
+        },
+        {
+          "type": "action",
+          "text": "Fuel selector valve handle",
+          "response": "SWITCH TANKS",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Fuel pressure gage",
+          "response": "CHECK",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Wing flaps",
+          "response": "UP (LEVER — NEUTRAL)",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Mixture lever",
+          "response": "FULL RICH",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Propeller lever",
+          "response": "FULL INCREASE",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Landing gear handle",
+          "response": "UP",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Shoulder harness",
+          "response": "LOCKED",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Trim",
+          "response": "AS NECESSARY",
+          "tickable": true
+        }
+      ]
+    },
+    {
+      "id": "forced-landing",
+      "phase": "forced_landing",
+      "title": "Forced Landing",
+      "criticality": "emergency",
+      "condition": "Actual forced landing",
+      "items": [
+        {
+          "type": "action",
+          "id": "fl-canopy",
+          "text": "Canopy position",
+          "response": "OPEN",
+          "memory_item": true,
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "id": "fl-throttle",
+          "text": "Throttle",
+          "response": "CLOSED",
+          "memory_item": true,
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "id": "fl-glide",
+          "text": "Glide",
+          "response": "ESTABLISH 90 KNOTS IAS",
+          "memory_item": true,
+          "tickable": true,
+          "value": {
+            "quantity": "airspeed",
+            "unit": "kt",
+            "target": 90,
+            "comparison": "equal"
+          }
+        },
+        {
+          "type": "action",
+          "text": "Fuel selector valve handle",
+          "response": "OFF",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Fuel booster pump switch",
+          "response": "OFF",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Wing flap lever",
+          "response": "UP",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Mixture lever",
+          "response": "IDLE CUT-OFF",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Propeller lever",
+          "response": "FULL DECREASE",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Landing gear switch",
+          "response": "UP",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Ignition switch",
+          "response": "OFF",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Battery switch",
+          "response": "OFF",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Generator switch",
+          "response": "OFF",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Shoulder harness",
+          "response": "LOCKED",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Trim",
+          "response": "AS NECESSARY",
+          "tickable": true
+        }
+      ]
+    },
+    {
+      "id": "propeller-failure",
+      "phase": "other",
+      "phase_label": "Propeller failure",
+      "title": "Propeller Failure",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "CLOSED",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Pitch attitude",
+          "response": "INCREASE",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Propeller lever",
+          "response": "FULL DECREASE",
+          "tickable": true
+        }
+      ]
+    },
+    {
+      "id": "electrical-fire",
+      "phase": "electrical_fire",
+      "title": "Electrical Fire",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "id": "ef-battery",
+          "text": "Battery switch",
+          "response": "OFF",
+          "memory_item": true,
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "id": "ef-generator",
+          "text": "Generator switch",
+          "response": "OFF",
+          "memory_item": true,
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "id": "ef-equipment",
+          "text": "All electrical equipment",
+          "response": "OFF",
+          "memory_item": true,
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "id": "ef-breakers",
+          "text": "All circuit breakers",
+          "response": "OUT",
+          "memory_item": true,
+          "tickable": true
+        }
+      ]
+    },
+    {
+      "id": "smoke-removal",
+      "phase": "smoke_removal",
+      "title": "Smoke and Fume Elimination",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "Cockpit cold air handle",
+          "response": "IN",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Cockpit hot air handle",
+          "response": "OUT",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Canopy position",
+          "response": "OPEN",
+          "tickable": true
+        }
+      ]
+    },
+    {
+      "id": "bail-out",
+      "phase": "other",
+      "phase_label": "Bail out",
+      "title": "Bail Out",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "warning",
+          "text": "A civil-operated T-34A may not carry parachutes, and this sequence assumes them. Know what your aircraft is equipped with before you need this page.",
+          "tickable": false
+        },
+        {
+          "type": "action",
+          "id": "bo-flaps",
+          "text": "Wing flap lever",
+          "response": "DOWN",
+          "memory_item": true,
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "id": "bo-canopy",
+          "text": "Canopy",
+          "response": "OPEN OR JETTISON",
+          "memory_item": true,
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "id": "bo-seats",
+          "text": "Seats",
+          "response": "FULL UP",
+          "memory_item": true,
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "id": "bo-belts",
+          "text": "Safety belt and shoulder harness",
+          "response": "UNFASTENED",
+          "memory_item": true,
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "id": "bo-headset",
+          "text": "Headset",
+          "response": "REMOVE",
+          "memory_item": true,
+          "tickable": true
+        }
+      ]
+    },
+    {
+      "id": "gear-up-landing",
+      "phase": "landing_gear_malfunction",
+      "title": "Gear Up Landing",
+      "criticality": "emergency",
+      "condition": "Landing with the gear retracted or unsafe",
+      "items": [
+        {
+          "type": "action",
+          "text": "Canopy position",
+          "response": "OPEN",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Wing flap lever",
+          "response": "DOWN",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "CLOSED",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Mixture lever",
+          "response": "IDLE CUT-OFF",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Fuel selector valve handle",
+          "response": "OFF",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Ignition switch",
+          "response": "OFF",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Battery switch",
+          "response": "OFF",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Generator switch",
+          "response": "OFF",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Inertia reel",
+          "response": "LOCKED",
+          "tickable": true
+        }
+      ]
+    },
+    {
+      "id": "gear-manual-extension",
+      "phase": "landing_gear_malfunction",
+      "title": "Landing Gear Manual Extension",
+      "criticality": "abnormal",
+      "condition": "Landing gear fails to extend electrically",
+      "items": [
+        {
+          "type": "action",
+          "text": "Landing gear circuit breaker",
+          "response": "PULL OUT",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Gear",
+          "response": "CRANK DOWN (APPROXIMATELY 37 TURNS)",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Gear indicator lights",
+          "response": "CHECK",
+          "tickable": true
+        }
+      ]
+    }
+  ]
+}

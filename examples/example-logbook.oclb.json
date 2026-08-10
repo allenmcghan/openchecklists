@@ -1,0 +1,257 @@
+{
+  "open_logbook_version": "1.0",
+  "holder": {
+    "name": "Example Pilot",
+    "certificate_number": "0000000000",
+    "certificates": [
+      "Private Pilot — Airplane Single Engine Land",
+      "Instrument Airplane"
+    ],
+    "medical": {
+      "class": "third",
+      "issued": "2025-06-02",
+      "expires": "2027-06-30"
+    },
+    "flight_reviews": [
+      {
+        "date": "2025-04-19",
+        "kind": "flight_review",
+        "instructor": "A. Instructor",
+        "instructor_certificate": "1111111CFI"
+      }
+    ]
+  },
+  "aircraft": [
+    {
+      "id": "N734XY",
+      "make": "Cessna",
+      "model": "172N",
+      "type_designator": "C172",
+      "category_class": "airplane_single_engine_land",
+      "gear": "tricycle",
+      "attributes": [
+        "type_certificated"
+      ],
+      "checklist_id": "cessna-172n-normal"
+    },
+    {
+      "id": "N512JM",
+      "make": "U-Fly-It",
+      "model": "Aerolite 103",
+      "category_class": "ultralight_part103",
+      "gear": "tricycle",
+      "attributes": [
+        "experimental"
+      ],
+      "checklist_id": "aerolite-103-kawasaki-340-n512jm"
+    },
+    {
+      "id": "N88TW",
+      "make": "Piper",
+      "model": "J-3 Cub",
+      "category_class": "airplane_single_engine_land",
+      "gear": "tailwheel",
+      "attributes": [
+        "tailwheel"
+      ]
+    }
+  ],
+  "carried_forward": {
+    "as_of": "2026-05-01",
+    "source": "Paper logbook volume 1, closed 2026-04-30",
+    "totals": {
+      "total": 214.6,
+      "pilot_in_command": 151.2,
+      "night": 12.4,
+      "cross_country": 78.9,
+      "actual_instrument": 9.1
+    },
+    "landings_day": 402,
+    "landings_night": 31
+  },
+  "entries": [
+    {
+      "id": "e-2026-05-14",
+      "date": "2026-05-14",
+      "aircraft_id": "N734XY",
+      "route": {
+        "from": "KFDK",
+        "to": "KFDK"
+      },
+      "times": {
+        "total": 1.4,
+        "pilot_in_command": 1.4,
+        "day": 1.4
+      },
+      "landings": {
+        "day": 6,
+        "full_stop_day": 2
+      },
+      "takeoffs": {
+        "day": 6
+      },
+      "operation": [
+        "personal"
+      ],
+      "remarks": "Pattern work.",
+      "meters": {
+        "hobbs_start": 4218.6,
+        "hobbs_end": 4220.0
+      },
+      "checklist_log_id": "log-example-20260714-134210-kfdk"
+    },
+    {
+      "id": "e-2026-06-08",
+      "date": "2026-06-08",
+      "aircraft_id": "N734XY",
+      "route": {
+        "from": "KFDK",
+        "to": "KRDG",
+        "distance_nm": 96
+      },
+      "times": {
+        "total": 2.6,
+        "pilot_in_command": 2.6,
+        "cross_country": 2.6,
+        "day": 1.9,
+        "night": 0.7,
+        "actual_instrument": 0.4
+      },
+      "landings": {
+        "day": 1,
+        "night": 1,
+        "full_stop_day": 1,
+        "full_stop_night": 1
+      },
+      "instrument": {
+        "approaches": [
+          {
+            "type": "ILS",
+            "location": "KRDG RWY 13",
+            "conditions": "actual"
+          },
+          {
+            "type": "RNAV (GPS) LPV",
+            "location": "KFDK RWY 23",
+            "conditions": "simulated"
+          }
+        ],
+        "holds": 1,
+        "course_tracking": true,
+        "safety_pilot": {
+          "name": "B. Safety",
+          "certificate_number": "2222222"
+        }
+      },
+      "operation": [
+        "personal"
+      ],
+      "passengers": 1,
+      "remarks": "IFR to Reading, ILS 13 in actual. Return in the dark."
+    },
+    {
+      "id": "e-2026-07-02",
+      "date": "2026-07-02",
+      "aircraft_id": "N88TW",
+      "route": {
+        "from": "W29",
+        "to": "W29"
+      },
+      "times": {
+        "total": 0.9,
+        "pilot_in_command": 0.9,
+        "dual_received": 0.9,
+        "day": 0.9
+      },
+      "landings": {
+        "day": 5,
+        "full_stop_day": 5
+      },
+      "operation": [
+        "training"
+      ],
+      "instructor": {
+        "name": "C. Taildragger",
+        "certificate_number": "3333333CFI"
+      },
+      "remarks": "Tailwheel currency. Wheel landings."
+    },
+    {
+      "id": "e-2026-07-14",
+      "date": "2026-07-14",
+      "aircraft_id": "N512JM",
+      "route": {
+        "from": "Private strip",
+        "to": "Private strip"
+      },
+      "times": {
+        "total": 0.6,
+        "pilot_in_command": 0.6,
+        "day": 0.6
+      },
+      "landings": {
+        "day": 3,
+        "full_stop_day": 3
+      },
+      "operation": [
+        "personal"
+      ],
+      "remarks": "First flight after the Kawasaki swap. Ran cool."
+    },
+    {
+      "id": "e-2026-08-02",
+      "date": "2026-08-02",
+      "aircraft_id": "N734XY",
+      "route": {
+        "from": "KFDK",
+        "to": "KHGR",
+        "distance_nm": 28
+      },
+      "times": {
+        "total": 1.8,
+        "pilot_in_command": 1.8,
+        "cross_country": 1.8,
+        "day": 1.8,
+        "simulated_instrument": 1.1
+      },
+      "landings": {
+        "day": 4,
+        "full_stop_day": 2
+      },
+      "instrument": {
+        "approaches": [
+          {
+            "type": "ILS",
+            "location": "KHGR RWY 27",
+            "conditions": "simulated"
+          },
+          {
+            "type": "VOR",
+            "location": "KHGR RWY 9",
+            "conditions": "simulated"
+          },
+          {
+            "type": "RNAV (GPS) LNAV",
+            "location": "KFDK RWY 5",
+            "conditions": "simulated"
+          },
+          {
+            "type": "RNAV (GPS) LPV",
+            "location": "KFDK RWY 23",
+            "conditions": "simulated"
+          }
+        ],
+        "holds": 2,
+        "course_tracking": true,
+        "safety_pilot": {
+          "name": "B. Safety",
+          "certificate_number": "2222222"
+        }
+      },
+      "operation": [
+        "personal"
+      ],
+      "remarks": "Approach currency with a safety pilot."
+    }
+  ]
+}

@@ -1,0 +1,483 @@
+{
+  "open_checklist_version": "1.0",
+  "id": "aerolite-103-hirth-f33",
+  "title": "Aerolite 103 (Hirth F-33) — Normal and Emergency Procedures",
+  "description": "A Part 103 ultralight checklist covering the class of aircraft the vendor formats and the existing free repositories do not serve. AUTHORED, NOT TRANSCRIBED: no manufacturer document was available to the transcriber. The wording is original, the sequence reflects general single-cylinder two-stroke ultralight practice, and no value here has been checked against the manufacturer's assembly or operating manual. It exists to exercise the schema and to make the shape of the gap concrete. It is not airworthy and must not be flown behind.",
+  "aircraft": {
+    "make": "U-Fly-It Light Sport Aircraft",
+    "model": "Aerolite 103",
+    "category": "part103_ultralight",
+    "airframe_family": "aerolite-103",
+    "engine": [
+      {
+        "make": "Hirth",
+        "model": "F-33",
+        "type": "piston_2stroke",
+        "count": 1
+      }
+    ],
+    "propeller": "ground_adjustable",
+    "gear": "fixed_tricycle"
+  },
+  "units": {
+    "airspeed": "mph",
+    "altitude": "ft",
+    "fuel": "usgal",
+    "weight": "lb",
+    "temperature": "f"
+  },
+  "provenance": {
+    "source": {
+      "kind": "none",
+      "notes": "No manufacturer operating handbook, assembly manual, or engine manual was consulted. Airframe identification and engine option come from the manufacturer's published specification page and from the type's Wikipedia entry; the procedures themselves are the transcriber's own composition from general two-stroke ultralight practice. Every number in this file is a placeholder pending a real source. Aircraft operated under 14 CFR Part 103 are not required to have an approved flight manual at all, which is precisely why no authoritative source document exists to transcribe."
+    },
+    "transcription": {
+      "method": "authored",
+      "tool": "claude-opus-5",
+      "date": "2026-08-10"
+    },
+    "contributors": [
+      {
+        "name": "Open Checklists project (initial schema examples)",
+        "role": [
+          "author"
+        ]
+      }
+    ],
+    "revision": {
+      "file_revision": "0.1.0",
+      "updated": "2026-08-10"
+    }
+  },
+  "verification": {
+    "source_fidelity": "not_applicable",
+    "operational_review": "none",
+    "completeness": "partial",
+    "known_issues": [
+      {
+        "severity": "safety_defect",
+        "description": "No item in this file has been checked against the aircraft, the engine manufacturer's manual, or any manufacturer documentation. Control and switch names may not match the actual aircraft. Do not fly behind this file.",
+        "location": "whole file"
+      },
+      {
+        "severity": "content_gap",
+        "description": "Airspeeds, RPM figures and temperature limits are illustrative placeholders, not limitations. The speeds block is deliberately omitted rather than populated with invented numbers.",
+        "location": "whole file"
+      },
+      {
+        "severity": "content_gap",
+        "description": "Aircraft in this class vary substantially between individual builds. A file that is correct for one Aerolite 103 may be wrong for the next; airframe-specific variants will be needed.",
+        "location": "whole file"
+      }
+    ]
+  },
+  "rights": {
+    "status": "original_expression",
+    "corpus_license": "CC-BY-4.0",
+    "redistribution": "attribution_required",
+    "notes": "Wording is the contributor's own. No manufacturer text was copied, so no manufacturer rights are implicated in the expression. Sequence of actions is treated as procedure rather than protected expression."
+  },
+  "sections": [
+    {
+      "id": "part-103-limitations",
+      "phase": "limitations",
+      "title": "Part 103 Operating Limitations",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "note",
+          "text": "This aircraft is operated as an ultralight vehicle under 14 CFR Part 103. It has no airworthiness certificate and no N-number, and the pilot needs no certificate or medical.",
+          "tickable": false
+        },
+        {
+          "type": "challenge",
+          "text": "Single occupant only",
+          "tickable": true
+        },
+        {
+          "type": "challenge",
+          "text": "Day, visual conditions only",
+          "tickable": true
+        },
+        {
+          "type": "challenge",
+          "text": "Not over congested areas or open-air assemblies of people",
+          "tickable": true
+        },
+        {
+          "type": "challenge",
+          "text": "Not in Class A, B, C or D airspace without prior ATC authorization",
+          "tickable": true
+        },
+        {
+          "type": "caution",
+          "text": "Part 103 imposes no maintenance or inspection requirement. Nobody else is checking this aircraft. The preflight is the entire inspection programme.",
+          "tickable": false
+        }
+      ]
+    },
+    {
+      "id": "preflight",
+      "phase": "preflight_inspection",
+      "title": "Preflight Inspection",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "subtitle",
+          "text": "Cockpit",
+          "tickable": false
+        },
+        {
+          "type": "action",
+          "text": "Ignition switches",
+          "response": "OFF",
+          "tickable": true,
+          "indent": 1
+        },
+        {
+          "type": "action",
+          "text": "Fuel shutoff valve",
+          "response": "OFF",
+          "tickable": true,
+          "indent": 1
+        },
+        {
+          "type": "action",
+          "text": "Restraint harness",
+          "response": "CONDITION CHECKED",
+          "tickable": true,
+          "indent": 1
+        },
+        {
+          "type": "action",
+          "text": "Control stick and pedals",
+          "response": "FREE, FULL TRAVEL, CORRECT SENSE",
+          "tickable": true,
+          "indent": 1
+        },
+        {
+          "type": "subtitle",
+          "text": "Airframe",
+          "tickable": false
+        },
+        {
+          "type": "action",
+          "text": "Wing struts, lift struts and attach bolts",
+          "response": "SECURE, SAFETIED, NO CRACKS",
+          "tickable": true,
+          "indent": 1
+        },
+        {
+          "type": "action",
+          "text": "Sail and fabric",
+          "response": "NO TEARS, SEAMS INTACT, LACING SECURE",
+          "tickable": true,
+          "indent": 1
+        },
+        {
+          "type": "action",
+          "text": "Control cables, pulleys and clevis pins",
+          "response": "CONDITION, SAFETY PINS PRESENT",
+          "tickable": true,
+          "indent": 1
+        },
+        {
+          "type": "action",
+          "text": "Tail surfaces and hinges",
+          "response": "SECURE, FREE MOVEMENT",
+          "tickable": true,
+          "indent": 1
+        },
+        {
+          "type": "action",
+          "text": "Landing gear, tires and bungees",
+          "response": "CONDITION, INFLATION",
+          "tickable": true,
+          "indent": 1
+        },
+        {
+          "type": "subtitle",
+          "text": "Engine and propeller",
+          "tickable": false
+        },
+        {
+          "type": "warning",
+          "text": "Treat the propeller as live at all times. A two-stroke can fire on a single blade movement with the ignition off if a switch or ground lead has failed. Keep the propeller arc clear and never stand in it.",
+          "tickable": false
+        },
+        {
+          "type": "action",
+          "text": "Propeller blades and bolts",
+          "response": "NO NICKS OR CRACKS, TORQUE MARKS ALIGNED",
+          "tickable": true,
+          "indent": 1
+        },
+        {
+          "type": "action",
+          "text": "Engine mount and rubber isolators",
+          "response": "SECURE, NO CRACKS",
+          "tickable": true,
+          "indent": 1
+        },
+        {
+          "type": "action",
+          "text": "Exhaust system and springs",
+          "response": "SECURE, NOT CRACKED",
+          "tickable": true,
+          "indent": 1
+        },
+        {
+          "type": "action",
+          "text": "Fuel lines and primer bulb",
+          "response": "NO CHAFING, NO WEEPING",
+          "tickable": true,
+          "indent": 1
+        },
+        {
+          "type": "action",
+          "text": "Fuel quantity and mix",
+          "response": "CHECKED, CORRECT OIL RATIO",
+          "tickable": true,
+          "indent": 1,
+          "detail": "Confirm the premix ratio against the engine manufacturer's figure for this engine and oil. Running a two-stroke on straight fuel will seize it."
+        },
+        {
+          "type": "action",
+          "text": "Fuel sample",
+          "response": "CLEAR, NO WATER",
+          "tickable": true,
+          "indent": 1
+        }
+      ]
+    },
+    {
+      "id": "engine-start",
+      "phase": "engine_start",
+      "title": "Engine Start",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Area behind aircraft",
+          "response": "CLEAR",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Wheels",
+          "response": "CHOCKED OR BRAKES HELD",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Fuel shutoff valve",
+          "response": "ON",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Primer bulb",
+          "response": "FIRM",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "CLOSED",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Choke",
+          "response": "AS REQUIRED FOR TEMPERATURE",
+          "tickable": true
+        },
+        {
+          "type": "challenge",
+          "text": "Call \"CLEAR PROP\"",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Ignition switches",
+          "response": "BOTH ON",
+          "tickable": true
+        },
+        {
+          "type": "challenge",
+          "text": "Start engine",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Choke",
+          "response": "OFF AS ENGINE PICKS UP",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Warm up",
+          "response": "PER ENGINE MANUAL BEFORE ADVANCING THROTTLE",
+          "tickable": true,
+          "detail": "A cold two-stroke run up before the piston and cylinder have reached even temperature is the classic path to a seizure.",
+          "value": {
+            "quantity": "temperature",
+            "unit": "f",
+            "comparison": "at_least"
+          }
+        }
+      ]
+    },
+    {
+      "id": "before-takeoff",
+      "phase": "before_takeoff",
+      "title": "Before Takeoff",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Harness",
+          "response": "TIGHT AND LOCKED",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Controls",
+          "response": "FREE AND CORRECT",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Ignition check",
+          "response": "EACH CIRCUIT, DROP WITHIN LIMITS",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Full throttle static RPM",
+          "response": "PER ENGINE MANUAL",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Engine temperatures",
+          "response": "IN RANGE",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Windsock and traffic",
+          "response": "CHECKED",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Engine failure plan",
+          "response": "BRIEFED",
+          "tickable": true,
+          "detail": "Decide before takeoff where the aircraft goes if the engine stops at 50 feet, at 200 feet, and at circuit height."
+        },
+        {
+          "type": "caution",
+          "text": "A single-cylinder two-stroke should be treated as an engine that will stop without warning. Do not depart over terrain that offers no landing option.",
+          "tickable": false
+        }
+      ]
+    },
+    {
+      "id": "engine-failure-after-takeoff",
+      "phase": "engine_failure_after_takeoff",
+      "title": "Engine Failure After Takeoff",
+      "criticality": "emergency",
+      "condition": "Engine stops or loses power after leaving the ground with insufficient height to return",
+      "items": [
+        {
+          "type": "warning",
+          "text": "Do not attempt to turn back to the runway. At this aircraft's altitude, speed and glide performance a turn back will stall it.",
+          "tickable": false
+        },
+        {
+          "type": "action",
+          "id": "efato-attitude",
+          "text": "Nose",
+          "response": "LOWER IMMEDIATELY TO GLIDE ATTITUDE",
+          "memory_item": true,
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "id": "efato-landing-area",
+          "text": "Landing area",
+          "response": "STRAIGHT AHEAD, WITHIN 30 DEGREES",
+          "memory_item": true,
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "id": "efato-fuel",
+          "text": "Fuel shutoff valve",
+          "response": "OFF",
+          "memory_item": true,
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "id": "efato-ignition",
+          "text": "Ignition switches",
+          "response": "OFF",
+          "memory_item": true,
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Harness",
+          "response": "TIGHT",
+          "tickable": true
+        },
+        {
+          "type": "challenge",
+          "text": "Flare and land, accepting damage to the aircraft to protect the occupant",
+          "tickable": true
+        }
+      ]
+    },
+    {
+      "id": "shutdown",
+      "phase": "shutdown",
+      "title": "Shutdown and Securing",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "IDLE",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Ignition switches",
+          "response": "OFF",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Ignition switches",
+          "response": "CONFIRM ENGINE STOPS WITH SWITCHES OFF",
+          "tickable": true,
+          "detail": "If the engine continues to run with both switches off, the ignition ground has failed. Stop the engine with the fuel valve and do not fly again until the fault is found."
+        },
+        {
+          "type": "action",
+          "text": "Fuel shutoff valve",
+          "response": "OFF",
+          "tickable": true
+        },
+        {
+          "type": "challenge",
+          "text": "Chock, tie down or hangar the aircraft",
+          "tickable": true
+        }
+      ]
+    }
+  ]
+}
