@@ -44,6 +44,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from export import EXT, FORMATS, export, is_quarantined, state_line, verify_export  # noqa: E402
 from render import render as render_html  # noqa: E402
 from site_editor import editor_page  # noqa: E402
+from site_airports import WEATHER_WORKER, airports_page  # noqa: E402
 from site_pages import (  # noqa: E402
     BRAND_NAME, CONTACT, FAVICON_SVG, LOGO_SVG, PRIVACY, TAGLINE, TAKEDOWN, TERMS,
     contribute_body, landing_body,
@@ -189,7 +190,8 @@ def head(title: str, desc: str, rel: str = "") -> str:
 <a class="brand" href="{rel}index.html">{LOGO_SVG}<span class="bn">{BRAND_NAME}</span></a>
 <p class="tag brandtag">{TAGLINE}</p>
 <nav class="nav">
-<a href="{rel}catalogue.html">Catalogue</a>
+<a href="{rel}catalogue.html">Checklists</a>
+<a href="{rel}airports.html">Airports &amp; weather</a>
 <a href="{rel}editor.html">Editor</a>
 <a href="{rel}contribute.html">Contribute</a>
 <a href="{rel}about.html">How to read a file</a>
@@ -207,6 +209,7 @@ flight. No warranty of any kind &mdash; see <a href="terms.html">terms</a>.</p>
 <p class="fnav">
 <a href="index.html">Home</a> &middot;
 <a href="catalogue.html">Catalogue</a> &middot;
+<a href="airports.html">Airports</a> &middot;
 <a href="editor.html">Editor</a> &middot;
 <a href="contribute.html">Contribute</a> &middot;
 <a href="about.html">Verification states</a> &middot;
@@ -611,6 +614,9 @@ def main() -> int:
     ap.add_argument("--corpus", type=Path, default=REPO / "examples")
     ap.add_argument("--out", type=Path, default=OUT)
     ap.add_argument("--base-url", default="")
+    ap.add_argument("--wx-proxy", default="", help="URL of the deployed weather Worker")
+    ap.add_argument("--data", type=Path, default=REPO / "data",
+                    help="ingested datasets (airports); pages degrade if absent")
     args = ap.parse_args()
 
     paths = sorted(args.corpus.glob("*.ocl.json"))
@@ -712,6 +718,28 @@ def main() -> int:
              TAKEDOWN),
         page("contact.html", f"Contact — {BRAND_NAME}", "How to reach the project.", CONTACT),
     ]
+
+    # Airports, frequencies and weather. The page is always generated; it explains
+    # itself if the NASR ingest has not been run, rather than failing the build.
+    (args.out / "airports.html").write_text(
+        airports_page(head, FOOT, args.wx_proxy), encoding="utf-8"
+    )
+    static_pages.append(args.out / "airports.html")
+
+    airport_data = args.data / "airports"
+    airports_shipped = 0
+    if (airport_data / "index.json").exists():
+        dest = args.out / "data" / "airports"
+        shutil.copytree(airport_data, dest)
+        airports_shipped = len(json.loads((airport_data / "index.json").read_text()))
+        for f in sorted(dest.rglob("*.json")):
+            artifacts.append(f)
+
+    # The weather Worker ships with the site so it is deployable without hunting
+    # for it, and so the reason it exists travels with the code.
+    (args.out / "worker").mkdir(exist_ok=True)
+    (args.out / "worker" / "weather-proxy.js").write_text(WEATHER_WORKER, encoding="utf-8")
+    artifacts.append(args.out / "worker" / "weather-proxy.js")
     (args.out / "editor.html").write_text(editor_page(head, FOOT, catalogue), encoding="utf-8")
     artifacts += static_pages + [args.out / "editor.html"]
 
@@ -749,8 +777,10 @@ def main() -> int:
 
     precache = (
         ["index.html", "catalogue.html", "editor.html", "about.html", "contribute.html",
-         "privacy.html", "terms.html", "takedown.html", "contact.html",
+         "privacy.html", "terms.html", "takedown.html", "contact.html", "airports.html",
          "manifest.webmanifest", "icon.svg", "api/index.json"]
+        + (["data/airports/index.json", "data/airports/cycle.json", "data/airports/icao.json"]
+           if airports_shipped else [])
         + [f"c/{e['id']}/" for e in entries]
         + [f"api/checklists/{e['id']}.json" for e in entries]
     )
@@ -800,7 +830,7 @@ def main() -> int:
     base = args.base_url.rstrip("/")
     urls = [
         "", "catalogue.html", "editor.html", "about.html", "contribute.html",
-        "privacy.html", "terms.html", "takedown.html", "contact.html",
+        "privacy.html", "terms.html", "takedown.html", "contact.html", "airports.html",
     ] + [f"f/{fam}/" for fam in sorted(families)] + [f"c/{e['id']}/" for e in entries]
     (args.out / "sitemap.xml").write_text(
         '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -818,6 +848,8 @@ def main() -> int:
     total = sum(1 for _ in args.out.rglob("*") if _.is_file())
     print(f"built {args.out.relative_to(REPO)}: {len(entries)} checklists, {total} files")
     print(f"  reviewed: {len(rev)}   quarantined: {len(unrev)}")
+    print(f"  airports shipped: {airports_shipped:,}"
+          + ("" if airports_shipped else "  (run tools/airports.py ingest)"))
     print(f"  {violations} export contract violation(s)")
     return 1 if violations else 0
 

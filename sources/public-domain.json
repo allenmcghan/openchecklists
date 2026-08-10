@@ -56,6 +56,29 @@
           "sha256": "6482663b89c0fb5c0eeae9effe4cec1eb1734e6f359c81dab59dce4d7bb5c633"
         }
       ]
+    },
+    {
+      "id": "faa-nasr-28day",
+      "source": {
+        "kind": "government_publication",
+        "title": "28 Day NASR Subscription (airports, runways, frequencies, navaids)",
+        "publisher": "U.S. Department of Transportation, Federal Aviation Administration",
+        "revision": "Effective 2026-08-06 AIRAC cycle",
+        "url": "https://www.faa.gov/air_traffic/flight_info/aeronav/aero_data/NASR_Subscription/"
+      },
+      "rights": {
+        "status": "public_domain",
+        "public_domain_basis": "us_government_work",
+        "redistribution": "unrestricted"
+      },
+      "text_layer": "structured_csv",
+      "notes": "248 MB subscriber zip containing an inner CSV_Data bundle; parse that rather than the 232 MB fixed-width APT.txt. Ingest with tools/airports.py, which emits a lean search index plus 35 detail shards. NOT COMMITTED: the ingested output is ~30 MB, so data/ is gitignored and the site build generates airport pages only when the data is present. Re-ingest every 28 days -- the URL embeds the AIRAC effective date, and the effective date is carried through into cycle.json and shown on every airport page, because a stale frequency is worse than no frequency.",
+      "assets": [
+        {
+          "filename": "28DaySubscription_Effective_2026-08-06.zip",
+          "url": "https://nfdc.faa.gov/webContent/28DaySub/28DaySubscription_Effective_2026-08-06.zip"
+        }
+      ]
     }
   ],
   "discovery_recipes": {
