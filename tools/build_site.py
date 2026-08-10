@@ -45,6 +45,7 @@ from export import EXT, FORMATS, export, is_quarantined, state_line, verify_expo
 from render import render as render_html  # noqa: E402
 from site_editor import editor_page  # noqa: E402
 from site_airports import WEATHER_WORKER, airports_page  # noqa: E402
+from site_library import CHARTS, PROJECTS, library_page  # noqa: E402
 from site_pages import (  # noqa: E402
     BRAND_NAME, CONTACT, FAVICON_SVG, LOGO_SVG, PRIVACY, TAGLINE, TAKEDOWN, TERMS,
     contribute_body, landing_body,
@@ -192,7 +193,9 @@ def head(title: str, desc: str, rel: str = "") -> str:
 <nav class="nav">
 <a href="{rel}catalogue.html">Checklists</a>
 <a href="{rel}airports.html">Airports &amp; weather</a>
+<a href="{rel}search.html">Troubleshooting</a>
 <a href="{rel}editor.html">Editor</a>
+<a href="{rel}projects.html">Projects</a>
 <a href="{rel}contribute.html">Contribute</a>
 <a href="{rel}about.html">How to read a file</a>
 </nav>
@@ -210,6 +213,9 @@ flight. No warranty of any kind &mdash; see <a href="terms.html">terms</a>.</p>
 <a href="index.html">Home</a> &middot;
 <a href="catalogue.html">Catalogue</a> &middot;
 <a href="airports.html">Airports</a> &middot;
+<a href="search.html">Troubleshooting</a> &middot;
+<a href="charts.html">Charts</a> &middot;
+<a href="projects.html">Projects</a> &middot;
 <a href="editor.html">Editor</a> &middot;
 <a href="contribute.html">Contribute</a> &middot;
 <a href="about.html">Verification states</a> &middot;
@@ -724,7 +730,27 @@ def main() -> int:
     (args.out / "airports.html").write_text(
         airports_page(head, FOOT, args.wx_proxy), encoding="utf-8"
     )
-    static_pages.append(args.out / "airports.html")
+    (args.out / "search.html").write_text(library_page(head, FOOT), encoding="utf-8")
+    static_pages += [
+        args.out / "airports.html",
+        args.out / "search.html",
+        page("projects.html", f"Open source aircraft projects — {BRAND_NAME}",
+             "Open source aviation projects that produce or consume these formats: "
+             "Open Checklists, the Junco flight computer, and an open flight simulator.",
+             PROJECTS),
+        page("charts.html", f"Charts and plates — {BRAND_NAME}",
+             "Where to get official FAA charts, plates and airport diagrams, and why this "
+             "project links to them rather than republishing them.",
+             CHARTS),
+    ]
+
+    library_data = args.data / "library"
+    library_shipped = 0
+    if (library_data / "meta.json").exists():
+        shutil.copytree(library_data, args.out / "data" / "library")
+        library_shipped = json.loads((library_data / "meta.json").read_text())["counts"]["passages"]
+        for f in sorted((args.out / "data" / "library").rglob("*.json")):
+            artifacts.append(f)
 
     airport_data = args.data / "airports"
     airports_shipped = 0
@@ -778,6 +804,7 @@ def main() -> int:
     precache = (
         ["index.html", "catalogue.html", "editor.html", "about.html", "contribute.html",
          "privacy.html", "terms.html", "takedown.html", "contact.html", "airports.html",
+         "search.html", "charts.html", "projects.html",
          "manifest.webmanifest", "icon.svg", "api/index.json"]
         + (["data/airports/index.json", "data/airports/cycle.json", "data/airports/icao.json"]
            if airports_shipped else [])
@@ -831,6 +858,7 @@ def main() -> int:
     urls = [
         "", "catalogue.html", "editor.html", "about.html", "contribute.html",
         "privacy.html", "terms.html", "takedown.html", "contact.html", "airports.html",
+        "search.html", "charts.html", "projects.html",
     ] + [f"f/{fam}/" for fam in sorted(families)] + [f"c/{e['id']}/" for e in entries]
     (args.out / "sitemap.xml").write_text(
         '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -848,6 +876,8 @@ def main() -> int:
     total = sum(1 for _ in args.out.rglob("*") if _.is_file())
     print(f"built {args.out.relative_to(REPO)}: {len(entries)} checklists, {total} files")
     print(f"  reviewed: {len(rev)}   quarantined: {len(unrev)}")
+    print(f"  library passages: {library_shipped:,}"
+          + ("" if library_shipped else "  (run tools/library.py ingest)"))
     print(f"  airports shipped: {airports_shipped:,}"
           + ("" if airports_shipped else "  (run tools/airports.py ingest)"))
     print(f"  {violations} export contract violation(s)")

@@ -42,6 +42,10 @@ preserving history — see [docs/04-roadmap.md](docs/04-roadmap.md) M1.
 | [tools/export.py](tools/export.py) | Converters to json, csv, tsv, md, txt, xml, docx, html — each verified against the safety-preserving export contract |
 | [tools/build_site.py](tools/build_site.py) | Static site generator: filterable catalogue, per-checklist pages, airframe family pages, all download formats, machine catalogue, SHA-256 manifest |
 | [tools/site_editor.py](tools/site_editor.py) | The browser editor: create or fork a checklist, saves to browser storage, records lineage automatically |
+| [tools/airports.py](tools/airports.py) | FAA NASR ingest: 19,426 airports, runways, 37k radio frequencies, into sharded static JSON |
+| [tools/library.py](tools/library.py) | Full-text index over public-domain maintenance documents, plus a registry of the ones we cannot host |
+| [tools/site_airports.py](tools/site_airports.py) | Airport/frequency/weather page, and the Cloudflare Worker weather proxy |
+| [tools/site_library.py](tools/site_library.py) | Troubleshooting search page, projects page, charts page |
 | [tools/site_pages.py](tools/site_pages.py) | Branding, landing page, and the privacy / terms / takedown / contribute / contact pages |
 | [schema/open-logbook-1.0.schema.json](schema/open-logbook-1.0.schema.json) | **Open pilot logbook format.** No interchange standard existed — every product has its own CSV template |
 | [tools/logbook.py](tools/logbook.py) | Validate, total, compute currency, and import/export proprietary CSV |
@@ -154,6 +158,44 @@ Three things it does that proprietary logbooks generally do not:
 Currency output is an aid and says so: it cannot see an IPC, a type-specific
 requirement, or whether a landing was truly to a full stop.
 
+### Data beyond checklists
+
+Both datasets are large, so `data/` is gitignored and the site build ships these
+pages only when the data is present, explaining itself when it is not.
+
+```sh
+python3 tools/acquire.py fetch faa-nasr-28day faa-ac-43-13-1b faa-amt-general
+python3 tools/airports.py ingest sources/documents/faa-nasr-28day/*.zip
+python3 tools/library.py ingest sources/documents/faa-{ac-43-13-1b,amt-general}/*.pdf
+python3 tools/library.py index-registry
+python3 tools/build_site.py --wx-proxy https://ocl-weather.example.workers.dev
+```
+
+**Airports** — 19,426 US airports, heliports, seaplane bases, gliderports and
+ultralight strips from the FAA's 28-day NASR data, including the 14,259 private
+strips most apps omit. 37,537 frequencies with callsigns and tower hours. The AIRAC
+effective date is shown on the page and marked SUPERSEDED once a newer cycle exists,
+because a stale frequency is worse than no frequency.
+
+**Weather** cannot be done from a static page — aviationweather.gov serves servers
+but blocks browser requests, tested and confirmed. `worker/weather-proxy.js` is a
+one-file Cloudflare Worker that fixes it without adding a backend for anything else.
+It restricts itself to one upstream host, caches 60 seconds, and logs nothing.
+
+**Troubleshooting search** indexes the full text of public-domain documents (AC
+43.13-1B and the AMT General Handbook so far, 5,164 passages) with BM25 scoring
+computed in the browser from the same sharded index the CLI uses. **It cites, it does
+not diagnose** — every result is a passage with document, revision and page. A
+generated answer would be the only thing on the site with no provenance, and it is
+also less useful than the actual text. If an LLM is added later this is the right
+substrate: retrieve first, summarise *these passages with these citations*, never
+answer from memory.
+
+Manufacturer and engine manuals are not hosted — they are commercial products, and
+full-text hosting one is wholesale reproduction rather than transcribing a fact.
+Instead there is a registry of what you need and where to get it, which is a fact
+about the world rather than a copy of anything.
+
 ### Variations, which is the point for experimental and ultralight
 
 Engine swaps, prop changes and panel rebuilds are the norm in this class, so one
@@ -184,6 +226,11 @@ Three pieces make that work:
 | `api/checklists/<id>.json` | Stable plain-HTTP path to every file |
 | `manifest.sha256` | Hash of every published artifact, so a mirror can be verified |
 | `reviewed.txt` / `unreviewed.txt` | Bundle listings, kept separate on purpose |
+| `airports.html` | 19,426 US airports with runways, radio frequencies, fuel and pattern altitude, plus live weather via the Worker proxy |
+| `search.html` | Troubleshooting search over public-domain maintenance documents. Cites passage, document and page — never diagnoses |
+| `charts.html` | Where to get official FAA charts and plates, and why this project links rather than republishes |
+| `projects.html` | The open source projects that produce or consume these formats |
+| `worker/weather-proxy.js` | One-file Cloudflare Worker. Live weather needs it: aviationweather.gov blocks browser requests |
 | `editor.html` | Create a checklist or fork any in the catalogue. Client-side, no account. Forking fills in lineage and computes the parent hash in the browser |
 | `f/<family>/index.html` | Every variation of one airframe, with each fork's diff from its parent inline |
 | `about.html` | What the verification states mean, and why "flown behind it" is not the top one |
