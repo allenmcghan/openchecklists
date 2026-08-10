@@ -44,11 +44,11 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from export import EXT, FORMATS, export, is_quarantined, state_line, verify_export  # noqa: E402
 from render import render as render_html  # noqa: E402
 from site_editor import editor_page  # noqa: E402
-from site_airports import WEATHER_WORKER, airports_page  # noqa: E402
+from site_airports import WEATHER_WORKER, airports_page, airport_detail_page  # noqa: E402
 from site_library import CHARTS, PROJECTS, library_page  # noqa: E402
 from site_training import training_page  # noqa: E402
 from site_pages import (  # noqa: E402
-    BRAND_NAME, CONTACT, FAVICON_SVG, LOGO_SVG, PRIVACY, TAGLINE, TAKEDOWN, TERMS,
+    BRAND_NAME, CONTACT, FAVICON_SVG, HERO_CSS, LOGO_SVG, PRIVACY, TAGLINE, TAKEDOWN, TERMS,
     contribute_body, landing_body,
 )
 from diff import diff as semantic_diff, render_markdown as diff_markdown  # noqa: E402
@@ -191,6 +191,9 @@ header.site .wrap{flex-direction:row;align-items:center;gap:1.1rem;flex-wrap:wra
 @media (min-width:960px){.wrap{padding:0 1.5rem}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 """
+
+# HERO_CSS is appended at build time from site_pages.HERO_CSS
+CSS = CSS.rstrip() + "\n" + HERO_CSS if "HERO_CSS" not in CSS else CSS
 
 
 SW_HEADER = """// Offline support. A checklist you cannot open in a metal hangar is not a
@@ -836,6 +839,20 @@ def main() -> int:
         airports_shipped = len(json.loads((airport_data / "index.json").read_text()))
         for f in sorted(dest.rglob("*.json")):
             artifacts.append(f)
+
+    # Hero and OG images
+    for img_name in ("hero.png", "og-image.png"):
+        src = REPO / "assets" / img_name
+        if src.exists():
+            import shutil as _sh
+            _sh.copy2(src, args.out / img_name)
+            artifacts.append(args.out / img_name)
+
+    # Per-airport detail page (client-side template, bookmarkable by ?id=ICAO)
+    (args.out / "airport.html").write_text(
+        airport_detail_page(head, FOOT, args.wx_proxy), encoding="utf-8"
+    )
+    static_pages.append(args.out / "airport.html")
 
     # The weather Worker ships with the site so it is deployable without hunting
     # for it, and so the reason it exists travels with the code.

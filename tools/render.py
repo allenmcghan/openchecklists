@@ -352,6 +352,85 @@ JS = r"""
   });
 
   refresh();
+
+  // ---- Email-me-this-log ----
+  var emailBtn  = document.getElementById('emailbtn');
+  var emailBar  = document.getElementById('emailbar');
+  var emailAddr = document.getElementById('emailaddr');
+  var emailSend = document.getElementById('emailsend');
+  var emailMsg  = document.getElementById('emailmsg');
+
+  if (emailBtn && emailBar) {
+    emailBtn.addEventListener('click', function(){
+      emailBar.style.display = emailBar.style.display === 'flex' ? 'none' : 'flex';
+      if (emailBar.style.display === 'flex') emailAddr.focus();
+    });
+
+    if (emailSend) {
+      emailSend.addEventListener('click', function(){
+        var addr = (emailAddr.value || '').trim();
+        if (!addr || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(addr)) {
+          emailMsg.textContent = 'Please enter a valid email address.';
+          emailMsg.style.color = 'var(--warn)';
+          return;
+        }
+        emailSend.disabled = true;
+        emailMsg.textContent = 'Sending…';
+        emailMsg.style.color = 'var(--muted)';
+
+        // Build item list with timestamps
+        var items = boxes.map(function(b){
+          var k = key(b);
+          var ts = ticks.get(k) || '';
+          var label = b.closest('li') && b.closest('li').querySelector('.itext');
+          var text  = label ? label.textContent.trim() : b.dataset.index;
+          var resp  = b.closest('li') && b.closest('li').querySelector('.resp');
+          return {
+            state:     b.checked ? 'checked' : (ts ? 'skipped' : 'pending'),
+            text:      text,
+            response:  resp ? resp.textContent.trim() : '',
+            timestamp: ts
+          };
+        });
+
+        var reg = document.getElementById('reg');
+        var who = document.getElementById('who');
+        var payload = {
+          email:           addr,
+          checklist_title: meta.title || document.title,
+          aircraft:        (reg ? reg.value : '') + (who && who.value ? ' / ' + who.value : ''),
+          checklist_id:    meta.id || '',
+          content_hash:    meta.content_hash || '',
+          completed:       ticks.size,
+          total:           boxes.length,
+          items:           items
+        };
+
+        fetch('https://api.openchecklists.net/log.php', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify(payload)
+        })
+        .then(function(r){ return r.json(); })
+        .then(function(d){
+          if (d.ok) {
+            emailMsg.textContent = '✓ Log sent to ' + addr;
+            emailMsg.style.color = 'var(--ok)';
+          } else {
+            emailMsg.textContent = 'Failed: ' + (d.error || 'unknown error');
+            emailMsg.style.color = 'var(--warn)';
+          }
+          emailSend.disabled = false;
+        })
+        .catch(function(){
+          emailMsg.textContent = 'Could not connect — check your internet connection.';
+          emailMsg.style.color = 'var(--warn)';
+          emailSend.disabled = false;
+        });
+      });
+    }
+  }
+
 })();
 """
 
@@ -432,8 +511,20 @@ def render(doc: dict, paper: str, site_rel: str | None = None) -> str:
   </select></label>
   <button onclick="window.print()">Print</button>
   <button id="log">Export log</button>
+  <button id="emailbtn" style="background:var(--note);color:#fff;border-color:transparent">Email me this log</button>
   {site_links}
   <span class="count" id="count"></span>
+</div>
+<div id="emailbar" style="display:none;padding:.6rem 0;border-bottom:1px solid var(--line);
+  display:none;align-items:center;gap:.5rem;flex-wrap:wrap" class="noprint">
+  <input type="email" id="emailaddr" placeholder="your@email.com"
+    style="flex:1;min-width:14rem;font:inherit;padding:.5rem .75rem;min-height:2.6rem;
+    border:1px solid var(--line);border-radius:999px;background:#fff;color:var(--fg)">
+  <button id="emailsend" style="background:var(--note);color:#fff;border:none;border-radius:999px;
+    padding:.5rem 1.1rem;font:inherit;font-weight:600;cursor:pointer;min-height:2.6rem">
+    Send preflight proof ✓
+  </button>
+  <span id="emailmsg" style="font-size:.88rem;color:var(--muted)"></span>
 </div>
 
 <h1>{esc(doc.get('title'))}</h1>

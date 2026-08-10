@@ -13,19 +13,20 @@ more useful than a long document that implies otherwise.
 from __future__ import annotations
 
 BRAND_NAME = "Open Checklists"
-TAGLINE = "Free aircraft checklists that tell you where they came from."
+TAGLINE = "Free checklists for every type of aircraft and pilot."
 
-# Geometric, reproducible, and legible at 16px: a checkbox whose tick sweeps up
-# like a wing. Uses currentColor so it works in both themes and inside text.
+# Professional logo: navy rounded square with white wing-sweep checkmark.
+# The tick is drawn with a subtle upward sweep on the left arm — like a
+# climbing flight path — and a confident long right stroke.
 LOGO_SVG = """<svg class="logo" viewBox="0 0 40 40" role="img" aria-label="Open Checklists">
-<rect x="2.5" y="2.5" width="35" height="35" rx="8" fill="none" stroke="currentColor" stroke-width="3"/>
-<path d="M10 22 L17.5 29 L34 8" fill="none" stroke="currentColor" stroke-width="4.5"
+<rect width="40" height="40" rx="10" fill="#1f4e79"/>
+<path d="M9 22 L16.5 29.5 L32 9" fill="none" stroke="#fff" stroke-width="4.5"
  stroke-linecap="round" stroke-linejoin="round"/>
 </svg>"""
 
 FAVICON_SVG = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
-<rect width="40" height="40" rx="9" fill="#1f4e79"/>
-<path d="M10 21 L17.5 28.5 L32 8.5" fill="none" stroke="#fff" stroke-width="5"
+<rect width="40" height="40" rx="10" fill="#1f4e79"/>
+<path d="M9 22 L16.5 29.5 L32 9" fill="none" stroke="#fff" stroke-width="4.5"
  stroke-linecap="round" stroke-linejoin="round"/>
 </svg>"""
 
@@ -33,62 +34,145 @@ FAVICON_SVG = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
 def landing_body() -> str:
     return """
 <div class="hero">
-  <h2 class="hero-h">Every checklist should say where it came from.</h2>
-  <p class="hero-p">Open Checklists is a free library of aircraft checklists as
-  structured data. Read one on your phone at the aircraft, print it at whatever size
-  your kneeboard takes, load it into your own software, or fork somebody else's and
-  change what your aeroplane does differently.</p>
-  <p class="hero-cta">
-    <a class="cta" href="index.html">Browse the catalogue</a>
-    <a class="cta ghost" href="editor.html">Make your own</a>
-  </p>
-  <p class="tag">No account. Nothing to install. Nothing uploaded unless you choose to
-  contribute it.</p>
+  <div class="hero-img-wrap">
+    <img src="hero.png" alt="Paramotor pilot launching over a green airfield at dawn"
+         class="hero-img" width="1024" height="1024" loading="eager">
+  </div>
+  <div class="hero-text">
+    <h1 class="hero-h">Your checklist.<br>Every flight.<br>Every aircraft.</h1>
+    <p class="hero-p">Free, open checklists for paramotors, hang gliders, gliders,
+    ultralights, drones, Cessnas, airliners — any aircraft. Read them on your phone at
+    the aircraft, print them at kneeboard size, get an emailed proof after every
+    preflight. No account required.</p>
+    <p class="hero-cta">
+      <a class="cta" href="catalogue.html">Browse checklists</a>
+      <a class="cta ghost" href="airports.html">Airport frequencies</a>
+      <a class="cta ghost" href="training.html">Study for your certificate</a>
+    </p>
+    <p class="tag">Free forever &middot; No account &middot; Works offline &middot; Nothing uploaded
+    unless you choose to contribute it.</p>
+  </div>
+</div>
+
+<h2>Every aircraft. Every pilot.</h2>
+<div class="aircraft-types">
+  <a class="atype" href="catalogue.html?q=paramotor">
+    <span class="atype-icon">🪂</span>
+    <span class="atype-label">Paramotor &amp;<br>Powered Parachute</span>
+  </a>
+  <a class="atype" href="catalogue.html?q=hang+glider">
+    <span class="atype-icon">🪁</span>
+    <span class="atype-label">Hang Glider</span>
+  </a>
+  <a class="atype" href="catalogue.html?q=glider">
+    <span class="atype-icon">✈</span>
+    <span class="atype-label">Glider &amp;<br>Sailplane</span>
+  </a>
+  <a class="atype" href="catalogue.html?q=ultralight">
+    <span class="atype-icon">🛩</span>
+    <span class="atype-label">Ultralight &amp;<br>Part 103</span>
+  </a>
+  <a class="atype" href="catalogue.html?q=general+aviation">
+    <span class="atype-icon">🛫</span>
+    <span class="atype-label">General Aviation</span>
+  </a>
+  <a class="atype" href="catalogue.html?q=drone">
+    <span class="atype-icon">🚁</span>
+    <span class="atype-label">Drone &amp; UAV<br>(Part 107)</span>
+  </a>
 </div>
 
 <div class="grid3">
   <div class="feat">
-    <h3>Built for modified aircraft</h3>
-    <p>Engine swaps, prop changes and panel rebuilds are the norm in experimental and
-    ultralight flying, and everyone ends up writing their own checklist. Here you can
-    see what somebody else with your airframe had to change, and why — grouped by
-    airframe, with the differences spelled out rather than left for you to spot.</p>
+    <h3>Your preflight, with proof</h3>
+    <p>Tick items on your phone in real time. When you're done, enter your email and
+    receive a timestamped log — every item checked, every item skipped, and when each
+    one was done. Your own record of every preflight, in your inbox.</p>
   </div>
   <div class="feat">
-    <h3>Honest about what is checked</h3>
-    <p>Every file records the document it came from and whether a human has compared
-    it against that document. Nothing is dressed up. A machine transcription that
-    nobody has reviewed says so, in its filename and on every printed page.</p>
+    <h3>Honest about the source</h3>
+    <p>Every checklist shows where it came from and whether someone has
+    double-checked it against that source. Nothing is dressed up as "verified" if
+    nobody has actually sat down and compared it item by item.</p>
   </div>
   <div class="feat">
-    <h3>Yours to take anywhere</h3>
-    <p>JSON, CSV, Markdown, plain text, XML, Word, PDF, any paper size. A published
-    schema so your own software can read it. No API key, no rate limit, no
-    registration, and a hash of every file so you can verify a copy.</p>
+    <h3>Works your way</h3>
+    <p>Print to any paper size — letter, kneeboard, index card. Export as PDF, Word,
+    CSV, or Markdown. Fork any checklist and change what your aircraft does
+    differently. No account, no lock-in, no rate limits.</p>
   </div>
 </div>
 
-<h2>Why not just a PDF library?</h2>
-<p>Because a PDF cannot tell you it is out of date, cannot be ticked on a phone,
-cannot be reflowed onto a 5×8 kneeboard card, and cannot be loaded into anything. The
-free checklist collections that exist are scans and PDFs — useful to a human with a
-printer, useless to software, and impossible to correct when somebody spots an error.</p>
-
-<p>Structured data fixes all four. And because each file carries a content hash,
-a report of a problem can be tied to the exact version somebody was reading, so a
-confirmed error costs that file its verification badge automatically. That is how a
-library stays current instead of merely claiming to.</p>
+<div class="feat-row">
+  <div class="feat-row-item">
+    <strong>19,426 airports</strong>
+    <span>Radio frequencies, runways, fuel, pattern altitude — every public and
+    private strip in the US, from the FAA&rsquo;s 28-day data.</span>
+    <a href="airports.html">Look up any airport &rarr;</a>
+  </div>
+  <div class="feat-row-item">
+    <strong>Free study material</strong>
+    <span>Every FAA handbook — PHAK, Instrument Flying, Aviation Weather, AC&nbsp;43.13 —
+    indexed and searchable. Plus sample tests for every certificate level.</span>
+    <a href="training.html">Start studying &rarr;</a>
+  </div>
+  <div class="feat-row-item">
+    <strong>Open format</strong>
+    <span>A documented JSON schema so any app can read these checklists. A hash of
+    every file so you can verify what you downloaded is what was published.</span>
+    <a href="about.html">How the format works &rarr;</a>
+  </div>
+</div>
 
 <h2>What this is not</h2>
-<p><strong>Not approved data.</strong> Nothing here is an approved flight manual, and
-for a type-certificated aircraft nothing here can substitute for one. Your aircraft's
-own documentation governs, always. Every file says so and every export repeats it.</p>
+<p><strong>Not approved data.</strong> Nothing here replaces your aircraft's own flight
+manual. For type-certificated aircraft, the approved AFM governs. Every checklist
+states its source and verification status — read that before you rely on it.</p>
 
-<h2>Start somewhere</h2>
-<p><a href="index.html">Browse everything</a> &middot;
+<p>Part 103 ultralights, paramotors, hang gliders and experimental aircraft are often
+not required to have a flight manual at all. For those, a well-sourced community
+checklist is the best available resource — and being honest about that is exactly the
+point.</p>
+
+<h2>Start here</h2>
+<p>
+<a href="catalogue.html">Browse all checklists</a> &middot;
+<a href="airports.html">Airport frequencies and weather</a> &middot;
+<a href="training.html">Study for your certificate</a> &middot;
 <a href="editor.html">Write a checklist for your aircraft</a> &middot;
-<a href="about.html">How to read a file's verification state</a> &middot;
-<a href="contribute.html">Contribute one</a></p>
+<a href="contribute.html">Contribute one</a>
+</p>
+"""
+
+
+HERO_CSS = """
+.hero{display:grid;grid-template-columns:1fr;gap:0;margin:0 -1.15rem 1.4rem;
+border-bottom:1px solid var(--line);overflow:hidden}
+.hero-img-wrap{position:relative;max-height:320px;overflow:hidden}
+.hero-img{width:100%;height:100%;object-fit:cover;object-position:center 40%;display:block}
+.hero-text{padding:1.6rem 1.15rem 1.8rem}
+.hero-h{font-size:clamp(2rem,7vw,3rem);line-height:1.06;letter-spacing:-.032em;
+margin:.1rem 0 .7rem;font-weight:820}
+.hero-p{font-size:1.05rem;color:var(--muted);max-width:42rem;margin:0}
+.aircraft-types{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin:1rem 0 1.8rem}
+.atype{display:flex;flex-direction:column;align-items:center;gap:.35rem;text-align:center;
+padding:.8rem .5rem;border:1px solid var(--line);border-radius:14px;
+color:var(--fg);text-decoration:none;background:#fff;transition:border-color .15s,transform .15s,box-shadow .15s}
+.atype:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 6px 18px rgba(15,24,38,.09);text-decoration:none}
+.atype-icon{font-size:1.6rem;line-height:1}
+.atype-label{font-size:.75rem;font-weight:600;color:var(--fg);line-height:1.25}
+.feat-row{display:grid;gap:1rem;grid-template-columns:1fr;margin:1.6rem 0}
+.feat-row-item{border:1px solid var(--line);border-radius:14px;padding:1.1rem;
+background:#fff;display:flex;flex-direction:column;gap:.35rem}
+.feat-row-item strong{font-size:1.02rem;display:block}
+.feat-row-item span{font-size:.9rem;color:var(--muted);flex:1}
+.feat-row-item a{font-size:.88rem;font-weight:600;color:var(--accent)}
+@media(min-width:600px){.aircraft-types{grid-template-columns:repeat(6,1fr)}}
+@media(min-width:800px){
+.hero{grid-template-columns:1fr 1fr}
+.hero-img-wrap{max-height:none;min-height:340px}
+.hero-text{padding:2.2rem 1.5rem 2.2rem}
+.feat-row{grid-template-columns:repeat(3,1fr)}}
 """
 
 

@@ -180,16 +180,11 @@ AIRPORT_JS = r"""
     if (a.r) bits.push(a.r.toLocaleString() + ' ft');
     if (a.e != null) bits.push(a.e + ' ft elev');
     if (a.f) bits.push(a.f + ' freq');
-    return '<li class="aprow" data-i="' + esc(a.i) + '"><b>' + esc(a.i) + '</b>' +
+    return '<li class="aprow"><a href="airport.html?id=' + esc(a.i) + '" style="text-decoration:none;color:inherit;display:block"><b>' + esc(a.i) + '</b>' +
       (a.k ? ' <span class="muted">' + esc(a.k) + '</span>' : '') +
       ' ' + esc(a.n) + '<div class="sub">' + esc(a.c) + ', ' + esc(a.s) + ' · ' +
-      bits.join(' · ') + '</div></li>';
+      bits.join(' · ') + '</div></a></li>';
   }
-
-  document.addEventListener('click', function(e){
-    var r = e.target.closest && e.target.closest('.aprow');
-    if (r && r.dataset.i) open_(r.dataset.i);
-  });
 
   async function shard(ident){
     var k = ident[0].toUpperCase();
@@ -404,6 +399,327 @@ export default {
   },
 };
 """
+
+
+AIRPORT_DETAIL_CSS = """
+.ap-hero{padding:1rem 0 .5rem}
+.ap-ident{font-family:var(--mono);font-size:1.8rem;font-weight:800;color:var(--accent);letter-spacing:.04em}
+.ap-name{font-size:1.35rem;font-weight:720;letter-spacing:-.015em;margin:.15rem 0}
+.ap-meta{font-size:.9rem;color:var(--muted);display:flex;flex-wrap:wrap;gap:.4rem .8rem}
+.ap-meta span{white-space:nowrap}
+.ap-type{display:inline-block;font-size:.68rem;font-weight:700;text-transform:uppercase;
+letter-spacing:.05em;padding:.2rem .55rem;border-radius:999px;background:#eaf1fb;color:#1f4e79}
+#ap-map{height:280px;border-radius:14px;border:1px solid var(--line);margin:1rem 0;
+background:var(--card);overflow:hidden}
+@media(min-width:700px){#ap-map{height:380px}}
+.ap-sections{display:grid;gap:1rem;margin:1rem 0}
+@media(min-width:700px){.ap-sections{grid-template-columns:1fr 1fr}}
+.ap-box{border:1px solid var(--line);border-radius:14px;padding:1rem;background:#fff}
+.ap-box h3{margin:0 0 .6rem;font-size:1rem;font-weight:700;color:var(--fg)}
+.freq-row{display:grid;grid-template-columns:6rem 1fr;gap:.3rem .6rem;align-items:baseline;
+padding:.35rem 0;border-bottom:1px solid var(--line);font-size:.9rem}
+.freq-row:last-child{border-bottom:0}
+.freq-mhz{font-family:var(--mono);font-weight:700;color:var(--accent)}
+.freq-use{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+.rwy-row{padding:.4rem 0;border-bottom:1px solid var(--line);font-size:.9rem}
+.rwy-row:last-child{border-bottom:0}
+.rwy-hdg{font-family:var(--mono);font-weight:700;font-size:1.1rem;color:var(--accent)}
+.rwy-meta{font-size:.82rem;color:var(--muted)}
+.wx-box{border:1px solid var(--line);border-radius:14px;padding:1rem;background:#fff;margin:1rem 0}
+.wx-box h3{margin:0 0 .6rem;font-size:1rem;font-weight:700}
+.wx-raw{font-family:var(--mono);font-size:.82rem;background:var(--card);padding:.7rem;
+border-radius:9px;white-space:pre-wrap;word-break:break-all;line-height:1.55;margin:.4rem 0}
+.wx-cond{display:flex;flex-wrap:wrap;gap:.5rem;margin:.4rem 0}
+.wx-chip{font-size:.8rem;padding:.28rem .65rem;border-radius:999px;background:var(--card);font-weight:600}
+.flt-VFR{background:#e9f6ec;color:#14521f}
+.flt-MVFR{background:#eaf1fb;color:#1a3d6b}
+.flt-IFR{background:#fdeceb;color:#7c1c16}
+.flt-LIFR{background:#f3e8fb;color:#5b1a8a}
+.ext-links{display:flex;flex-wrap:wrap;gap:.5rem;margin:1rem 0}
+.ext-link{padding:.45rem .85rem;border:1px solid var(--line);border-radius:999px;
+font-size:.85rem;color:var(--accent);text-decoration:none;font-weight:500;
+background:#fff;transition:border-color .12s,background .12s}
+.ext-link:hover{border-color:var(--accent);background:var(--accent-weak);text-decoration:none}
+.notfound{padding:3rem 0;color:var(--muted);text-align:center}
+"""
+
+AIRPORT_DETAIL_JS = r"""
+(function(){
+var WX = window.OCL_WX_PROXY || '';
+var apId = new URLSearchParams(location.search).get('id') || '';
+if(!apId){ document.getElementById('ap-content').innerHTML='<p class="notfound">No airport specified. <a href="airports.html">Search airports</a></p>'; return; }
+apId = apId.toUpperCase();
+
+// Leaflet map init
+var map, marker;
+function initMap(lat,lon,name){
+  if(map) return;
+  // Load Leaflet CSS
+  var lc=document.createElement('link');lc.rel='stylesheet';
+  lc.href='https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+  document.head.appendChild(lc);
+  // Load Leaflet JS then init
+  var ls=document.createElement('script');
+  ls.src='https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+  ls.onload=function(){
+    map=L.map('ap-map',{zoomControl:true}).setView([lat,lon],13);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+      attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      maxZoom:18}).addTo(map);
+    var ico=L.divIcon({className:'',html:'<div style="background:#1f4e79;border:3px solid #fff;border-radius:50%;width:18px;height:18px;box-shadow:0 2px 8px rgba(0,0,0,.35)"></div>',iconSize:[18,18],iconAnchor:[9,9]});
+    marker=L.marker([lat,lon],{icon:ico}).addTo(map).bindPopup('<strong>'+name+'</strong>');
+  };
+  document.head.appendChild(ls);
+}
+
+function flightCategory(vis,ceil){
+  if(ceil===null||vis===null) return '';
+  if(ceil<200||vis<0.25) return 'LIFR';
+  if(ceil<500||vis<1) return 'IFR';
+  if(ceil<1000||vis<3) return 'MVFR';
+  return 'VFR';
+}
+
+function parseVis(v){
+  if(v===undefined||v===null) return null;
+  if(typeof v==='number') return v;
+  if(typeof v==='string'&&v.endsWith('+')) return parseFloat(v.replace('+',''));
+  return parseFloat(v)||null;
+}
+
+function windStr(dir,spd,gust){
+  if(!spd&&spd!==0) return '';
+  var s=(dir===0&&spd===0)?'Calm':(dir+'° at '+spd+' kt');
+  if(gust) s+=' gusting '+gust+' kt';
+  return s;
+}
+
+function loadWeather(icao){
+  if(!WX) return;
+  var box=document.getElementById('ap-wx');
+  box.innerHTML='<p style="color:var(--muted);font-size:.9rem">Loading weather…</p>';
+  function fetchOk(url,cb){
+    fetch(url).then(function(r){return r.ok?r.json():Promise.reject(r.status);}).then(cb).catch(function(e){console.warn(e);});
+  }
+  fetchOk(WX+'/metar?ids='+icao+'&format=json',function(d){
+    if(!d||!d.length){box.innerHTML='<p style="color:var(--muted);font-size:.9rem">No METAR available.</p>';return;}
+    var m=d[0];
+    var vis=parseVis(m.visib);
+    var ceil=null;
+    if(m.clouds){var bknovc=m.clouds.filter(function(c){return c.cover==='BKN'||c.cover==='OVC';});
+      if(bknovc.length) ceil=bknovc[0].base;}
+    var cat=flightCategory(vis,ceil);
+    var tc=m.temp!==undefined?Math.round(m.temp)+'°C / '+Math.round(m.temp*9/5+32)+'°F':'';
+    var dp=m.dewp!==undefined?Math.round(m.dewp)+'°C':'';
+    var w=windStr(m.wdir,m.wspd,m.wgust);
+    var alt=m.altim?m.altim.toFixed(2)+' inHg':'';
+    var chips='';
+    if(cat) chips+='<span class="wx-chip flt-'+cat+'">'+cat+'</span>';
+    if(w) chips+='<span class="wx-chip">'+w+'</span>';
+    if(tc) chips+='<span class="wx-chip">'+tc+'</span>';
+    if(alt) chips+='<span class="wx-chip">'+alt+'</span>';
+    var raw=m.rawOb||'';
+    var obs=m.reportTime?new Date(m.reportTime).toLocaleString('en-US',{hour12:false,timeZoneName:'short'}):'';
+    var html='<h3>Current weather'+( obs?' <span style="font-size:.78rem;font-weight:400;color:var(--muted)">'+obs+'</span>':'')+'</h3>';
+    html+='<div class="wx-cond">'+chips+'</div>';
+    if(raw) html+='<div class="wx-raw">'+raw+'</div>';
+    box.innerHTML=html;
+  });
+  // TAF
+  fetchOk(WX+'/taf?ids='+icao+'&format=json',function(d){
+    if(!d||!d.length) return;
+    var t=d[0];
+    var raw=t.rawTAF||t.rawTaf||'';
+    if(!raw) return;
+    var tafBox=document.getElementById('ap-taf');
+    if(tafBox) tafBox.innerHTML='<h3>Forecast (TAF)</h3><div class="wx-raw">'+raw+'</div>';
+  });
+}
+
+function renderAirport(ap){
+  var typeLabel={'airport':'Airport','heliport':'Heliport','seaplane_base':'Seaplane Base',
+    'ultralight':'Ultralight Strip','gliderport':'Gliderport','balloonport':'Balloonport',
+    'closed':'Closed'};
+  var useLabel={'public':'Public','private':'Private','military':'Military'};
+
+  // Update page title
+  document.title=(ap.icao||ap.ident)+' — '+(ap.name||'Airport')+' — Open Checklists';
+
+  // Hero
+  var hero='<div class="ap-hero">';
+  hero+='<div style="display:flex;align-items:baseline;gap:.7rem;flex-wrap:wrap">';
+  hero+='<span class="ap-ident">'+(ap.icao||ap.ident)+'</span>';
+  if(ap.type) hero+='<span class="ap-type">'+(typeLabel[ap.type]||ap.type)+'</span>';
+  if(ap.use&&ap.use!=='public') hero+='<span class="ap-type" style="background:#fbf3e0;color:#8a5a00">'+(useLabel[ap.use]||ap.use)+'</span>';
+  hero+='</div>';
+  hero+='<div class="ap-name">'+(ap.name||'')+'</div>';
+  var metaParts=[];
+  if(ap.city&&ap.state_name) metaParts.push('<span>'+ap.city+', '+ap.state_name+'</span>');
+  if(ap.elevation_ft!==undefined&&ap.elevation_ft!==null) metaParts.push('<span>Elevation: '+Math.round(ap.elevation_ft)+' ft MSL</span>');
+  if(ap.magnetic_variation) metaParts.push('<span>Variation: '+ap.magnetic_variation+'</span>');
+  if(ap.sectional) metaParts.push('<span>Sectional: '+ap.sectional+'</span>');
+  if(ap.fuel) metaParts.push('<span>Fuel: '+ap.fuel+'</span>');
+  if(ap.longest_runway_ft) metaParts.push('<span>Longest runway: '+ap.longest_runway_ft.toLocaleString()+' ft</span>');
+  hero+='<div class="ap-meta">'+metaParts.join('')+'</div>';
+  hero+='</div>';
+
+  // Map
+  var mapDiv='<div id="ap-map"><p style="padding:.8rem;color:var(--muted);font-size:.9rem">Loading map…</p></div>';
+
+  // Weather
+  var wxDiv='<div class="wx-box" id="ap-wx"><p style="color:var(--muted);font-size:.9rem">Weather requires an internet connection.</p></div>';
+  var tafDiv='<div class="wx-box" id="ap-taf" style="display:none"></div>';
+  if(WX){wxDiv='<div class="wx-box" id="ap-wx"><p style="color:var(--muted);font-size:.9rem">Loading…</p></div>';
+    tafDiv='<div class="wx-box" id="ap-taf"></div>';}
+
+  // Frequencies
+  var freqHtml='';
+  if(ap.frequencies&&ap.frequencies.length){
+    freqHtml='<div class="ap-box"><h3>Radio frequencies</h3>';
+    // Sort: ATIS first, then CTAF/UNICOM, then APP/DEP, then TWR, then GND, others
+    var order={'ATIS':0,'AWOS':1,'ASOS':2,'CTAF':3,'UNICOM':4,'APPROACH':5,'DEPARTURE':6,'TOWER':7,'GROUND':8};
+    var sorted=ap.frequencies.slice().sort(function(a,b){
+      return (order[a.use_code]??99)-(order[b.use_code]??99);});
+    sorted.forEach(function(f){
+      freqHtml+='<div class="freq-row">';
+      freqHtml+='<span class="freq-mhz">'+f.frequency+'</span>';
+      freqHtml+='<span><span class="freq-use">'+(f.use||f.use_code||'')+'</span>';
+      if(f.callsign) freqHtml+=' '+f.callsign;
+      if(f.hours) freqHtml+=' <span style="font-size:.78rem;color:var(--muted)">'+f.hours+'</span>';
+      if(f.remark) freqHtml+='<br><span style="font-size:.78rem;color:var(--muted)">'+f.remark+'</span>';
+      freqHtml+='</span></div>';
+    });
+    freqHtml+='</div>';
+  }
+
+  // Runways
+  var rwyHtml='';
+  if(ap.runways&&ap.runways.length){
+    rwyHtml='<div class="ap-box"><h3>Runways</h3>';
+    ap.runways.forEach(function(r){
+      rwyHtml+='<div class="rwy-row">';
+      rwyHtml+='<span class="rwy-hdg">'+(r.id||'RWY')+'</span>';
+      var meta=[];
+      if(r.length_ft) meta.push((r.length_ft||0).toLocaleString()+' ft');
+      if(r.width_ft) meta.push((r.width_ft||0)+' ft wide');
+      if(r.surface) meta.push(r.surface);
+      if(r.lighted) meta.push('lighted');
+      if(r.closed) meta.push('<span style="color:var(--warn)">CLOSED</span>');
+      rwyHtml+='<div class="rwy-meta">'+meta.join(' · ')+'</div>';
+      if(r.le_heading_degT!==undefined||r.he_heading_degT!==undefined){
+        rwyHtml+='<div class="rwy-meta" style="font-family:var(--mono);font-size:.78rem">';
+        if(r.le_ident) rwyHtml+=r.le_ident+': '+Math.round(r.le_heading_degT||0)+'°T';
+        if(r.le_ident&&r.he_ident) rwyHtml+=' / ';
+        if(r.he_ident) rwyHtml+=r.he_ident+': '+Math.round(r.he_heading_degT||0)+'°T';
+        rwyHtml+='</div>';
+      }
+      rwyHtml+='</div>';
+    });
+    rwyHtml+='</div>';
+  }
+
+  // External links
+  var icao=ap.icao||ap.ident||apId;
+  var lat=ap.lat, lon=ap.lon;
+  var extLinks='<div class="ext-links">';
+  extLinks+='<a class="ext-link" href="https://skyvector.com/airport/'+encodeURIComponent(icao)+'" target="_blank" rel="noopener">SkyVector ↗</a>';
+  extLinks+='<a class="ext-link" href="https://airnav.com/airport/'+encodeURIComponent(icao)+'" target="_blank" rel="noopener">AirNav ↗</a>';
+  extLinks+='<a class="ext-link" href="https://www.faa.gov/airports/airport_safety/airportdata_5010/" target="_blank" rel="noopener">FAA 5010 ↗</a>';
+  extLinks+='<a class="ext-link" href="https://www.aviationweather.gov/metar/data?ids='+encodeURIComponent(icao)+'&format=decoded" target="_blank" rel="noopener">Weather ↗</a>';
+  extLinks+='<a class="ext-link" href="https://notams.aim.faa.gov/notamSearch/nsapp.html#/" target="_blank" rel="noopener">NOTAMs ↗</a>';
+  if(lat&&lon) extLinks+='<a class="ext-link" href="https://www.google.com/maps/search/?api=1&query='+lat+','+lon+'" target="_blank" rel="noopener">Google Maps ↗</a>';
+  extLinks+='</div>';
+
+  // Pattern altitude note
+  var patNote='';
+  if(ap.pattern_altitude_ft) patNote='<p style="font-size:.88rem;color:var(--muted)">Traffic pattern altitude: <strong>'+ap.pattern_altitude_ft+' ft AGL</strong></p>';
+
+  var html=hero+mapDiv+wxDiv+tafDiv;
+  html+='<h2 style="margin-top:1.4rem">Airport information</h2>';
+  html+=patNote;
+  html+='<div class="ap-sections">'+freqHtml+rwyHtml+'</div>';
+  html+='<h2>External resources</h2>'+extLinks;
+  html+='<p class="tag" style="margin-top:1.5rem">Data from FAA NASR — effective '+
+    (window.OCL_NASR_DATE||'current cycle')+'. Always confirm frequencies against current charts and NOTAMs before flight.</p>';
+  html+='<p><a href="airports.html">&larr; Back to airport search</a></p>';
+
+  document.getElementById('ap-content').innerHTML=html;
+
+  // Init map after DOM update
+  if(ap.lat&&ap.lon) setTimeout(function(){initMap(ap.lat,ap.lon,ap.name||apId);},50);
+  if(WX&&(ap.icao||ap.ident)) setTimeout(function(){loadWeather(ap.icao||ap.ident);},100);
+}
+
+// Load airport data
+function loadAirport(){
+  var el=document.getElementById('ap-content');
+  el.innerHTML='<p style="color:var(--muted);padding:2rem 0">Loading airport data…</p>';
+
+  fetch('data/airports/icao.json')
+    .then(function(r){return r.ok?r.json():Promise.reject('icao index not found');})
+    .then(function(icaoMap){
+      var shardKey=icaoMap[apId];
+      if(!shardKey){
+        // try without leading K (non-ICAO idents like FA01)
+        var altId=apId.replace(/^K/,'');
+        shardKey=icaoMap[altId]||icaoMap['K'+altId];
+      }
+      if(!shardKey){
+        el.innerHTML='<div class="notfound"><p>Airport <strong>'+apId+'</strong> not found.</p><p><a href="airports.html">Search for an airport</a></p></div>';
+        return;
+      }
+      return fetch('data/airports/detail/'+shardKey+'.json')
+        .then(function(r){return r.ok?r.json():Promise.reject('shard not found');})
+        .then(function(shard){
+          var airports=Array.isArray(shard)?shard:Object.values(shard);
+          var ap=airports.find(function(a){return (a.icao||a.ident)===apId||(a.ident)===apId;});
+          if(!ap) ap=airports.find(function(a){return (a.icao||a.ident||'').toUpperCase()===apId;});
+          if(!ap){el.innerHTML='<div class="notfound"><p>Airport not found in data.</p></div>';return;}
+          renderAirport(ap);
+        });
+    })
+    .catch(function(e){
+      el.innerHTML='<div class="notfound"><p>Could not load airport data. <a href="airports.html">Search airports</a></p></div>';
+      console.error(e);
+    });
+}
+loadAirport();
+})();
+"""
+
+AIRPORT_DETAIL_BODY = """
+<div id="ap-content">
+  <p style="color:var(--muted);padding:2rem 0">Loading…</p>
+</div>
+"""
+
+
+def airport_detail_page(head_fn, foot: str, wx_proxy: str = "") -> str:
+    """Per-airport bookmarkable page. URL: airport.html?id=KJFK"""
+    cfg = f"<script>window.OCL_WX_PROXY={__import__('json').dumps(wx_proxy)};</script>" if wx_proxy else ""
+    # Read NASR cycle date from meta.json if available
+    nasr_date_js = ""
+    import pathlib, json as _json
+    meta = pathlib.Path(__file__).resolve().parent.parent / "data" / "airports" / "meta.json"
+    if meta.exists():
+        try:
+            m = _json.loads(meta.read_text())
+            nasr_date_js = f"<script>window.OCL_NASR_DATE={_json.dumps(m.get('effective',''))};</script>"
+        except Exception:
+            pass
+    return (
+        head_fn(
+            "Airport — Open Checklists",
+            "Frequencies, runways, weather and links for US airports. "
+            "From the FAA's public-domain NASR data.",
+        )
+        + f"<style>{AIRPORT_DETAIL_CSS}</style>"
+        + AIRPORT_DETAIL_BODY
+        + cfg
+        + nasr_date_js
+        + f"<script>{AIRPORT_DETAIL_JS}</script>"
+        + foot
+    )
 
 
 def airports_page(head_fn, foot: str, wx_proxy: str = "") -> str:
