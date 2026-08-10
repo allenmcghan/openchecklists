@@ -257,6 +257,7 @@ def head(title: str, desc: str, rel: str = "") -> str:
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
+{AUTH_PILL_JS}
 <header class="site"><div class="wrap">
 <a class="brand" href="{rel}index.html">{LOGO_SVG}<span class="bn">{BRAND_NAME}</span></a>
 <p class="tag brandtag">{TAGLINE}</p>
@@ -272,6 +273,28 @@ def head(title: str, desc: str, rel: str = "") -> str:
 </nav>
 </div></header>
 <main class="wrap" id="main">
+"""
+
+# Auth pill JS — injected into every page. Checks sessionStorage for token,
+# renders a sign-in link or avatar pill in the nav. Self-contained, ~600 bytes.
+AUTH_PILL_JS = r"""
+<script>
+(function(){
+  var tok=sessionStorage.getItem('ocl:token');
+  if(!tok) return;
+  try{
+    var p=JSON.parse(atob(tok.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
+    if(p.exp&&p.exp<Date.now()/1000){sessionStorage.removeItem('ocl:token');return;}
+    var nav=document.querySelector('nav.nav');
+    if(!nav) return;
+    var pill=document.createElement('a');
+    pill.href='/profile.html';
+    pill.style.cssText='margin-left:auto;font-weight:700;color:var(--accent)';
+    pill.textContent='👤 My Profile';
+    nav.appendChild(pill);
+  }catch(e){}
+})();
+</script>
 """
 
 
@@ -859,6 +882,23 @@ def main() -> int:
     (args.out / "worker").mkdir(exist_ok=True)
     (args.out / "worker" / "weather-proxy.js").write_text(WEATHER_WORKER, encoding="utf-8")
     artifacts.append(args.out / "worker" / "weather-proxy.js")
+
+    # Auth + profile pages. These are hand-written (not templated) because they carry
+    # the Zitadel PKCE flow and talk to the ocl-api Worker at api.openchecklists.net.
+    # They live under worker/ocl-api/ next to the API they call; copy them into the
+    # build so a rebuild does not drop them (build/site is wiped on every run).
+    ocl_api = REPO / "worker" / "ocl-api"
+    profile_src = ocl_api / "profile.html"
+    if profile_src.exists():
+        import shutil as _sh
+        _sh.copy2(profile_src, args.out / "profile.html")
+        artifacts.append(args.out / "profile.html")
+    callback_src = ocl_api / "auth-callback.html"
+    if callback_src.exists():
+        import shutil as _sh
+        (args.out / "auth").mkdir(exist_ok=True)
+        _sh.copy2(callback_src, args.out / "auth" / "callback.html")
+        artifacts.append(args.out / "auth" / "callback.html")
     (args.out / "editor.html").write_text(editor_page(head, FOOT, catalogue), encoding="utf-8")
     artifacts += static_pages + [args.out / "editor.html"]
 

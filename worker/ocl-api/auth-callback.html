@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Signing in… — Open Checklists</title>
+<style>
+  body{font-family:system-ui,sans-serif;background:#fff;color:#0f1826;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    min-height:100vh;margin:0;gap:1rem}
+  .logo{font-size:1.4rem;font-weight:800;color:#1f4e79}
+  .msg{color:#586274;font-size:.95rem}
+  .err{color:#b3261e;background:#fdeceb;padding:.7rem 1rem;border-radius:12px;
+    font-size:.9rem;display:none;max-width:320px;text-align:center}
+</style>
+</head>
+<body>
+<div class="logo">Open Checklists</div>
+<div class="msg" id="msg">Completing sign-in…</div>
+<div class="err" id="err"></div>
+<script>
+/* PKCE callback — exchanges code for tokens, stores in sessionStorage, redirects */
+(function(){
+  var CLIENT_ID = '385717620558594052'; // Zitadel "Open Checklists Web" OIDC app (PKCE)
+  var ISSUER    = 'https://auth.keylinkit.net';
+  var REDIRECT  = window.location.origin + '/auth/callback.html';
+
+  var params = new URLSearchParams(location.search);
+  var code   = params.get('code');
+  var state  = params.get('state');
+
+  if (!code) { showErr('No authorization code. Try signing in again.'); return; }
+
+  var storedState    = sessionStorage.getItem('ocl:state');
+  var codeVerifier   = sessionStorage.getItem('ocl:cv');
+
+  if (state && storedState && state !== storedState) {
+    showErr('State mismatch — possible CSRF. Try again.'); return;
+  }
+
+  fetch(ISSUER + '/oauth/v2/token', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+    body: new URLSearchParams({
+      grant_type:    'authorization_code',
+      client_id:     CLIENT_ID,
+      redirect_uri:  REDIRECT,
+      code:          code,
+      code_verifier: codeVerifier || '',
+    })
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(d){
+    if (d.error) { showErr(d.error_description || d.error); return; }
+    sessionStorage.setItem('ocl:token',   d.access_token);
+    sessionStorage.setItem('ocl:refresh', d.refresh_token || '');
+    sessionStorage.setItem('ocl:exp',     String(Date.now() + (d.expires_in||3600)*1000));
+    // Clean up PKCE state
+    sessionStorage.removeItem('ocl:state');
+    sessionStorage.removeItem('ocl:cv');
+    // Redirect to profile or the page they came from
+    var returnTo = sessionStorage.getItem('ocl:return') || '/profile.html';
+    sessionStorage.removeItem('ocl:return');
+    location.href = returnTo;
+  })
+  .catch(function(e){ showErr('Network error: ' + e.message); });
+
+  function showErr(msg) {
+    document.getElementById('msg').style.display='none';
+    var el = document.getElementById('err');
+    el.textContent = msg + ' — ';
+    var a = document.createElement('a');
+    a.href='/'; a.textContent='Back to home';
+    el.appendChild(a);
+    el.style.display='block';
+  }
+})();
+</script>
+</body>
+</html>

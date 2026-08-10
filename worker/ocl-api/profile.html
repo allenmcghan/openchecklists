@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>My Profile — Open Checklists</title>
+<style>
+:root{--bg:#fff;--fg:#0f1826;--muted:#586274;--line:#e6e9f0;--accent:#1f4e79;
+  --ok:#186a2b;--ok-weak:#e9f6ec;--warn:#b3261e;--warn-weak:#fdeceb;
+  --card:#f5f7fb;--pill:999px;--radius:14px;
+  --sans:system-ui,-apple-system,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--sans);background:var(--bg);color:var(--fg);line-height:1.5}
+.wrap{max-width:860px;margin:0 auto;padding:1rem 1.15rem}
+header{border-bottom:1px solid var(--line);padding:.6rem 0;position:sticky;top:0;
+  background:rgba(255,255,255,.9);backdrop-filter:blur(12px)}
+header .inner{max-width:860px;margin:0 auto;padding:0 1.15rem;
+  display:flex;align-items:center;gap:.7rem;justify-content:space-between}
+.brand{font-size:1.1rem;font-weight:800;color:var(--accent);text-decoration:none}
+.nav-links{display:flex;gap:.5rem}
+.nav-links a{padding:.45rem .8rem;border-radius:var(--pill);font-size:.88rem;
+  color:var(--muted);text-decoration:none}
+.nav-links a:hover{background:var(--card);color:var(--fg)}
+h1{font-size:1.5rem;font-weight:800;letter-spacing:-.02em;margin:1.4rem 0 .3rem}
+h2{font-size:1.1rem;font-weight:700;margin:1.8rem 0 .7rem;color:var(--fg)}
+.lede{color:var(--muted);font-size:.95rem}
+.level-card{background:linear-gradient(135deg,#1f4e79,#2f6fbd);color:#fff;
+  border-radius:var(--radius);padding:1.4rem;margin:1rem 0;display:flex;
+  flex-wrap:wrap;gap:1.2rem;align-items:center}
+.level-badge{font-size:2.4rem;font-weight:900;letter-spacing:-.03em}
+.level-name{font-size:.8rem;opacity:.8;letter-spacing:.05em;text-transform:uppercase}
+.pts{display:flex;flex-direction:column}
+.pts-num{font-size:1.6rem;font-weight:700}
+.pts-label{font-size:.78rem;opacity:.75}
+.prog-bar{height:6px;background:rgba(255,255,255,.25);border-radius:var(--pill);margin-top:.5rem}
+.prog-fill{height:100%;background:#fff;border-radius:var(--pill);transition:width .5s}
+.next-pts{font-size:.75rem;opacity:.7;margin-top:.3rem}
+.share-bar{margin-top:.9rem;display:flex;gap:.6rem;flex-wrap:wrap}
+.share-btn{padding:.45rem .9rem;border-radius:var(--pill);font:inherit;font-size:.82rem;
+  font-weight:600;cursor:pointer;border:1.5px solid rgba(255,255,255,.5);background:transparent;
+  color:#fff;transition:background .12s}
+.share-btn:hover{background:rgba(255,255,255,.15)}
+.share-btn.native{background:rgba(255,255,255,.2)}
+.grid{display:grid;gap:.7rem;grid-template-columns:1fr}
+@media(min-width:600px){.grid{grid-template-columns:1fr 1fr}}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+  padding:1rem;display:flex;flex-direction:column;gap:.4rem}
+.card h3{font-size:.95rem;font-weight:700}
+.card .meta{font-size:.82rem;color:var(--muted)}
+.card .actions{display:flex;gap:.5rem;margin-top:.4rem;flex-wrap:wrap}
+.btn{padding:.45rem .9rem;border-radius:var(--pill);font:inherit;font-size:.82rem;
+  font-weight:600;cursor:pointer;border:1.5px solid var(--line);background:#fff;
+  color:var(--fg);text-decoration:none;display:inline-block}
+.btn.primary{background:var(--accent);color:#fff;border-color:transparent}
+.btn.danger{color:var(--warn);border-color:var(--warn)}
+.empty{color:var(--muted);font-size:.9rem;padding:.6rem 0;font-style:italic}
+.badge-pill{display:inline-block;font-size:.68rem;font-weight:700;text-transform:uppercase;
+  letter-spacing:.04em;border-radius:var(--pill);padding:.2rem .6rem;
+  background:var(--ok-weak);color:var(--ok)}
+.badge-pill.warn{background:var(--warn-weak);color:var(--warn)}
+input[type=text],input[type=email]{font:inherit;padding:.55rem .8rem;border:1.5px solid var(--line);
+  border-radius:10px;width:100%;background:#fff;color:var(--fg)}
+input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px #eaf1fb}
+.form-row{display:flex;gap:.5rem;flex-wrap:wrap;align-items:flex-end;margin:.8rem 0}
+.form-row label{font-size:.82rem;font-weight:600;color:var(--muted);margin-bottom:.3rem;display:block}
+.form-row .fg{flex:1;min-width:200px}
+.tag-toggle{display:flex;align-items:center;gap:.5rem;font-size:.88rem;cursor:pointer}
+.tag-toggle input{width:1.2rem;height:1.2rem;accent-color:var(--accent)}
+#signin-prompt{padding:3rem 0;text-align:center;color:var(--muted)}
+#signin-prompt a{color:var(--accent);font-weight:700}
+.toast{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%);
+  background:#0f1826;color:#fff;padding:.6rem 1.2rem;border-radius:var(--pill);
+  font-size:.88rem;opacity:0;transition:opacity .2s;pointer-events:none;z-index:99}
+.toast.show{opacity:1}
+footer{border-top:1px solid var(--line);margin-top:3rem;padding:1.2rem 0;
+  font-size:.82rem;color:var(--muted);text-align:center}
+footer a{color:var(--muted)}
+</style>
+</head>
+<body>
+<header>
+  <div class="inner">
+    <a class="brand" href="/">Open Checklists</a>
+    <div class="nav-links">
+      <a href="/catalogue.html">Checklists</a>
+      <a href="/airports.html">Airports</a>
+      <a href="/training.html">Training</a>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div id="signin-prompt" style="display:none">
+    <p style="font-size:1.1rem;font-weight:700;margin-bottom:.5rem">You're not signed in.</p>
+    <p style="margin-bottom:1.2rem">Sign in to save your checklists, track training progress, and earn points.</p>
+    <a href="#" id="signin-btn" class="btn primary" style="font-size:.95rem">Sign in →</a>
+  </div>
+
+  <div id="profile-content" style="display:none">
+    <h1 id="greeting">My Profile</h1>
+
+    <!-- Level card -->
+    <div class="level-card" id="level-card">
+      <div>
+        <div class="level-name">Level <span id="lv-num"></span></div>
+        <div class="level-badge" id="lv-name"></div>
+        <div class="pts">
+          <span class="pts-num"><span id="pts-total"></span> pts</span>
+          <span class="pts-label">Total points</span>
+        </div>
+        <div class="prog-bar"><div class="prog-fill" id="prog-fill"></div></div>
+        <div class="next-pts" id="next-pts"></div>
+      </div>
+      <div class="share-bar">
+        <button class="share-btn native" onclick="shareProgress('native')" id="share-native" style="display:none">Share progress ↗</button>
+        <button class="share-btn" onclick="shareProgress('copy')">Copy share link</button>
+        <button class="share-btn" onclick="shareProgress('email')">Email</button>
+        <button class="share-btn" onclick="shareProgress('sms')">SMS</button>
+      </div>
+    </div>
+
+    <!-- Settings -->
+    <h2>Your callsign</h2>
+    <div class="form-row">
+      <div class="fg">
+        <label>Username (shown on leaderboard if you opt in)</label>
+        <input type="text" id="username-input" placeholder="your_callsign" maxlength="32">
+      </div>
+      <button class="btn primary" onclick="saveUsername()">Save</button>
+    </div>
+    <label class="tag-toggle" style="margin-bottom:1rem">
+      <input type="checkbox" id="share-lb" onchange="saveLeaderboard()">
+      Show me on the public leaderboard
+    </label>
+
+    <!-- Aircraft -->
+    <h2>My aircraft</h2>
+    <div class="grid" id="aircraft-list"></div>
+    <div class="form-row" style="margin-top:.8rem">
+      <div class="fg">
+        <label>Make &amp; Model</label>
+        <input type="text" id="ac-make" placeholder="ParaPlane PM-2" maxlength="80">
+      </div>
+      <div style="flex:0 0 120px">
+        <label>Registration</label>
+        <input type="text" id="ac-reg" placeholder="N-number" maxlength="10">
+      </div>
+      <button class="btn primary" onclick="addAircraft()">Add</button>
+    </div>
+
+    <!-- Favorite airports -->
+    <h2>Favorite airports</h2>
+    <div class="grid" id="airports-list"></div>
+    <div class="form-row" style="margin-top:.8rem">
+      <div class="fg">
+        <label>Airport identifier (ICAO or FAA)</label>
+        <input type="text" id="ap-id" placeholder="KJFK" maxlength="6">
+      </div>
+      <button class="btn primary" onclick="addAirport()">Add</button>
+    </div>
+
+    <!-- Recent logs -->
+    <h2>Recent preflights <span class="badge-pill" style="font-size:.65rem;vertical-align:middle">6 months</span></h2>
+    <p class="meta" style="color:var(--muted);font-size:.82rem;margin-bottom:.6rem">
+      Logs older than 6 months are automatically deleted. Download your log file to keep a permanent copy.</p>
+    <div id="logs-list"></div>
+
+    <!-- Sign out -->
+    <div style="margin-top:2rem;padding-top:1.2rem;border-top:1px solid var(--line)">
+      <button class="btn danger" onclick="signOut()">Sign out</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<footer>
+  <a href="/">Open Checklists</a> &middot;
+  <a href="/privacy.html">Privacy</a> &middot;
+  <a href="/terms.html">Terms</a>
+</footer>
+
+<script>
+var API    = 'https://app.openchecklists.net/api';   // ocl-api Worker (app.* custom domain; api.* is the kw3 log.php endpoint)
+var CLIENT_ID = '385717620558594052';
+var ISSUER    = 'https://auth.keylinkit.net';
+
+// ---- Auth helpers ----
+function getToken() { return sessionStorage.getItem('ocl:token'); }
+
+function apiReq(path, opts) {
+  var tok = getToken();
+  if (!tok) return Promise.reject('not authenticated');
+  return fetch(API + path, Object.assign({
+    headers: Object.assign({'Content-Type':'application/json','Authorization':'Bearer '+tok},
+      (opts||{}).headers||{})
+  }, opts||{})).then(function(r){ return r.json(); });
+}
+
+function toast(msg, ms) {
+  var el = document.getElementById('toast');
+  el.textContent = msg; el.classList.add('show');
+  setTimeout(function(){ el.classList.remove('show'); }, ms||2500);
+}
+
+// ---- Sign in / out ----
+async function signIn() {
+  var cv   = generateCodeVerifier();
+  var hash = await sha256(cv);
+  var cc   = b64url(hash);
+  var state = randomStr(24);
+  sessionStorage.setItem('ocl:cv', cv);
+  sessionStorage.setItem('ocl:state', state);
+  sessionStorage.setItem('ocl:return', location.href);
+  var url = ISSUER + '/oauth/v2/authorize?' + new URLSearchParams({
+    response_type: 'code', client_id: CLIENT_ID,
+    redirect_uri:  location.origin + '/auth/callback.html',
+    scope: 'openid email profile', state,
+    code_challenge: cc, code_challenge_method: 'S256',
+  });
+  location.href = url;
+}
+
+function signOut() {
+  sessionStorage.removeItem('ocl:token');
+  sessionStorage.removeItem('ocl:refresh');
+  location.href = '/';
+}
+
+function generateCodeVerifier() {
+  var arr = new Uint8Array(32); crypto.getRandomValues(arr);
+  return b64url(arr);
+}
+function randomStr(n) {
+  var arr = new Uint8Array(n); crypto.getRandomValues(arr);
+  return b64url(arr).substring(0,n);
+}
+async function sha256(str) {
+  var buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+  return new Uint8Array(buf);
+}
+function b64url(buf) {
+  return btoa(String.fromCharCode(...buf)).replace(/\+/g,'-').replace(/\//g,'_').replace(/=/g,'');
+}
+
+// ---- Share progress ----
+function shareProgress(method) {
+  var name = document.getElementById('lv-name').textContent || 'Pilot';
+  var pts  = document.getElementById('pts-total').textContent || '0';
+  var lv   = document.getElementById('lv-num').textContent || '1';
+  var text = '✅ I\'m a Level ' + lv + ' ' + name + ' on Open Checklists with ' + pts + ' points! Track your preflights free at openchecklists.net';
+  var url  = 'https://openchecklists.net/';
+  if (method === 'native' && navigator.share) {
+    navigator.share({title:'My Open Checklists progress', text, url}).catch(function(){});
+  } else if (method === 'copy') {
+    navigator.clipboard.writeText(text + '\n' + url).then(function(){ toast('Copied!'); });
+  } else if (method === 'email') {
+    location.href = 'mailto:?subject=My+flight+training+progress&body=' + encodeURIComponent(text + '\n\n' + url);
+  } else if (method === 'sms') {
+    location.href = 'sms:?&body=' + encodeURIComponent(text + ' ' + url);
+  }
+}
+
+// ---- Profile render ----
+async function loadProfile() {
+  var tok = getToken();
+  document.getElementById('signin-btn').onclick = signIn;
+  if (!tok) {
+    document.getElementById('signin-prompt').style.display='block';
+    return;
+  }
+  document.getElementById('profile-content').style.display='block';
+
+  try {
+    var me = await apiReq('/me');
+    if (me.error) { signOut(); return; }
+    document.getElementById('greeting').textContent = 'Welcome back, ' + (me.display_name||me.username||'Pilot');
+    document.getElementById('lv-num').textContent  = me.level;
+    document.getElementById('lv-name').textContent = me.level_name;
+    document.getElementById('pts-total').textContent = (me.total_points||0).toLocaleString();
+    // Progress bar to next level
+    var thresholds = [0,100,300,750,1500,3000,6000];
+    var cur = thresholds[me.level-1]||0, nxt = me.next_level_at;
+    if (nxt) {
+      var pct = Math.min(100, ((me.total_points-cur)/(nxt-cur))*100);
+      document.getElementById('prog-fill').style.width = pct+'%';
+      document.getElementById('next-pts').textContent = (nxt - me.total_points).toLocaleString() + ' pts to next level';
+    }
+    document.getElementById('username-input').value   = me.username || '';
+    document.getElementById('share-lb').checked       = me.share_leaderboard;
+    if (navigator.share) document.getElementById('share-native').style.display='inline-block';
+
+    // Load sub-sections
+    loadAircraft();
+    loadAirports();
+    loadLogs();
+  } catch(e) { console.error(e); }
+}
+
+// ---- Aircraft ----
+async function loadAircraft() {
+  var {aircraft} = await apiReq('/me/aircraft');
+  var el = document.getElementById('aircraft-list');
+  if (!aircraft.length) { el.innerHTML='<p class="empty">No aircraft added yet.</p>'; return; }
+  el.innerHTML = aircraft.map(function(a){
+    return '<div class="card"><h3>'+(a.make+' '+a.model).trim()+'</h3>'
+      +(a.registration?'<div class="meta">'+a.registration+'</div>':'')
+      +'<div class="actions"><button class="btn danger" onclick="removeAircraft('+a.id+')">Remove</button></div></div>';
+  }).join('');
+}
+async function addAircraft() {
+  var make = document.getElementById('ac-make').value.trim();
+  var reg  = document.getElementById('ac-reg').value.trim();
+  if (!make) return;
+  var parts = make.split(' ');
+  await apiReq('/me/aircraft', {method:'POST',body:JSON.stringify({make:parts[0],model:parts.slice(1).join(' '),registration:reg})});
+  document.getElementById('ac-make').value=''; document.getElementById('ac-reg').value='';
+  toast('Aircraft added!'); loadAircraft();
+}
+async function removeAircraft(id) {
+  await apiReq('/me/aircraft/'+id, {method:'DELETE'}); loadAircraft();
+}
+
+// ---- Airports ----
+async function loadAirports() {
+  var {airports} = await apiReq('/me/airports');
+  var el = document.getElementById('airports-list');
+  if (!airports.length) { el.innerHTML='<p class="empty">No favorites yet — look up an airport and star it.</p>'; return; }
+  el.innerHTML = airports.map(function(a){
+    return '<div class="card"><h3><a href="/airport.html?id='+a.airport_ident+'" style="color:inherit">'+a.airport_ident+'</a></h3>'
+      +(a.airport_name?'<div class="meta">'+a.airport_name+'</div>':'')
+      +'<div class="actions"><button class="btn danger" onclick="removeAirport(\''+a.airport_ident+'\')">Remove</button></div></div>';
+  }).join('');
+}
+async function addAirport() {
+  var id = document.getElementById('ap-id').value.trim().toUpperCase();
+  if (!id) return;
+  await apiReq('/me/airports', {method:'POST',body:JSON.stringify({ident:id})});
+  document.getElementById('ap-id').value='';
+  toast('Airport saved!'); loadAirports();
+}
+async function removeAirport(id) {
+  await apiReq('/me/airports/'+id, {method:'DELETE'}); loadAirports();
+}
+
+// ---- Logs ----
+async function loadLogs() {
+  var {logs} = await apiReq('/me/logs');
+  var el = document.getElementById('logs-list');
+  if (!logs.length) { el.innerHTML='<p class="empty">No preflight logs yet. Complete a checklist and email yourself the log to save it here.</p>'; return; }
+  el.innerHTML = '<div class="grid">'+logs.map(function(l){
+    var pct = l.items_total>0?Math.round(l.items_checked/l.items_total*100):0;
+    var dt  = new Date(l.completed_at).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+    var share = API+'/share/'+l.id;
+    return '<div class="card"><h3>'+(l.checklist_title||l.checklist_id)+'</h3>'
+      +'<div class="meta">'+dt+' &middot; '+l.items_checked+'/'+l.items_total+' items ('+pct+'%)</div>'
+      +'<div class="actions">'
+      +'<button class="btn" onclick="shareLog(\''+l.id+'\',\''+encodeURIComponent(l.checklist_title||l.checklist_id)+'\')">Share</button>'
+      +'</div></div>';
+  }).join('')+'</div>';
+}
+
+function shareLog(id, title) {
+  var url  = API + '/share/' + id;
+  var text = 'I just completed the ' + decodeURIComponent(title) + ' checklist on Open Checklists.';
+  if (navigator.share) {
+    navigator.share({title:'Preflight complete', text, url});
+  } else {
+    navigator.clipboard.writeText(url).then(function(){ toast('Link copied!'); });
+  }
+}
+
+// ---- Username / leaderboard ----
+async function saveUsername() {
+  var v = document.getElementById('username-input').value.trim();
+  await apiReq('/me', {method:'PUT', body:JSON.stringify({username:v})});
+  toast('Username saved!');
+}
+async function saveLeaderboard() {
+  var v = document.getElementById('share-lb').checked ? 1 : 0;
+  await apiReq('/me', {method:'PUT', body:JSON.stringify({share_leaderboard:v})});
+  toast(v ? 'You\'re on the leaderboard!' : 'Removed from leaderboard');
+}
+
+loadProfile();
+</script>
+</body>
+</html>
