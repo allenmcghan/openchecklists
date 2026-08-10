@@ -1,0 +1,356 @@
+{
+  "open_checklist_version": "1.0",
+  "id": "schweizer-sgs-2-33a",
+  "title": "Schweizer SGS 2-33A — Normal Procedures and Launch Emergencies",
+  "description": "A glider, included to exercise the parts of the schema that a powered-aeroplane corpus never reaches: no engine, a launch phase with no equivalent in powered flight, and emergency procedures that are entirely about the tow. Wording is the contributor's own; procedures reflect ordinary US club practice for the type.",
+  "aircraft": {
+    "make": "Schweizer",
+    "model": "SGS 2-33",
+    "variant": "A",
+    "category": "glider",
+    "engine": [
+      {
+        "make": "None",
+        "model": "Unpowered",
+        "type": "none",
+        "count": 1
+      }
+    ],
+    "propeller": "none",
+    "gear": "skid"
+  },
+  "units": {
+    "airspeed": "mph",
+    "altitude": "ft",
+    "weight": "lb"
+  },
+  "provenance": {
+    "source": {
+      "kind": "none",
+      "notes": "No Schweizer flight manual was consulted. Written from general knowledge of two-seat training glider operations and standard US signals and procedures. Weak-link and placard limitations, and all airspeeds, are omitted: they belong to the individual glider's flight manual and weight-and-balance paperwork."
+    },
+    "transcription": {
+      "method": "authored",
+      "tool": "claude-opus-5",
+      "date": "2026-08-10"
+    },
+    "contributors": [
+      {
+        "name": "Open Checklists project (initial schema examples)",
+        "role": [
+          "author"
+        ]
+      }
+    ],
+    "revision": {
+      "file_revision": "0.1.0",
+      "updated": "2026-08-10"
+    }
+  },
+  "verification": {
+    "source_fidelity": "not_applicable",
+    "operational_review": "none",
+    "completeness": "partial",
+    "known_issues": [
+      {
+        "severity": "safety_defect",
+        "description": "No airspeeds or weight limits. Club and site procedures for signals, release points and pattern entry vary and override anything here.",
+        "location": "whole file"
+      },
+      {
+        "severity": "content_gap",
+        "description": "Aerotow only. No winch or auto-tow launch procedures, and no spin recovery section.",
+        "location": "whole file"
+      }
+    ]
+  },
+  "rights": {
+    "status": "original_expression",
+    "corpus_license": "CC-BY-4.0",
+    "redistribution": "attribution_required"
+  },
+  "sections": [
+    {
+      "id": "preflight",
+      "phase": "preflight_inspection",
+      "title": "Daily and Preflight Inspection",
+      "items": [
+        {
+          "type": "action",
+          "text": "Canopy and latches",
+          "response": "CONDITION, SECURE",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Controls",
+          "response": "FREE, FULL TRAVEL, CORRECT SENSE",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Control connections and safeties",
+          "response": "CHECKED",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Spoilers",
+          "response": "OPERATE, LOCK CLOSED",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Tow release",
+          "response": "OPERATES AND RESETS",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Wings, fuselage, tail surfaces",
+          "response": "NO DAMAGE, FABRIC INTACT",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Tailwheel or skid, main wheel and tire",
+          "response": "CONDITION",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Pitot and static",
+          "response": "UNOBSTRUCTED",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Ballast and placards",
+          "response": "CORRECT FOR OCCUPANTS",
+          "tickable": true
+        }
+      ]
+    },
+    {
+      "id": "prelaunch",
+      "phase": "before_takeoff",
+      "title": "Pre-Launch",
+      "items": [
+        {
+          "type": "action",
+          "text": "Straps",
+          "response": "TIGHT, ALL OCCUPANTS",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Instruments",
+          "response": "ALTIMETER SET, ZEROED AS REQUIRED",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Controls",
+          "response": "FREE, CORRECT",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Canopy",
+          "response": "CLOSED AND LOCKED",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Trim",
+          "response": "SET",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Spoilers",
+          "response": "CLOSED AND LOCKED",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Tow rope and weak link",
+          "response": "CORRECT, ATTACHED",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Wind and traffic",
+          "response": "CHECKED",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Launch emergency plan",
+          "response": "BRIEFED ALOUD",
+          "tickable": true,
+          "detail": "State the plan for a rope break below 200 feet, between 200 feet and pattern altitude, and above pattern altitude, and the landing option for each."
+        },
+        {
+          "type": "action",
+          "text": "Wing runner and tow pilot",
+          "response": "READY, SIGNAL GIVEN",
+          "tickable": true
+        }
+      ]
+    },
+    {
+      "id": "rope-break-low",
+      "phase": "other",
+      "phase_label": "Rope break or tow failure below 200 feet",
+      "title": "Rope Break Below 200 Feet",
+      "criticality": "emergency",
+      "condition": "Tow rope breaks or tow is released below approximately 200 feet AGL",
+      "items": [
+        {
+          "type": "warning",
+          "text": "Do not attempt a turn back to the runway from low altitude. Land ahead, accepting whatever is in front of the glider.",
+          "tickable": false
+        },
+        {
+          "type": "action",
+          "id": "rbl-attitude",
+          "text": "Nose",
+          "response": "LOWER TO APPROACH ATTITUDE",
+          "memory_item": true,
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "id": "rbl-release",
+          "text": "Tow release",
+          "response": "PULL, TWICE",
+          "memory_item": true,
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "id": "rbl-spoilers",
+          "text": "Spoilers",
+          "response": "AS REQUIRED",
+          "memory_item": true,
+          "tickable": true
+        },
+        {
+          "type": "challenge",
+          "text": "Land straight ahead",
+          "tickable": true
+        }
+      ]
+    },
+    {
+      "id": "rope-break-high",
+      "phase": "other",
+      "phase_label": "Rope break or tow failure at or above pattern altitude",
+      "title": "Rope Break At or Above Pattern Altitude",
+      "criticality": "abnormal",
+      "condition": "Tow failure with sufficient height to fly a pattern",
+      "items": [
+        {
+          "type": "action",
+          "id": "rbh-release",
+          "text": "Tow release",
+          "response": "PULL, TWICE",
+          "memory_item": true,
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Airspeed",
+          "response": "ESTABLISH BEST GLIDE",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Landing area",
+          "response": "SELECTED",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Pattern",
+          "response": "FLOWN, ADJUSTED FOR HEIGHT",
+          "tickable": true
+        },
+        {
+          "type": "reference",
+          "text": "Continue with the normal approach and landing checklist.",
+          "tickable": false,
+          "reference": {
+            "section_id": "approach-landing"
+          }
+        }
+      ]
+    },
+    {
+      "id": "approach-landing",
+      "phase": "before_landing",
+      "title": "Approach and Landing",
+      "items": [
+        {
+          "type": "action",
+          "text": "Straps",
+          "response": "TIGHT",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Landing area",
+          "response": "CONFIRMED CLEAR",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Airspeed",
+          "response": "APPROACH SPEED SET FOR CONDITIONS",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Spoilers",
+          "response": "USED TO CONTROL GLIDE PATH",
+          "tickable": true
+        },
+        {
+          "type": "note",
+          "text": "Plan to land long rather than short. Undershooting is not recoverable in a glider.",
+          "tickable": false
+        }
+      ]
+    },
+    {
+      "id": "after-landing",
+      "phase": "after_landing",
+      "title": "After Landing",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "Maintain wings level with aileron until the glider stops",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Spoilers",
+          "response": "OPEN",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Canopy",
+          "response": "AS REQUIRED",
+          "tickable": true
+        },
+        {
+          "type": "challenge",
+          "text": "Clear the runway and report clear",
+          "tickable": true
+        }
+      ]
+    }
+  ]
+}

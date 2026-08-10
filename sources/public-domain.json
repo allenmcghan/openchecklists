@@ -1,0 +1,390 @@
+{
+  "$comment": "Curated manifest of public-domain source documents for the corpus. Every entry states its rights basis, because 'found on a government site' is not a rights determination. Fetch with tools/acquire.py; the tool refuses hosts that are not on its allowlist and names freechecklists.net in its denylist with the reason.",
+  "documents": [
+    {
+      "id": "faa-afh-8083-3c-ch2",
+      "source": {
+        "kind": "government_publication",
+        "title": "Airplane Flying Handbook, Chapter 2: Ground Operations",
+        "publisher": "U.S. Department of Transportation, Federal Aviation Administration, Flight Standards Service",
+        "document_number": "FAA-H-8083-3C",
+        "publication_date": "2021",
+        "url": "https://www.faa.gov/regulations_policies/handbooks_manuals/aviation/airplane_handbook"
+      },
+      "rights": {
+        "status": "public_domain",
+        "public_domain_basis": "us_government_work",
+        "redistribution": "unrestricted"
+      },
+      "text_layer": "embedded",
+      "notes": "Text extracts cleanly with PyMuPDF; no OCR needed. Generic single-engine procedures, not type-specific. Already transcribed as examples/faa-generic-sep-ground-operations.ocl.json.",
+      "assets": [
+        {
+          "filename": "03_afh_ch2.pdf",
+          "url": "https://www.faa.gov/sites/faa.gov/files/regulations_policies/handbooks_manuals/aviation/airplane_handbook/03_afh_ch2.pdf",
+          "sha256": "83d499db7a4b2ff1f5f90241d53ec80a83514241291de94051a2b0c3c4fe7142"
+        }
+      ]
+    },
+    {
+      "id": "usaf-to-1t-34a-1",
+      "source": {
+        "kind": "government_publication",
+        "title": "Flight Handbook, USAF Series T-34A Aircraft",
+        "publisher": "United States Air Force",
+        "document_number": "T.O. 1T-34A-1",
+        "revision": "10 February 1958",
+        "publication_date": "1958",
+        "url": "https://archive.org/details/t-o-1-t-34-a-1-flight-handbook-1958"
+      },
+      "rights": {
+        "status": "public_domain",
+        "public_domain_basis": "us_government_work",
+        "redistribution": "unrestricted"
+      },
+      "text_layer": "ocr_partially_inverted",
+      "notes": "High-value: the T-34 is flown by civilians today in the experimental/limited category, and the handbook carries a full CONDENSED CHECK LIST for normal and emergency procedures. OCR CAVEAT, measured rather than assumed: 12 of 164 pages extract as mojibake (>15% non-ASCII), e.g. '\"AAO - SUMS PY \"FZ' where the page reads '24. All switches - OFF.' Those pages are 180 degrees inverted, and three of them (49, 51, 53) sit inside the block marked 'CUT ON LINE' (pages 48-61). The cause is the original print design, not the scan: the condensed checklist is a cut-out card whose alternating panels are printed upside down so they read correctly once folded. The consequence for the pipeline is pointed -- the least reliably OCR'd pages are exactly the ones containing the checklist. Rotation detection must be a pipeline stage, and it must be per page rather than per document, since /Rotate is 0 on all 164 pages.",
+      "assets": [
+        {
+          "filename": "T-O-1T-34A-1-Flight-Handbook-1958_djvu.txt",
+          "url": "https://archive.org/download/t-o-1-t-34-a-1-flight-handbook-1958/T-O-1T-34A-1-Flight-Handbook%201958_djvu.txt",
+          "sha256": "0fb0f5c3e290bdb0eecfde7361457f67ae115414305ee3995abd4452683b21a0"
+        },
+        {
+          "filename": "T-O-1T-34A-1-Flight-Handbook-1958.pdf",
+          "url": "https://archive.org/download/t-o-1-t-34-a-1-flight-handbook-1958/T-O-1T-34A-1-Flight-Handbook%201958_text.pdf",
+          "sha256": "6482663b89c0fb5c0eeae9effe4cec1eb1734e6f359c81dab59dce4d7bb5c633"
+        }
+      ]
+    },
+    {
+      "id": "faa-nasr-28day",
+      "source": {
+        "kind": "government_publication",
+        "title": "28 Day NASR Subscription (airports, runways, frequencies, navaids)",
+        "publisher": "U.S. Department of Transportation, Federal Aviation Administration",
+        "revision": "Effective 2026-08-06 AIRAC cycle",
+        "url": "https://www.faa.gov/air_traffic/flight_info/aeronav/aero_data/NASR_Subscription/"
+      },
+      "rights": {
+        "status": "public_domain",
+        "public_domain_basis": "us_government_work",
+        "redistribution": "unrestricted"
+      },
+      "text_layer": "structured_csv",
+      "notes": "248 MB subscriber zip containing an inner CSV_Data bundle; parse that rather than the 232 MB fixed-width APT.txt. Ingest with tools/airports.py, which emits a lean search index plus 35 detail shards. NOT COMMITTED: the ingested output is ~30 MB, so data/ is gitignored and the site build generates airport pages only when the data is present. Re-ingest every 28 days -- the URL embeds the AIRAC effective date, and the effective date is carried through into cycle.json and shown on every airport page, because a stale frequency is worse than no frequency.",
+      "assets": [
+        {
+          "filename": "28DaySubscription_Effective_2026-08-06.zip",
+          "url": "https://nfdc.faa.gov/webContent/28DaySub/28DaySubscription_Effective_2026-08-06.zip",
+          "sha256": "148b56f2735a7b3e25f405a7aae0653f70477d83ef2dae591cb55306313ece15"
+        }
+      ]
+    },
+    {
+      "id": "faa-ac-43-13-1b",
+      "source": {
+        "kind": "government_publication",
+        "title": "Acceptable Methods, Techniques, and Practices — Aircraft Inspection and Repair",
+        "publisher": "U.S. Department of Transportation, Federal Aviation Administration",
+        "document_number": "AC 43.13-1B",
+        "revision": "Change 1",
+        "url": "https://www.faa.gov/documentLibrary/media/Advisory_Circular/AC_43.13-1B_w-chg1.pdf"
+      },
+      "rights": {
+        "status": "public_domain",
+        "public_domain_basis": "us_government_work",
+        "redistribution": "unrestricted"
+      },
+      "text_layer": "embedded",
+      "notes": "The core airframe maintenance and repair reference, and the single most useful public-domain troubleshooting document for this audience. Full text is indexable because it is a US Government work.",
+      "assets": [
+        {
+          "filename": "AC_43.13-1B_w-chg1.pdf",
+          "url": "https://www.faa.gov/documentLibrary/media/Advisory_Circular/AC_43.13-1B_w-chg1.pdf",
+          "sha256": "8dc99dd41334381b287ae02d03dc29928d9eacb1035b67aa24c5a0525324ee73"
+        }
+      ]
+    },
+    {
+      "id": "faa-amt-general",
+      "source": {
+        "kind": "government_publication",
+        "title": "Aviation Maintenance Technician Handbook — General",
+        "publisher": "U.S. Department of Transportation, Federal Aviation Administration",
+        "document_number": "FAA-H-8083-30A",
+        "url": "https://www.faa.gov/regulations_policies/handbooks_manuals/aircraft"
+      },
+      "rights": {
+        "status": "public_domain",
+        "public_domain_basis": "us_government_work",
+        "redistribution": "unrestricted"
+      },
+      "text_layer": "embedded",
+      "notes": "68 MB. Covers materials, processes, inspection, weight and balance, and ground handling.",
+      "assets": [
+        {
+          "filename": "amt_general_handbook.pdf",
+          "url": "https://www.faa.gov/sites/faa.gov/files/regulations_policies/handbooks_manuals/aviation/amt_general_handbook.pdf",
+          "sha256": "3c6b592cb6be8df01905fceaba2db3127c2c0fc2b61001ad1692bbd2e266fdaa"
+        }
+      ]
+    },
+    {
+      "id": "faa-phak",
+      "source": {
+        "kind": "government_publication",
+        "title": "Pilot's Handbook of Aeronautical Knowledge",
+        "publisher": "U.S. Department of Transportation, Federal Aviation Administration",
+        "document_number": "FAA-H-8083-25C",
+        "url": "https://www.faa.gov/regulations_policies/handbooks_manuals/aviation/faa-h-8083-25c.pdf"
+      },
+      "rights": {
+        "status": "public_domain",
+        "public_domain_basis": "us_government_work",
+        "redistribution": "unrestricted"
+      },
+      "text_layer": "embedded",
+      "notes": "The core knowledge text for student pilots and the basis of the private pilot knowledge test.",
+      "assets": [
+        {
+          "filename": "faa-h-8083-25c.pdf",
+          "url": "https://www.faa.gov/regulations_policies/handbooks_manuals/aviation/faa-h-8083-25c.pdf",
+          "sha256": "247929cace0ab56b376e683eba540cc4c8f39f199ab35414e8b604e24f395cb7"
+        }
+      ]
+    },
+    {
+      "id": "faa-ifh",
+      "source": {
+        "kind": "government_publication",
+        "title": "Instrument Flying Handbook",
+        "publisher": "U.S. Department of Transportation, Federal Aviation Administration",
+        "document_number": "FAA-H-8083-15B",
+        "url": "https://www.faa.gov/sites/faa.gov/files/regulations_policies/handbooks_manuals/aviation/FAA-H-8083-15B.pdf"
+      },
+      "rights": {
+        "status": "public_domain",
+        "public_domain_basis": "us_government_work",
+        "redistribution": "unrestricted"
+      },
+      "text_layer": "embedded",
+      "notes": "Instrument rating knowledge text.",
+      "assets": [
+        {
+          "filename": "FAA-H-8083-15B.pdf",
+          "url": "https://www.faa.gov/sites/faa.gov/files/regulations_policies/handbooks_manuals/aviation/FAA-H-8083-15B.pdf",
+          "sha256": "15cbf13fef6bf9810ad38d1f5bbff318133554a6ca118c4474bc1760ad9059d5"
+        }
+      ]
+    },
+    {
+      "id": "faa-wb",
+      "source": {
+        "kind": "government_publication",
+        "title": "Aircraft Weight and Balance Handbook",
+        "publisher": "U.S. Department of Transportation, Federal Aviation Administration",
+        "document_number": "FAA-H-8083-1",
+        "url": "https://www.faa.gov/sites/faa.gov/files/regulations_policies/handbooks_manuals/aviation/FAA-H-8083-1.pdf"
+      },
+      "rights": {
+        "status": "public_domain",
+        "public_domain_basis": "us_government_work",
+        "redistribution": "unrestricted"
+      },
+      "text_layer": "embedded",
+      "notes": "Weight and balance theory and computation, relevant to every modified experimental.",
+      "assets": [
+        {
+          "filename": "FAA-H-8083-1.pdf",
+          "url": "https://www.faa.gov/sites/faa.gov/files/regulations_policies/handbooks_manuals/aviation/FAA-H-8083-1.pdf",
+          "sha256": "84015042cdf8f4ab46cfec8a55fd47e9c96cbe95b423f0f6cab14e4425079a10"
+        }
+      ]
+    },
+    {
+      "id": "faa-awh",
+      "source": {
+        "kind": "government_publication",
+        "title": "Aviation Weather Handbook",
+        "publisher": "U.S. Department of Transportation, Federal Aviation Administration",
+        "document_number": "FAA-H-8083-28B",
+        "url": "https://www.faa.gov/sites/faa.gov/files/FAA-H-8083-28B.pdf"
+      },
+      "rights": {
+        "status": "public_domain",
+        "public_domain_basis": "us_government_work",
+        "redistribution": "unrestricted"
+      },
+      "text_layer": "embedded",
+      "notes": "Consolidates the former AC 00-6, AC 00-45, AC 00-24, AC 00-30 and AC 00-54 into one weather text. Revision B is current; the handbook is published as 28B rather than the 28 the landing page is named for.",
+      "assets": [
+        {
+          "filename": "FAA-H-8083-28B.pdf",
+          "url": "https://www.faa.gov/sites/faa.gov/files/FAA-H-8083-28B.pdf",
+          "sha256": "2a87e4a5613e2a8e060aaf83a95dfc55b61b0e576f5b783df9fdcebe62da62c3"
+        }
+      ]
+    },
+    {
+      "id": "faa-rmh",
+      "source": {
+        "kind": "government_publication",
+        "title": "Risk Management Handbook",
+        "publisher": "U.S. Department of Transportation, Federal Aviation Administration",
+        "document_number": "FAA-H-8083-2A",
+        "url": "https://www.faa.gov/sites/faa.gov/files/2022-06/risk_management_handbook_2A.pdf"
+      },
+      "rights": {
+        "status": "public_domain",
+        "public_domain_basis": "us_government_work",
+        "redistribution": "unrestricted"
+      },
+      "text_layer": "embedded",
+      "notes": "Aeronautical decision-making, hazard identification and the risk assessment tools the ACS tests on. The single-pilot resource management text behind the risk management elements of every practical test.",
+      "assets": [
+        {
+          "filename": "risk_management_handbook_2A.pdf",
+          "url": "https://www.faa.gov/sites/faa.gov/files/2022-06/risk_management_handbook_2A.pdf",
+          "sha256": "519443a598eedd34c1824ad2ea482f393af0b80e52649e33c0e24a351e4c78bf"
+        }
+      ]
+    },
+    {
+      "id": "acs-private-airplane",
+      "source": {
+        "kind": "government_publication",
+        "title": "Airman Certification Standards — Private Pilot Airplane",
+        "publisher": "U.S. Department of Transportation, Federal Aviation Administration",
+        "document_number": "FAA-S-ACS-6",
+        "url": "https://www.faa.gov/training_testing/testing/acs/private_airplane_acs_6.pdf"
+      },
+      "rights": {
+        "status": "public_domain",
+        "public_domain_basis": "us_government_work",
+        "redistribution": "unrestricted"
+      },
+      "text_layer": "embedded",
+      "notes": "The standard a private pilot checkride is conducted against, task by task.",
+      "assets": [
+        {
+          "filename": "private_airplane_acs_6.pdf",
+          "url": "https://www.faa.gov/training_testing/testing/acs/private_airplane_acs_6.pdf",
+          "sha256": "46ed6625723b0b7f37b3274cdb5170519f88baf28aec1f925286ef24909ea824"
+        }
+      ]
+    },
+    {
+      "id": "acs-instrument-airplane",
+      "source": {
+        "kind": "government_publication",
+        "title": "Airman Certification Standards — Instrument Rating Airplane",
+        "publisher": "U.S. Department of Transportation, Federal Aviation Administration",
+        "document_number": "FAA-S-ACS-8",
+        "url": "https://www.faa.gov/training_testing/testing/acs/instrument_rating_airplane_acs_8.pdf"
+      },
+      "rights": {
+        "status": "public_domain",
+        "public_domain_basis": "us_government_work",
+        "redistribution": "unrestricted"
+      },
+      "text_layer": "embedded",
+      "notes": "Instrument rating practical test standard.",
+      "assets": [
+        {
+          "filename": "instrument_rating_airplane_acs_8.pdf",
+          "url": "https://www.faa.gov/training_testing/testing/acs/instrument_rating_airplane_acs_8.pdf",
+          "sha256": "5facdf8fdb8ed8c85991f2440d5ba2ea50c0c996d5c02c3d9a9fa5dfa5011864"
+        }
+      ]
+    },
+    {
+      "id": "acs-commercial-airplane",
+      "source": {
+        "kind": "government_publication",
+        "title": "Airman Certification Standards — Commercial Pilot Airplane",
+        "publisher": "U.S. Department of Transportation, Federal Aviation Administration",
+        "document_number": "FAA-S-ACS-7",
+        "url": "https://www.faa.gov/training_testing/testing/acs/commercial_airplane_acs_7.pdf"
+      },
+      "rights": {
+        "status": "public_domain",
+        "public_domain_basis": "us_government_work",
+        "redistribution": "unrestricted"
+      },
+      "text_layer": "embedded",
+      "notes": "Commercial pilot practical test standard.",
+      "assets": [
+        {
+          "filename": "commercial_airplane_acs_7.pdf",
+          "url": "https://www.faa.gov/training_testing/testing/acs/commercial_airplane_acs_7.pdf",
+          "sha256": "98422e80f3f72cc39be2daba6e3c4dc5d87417e735ccb50be4c2b6c9a36f0341"
+        }
+      ]
+    },
+    {
+      "id": "acs-cfi-airplane",
+      "source": {
+        "kind": "government_publication",
+        "title": "Airman Certification Standards — Flight Instructor Airplane",
+        "publisher": "U.S. Department of Transportation, Federal Aviation Administration",
+        "document_number": "FAA-S-ACS-25",
+        "url": "https://www.faa.gov/training_testing/testing/acs/cfi_airplane_acs_25.pdf"
+      },
+      "rights": {
+        "status": "public_domain",
+        "public_domain_basis": "us_government_work",
+        "redistribution": "unrestricted"
+      },
+      "text_layer": "embedded",
+      "notes": "Flight instructor practical test standard.",
+      "assets": [
+        {
+          "filename": "cfi_airplane_acs_25.pdf",
+          "url": "https://www.faa.gov/training_testing/testing/acs/cfi_airplane_acs_25.pdf",
+          "sha256": "67f98971c8cb53b5e8a7869c9a3b43424070ab1c5b2594492f24f8b823d41caf"
+        }
+      ]
+    },
+    {
+      "id": "acs-atp-airplane",
+      "source": {
+        "kind": "government_publication",
+        "title": "Airman Certification Standards — Airline Transport Pilot Airplane",
+        "publisher": "U.S. Department of Transportation, Federal Aviation Administration",
+        "document_number": "FAA-S-ACS-11",
+        "url": "https://www.faa.gov/training_testing/testing/acs/atp_airplane_acs_11.pdf"
+      },
+      "rights": {
+        "status": "public_domain",
+        "public_domain_basis": "us_government_work",
+        "redistribution": "unrestricted"
+      },
+      "text_layer": "embedded",
+      "notes": "ATP practical test standard.",
+      "assets": [
+        {
+          "filename": "atp_airplane_acs_11.pdf",
+          "url": "https://www.faa.gov/training_testing/testing/acs/atp_airplane_acs_11.pdf",
+          "sha256": "ed2d5a2ba31de3ed00b9f8f6f60b255573df96879ddc851f7597093a13e9705a"
+        }
+      ]
+    }
+  ],
+  "discovery_recipes": {
+    "$comment": "Search patterns that surface public-domain aircraft documentation. Run with `tools/acquire.py discover \"<query>\"`. Recorded because finding these took longer than fetching them, and because the useful phrasings are not obvious.",
+    "internet_archive": [
+      "NATOPS flight manual",
+      "flight handbook USAF series",
+      "technical order flight handbook aircraft",
+      "pilot's flight operating instructions",
+      "aircraft operator manual army"
+    ],
+    "notes": [
+      "US military flight manuals are the richest type-specific public-domain lane, and many cover aircraft civilians fly today: T-34, T-6/SNJ, T-28, L-19/O-1, L-17, PT-series.",
+      "Check authorship before claiming 17 USC 105. Contractor-authored technical data is not automatically a US Government work even when it carries a military document number.",
+      "FAA Type Certificate Data Sheets (drs.faa.gov) are US Government works containing certificated limitations and placards for civil types. They are not checklists, but they are an authoritative public-domain source for the numeric limitations that transcribed checklists must not invent. Worth mining once the checklist structure is settled.",
+      "freechecklists.net may be browsed as an index to learn which documents exist for which types -- facts about what exists are not protected -- but its files must not be copied. See docs/05-product-and-sourcing.md section 2."
+    ]
+  }
+}

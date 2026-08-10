@@ -1,0 +1,764 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://openchecklists.net/schema/open-checklist-1.0.schema.json",
+  "title": "Open Checklist",
+  "description": "A machine-readable aircraft checklist. One file describes the checklists for one aircraft type, variant, or individual airframe. Structure is semantic, not presentational: consumers decide layout.",
+  "type": "object",
+  "required": [
+    "open_checklist_version",
+    "id",
+    "title",
+    "aircraft",
+    "provenance",
+    "verification",
+    "rights",
+    "sections"
+  ],
+  "additionalProperties": false,
+
+  "properties": {
+    "open_checklist_version": {
+      "description": "Major.minor version of this schema the file targets. Consumers must refuse files with an unknown major version.",
+      "type": "string",
+      "const": "1.0"
+    },
+
+    "id": {
+      "description": "Stable, permanent identifier. Lowercase slug. Never reused for a different aircraft, never changed once published; the file may move but this id follows it.",
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+      "minLength": 3,
+      "maxLength": 100
+    },
+
+    "title": {
+      "description": "Human-readable name for this checklist set, e.g. 'Cessna 172N Normal and Emergency Procedures'.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+
+    "description": {
+      "type": "string",
+      "maxLength": 2000
+    },
+
+    "aircraft": { "$ref": "#/$defs/aircraft" },
+    "derived_from": { "$ref": "#/$defs/derived_from" },
+    "provenance": { "$ref": "#/$defs/provenance" },
+    "verification": { "$ref": "#/$defs/verification" },
+    "rights": { "$ref": "#/$defs/rights" },
+
+    "units": {
+      "description": "Units the numeric values in item text are expressed in. Stated explicitly because a mis-read unit is a safety defect.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "airspeed": { "enum": ["kt", "mph", "km/h"] },
+        "altitude": { "enum": ["ft", "m"] },
+        "fuel": { "enum": ["usgal", "impgal", "l", "lb", "kg"] },
+        "weight": { "enum": ["lb", "kg"] },
+        "pressure": { "enum": ["inhg", "hpa", "psi"] },
+        "temperature": { "enum": ["f", "c"] }
+      }
+    },
+
+    "speeds": {
+      "description": "Named reference speeds, in the unit given by units.airspeed. Optional, but strongly recommended: it lets software show V-speeds without parsing prose.",
+      "type": "object",
+      "additionalProperties": {
+        "oneOf": [
+          { "type": "number", "exclusiveMinimum": 0 },
+          {
+            "type": "object",
+            "required": ["min", "max"],
+            "additionalProperties": false,
+            "properties": {
+              "min": { "type": "number", "exclusiveMinimum": 0 },
+              "max": { "type": "number", "exclusiveMinimum": 0 }
+            }
+          }
+        ]
+      },
+      "propertyNames": { "pattern": "^[a-z][a-z0-9_]*$" }
+    },
+
+    "sections": {
+      "description": "The checklists themselves, in the order a pilot would normally encounter them.",
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/section" }
+    },
+
+    "extensions": {
+      "description": "Namespaced consumer-specific data. Keys must contain a dot-separated vendor prefix. Consumers must ignore unknown extensions; nothing safety-relevant may live here.",
+      "type": "object",
+      "propertyNames": { "pattern": "^[a-z0-9-]+\\.[a-z0-9_.-]+$" }
+    }
+  },
+
+  "$defs": {
+    "aircraft": {
+      "type": "object",
+      "required": ["make", "model", "category"],
+      "additionalProperties": false,
+      "properties": {
+        "make": {
+          "description": "Manufacturer as it appears on the airworthiness paperwork or kit documentation, e.g. 'Cessna', 'U-Fly-It'.",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "model": {
+          "description": "Model designation, e.g. '172', 'Aerolite 103'.",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "variant": {
+          "description": "Series/variant suffix that changes procedures, e.g. 'N', 'S G1000'.",
+          "type": "string",
+          "maxLength": 100
+        },
+        "icao_type": {
+          "description": "ICAO aircraft type designator where one exists. Many ultralights have none; omit rather than invent.",
+          "type": "string",
+          "pattern": "^[A-Z0-9]{2,4}$"
+        },
+        "category": {
+          "description": "Regulatory/operating category this file is written for. Drives how strictly the corpus treats the file.",
+          "enum": [
+            "part103_ultralight",
+            "light_sport",
+            "experimental_amateur_built",
+            "experimental_exhibition",
+            "primary",
+            "standard_normal",
+            "standard_utility",
+            "standard_acrobatic",
+            "standard_commuter",
+            "standard_transport",
+            "restricted",
+            "glider",
+            "powered_parachute",
+            "weight_shift_control",
+            "rotorcraft",
+            "balloon",
+            "other"
+          ]
+        },
+        "engine": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["make", "model"],
+            "additionalProperties": false,
+            "properties": {
+              "make": { "type": "string", "minLength": 1, "maxLength": 100 },
+              "model": { "type": "string", "minLength": 1, "maxLength": 100 },
+              "type": {
+                "enum": ["piston_2stroke", "piston_4stroke", "turboprop", "turbofan", "turbojet", "electric", "rotary", "none"]
+              },
+              "count": { "type": "integer", "minimum": 1, "maximum": 12 }
+            }
+          }
+        },
+        "propeller": {
+          "enum": ["fixed_pitch", "ground_adjustable", "constant_speed", "feathering", "reversing", "none"]
+        },
+        "gear": { "enum": ["fixed_tricycle", "fixed_tailwheel", "retractable", "amphibious", "float", "ski", "skid"] },
+        "airframe_family": {
+          "description": "Slug grouping every variation of the same basic airframe, e.g. 'kitfox', 'aerolite-103', 'rv-6'. The field that makes 'show me what other people flying this airframe did' work: two files with different engines, panels and gross weights still share a family. Assign by airframe, not by engine or equipment.",
+          "type": "string",
+          "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+          "maxLength": 60
+        },
+        "modifications": {
+          "description": "What differs from the baseline airframe. The heart of an experimental and Part 103 corpus: engine swaps, prop changes, gross weight increases and panel rebuilds are the norm rather than the exception, and they are exactly what makes one builder's checklist useful to another. Each entry should be specific enough that someone with the same modification recognises it.",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["kind", "description"],
+            "additionalProperties": false,
+            "properties": {
+              "kind": {
+                "enum": [
+                  "engine_swap",
+                  "propeller_change",
+                  "fuel_system",
+                  "electrical_system",
+                  "avionics",
+                  "instrument_panel",
+                  "gross_weight_increase",
+                  "aerodynamic",
+                  "landing_gear",
+                  "float_or_ski_install",
+                  "control_system",
+                  "ballistic_parachute",
+                  "structural",
+                  "other"
+                ]
+              },
+              "description": { "type": "string", "minLength": 1, "maxLength": 500 },
+              "affects_procedures": {
+                "description": "True when this modification changed the checklist rather than only the airframe. A mod that changes nothing procedural is still worth recording so others can find it, but this flag is what tells a reader whether the differences matter to how the aircraft is flown.",
+                "type": "boolean"
+              },
+              "approval": {
+                "description": "How the modification is authorised. part103_none is honest rather than dismissive: Part 103 vehicles need no approval for any of this.",
+                "enum": ["stc", "field_approval", "337", "manufacturer_kit_option", "owner_designed", "part103_none", "unknown"]
+              },
+              "reference": { "type": "string", "maxLength": 300 }
+            }
+          }
+        },
+        "airframe_specific": {
+          "description": "Set when this file documents one individual airframe rather than a type. Type-level files must omit it.",
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "registration": { "type": "string", "maxLength": 20 },
+            "serial_number": { "type": "string", "maxLength": 50 },
+            "builder": { "type": "string", "maxLength": 200 },
+            "first_flight": { "type": "string", "format": "date" },
+            "hours": { "type": "number", "minimum": 0 },
+            "notes": { "type": "string", "maxLength": 1000 }
+          }
+        }
+      }
+    },
+
+    "derived_from": {
+      "description": "The checklist this one was forked from. Records lineage without inheriting content: a derived file is complete and standalone, so a pilot always holds the whole checklist and never a composition resolved at render time. That is deliberate — inheritance in a safety document makes it unclear what you are actually holding, while attribution gives the same discoverability with none of the ambiguity.",
+      "type": "object",
+      "required": ["checklist_id", "relationship"],
+      "additionalProperties": false,
+      "properties": {
+        "checklist_id": { "type": "string", "maxLength": 100 },
+        "content_hash": {
+          "description": "The parent's hash at the time of the fork. Lets tooling show a true three-way picture: what the parent said then, what it says now, and what this file changed.",
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "file_revision": { "type": "string", "maxLength": 50 },
+        "url": { "type": "string", "format": "uri" },
+        "relationship": {
+          "description": "variant_of = same airframe, different configuration. airframe_specific_copy = the same configuration tailored to one individual aircraft. translation = same content, different language. reformatting = structural cleanup with no procedural change. correction = fixing an error in the parent, which should usually be a field report against the parent instead.",
+          "enum": ["variant_of", "airframe_specific_copy", "translation", "reformatting", "correction"]
+        },
+        "changes_summary": {
+          "description": "Plain-language account of what was changed and why. This is what another builder actually reads, so it should say what the modification forced, not just that a fork happened.",
+          "type": "string",
+          "maxLength": 2000
+        },
+        "diverged": {
+          "description": "False when the fork intends to track the parent's future corrections; true when it has deliberately gone its own way.",
+          "type": "boolean"
+        }
+      }
+    },
+
+    "provenance": {
+      "description": "Where this content came from and who is answerable for it. Required: an unattributed checklist cannot be assessed for trustworthiness or for rights.",
+      "type": "object",
+      "required": ["source", "transcription", "contributors"],
+      "additionalProperties": false,
+      "properties": {
+        "source": { "$ref": "#/$defs/source" },
+        "transcription": {
+          "type": "object",
+          "required": ["method", "date"],
+          "additionalProperties": false,
+          "properties": {
+            "method": {
+              "description": "How the content got into this file. 'ocr_assisted' and 'ocr_raw' mean a machine read the source; both require review before the file may be trusted.",
+              "enum": ["ocr_raw", "ocr_assisted", "manual_transcription", "authored", "format_conversion"]
+            },
+            "tool": {
+              "description": "Tool and version that produced the transcription, e.g. 'claude-opus-5'. Required for OCR methods so a systematic tool error can be traced and re-run.",
+              "type": "string",
+              "maxLength": 200
+            },
+            "converted_from": {
+              "description": "For method=format_conversion: the source format id, e.g. 'ace', 'gplt', 'fmd'.",
+              "type": "string",
+              "maxLength": 50
+            },
+            "date": { "type": "string", "format": "date" }
+          },
+          "allOf": [
+            {
+              "if": { "properties": { "method": { "enum": ["ocr_raw", "ocr_assisted"] } }, "required": ["method"] },
+              "then": { "required": ["tool"] }
+            },
+            {
+              "if": { "properties": { "method": { "const": "format_conversion" } }, "required": ["method"] },
+              "then": { "required": ["converted_from"] }
+            }
+          ]
+        },
+        "contributors": {
+          "description": "People answerable for this file. At least one. A contributor's presence here asserts they accepted the contributor warranty in CONTRIBUTING.md.",
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["name", "role"],
+            "additionalProperties": false,
+            "properties": {
+              "name": { "type": "string", "minLength": 1, "maxLength": 200 },
+              "contact": {
+                "description": "Email or URL. Optional, but a file with no reachable contributor cannot be a candidate for the highest verification states.",
+                "type": "string",
+                "maxLength": 200
+              },
+              "role": {
+                "type": "array",
+                "minItems": 1,
+                "items": { "enum": ["transcriber", "source_reviewer", "operational_reviewer", "maintainer", "author"] }
+              },
+              "credentials": {
+                "description": "Free text, e.g. 'CFI', 'A&P', 'type owner since 2011'. Never treated as verified by the project.",
+                "type": "string",
+                "maxLength": 200
+              }
+            }
+          }
+        },
+        "revision": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "file_revision": { "type": "string", "maxLength": 50 },
+            "updated": { "type": "string", "format": "date" },
+            "supersedes": { "type": "string", "maxLength": 100 },
+            "changelog_url": { "type": "string", "format": "uri" }
+          }
+        }
+      }
+    },
+
+    "source": {
+      "description": "The document this file was derived from. 'kind' drives the rights analysis, so it must be honest even when inconvenient.",
+      "type": "object",
+      "required": ["kind"],
+      "properties": {
+        "kind": {
+          "description": "What class of document the content came from. 'none' means nothing was transcribed: the content is original work by the contributor.",
+          "enum": [
+            "government_publication",
+            "manufacturer_poh",
+            "manufacturer_afm",
+            "manufacturer_flight_manual",
+            "manufacturer_kit_manual",
+            "engine_manufacturer_manual",
+            "type_club_publication",
+            "flight_school_publication",
+            "third_party_checklist",
+            "operator_procedures",
+            "simulator_product",
+            "none",
+            "unknown"
+          ]
+        },
+        "title": { "type": "string", "maxLength": 300 },
+        "publisher": { "type": "string", "maxLength": 200 },
+        "document_number": { "type": "string", "maxLength": 100 },
+        "revision": { "type": "string", "maxLength": 100 },
+        "publication_date": { "type": "string", "maxLength": 20 },
+        "pages": {
+          "description": "Page or section reference within the source, so a reviewer can find the same text.",
+          "type": "string",
+          "maxLength": 100
+        },
+        "url": { "type": "string", "format": "uri" },
+        "retrieved": { "type": "string", "format": "date" },
+        "notes": { "type": "string", "maxLength": 2000 }
+      },
+      "allOf": [
+        {
+          "comment": "Anything transcribed from a real document must identify that document well enough for a reviewer to locate it.",
+          "if": {
+            "properties": { "kind": { "not": { "enum": ["none", "unknown"] } } },
+            "required": ["kind"]
+          },
+          "then": { "required": ["title"] }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+
+    "verification": {
+      "description": "Trustworthiness of this file, on two independent axes. Neither axis implies the other: a file can be a faithful copy of a bad checklist, or a well-flown checklist that no longer matches its source.",
+      "type": "object",
+      "required": ["source_fidelity", "operational_review"],
+      "additionalProperties": false,
+      "properties": {
+        "source_fidelity": {
+          "description": "Does the content match the source document? unreviewed = nobody has checked machine or first-pass output. single_reviewed = one person other than the transcriber compared it line by line against the source. dual_reviewed = two independent people did, without seeing each other's result. not_applicable = there is no source document (authored content).",
+          "enum": ["unreviewed", "single_reviewed", "dual_reviewed", "not_applicable"]
+        },
+        "operational_review": {
+          "description": "Has this been exercised in the actual aircraft? none = never. ground_checked = walked through against the real cockpit, every control located and labelled as written. flown = flown behind in this type. Flying behind a checklist proves the items present are workable; it does NOT prove nothing is missing, so this axis can never substitute for source_fidelity.",
+          "enum": ["none", "ground_checked", "flown"]
+        },
+        "completeness": {
+          "description": "Whether the file covers the source's full procedure set or only part of it. Partial files are legitimate but must say so, because a missing emergency section is invisible to a reader.",
+          "enum": ["full", "normal_only", "partial", "excerpt"]
+        },
+        "reviews": {
+          "description": "Individual review events. Each entry is a claim by a named person, recorded so it can be audited or withdrawn.",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["type", "reviewer", "date"],
+            "additionalProperties": false,
+            "properties": {
+              "type": { "enum": ["source_comparison", "ground_check", "flight_check"] },
+              "reviewer": { "type": "string", "minLength": 1, "maxLength": 200 },
+              "date": { "type": "string", "format": "date" },
+              "source_used": {
+                "description": "For source_comparison: which document the reviewer actually held. A review against a different revision than the transcriber used is a finding, not a pass.",
+                "type": "string",
+                "maxLength": 300
+              },
+              "aircraft": { "type": "string", "maxLength": 100 },
+              "content_hash": {
+                "description": "SHA-256 of the canonical serialization of the file at review time. Lets tooling detect that content changed after the review and downgrade the state automatically.",
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              "notes": { "type": "string", "maxLength": 2000 }
+            }
+          }
+        },
+        "known_issues": {
+          "description": "Open defects the contributors are aware of. A file with an unresolved safety_defect must not be presented as usable.",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["severity", "description"],
+            "additionalProperties": false,
+            "properties": {
+              "severity": { "enum": ["safety_defect", "content_gap", "formatting", "uncertain_reading"] },
+              "description": { "type": "string", "minLength": 1, "maxLength": 1000 },
+              "location": { "type": "string", "maxLength": 200 },
+              "url": { "type": "string", "format": "uri" }
+            }
+          }
+        }
+      }
+    },
+
+    "rights": {
+      "description": "Per-file rights. Deliberately per-file and not repo-wide: the project cannot grant a licence in text it does not own, so a blanket corpus licence would be a false statement for POH-derived files.",
+      "type": "object",
+      "required": ["status"],
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "description": "Rights posture for this file. public_domain = source carries no enforceable copyright (government work, or expired/forfeited). original_expression = wording is the contributor's own, expressing procedure taken as fact. upstream_reserved = wording is substantially the source's; the project asserts no licence and redistribution may be limited. unresolved = not yet analysed; must not be published.",
+          "enum": ["public_domain", "original_expression", "licensed", "upstream_reserved", "unresolved"]
+        },
+        "corpus_license": {
+          "description": "SPDX identifier under which the project offers this file. Only meaningful when status is public_domain, original_expression, or licensed.",
+          "type": "string",
+          "maxLength": 100
+        },
+        "public_domain_basis": {
+          "description": "Why the source is public domain. Required when status is public_domain, so the claim can be checked rather than trusted.",
+          "enum": ["us_government_work", "published_without_notice_pre_1978", "notice_omitted_1978_to_1989", "renewal_not_filed_pre_1964", "term_expired", "dedicated_by_owner"]
+        },
+        "upstream_holder": { "type": "string", "maxLength": 200 },
+        "upstream_license": { "type": "string", "maxLength": 200 },
+        "permission_evidence_url": {
+          "description": "Link to written permission, where the rights rest on a grant from the holder.",
+          "type": "string",
+          "format": "uri"
+        },
+        "redistribution": {
+          "description": "What the project believes downstream users may do. 'unrestricted' requires a status other than upstream_reserved.",
+          "enum": ["unrestricted", "attribution_required", "share_alike", "no_redistribution", "unknown"]
+        },
+        "notes": { "type": "string", "maxLength": 2000 }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "status": { "const": "public_domain" } }, "required": ["status"] },
+          "then": { "required": ["public_domain_basis"] }
+        },
+        {
+          "if": { "properties": { "status": { "const": "licensed" } }, "required": ["status"] },
+          "then": { "required": ["upstream_holder", "upstream_license"] }
+        },
+        {
+          "if": { "properties": { "status": { "const": "upstream_reserved" } }, "required": ["status"] },
+          "then": {
+            "properties": {
+              "redistribution": { "not": { "const": "unrestricted" } },
+              "corpus_license": false
+            }
+          }
+        }
+      ]
+    },
+
+    "section": {
+      "description": "One checklist, e.g. 'Before Start'. Bound to a phase id so software can map it to a moment in flight without parsing the title.",
+      "type": "object",
+      "required": ["phase", "title", "items"],
+      "additionalProperties": false,
+      "properties": {
+        "phase": { "$ref": "#/$defs/phase" },
+        "phase_label": {
+          "description": "Required when phase is 'other': the real name of the phase. Prevents 'other' becoming a dumping ground with no machine meaning.",
+          "type": "string",
+          "maxLength": 100
+        },
+        "title": { "type": "string", "minLength": 1, "maxLength": 200 },
+        "criticality": {
+          "description": "Normal, abnormal, or emergency. Drives presentation and export grouping. Defaults to normal.",
+          "enum": ["normal", "abnormal", "emergency"],
+          "default": "normal"
+        },
+        "id": {
+          "description": "Stable identifier for this section within the file, for cross-references and deep links.",
+          "type": "string",
+          "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+          "maxLength": 60
+        },
+        "condition": {
+          "description": "When this checklist applies, e.g. 'Engine fire during start'. Meaningful mainly for abnormal and emergency sections.",
+          "type": "string",
+          "maxLength": 300
+        },
+        "notes": { "type": "string", "maxLength": 2000 },
+        "items": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/item" }
+        }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "phase": { "const": "other" } }, "required": ["phase"] },
+          "then": { "required": ["phase_label"] }
+        }
+      ]
+    },
+
+    "phase": {
+      "description": "Controlled vocabulary of flight phases and abnormal situations. Stable ids: values are never renamed or removed, only added. Consumers must tolerate unknown values by treating them as 'other'.",
+      "enum": [
+        "preflight_inspection",
+        "before_start",
+        "engine_start",
+        "after_start",
+        "before_taxi",
+        "taxi",
+        "before_takeoff",
+        "takeoff",
+        "after_takeoff",
+        "climb",
+        "cruise",
+        "descent",
+        "arrival",
+        "approach",
+        "before_landing",
+        "landing",
+        "go_around",
+        "after_landing",
+        "shutdown",
+        "securing",
+        "postflight",
+
+        "engine_failure_before_rotation",
+        "engine_failure_after_takeoff",
+        "engine_failure_in_flight",
+        "engine_restart_in_flight",
+        "engine_fire_ground",
+        "engine_fire_in_flight",
+        "cabin_fire",
+        "electrical_fire",
+        "smoke_removal",
+        "forced_landing",
+        "ditching",
+        "electrical_failure",
+        "alternator_failure",
+        "fuel_system_malfunction",
+        "oil_system_malfunction",
+        "landing_gear_malfunction",
+        "flap_malfunction",
+        "trim_malfunction",
+        "control_malfunction",
+        "brake_failure",
+        "pitot_static_failure",
+        "vacuum_failure",
+        "avionics_failure",
+        "autopilot_malfunction",
+        "icing",
+        "carburetor_icing",
+        "inadvertent_imc",
+        "spin_recovery",
+        "unusual_attitude_recovery",
+        "structural_damage",
+        "door_open_in_flight",
+        "emergency_descent",
+        "parachute_deployment",
+        "engine_out_landing",
+
+        "weight_and_balance",
+        "performance",
+        "limitations",
+        "reference",
+        "other"
+      ]
+    },
+
+    "item": {
+      "description": "One line of a checklist. Type determines whether it is a task at all: note, caution, warning and subtitle are information, not work, and cannot be ticked.",
+      "type": "object",
+      "required": ["type"],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "description": "action = challenge with an expected response ('Fuel selector' / 'BOTH'). challenge = a task with no stated response. subtitle = a heading inside the checklist. note/caution/warning = information of increasing severity. reference = pointer to another checklist or document. blank = deliberate visual spacing, carried only for faithful reproduction.",
+          "enum": ["action", "challenge", "subtitle", "note", "caution", "warning", "reference", "blank"]
+        },
+        "text": {
+          "description": "The challenge, heading, or informational text. Required for every type except blank.",
+          "type": "string",
+          "maxLength": 2000
+        },
+        "response": {
+          "description": "The expected response or state, conventionally upper case, e.g. 'BOTH', 'CHECK', 'FULL FORWARD'. Only meaningful for type=action.",
+          "type": "string",
+          "maxLength": 500
+        },
+        "id": {
+          "description": "Stable identifier within the section. Required for any item that is a memory item or a branch target, so references survive reordering.",
+          "type": "string",
+          "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+          "maxLength": 60
+        },
+        "tickable": {
+          "description": "Whether a consumer may present a checkbox. Derived from type and must not contradict it: information items are never tickable. Present so that consumers need no type table to behave safely.",
+          "type": "boolean"
+        },
+        "memory_item": {
+          "description": "True when this action must be performed from memory before consulting the checklist. Safety-significant and lost by every vendor format, so it is first-class here.",
+          "type": "boolean",
+          "default": false
+        },
+        "indent": {
+          "description": "Nesting depth for sub-items, 0-4. Structural, not cosmetic: an indented item is subordinate to the preceding shallower item.",
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4,
+          "default": 0
+        },
+        "detail": {
+          "description": "Longer explanation shown on demand. Never required to complete the item; anything required belongs in text or response.",
+          "type": "string",
+          "maxLength": 4000
+        },
+        "condition": {
+          "description": "Guard on this item, e.g. 'If equipped', 'Night only'.",
+          "type": "string",
+          "maxLength": 300
+        },
+        "value": {
+          "description": "Machine-readable form of a numeric response, so software can compare against sensed values instead of parsing prose.",
+          "type": "object",
+          "required": ["quantity", "unit"],
+          "additionalProperties": false,
+          "properties": {
+            "quantity": { "enum": ["airspeed", "altitude", "rpm", "pressure", "temperature", "fuel", "weight", "time", "distance", "percent", "voltage", "current", "angle"] },
+            "unit": { "type": "string", "minLength": 1, "maxLength": 20 },
+            "target": { "type": "number" },
+            "min": { "type": "number" },
+            "max": { "type": "number" },
+            "comparison": { "enum": ["equal", "at_least", "at_most", "between", "in_range"] }
+          }
+        },
+        "reference": {
+          "description": "For type=reference: what to go to. section_id points inside this file; document/text point outside it.",
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "section_id": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$", "maxLength": 60 },
+            "document": { "type": "string", "maxLength": 300 },
+            "page": { "type": "string", "maxLength": 50 },
+            "url": { "type": "string", "format": "uri" }
+          }
+        },
+        "source_confidence": {
+          "description": "Transcriber's or tool's confidence in this specific line. Set below 1.0 to flag a reading a reviewer must resolve; any item below the corpus threshold blocks promotion out of unreviewed.",
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "extensions": {
+          "type": "object",
+          "propertyNames": { "pattern": "^[a-z0-9-]+\\.[a-z0-9_.-]+$" }
+        }
+      },
+
+      "allOf": [
+        {
+          "comment": "Everything except a deliberate blank must carry text.",
+          "if": { "properties": { "type": { "not": { "const": "blank" } } }, "required": ["type"] },
+          "then": { "required": ["text"] }
+        },
+        {
+          "comment": "A blank carries nothing else of substance.",
+          "if": { "properties": { "type": { "const": "blank" } }, "required": ["type"] },
+          "then": {
+            "properties": {
+              "text": false, "response": false, "memory_item": false,
+              "value": false, "detail": false, "condition": false
+            }
+          }
+        },
+        {
+          "comment": "Only an action has an expected response or a comparable value.",
+          "if": { "properties": { "type": { "not": { "const": "action" } } }, "required": ["type"] },
+          "then": { "properties": { "response": false, "value": false } }
+        },
+        {
+          "comment": "An action must state its expected response; that is what makes it an action rather than a challenge.",
+          "if": { "properties": { "type": { "const": "action" } }, "required": ["type"] },
+          "then": { "required": ["response"] }
+        },
+        {
+          "comment": "A warning is not a task. Information items and blanks can never be ticked, and can never be memory items.",
+          "if": {
+            "properties": { "type": { "enum": ["subtitle", "note", "caution", "warning", "reference", "blank"] } },
+            "required": ["type"]
+          },
+          "then": {
+            "properties": {
+              "tickable": { "const": false },
+              "memory_item": { "const": false }
+            }
+          }
+        },
+        {
+          "comment": "Conversely, a real task is never marked untickable.",
+          "if": { "properties": { "type": { "enum": ["action", "challenge"] } }, "required": ["type"] },
+          "then": { "properties": { "tickable": { "const": true } } }
+        },
+        {
+          "comment": "A reference item must say what it refers to.",
+          "if": { "properties": { "type": { "const": "reference" } }, "required": ["type"] },
+          "then": { "required": ["reference"] }
+        },
+        {
+          "comment": "A memory item must be addressable, so tooling and reviewers can refer to it stably.",
+          "if": { "properties": { "memory_item": { "const": true } }, "required": ["memory_item"] },
+          "then": { "required": ["id"] }
+        }
+      ]
+    }
+  }
+}

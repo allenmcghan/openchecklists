@@ -1,0 +1,332 @@
+{
+  "open_checklist_version": "1.0",
+  "id": "faa-generic-sep-ground-operations",
+  "title": "Generic Single-Engine Piston — Ground Operations (FAA Airplane Flying Handbook)",
+  "description": "A type-generic ground-operations checklist assembled from the Airplane Flying Handbook, a US Government work in the public domain. Not a substitute for the AFM/POH of any specific aircraft: the Handbook itself directs the pilot to the aircraft's own checklist. Included in the corpus as a clean-rights baseline and as a worked example of the schema.",
+  "aircraft": {
+    "make": "Generic",
+    "model": "Single-Engine Piston",
+    "category": "standard_normal",
+    "engine": [
+      {
+        "make": "Generic",
+        "model": "Piston",
+        "type": "piston_4stroke",
+        "count": 1
+      }
+    ],
+    "gear": "fixed_tricycle"
+  },
+  "units": {
+    "pressure": "inhg",
+    "temperature": "f"
+  },
+  "provenance": {
+    "source": {
+      "kind": "government_publication",
+      "title": "Airplane Flying Handbook, Chapter 2: Ground Operations",
+      "publisher": "U.S. Department of Transportation, Federal Aviation Administration, Flight Standards Service",
+      "document_number": "FAA-H-8083-3C",
+      "pages": "2-21 through 2-22 (PDF pages 21-23)",
+      "url": "https://www.faa.gov/sites/faa.gov/files/regulations_policies/handbooks_manuals/aviation/airplane_handbook/03_afh_ch2.pdf",
+      "retrieved": "2026-08-10",
+      "notes": "Item text follows the Handbook's own wording for the before-takeoff systems list and the takeoff checks. The Handbook presents these as prose bullets and a numbered question list rather than as a challenge/response checklist; converting them into challenge/response pairs is an editorial act by the transcriber and is the reason source_fidelity is not simply a copy comparison."
+    },
+    "transcription": {
+      "method": "manual_transcription",
+      "tool": "claude-opus-5",
+      "date": "2026-08-10"
+    },
+    "contributors": [
+      {
+        "name": "Open Checklists project (initial schema examples)",
+        "role": [
+          "transcriber",
+          "author"
+        ]
+      }
+    ],
+    "revision": {
+      "file_revision": "0.1.0",
+      "updated": "2026-08-10"
+    }
+  },
+  "verification": {
+    "source_fidelity": "unreviewed",
+    "operational_review": "none",
+    "completeness": "partial",
+    "known_issues": [
+      {
+        "severity": "content_gap",
+        "description": "Covers taxi, before-takeoff, takeoff and after-landing checks only. Contains no preflight inspection, no engine start, no in-flight and no emergency procedures.",
+        "location": "whole file"
+      },
+      {
+        "severity": "content_gap",
+        "description": "Type-generic by construction. Every aircraft-specific value (RPM for the magneto check, vacuum range, flap settings, speeds) is either absent or a Handbook illustration, not a limitation for any real aircraft.",
+        "location": "whole file"
+      },
+      {
+        "severity": "uncertain_reading",
+        "description": "The Handbook's numbered takeoff checks are phrased as questions. They are rendered here as action/response pairs, which is an interpretation rather than a transcription.",
+        "location": "section takeoff-checks"
+      }
+    ]
+  },
+  "rights": {
+    "status": "public_domain",
+    "public_domain_basis": "us_government_work",
+    "corpus_license": "CC0-1.0",
+    "redistribution": "unrestricted",
+    "notes": "The source is a work of the United States Government prepared by FAA employees in the course of their official duties, and so is not subject to copyright under 17 U.S.C. 105. The structural markup added by this project is dedicated under CC0-1.0."
+  },
+  "sections": [
+    {
+      "id": "taxi",
+      "phase": "taxi",
+      "title": "Taxi",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "note",
+          "text": "Taxi checks are sometimes specified by the AFM/POH; accomplish any items that are required. Where none are specified, use the taxi to verify and cross-check the flight instruments.",
+          "tickable": false
+        },
+        {
+          "type": "action",
+          "text": "Airspeed indicator",
+          "response": "AT OR NEAR ZERO",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Attitude indicator",
+          "response": "PITCH AND ROLL LEVEL, NO FLAGS",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Altimeter",
+          "response": "FIELD ELEVATION WITHIN LIMITS",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Turn indicator",
+          "response": "CORRECT DIRECTION, BALL OUTSIDE TURN, NO FLAGS",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Directional gyro",
+          "response": "SET AND CROSS-CHECKED TO MAGNETIC COMPASS",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Vertical speed indicator",
+          "response": "ZERO",
+          "tickable": true
+        }
+      ]
+    },
+    {
+      "id": "before-takeoff",
+      "phase": "before_takeoff",
+      "title": "Before-Takeoff Check",
+      "criticality": "normal",
+      "notes": "Normally performed after taxiing to a run-up position near the takeoff end of the runway.",
+      "items": [
+        {
+          "type": "reference",
+          "text": "Use the before-takeoff checklist in this aircraft's AFM/POH to perform the run-up.",
+          "tickable": false,
+          "reference": {
+            "document": "AFM/POH for the specific aircraft"
+          }
+        },
+        {
+          "type": "caution",
+          "text": "Choose a run-up location that is firm and free of debris. The propeller may pick up pebbles, dirt, sand or other loose objects and hurl them rearward, damaging the propeller and possibly the tail.",
+          "tickable": false
+        },
+        {
+          "type": "caution",
+          "text": "Prolonged ground operation may overheat the cylinders long before oil temperature indicates a rise. Head as nearly as possible into the wind, and monitor cylinder head temperature if equipped.",
+          "tickable": false
+        },
+        {
+          "type": "challenge",
+          "text": "Allow the airplane to roll forward slightly to align the nosewheel or tailwheel with the longitudinal axis",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Oil temperature",
+          "response": "WITHIN RANGE BEFORE HIGH POWER",
+          "tickable": true,
+          "detail": "Many engines require oil temperature to reach a minimum value stated in the AFM/POH before takeoff power is applied."
+        },
+        {
+          "type": "subtitle",
+          "text": "Systems checked and set",
+          "tickable": false
+        },
+        {
+          "type": "action",
+          "text": "Fuel system",
+          "response": "ON, PROPER TANK SELECTED",
+          "tickable": true,
+          "indent": 1
+        },
+        {
+          "type": "action",
+          "text": "Trim",
+          "response": "SET FOR TAKEOFF",
+          "tickable": true,
+          "indent": 1,
+          "detail": "Includes elevator, and may also include rudder and aileron trim."
+        },
+        {
+          "type": "action",
+          "text": "Flight controls",
+          "response": "FREE AND CORRECT, FULL TRAVEL",
+          "tickable": true,
+          "indent": 1,
+          "detail": "Full aileron, elevator and rudder deflection in all directions. A partial range of movement is not acceptable."
+        },
+        {
+          "type": "action",
+          "text": "Engine operation",
+          "response": "TEMPERATURES AND PRESSURES NORMAL, IGNITION AND CARBURETOR HEAT CHECKED",
+          "tickable": true,
+          "indent": 1,
+          "detail": "Magneto or FADEC operation within limits. Where a constant-speed or feathering propeller is fitted, check that the engine continues to run normally as the propeller is exercised."
+        },
+        {
+          "type": "action",
+          "text": "Electrical system",
+          "response": "VOLTAGE IN RANGE, BATTERY CHARGING",
+          "tickable": true,
+          "indent": 1
+        },
+        {
+          "type": "action",
+          "text": "Vacuum system",
+          "response": "IN RANGE",
+          "tickable": true,
+          "indent": 1,
+          "condition": "If equipped",
+          "detail": "Typically between 4.8 and 5.2 inches of mercury at 2,000 RPM; refer to the AFM/POH for the manufacturer's values. Mechanical gyroscopic instruments need adequate time to spool up before departure."
+        },
+        {
+          "type": "action",
+          "text": "Flight instruments",
+          "response": "RECHECKED AND SET FOR DEPARTURE",
+          "tickable": true,
+          "indent": 1,
+          "detail": "Verify the directional gyro and magnetic compass agree. A heading bug may be set to the runway heading in use or as assigned by ATC."
+        },
+        {
+          "type": "action",
+          "text": "Avionics",
+          "response": "SET",
+          "tickable": true,
+          "indent": 1,
+          "detail": "Frequencies, initial navigation sources and courses, autopilot preselects and transponder code."
+        },
+        {
+          "type": "action",
+          "text": "Takeoff briefing",
+          "response": "COMPLETE, OUT LOUD",
+          "tickable": true,
+          "indent": 1,
+          "detail": "Made out loud by the pilot even when no other person is there to listen. Includes visual verification of the correct surface and direction, to preclude a wrong-surface departure; the type of takeoff, runway, wind, rotation speed, initial turn and altitude; and the actions planned for engine failure below rotation speed, after rotation with runway remaining, and after rotation with no runway remaining."
+        }
+      ]
+    },
+    {
+      "id": "takeoff-checks",
+      "phase": "takeoff",
+      "title": "Takeoff Checks",
+      "criticality": "normal",
+      "notes": "The last check as power is brought to full takeoff power.",
+      "items": [
+        {
+          "type": "action",
+          "text": "Runway numbers vs. magnetic compass and heading indicator",
+          "response": "AGREE",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Doors and windows",
+          "response": "LATCHED AND CLOSED AS REQUIRED",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Controls",
+          "response": "POSITIONED FOR CROSSWIND",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Power",
+          "response": "CORRECT",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Engine RPM",
+          "response": "NORMAL",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Engine",
+          "response": "SMOOTH",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Engine instruments",
+          "response": "NORMAL, IN GREEN RANGES",
+          "tickable": true
+        }
+      ]
+    },
+    {
+      "id": "after-landing",
+      "phase": "after_landing",
+      "title": "After Landing",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "warning",
+          "text": "Perform the after-landing checklist only after the airplane is stopped clear of the runway holding position markings. Pilots have retracted the landing gear instead of the flaps by manipulating the wrong handle while the airplane was still moving.",
+          "tickable": false
+        },
+        {
+          "type": "challenge",
+          "text": "Slow gradually to normal taxi speed with normal brake pressure before turning off the landing runway",
+          "tickable": true,
+          "detail": "Any significant degree of turn at faster speeds could damage the landing gear, tires, brakes or airframe."
+        },
+        {
+          "type": "note",
+          "text": "This sequence may be modified where the manufacturer recommends that specific after-landing items be accomplished during the landing rollout, for example retracting flaps to improve braking after a short-field landing. Positively identify the flap control before moving it.",
+          "tickable": false
+        },
+        {
+          "type": "reference",
+          "text": "Use the after-landing checklist in this aircraft's AFM/POH.",
+          "tickable": false,
+          "reference": {
+            "document": "AFM/POH for the specific aircraft"
+          }
+        }
+      ]
+    }
+  ]
+}
