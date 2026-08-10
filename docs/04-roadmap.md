@@ -153,6 +153,12 @@ when asking a type club for permission.
 
 ## 4. Milestones
 
+> **Superseded.** The milestone list below was written before the product was
+> clarified as a phone checklist with a completion log. The revised sequencing is in
+> [05-product-and-sourcing.md §4](05-product-and-sourcing.md), which moves the
+> renderer and the log to M1 and pushes vendor formats to last. The pipeline design
+> in §2 above still stands.
+
 ### M0 — Decide (this proposal)
 
 Review the four documents, the schema, the four examples, and the validator. Open

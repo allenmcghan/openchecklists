@@ -22,15 +22,19 @@ preserving history — see [docs/04-roadmap.md](docs/04-roadmap.md) M1.
 | [docs/02-format-decision.md](docs/02-format-decision.md) | JSON as canonical, with reasoning; four things in the brief I think are wrong; architecture; licensing |
 | [docs/03-verification-model.md](docs/03-verification-model.md) | Two-axis verification, evidence rules, automatic demotion, presentation rules, provenance, contributor warranty, takedown process |
 | [docs/04-roadmap.md](docs/04-roadmap.md) | OCR pipeline design, the site, and a first milestone scoped to be finishable |
+| [docs/05-product-and-sourcing.md](docs/05-product-and-sourcing.md) | **Read this one.** The phone + log product, why freechecklists.net cannot be bulk-scraped, and where the corpus comes from instead |
 
 ## Artifacts
 
 | Path | What it is |
 | --- | --- |
 | [schema/open-checklist-1.0.schema.json](schema/open-checklist-1.0.schema.json) | JSON Schema 2020-12. Structural validity, including the conditional rules that make a warning untickable |
+| [schema/open-checklist-log-1.0.schema.json](schema/open-checklist-log-1.0.schema.json) | Completion log format: what was ticked, when, by whom, against which exact checklist version |
+| [tools/render.py](tools/render.py) | One JSON in, one self-contained HTML out: phone tick-off, any paper size, log export. Zero external requests |
 | [tools/validate.py](tools/validate.py) | Reference validator: schema, then the policy rules JSON Schema cannot express |
+| [tools/validate_log.py](tools/validate_log.py) | Log validator, including the implied-working-rate check |
 | [tools/test_validate.py](tools/test_validate.py) | 27 negative cases proving the safety rules fire |
-| [examples/](examples/) | Four example files, each exercising a different corner |
+| [examples/](examples/) | Four checklist files plus a worked completion log |
 
 ## The four examples
 
@@ -57,7 +61,13 @@ python3 tools/validate.py                 # validate examples/
 python3 tools/validate.py --strict        # warnings become errors
 python3 tools/validate.py --write-stable   # normalise to the stable storage form
 python3 tools/test_validate.py            # prove the safety rules fire
+
+python3 tools/render.py examples/*.ocl.json --paper kneeboard   # -> build/*.html
+python3 tools/validate_log.py examples/*.ocl-log.json
 ```
+
+Open a rendered file on a phone: tick items, choose a paper size, print, export a
+log. It makes no network requests, so it works in a hangar with no signal.
 
 ## The four things in the brief I pushed back on
 
