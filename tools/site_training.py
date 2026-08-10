@@ -17,20 +17,19 @@ will stop looking at it.
 from __future__ import annotations
 
 TRAINING_CSS = """
-.skyace-card{background:linear-gradient(135deg,#0a1628 0%,#0d2040 100%);
-border:1px solid #00d4ff44;border-radius:16px;margin:1.4rem 0 2rem;overflow:hidden}
-.skyace-inner{display:flex;align-items:center;gap:1.2rem;padding:1.2rem 1.4rem;flex-wrap:wrap}
+.skyace-card{background:#0a1628;border:1px solid #00d4ff33;border-radius:16px;
+margin:1.4rem 0 2rem;overflow:hidden}
+.skyace-header{display:flex;align-items:center;gap:1rem;padding:1rem 1.2rem;flex-wrap:wrap}
 .skyace-logo{flex:none}
-.skyace-text{flex:1;min-width:180px}
-.skyace-title{font-size:1.1rem;font-weight:800;color:#00d4ff;letter-spacing:-.01em;margin-bottom:.3rem}
-.skyace-desc{font-size:.875rem;color:#8899aa;margin:.2rem 0 .6rem;line-height:1.5}
-.skyace-tags{display:flex;gap:.4rem;flex-wrap:wrap}
-.skyace-tag{font-size:.72rem;padding:.2rem .55rem;border:1px solid #00d4ff33;
-border-radius:99px;color:#00aacc;background:#00d4ff0d}
+.skyace-text{flex:1;min-width:160px}
+.skyace-title{font-size:1rem;font-weight:800;color:#00d4ff;margin-bottom:.2rem}
+.skyace-desc{font-size:.82rem;color:#6688aa;margin:0;line-height:1.4}
 .skyace-btn{flex:none;display:inline-block;background:#00aaff;color:#fff;font-weight:700;
-font-size:.9rem;padding:.6rem 1.2rem;border-radius:8px;white-space:nowrap;
-text-decoration:none;letter-spacing:-.01em}
+font-size:.85rem;padding:.5rem 1rem;border-radius:8px;white-space:nowrap;
+text-decoration:none}
 .skyace-btn:hover{background:#0088cc;text-decoration:none}
+.skyace-frame{display:block;width:100%;height:520px;border:none;background:#0a1628}
+@media(max-width:600px){.skyace-frame{height:340px}}
 
 .certtabs{display:flex;gap:.4rem;flex-wrap:wrap;margin:1rem 0 .6rem}
 .certtab{font-size:.82rem;padding:.4rem .7rem;border:1px solid var(--line);border-radius:.35rem;
@@ -169,9 +168,9 @@ Almost none of it is easy to find. This page collects it, and tracks your logboo
 hours against the actual CFR requirements.</p>
 
 <div class="skyace-card">
-  <div class="skyace-inner">
+  <div class="skyace-header">
     <div class="skyace-logo">
-      <svg width="48" height="48" viewBox="0 0 64 64">
+      <svg width="36" height="36" viewBox="0 0 64 64">
         <rect width="64" height="64" rx="10" fill="#0a1628"/>
         <path d="M32 12 L52 44 L32 38 L12 44 Z" fill="#00d4ff"/>
         <path d="M20 44 L32 42 L44 44 L32 52 Z" fill="#0077aa"/>
@@ -179,19 +178,20 @@ hours against the actual CFR requirements.</p>
     </div>
     <div class="skyace-text">
       <div class="skyace-title">SkyAce — Flight Training Game</div>
-      <p class="skyace-desc">Learn the feel of flight through arcade missions: dogfights, ground attacks,
-      carrier landings, and guided training objectives. Runs in your browser on any device — no install needed.</p>
-      <div class="skyace-tags">
-        <span class="skyace-tag">Free</span>
-        <span class="skyace-tag">No install</span>
-        <span class="skyace-tag">Mobile friendly</span>
-        <span class="skyace-tag">Low-end hardware</span>
-      </div>
+      <p class="skyace-desc">Arcade missions: dogfights, ground attacks, carrier landings, guided training.
+      Click inside to capture keyboard focus.</p>
     </div>
-    <a href="https://skyace.openchecklists.org" class="skyace-btn" rel="noopener">
-      Play SkyAce ↗
+    <a href="https://skyace.gamercomp.com" class="skyace-btn" target="_blank" rel="noopener">
+      Full screen ↗
     </a>
   </div>
+  <iframe
+    src="https://skyace.gamercomp.com"
+    class="skyace-frame"
+    allow="fullscreen"
+    loading="lazy"
+    title="SkyAce flight training game"
+  ></iframe>
 </div>
 
 <h2 id="progress">Progress toward a certificate</h2>
