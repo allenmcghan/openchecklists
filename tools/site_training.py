@@ -106,25 +106,28 @@ TRAINING_JS = r"""
   var STUDY = [
     {t:'Pilot’s Handbook of Aeronautical Knowledge', n:'FAA-H-8083-25C',
      d:'The core knowledge text. Basis of the private pilot knowledge test.',
-     u:'https://www.faa.gov/regulations_policies/handbooks_manuals/aviation/phak'},
+     u:'https://www.faa.gov/regulations_policies/handbooks_manuals/aviation/phak',
+     s:'faa-phak'},
     {t:'Airplane Flying Handbook', n:'FAA-H-8083-3C',
      d:'Manoeuvres, procedures and why each is flown the way it is.',
      u:'https://www.faa.gov/regulations_policies/handbooks_manuals/aviation/airplane_handbook'},
-    {t:'Aviation Weather Handbook', n:'FAA-H-8083-28',
-     d:'Replaced AC 00-6 and AC 00-45. Weather theory plus how to read every product.',
-     u:'https://www.faa.gov/regulations_policies/handbooks_manuals/aviation'},
+    {t:'Aviation Weather Handbook', n:'FAA-H-8083-28B',
+     d:'Replaced AC 00-6, AC 00-45, AC 00-24, AC 00-30 and AC 00-54. Weather theory plus how to read every product.',
+     u:'https://www.faa.gov/sites/faa.gov/files/FAA-H-8083-28B.pdf', s:'faa-awh'},
     {t:'Risk Management Handbook', n:'FAA-H-8083-2A',
      d:'Decision making and hazard identification. Where accidents actually come from.',
-     u:'https://www.faa.gov/regulations_policies/handbooks_manuals/aviation'},
+     u:'https://www.faa.gov/sites/faa.gov/files/2022-06/risk_management_handbook_2A.pdf', s:'faa-rmh'},
     {t:'Instrument Flying Handbook', n:'FAA-H-8083-15B',
      d:'The instrument rating knowledge text.',
-     u:'https://www.faa.gov/regulations_policies/handbooks_manuals/aviation'},
+     u:'https://www.faa.gov/sites/faa.gov/files/regulations_policies/handbooks_manuals/aviation/FAA-H-8083-15B.pdf',
+     s:'faa-ifh'},
     {t:'Instrument Procedures Handbook', n:'FAA-H-8083-16B',
      d:'IFR procedures in practice: departures, arrivals, approaches.',
      u:'https://www.faa.gov/regulations_policies/handbooks_manuals/aviation'},
     {t:'Aircraft Weight and Balance Handbook', n:'FAA-H-8083-1',
      d:'Weight and balance theory and computation. Essential for modified aircraft.',
-     u:'https://www.faa.gov/regulations_policies/handbooks_manuals/aviation'},
+     u:'https://www.faa.gov/sites/faa.gov/files/regulations_policies/handbooks_manuals/aviation/FAA-H-8083-1.pdf',
+     s:'faa-wb'},
     {t:'Aviation Instructor’s Handbook', n:'FAA-H-8083-9B',
      d:'How to teach. Required reading for the CFI, useful for any student.',
      u:'https://www.faa.gov/regulations_policies/handbooks_manuals/aviation'},
@@ -155,8 +158,13 @@ TRAINING_JS = r"""
   ];
 
   el('study').innerHTML = '<div class="studygrid">' + STUDY.map(function(s){
+    // Cards for documents held in the on-site index also link into it, scoped to
+    // that document. The card still links to the FAA original first, because that
+    // is the authoritative copy and ours is a search index over it.
+    var here = s.s ? ' · <a href="search.html?doc=' + encodeURIComponent(s.s) +
+      '">search it here</a>' : '';
     return '<div class="study"><h4><a href="' + esc(s.u) + '" rel="noopener">' + esc(s.t) +
-      '</a></h4><p><span class="num">' + esc(s.n) + '</span> — ' + esc(s.d) + '</p></div>';
+      '</a></h4><p><span class="num">' + esc(s.n) + '</span> — ' + esc(s.d) + here + '</p></div>';
   }).join('') + '</div>';
 
   async function boot(){

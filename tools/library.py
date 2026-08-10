@@ -124,8 +124,18 @@ def ingest(paths: list[Path], out: Path) -> dict:
     passages: list[dict] = []
     rejected: list[str] = []
 
-    for pdf in paths:
-        prov = load_provenance(pdf)
+    # Group assets by document before extracting anything. A document directory can
+    # hold more than one file -- the T-34A has both the scan and an OCR text layer of
+    # the same handbook -- and processing them as independent documents both
+    # double-counts the content and leaves each document's passage ids
+    # non-contiguous, which the per-document search filter depends on.
+    by_doc: dict[str, list[Path]] = {}
+    for p in paths:
+        by_doc.setdefault(p.parent.name, []).append(p)
+
+    for doc_id in sorted(by_doc):
+        assets = sorted(by_doc[doc_id])
+        prov = load_provenance(assets[0])
         src = prov.get("source", {})
         rights = prov.get("rights", {})
 
@@ -133,39 +143,64 @@ def ingest(paths: list[Path], out: Path) -> dict:
         # the project has the right to publish.
         if rights.get("status") != "public_domain":
             rejected.append(
-                f"{pdf.name}: rights.status is {rights.get('status') or 'unknown'!r}, not "
+                f"{doc_id}: rights.status is {rights.get('status') or 'unknown'!r}, not "
                 "public_domain — full text will not be indexed. Add it to the registry instead."
             )
             continue
         if src.get("kind") == "simulator_product":
-            rejected.append(f"{pdf.name}: simulator product, inadmissible")
-            continue
-
-        doc_id = pdf.parent.name
-        pages = extract_pdf(pdf)
-        if not pages:
-            rejected.append(f"{pdf.name}: no extractable text — needs OCR before indexing")
+            rejected.append(f"{doc_id}: simulator product, inadmissible")
             continue
 
         n_before = len(passages)
-        for page_no, text in pages:
-            for para in split_passages(text):
-                passages.append({
-                    "d": doc_id,
-                    "p": page_no,
-                    "t": para,
-                })
+        # Assets are renderings of one document, so the page count is the longest
+        # rendering, not their sum -- adding them would claim the T-34A handbook is
+        # twice as long as it is.
+        n_pages = 0
+        # Two renderings of one document overlap heavily, so deduplicate within the
+        # document. Across documents a repeated paragraph is a real second citation
+        # and is kept.
+        seen: set[str] = set()
+        indexed: list[str] = []
+        for asset in assets:
+            pages = extract_pdf(asset)
+            if not pages:
+                rejected.append(
+                    f"{doc_id}/{asset.name}: no extractable text — needs OCR before indexing"
+                )
+                continue
+            indexed.append(asset.name)
+            n_pages = max(n_pages, len(pages))
+            for page_no, text in pages:
+                for para in split_passages(text):
+                    key = re.sub(r"\s+", " ", para).strip().lower()
+                    if key in seen:
+                        continue
+                    seen.add(key)
+                    passages.append({
+                        "d": doc_id,
+                        "p": page_no,
+                        "t": para,
+                    })
+
+        if not indexed:
+            continue
+
         docs[doc_id] = {
             "id": doc_id,
-            "title": src.get("title") or pdf.stem,
+            "title": src.get("title") or doc_id,
             "publisher": src.get("publisher"),
             "document_number": src.get("document_number"),
             "revision": src.get("revision"),
             "url": src.get("url"),
             "rights": rights.get("status"),
             "basis": rights.get("public_domain_basis"),
-            "pages": len(pages),
+            "pages": n_pages,
             "passages": len(passages) - n_before,
+            # Passage ids are contiguous per document, so the browser can limit a
+            # search to one document with a range test and no extra fetches.
+            "first": n_before,
+            "last": len(passages) - 1,
+            "assets": indexed,
         }
 
     # Inverted index with BM25-ish scoring precomputed where it can be.

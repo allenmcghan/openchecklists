@@ -45,18 +45,19 @@ preserving history — see [docs/04-roadmap.md](docs/04-roadmap.md) M1.
 | [tools/airports.py](tools/airports.py) | FAA NASR ingest: 19,426 airports, runways, 37k radio frequencies, into sharded static JSON |
 | [tools/training.py](tools/training.py) | 14 CFR part 61 certificate requirements, and progress computed from a logbook |
 | [tools/site_training.py](tools/site_training.py) | Flight training page: free study library plus client-side progress tracking |
-| [tools/library.py](tools/library.py) | Full-text index over public-domain maintenance documents, plus a registry of the ones we cannot host |
+| [tools/library.py](tools/library.py) | Full-text BM25 index over 14 public-domain documents, plus a registry of the ones we cannot host |
 | [tools/site_airports.py](tools/site_airports.py) | Airport/frequency/weather page, and the Cloudflare Worker weather proxy |
 | [tools/site_library.py](tools/site_library.py) | Troubleshooting search page, projects page, charts page |
+| [tools/test_library.py](tools/test_library.py) | Proves the library's admissibility gate rejects, and that passage ids stay contiguous per document |
 | [tools/site_pages.py](tools/site_pages.py) | Branding, landing page, and the privacy / terms / takedown / contribute / contact pages |
 | [schema/open-logbook-1.0.schema.json](schema/open-logbook-1.0.schema.json) | **Open pilot logbook format.** No interchange standard existed — every product has its own CSV template |
 | [tools/logbook.py](tools/logbook.py) | Validate, total, compute currency, and import/export proprietary CSV |
 | [tools/test_logbook.py](tools/test_logbook.py) | 26 checks, including the calendar-month currency boundaries |
 | [tools/diff.py](tools/diff.py) | Semantic diff between two checklists, safety-relevant changes first. `--fork` diffs a file against its recorded parent |
 | [tools/test_validate.py](tools/test_validate.py) | 27 negative cases proving the safety rules fire |
-| [examples/](examples/) | Five checklist files, a worked completion log, and two field reports |
+| [examples/](examples/) | Six checklist files, a worked completion log, two field reports, and an example logbook |
 
-## The four examples
+## The six examples
 
 **None of these is airworthy. Do not fly behind any of them.** Each states this in
 its own `verification.known_issues`.
@@ -166,12 +167,18 @@ Both datasets are large, so `data/` is gitignored and the site build ships these
 pages only when the data is present, explaining itself when it is not.
 
 ```sh
-python3 tools/acquire.py fetch faa-nasr-28day faa-ac-43-13-1b faa-amt-general
+python3 tools/acquire.py fetch --all --pin      # --pin records each hash in the manifest
 python3 tools/airports.py ingest sources/documents/faa-nasr-28day/*.zip
-python3 tools/library.py ingest sources/documents/faa-{ac-43-13-1b,amt-general}/*.pdf
+python3 tools/library.py ingest sources/documents/*/*.pdf sources/documents/*/*.txt
 python3 tools/library.py index-registry
 python3 tools/build_site.py --wx-proxy https://ocl-weather.example.workers.dev
 ```
+
+`--pin` matters more than it looks: without a recorded hash a later fetch cannot tell
+a corrected document from one silently replaced at the same URL, which is exactly how
+a stale procedure would enter the corpus unnoticed. Agencies do reissue PDFs in
+place. Every asset in the manifest is now pinned, and `fetch` verifies rather than
+merely downloading.
 
 **Airports** — 19,426 US airports, heliports, seaplane bases, gliderports and
 ultralight strips from the FAA's 28-day NASR data, including the 14,259 private
@@ -184,14 +191,25 @@ but blocks browser requests, tested and confirmed. `worker/weather-proxy.js` is 
 one-file Cloudflare Worker that fixes it without adding a backend for anything else.
 It restricts itself to one upstream host, caches 60 seconds, and logs nothing.
 
-**Troubleshooting search** indexes the full text of public-domain documents (AC
-43.13-1B and the AMT General Handbook so far, 5,164 passages) with BM25 scoring
-computed in the browser from the same sharded index the CLI uses. **It cites, it does
-not diagnose** — every result is a passage with document, revision and page. A
-generated answer would be the only thing on the site with no provenance, and it is
-also less useful than the actual text. If an LLM is added later this is the right
-substrate: retrieve first, summarise *these passages with these citations*, never
-answer from memory.
+**Troubleshooting search** indexes the full text of 14 public-domain documents —
+13,518 passages across AC 43.13-1B, the AMT General Handbook, the Pilot's Handbook of
+Aeronautical Knowledge, the Aviation Weather Handbook, the Risk Management Handbook,
+the Instrument Flying and Weight and Balance handbooks, five ACS documents and the
+T-34A flight handbook — with BM25 scoring computed in the browser from the same
+sharded index the CLI uses. A selector limits a search to one document, which is a
+range test on the passage id rather than an extra fetch, because ingest numbers each
+document's passages contiguously. **It cites, it does not diagnose** — every result is
+a passage with document, revision and page. A generated answer would be the only thing
+on the site with no provenance, and it is also less useful than the actual text. If an
+LLM is added later this is the right substrate: retrieve first, summarise *these
+passages with these citations*, never answer from memory.
+
+Two bookkeeping properties are load-bearing and invisible in a search result, so
+`tools/test_library.py` asserts them: a document directory holding two renderings of
+the same document (the T-34A has both a scan and an OCR text layer) is **one**
+document, deduplicated within itself; and each document's passage ids are contiguous,
+without which the per-document filter would attribute one document's text to another.
+Both were wrong when the second rendering was first indexed.
 
 Manufacturer and engine manuals are not hosted — they are commercial products, and
 full-text hosting one is wholesale reproduction rather than transcribing a fact.
@@ -262,7 +280,7 @@ Three pieces make that work:
 | `reviewed.txt` / `unreviewed.txt` | Bundle listings, kept separate on purpose |
 | `airports.html` | 19,426 US airports with runways, radio frequencies, fuel and pattern altitude, plus live weather via the Worker proxy |
 | `training.html` | Free FAA study material, and progress toward a certificate computed from your logbook in the browser |
-| `search.html` | Troubleshooting search over public-domain maintenance documents. Cites passage, document and page — never diagnoses |
+| `search.html` | Troubleshooting search over 14 public-domain documents, filterable to one. Cites passage, document and page — never diagnoses |
 | `charts.html` | Where to get official FAA charts and plates, and why this project links rather than republishes |
 | `projects.html` | The open source projects that produce or consume these formats |
 | `worker/weather-proxy.js` | One-file Cloudflare Worker. Live weather needs it: aviationweather.gov blocks browser requests |

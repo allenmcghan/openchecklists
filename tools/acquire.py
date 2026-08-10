@@ -44,6 +44,9 @@ ALLOWED_HOSTS = {
     "www.faa.gov",
     "faa.gov",
     "drs.faa.gov",
+    # FAA National Flight Data Center: the 28-day NASR subscription behind the
+    # airport, runway and frequency data. Same publisher as faa.gov, different host.
+    "nfdc.faa.gov",
     "www.govinfo.gov",
     "govinfo.gov",
     "archive.org",
@@ -140,9 +143,12 @@ def cmd_fetch(args: argparse.Namespace) -> int:
 
     DOWNLOADS.mkdir(parents=True, exist_ok=True)
     failures = 0
+    unpinned: list[str] = []
+    pinned = 0
 
     for d in docs:
         did = d["id"]
+        digests: dict[str, str] = {}
         for asset in d["assets"]:
             url = asset["url"]
             check_host(url)
@@ -156,8 +162,15 @@ def cmd_fetch(args: argparse.Namespace) -> int:
                     print(f"    expected {asset['sha256']}")
                     print(f"    actual   {actual}")
                     failures += 1
-                else:
-                    print(f"[cached]   {did}/{asset['filename']} ({actual[:12]}…)")
+                    continue
+                print(f"[cached]   {did}/{asset['filename']} ({actual[:12]}…)")
+                digests[asset["filename"]] = actual
+                if not asset.get("sha256"):
+                    if args.pin:
+                        asset["sha256"] = actual
+                        pinned += 1
+                    else:
+                        unpinned.append(f"{did}/{asset['filename']}")
                 continue
 
             try:
@@ -174,12 +187,22 @@ def cmd_fetch(args: argparse.Namespace) -> int:
                 continue
 
             dest.write_bytes(blob)
+            digests[asset["filename"]] = digest
             print(f"[fetched]  {did}/{asset['filename']} {len(blob):,}B {digest[:12]}…")
             if not asset.get("sha256"):
-                print(f"    record sha256: {digest}")
+                if args.pin:
+                    asset["sha256"] = digest
+                    pinned += 1
+                else:
+                    unpinned.append(f"{did}/{asset['filename']}")
+                    print(f"    record sha256: {digest}")
 
         # Provenance sidecar: everything a transcriber needs to fill in a
-        # provenance block without going back to the manifest.
+        # provenance block without going back to the manifest. The digests go in
+        # too, because this file travels with the bytes and is what the library
+        # index reads -- without them there is no record of *which* revision of a
+        # document a passage was extracted from, only which URL it came from, and
+        # agencies replace PDFs at a stable URL.
         side = DOWNLOADS / did / "provenance.json"
         side.write_text(
             json.dumps(
@@ -187,12 +210,26 @@ def cmd_fetch(args: argparse.Namespace) -> int:
                     "source": d["source"],
                     "rights": d["rights"],
                     "acquired_from": [a["url"] for a in d["assets"]],
+                    "assets": [
+                        {"filename": a["filename"], "sha256": digests.get(a["filename"], "")}
+                        for a in d["assets"]
+                    ],
                     "notes": d.get("notes", ""),
                 },
                 indent=2,
             )
             + "\n"
         )
+
+    if args.pin and pinned:
+        MANIFEST.write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n")
+        print(f"\npinned {pinned} hash(es) into {MANIFEST.name}")
+    elif unpinned:
+        # An unpinned asset means a later fetch cannot tell a corrected document
+        # from a silently replaced one, so say so rather than leaving it implied.
+        print(f"\n{len(unpinned)} asset(s) have no pinned hash; re-run with --pin to record them:")
+        for u in unpinned:
+            print(f"    {u}")
 
     print(f"\n{len(docs)} document(s) processed, {failures} problem(s)")
     return 1 if failures else 0
@@ -210,6 +247,12 @@ def main() -> int:
     f = sub.add_parser("fetch", help="download documents listed in the manifest")
     f.add_argument("ids", nargs="*")
     f.add_argument("--all", action="store_true")
+    f.add_argument(
+        "--pin",
+        action="store_true",
+        help="write the computed SHA-256 of each asset back into the manifest, so a "
+        "later fetch verifies rather than merely downloads",
+    )
     f.set_defaults(func=cmd_fetch)
 
     args = ap.parse_args()

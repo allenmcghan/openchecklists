@@ -18,6 +18,8 @@ import json
 LIB_CSS = """
 .q-wrap{display:flex;gap:.5rem;flex-wrap:wrap;margin:1rem 0}
 .q-wrap input[type=search]{flex:1;min-width:14rem;font-size:1.05rem;padding:.6rem .7rem}
+.q-wrap select{font-size:.9rem;padding:.6rem .5rem;max-width:100%;background:var(--bg);
+color:var(--fg);border:1px solid var(--line);border-radius:.3rem}
 .examples{display:flex;gap:.4rem;flex-wrap:wrap;margin:.2rem 0 1rem}
 .ex{font-size:.78rem;padding:.25rem .55rem;border:1px solid var(--line);border-radius:1rem;
 cursor:pointer;background:var(--bg);color:var(--accent)}
@@ -48,6 +50,9 @@ problem would be the only thing on this site with no provenance behind it.</div>
 <div class="q-wrap">
   <input type="search" id="q" placeholder="magneto timing, control cable inspection, corrosion…"
          aria-label="Search the document library">
+  <select id="doc" aria-label="Limit the search to one document">
+    <option value="">Every document</option>
+  </select>
   <button class="btn p" id="go">Search</button>
 </div>
 <div class="examples">
@@ -59,6 +64,10 @@ problem would be the only thing on this site with no provenance behind it.</div>
   <span class="ex">welding practices</span>
   <span class="ex">propeller track</span>
   <span class="ex">safety wire</span>
+  <span class="ex">microburst</span>
+  <span class="ex">carburetor icing</span>
+  <span class="ex">density altitude</span>
+  <span class="ex">spatial disorientation</span>
 </div>
 
 <div id="results"></div>
@@ -112,6 +121,15 @@ LIB_JS = r"""
         'Serving over HTTP is required — browsers block local file reads.</div>';
     }
     if (META){
+      var keys = Object.keys(META.documents).sort(function(a, b2){
+        return (META.documents[a].title || a).localeCompare(META.documents[b2].title || b2);
+      });
+      el('doc').innerHTML = '<option value="">Every document</option>' + keys.map(function(k){
+        var d = META.documents[k];
+        return '<option value="' + esc(k) + '">' + esc(d.title || k) +
+          (d.document_number ? ' (' + esc(d.document_number) + ')' : '') + '</option>';
+      }).join('');
+
       var docs = Object.keys(META.documents).map(function(k){
         var d = META.documents[k];
         return '<li><b>' + esc(d.title) + '</b>' +
@@ -124,8 +142,9 @@ LIB_JS = r"""
         META.counts.passages.toLocaleString() + ' passages from ' + META.counts.documents +
         ' public-domain document(s).</p><ul>' + docs + '</ul>' +
         '<p class="hint">Every document here is a work of the US Government, so its full text ' +
-        'can be published. Coverage is airframe-focused; a powerplant handbook would be the ' +
-        'next most useful addition.</p>';
+        'can be published. Coverage spans airframe maintenance, weather, risk management and ' +
+        'the certificate knowledge texts; a powerplant handbook is the largest remaining gap, ' +
+        'and engine-specific questions still need the manufacturer manual listed below.</p>';
     }
 
     try {
@@ -156,7 +175,14 @@ LIB_JS = r"""
     Array.prototype.forEach.call(document.querySelectorAll('.ex'), function(c){
       c.addEventListener('click', function(){ el('q').value = c.textContent; run(); });
     });
-    var pre = new URLSearchParams(location.search).get('q');
+    el('doc').addEventListener('change', function(){ if (el('q').value.trim()) run(); });
+
+    var params = new URLSearchParams(location.search);
+    var preDoc = params.get('doc');
+    // Only honour a doc that is actually indexed, so a stale link from a study card
+    // falls back to searching everything rather than silently returning nothing.
+    if (preDoc && META && META.documents[preDoc]) el('doc').value = preDoc;
+    var pre = params.get('q');
     if (pre){ el('q').value = pre; run(); }
   }
 
@@ -185,12 +211,20 @@ LIB_JS = r"""
     el('results').innerHTML = '<p class="muted">Searching…</p>';
 
     var k1 = META.scoring.k1, b = META.scoring.b, avg = META.scoring.avg_passage_length;
+    // Limiting to one document is a range test on the passage id, because ingest
+    // numbers each document's passages contiguously. No extra fetches.
+    var only = el('doc').value, lo = -1, hi = -1;
+    if (only && META.documents[only]){
+      lo = META.documents[only].first;
+      hi = META.documents[only].last;
+    }
     var scores = new Map();
     for (var i = 0; i < terms.length; i++){
       var e = await postings(terms[i]);
       if (!e) continue;
       for (var j = 0; j < e.p.length; j++){
         var id = e.p[j][0], tf = e.p[j][1];
+        if (lo >= 0 && (id < lo || id > hi)) continue;
         // Document-length normalisation needs the passage, but fetching every
         // candidate defeats the sharding. Approximate with the corpus average,
         // which changes ranking only marginally and keeps the query to a few
@@ -201,13 +235,21 @@ LIB_JS = r"""
     }
     if (!scores.size){
       el('results').innerHTML = '<p class="muted">Nothing found for ' + esc(query) +
-        '. The library currently covers airframe maintenance; engine-specific ' +
-        'questions may need the manufacturer manual listed below.</p>';
+        (lo >= 0 ? ' in ' + esc(META.documents[only].title) +
+          '. <a href="#" id="widen">Search every document instead.</a>'
+         : '. The library covers airframe maintenance, weather, and the knowledge ' +
+           'handbooks; engine-specific questions may need the manufacturer manual ' +
+           'listed below.') + '</p>';
+      var w = el('widen');
+      if (w) w.addEventListener('click', function(ev){
+        ev.preventDefault(); el('doc').value = ''; run();
+      });
       return;
     }
 
     var top = Array.from(scores.entries()).sort(function(a, b2){ return b2[1] - a[1]; }).slice(0, 12);
-    var html = '<p class="muted">' + scores.size.toLocaleString() + ' passage(s) matched. ' +
+    var html = '<p class="muted">' + scores.size.toLocaleString() + ' passage(s) matched' +
+      (lo >= 0 ? ' in ' + esc(META.documents[only].title) : '') + '. ' +
       'Showing ' + top.length + ', most relevant first.</p>';
     for (var t = 0; t < top.length; t++){
       var ps = await passage(top[t][0]);
@@ -247,7 +289,8 @@ def library_page(head_fn, foot: str) -> str:
     return (
         head_fn(
             "Troubleshooting search — Open Checklists",
-            "Search the full text of public-domain aviation maintenance documents. Every "
+            "Search the full text of public-domain aviation documents — maintenance, "
+            "weather, risk management and the certificate knowledge handbooks. Every "
             "result is a cited passage with its page number.",
         )
         + f"<style>{LIB_CSS}</style>"
