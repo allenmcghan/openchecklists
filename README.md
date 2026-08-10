@@ -30,11 +30,13 @@ preserving history — see [docs/04-roadmap.md](docs/04-roadmap.md) M1.
 | --- | --- |
 | [schema/open-checklist-1.0.schema.json](schema/open-checklist-1.0.schema.json) | JSON Schema 2020-12. Structural validity, including the conditional rules that make a warning untickable |
 | [schema/open-checklist-log-1.0.schema.json](schema/open-checklist-log-1.0.schema.json) | Completion log format: what was ticked, when, by whom, against which exact checklist version |
+| [tools/acquire.py](tools/acquire.py) | Public-domain acquisition: Internet Archive discovery, manifest fetch with SHA-256, host allowlist that refuses freechecklists by name |
+| [sources/public-domain.json](sources/public-domain.json) | Curated PD source manifest with per-document rights basis and discovery recipes |
 | [tools/render.py](tools/render.py) | One JSON in, one self-contained HTML out: phone tick-off, any paper size, log export. Zero external requests |
 | [tools/validate.py](tools/validate.py) | Reference validator: schema, then the policy rules JSON Schema cannot express |
 | [tools/validate_log.py](tools/validate_log.py) | Log validator, including the implied-working-rate check |
 | [tools/test_validate.py](tools/test_validate.py) | 27 negative cases proving the safety rules fire |
-| [examples/](examples/) | Four checklist files plus a worked completion log |
+| [examples/](examples/) | Five checklist files plus a worked completion log |
 
 ## The four examples
 
@@ -46,6 +48,7 @@ its own `verification.known_issues`.
 | `faa-generic-sep-ground-operations` | The only one grounded in a source document that was actually read: FAA-H-8083-3C Ch. 2, a US Government work in the public domain. Demonstrates the clean-rights lane |
 | `cessna-172n-normal` | The hard copyright case. Demonstrates the recommended posture for a type whose POH is still protected: procedure as fact, wording the contributor's own, limitations deliberately omitted rather than recalled |
 | `aerolite-103-hirth-f33` | Part 103, the gap in the brief. Authored rather than transcribed, because Part 103 aircraft are not required to have a flight manual at all. Exercises memory items, warnings, and an emergency section |
+| `beechcraft-t-34a-usaf` | **The first real type-specific transcription.** From USAF T.O. 1T-34A-1 (1958), a US Government work with no copyright, for a type civilians still fly. 117 tickable items, 27 memory items, `unreviewed` |
 | `schweizer-sgs-2-33a` | A glider. No engine, a launch phase with no powered equivalent, and emergencies that are entirely about the tow |
 
 There is deliberately **no example with `rights.status: upstream_reserved`**,
@@ -64,6 +67,9 @@ python3 tools/test_validate.py            # prove the safety rules fire
 
 python3 tools/render.py examples/*.ocl.json --paper kneeboard   # -> build/*.html
 python3 tools/validate_log.py examples/*.ocl-log.json
+
+python3 tools/acquire.py discover "NATOPS flight manual"   # find PD candidates
+python3 tools/acquire.py fetch --all                        # -> sources/documents/
 ```
 
 Open a rendered file on a phone: tick items, choose a paper size, print, export a

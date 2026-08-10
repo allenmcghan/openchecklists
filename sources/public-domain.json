@@ -1,0 +1,77 @@
+{
+  "$comment": "Curated manifest of public-domain source documents for the corpus. Every entry states its rights basis, because 'found on a government site' is not a rights determination. Fetch with tools/acquire.py; the tool refuses hosts that are not on its allowlist and names freechecklists.net in its denylist with the reason.",
+  "documents": [
+    {
+      "id": "faa-afh-8083-3c-ch2",
+      "source": {
+        "kind": "government_publication",
+        "title": "Airplane Flying Handbook, Chapter 2: Ground Operations",
+        "publisher": "U.S. Department of Transportation, Federal Aviation Administration, Flight Standards Service",
+        "document_number": "FAA-H-8083-3C",
+        "publication_date": "2021",
+        "url": "https://www.faa.gov/regulations_policies/handbooks_manuals/aviation/airplane_handbook"
+      },
+      "rights": {
+        "status": "public_domain",
+        "public_domain_basis": "us_government_work",
+        "redistribution": "unrestricted"
+      },
+      "text_layer": "embedded",
+      "notes": "Text extracts cleanly with PyMuPDF; no OCR needed. Generic single-engine procedures, not type-specific. Already transcribed as examples/faa-generic-sep-ground-operations.ocl.json.",
+      "assets": [
+        {
+          "filename": "03_afh_ch2.pdf",
+          "url": "https://www.faa.gov/sites/faa.gov/files/regulations_policies/handbooks_manuals/aviation/airplane_handbook/03_afh_ch2.pdf",
+          "sha256": "83d499db7a4b2ff1f5f90241d53ec80a83514241291de94051a2b0c3c4fe7142"
+        }
+      ]
+    },
+    {
+      "id": "usaf-to-1t-34a-1",
+      "source": {
+        "kind": "government_publication",
+        "title": "Flight Handbook, USAF Series T-34A Aircraft",
+        "publisher": "United States Air Force",
+        "document_number": "T.O. 1T-34A-1",
+        "revision": "10 February 1958",
+        "publication_date": "1958",
+        "url": "https://archive.org/details/t-o-1-t-34-a-1-flight-handbook-1958"
+      },
+      "rights": {
+        "status": "public_domain",
+        "public_domain_basis": "us_government_work",
+        "redistribution": "unrestricted"
+      },
+      "text_layer": "ocr_partially_inverted",
+      "notes": "High-value: the T-34 is flown by civilians today in the experimental/limited category, and the handbook carries a full CONDENSED CHECK LIST for normal and emergency procedures. OCR CAVEAT, measured rather than assumed: 12 of 164 pages extract as mojibake (>15% non-ASCII), e.g. '\"AAO - SUMS PY \"FZ' where the page reads '24. All switches - OFF.' Those pages are 180 degrees inverted, and three of them (49, 51, 53) sit inside the block marked 'CUT ON LINE' (pages 48-61). The cause is the original print design, not the scan: the condensed checklist is a cut-out card whose alternating panels are printed upside down so they read correctly once folded. The consequence for the pipeline is pointed -- the least reliably OCR'd pages are exactly the ones containing the checklist. Rotation detection must be a pipeline stage, and it must be per page rather than per document, since /Rotate is 0 on all 164 pages.",
+      "assets": [
+        {
+          "filename": "T-O-1T-34A-1-Flight-Handbook-1958_djvu.txt",
+          "url": "https://archive.org/download/t-o-1-t-34-a-1-flight-handbook-1958/T-O-1T-34A-1-Flight-Handbook%201958_djvu.txt",
+          "sha256": "0fb0f5c3e290bdb0eecfde7361457f67ae115414305ee3995abd4452683b21a0"
+        },
+        {
+          "filename": "T-O-1T-34A-1-Flight-Handbook-1958.pdf",
+          "url": "https://archive.org/download/t-o-1-t-34-a-1-flight-handbook-1958/T-O-1T-34A-1-Flight-Handbook%201958_text.pdf",
+          "sha256": "6482663b89c0fb5c0eeae9effe4cec1eb1734e6f359c81dab59dce4d7bb5c633"
+        }
+      ]
+    }
+  ],
+  "discovery_recipes": {
+    "$comment": "Search patterns that surface public-domain aircraft documentation. Run with `tools/acquire.py discover \"<query>\"`. Recorded because finding these took longer than fetching them, and because the useful phrasings are not obvious.",
+    "internet_archive": [
+      "NATOPS flight manual",
+      "flight handbook USAF series",
+      "technical order flight handbook aircraft",
+      "pilot's flight operating instructions",
+      "aircraft operator manual army"
+    ],
+    "notes": [
+      "US military flight manuals are the richest type-specific public-domain lane, and many cover aircraft civilians fly today: T-34, T-6/SNJ, T-28, L-19/O-1, L-17, PT-series.",
+      "Check authorship before claiming 17 USC 105. Contractor-authored technical data is not automatically a US Government work even when it carries a military document number.",
+      "FAA Type Certificate Data Sheets (drs.faa.gov) are US Government works containing certificated limitations and placards for civil types. They are not checklists, but they are an authoritative public-domain source for the numeric limitations that transcribed checklists must not invent. Worth mining once the checklist structure is settled.",
+      "freechecklists.net may be browsed as an index to learn which documents exist for which types -- facts about what exists are not protected -- but its files must not be copied. See docs/05-product-and-sourcing.md section 2."
+    ]
+  }
+}

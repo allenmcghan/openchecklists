@@ -155,7 +155,7 @@ when asking a type club for permission.
 
 > **Superseded.** The milestone list below was written before the product was
 > clarified as a phone checklist with a completion log. The revised sequencing is in
-> [05-product-and-sourcing.md §4](05-product-and-sourcing.md), which moves the
+> [05-product-and-sourcing.md §5](05-product-and-sourcing.md), which moves the
 > renderer and the log to M1 and pushes vendor formats to last. The pipeline design
 > in §2 above still stands.
 

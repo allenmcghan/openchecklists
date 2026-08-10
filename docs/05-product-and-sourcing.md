@@ -225,7 +225,86 @@ narrative entirely. This is what `rights.status: original_expression` means, and
 
 ---
 
-## 4. Revised sequencing
+## 4. On manufacturers: where the moral argument holds and where it doesn't
+
+You put it this way: there is no honest reason a manufacturer would want checklist
+information behind legal protection when it is safety information for pilots.
+
+I think the instinct is largely right, and the industry mostly agrees with you.
+Manufacturers push safety bulletins out free and fast, and several — Cirrus,
+Diamond, ICON among them — publish current POHs on the open web at no charge.
+Others, Textron included, sell publications and treat them as a revenue line for a
+legacy fleet. So the practice is not uniform, and "they're hiding it" does not
+describe most of them.
+
+But the argument does not get you to "so we may republish it," for one legal reason
+and three practical ones.
+
+**The legal one, stated plainly because it matters most to your plan.** Obtaining a
+POH lawfully — buying it, or having it because you own the aircraft — gives you no
+right to publish its contents. First sale lets you resell or lend *that copy*; it
+does not grant reproduction or distribution. So "I can get the PDFs from
+manufacturers and scan them" solves acquisition, which was never the hard part. It
+does not touch redistribution, which is. Scanning is the easy half.
+
+**The three practical reasons they control distribution, none of which is
+secrecy:**
+
+*Revision control, and this one is a safety argument that cuts against us.* A
+manufacturer's worst case is a pilot flying behind a superseded revision — a
+checklist that was correct until a service bulletin changed it. While they control
+distribution, they know roughly who holds copies and can push a revision. The
+moment a third party mirrors a PDF, that ability is gone and the stale copy
+circulates forever. This is the objection to take seriously, because a pilot with a
+confidently-formatted 1978 checklist is worse off than one who had to go ask.
+
+*Product liability.* Per [01-legal-research.md §2](01-legal-research.md), courts
+have treated aeronautical charts as products subject to strict liability. If a third
+party re-typesets a POH, introduces an error, and someone dies, the manufacturer
+gets named anyway. Controlling the artifact is liability management, not
+information hoarding — and it is the same exposure this project takes on.
+
+*Regulation.* For a type-certificated aircraft the AFM is an FAA-approved document,
+part of the type certificate, and §91.9 requires the current approved manual and
+markings aboard. Nothing in this corpus can ever substitute for it. An "unofficial
+version" is by definition not approved data. That is a genuine limit on what the
+project can claim, not a legal trick.
+
+### The useful part: their main objection is our best pitch
+
+Currency is the strongest reason a manufacturer says no, and it is the thing this
+format is unusually good at. A PDF on a website cannot tell you it is out of date.
+An Open Checklist file can:
+
+- `provenance.source.revision` records which revision it was built from.
+- `provenance.revision.supersedes` links the file it replaces.
+- `verification.reviews[].content_hash` plus automatic demotion means editing a
+  reviewed file visibly downgrades it ([03-verification-model.md §2](03-verification-model.md)).
+- The log's `checklist.content_hash` means every recorded preflight names the exact
+  version that was in the pilot's hand.
+
+So the corpus can do something the manufacturer's own PDF distribution cannot:
+**mark every downstream copy stale the moment a new revision is published**, and
+tell any consumer holding an old hash that it is out of date. That turns their
+principal objection into the reason to cooperate.
+
+Which changes the ask. Not "may we republish your POH" — that invites no. Instead:
+
+> May we publish a machine-readable checklist derived from your current revision,
+> with your revision number embedded, linking to you as the canonical source? When
+> you publish a new revision, tell us and every derived file is marked superseded
+> the same day. Your customers get phone and kneeboard checklists that go stale
+> visibly instead of silently.
+
+That is a proposition rather than a request, it is honest about what they get, and
+it is strongest with kit manufacturers and small type certificate holders whose
+customers are already asking for phone checklists — and who, unlike Dauntless, can
+actually grant permission for their own manual.
+
+If they decline, nothing is lost. The public-domain lane in §3 does not depend on
+any of them.
+
+## 5. Revised sequencing
 
 The clarification moves the phone renderer forward and pushes vendor formats
 further back. Replaces the M1–M5 list in [04-roadmap.md §4](04-roadmap.md):
