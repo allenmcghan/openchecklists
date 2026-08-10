@@ -1,0 +1,373 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://openchecklists.net/schema/open-logbook-1.0.schema.json",
+  "title": "Open Logbook",
+  "description": "An open pilot logbook format. Exists because there is no interchange standard: every product (ForeFlight, LogTen, Garmin Pilot, MyFlightbook, Safelog) defines its own CSV template, so moving between them is lossy hand work and your flight history is effectively hostage to a vendor. This format is the escape hatch — a documented schema your data can live in, and be converted out of, without asking anyone's permission.\n\nTimes are decimal hours. Fields follow 14 CFR 61.51 for what must be recorded, plus the fields needed to compute currency under 61.56 and 61.57.",
+  "type": "object",
+  "required": ["open_logbook_version", "holder", "entries"],
+  "additionalProperties": false,
+
+  "properties": {
+    "open_logbook_version": { "type": "string", "const": "1.0" },
+
+    "holder": {
+      "description": "Whose logbook this is. A logbook with no owner is a spreadsheet.",
+      "type": "object",
+      "required": ["name"],
+      "additionalProperties": false,
+      "properties": {
+        "name": { "type": "string", "minLength": 1, "maxLength": 200 },
+        "certificate_number": { "type": "string", "maxLength": 50 },
+        "certificates": {
+          "description": "Certificates and ratings held. Free-form because the combinations are endless and the project should not pretend to adjudicate them.",
+          "type": "array",
+          "items": { "type": "string", "maxLength": 120 }
+        },
+        "medical": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "class": { "enum": ["first", "second", "third", "basicmed", "none", "sport_pilot_dl"] },
+            "issued": { "type": "string", "format": "date" },
+            "expires": {
+              "description": "Explicit rather than computed. Medical duration depends on class and on age at examination, and getting that arithmetic subtly wrong is worse than asking.",
+              "type": "string",
+              "format": "date"
+            }
+          }
+        },
+        "flight_reviews": {
+          "description": "14 CFR 61.56 flight reviews and equivalents. Used to compute the 24-calendar-month window.",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["date", "kind"],
+            "additionalProperties": false,
+            "properties": {
+              "date": { "type": "string", "format": "date" },
+              "kind": {
+                "enum": [
+                  "flight_review",
+                  "proficiency_check",
+                  "practical_test",
+                  "wings_phase",
+                  "instrument_proficiency_check",
+                  "other"
+                ]
+              },
+              "instructor": { "type": "string", "maxLength": 200 },
+              "instructor_certificate": { "type": "string", "maxLength": 50 },
+              "notes": { "type": "string", "maxLength": 500 }
+            }
+          }
+        }
+      }
+    },
+
+    "aircraft": {
+      "description": "Aircraft referenced by entries, keyed by the identifier used in entry.aircraft_id. Declaring them once keeps entries short and stops the same aeroplane being recorded three different ways.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "make", "model", "category_class"],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "description": "Registration where there is one, or any stable label. Part 103 vehicles have no registration, so this is not required to look like an N-number.",
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 30
+          },
+          "make": { "type": "string", "minLength": 1, "maxLength": 100 },
+          "model": { "type": "string", "minLength": 1, "maxLength": 100 },
+          "type_designator": { "type": "string", "maxLength": 10 },
+          "category_class": {
+            "description": "FAA category and class. Drives which currency rules apply.",
+            "enum": [
+              "airplane_single_engine_land",
+              "airplane_multi_engine_land",
+              "airplane_single_engine_sea",
+              "airplane_multi_engine_sea",
+              "rotorcraft_helicopter",
+              "rotorcraft_gyroplane",
+              "glider",
+              "lighter_than_air_airship",
+              "lighter_than_air_balloon",
+              "powered_lift",
+              "powered_parachute_land",
+              "powered_parachute_sea",
+              "weight_shift_control_land",
+              "weight_shift_control_sea",
+              "ultralight_part103",
+              "simulator",
+              "flight_training_device"
+            ]
+          },
+          "gear": { "enum": ["tricycle", "tailwheel", "retractable_tricycle", "retractable_tailwheel", "float", "amphibian", "ski", "skid", "none"] },
+          "attributes": {
+            "description": "Endorsement-relevant characteristics. Recorded per aircraft so entries do not have to repeat them, and so a tailwheel currency question can be answered from the data.",
+            "type": "array",
+            "items": {
+              "enum": [
+                "complex",
+                "high_performance",
+                "pressurized",
+                "turbine",
+                "tailwheel",
+                "glass_cockpit",
+                "experimental",
+                "light_sport",
+                "type_certificated"
+              ]
+            }
+          },
+          "checklist_id": {
+            "description": "Optional link to a checklist in the corpus for this aircraft, which is what lets a preflight completion log and a flight entry describe the same event.",
+            "type": "string",
+            "maxLength": 100
+          }
+        }
+      }
+    },
+
+    "entries": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/entry" }
+    },
+
+    "carried_forward": {
+      "description": "Totals from a previous paper or proprietary logbook that are not represented as entries. Kept separate so that computed totals never silently mix imported summaries with real entries, and so currency is never computed from a lump sum.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "as_of": { "type": "string", "format": "date" },
+        "source": { "type": "string", "maxLength": 300 },
+        "totals": { "$ref": "#/$defs/times" },
+        "landings_day": { "type": "integer", "minimum": 0 },
+        "landings_night": { "type": "integer", "minimum": 0 },
+        "notes": { "type": "string", "maxLength": 1000 }
+      }
+    },
+
+    "extensions": {
+      "type": "object",
+      "propertyNames": { "pattern": "^[a-z0-9-]+\\.[a-z0-9_.-]+$" }
+    }
+  },
+
+  "$defs": {
+    "hours": {
+      "description": "Decimal hours. Two decimal places is the practical limit; tenths is what most people log.",
+      "type": "number",
+      "minimum": 0,
+      "maximum": 24000
+    },
+
+    "times": {
+      "description": "Time buckets. These are NOT mutually exclusive by design, because the regulations are not: the same hour can be pilot_in_command and dual_received, or cross_country and night and actual_instrument simultaneously. The arithmetic constraints that do hold are enforced by the validator rather than the schema, because they are cross-field.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "total": { "$ref": "#/$defs/hours" },
+        "pilot_in_command": { "$ref": "#/$defs/hours" },
+        "second_in_command": { "$ref": "#/$defs/hours" },
+        "dual_received": { "$ref": "#/$defs/hours" },
+        "instructor": { "$ref": "#/$defs/hours" },
+        "solo": { "$ref": "#/$defs/hours" },
+        "cross_country": { "$ref": "#/$defs/hours" },
+        "day": { "$ref": "#/$defs/hours" },
+        "night": { "$ref": "#/$defs/hours" },
+        "actual_instrument": { "$ref": "#/$defs/hours" },
+        "simulated_instrument": { "$ref": "#/$defs/hours" },
+        "ground_trainer": { "$ref": "#/$defs/hours" }
+      }
+    },
+
+    "entry": {
+      "type": "object",
+      "required": ["date", "aircraft_id", "times"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "maxLength": 100 },
+        "date": {
+          "description": "Date of flight. Required by 61.51(b)(1).",
+          "type": "string",
+          "format": "date"
+        },
+        "aircraft_id": {
+          "description": "Must match an entry in the top-level aircraft list. 61.51(b)(2) requires aircraft make, model and identification.",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 30
+        },
+        "route": {
+          "description": "Departure and arrival, required by 61.51(b)(3). For training that does not go anywhere, 'from' and 'to' may be the same place.",
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "from": { "type": "string", "maxLength": 30 },
+            "to": { "type": "string", "maxLength": 30 },
+            "via": {
+              "type": "array",
+              "items": { "type": "string", "maxLength": 30 }
+            },
+            "distance_nm": { "type": "number", "minimum": 0 }
+          }
+        },
+        "times": { "$ref": "#/$defs/times" },
+        "landings": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "day": { "type": "integer", "minimum": 0, "maximum": 500 },
+            "night": { "type": "integer", "minimum": 0, "maximum": 500 },
+            "full_stop_day": {
+              "description": "Full-stop landings, which is what 61.57 requires for tailwheel aeroplanes and for night passenger currency. A touch-and-go does not count for either.",
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 500
+            },
+            "full_stop_night": { "type": "integer", "minimum": 0, "maximum": 500 }
+          }
+        },
+        "takeoffs": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "day": { "type": "integer", "minimum": 0, "maximum": 500 },
+            "night": { "type": "integer", "minimum": 0, "maximum": 500 }
+          }
+        },
+        "instrument": {
+          "description": "Instrument work. 61.51(g)(3) requires the location and type of each approach to be recorded, so approaches are objects rather than a bare count — a number alone does not satisfy the rule and cannot be audited.",
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "approaches": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["type", "location"],
+                "additionalProperties": false,
+                "properties": {
+                  "type": {
+                    "description": "Approach type as flown, e.g. 'ILS', 'RNAV (GPS) LPV', 'VOR', 'LOC BC'. Free text because the list changes and local variants exist.",
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 60
+                  },
+                  "location": {
+                    "description": "Airport identifier and runway where flown, e.g. 'KFDK RWY 23'.",
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 60
+                  },
+                  "conditions": { "enum": ["actual", "simulated", "vmc_practice"] },
+                  "notes": { "type": "string", "maxLength": 300 }
+                }
+              }
+            },
+            "holds": { "type": "integer", "minimum": 0, "maximum": 50 },
+            "course_tracking": {
+              "description": "Intercepting and tracking courses through navigational electronic systems, the third limb of 61.57(c) that people forget to log.",
+              "type": "boolean"
+            },
+            "safety_pilot": {
+              "description": "Required in the logbook by 61.51(g) when a safety pilot is required under 91.109.",
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "name": { "type": "string", "maxLength": 200 },
+                "certificate_number": { "type": "string", "maxLength": 50 }
+              }
+            }
+          }
+        },
+        "operation": {
+          "description": "What kind of flying this was. Affects nothing in the regulations but is what people actually want to filter on.",
+          "type": "array",
+          "items": {
+            "enum": [
+              "training",
+              "checkride",
+              "flight_review",
+              "instrument_proficiency_check",
+              "personal",
+              "business",
+              "commercial",
+              "instructional_given",
+              "ferry",
+              "maintenance_test",
+              "first_flight",
+              "aerobatic",
+              "formation",
+              "glider_tow",
+              "banner_tow",
+              "competition",
+              "charity",
+              "simulator_session"
+            ]
+          }
+        },
+        "instructor": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "name": { "type": "string", "maxLength": 200 },
+            "certificate_number": { "type": "string", "maxLength": 50 },
+            "expiration": { "type": "string", "format": "date" }
+          }
+        },
+        "endorsement": {
+          "description": "An instructor endorsement recorded against this flight. The text matters: an endorsement is a statement someone signed.",
+          "type": "object",
+          "required": ["text"],
+          "additionalProperties": false,
+          "properties": {
+            "text": { "type": "string", "minLength": 1, "maxLength": 3000 },
+            "far_reference": { "type": "string", "maxLength": 60 },
+            "instructor": { "type": "string", "maxLength": 200 },
+            "instructor_certificate": { "type": "string", "maxLength": 50 },
+            "date": { "type": "string", "format": "date" }
+          }
+        },
+        "meters": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "hobbs_start": { "type": "number", "minimum": 0 },
+            "hobbs_end": { "type": "number", "minimum": 0 },
+            "tach_start": { "type": "number", "minimum": 0 },
+            "tach_end": { "type": "number", "minimum": 0 }
+          }
+        },
+        "checklist_log_id": {
+          "description": "Links this flight to the preflight completion log recorded for it. This is the join no other logbook can make, and it is the reason this format lives alongside the checklist corpus: the preflight and the flight are one event.",
+          "type": "string",
+          "maxLength": 100
+        },
+        "passengers": { "type": "integer", "minimum": 0, "maximum": 1000 },
+        "remarks": { "type": "string", "maxLength": 4000 },
+        "imported_from": {
+          "description": "Where this entry came from if it was converted from another product, so a bad import can be traced and re-run rather than guessed at.",
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "product": { "type": "string", "maxLength": 100 },
+            "imported": { "type": "string", "format": "date" },
+            "source_row": { "type": "integer", "minimum": 0 },
+            "unmapped": {
+              "description": "Columns the importer did not understand, kept verbatim rather than discarded. A lossy import that silently drops a column is how people lose their history.",
+              "type": "object",
+              "additionalProperties": { "type": "string" }
+            }
+          }
+        },
+        "extensions": {
+          "type": "object",
+          "propertyNames": { "pattern": "^[a-z0-9-]+\\.[a-z0-9_.-]+$" }
+        }
+      }
+    }
+  }
+}

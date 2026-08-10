@@ -43,6 +43,9 @@ preserving history — see [docs/04-roadmap.md](docs/04-roadmap.md) M1.
 | [tools/build_site.py](tools/build_site.py) | Static site generator: filterable catalogue, per-checklist pages, airframe family pages, all download formats, machine catalogue, SHA-256 manifest |
 | [tools/site_editor.py](tools/site_editor.py) | The browser editor: create or fork a checklist, saves to browser storage, records lineage automatically |
 | [tools/site_pages.py](tools/site_pages.py) | Branding, landing page, and the privacy / terms / takedown / contribute / contact pages |
+| [schema/open-logbook-1.0.schema.json](schema/open-logbook-1.0.schema.json) | **Open pilot logbook format.** No interchange standard existed — every product has its own CSV template |
+| [tools/logbook.py](tools/logbook.py) | Validate, total, compute currency, and import/export proprietary CSV |
+| [tools/test_logbook.py](tools/test_logbook.py) | 26 checks, including the calendar-month currency boundaries |
 | [tools/diff.py](tools/diff.py) | Semantic diff between two checklists, safety-relevant changes first. `--fork` diffs a file against its recorded parent |
 | [tools/test_validate.py](tools/test_validate.py) | 27 negative cases proving the safety rules fire |
 | [examples/](examples/) | Five checklist files, a worked completion log, and two field reports |
@@ -118,6 +121,38 @@ cd build/site && python3 -m http.server 8000
 Ten preset sizes plus a custom size, and a text scale for poor cockpit light:
 Letter, Legal, A4, A5, A6, kneeboard (5.5×8.5), small kneeboard (4.25×5.5),
 index card (5×8), small index card (3×5), half-letter landscape.
+
+### The logbook
+
+There is no open interchange standard for pilot logbooks: ForeFlight, LogTen, Garmin
+Pilot, MyFlightbook and Safelog each define their own CSV template, so your flight
+history is effectively hostage to a vendor. `schema/open-logbook-1.0.schema.json` is
+a documented format your data can live in and be converted out of.
+
+```sh
+python3 tools/logbook.py validate examples/*.oclb.json
+python3 tools/logbook.py totals   examples/example-logbook.oclb.json
+python3 tools/logbook.py currency examples/example-logbook.oclb.json --on 2026-08-10
+python3 tools/logbook.py import  mylog.csv --profile foreflight -o out.oclb.json
+python3 tools/logbook.py export  examples/example-logbook.oclb.json
+```
+
+Three things it does that proprietary logbooks generally do not:
+
+- **The arithmetic is checked.** Time buckets are not mutually exclusive — the same
+  hour can be PIC and dual received and night and cross-country — but some
+  relationships must hold. A logbook that accepts day + night greater than total is
+  one you discover is wrong during a checkride.
+- **Currency is computed in calendar months, not rolling days.** §61.57(c) says "the
+  preceding 6 calendar months", which means through the end of that month. Rolling-day
+  implementations give the wrong answer near month boundaries, in the unsafe
+  direction. Tested at the boundary in both directions.
+- **Import never silently drops a column.** Anything the mapper does not recognise is
+  preserved in `imported_from.unmapped` and reported, because a lossy import is how
+  people lose a decade of flying.
+
+Currency output is an aid and says so: it cannot see an IPC, a type-specific
+requirement, or whether a landing was truly to a full stop.
 
 ### Variations, which is the point for experimental and ultralight
 
