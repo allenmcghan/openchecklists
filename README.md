@@ -3,10 +3,10 @@
 A free, open, machine-readable library of aircraft checklists in a standard format
 anyone can consume, reformat, modify, and redistribute.
 
-**This directory is a design proposal, not an implementation.** No website, no OCR
-pipeline, no corpus. It contains the research, the proposed format, the verification
-model, and a roadmap, so the decisions can be argued with before there are five
-hundred files in a repository.
+**Design plus working tooling.** The format, the validators, the phone/print
+renderer, the exporters and the static site all run today; the OCR pipeline and the
+contribution flow do not exist yet. `python3 tools/build_site.py` produces the whole
+site from the corpus in `examples/`.
 
 It lives in the Junco repository because that is where the work was commissioned.
 It is intended to be split out into its own repository with `git subtree split`,
@@ -39,6 +39,8 @@ preserving history — see [docs/04-roadmap.md](docs/04-roadmap.md) M1.
 | [schema/open-checklist-report-1.0.schema.json](schema/open-checklist-report-1.0.schema.json) | Field report format: stale item, transcription error, airframe variation, newer source revision |
 | [tools/validate_report.py](tools/validate_report.py) | Report validator. A confirmed defect must demote the file it targets; a live safety concern must travel inside the file |
 | [tools/test_reports.py](tools/test_reports.py) | 14 cases covering the demotion and safety-disclosure rules |
+| [tools/export.py](tools/export.py) | Converters to json, csv, tsv, md, txt, xml, docx, html — each verified against the safety-preserving export contract |
+| [tools/build_site.py](tools/build_site.py) | Static site generator: filterable catalogue, per-checklist pages, all download formats, machine catalogue, SHA-256 manifest |
 | [tools/test_validate.py](tools/test_validate.py) | 27 negative cases proving the safety rules fire |
 | [examples/](examples/) | Five checklist files, a worked completion log, and two field reports |
 
@@ -77,7 +79,25 @@ python3 tools/test_reports.py             # prove the demotion rules fire
 
 python3 tools/acquire.py discover "NATOPS flight manual"   # find PD candidates
 python3 tools/acquire.py fetch --all                        # -> sources/documents/
+
+python3 tools/export.py examples/*.ocl.json --formats all   # -> build/downloads/
+python3 tools/build_site.py --base-url https://openchecklists.net  # -> build/site/
 ```
+
+### The site
+
+`build_site.py` emits a complete static site with no server and no database:
+
+| Path | What it is |
+| --- | --- |
+| `index.html` | Filterable catalogue — search by make, model, category, source; filter by verification state |
+| `c/<id>/index.html` | The checklist: tick on a phone, print at any paper size, export a log |
+| `c/<id>/<id>.{json,csv,tsv,md,txt,xml,docx}` | Every download format. Quarantined files carry `.UNREVIEWED` in the filename |
+| `api/index.json` | Machine catalogue: metadata, verification state and rights per file. No key, no rate limit |
+| `api/checklists/<id>.json` | Stable plain-HTTP path to every file |
+| `manifest.sha256` | Hash of every published artifact, so a mirror can be verified |
+| `reviewed.txt` / `unreviewed.txt` | Bundle listings, kept separate on purpose |
+| `about.html` | What the verification states mean, and why "flown behind it" is not the top one |
 
 Open a rendered file on a phone: tick items, choose a paper size, print, export a
 log. It makes no network requests, so it works in a hangar with no signal.

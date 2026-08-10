@@ -1,0 +1,475 @@
+#!/usr/bin/env python3
+"""Build the openchecklists.net static site from the corpus.
+
+    python3 tools/build_site.py
+    python3 tools/build_site.py --base-url https://openchecklists.net
+
+Output under build/site/:
+
+    index.html                      browsable, filterable catalogue
+    about.html                      what the verification states mean
+    c/<id>/index.html               the checklist, tickable, printable at any size
+    c/<id>/<id>.{json,csv,tsv,md,txt,xml,docx,html}
+    api/index.json                  machine-readable catalogue
+    api/checklists/<id>.json        stable plain-HTTP path to every file
+    manifest.sha256                 hash of every published artifact
+    reviewed.txt / unreviewed.txt   bundle listings, kept separate on purpose
+    robots.txt, sitemap.xml
+
+No database, no server, no build-time network access. Everything derives from the
+files in examples/, so the corpus in git is the only source of truth.
+
+Two rules from docs/03-verification-model.md are enforced here rather than left to
+the templates, because a static site generator is exactly where they get quietly
+forgotten:
+
+  * A quarantined file (unreviewed, or carrying an unresolved safety defect) is
+    never offered in a vendor panel format, and its downloads carry the state in
+    the filename.
+  * Quarantined files are excluded from the default bundle listing and go in a
+    separate one a consumer has to ask for.
+"""
+
+from __future__ import annotations
+
+import argparse
+import hashlib
+import json
+import shutil
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from export import EXT, FORMATS, export, is_quarantined, state_line, verify_export  # noqa: E402
+from render import render as render_html  # noqa: E402
+from validate import content_hash  # noqa: E402
+
+REPO = Path(__file__).resolve().parent.parent
+OUT = REPO / "build" / "site"
+
+CSS = """
+:root{--bg:#fff;--fg:#14161a;--muted:#5f6368;--line:#dcdfe4;--card:#f7f8fa;
+--accent:#1f4e79;--warn:#b3261e;--ok:#1b5e20;--caut:#8a5a00}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){
+--bg:#14161a;--fg:#e9eaec;--muted:#9aa0a6;--line:#2f333a;--card:#1c1f24;
+--accent:#90caf9;--warn:#ff8a80;--ok:#a5d6a7;--caut:#ffcc80}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);
+font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+-webkit-text-size-adjust:100%}
+a{color:var(--accent)}
+.wrap{max-width:56rem;margin:0 auto;padding:1.25rem}
+header.site{border-bottom:1px solid var(--line);margin-bottom:1.25rem}
+header.site .wrap{padding-bottom:.75rem}
+h1{font-size:1.5rem;margin:.3rem 0}
+.tag{font-size:.8rem;color:var(--muted)}
+.lede{color:var(--muted);max-width:44rem}
+.controls{display:flex;gap:.5rem;flex-wrap:wrap;margin:1rem 0;align-items:center}
+input[type=search],select{font:inherit;padding:.45rem .6rem;border:1px solid var(--line);
+border-radius:.35rem;background:var(--bg);color:var(--fg)}
+input[type=search]{flex:1;min-width:12rem}
+.count{color:var(--muted);font-size:.85rem;font-variant-numeric:tabular-nums}
+ul.cards{list-style:none;padding:0;margin:0;display:grid;gap:.75rem}
+li.card{border:1px solid var(--line);border-radius:.5rem;padding:.85rem 1rem;background:var(--card)}
+li.card h2{font-size:1.05rem;margin:0 0 .2rem}
+li.card h2 a{text-decoration:none}
+.meta{font-size:.82rem;color:var(--muted);display:flex;gap:.5rem;flex-wrap:wrap}
+.meta span{white-space:nowrap}
+.badge{display:inline-block;font-size:.7rem;font-weight:700;letter-spacing:.03em;
+border:1px solid currentColor;border-radius:.25rem;padding:.05rem .35rem;margin-right:.35rem}
+.badge.quar{color:var(--warn)}
+.badge.ok{color:var(--ok)}
+.badge.part{color:var(--caut)}
+.dl{margin-top:.5rem;font-size:.82rem}
+.dl a{margin-right:.5rem;white-space:nowrap}
+table{border-collapse:collapse;width:100%;font-size:.9rem;margin:1rem 0}
+th,td{text-align:left;padding:.4rem .5rem;border-bottom:1px solid var(--line);vertical-align:top}
+code{font-size:.85em;background:var(--card);padding:.1em .3em;border-radius:.2rem}
+.banner{border:2px solid;border-radius:.4rem;padding:.7rem .85rem;margin:1rem 0;font-size:.9rem}
+.banner.quar{border-color:var(--warn);color:var(--warn)}
+.banner.okb{border-color:var(--ok);color:var(--ok)}
+footer.site{border-top:1px solid var(--line);margin-top:2.5rem;padding:1rem 0 3rem;
+font-size:.82rem;color:var(--muted)}
+.scroll{overflow-x:auto}
+"""
+
+
+def head(title: str, desc: str, rel: str = "") -> str:
+    return f"""<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{title}</title>
+<meta name="description" content="{desc}">
+<style>{CSS}</style>
+</head>
+<body>
+<header class="site"><div class="wrap">
+<h1><a href="{rel}index.html" style="text-decoration:none;color:inherit">Open Checklists</a></h1>
+<p class="tag">Free, machine-readable aircraft checklists. Every file states where it
+came from and whether anyone has checked it.</p>
+</div></header>
+<div class="wrap">
+"""
+
+
+FOOT = """</div>
+<footer class="site"><div class="wrap">
+<p><strong>Nothing here is approved data.</strong> Every file records its source and
+its verification state. Verify against your aircraft's own approved documentation
+before flight. No warranty of any kind.</p>
+<p>Corpus rights are per file. Bulk download: <a href="manifest.sha256">manifest.sha256</a>
+&middot; machine catalogue: <a href="api/index.json">api/index.json</a>
+&middot; <a href="about.html">what the states mean</a></p>
+</div></footer>
+</body>
+</html>
+"""
+
+
+def badges(doc: dict) -> str:
+    v = doc.get("verification", {})
+    out = []
+    if is_quarantined(doc):
+        out.append('<span class="badge quar">NOT REVIEWED</span>')
+    else:
+        out.append('<span class="badge ok">REVIEWED</span>')
+    comp = v.get("completeness")
+    if comp and comp != "full":
+        out.append(f'<span class="badge part">{comp.replace("_", " ").upper()}</span>')
+    return "".join(out)
+
+
+def entry(doc: dict, path: Path) -> dict:
+    ac = doc.get("aircraft", {})
+    v = doc.get("verification", {})
+    src = doc.get("provenance", {}).get("source", {})
+    return {
+        "id": doc["id"],
+        "title": doc.get("title"),
+        "aircraft": {
+            "make": ac.get("make"),
+            "model": ac.get("model"),
+            "variant": ac.get("variant"),
+            "category": ac.get("category"),
+            "icao_type": ac.get("icao_type"),
+        },
+        "engine_type": (ac.get("engine") or [{}])[0].get("type"),
+        "verification": {
+            "source_fidelity": v.get("source_fidelity"),
+            "operational_review": v.get("operational_review"),
+            "completeness": v.get("completeness"),
+            "quarantined": is_quarantined(doc),
+            "safety_defects": sum(
+                1 for i in v.get("known_issues", []) if i.get("severity") == "safety_defect"
+            ),
+        },
+        "rights": {
+            "status": doc.get("rights", {}).get("status"),
+            "license": doc.get("rights", {}).get("corpus_license"),
+            "redistribution": doc.get("rights", {}).get("redistribution"),
+        },
+        "source": {
+            "kind": src.get("kind"),
+            "title": src.get("title"),
+            "revision": src.get("revision"),
+        },
+        "sections": len(doc.get("sections", [])),
+        "items": sum(len(s.get("items", [])) for s in doc.get("sections", [])),
+        "tickable_items": sum(
+            1 for s in doc.get("sections", []) for i in s.get("items", []) if i.get("tickable")
+        ),
+        "memory_items": sum(
+            1 for s in doc.get("sections", []) for i in s.get("items", []) if i.get("memory_item")
+        ),
+        "phases": sorted({s.get("phase") for s in doc.get("sections", []) if s.get("phase")}),
+        "content_hash": content_hash(doc),
+        "file_revision": doc.get("provenance", {}).get("revision", {}).get("file_revision"),
+        "page": f"c/{doc['id']}/",
+        "downloads": {},  # filled in by build
+        "source_file": path.name,
+    }
+
+
+INDEX_JS = r"""
+(function(){
+  var data = JSON.parse(document.getElementById('catalogue').textContent);
+  var q = document.getElementById('q'),
+      cat = document.getElementById('cat'),
+      ver = document.getElementById('ver'),
+      list = document.getElementById('list'),
+      count = document.getElementById('count');
+
+  function card(e){
+    var dl = Object.keys(e.downloads).map(function(f){
+      return '<a href="' + e.downloads[f] + '">' + f + '</a>';
+    }).join('');
+    var badge = e.verification.quarantined
+      ? '<span class="badge quar">NOT REVIEWED</span>'
+      : '<span class="badge ok">REVIEWED</span>';
+    if (e.verification.completeness && e.verification.completeness !== 'full') {
+      badge += '<span class="badge part">' +
+        e.verification.completeness.replace(/_/g,' ').toUpperCase() + '</span>';
+    }
+    var ac = [e.aircraft.make, e.aircraft.model, e.aircraft.variant].filter(Boolean).join(' ');
+    return '<li class="card"><h2><a href="' + e.page + '">' + e.title + '</a></h2>' +
+      '<div class="meta">' + badge +
+      '<span>' + ac + '</span>' +
+      '<span>' + (e.aircraft.category||'').replace(/_/g,' ') + '</span>' +
+      '<span>' + e.tickable_items + ' items</span>' +
+      (e.memory_items ? '<span>' + e.memory_items + ' memory</span>' : '') +
+      '<span>' + (e.rights.license || e.rights.status) + '</span>' +
+      '</div><div class="dl">' + dl + '</div></li>';
+  }
+
+  function apply(){
+    var s = q.value.toLowerCase().trim();
+    var c = cat.value, vf = ver.value;
+    var out = data.checklists.filter(function(e){
+      if (c && e.aircraft.category !== c) return false;
+      if (vf === 'reviewed' && e.verification.quarantined) return false;
+      if (vf === 'unreviewed' && !e.verification.quarantined) return false;
+      if (!s) return true;
+      var hay = [e.title, e.aircraft.make, e.aircraft.model, e.aircraft.variant,
+                 e.aircraft.icao_type, e.aircraft.category, e.source.title,
+                 e.engine_type].join(' ').toLowerCase();
+      return hay.indexOf(s) !== -1;
+    });
+    list.innerHTML = out.map(card).join('') ||
+      '<li class="card">Nothing matches. Try a make, a model, or a category.</li>';
+    count.textContent = out.length + ' of ' + data.checklists.length;
+  }
+
+  [q, cat, ver].forEach(function(el){ el.addEventListener('input', apply); });
+  apply();
+})();
+"""
+
+
+def build_index(entries: list[dict], catalogue: dict) -> str:
+    cats = sorted({e["aircraft"]["category"] for e in entries if e["aircraft"].get("category")})
+    opts = "".join(f'<option value="{c}">{c.replace("_", " ")}</option>' for c in cats)
+    return (
+        head(
+            "Open Checklists — free machine-readable aircraft checklists",
+            "A free, open library of aircraft checklists in a standard format anyone can "
+            "consume, reformat, modify and redistribute.",
+        )
+        + f"""
+<p class="lede">Every checklist here is a structured data file. Read it on a phone,
+print it at whatever size your kneeboard takes, or load it into your own software.
+Each one records the document it came from and whether a human has checked it
+against that document.</p>
+
+<div class="controls">
+  <input type="search" id="q" placeholder="Search make, model, category, source…"
+         aria-label="Search checklists">
+  <select id="cat" aria-label="Category"><option value="">All categories</option>{opts}</select>
+  <select id="ver" aria-label="Verification">
+    <option value="">Any state</option>
+    <option value="reviewed">Reviewed only</option>
+    <option value="unreviewed">Not reviewed</option>
+  </select>
+  <span class="count" id="count"></span>
+</div>
+
+<ul class="cards" id="list"></ul>
+
+<h2>Using this from software</h2>
+<p>No API key, no rate limit, no registration. Plain HTTP paths:</p>
+<table><tbody>
+<tr><td><code>api/index.json</code></td><td>The whole catalogue with metadata, verification state and rights per file</td></tr>
+<tr><td><code>api/checklists/&lt;id&gt;.json</code></td><td>One checklist, canonical form</td></tr>
+<tr><td><code>c/&lt;id&gt;/&lt;id&gt;.csv</code></td><td>Same content, one row per item, with a type column</td></tr>
+<tr><td><code>manifest.sha256</code></td><td>SHA-256 of every published artifact, for verifying a mirror</td></tr>
+<tr><td><code>reviewed.txt</code></td><td>Files that a human has checked against their source</td></tr>
+<tr><td><code>unreviewed.txt</code></td><td>Files nobody has checked. Kept separate deliberately</td></tr>
+</tbody></table>
+<p>Validate any file against
+<code>schema/open-checklist-1.0.schema.json</code>. Schema validity is necessary but
+not sufficient — see <a href="about.html">what the states mean</a>.</p>
+
+<script type="application/json" id="catalogue">{json.dumps(catalogue)}</script>
+<script>{INDEX_JS}</script>
+"""
+        + FOOT
+    )
+
+
+ABOUT = """
+<h2>What the verification states mean</h2>
+<p>A checklist is a safety document. The most dangerous thing this project could do
+is let an unchecked machine transcription look like a checked one, so every file
+carries its state on two independent axes and neither implies the other.</p>
+
+<h3>Does it match its source?</h3>
+<table><tbody>
+<tr><td><code>unreviewed</code></td><td>Machine or first-pass output. Nobody has compared it to the source document.</td></tr>
+<tr><td><code>single_reviewed</code></td><td>One person, not the transcriber, compared it line by line against the source.</td></tr>
+<tr><td><code>dual_reviewed</code></td><td>Two people did so independently.</td></tr>
+<tr><td><code>not_applicable</code></td><td>There is no source document. The content is authored — common for Part 103, where no approved flight manual is required.</td></tr>
+</tbody></table>
+
+<h3>Has it been used in an aircraft?</h3>
+<table><tbody>
+<tr><td><code>none</code></td><td>Never exercised against a real aircraft.</td></tr>
+<tr><td><code>ground_checked</code></td><td>Walked through in the actual cockpit, every control located.</td></tr>
+<tr><td><code>flown</code></td><td>Flown behind in this type.</td></tr>
+</tbody></table>
+
+<h3>Why flying behind it is not the top state</h3>
+<p>Flying behind a checklist cannot detect a missing item. Nothing prompts you to do
+the check that was left out, so the flight feels entirely normal. That makes "flown"
+weaker evidence of correctness than "two people compared it against the source" —
+which is why operational review never lifts a file out of quarantine on its own.</p>
+
+<h3>Completeness</h3>
+<p>A file can be faithful to its source and still be missing whole sections. A
+missing emergency procedure is invisible to the person holding the file, so
+completeness is stated separately: <code>full</code>, <code>normal_only</code>,
+<code>partial</code>, <code>excerpt</code>.</p>
+
+<h3>Quarantine</h3>
+<p>Files that are unreviewed, or that carry an unresolved safety defect, are
+quarantined. They are still downloadable — review requires people to be able to read
+them — but they are excluded from the default bundle, their filenames carry the
+state, and they are never offered in a panel-loadable avionics format, because a
+panel file has nowhere to put a warning label.</p>
+
+<h3>Rights</h3>
+<p>Rights are recorded per file, not repo-wide, because this project cannot grant a
+licence in text it does not own. <code>public_domain</code> files state the basis
+(most are US Government works under 17 U.S.C. 105). <code>original_expression</code>
+means the wording is the contributor's own, expressing procedure taken as fact.
+Files whose rights are unresolved are not published at all.</p>
+
+<h3>Found a problem?</h3>
+<p>File a report against the exact version you were looking at — every file has a
+content hash. A confirmed transcription error or stale item costs the file its
+verification badge automatically, which is how the corpus stays current instead of
+merely claiming to.</p>
+"""
+
+
+def main() -> int:
+    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument("--corpus", type=Path, default=REPO / "examples")
+    ap.add_argument("--out", type=Path, default=OUT)
+    ap.add_argument("--base-url", default="")
+    args = ap.parse_args()
+
+    paths = sorted(args.corpus.glob("*.ocl.json"))
+    if not paths:
+        raise SystemExit(f"no *.ocl.json under {args.corpus}")
+
+    if args.out.exists():
+        shutil.rmtree(args.out)
+    args.out.mkdir(parents=True)
+    (args.out / "api" / "checklists").mkdir(parents=True)
+
+    entries: list[dict] = []
+    violations = 0
+    artifacts: list[Path] = []
+
+    for p in paths:
+        doc = json.loads(p.read_text())
+        e = entry(doc, p)
+        cid = doc["id"]
+        cdir = args.out / "c" / cid
+        cdir.mkdir(parents=True)
+
+        quar = is_quarantined(doc)
+        # Quarantine rule: state travels in the filename, because the filename is
+        # what survives being emailed, printed, and found on a hangar computer.
+        stem = f"{cid}.UNREVIEWED" if quar else cid
+
+        for fmt in FORMATS:
+            if fmt == "html":
+                continue  # the page itself is the HTML artifact
+            blob = export(doc, fmt)
+            issues = verify_export(doc, fmt, blob)
+            for msg in issues:
+                print(f"  CONTRACT VIOLATION: {cid}: {msg}")
+            violations += len(issues)
+            out = cdir / f"{stem}.{EXT[fmt]}"
+            out.write_bytes(blob)
+            artifacts.append(out)
+            e["downloads"][fmt] = f"c/{cid}/{out.name}"
+
+        page = cdir / "index.html"
+        page.write_text(render_html(doc, "letter"), encoding="utf-8")
+        artifacts.append(page)
+
+        api = args.out / "api" / "checklists" / f"{cid}.json"
+        api.write_bytes((json.dumps(doc, indent=2, ensure_ascii=False) + "\n").encode())
+        artifacts.append(api)
+
+        entries.append(e)
+
+    catalogue = {
+        "openchecklists_catalogue_version": "1.0",
+        "schema": "schema/open-checklist-1.0.schema.json",
+        "base_url": args.base_url,
+        "count": len(entries),
+        "reviewed_count": sum(1 for e in entries if not e["verification"]["quarantined"]),
+        "notice": (
+            "Nothing in this catalogue is approved data. Every entry records its source and "
+            "verification state. Schema validity is necessary but not sufficient: the corpus "
+            "policy rules are enforced separately and the verification fields should not be "
+            "trusted for files obtained outside this catalogue."
+        ),
+        "checklists": entries,
+    }
+
+    (args.out / "api" / "index.json").write_bytes(
+        (json.dumps(catalogue, indent=2, ensure_ascii=False) + "\n").encode()
+    )
+    artifacts.append(args.out / "api" / "index.json")
+
+    (args.out / "index.html").write_text(build_index(entries, catalogue), encoding="utf-8")
+    (args.out / "about.html").write_text(
+        head("What the verification states mean — Open Checklists", "How to read a file's state.")
+        + ABOUT
+        + FOOT,
+        encoding="utf-8",
+    )
+    artifacts += [args.out / "index.html", args.out / "about.html"]
+
+    # Bundle listings, kept apart so a consumer cannot pick up unreviewed content
+    # by accident.
+    rev = [e for e in entries if not e["verification"]["quarantined"]]
+    unrev = [e for e in entries if e["verification"]["quarantined"]]
+    (args.out / "reviewed.txt").write_text(
+        "".join(f"api/checklists/{e['id']}.json\n" for e in rev) or "# none yet\n"
+    )
+    (args.out / "unreviewed.txt").write_text(
+        "# Nobody has checked these against a source document. Not for flight.\n"
+        + "".join(f"api/checklists/{e['id']}.json\n" for e in unrev)
+    )
+    (args.out / "robots.txt").write_text("User-agent: *\nAllow: /\n")
+
+    base = args.base_url.rstrip("/")
+    urls = ["", "about.html"] + [f"c/{e['id']}/" for e in entries]
+    (args.out / "sitemap.xml").write_text(
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+        + "".join(f"  <url><loc>{base}/{u}</loc></url>\n" for u in urls)
+        + "</urlset>\n"
+    )
+    artifacts += [args.out / "reviewed.txt", args.out / "unreviewed.txt", args.out / "sitemap.xml"]
+
+    lines = []
+    for a in sorted(artifacts):
+        lines.append(f"{hashlib.sha256(a.read_bytes()).hexdigest()}  {a.relative_to(args.out)}")
+    (args.out / "manifest.sha256").write_text("\n".join(lines) + "\n")
+
+    total = sum(1 for _ in args.out.rglob("*") if _.is_file())
+    print(f"built {args.out.relative_to(REPO)}: {len(entries)} checklists, {total} files")
+    print(f"  reviewed: {len(rev)}   quarantined: {len(unrev)}")
+    print(f"  {violations} export contract violation(s)")
+    return 1 if violations else 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
