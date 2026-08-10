@@ -39,11 +39,20 @@ REPO = Path(__file__).resolve().parent.parent
 
 INFO_TYPES = {"note", "caution", "warning"}
 
+# Paper sizes people actually use for checklists. The kneeboard and card sizes matter
+# more than the office ones: a checklist that only prints on Letter is a checklist you
+# cannot strap to your leg.
 PAPER = {
     "letter": ("8.5in", "11in", "0.5in"),
+    "legal": ("8.5in", "14in", "0.5in"),
     "a4": ("210mm", "297mm", "12mm"),
     "a5": ("148mm", "210mm", "8mm"),
+    "a6": ("105mm", "148mm", "6mm"),
     "kneeboard": ("5.5in", "8.5in", "0.3in"),
+    "kneeboard-small": ("4.25in", "5.5in", "0.2in"),
+    "index-card": ("5in", "8in", "0.25in"),
+    "index-card-small": ("3in", "5in", "0.18in"),
+    "half-letter-landscape": ("11in", "8.5in", "0.4in"),
 }
 
 
@@ -161,6 +170,8 @@ padding:.5rem 0;display:flex;gap:.5rem;flex-wrap:wrap;align-items:center;z-index
 button,select{font:inherit;padding:.4rem .6rem;border:1px solid var(--line);
 border-radius:.35rem;background:var(--bg);color:var(--fg)}
 .count{margin-left:auto;color:var(--muted);font-size:.85rem;font-variant-numeric:tabular-nums}
+.sitelink{font-size:.85rem;padding:.4rem .55rem;border:1px solid var(--line);border-radius:.35rem;
+text-decoration:none;color:var(--note);white-space:nowrap}
 .sec{margin:1.5rem 0;break-inside:auto}
 .sec h2{font-size:1.05rem;border-bottom:2px solid var(--line);padding-bottom:.25rem;
 margin:0 0 .5rem;display:flex;justify-content:space-between;align-items:baseline;gap:.5rem}
@@ -242,10 +253,29 @@ JS = r"""
     ticks.clear(); refresh();
   });
 
-  document.getElementById('paper').addEventListener('change', function(){
-    var s = document.getElementById('pagesize');
-    var v = this.value.split(',');
-    s.textContent = '@page{size:' + v[0] + ' ' + v[1] + ';margin:' + v[2] + '}';
+  var pageStyle = document.getElementById('pagesize');
+  var paperSel = document.getElementById('paper');
+  var customWrap = document.getElementById('customwrap');
+
+  function applyPage(){
+    if (paperSel.value === 'custom'){
+      customWrap.hidden = false;
+      var w = (document.getElementById('cw').value || '5in').trim();
+      var h = (document.getElementById('ch').value || '8in').trim();
+      pageStyle.textContent = '@page{size:' + w + ' ' + h + ';margin:0.25in}';
+      return;
+    }
+    customWrap.hidden = true;
+    var v = paperSel.value.split(',');
+    pageStyle.textContent = '@page{size:' + v[0] + ' ' + v[1] + ';margin:' + v[2] + '}';
+  }
+  paperSel.addEventListener('change', applyPage);
+  document.getElementById('cw').addEventListener('input', applyPage);
+  document.getElementById('ch').addEventListener('input', applyPage);
+
+  // Text scale, so a card stays readable at a small paper size and in poor light.
+  document.getElementById('scale').addEventListener('change', function(){
+    document.body.style.fontSize = (16 * parseFloat(this.value)) + 'px';
   });
 
   // There is deliberately no "check all". See the module docstring.
@@ -318,7 +348,8 @@ JS = r"""
 """
 
 
-def render(doc: dict, paper: str) -> str:
+def render(doc: dict, paper: str, site_rel: str | None = None) -> str:
+    """site_rel is the path back to the site root; None renders a standalone file."""
     cls, text = state_banner(doc)
     ac = doc.get("aircraft", {})
     ac_line = " ".join(filter(None, [ac.get("make"), ac.get("model"), ac.get("variant")]))
@@ -338,11 +369,23 @@ def render(doc: dict, paper: str) -> str:
         },
     }
 
+    site_links = ""
+    if site_rel is not None:
+        fam = ac.get("airframe_family")
+        site_links = (
+            f'<a class="sitelink" href="{site_rel}editor.html?fork={esc(doc.get("id"))}">'
+            "Fork this in the editor</a>"
+        )
+        if fam:
+            site_links += f'<a class="sitelink" href="{site_rel}f/{esc(fam)}/">Other variations</a>'
+        site_links += f'<a class="sitelink" href="{site_rel}catalogue.html">All checklists</a>'
+
     w, h, m = PAPER[paper]
     options = "\n".join(
-        f'<option value="{v[0]},{v[1]},{v[2]}"{" selected" if k == paper else ""}>{k}</option>'
+        f'<option value="{v[0]},{v[1]},{v[2]}"{" selected" if k == paper else ""}>'
+        f'{k.replace("-", " ")} ({v[0]}×{v[1]})</option>'
         for k, v in PAPER.items()
-    )
+    ) + '\n<option value="custom">custom size…</option>'
 
     sections = "\n".join(render_section(s, i) for i, s in enumerate(doc.get("sections", [])))
 
@@ -369,8 +412,19 @@ def render(doc: dict, paper: str) -> str:
 <div class="bar noprint">
   <button id="reset">Reset</button>
   <label>Paper <select id="paper">{options}</select></label>
+  <span id="customwrap" hidden>
+    <input id="cw" size="6" placeholder="width" aria-label="Custom page width">
+    <input id="ch" size="6" placeholder="height" aria-label="Custom page height">
+  </span>
+  <label>Text <select id="scale">
+    <option value="0.85">smaller</option>
+    <option value="1" selected>normal</option>
+    <option value="1.15">larger</option>
+    <option value="1.35">largest</option>
+  </select></label>
   <button onclick="window.print()">Print</button>
   <button id="log">Export log</button>
+  {site_links}
   <span class="count" id="count"></span>
 </div>
 

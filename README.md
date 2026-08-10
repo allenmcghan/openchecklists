@@ -41,7 +41,8 @@ preserving history — see [docs/04-roadmap.md](docs/04-roadmap.md) M1.
 | [tools/test_reports.py](tools/test_reports.py) | 14 cases covering the demotion and safety-disclosure rules |
 | [tools/export.py](tools/export.py) | Converters to json, csv, tsv, md, txt, xml, docx, html — each verified against the safety-preserving export contract |
 | [tools/build_site.py](tools/build_site.py) | Static site generator: filterable catalogue, per-checklist pages, airframe family pages, all download formats, machine catalogue, SHA-256 manifest |
-| [tools/site_editor.py](tools/site_editor.py) | The browser editor page: create or fork a checklist, records lineage automatically, downloads valid JSON |
+| [tools/site_editor.py](tools/site_editor.py) | The browser editor: create or fork a checklist, saves to browser storage, records lineage automatically |
+| [tools/site_pages.py](tools/site_pages.py) | Branding, landing page, and the privacy / terms / takedown / contribute / contact pages |
 | [tools/diff.py](tools/diff.py) | Semantic diff between two checklists, safety-relevant changes first. `--fork` diffs a file against its recorded parent |
 | [tools/test_validate.py](tools/test_validate.py) | 27 negative cases proving the safety rules fire |
 | [examples/](examples/) | Five checklist files, a worked completion log, and two field reports |
@@ -96,6 +97,28 @@ Forking in the editor needs to read the parent file, which browsers block for
 cd build/site && python3 -m http.server 8000
 ```
 
+### The editor
+
+`editor.html` runs entirely in the browser:
+
+- **My checklists** — saved in browser storage, so work survives closing the tab.
+  Autosaves a draft, and imports/exports the whole library as one file. Never
+  uploaded, which is what makes the privacy policy short and true.
+- **Fork anything** — from the catalogue dropdown, or `editor.html?fork=<id>`, or the
+  "Fork this in the editor" button on any checklist page. Lineage and the parent's
+  content hash are filled in for you.
+- **Contribute** — downloads the file, saves it locally, and points at the pull-request
+  steps. Deliberately not a direct write: anonymous writes into a safety corpus would
+  defeat the whole verification model.
+- Information items structurally cannot be given a response or made tickable, so the
+  rule that matters most cannot be broken by the editing UI.
+
+### Printing
+
+Ten preset sizes plus a custom size, and a text scale for poor cockpit light:
+Letter, Legal, A4, A5, A6, kneeboard (5.5×8.5), small kneeboard (4.25×5.5),
+index card (5×8), small index card (3×5), half-letter landscape.
+
 ### Variations, which is the point for experimental and ultralight
 
 Engine swaps, prop changes and panel rebuilds are the norm in this class, so one
@@ -118,7 +141,8 @@ Three pieces make that work:
 
 | Path | What it is |
 | --- | --- |
-| `index.html` | Filterable catalogue — search by make, model, category, source; filter by verification state |
+| `index.html` | Landing page: what the project is, and why not just a PDF library |
+| `catalogue.html` | Filterable catalogue — search by make, model, category, source, engine, modification; filter by verification state |
 | `c/<id>/index.html` | The checklist: tick on a phone, print at any paper size, export a log |
 | `c/<id>/<id>.{json,csv,tsv,md,txt,xml,docx}` | Every download format. Quarantined files carry `.UNREVIEWED` in the filename |
 | `api/index.json` | Machine catalogue: metadata, verification state and rights per file. No key, no rate limit |
@@ -128,6 +152,8 @@ Three pieces make that work:
 | `editor.html` | Create a checklist or fork any in the catalogue. Client-side, no account. Forking fills in lineage and computes the parent hash in the browser |
 | `f/<family>/index.html` | Every variation of one airframe, with each fork's diff from its parent inline |
 | `about.html` | What the verification states mean, and why "flown behind it" is not the top one |
+| `privacy.html` `terms.html` `takedown.html` `contribute.html` `contact.html` | Policy pages. The privacy policy is short because the site genuinely collects nothing |
+| `manifest.webmanifest` `sw.js` `icon-*.png` | Installable on a phone, and precached so it works with no signal |
 
 Open a rendered file on a phone: tick items, choose a paper size, print, export a
 log. It makes no network requests, so it works in a hangar with no signal.

@@ -37,12 +37,17 @@ import hashlib
 import json
 import shutil
 import sys
+import urllib.parse
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from export import EXT, FORMATS, export, is_quarantined, state_line, verify_export  # noqa: E402
 from render import render as render_html  # noqa: E402
 from site_editor import editor_page  # noqa: E402
+from site_pages import (  # noqa: E402
+    BRAND_NAME, CONTACT, FAVICON_SVG, LOGO_SVG, PRIVACY, TAGLINE, TAKEDOWN, TERMS,
+    contribute_body, landing_body,
+)
 from diff import diff as semantic_diff, render_markdown as diff_markdown  # noqa: E402
 from validate import content_hash  # noqa: E402
 
@@ -93,10 +98,74 @@ code{font-size:.85em;background:var(--card);padding:.1em .3em;border-radius:.2re
 footer.site{border-top:1px solid var(--line);margin-top:2.5rem;padding:1rem 0 3rem;
 font-size:.82rem;color:var(--muted)}
 .scroll{overflow-x:auto}
+.brand{display:inline-flex;align-items:center;gap:.5rem;text-decoration:none;color:inherit;
+margin:.4rem 0 .1rem}
+.brand .logo{width:1.7rem;height:1.7rem;color:var(--accent);flex:none}
+.brand .bn{font-size:1.35rem;font-weight:700;letter-spacing:-.01em}
+.brandtag{margin:.1rem 0 .4rem}
+.nav{display:flex;gap:.9rem;flex-wrap:wrap;font-size:.86rem;padding-bottom:.2rem}
+.fnav{line-height:2}
+.hero{padding:1rem 0 1.5rem;border-bottom:1px solid var(--line);margin-bottom:1.5rem}
+.hero-h{font-size:1.9rem;line-height:1.15;margin:.2rem 0 .6rem;max-width:32rem}
+.hero-p{font-size:1.05rem;color:var(--fg);max-width:40rem}
+.hero-cta{display:flex;gap:.6rem;flex-wrap:wrap;margin:1.2rem 0 .6rem}
+.cta{display:inline-block;padding:.6rem 1.1rem;border-radius:.4rem;background:var(--accent);
+color:#fff;text-decoration:none;font-weight:600}
+.cta.ghost{background:transparent;color:var(--accent);border:1px solid var(--accent)}
+.grid3{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));margin:1.5rem 0}
+.feat{border:1px solid var(--line);border-radius:.5rem;padding:.9rem 1rem;background:var(--card)}
+.feat h3{margin:.1rem 0 .4rem;font-size:1rem}
+.feat p{margin:0;font-size:.9rem;color:var(--muted)}
+h2{font-size:1.25rem;margin-top:1.8rem}
+h3{font-size:1rem;margin-top:1.2rem}
+h4{font-size:.9rem;margin-top:1rem}
+ol,ul{padding-left:1.3rem}
+li{margin:.25rem 0}
+blockquote{margin:.6rem 0;padding:.5rem .8rem;border-left:3px solid var(--line);color:var(--muted)}
 """
 
 
+SW_HEADER = """// Offline support. A checklist you cannot open in a metal hangar is not a
+// checklist, so the shell and every checklist page are precached.
+"""
+
+SW_BODY = """
+self.addEventListener('install', function(e){
+  e.waitUntil(caches.open(CACHE).then(function(c){
+    // addAll fails the whole install if any single request 404s, so add each
+    // entry individually and tolerate misses.
+    return Promise.all(ASSETS.map(function(u){
+      return c.add(new Request(u, {cache: 'reload'})).catch(function(){});
+    }));
+  }).then(function(){ return self.skipWaiting(); }));
+});
+
+self.addEventListener('activate', function(e){
+  e.waitUntil(caches.keys().then(function(keys){
+    return Promise.all(keys.filter(function(k){ return k !== CACHE; })
+                           .map(function(k){ return caches.delete(k); }));
+  }).then(function(){ return self.clients.claim(); }));
+});
+
+self.addEventListener('fetch', function(e){
+  if (e.request.method !== 'GET') return;
+  if (new URL(e.request.url).origin !== self.location.origin) return;
+  // Network first, so a corrected checklist is never served stale from cache,
+  // falling back to the cache when there is no signal.
+  e.respondWith(
+    fetch(e.request).then(function(res){
+      var copy = res.clone();
+      caches.open(CACHE).then(function(c){ c.put(e.request, copy); }).catch(function(){});
+      return res;
+    }).catch(function(){ return caches.match(e.request); })
+  );
+});
+"""
+
+
+
 def head(title: str, desc: str, rel: str = "") -> str:
+    icon = "data:image/svg+xml;utf8," + urllib.parse.quote(FAVICON_SVG)
     return f"""<!doctype html>
 <html lang="en">
 <head>
@@ -104,16 +173,27 @@ def head(title: str, desc: str, rel: str = "") -> str:
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{title}</title>
 <meta name="description" content="{desc}">
+<meta name="theme-color" content="#1f4e79">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="{BRAND_NAME}">
+<meta property="og:title" content="{title}">
+<meta property="og:description" content="{desc}">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="{icon}">
+<link rel="apple-touch-icon" href="{rel}icon-192.png">
+<link rel="manifest" href="{rel}manifest.webmanifest">
 <style>{CSS}</style>
 </head>
 <body>
 <header class="site"><div class="wrap">
-<h1><a href="{rel}index.html" style="text-decoration:none;color:inherit">Open Checklists</a></h1>
-<p class="tag">Free, machine-readable aircraft checklists. Every file states where it
-came from and whether anyone has checked it.</p>
-<p class="tag"><a href="{rel}index.html">Catalogue</a> &middot;
-<a href="{rel}editor.html">Make your own</a> &middot;
-<a href="{rel}about.html">How to read a file</a></p>
+<a class="brand" href="{rel}index.html">{LOGO_SVG}<span class="bn">{BRAND_NAME}</span></a>
+<p class="tag brandtag">{TAGLINE}</p>
+<nav class="nav">
+<a href="{rel}catalogue.html">Catalogue</a>
+<a href="{rel}editor.html">Editor</a>
+<a href="{rel}contribute.html">Contribute</a>
+<a href="{rel}about.html">How to read a file</a>
+</nav>
 </div></header>
 <div class="wrap">
 """
@@ -121,13 +201,29 @@ came from and whether anyone has checked it.</p>
 
 FOOT = """</div>
 <footer class="site"><div class="wrap">
-<p><strong>Nothing here is approved data.</strong> Every file records its source and
-its verification state. Verify against your aircraft's own approved documentation
-before flight. No warranty of any kind.</p>
-<p>Corpus rights are per file. Bulk download: <a href="manifest.sha256">manifest.sha256</a>
-&middot; machine catalogue: <a href="api/index.json">api/index.json</a>
-&middot; <a href="about.html">what the states mean</a></p>
+<p><strong>Nothing here is approved data.</strong> Every file records its source and its
+verification state. Verify against your aircraft's own approved documentation before
+flight. No warranty of any kind &mdash; see <a href="terms.html">terms</a>.</p>
+<p class="fnav">
+<a href="index.html">Home</a> &middot;
+<a href="catalogue.html">Catalogue</a> &middot;
+<a href="editor.html">Editor</a> &middot;
+<a href="contribute.html">Contribute</a> &middot;
+<a href="about.html">Verification states</a> &middot;
+<a href="api/index.json">API</a> &middot;
+<a href="manifest.sha256">Manifest</a> &middot;
+<a href="privacy.html">Privacy</a> &middot;
+<a href="terms.html">Terms</a> &middot;
+<a href="takedown.html">Takedown</a> &middot;
+<a href="contact.html">Contact</a></p>
+<p>Corpus rights are recorded per file. This site collects nothing: no analytics, no
+cookies, no accounts. Your saved checklists stay in your browser.</p>
 </div></footer>
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js').catch(function(){ /* offline is a bonus */ });
+}
+</script>
 </body>
 </html>
 """
@@ -558,7 +654,7 @@ def main() -> int:
             e["downloads"][fmt] = f"c/{cid}/{out.name}"
 
         page = cdir / "index.html"
-        page.write_text(render_html(doc, "letter"), encoding="utf-8")
+        page.write_text(render_html(doc, "letter", site_rel="../../"), encoding="utf-8")
         artifacts.append(page)
 
         api = args.out / "api" / "checklists" / f"{cid}.json"
@@ -587,15 +683,84 @@ def main() -> int:
     )
     artifacts.append(args.out / "api" / "index.json")
 
-    (args.out / "index.html").write_text(build_index(entries, catalogue), encoding="utf-8")
-    (args.out / "about.html").write_text(
-        head("What the verification states mean — Open Checklists", "How to read a file's state.")
-        + ABOUT
-        + FOOT,
+    def page(name: str, title: str, desc: str, body: str) -> Path:
+        out = args.out / name
+        out.write_text(head(title, desc) + body + FOOT, encoding="utf-8")
+        return out
+
+    (args.out / "catalogue.html").write_text(build_index(entries, catalogue), encoding="utf-8")
+    static_pages = [
+        args.out / "catalogue.html",
+        page("index.html", f"{BRAND_NAME} — {TAGLINE}",
+             "A free library of aircraft checklists as structured data: read on a phone, "
+             "print at any size, load into your own software, fork and modify.",
+             landing_body()),
+        page("about.html", f"How to read a file — {BRAND_NAME}",
+             "What the verification states mean and why flown-behind-it is not the top one.",
+             ABOUT),
+        page("contribute.html", f"Contribute a checklist — {BRAND_NAME}",
+             "How to add a checklist for your aircraft, and the contributor warranty.",
+             contribute_body()),
+        page("privacy.html", f"Privacy — {BRAND_NAME}",
+             "This site collects nothing: no analytics, no cookies, no accounts.",
+             PRIVACY),
+        page("terms.html", f"Terms of use — {BRAND_NAME}",
+             "Safety notice, no warranty, per-file licensing, acceptable use.",
+             TERMS),
+        page("takedown.html", f"Takedown and corrections — {BRAND_NAME}",
+             "How rights claims and error reports are handled.",
+             TAKEDOWN),
+        page("contact.html", f"Contact — {BRAND_NAME}", "How to reach the project.", CONTACT),
+    ]
+    (args.out / "editor.html").write_text(editor_page(head, FOOT, catalogue), encoding="utf-8")
+    artifacts += static_pages + [args.out / "editor.html"]
+
+    # PWA: installable on a phone, and cached so it works at the aircraft with no
+    # signal. The corpus is small and static, so precaching the shell is enough.
+    (args.out / "icon.svg").write_text(FAVICON_SVG, encoding="utf-8")
+    (args.out / "manifest.webmanifest").write_text(
+        json.dumps(
+            {
+                "name": BRAND_NAME,
+                "short_name": "Checklists",
+                "description": TAGLINE,
+                "start_url": "index.html",
+                "scope": ".",
+                "display": "standalone",
+                "orientation": "portrait",
+                "background_color": "#ffffff",
+                "theme_color": "#1f4e79",
+                "icons": [
+                    {"src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any"},
+                    {"src": "icon-192.png", "sizes": "192x192", "type": "image/png"},
+                    {"src": "icon-512.png", "sizes": "512x512", "type": "image/png"},
+                ],
+            },
+            indent=2,
+        )
+        + "\n",
         encoding="utf-8",
     )
-    (args.out / "editor.html").write_text(editor_page(head, FOOT, catalogue), encoding="utf-8")
-    artifacts += [args.out / "index.html", args.out / "about.html", args.out / "editor.html"]
+    for png in ("icon-192.png", "icon-512.png"):
+        src = REPO / "assets" / png
+        if src.exists():
+            shutil.copy(src, args.out / png)
+            artifacts.append(args.out / png)
+
+    precache = (
+        ["index.html", "catalogue.html", "editor.html", "about.html", "contribute.html",
+         "privacy.html", "terms.html", "takedown.html", "contact.html",
+         "manifest.webmanifest", "icon.svg", "api/index.json"]
+        + [f"c/{e['id']}/" for e in entries]
+        + [f"api/checklists/{e['id']}.json" for e in entries]
+    )
+    (args.out / "sw.js").write_text(
+        SW_HEADER + f"const CACHE = 'ocl-v1-{len(entries)}';\n"
+        + "const ASSETS = " + json.dumps(precache) + ";\n"
+        + SW_BODY,
+        encoding="utf-8",
+    )
+    artifacts += [args.out / "sw.js", args.out / "manifest.webmanifest", args.out / "icon.svg"]
 
     # Family pages: every variation of one airframe, with each fork's diff inline.
     families: dict[str, list[dict]] = {}
@@ -617,7 +782,7 @@ def main() -> int:
     (args.out / "api" / "index.json").write_bytes(
         (json.dumps(catalogue, indent=2, ensure_ascii=False) + "\n").encode()
     )
-    (args.out / "index.html").write_text(build_index(entries, catalogue), encoding="utf-8")
+    (args.out / "catalogue.html").write_text(build_index(entries, catalogue), encoding="utf-8")
 
     # Bundle listings, kept apart so a consumer cannot pick up unreviewed content
     # by accident.
@@ -633,7 +798,10 @@ def main() -> int:
     (args.out / "robots.txt").write_text("User-agent: *\nAllow: /\n")
 
     base = args.base_url.rstrip("/")
-    urls = ["", "about.html"] + [f"c/{e['id']}/" for e in entries]
+    urls = [
+        "", "catalogue.html", "editor.html", "about.html", "contribute.html",
+        "privacy.html", "terms.html", "takedown.html", "contact.html",
+    ] + [f"f/{fam}/" for fam in sorted(families)] + [f"c/{e['id']}/" for e in entries]
     (args.out / "sitemap.xml").write_text(
         '<?xml version="1.0" encoding="UTF-8"?>\n'
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'

@@ -52,6 +52,12 @@ background:var(--bg);color:var(--fg);cursor:pointer;white-space:nowrap}
 .problems ul{margin:.3rem 0 0;padding-left:1.2rem}
 .okmsg{border:2px solid var(--ok);color:var(--ok);border-radius:.4rem;padding:.6rem .8rem;font-size:.85rem}
 .hint{font-size:.78rem;color:var(--muted)}
+.lib{display:grid;gap:.3rem;margin:.4rem 0}
+.lib .li{display:flex;gap:.5rem;align-items:center;justify-content:space-between;
+border:1px solid var(--line);border-radius:.3rem;padding:.4rem .6rem;background:var(--bg)}
+.lib .li b{font-weight:600;font-size:.9rem}
+.lib .li .when{font-size:.72rem;color:var(--muted)}
+.lib .empty{font-size:.8rem;color:var(--muted);font-style:italic}
 @media(max-width:640px){.itm,.itm.info{grid-template-columns:1fr;gap:.25rem}}
 """
 
@@ -61,6 +67,19 @@ EDITOR_BODY = """
 change what your aeroplane does differently. Everything happens in this page — no
 account, nothing uploaded. You get a file you can keep, print, load into software,
 or contribute back.</p>
+
+<fieldset><legend>My checklists</legend>
+  <p class="hint">Saved in this browser on your device. Never uploaded. Not synced
+  between devices and not backed up — download anything you would be upset to lose.</p>
+  <div id="library" class="lib"></div>
+  <div class="row">
+    <button class="btn p" id="save">Save to my checklists</button>
+    <button class="btn" id="exportall">Export all as JSON</button>
+    <button class="btn" id="importlib">Import</button>
+    <input type="file" id="importfile" accept=".json" hidden>
+    <span class="hint" id="saved"></span>
+  </div>
+</fieldset>
 
 <div class="row">
   <div class="f" style="flex:2">
@@ -128,7 +147,9 @@ or contribute back.</p>
 <div id="status"></div>
 <div class="row">
   <button class="btn p" id="download">Check and download .ocl.json</button>
-  <button class="btn" id="preview">Preview as a checklist</button>
+  <button class="btn" id="preview">Preview and print</button>
+  <button class="btn" id="contribute">Contribute it</button>
+  <button class="btn" id="copy">Copy JSON</button>
   <span class="hint" id="counts"></span>
 </div>
 <p class="hint">To contribute it: open a pull request adding the file to
@@ -589,7 +610,188 @@ EDITOR_JS = r"""
     w.document.close();
   });
 
-  el('load').click();
+
+  // ---- my checklists: browser-local persistence ----
+  // Deliberately localStorage rather than a server. There is no account and nothing
+  // is uploaded, which is what makes the privacy policy short and true. The public
+  // corpus is a separate thing reached through review, because anonymous direct
+  // writes into a safety library would defeat the verification model entirely.
+  var LIB_KEY = 'ocl.library.v1', DRAFT_KEY = 'ocl.draft.v1';
+
+  function lsGet(k, dflt){
+    try { var v = localStorage.getItem(k); return v ? JSON.parse(v) : dflt; }
+    catch (e) { return dflt; }
+  }
+  function lsSet(k, v){
+    try { localStorage.setItem(k, JSON.stringify(v)); return true; }
+    catch (e) {
+      alert('Could not save: browser storage is full or blocked (private browsing ' +
+            'often disables it). Download the file instead.');
+      return false;
+    }
+  }
+  function library(){ return lsGet(LIB_KEY, []); }
+
+  function renderLibrary(){
+    var lib = library();
+    var box = el('library');
+    if (!lib.length){
+      box.innerHTML = '<div class="empty">Nothing saved yet. Build a checklist below, ' +
+        'then press Save.</div>';
+      return;
+    }
+    box.innerHTML = lib.map(function(e, i){
+      return '<div class="li" data-li="' + i + '">' +
+        '<span><b>' + esc(e.title || e.id) + '</b> <span class="when">' +
+        esc(e.id) + ' · saved ' + esc((e.updated || '').replace('T',' ').slice(0,16)) +
+        '</span></span>' +
+        '<span><button class="btn libload">Open</button> ' +
+        '<button class="btn libdl">Download</button> ' +
+        '<button class="btn d librm">Delete</button></span></div>';
+    }).join('');
+  }
+
+  el('library').addEventListener('click', function(e){
+    var row = e.target.closest('[data-li]'); if (!row) return;
+    var lib = library(), entry = lib[+row.dataset.li];
+    if (!entry) return;
+    if (e.target.classList.contains('libload')){
+      state.parent = entry.doc.derived_from || null;
+      adopt(entry.doc, false);
+      el('changes').value = (entry.doc.derived_from || {}).changes_summary || '';
+      el('author').value = ((entry.doc.provenance || {}).contributors || [{}])[0].name || '';
+      el('lineage').textContent = 'Opened "' + (entry.title || entry.id) + '" from your saved checklists.';
+      window.scrollTo(0, 0);
+    } else if (e.target.classList.contains('libdl')){
+      dl(entry.doc);
+    } else if (e.target.classList.contains('librm')){
+      if (!confirm('Delete "' + (entry.title || entry.id) + '" from this browser?')) return;
+      lib.splice(+row.dataset.li, 1);
+      lsSet(LIB_KEY, lib); renderLibrary();
+    }
+  });
+
+  function dl(doc){
+    var blob = new Blob([JSON.stringify(doc, null, 2) + '\n'], {type:'application/json'});
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = doc.id + '.ocl.json';
+    a.click(); URL.revokeObjectURL(a.href);
+  }
+
+  el('save').addEventListener('click', function(){
+    var doc = build();
+    if (!doc.id){ alert('Give the checklist a file id first.'); return; }
+    var lib = library();
+    var at = lib.findIndex(function(e){ return e.id === doc.id; });
+    var entry = { id: doc.id, title: doc.title, updated: new Date().toISOString(), doc: doc };
+    if (at >= 0){
+      if (!confirm('Replace the saved copy of "' + doc.id + '"?')) return;
+      lib[at] = entry;
+    } else { lib.push(entry); }
+    if (lsSet(LIB_KEY, lib)){
+      renderLibrary();
+      el('saved').textContent = 'Saved at ' + new Date().toLocaleTimeString() + '.';
+      show(doc);
+    }
+  });
+
+  el('exportall').addEventListener('click', function(){
+    var lib = library();
+    if (!lib.length){ alert('Nothing saved yet.'); return; }
+    var blob = new Blob([JSON.stringify({ exported: new Date().toISOString(),
+      checklists: lib.map(function(e){ return e.doc; }) }, null, 2)], {type:'application/json'});
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'my-open-checklists.json';
+    a.click(); URL.revokeObjectURL(a.href);
+  });
+
+  el('importlib').addEventListener('click', function(){ el('importfile').click(); });
+  el('importfile').addEventListener('change', function(e){
+    var f = e.target.files[0]; if (!f) return;
+    var r = new FileReader();
+    r.onload = function(){
+      try {
+        var parsed = JSON.parse(r.result);
+        var docs = Array.isArray(parsed.checklists) ? parsed.checklists
+                 : (Array.isArray(parsed) ? parsed : [parsed]);
+        var lib = library(), added = 0;
+        docs.forEach(function(d){
+          if (!d || !d.id) return;
+          var at = lib.findIndex(function(x){ return x.id === d.id; });
+          var entry = { id: d.id, title: d.title, updated: new Date().toISOString(), doc: d };
+          if (at >= 0) lib[at] = entry; else lib.push(entry);
+          added++;
+        });
+        if (lsSet(LIB_KEY, lib)){ renderLibrary(); alert('Imported ' + added + ' checklist(s).'); }
+      } catch (err) { alert('Could not read that file: ' + err.message); }
+    };
+    r.readAsText(f);
+  });
+
+  // Autosave the working draft so a closed tab does not lose an hour of typing.
+  var draftTimer = null;
+  function scheduleDraft(){
+    clearTimeout(draftTimer);
+    draftTimer = setTimeout(function(){ lsSet(DRAFT_KEY, build()); }, 1200);
+  }
+  document.addEventListener('input', scheduleDraft, true);
+  document.addEventListener('change', scheduleDraft, true);
+
+  el('copy').addEventListener('click', async function(){
+    var doc = build();
+    if (!show(doc)) return;
+    var text = JSON.stringify(doc, null, 2);
+    try {
+      await navigator.clipboard.writeText(text);
+      el('saved').textContent = 'JSON copied to the clipboard.';
+    } catch (e) {
+      // Clipboard is blocked in some contexts; give them the text anyway.
+      var w = window.open('', '_blank');
+      w.document.write('<pre>' + esc(text) + '</pre>');
+      w.document.close();
+    }
+  });
+
+  el('contribute').addEventListener('click', function(){
+    var doc = build();
+    if (!show(doc)) return;
+    lsSet(DRAFT_KEY, doc);
+    var lib = library();
+    if (!lib.some(function(e){ return e.id === doc.id; })){
+      lib.push({ id: doc.id, title: doc.title, updated: new Date().toISOString(), doc: doc });
+      lsSet(LIB_KEY, lib); renderLibrary();
+    }
+    dl(doc);
+    var w = window.open('contribute.html', '_blank');
+    if (!w) location.href = 'contribute.html';
+    el('saved').textContent = 'Downloaded and saved. Follow the steps on the ' +
+      'contribute page to open a pull request.';
+  });
+
+  // ---- deep link: editor.html?fork=<id> ----
+  var qs = new URLSearchParams(location.search);
+  var forkId = qs.get('fork');
+
+  renderLibrary();
+
+  if (forkId && CAT.checklists.some(function(c){ return c.id === forkId; })){
+    el('startfrom').value = forkId;
+    el('load').click();
+  } else {
+    var draft = lsGet(DRAFT_KEY, null);
+    if (draft && draft.sections && draft.sections.length){
+      state.parent = draft.derived_from || null;
+      adopt(draft, false);
+      el('author').value = ((draft.provenance || {}).contributors || [{}])[0].name || '';
+      el('changes').value = (draft.derived_from || {}).changes_summary || '';
+      el('lineage').textContent = 'Restored your unsaved draft. Pick something from ' +
+        '"Start from" to begin again, or Save to keep this.';
+    } else {
+      el('load').click();
+    }
+  }
 })();
 """
 
