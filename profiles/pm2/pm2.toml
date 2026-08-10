@@ -1,0 +1,66 @@
+# ParaPlane PM-2 — Junco aircraft profile
+# Revision 0, draft
+#
+# Twin-engine two-stroke powered parachute, built 1997-2004.
+# Target aircraft for Junco v1 development.
+#
+# SPDX-License-Identifier: CC-BY-4.0
+
+schema_version = 1
+
+[identity]
+registration = ""       # fill in your N-number
+make         = "ParaPlane"
+model        = "PM-2"
+
+[powerplant]
+engine_count           = 2
+cylinders_per_engine   = 1
+pulses_per_revolution  = 1     # CDI, one plug per cylinder
+hour_meter_offsets     = [0.0, 0.0]
+
+[channels]
+fuel_backend = "burn_integration"
+
+[calibration]
+pitot_position_error_pa  = 0.0
+baro_offset_pa           = 0.0
+thermocouple_offsets_c   = [0.0, 0.0, 0.0, 0.0]   # CHT L, CHT R, EGT L, EGT R
+fuel_curve               = []                       # not used with burn_integration
+
+[limits]
+cht_max              = 435    # °F
+egt_max              = 1250   # °F
+rpm_max              = 6800
+fuel_reserve         = 1.5    # gal — alert below this
+density_alt_advisory = 3000   # ft — pre-takeoff advisory
+
+[fuel]
+capacity = 10.0   # gal
+usable   = 8.5    # gal
+
+# Both engines combined. Values are estimates pending measured flight data.
+burn_rate_table = [
+  [2000, 1.4],
+  [3000, 1.8],
+  [4000, 2.4],
+  [5000, 3.0],
+  [5800, 3.5],
+  [6800, 4.2],
+]
+
+[units]
+altitude    = "feet"
+speed       = "mph"
+temperature = "fahrenheit"
+volume      = "gallons"
+pressure    = "inHg"
+reference   = "magnetic"
+
+[logging]
+rate_hz        = 10
+retention_days = 90
+enabled        = true
+
+[build]
+class = "self_built"
