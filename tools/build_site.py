@@ -42,6 +42,8 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from export import EXT, FORMATS, export, is_quarantined, state_line, verify_export  # noqa: E402
 from render import render as render_html  # noqa: E402
+from site_editor import editor_page  # noqa: E402
+from diff import diff as semantic_diff, render_markdown as diff_markdown  # noqa: E402
 from validate import content_hash  # noqa: E402
 
 REPO = Path(__file__).resolve().parent.parent
@@ -109,6 +111,9 @@ def head(title: str, desc: str, rel: str = "") -> str:
 <h1><a href="{rel}index.html" style="text-decoration:none;color:inherit">Open Checklists</a></h1>
 <p class="tag">Free, machine-readable aircraft checklists. Every file states where it
 came from and whether anyone has checked it.</p>
+<p class="tag"><a href="{rel}index.html">Catalogue</a> &middot;
+<a href="{rel}editor.html">Make your own</a> &middot;
+<a href="{rel}about.html">How to read a file</a></p>
 </div></header>
 <div class="wrap">
 """
@@ -183,6 +188,17 @@ def entry(doc: dict, path: Path) -> dict:
         "memory_items": sum(
             1 for s in doc.get("sections", []) for i in s.get("items", []) if i.get("memory_item")
         ),
+        "airframe_family": ac.get("airframe_family"),
+        "modifications": [
+            {
+                "kind": m.get("kind"),
+                "description": m.get("description"),
+                "affects_procedures": bool(m.get("affects_procedures")),
+            }
+            for m in ac.get("modifications", [])
+        ],
+        "registration": (ac.get("airframe_specific") or {}).get("registration"),
+        "derived_from": doc.get("derived_from"),
         "phases": sorted({s.get("phase") for s in doc.get("sections", []) if s.get("phase")}),
         "content_hash": content_hash(doc),
         "file_revision": doc.get("provenance", {}).get("revision", {}).get("file_revision"),
@@ -200,6 +216,20 @@ INDEX_JS = r"""
       ver = document.getElementById('ver'),
       list = document.getElementById('list'),
       count = document.getElementById('count');
+
+  function fam(e){
+    if (!e.airframe_family) return '';
+    var f = (data.families || {})[e.airframe_family];
+    if (!f) return '';
+    var n = f.count;
+    var mods = (e.modifications || []).length;
+    var bits = [];
+    if (n > 1) bits.push('<a href="' + f.page + '">' + n + ' variations of this airframe</a>');
+    if (mods) bits.push(mods + ' modification' + (mods > 1 ? 's' : '') + ' recorded');
+    if (e.derived_from) bits.push('forked from <code>' + e.derived_from.checklist_id + '</code>');
+    return bits.length ? '<div class="meta" style="margin-top:.3rem">' +
+      bits.map(function(b){ return '<span>' + b + '</span>'; }).join('') + '</div>' : '';
+  }
 
   function card(e){
     var dl = Object.keys(e.downloads).map(function(f){
@@ -220,7 +250,8 @@ INDEX_JS = r"""
       '<span>' + e.tickable_items + ' items</span>' +
       (e.memory_items ? '<span>' + e.memory_items + ' memory</span>' : '') +
       '<span>' + (e.rights.license || e.rights.status) + '</span>' +
-      '</div><div class="dl">' + dl + '</div></li>';
+      (e.registration ? '<span>' + e.registration + '</span>' : '') +
+      '</div>' + fam(e) + '<div class="dl">' + dl + '</div></li>';
   }
 
   function apply(){
@@ -233,7 +264,9 @@ INDEX_JS = r"""
       if (!s) return true;
       var hay = [e.title, e.aircraft.make, e.aircraft.model, e.aircraft.variant,
                  e.aircraft.icao_type, e.aircraft.category, e.source.title,
-                 e.engine_type].join(' ').toLowerCase();
+                 e.engine_type, e.airframe_family, e.registration,
+                 (e.modifications||[]).map(function(m){ return m.kind + ' ' + m.description; }).join(' ')
+                ].join(' ').toLowerCase();
       return hay.indexOf(s) !== -1;
     });
     list.innerHTML = out.map(card).join('') ||
@@ -352,6 +385,131 @@ merely claiming to.</p>
 """
 
 
+
+ORDER_LABELS = ["Warnings and cautions", "Memory items", "Control settings", "Other changes"]
+
+
+def diff_html(parent: dict, child: dict) -> str:
+    """Render the semantic diff of a fork against its parent, safety-first."""
+    findings, notes = semantic_diff(parent, child)
+    buckets: dict[int, list] = {0: [], 1: [], 2: [], 3: []}
+    for f in findings:
+        buckets[f.rank].append(f)
+
+    d = child.get("derived_from", {})
+    out = ['<div class="lineage">']
+    out.append(
+        f'<p class="tag">Forked from <a href="../../c/{parent["id"]}/">{parent["id"]}</a>'
+        + (
+            " &middot; the parent has changed since this fork was taken"
+            if d.get("content_hash") and d["content_hash"] != content_hash(parent)
+            else ""
+        )
+        + "</p>"
+    )
+    if d.get("changes_summary"):
+        out.append(f'<blockquote class="summary">{esc(d["changes_summary"])}</blockquote>')
+
+    mods = child.get("aircraft", {}).get("modifications", [])
+    if mods:
+        out.append("<p><strong>Modifications</strong></p><ul>")
+        for m in mods:
+            flag = ' <em>(changes procedures)</em>' if m.get("affects_procedures") else ""
+            out.append(f'<li><code>{esc(m["kind"])}</code>{flag} — {esc(m["description"])}</li>')
+        out.append("</ul>")
+    if notes:
+        out.append("<p><strong>Configuration</strong></p><ul>")
+        out += [f"<li>{esc(n)}</li>" for n in notes]
+        out.append("</ul>")
+
+    total = sum(len(v) for v in buckets.values())
+    if total:
+        out.append(f"<p><strong>{total} procedural difference(s)</strong></p>")
+        for rank, label in enumerate(ORDER_LABELS):
+            if not buckets[rank]:
+                continue
+            cls = "warn" if rank == 0 else ("mem" if rank == 1 else "")
+            out.append(f'<p class="dlabel {cls}">{label}</p><ul class="dl-list">')
+            for f in sorted(buckets[rank], key=lambda x: (x.where, x.kind)):
+                out.append(
+                    f'<li><code>{esc(f.kind)}</code> in <strong>{esc(f.where)}</strong> — {esc(f.text)}</li>'
+                )
+            out.append("</ul>")
+    else:
+        out.append("<p>No procedural differences from the parent.</p>")
+    out.append("</div>")
+    return "".join(out)
+
+
+def esc(v: object) -> str:
+    import html as _h
+
+    return _h.escape(str(v if v is not None else ""))
+
+
+FAMILY_CSS = """
+.lineage{border-left:3px solid var(--line);padding-left:.9rem;margin:.6rem 0 1.2rem}
+.summary{margin:.5rem 0;padding:.5rem .75rem;background:var(--card);border-radius:.3rem;
+font-size:.88rem}
+.dlabel{font-size:.75rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);
+margin:.7rem 0 .2rem;font-weight:700}
+.dlabel.warn{color:var(--warn)}
+.dlabel.mem{color:var(--caut)}
+.dl-list{font-size:.85rem;margin:.2rem 0 .5rem;padding-left:1.1rem}
+.dl-list li{margin:.15rem 0}
+.varhdr{display:flex;gap:.5rem;flex-wrap:wrap;align-items:baseline;margin-top:1.5rem}
+.varhdr h2{margin:0;font-size:1.1rem}
+"""
+
+
+def family_page(family: str, members: list[dict], docs: dict[str, dict]) -> str:
+    label = family.replace("-", " ")
+    out = [
+        head(f"{label} — variations — Open Checklists", f"Every checklist variation for the {label} airframe.", rel="../../"),
+        f"<style>{FAMILY_CSS}</style>",
+        f"<h2>{esc(label)}: {len(members)} variation(s)</h2>",
+        '<p class="lede">Same airframe, different configurations. Engine swaps, panel '
+        "rebuilds and gross weight changes are the norm in this class, so what one "
+        "builder had to change is often exactly what the next one needs to know.</p>",
+    ]
+    by_id = {m["id"]: m for m in members}
+    for m in sorted(members, key=lambda x: (bool(x.get("derived_from")), x["id"])):
+        doc = docs[m["id"]]
+        ac = m["aircraft"]
+        eng = doc.get("aircraft", {}).get("engine", [{}])[0]
+        engs = " ".join(filter(None, [eng.get("make"), eng.get("model")])) or "no engine"
+        reg = f' &middot; {esc(m["registration"])}' if m.get("registration") else ""
+        badge = (
+            '<span class="badge quar">NOT REVIEWED</span>'
+            if m["verification"]["quarantined"]
+            else '<span class="badge ok">REVIEWED</span>'
+        )
+        out.append(
+            f'<div class="varhdr">{badge}<h2><a href="../../c/{m["id"]}/">{esc(m["title"])}</a></h2></div>'
+            f'<p class="tag">{esc(engs)}{reg} &middot; {m["tickable_items"]} items'
+            f' &middot; {m["memory_items"]} memory</p>'
+        )
+        d = m.get("derived_from")
+        if d and d.get("checklist_id") in docs:
+            out.append(diff_html(docs[d["checklist_id"]], doc))
+        elif m.get("modifications"):
+            out.append('<div class="lineage"><p class="tag">Not forked from another file in the '
+                       "corpus; modifications recorded directly.</p><ul>")
+            for mod in m["modifications"]:
+                flag = " <em>(changes procedures)</em>" if mod.get("affects_procedures") else ""
+                out.append(f'<li><code>{esc(mod["kind"])}</code>{flag} — {esc(mod["description"])}</li>')
+            out.append("</ul></div>")
+        else:
+            out.append('<div class="lineage"><p class="tag">Baseline file for this airframe.</p></div>')
+
+    out.append(
+        '<p><a href="../../editor.html">Make your own variation</a> — the editor will fork '
+        "any of these and record the lineage for you.</p>"
+    )
+    out.append(FOOT)
+    return "".join(out)
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--corpus", type=Path, default=REPO / "examples")
@@ -369,11 +527,13 @@ def main() -> int:
     (args.out / "api" / "checklists").mkdir(parents=True)
 
     entries: list[dict] = []
+    docs: dict[str, dict] = {}
     violations = 0
     artifacts: list[Path] = []
 
     for p in paths:
         doc = json.loads(p.read_text())
+        docs[doc["id"]] = doc
         e = entry(doc, p)
         cid = doc["id"]
         cdir = args.out / "c" / cid
@@ -434,7 +594,30 @@ def main() -> int:
         + FOOT,
         encoding="utf-8",
     )
-    artifacts += [args.out / "index.html", args.out / "about.html"]
+    (args.out / "editor.html").write_text(editor_page(head, FOOT, catalogue), encoding="utf-8")
+    artifacts += [args.out / "index.html", args.out / "about.html", args.out / "editor.html"]
+
+    # Family pages: every variation of one airframe, with each fork's diff inline.
+    families: dict[str, list[dict]] = {}
+    for e in entries:
+        fam = e.get("airframe_family")
+        if fam:
+            families.setdefault(fam, []).append(e)
+    for fam, members in sorted(families.items()):
+        fdir = args.out / "f" / fam
+        fdir.mkdir(parents=True, exist_ok=True)
+        fpage = fdir / "index.html"
+        fpage.write_text(family_page(fam, members, docs), encoding="utf-8")
+        artifacts.append(fpage)
+    catalogue["families"] = {
+        fam: {"count": len(ms), "page": f"f/{fam}/", "checklists": [m["id"] for m in ms]}
+        for fam, ms in sorted(families.items())
+    }
+    # Rewrite the catalogue now that family links exist.
+    (args.out / "api" / "index.json").write_bytes(
+        (json.dumps(catalogue, indent=2, ensure_ascii=False) + "\n").encode()
+    )
+    (args.out / "index.html").write_text(build_index(entries, catalogue), encoding="utf-8")
 
     # Bundle listings, kept apart so a consumer cannot pick up unreviewed content
     # by accident.

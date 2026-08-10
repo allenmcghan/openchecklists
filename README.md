@@ -40,7 +40,9 @@ preserving history — see [docs/04-roadmap.md](docs/04-roadmap.md) M1.
 | [tools/validate_report.py](tools/validate_report.py) | Report validator. A confirmed defect must demote the file it targets; a live safety concern must travel inside the file |
 | [tools/test_reports.py](tools/test_reports.py) | 14 cases covering the demotion and safety-disclosure rules |
 | [tools/export.py](tools/export.py) | Converters to json, csv, tsv, md, txt, xml, docx, html — each verified against the safety-preserving export contract |
-| [tools/build_site.py](tools/build_site.py) | Static site generator: filterable catalogue, per-checklist pages, all download formats, machine catalogue, SHA-256 manifest |
+| [tools/build_site.py](tools/build_site.py) | Static site generator: filterable catalogue, per-checklist pages, airframe family pages, all download formats, machine catalogue, SHA-256 manifest |
+| [tools/site_editor.py](tools/site_editor.py) | The browser editor page: create or fork a checklist, records lineage automatically, downloads valid JSON |
+| [tools/diff.py](tools/diff.py) | Semantic diff between two checklists, safety-relevant changes first. `--fork` diffs a file against its recorded parent |
 | [tools/test_validate.py](tools/test_validate.py) | 27 negative cases proving the safety rules fire |
 | [examples/](examples/) | Five checklist files, a worked completion log, and two field reports |
 
@@ -55,6 +57,7 @@ its own `verification.known_issues`.
 | `cessna-172n-normal` | The hard copyright case. Demonstrates the recommended posture for a type whose POH is still protected: procedure as fact, wording the contributor's own, limitations deliberately omitted rather than recalled |
 | `aerolite-103-hirth-f33` | Part 103, the gap in the brief. Authored rather than transcribed, because Part 103 aircraft are not required to have a flight manual at all. Exercises memory items, warnings, and an emergency section |
 | `beechcraft-t-34a-usaf` | **The first real type-specific transcription.** From USAF T.O. 1T-34A-1 (1958), a US Government work with no copyright, for a type civilians still fly. 117 tickable items, 27 memory items, `unreviewed` |
+| `aerolite-103-kawasaki-340-n512jm` | **The lineage case.** Same airframe as the Aerolite baseline with a different engine, forked with `derived_from`, showing exactly what the swap forced |
 | `schweizer-sgs-2-33a` | A glider. No engine, a launch phase with no powered equivalent, and emergencies that are entirely about the tow |
 
 There is deliberately **no example with `rights.status: upstream_reserved`**,
@@ -82,7 +85,32 @@ python3 tools/acquire.py fetch --all                        # -> sources/documen
 
 python3 tools/export.py examples/*.ocl.json --formats all   # -> build/downloads/
 python3 tools/build_site.py --base-url https://openchecklists.net  # -> build/site/
+
+python3 tools/diff.py --fork examples/aerolite-103-kawasaki-340-n512jm.ocl.json
 ```
+
+Forking in the editor needs to read the parent file, which browsers block for
+`file://` pages, so serve the site to use it:
+
+```sh
+cd build/site && python3 -m http.server 8000
+```
+
+### Variations, which is the point for experimental and ultralight
+
+Engine swaps, prop changes and panel rebuilds are the norm in this class, so one
+builder's checklist is most useful to the next when you can see what they changed.
+Three pieces make that work:
+
+- **`aircraft.airframe_family`** groups every variation of one airframe regardless of
+  what is bolted to the front, and **`aircraft.modifications[]`** records the swaps
+  themselves so they are searchable.
+- **`derived_from`** records lineage by attribution, not inheritance. A forked file
+  stays complete and standalone — a pilot always holds the whole checklist, never a
+  composition resolved at render time — while still linking to its parent and the
+  parent's hash at the time of the fork.
+- **`tools/diff.py`** and the family pages turn that into the thing a builder
+  actually wants to read: what changed, warnings and memory items first.
 
 ### The site
 
@@ -97,6 +125,8 @@ python3 tools/build_site.py --base-url https://openchecklists.net  # -> build/si
 | `api/checklists/<id>.json` | Stable plain-HTTP path to every file |
 | `manifest.sha256` | Hash of every published artifact, so a mirror can be verified |
 | `reviewed.txt` / `unreviewed.txt` | Bundle listings, kept separate on purpose |
+| `editor.html` | Create a checklist or fork any in the catalogue. Client-side, no account. Forking fills in lineage and computes the parent hash in the browser |
+| `f/<family>/index.html` | Every variation of one airframe, with each fork's diff from its parent inline |
 | `about.html` | What the verification states mean, and why "flown behind it" is not the top one |
 
 Open a rendered file on a phone: tick items, choose a paper size, print, export a

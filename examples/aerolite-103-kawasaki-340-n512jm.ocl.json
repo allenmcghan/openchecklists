@@ -1,8 +1,8 @@
 {
   "open_checklist_version": "1.0",
-  "id": "aerolite-103-hirth-f33",
-  "title": "Aerolite 103 (Hirth F-33) — Normal and Emergency Procedures",
-  "description": "A Part 103 ultralight checklist covering the class of aircraft the vendor formats and the existing free repositories do not serve. AUTHORED, NOT TRANSCRIBED: no manufacturer document was available to the transcriber. The wording is original, the sequence reflects general single-cylinder two-stroke ultralight practice, and no value here has been checked against the manufacturer's assembly or operating manual. It exists to exercise the schema and to make the shape of the gap concrete. It is not airworthy and must not be flown behind.",
+  "id": "aerolite-103-kawasaki-340-n512jm",
+  "title": "Aerolite 103 (Kawasaki 340 swap) — Normal and Emergency Procedures",
+  "description": "A worked example of the case this corpus exists for: the same airframe as the baseline file, with a different engine, and a checklist that had to change because of it. Forked from aerolite-103-hirth-f33 and edited where the twin-cylinder Kawasaki installation forced a different procedure. AUTHORED, NOT TRANSCRIBED, and NOT AIRWORTHY: every number is a placeholder and no item has been checked against an aircraft. It is here to demonstrate lineage, not to be flown.",
   "aircraft": {
     "make": "U-Fly-It Light Sport Aircraft",
     "model": "Aerolite 103",
@@ -10,14 +10,48 @@
     "airframe_family": "aerolite-103",
     "engine": [
       {
-        "make": "Hirth",
-        "model": "F-33",
+        "make": "Kawasaki",
+        "model": "340",
         "type": "piston_2stroke",
         "count": 1
       }
     ],
     "propeller": "ground_adjustable",
-    "gear": "fixed_tricycle"
+    "gear": "fixed_tricycle",
+    "modifications": [
+      {
+        "kind": "engine_swap",
+        "description": "Hirth F-33 single cylinder replaced with a Kawasaki 340 twin. Both are published options for this airframe, but the twin has two carburettors, a different warm-up behaviour and a different static RPM, so the start and pre-takeoff sections are not interchangeable.",
+        "affects_procedures": true,
+        "approval": "part103_none",
+        "reference": "Manufacturer specification page lists both engine options for the type."
+      },
+      {
+        "kind": "electrical_system",
+        "description": "Small battery and electric start added with the engine swap, plus a master switch the baseline aircraft does not have. Creates a new failure mode the single-cylinder pull-start aircraft did not have: a flat battery on a Part 103 vehicle with no alternator.",
+        "affects_procedures": true,
+        "approval": "part103_none"
+      },
+      {
+        "kind": "propeller_change",
+        "description": "Propeller re-pitched for the higher-power twin. Static RPM target differs from the baseline; the figure here is a placeholder.",
+        "affects_procedures": true,
+        "approval": "part103_none"
+      }
+    ],
+    "airframe_specific": {
+      "registration": "N512JM",
+      "builder": "Example builder",
+      "notes": "Illustrative airframe. Registration is a placeholder and does not refer to a real aircraft."
+    }
+  },
+  "derived_from": {
+    "checklist_id": "aerolite-103-hirth-f33",
+    "content_hash": "c4d3421d2f994372dc05e4ba428f436df438bc75432bc8c673bdee08f98d1298",
+    "file_revision": "0.1.0",
+    "relationship": "variant_of",
+    "diverged": false,
+    "changes_summary": "Engine swap from the Hirth F-33 single to the Kawasaki 340 twin, with electric start added. What that forced, in order of how much it matters: (1) Engine start is rewritten — the twin has two carburettors, so the choke behaviour differs and a carburettor synchronisation check was added to the preflight, which has no equivalent on the single. (2) A master switch and battery now exist, so they appear in the before-start and shutdown flows and in the engine-failure memory items; the baseline aircraft has no electrical system to isolate. (3) Static RPM in the before-takeoff run-up changed with the re-pitched propeller. (4) A new caution about battery state, because there is no alternator and a Part 103 vehicle has no required inspection to catch a tired battery. Everything else — airframe preflight, Part 103 limitations, engine failure after takeoff, shutdown discipline — is unchanged from the parent and was deliberately left alone so that a reader diffing the two files sees only the consequences of the swap."
   },
   "units": {
     "airspeed": "mph",
@@ -29,7 +63,7 @@
   "provenance": {
     "source": {
       "kind": "none",
-      "notes": "No manufacturer operating handbook, assembly manual, or engine manual was consulted. Airframe identification and engine option come from the manufacturer's published specification page and from the type's Wikipedia entry; the procedures themselves are the transcriber's own composition from general two-stroke ultralight practice. Every number in this file is a placeholder pending a real source. Aircraft operated under 14 CFR Part 103 are not required to have an approved flight manual at all, which is precisely why no authoritative source document exists to transcribe."
+      "notes": "No manufacturer or engine manual was consulted. Forked from the project's own baseline Aerolite 103 file and edited to reflect a Kawasaki 340 installation. Airframe identification and the fact that both engines are published options come from the manufacturer's specification page; the procedures are the author's composition. Every RPM, temperature and voltage figure is a placeholder."
     },
     "transcription": {
       "method": "authored",
@@ -38,7 +72,7 @@
     },
     "contributors": [
       {
-        "name": "Open Checklists project (initial schema examples)",
+        "name": "Open Checklists project (lineage example)",
         "role": [
           "author"
         ]
@@ -56,17 +90,17 @@
     "known_issues": [
       {
         "severity": "safety_defect",
-        "description": "No item in this file has been checked against the aircraft, the engine manufacturer's manual, or any manufacturer documentation. Control and switch names may not match the actual aircraft. Do not fly behind this file.",
+        "description": "No item has been checked against an aircraft or against the engine manufacturer's manual. Control and switch names may not match any real installation. Do not fly behind this file.",
         "location": "whole file"
       },
       {
         "severity": "content_gap",
-        "description": "Airspeeds, RPM figures and temperature limits are illustrative placeholders, not limitations. The speeds block is deliberately omitted rather than populated with invented numbers.",
+        "description": "All RPM, temperature and electrical figures are placeholders, not limitations. Carburettor synchronisation and warm-up procedure must come from the Kawasaki manual for this engine.",
         "location": "whole file"
       },
       {
         "severity": "content_gap",
-        "description": "Aircraft in this class vary substantially between individual builds. A file that is correct for one Aerolite 103 may be wrong for the next; airframe-specific variants will be needed.",
+        "description": "Inherits the parent's gaps: no taxi, takeoff, cruise, descent or landing sections, and only one emergency procedure.",
         "location": "whole file"
       }
     ]
@@ -75,7 +109,7 @@
     "status": "original_expression",
     "corpus_license": "CC-BY-4.0",
     "redistribution": "attribution_required",
-    "notes": "Wording is the contributor's own. No manufacturer text was copied, so no manufacturer rights are implicated in the expression. Sequence of actions is treated as procedure rather than protected expression."
+    "notes": "Forked from a CC-BY-4.0 file in this corpus; attribution to the parent is recorded in derived_from."
   },
   "sections": [
     {
@@ -113,6 +147,11 @@
           "type": "caution",
           "text": "Part 103 imposes no maintenance or inspection requirement. Nobody else is checking this aircraft. The preflight is the entire inspection programme.",
           "tickable": false
+        },
+        {
+          "type": "caution",
+          "text": "Weight check after the engine swap: the twin and the added battery are heavier than the single they replaced. Confirm the aircraft still meets the Part 103 empty weight limit, because exceeding it makes this an unregistered aircraft rather than an ultralight vehicle.",
+          "tickable": false
         }
       ]
     },
@@ -126,6 +165,13 @@
           "type": "subtitle",
           "text": "Cockpit",
           "tickable": false
+        },
+        {
+          "type": "action",
+          "text": "Master switch",
+          "response": "OFF",
+          "tickable": true,
+          "indent": 1
         },
         {
           "type": "action",
@@ -228,6 +274,14 @@
         },
         {
           "type": "action",
+          "text": "Both carburettors",
+          "response": "LINKAGE FREE AND EVEN, SYNCHRONISATION MARKS ALIGNED",
+          "tickable": true,
+          "indent": 1,
+          "detail": "New with the twin. An out-of-sync pair makes one cylinder work harder than the other, which on a two-stroke is a path to a holed piston. Not applicable to the single-cylinder baseline aircraft."
+        },
+        {
+          "type": "action",
           "text": "Fuel lines and primer bulb",
           "response": "NO CHAFING, NO WEEPING",
           "tickable": true,
@@ -239,7 +293,7 @@
           "response": "CHECKED, CORRECT OIL RATIO",
           "tickable": true,
           "indent": 1,
-          "detail": "Confirm the premix ratio against the engine manufacturer's figure for this engine and oil. Running a two-stroke on straight fuel will seize it."
+          "detail": "Confirm the premix ratio against the Kawasaki manual for this engine and oil. It is not necessarily the same ratio the previous engine used, and running a two-stroke on straight fuel will seize it."
         },
         {
           "type": "action",
@@ -247,14 +301,32 @@
           "response": "CLEAR, NO WATER",
           "tickable": true,
           "indent": 1
+        },
+        {
+          "type": "subtitle",
+          "text": "Electrical (added with the swap)",
+          "tickable": false
+        },
+        {
+          "type": "action",
+          "text": "Battery terminals and mount",
+          "response": "SECURE, NO CORROSION",
+          "tickable": true,
+          "indent": 1
+        },
+        {
+          "type": "caution",
+          "text": "There is no alternator. The battery starts the engine and is not recharged in flight. A battery that turned the engine over slowly today will not start it at a away-field, and nothing in Part 103 requires anyone to notice that before you go.",
+          "tickable": false
         }
       ]
     },
     {
       "id": "engine-start",
       "phase": "engine_start",
-      "title": "Engine Start",
+      "title": "Engine Start (Kawasaki 340, electric)",
       "criticality": "normal",
+      "notes": "Rewritten from the parent: the twin's dual carburettors and the added electric start make the single-cylinder sequence inapplicable.",
       "items": [
         {
           "type": "action",
@@ -288,8 +360,15 @@
         },
         {
           "type": "action",
-          "text": "Choke",
-          "response": "AS REQUIRED FOR TEMPERATURE",
+          "text": "Choke, both carburettors",
+          "response": "ON TOGETHER AS REQUIRED FOR TEMPERATURE",
+          "tickable": true,
+          "detail": "Both must come on and off together. Choking one side only runs that cylinder rich and the other lean."
+        },
+        {
+          "type": "action",
+          "text": "Master switch",
+          "response": "ON",
           "tickable": true
         },
         {
@@ -304,14 +383,15 @@
           "tickable": true
         },
         {
-          "type": "challenge",
-          "text": "Start engine",
+          "type": "action",
+          "text": "Starter",
+          "response": "ENGAGE IN SHORT BURSTS",
           "tickable": true
         },
         {
           "type": "action",
           "text": "Choke",
-          "response": "OFF AS ENGINE PICKS UP",
+          "response": "OFF PROGRESSIVELY AS ENGINE PICKS UP",
           "tickable": true
         },
         {
@@ -319,12 +399,14 @@
           "text": "Warm up",
           "response": "PER ENGINE MANUAL BEFORE ADVANCING THROTTLE",
           "tickable": true,
-          "detail": "A cold two-stroke run up before the piston and cylinder have reached even temperature is the classic path to a seizure.",
-          "value": {
-            "quantity": "temperature",
-            "unit": "f",
-            "comparison": "at_least"
-          }
+          "detail": "The twin takes longer to reach even temperature across both cylinders than the single did. A cold run-up is the classic path to a seizure."
+        },
+        {
+          "type": "action",
+          "text": "Both cylinder head temperatures",
+          "response": "RISING AND ROUGHLY EQUAL",
+          "tickable": true,
+          "detail": "A persistent split between cylinders points at a carburettor sync or air leak problem. Nothing on the baseline single-cylinder aircraft corresponds to this check."
         }
       ]
     },
@@ -355,12 +437,13 @@
         {
           "type": "action",
           "text": "Full throttle static RPM",
-          "response": "PER ENGINE MANUAL",
-          "tickable": true
+          "response": "PER ENGINE MANUAL FOR THIS PROPELLER PITCH",
+          "tickable": true,
+          "detail": "Different from the baseline aircraft: both the engine and the propeller pitch changed. Establish the correct figure for this combination and placard it."
         },
         {
           "type": "action",
-          "text": "Engine temperatures",
+          "text": "Both cylinder head temperatures",
           "response": "IN RANGE",
           "tickable": true
         },
@@ -379,7 +462,7 @@
         },
         {
           "type": "caution",
-          "text": "A single-cylinder two-stroke should be treated as an engine that will stop without warning. Do not depart over terrain that offers no landing option.",
+          "text": "A two-stroke should be treated as an engine that will stop without warning. The twin is smoother than the single it replaced, which makes it easier to trust and no more likely to keep running. Do not depart over terrain that offers no landing option.",
           "tickable": false
         }
       ]
@@ -430,6 +513,15 @@
         },
         {
           "type": "action",
+          "id": "efato-master",
+          "text": "Master switch",
+          "response": "OFF",
+          "memory_item": true,
+          "tickable": true,
+          "detail": "Added with the electrical system. The baseline aircraft has no master switch to turn off."
+        },
+        {
+          "type": "action",
           "text": "Harness",
           "response": "TIGHT",
           "tickable": true
@@ -471,6 +563,13 @@
           "text": "Fuel shutoff valve",
           "response": "OFF",
           "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Master switch",
+          "response": "OFF",
+          "tickable": true,
+          "detail": "Added with the electrical system. Leaving it on flattens a battery that nothing recharges in flight."
         },
         {
           "type": "challenge",

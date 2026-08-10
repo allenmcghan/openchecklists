@@ -294,6 +294,93 @@ def check_structure_sanity(doc: dict, f: Findings) -> None:
             f.warn(f"sections/{si}: section contains no actionable item")
 
 
+def check_derivation(doc: dict, f: Findings, corpus: dict[str, dict] | None = None) -> None:
+    """Lineage rules.
+
+    A forked checklist is the point of an experimental corpus: engine swaps and
+    panel rebuilds are the norm, and one builder's file is most useful to the next
+    when you can see what they changed. That only works if the fork says what it
+    changed and against which version, so these are errors rather than warnings.
+    """
+    d = doc.get("derived_from")
+    if not d:
+        return
+
+    if d["checklist_id"] == doc.get("id"):
+        f.error("policy: derived_from points at this file's own id")
+
+    rel = d["relationship"]
+    mods = doc.get("aircraft", {}).get("modifications", [])
+
+    # A variant that names no difference is not a variant; it is a copy, and a
+    # duplicate checklist with no stated reason is corpus noise at best.
+    if rel == "variant_of" and not mods and not d.get("changes_summary"):
+        f.error(
+            "policy: derived_from.relationship=variant_of but the file records neither "
+            "aircraft.modifications nor derived_from.changes_summary; say what differs"
+        )
+
+    if rel == "airframe_specific_copy" and not doc.get("aircraft", {}).get("airframe_specific"):
+        f.error(
+            "policy: relationship=airframe_specific_copy requires aircraft.airframe_specific "
+            "identifying which aircraft it is for"
+        )
+
+    # A fork claiming to change nothing procedural should not have changed the
+    # procedures. Caught by comparing against the parent when it is available.
+    if corpus and d["checklist_id"] in corpus:
+        parent = corpus[d["checklist_id"]]
+        fam_a = doc.get("aircraft", {}).get("airframe_family")
+        fam_b = parent.get("aircraft", {}).get("airframe_family")
+        if fam_a and fam_b and fam_a != fam_b and rel in ("variant_of", "airframe_specific_copy"):
+            f.error(
+                f"policy: airframe_family {fam_a!r} does not match parent's {fam_b!r}; a variant "
+                "of an airframe belongs to the same family"
+            )
+        if d.get("content_hash") and d["content_hash"] != content_hash(parent):
+            f.warn(
+                f"parent {d['checklist_id']!r} has changed since this fork "
+                f"({d['content_hash'][:12]}… -> {content_hash(parent)[:12]}…); review whether the "
+                "parent's later corrections apply here"
+                + ("" if d.get("diverged") else " (derived_from.diverged is not set)")
+            )
+    elif corpus is not None and d["checklist_id"] not in corpus:
+        f.warn(
+            f"parent {d['checklist_id']!r} is not in the corpus provided; lineage cannot be checked"
+        )
+
+    if rel == "correction":
+        f.warn(
+            "relationship=correction: fixing the parent is usually better done as a field report "
+            "against it than as a fork, which leaves two files disagreeing"
+        )
+
+    # A modification that changed how the aircraft is flown, in a file that forked
+    # nothing, is a sign the lineage was not recorded.
+    for i, m in enumerate(mods):
+        if m.get("affects_procedures") and not d.get("changes_summary"):
+            f.warn(
+                f"aircraft/modifications/{i} affects procedures but derived_from has no "
+                "changes_summary explaining what that forced"
+            )
+            break
+
+
+def check_modifications_without_lineage(doc: dict, f: Findings) -> None:
+    """A modified airframe with no recorded baseline is still legitimate.
+
+    Plenty of builders write a checklist from scratch for a heavily modified
+    aircraft, with no parent file to fork. That is fine; it just needs the
+    modifications recorded so the next person with the same swap can find it.
+    """
+    mods = doc.get("aircraft", {}).get("modifications", [])
+    if mods and not doc.get("aircraft", {}).get("airframe_family"):
+        f.warn(
+            "aircraft.modifications recorded without aircraft.airframe_family; without a family "
+            "slug this file will not surface when someone browses variations of the airframe"
+        )
+
+
 def check_file_naming(path: Path, doc: dict, f: Findings) -> None:
     expected = f"{doc.get('id')}.ocl.json"
     if path.name != expected:
@@ -310,7 +397,7 @@ def check_stable_form(path: Path, doc: dict, raw: bytes, f: Findings) -> None:
         f.warn("not in stable form (2-space indent, trailing newline); run with --write-stable")
 
 
-def validate_file(path: Path, schema: dict, check_form: bool) -> Findings:
+def validate_file(path: Path, schema: dict, check_form: bool, corpus: dict[str, dict] | None = None) -> Findings:
     f = Findings(path)
     raw = path.read_bytes()
     try:
@@ -326,6 +413,8 @@ def validate_file(path: Path, schema: dict, check_form: bool) -> Findings:
         return f
 
     check_file_naming(path, doc, f)
+    check_derivation(doc, f, corpus)
+    check_modifications_without_lineage(doc, f)
     check_tickability(doc, f)
     check_references(doc, f)
     check_verification_consistency(doc, f)
@@ -358,13 +447,23 @@ def main() -> int:
         print("no .ocl.json files found", file=sys.stderr)
         return 1
 
+    # Lineage checks need to resolve a fork's parent, so load the whole set first.
+    corpus: dict[str, dict] = {}
+    for p in files:
+        try:
+            d = json.loads(p.read_bytes())
+            if isinstance(d, dict) and d.get("id"):
+                corpus[d["id"]] = d
+        except json.JSONDecodeError:
+            pass
+
     failed = 0
     for path in files:
         if args.write_stable:
             doc = json.loads(path.read_bytes())
             path.write_bytes(stable_bytes(doc))
 
-        f = validate_file(path, schema, args.check_form or args.write_stable)
+        f = validate_file(path, schema, args.check_form or args.write_stable, corpus)
         rel = path.relative_to(REPO) if path.is_relative_to(REPO) else path
 
         if args.print_hash and not f.errors:

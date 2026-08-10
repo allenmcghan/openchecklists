@@ -44,6 +44,7 @@
     },
 
     "aircraft": { "$ref": "#/$defs/aircraft" },
+    "derived_from": { "$ref": "#/$defs/derived_from" },
     "provenance": { "$ref": "#/$defs/provenance" },
     "verification": { "$ref": "#/$defs/verification" },
     "rights": { "$ref": "#/$defs/rights" },
@@ -166,6 +167,51 @@
           "enum": ["fixed_pitch", "ground_adjustable", "constant_speed", "feathering", "reversing", "none"]
         },
         "gear": { "enum": ["fixed_tricycle", "fixed_tailwheel", "retractable", "amphibious", "float", "ski", "skid"] },
+        "airframe_family": {
+          "description": "Slug grouping every variation of the same basic airframe, e.g. 'kitfox', 'aerolite-103', 'rv-6'. The field that makes 'show me what other people flying this airframe did' work: two files with different engines, panels and gross weights still share a family. Assign by airframe, not by engine or equipment.",
+          "type": "string",
+          "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+          "maxLength": 60
+        },
+        "modifications": {
+          "description": "What differs from the baseline airframe. The heart of an experimental and Part 103 corpus: engine swaps, prop changes, gross weight increases and panel rebuilds are the norm rather than the exception, and they are exactly what makes one builder's checklist useful to another. Each entry should be specific enough that someone with the same modification recognises it.",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["kind", "description"],
+            "additionalProperties": false,
+            "properties": {
+              "kind": {
+                "enum": [
+                  "engine_swap",
+                  "propeller_change",
+                  "fuel_system",
+                  "electrical_system",
+                  "avionics",
+                  "instrument_panel",
+                  "gross_weight_increase",
+                  "aerodynamic",
+                  "landing_gear",
+                  "float_or_ski_install",
+                  "control_system",
+                  "ballistic_parachute",
+                  "structural",
+                  "other"
+                ]
+              },
+              "description": { "type": "string", "minLength": 1, "maxLength": 500 },
+              "affects_procedures": {
+                "description": "True when this modification changed the checklist rather than only the airframe. A mod that changes nothing procedural is still worth recording so others can find it, but this flag is what tells a reader whether the differences matter to how the aircraft is flown.",
+                "type": "boolean"
+              },
+              "approval": {
+                "description": "How the modification is authorised. part103_none is honest rather than dismissive: Part 103 vehicles need no approval for any of this.",
+                "enum": ["stc", "field_approval", "337", "manufacturer_kit_option", "owner_designed", "part103_none", "unknown"]
+              },
+              "reference": { "type": "string", "maxLength": 300 }
+            }
+          }
+        },
         "airframe_specific": {
           "description": "Set when this file documents one individual airframe rather than a type. Type-level files must omit it.",
           "type": "object",
@@ -173,8 +219,41 @@
           "properties": {
             "registration": { "type": "string", "maxLength": 20 },
             "serial_number": { "type": "string", "maxLength": 50 },
+            "builder": { "type": "string", "maxLength": 200 },
+            "first_flight": { "type": "string", "format": "date" },
+            "hours": { "type": "number", "minimum": 0 },
             "notes": { "type": "string", "maxLength": 1000 }
           }
+        }
+      }
+    },
+
+    "derived_from": {
+      "description": "The checklist this one was forked from. Records lineage without inheriting content: a derived file is complete and standalone, so a pilot always holds the whole checklist and never a composition resolved at render time. That is deliberate — inheritance in a safety document makes it unclear what you are actually holding, while attribution gives the same discoverability with none of the ambiguity.",
+      "type": "object",
+      "required": ["checklist_id", "relationship"],
+      "additionalProperties": false,
+      "properties": {
+        "checklist_id": { "type": "string", "maxLength": 100 },
+        "content_hash": {
+          "description": "The parent's hash at the time of the fork. Lets tooling show a true three-way picture: what the parent said then, what it says now, and what this file changed.",
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "file_revision": { "type": "string", "maxLength": 50 },
+        "url": { "type": "string", "format": "uri" },
+        "relationship": {
+          "description": "variant_of = same airframe, different configuration. airframe_specific_copy = the same configuration tailored to one individual aircraft. translation = same content, different language. reformatting = structural cleanup with no procedural change. correction = fixing an error in the parent, which should usually be a field report against the parent instead.",
+          "enum": ["variant_of", "airframe_specific_copy", "translation", "reformatting", "correction"]
+        },
+        "changes_summary": {
+          "description": "Plain-language account of what was changed and why. This is what another builder actually reads, so it should say what the modification forced, not just that a fork happened.",
+          "type": "string",
+          "maxLength": 2000
+        },
+        "diverged": {
+          "description": "False when the fork intends to track the parent's future corrections; true when it has deliberately gone its own way.",
+          "type": "boolean"
         }
       }
     },
