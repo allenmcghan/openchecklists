@@ -1,0 +1,34 @@
+{
+  "open_checklist_report_version": "1.0",
+  "id": "report-t34a-0001-engine-variation",
+  "target": {
+    "checklist_id": "beechcraft-t-34a-usaf",
+    "content_hash": "eedcdf610c84d96144e1457a82b597b3dd07bc99c8cfef41c4b3ee16bfcbcb1d",
+    "file_revision": "0.1.0",
+    "section_id": "preflight-interior"
+  },
+  "type": "airframe_variation",
+  "severity": "significant",
+  "reporter": {
+    "name": "Example Owner",
+    "relationship": "owner",
+    "contact": "owner@example.invalid",
+    "aircraft": {
+      "registration": "N134XY",
+      "make": "Beechcraft",
+      "model": "T-34A",
+      "serial_number": "CG-000"
+    }
+  },
+  "submitted": "2026-08-09T15:20:00-05:00",
+  "body": {
+    "summary": "Trim tab take-off settings do not match my aircraft's placard.",
+    "as_written": "Rudder trim tab knob — 3 DEGREES RIGHT",
+    "should_say": "Confirm against the aircraft placard; mine differs after the trim system rework.",
+    "detail": "This airframe was rebuilt with a different rudder trim arrangement and carries a placard giving a different take-off setting. The 1958 handbook value is not correct for it. Flagging as a variation rather than an error, since the file does match its stated source."
+  },
+  "evidence": {
+    "kind": "observed_on_aircraft"
+  },
+  "status": "open"
+}

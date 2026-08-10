@@ -1,0 +1,37 @@
+{
+  "open_checklist_report_version": "1.0",
+  "id": "report-t34a-0002-omitted-emergency-sections",
+  "target": {
+    "checklist_id": "beechcraft-t-34a-usaf",
+    "content_hash": "eedcdf610c84d96144e1457a82b597b3dd07bc99c8cfef41c4b3ee16bfcbcb1d",
+    "file_revision": "0.1.0"
+  },
+  "type": "transcription_error",
+  "severity": "safety_critical",
+  "reporter": {
+    "name": "Example Instructor",
+    "relationship": "instructor",
+    "contact": "cfi@example.invalid"
+  },
+  "submitted": "2026-08-09T18:05:00-05:00",
+  "body": {
+    "summary": "ENGINE FIRE IN FLIGHT and DITCHING are absent; a reader could believe the emergency set is complete.",
+    "as_written": "(no engine fire in flight section present)",
+    "should_say": "Transcribe ENGINE FIRE IN FLIGHT, FIRE DURING ENGINE START and DITCHING from the source, or state the omission at the top of the file.",
+    "detail": "The file transcribes ten emergency procedures and omits at least three that are present in T.O. 1T-34A-1, because those pages are inverted in the scan. The omission is recorded in known_issues, but a pilot working from the rendered checklist sees a plausible-looking emergency section with no indication that fire in flight is missing."
+  },
+  "evidence": {
+    "kind": "source_document",
+    "document_title": "Flight Handbook, USAF Series T-34A Aircraft",
+    "document_revision": "10 February 1958",
+    "page": "Section III, inverted scan pages 75-79",
+    "url": "https://archive.org/details/t-o-1-t-34-a-1-flight-handbook-1958"
+  },
+  "status": "confirmed",
+  "resolution": {
+    "by": "Open Checklists maintainers",
+    "at": "2026-08-10T09:00:00-05:00",
+    "reason": "Confirmed against the source. The omitted sections are real and the file's completeness=partial plus the uncertain_reading known_issue already disclose it, but the reporter is right that the rendered output does not make the gap prominent. Tracking as the reason to OCR the inverted pages from images. No demotion applied: the file was never above unreviewed.",
+    "confirmed_severity": "safety_critical"
+  }
+}

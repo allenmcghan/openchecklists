@@ -22,7 +22,8 @@ preserving history — see [docs/04-roadmap.md](docs/04-roadmap.md) M1.
 | [docs/02-format-decision.md](docs/02-format-decision.md) | JSON as canonical, with reasoning; four things in the brief I think are wrong; architecture; licensing |
 | [docs/03-verification-model.md](docs/03-verification-model.md) | Two-axis verification, evidence rules, automatic demotion, presentation rules, provenance, contributor warranty, takedown process |
 | [docs/04-roadmap.md](docs/04-roadmap.md) | OCR pipeline design, the site, and a first milestone scoped to be finishable |
-| [docs/05-product-and-sourcing.md](docs/05-product-and-sourcing.md) | **Read this one.** The phone + log product, why freechecklists.net cannot be bulk-scraped, and where the corpus comes from instead |
+| [docs/05-product-and-sourcing.md](docs/05-product-and-sourcing.md) | The phone + log product, why freechecklists.net cannot be bulk-scraped, and where the corpus comes from instead |
+| [docs/06-community-currency.md](docs/06-community-currency.md) | **Read this one.** Field reports as the way the corpus stays current; what copyright does and does not cover here; where the flight-club analogy holds and where it stops |
 
 ## Artifacts
 
@@ -35,8 +36,11 @@ preserving history — see [docs/04-roadmap.md](docs/04-roadmap.md) M1.
 | [tools/render.py](tools/render.py) | One JSON in, one self-contained HTML out: phone tick-off, any paper size, log export. Zero external requests |
 | [tools/validate.py](tools/validate.py) | Reference validator: schema, then the policy rules JSON Schema cannot express |
 | [tools/validate_log.py](tools/validate_log.py) | Log validator, including the implied-working-rate check |
+| [schema/open-checklist-report-1.0.schema.json](schema/open-checklist-report-1.0.schema.json) | Field report format: stale item, transcription error, airframe variation, newer source revision |
+| [tools/validate_report.py](tools/validate_report.py) | Report validator. A confirmed defect must demote the file it targets; a live safety concern must travel inside the file |
+| [tools/test_reports.py](tools/test_reports.py) | 14 cases covering the demotion and safety-disclosure rules |
 | [tools/test_validate.py](tools/test_validate.py) | 27 negative cases proving the safety rules fire |
-| [examples/](examples/) | Five checklist files plus a worked completion log |
+| [examples/](examples/) | Five checklist files, a worked completion log, and two field reports |
 
 ## The four examples
 
@@ -67,6 +71,9 @@ python3 tools/test_validate.py            # prove the safety rules fire
 
 python3 tools/render.py examples/*.ocl.json --paper kneeboard   # -> build/*.html
 python3 tools/validate_log.py examples/*.ocl-log.json
+
+python3 tools/validate_report.py          # validate field reports
+python3 tools/test_reports.py             # prove the demotion rules fire
 
 python3 tools/acquire.py discover "NATOPS flight manual"   # find PD candidates
 python3 tools/acquire.py fetch --all                        # -> sources/documents/

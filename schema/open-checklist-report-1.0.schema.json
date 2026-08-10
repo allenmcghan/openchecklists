@@ -1,0 +1,195 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://openchecklists.net/schema/open-checklist-report-1.0.schema.json",
+  "title": "Open Checklist Field Report",
+  "description": "A structured report against a checklist file: this item is stale, this does not match my aircraft, this was transcribed wrong, a newer source revision exists. Structured rather than free-text because a comment thread cannot demote a file's verification state and a report can. This is the mechanism that makes a community-maintained corpus more current than a PDF library rather than merely as current.",
+  "type": "object",
+  "required": ["open_checklist_report_version", "id", "target", "type", "reporter", "submitted", "body", "status"],
+  "additionalProperties": false,
+
+  "properties": {
+    "open_checklist_report_version": { "type": "string", "const": "1.0" },
+
+    "id": { "type": "string", "minLength": 8, "maxLength": 100 },
+
+    "target": {
+      "description": "What the report is about. content_hash pins the exact version the reporter was looking at, which is what makes a report resolvable months later: without it, 'item 4 is wrong' becomes unanswerable as soon as the file changes.",
+      "type": "object",
+      "required": ["checklist_id", "content_hash"],
+      "additionalProperties": false,
+      "properties": {
+        "checklist_id": { "type": "string", "maxLength": 100 },
+        "content_hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "file_revision": { "type": "string", "maxLength": 50 },
+        "section_id": { "type": "string", "maxLength": 60 },
+        "item_id": { "type": "string", "maxLength": 60 },
+        "item_index": { "type": "integer", "minimum": 0 }
+      }
+    },
+
+    "type": {
+      "description": "transcription_error = the file does not match the source it claims. stale_item = the file matches its source, but the source has been superseded. source_revision_available = a newer revision of the source document exists. airframe_variation = correct for the type but wrong for a particular aircraft. procedural_concern = the procedure as written looks unsafe or unworkable. rights_concern = the rights or provenance claim looks wrong. improvement = wording, ordering or completeness, no defect alleged.",
+      "enum": [
+        "transcription_error",
+        "stale_item",
+        "source_revision_available",
+        "airframe_variation",
+        "procedural_concern",
+        "rights_concern",
+        "improvement"
+      ]
+    },
+
+    "severity": {
+      "description": "Reporter's assessment. Not authoritative; a maintainer sets the confirmed severity on resolution.",
+      "enum": ["safety_critical", "significant", "minor", "informational"]
+    },
+
+    "reporter": {
+      "type": "object",
+      "required": ["name"],
+      "additionalProperties": false,
+      "properties": {
+        "name": { "type": "string", "minLength": 1, "maxLength": 200 },
+        "contact": { "type": "string", "maxLength": 200 },
+        "relationship": {
+          "description": "How the reporter comes to know. An owner or mechanic reporting on their own aircraft carries different weight from an anonymous reader, and the format should let a maintainer see which they are.",
+          "enum": ["owner", "operator", "instructor", "mechanic", "type_club", "manufacturer", "reader", "other"]
+        },
+        "aircraft": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "registration": { "type": "string", "maxLength": 20 },
+            "serial_number": { "type": "string", "maxLength": 50 },
+            "make": { "type": "string", "maxLength": 100 },
+            "model": { "type": "string", "maxLength": 100 }
+          }
+        }
+      }
+    },
+
+    "submitted": { "type": "string", "format": "date-time" },
+
+    "body": {
+      "type": "object",
+      "required": ["summary"],
+      "additionalProperties": false,
+      "properties": {
+        "summary": { "type": "string", "minLength": 1, "maxLength": 500 },
+        "as_written": {
+          "description": "What the file currently says, quoted. Lets a maintainer confirm the reporter was looking at what they think they were.",
+          "type": "string",
+          "maxLength": 2000
+        },
+        "should_say": { "type": "string", "maxLength": 2000 },
+        "detail": { "type": "string", "maxLength": 4000 }
+      }
+    },
+
+    "evidence": {
+      "description": "Why the reporter believes it. A report with no evidence is still worth filing, but it cannot by itself justify changing a safety document, and the absence should be visible rather than inferred.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "enum": [
+            "source_document",
+            "newer_source_revision",
+            "service_bulletin",
+            "airworthiness_directive",
+            "observed_on_aircraft",
+            "manufacturer_statement",
+            "photograph",
+            "none_stated"
+          ]
+        },
+        "document_title": { "type": "string", "maxLength": 300 },
+        "document_revision": { "type": "string", "maxLength": 100 },
+        "document_date": { "type": "string", "maxLength": 20 },
+        "page": { "type": "string", "maxLength": 50 },
+        "url": { "type": "string", "format": "uri" },
+        "attachment_ref": { "type": "string", "maxLength": 300 }
+      }
+    },
+
+    "status": {
+      "description": "open = filed, not yet assessed. confirmed = a maintainer agrees. rejected = assessed and not accepted. fixed = the file has been changed. duplicate = already reported. cannot_reproduce = the claim could not be checked against the source.",
+      "enum": ["open", "confirmed", "rejected", "fixed", "duplicate", "cannot_reproduce"]
+    },
+
+    "resolution": {
+      "description": "Required once status leaves 'open'. A report closed with no stated reason is how a corpus quietly accumulates unaddressed safety claims.",
+      "type": "object",
+      "required": ["by", "at", "reason"],
+      "additionalProperties": false,
+      "properties": {
+        "by": { "type": "string", "minLength": 1, "maxLength": 200 },
+        "at": { "type": "string", "format": "date-time" },
+        "reason": { "type": "string", "minLength": 1, "maxLength": 2000 },
+        "confirmed_severity": { "enum": ["safety_critical", "significant", "minor", "informational"] },
+        "resulting_file_revision": { "type": "string", "maxLength": 50 },
+        "resulting_content_hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "demoted_verification": {
+          "description": "True when confirming this report reduced the file's verification state. Expected for a confirmed transcription_error or stale_item on a previously reviewed file: a review of content now known to be wrong no longer means anything.",
+          "type": "boolean"
+        },
+        "duplicate_of": { "type": "string", "maxLength": 100 }
+      }
+    },
+
+    "extensions": {
+      "type": "object",
+      "propertyNames": { "pattern": "^[a-z0-9-]+\\.[a-z0-9_.-]+$" }
+    }
+  },
+
+  "allOf": [
+    {
+      "comment": "Anything other than an open report must say how it was resolved and by whom.",
+      "if": { "properties": { "status": { "not": { "const": "open" } } }, "required": ["status"] },
+      "then": { "required": ["resolution"] }
+    },
+    {
+      "comment": "A duplicate has to name what it duplicates, or the pointer is useless.",
+      "if": { "properties": { "status": { "const": "duplicate" } }, "required": ["status"] },
+      "then": { "properties": { "resolution": { "required": ["duplicate_of"] } } }
+    },
+    {
+      "comment": "A staleness claim rests on something having superseded the source, so it must identify what.",
+      "if": {
+        "properties": { "type": { "enum": ["stale_item", "source_revision_available"] } },
+        "required": ["type"]
+      },
+      "then": {
+        "required": ["evidence"],
+        "properties": {
+          "evidence": {
+            "properties": {
+              "kind": {
+                "enum": [
+                  "newer_source_revision",
+                  "service_bulletin",
+                  "airworthiness_directive",
+                  "manufacturer_statement",
+                  "source_document"
+                ]
+              }
+            },
+            "required": ["kind"]
+          }
+        }
+      }
+    },
+    {
+      "comment": "An alleged transcription error must quote what the file says, so it can be checked without guessing which line is meant.",
+      "if": { "properties": { "type": { "const": "transcription_error" } }, "required": ["type"] },
+      "then": { "properties": { "body": { "required": ["as_written"] } } }
+    },
+    {
+      "comment": "A report about a specific aircraft should identify it.",
+      "if": { "properties": { "type": { "const": "airframe_variation" } }, "required": ["type"] },
+      "then": { "properties": { "reporter": { "required": ["aircraft"] } } }
+    }
+  ]
+}
