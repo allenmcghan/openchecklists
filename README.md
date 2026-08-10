@@ -75,6 +75,43 @@ There is deliberately **no example with `rights.status: upstream_reserved`**,
 because the recommendation is that such files must never be published — and the
 validator enforces it.
 
+## Rebuilding from a fresh clone
+
+Everything in the repository is text. The downloaded sources, the generated indexes
+and the built site are **not** committed — together they are about 640 MB, and all of
+them are reproducible from the manifest, which is the point of pinning hashes. A clone
+gives you the corpus, the schemas and the tooling; these commands give you the rest.
+
+```sh
+pip install jsonschema        # required by every validator
+pip install pymupdf           # required only by tools/library.py ingest
+
+# The site works with no downloads at all: the checklist pages, editor, exporters
+# and policy pages all build from examples/. Airport, weather and search pages
+# explain that their data is missing rather than breaking.
+python3 tools/build_site.py --base-url https://openchecklists.net
+
+# The full build, including the 640 MB of sources. Takes a while; the NASR
+# subscription alone is 249 MB.
+python3 tools/acquire.py fetch --all          # verifies against the pinned hashes
+python3 tools/airports.py ingest sources/documents/faa-nasr-28day/*.zip
+python3 tools/library.py ingest sources/documents/*/*.pdf sources/documents/*/*.txt
+python3 tools/library.py index-registry
+python3 tools/training.py emit
+python3 tools/build_site.py --base-url https://openchecklists.net \
+  --wx-proxy https://ocl-weather.example.workers.dev
+```
+
+`fetch --all` verifies rather than downloads for anything already present, and every
+asset in the manifest is hash-pinned, so a document that has been silently replaced
+upstream reports a MISMATCH instead of quietly entering the corpus. If a source has
+genuinely been reissued, that is a decision to make deliberately: check what changed,
+then re-pin with `--pin`.
+
+The NASR data is a 28-day cycle. Once `sources/public-domain.json` names a cycle older
+than the current one, the fetch will 404 — update the URL and the effective date to the
+current cycle from the [NASR subscription page](https://www.faa.gov/air_traffic/flight_info/aeronav/aero_data/NASR_Subscription/).
+
 ## Running the tools
 
 ```sh
