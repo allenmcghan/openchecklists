@@ -1,0 +1,336 @@
+{
+  "open_checklist_version": "1.0",
+  "id": "piper-pa44-180-normal",
+  "title": "Piper PA-44-180 Seminole — Normal Operating Procedures",
+  "description": "Normal operating procedures for the Piper PA-44-180 Seminole twin-engine trainer. Covers preflight walk-around through shutdown and securing. The Seminole has counter-rotating propellers (left engine standard rotation, right engine opposite rotation), which eliminates the critical engine problem. Each engine has an independent fuel system with its own selector; confirm selectors are on the correct tank before every phase. Both engines have Lycoming O-360 carbureted piston engines — carburetor heat is available and should be used per the POH. Gear is retractable; know the emergency extension procedure before flight. All airspeeds, power settings, fuel quantities, manifold pressure values, and performance limits must come from the specific aircraft POH. Not a substitute for dual instruction or a multi-engine checkout with a qualified instructor.",
+  "aircraft": {
+    "make": "Piper",
+    "model": "PA-44-180",
+    "variant": "Seminole",
+    "icao_type": "PA44",
+    "category": "standard_normal",
+    "engine": [{ "make": "Lycoming", "model": "O-360", "type": "piston_4stroke", "count": 2 }],
+    "propeller": "constant_speed",
+    "gear": "retractable"
+  },
+  "units": { "airspeed": "kt", "altitude": "ft", "fuel": "usgal", "weight": "lb", "pressure": "inhg", "temperature": "f" },
+  "provenance": {
+    "source": { "kind": "none", "notes": "No manufacturer document consulted. Written from general familiarity with the type." },
+    "transcription": { "method": "authored", "tool": "claude-sonnet-4-6", "date": "2026-08-11" },
+    "contributors": [{ "name": "Open Checklists project", "role": ["author"] }],
+    "revision": { "file_revision": "0.1.0", "updated": "2026-08-11" }
+  },
+  "verification": {
+    "source_fidelity": "not_applicable",
+    "operational_review": "none",
+    "completeness": "normal_only",
+    "known_issues": [
+      { "severity": "safety_defect", "description": "Contains no airspeeds, power settings, fuel quantities, or other numerical limitations — all must come from the specific aircraft POH.", "location": "whole file" },
+      { "severity": "content_gap", "description": "Equipment and avionics vary across PA-44-180 airframes. Verify every item against the specific aircraft and its POH before use.", "location": "whole file" }
+    ]
+  },
+  "rights": {
+    "status": "original_expression",
+    "corpus_license": "CC-BY-4.0",
+    "redistribution": "attribution_required",
+    "notes": "Manufacturer POH remains under copyright. This file does not reproduce its wording or selection of items."
+  },
+  "sections": [
+    {
+      "id": "preflight-inspection",
+      "phase": "preflight_inspection",
+      "title": "Preflight Walk-Around",
+      "items": [
+        { "type": "action", "text": "Aircraft documents (ARROW)", "response": "ON BOARD AND CURRENT", "tickable": true },
+        { "type": "action", "text": "Weight and balance — computed for actual payload and fuel load", "response": "WITHIN LIMITS PER POH", "tickable": true },
+        { "type": "action", "text": "Weather briefing and NOTAMs", "response": "OBTAINED; FLIGHT PLANNING COMPLETE", "tickable": true },
+        { "type": "action", "text": "Left fuel quantity — visually confirm tank level through filler port; compare with gauge", "response": "QUANTITY CONFIRMED; ADEQUATE WITH RESERVES PER POH", "tickable": true },
+        { "type": "action", "text": "Left fuel filler cap", "response": "SECURED AND LOCKED", "tickable": true },
+        { "type": "action", "text": "Left fuel sump drains — sample fuel at sump and wing root", "response": "CLEAR, CORRECT GRADE, NO WATER OR SEDIMENT", "tickable": true },
+        { "type": "action", "text": "Left engine oil level — check dipstick and secure cap", "response": "WITHIN OPERATING RANGE PER POH; CAP SECURE", "tickable": true },
+        { "type": "action", "text": "Left engine compartment — oil lines, fuel lines, hoses, wiring, and induction system", "response": "NO LEAKS, CHAFING, OR LOOSE CONNECTIONS", "tickable": true },
+        { "type": "action", "text": "Left engine exhaust stacks and heat shroud", "response": "NO CRACKS, CARBON DEPOSITS, OR LOOSE HARDWARE", "tickable": true },
+        { "type": "action", "text": "Left cowling and access panels", "response": "CLOSED AND ALL FASTENERS SECURED", "tickable": true },
+        { "type": "action", "text": "Left propeller — blades for nicks, cracks, erosion, and oil on leading face", "response": "SERVICEABLE; NO DAMAGE OR OIL LEAKAGE", "tickable": true },
+        { "type": "action", "text": "Left propeller spinner and back plate", "response": "SECURE; NO CRACKS OR LOOSE FASTENERS", "tickable": true },
+        { "type": "action", "text": "Left main gear — strut inflation, tire condition and inflation, brake assembly, and gear door", "response": "STRUT NORMAL; TIRE SERVICEABLE; BRAKES ADEQUATE; DOOR UNDAMAGED", "tickable": true },
+        { "type": "action", "text": "Left main gear torque links, oleo, and down-lock", "response": "SECURE; NO DAMAGE", "tickable": true },
+        { "type": "action", "text": "Left wing leading edge and skin — dings, deformation, fuel staining", "response": "NO DAMAGE", "tickable": true },
+        { "type": "action", "text": "Left aileron — hinges, control rod end, balance weight, and travel", "response": "SECURE; FULL AND FREE MOVEMENT", "tickable": true },
+        { "type": "action", "text": "Left flap — hinge pins, actuator arm, and condition", "response": "SECURE; NO DAMAGE", "tickable": true },
+        { "type": "action", "text": "Left wingtip — navigation light and strobe lens", "response": "UNDAMAGED; LENS INTACT", "tickable": true },
+        { "type": "action", "text": "Nose area — nose gear strut, tire, torque links, shimmy damper, and gear door", "response": "STRUT NORMAL; TIRE SERVICEABLE; HARDWARE SECURE", "tickable": true },
+        { "type": "action", "text": "Pitot tube — cover removed and inlet clear", "response": "COVER REMOVED; UNOBSTRUCTED", "tickable": true },
+        { "type": "action", "text": "Static ports — both sides of fuselage clear", "response": "UNOBSTRUCTED", "tickable": true },
+        { "type": "action", "text": "Fuselage skin, antennas, and cabin door seals", "response": "NO DAMAGE; ANTENNAS SECURE; SEALS INTACT", "tickable": true },
+        { "type": "action", "text": "Horizontal stabilizer, elevator, and trim tab — both sides", "response": "UNDAMAGED; HINGES SECURE; NO EXCESSIVE PLAY", "tickable": true },
+        { "type": "action", "text": "Vertical stabilizer and rudder — hinges and travel", "response": "UNDAMAGED; FREE AND FULL MOVEMENT", "tickable": true },
+        { "type": "action", "text": "Tail beacon and position light", "response": "LENS INTACT; SECURE", "tickable": true },
+        { "type": "action", "text": "ELT — armed switch and antenna connection", "response": "ARMED; ANTENNA CONNECTED", "tickable": true },
+        { "type": "action", "text": "Right wing — leading edge, skin, aileron, flap, tip light, and fuel cap", "response": "UNDAMAGED; CONTROLS FREE; CAP LOCKED", "tickable": true },
+        { "type": "action", "text": "Right fuel sump — sample at wing root and sump", "response": "CLEAR, CORRECT GRADE, NO CONTAMINATION", "tickable": true },
+        { "type": "action", "text": "Right fuel quantity — visual check at filler port", "response": "QUANTITY CONFIRMED; ADEQUATE WITH RESERVES PER POH", "tickable": true },
+        { "type": "action", "text": "Right main gear — strut, tire, brakes, and gear door", "response": "STRUT NORMAL; TIRE SERVICEABLE; BRAKES ADEQUATE; DOOR UNDAMAGED", "tickable": true },
+        { "type": "action", "text": "Right engine oil, cowling, propeller, exhaust, and engine compartment", "response": "OIL IN RANGE; ALL SECURE; PROPELLER SERVICEABLE; NO LEAKS", "tickable": true },
+        { "type": "action", "text": "Chocks, tiedowns, and external control locks", "response": "ALL REMOVED", "tickable": true }
+      ]
+    },
+    {
+      "id": "cockpit-preparation",
+      "phase": "before_start",
+      "title": "Cockpit Preparation / Before Start",
+      "items": [
+        { "type": "action", "text": "Seats and rudder pedals — adjusted for both occupants", "response": "ADJUSTED AND LOCKED", "tickable": true },
+        { "type": "action", "text": "Seat belts and shoulder harnesses", "response": "FASTENED AND ADJUSTED", "tickable": true },
+        { "type": "action", "text": "Baggage door and cabin doors", "response": "CLOSED AND LATCHED", "tickable": true },
+        { "type": "action", "text": "Flight controls — aileron, elevator, and rudder for full and free movement", "response": "CORRECT AND FREE", "tickable": true },
+        { "type": "action", "text": "Parking brake", "response": "SET", "tickable": true },
+        { "type": "action", "text": "Fuel selectors — left engine to left tank, right engine to right tank", "response": "LEFT ON LEFT; RIGHT ON RIGHT", "tickable": true },
+        { "type": "action", "text": "Fuel shutoff valves — both engines", "response": "OPEN", "tickable": true },
+        { "type": "action", "text": "Mixture controls — both engines", "response": "RICH", "tickable": true },
+        { "type": "action", "text": "Propeller controls — both engines", "response": "FULL FORWARD", "tickable": true },
+        { "type": "action", "text": "Throttles — both engines", "response": "CLOSED", "tickable": true },
+        { "type": "action", "text": "Master switch (battery)", "response": "ON", "tickable": true },
+        { "type": "action", "text": "Fuel quantity gauges — both sides", "response": "CHECKED; CONSISTENT WITH VISUAL INSPECTION", "tickable": true },
+        { "type": "action", "text": "Avionics master", "response": "OFF (before engine start)", "tickable": true },
+        { "type": "action", "text": "Circuit breakers — all positions", "response": "IN AND SECURE", "tickable": true },
+        { "type": "action", "text": "Exterior lights — as needed", "response": "SET", "tickable": true },
+        { "type": "action", "text": "Primer — left and right engines", "response": "PRIMED AS REQUIRED PER POH; LOCKED", "tickable": true }
+      ]
+    },
+    {
+      "id": "engine-start",
+      "phase": "engine_start",
+      "title": "Engine Start",
+      "items": [
+        { "type": "warning", "text": "Confirm area is clear of personnel and obstacles before energizing the starter. Shout 'CLEAR PROP' on both sides before starting each engine.", "tickable": false },
+        { "type": "action", "text": "Brakes", "response": "HELD", "tickable": true },
+        { "type": "action", "text": "Area — visually clear before each engine start", "response": "CLEAR", "tickable": true },
+        { "type": "action", "text": "Left throttle — cracked open per POH", "response": "SET", "tickable": true },
+        { "type": "action", "text": "Left ignition switch", "response": "START; RELEASE WHEN ENGINE FIRES", "tickable": true },
+        { "type": "action", "text": "Left engine — oil pressure rise within time limit per POH", "response": "PRESSURE RISING", "tickable": true },
+        { "type": "action", "text": "Left engine — idle stabilized; check for unusual noise or vibration", "response": "RUNNING SMOOTHLY", "tickable": true },
+        { "type": "action", "text": "Right throttle — cracked open per POH", "response": "SET", "tickable": true },
+        { "type": "action", "text": "Right ignition switch", "response": "START; RELEASE WHEN ENGINE FIRES", "tickable": true },
+        { "type": "action", "text": "Right engine — oil pressure rise within time limit per POH", "response": "PRESSURE RISING", "tickable": true },
+        { "type": "action", "text": "Right engine — idle stabilized; check for unusual noise or vibration", "response": "RUNNING SMOOTHLY", "tickable": true },
+        { "type": "action", "text": "Avionics master", "response": "ON", "tickable": true },
+        { "type": "action", "text": "Radios and navigation equipment", "response": "ON; FREQUENCIES SET", "tickable": true },
+        { "type": "action", "text": "Alternators — both engines, charge indicators", "response": "CHARGING", "tickable": true }
+      ]
+    },
+    {
+      "id": "after-start",
+      "phase": "after_start",
+      "title": "After Start / Before Taxi",
+      "items": [
+        { "type": "action", "text": "Oil pressure — both engines", "response": "IN GREEN ARC", "tickable": true },
+        { "type": "action", "text": "Oil temperature — both engines", "response": "MONITORING; APPROACHING OPERATING RANGE", "tickable": true },
+        { "type": "action", "text": "Alternator output — both engines", "response": "CHECKED; CHARGING NORMALLY", "tickable": true },
+        { "type": "action", "text": "Suction gauge (vacuum)", "response": "IN GREEN ARC PER POH", "tickable": true },
+        { "type": "action", "text": "Fuel quantity — both engines confirmed", "response": "CHECKED", "tickable": true },
+        { "type": "action", "text": "Transponder", "response": "SET; ALT MODE", "tickable": true },
+        { "type": "action", "text": "ATIS/weather — obtained for departure airport", "response": "OBTAINED", "tickable": true },
+        { "type": "action", "text": "Taxi clearance", "response": "RECEIVED", "tickable": true },
+        { "type": "action", "text": "Parking brake", "response": "RELEASED", "tickable": true }
+      ]
+    },
+    {
+      "id": "before-takeoff",
+      "phase": "before_takeoff",
+      "title": "Run-Up / Before Takeoff",
+      "items": [
+        { "type": "action", "text": "Brakes", "response": "SET AND HOLDING", "tickable": true },
+        { "type": "action", "text": "Flight controls — final check for correct and free movement", "response": "CORRECT AND FREE", "tickable": true },
+        { "type": "action", "text": "Trim — elevator set for takeoff", "response": "SET PER POH", "tickable": true },
+        { "type": "action", "text": "Flaps — takeoff position", "response": "SET PER POH", "tickable": true },
+        { "type": "action", "text": "Fuel selectors — both engines on respective tanks", "response": "LEFT ON LEFT; RIGHT ON RIGHT; CONFIRMED", "tickable": true },
+        { "type": "action", "text": "Fuel shutoff valves — both engines", "response": "OPEN", "tickable": true },
+        { "type": "action", "text": "Mixture controls — both engines", "response": "RICH (or adjusted for density altitude per POH)", "tickable": true },
+        { "type": "action", "text": "Propeller controls — both engines, full forward", "response": "FULL FORWARD", "tickable": true },
+        { "type": "action", "text": "Left engine run-up — advance throttle to run-up RPM per POH", "response": "RPM STABLE", "tickable": true },
+        { "type": "action", "text": "Left magneto check — select LEFT, note RPM drop; select RIGHT, note drop; return to BOTH", "response": "DROPS WITHIN LIMITS PER POH; NO ROUGHNESS", "tickable": true },
+        { "type": "action", "text": "Left propeller cycle — advance to full forward, reduce RPM per POH, observe RPM drop, advance back to full forward", "response": "RPM DROP NOTED; RETURNED TO FULL FORWARD", "tickable": true },
+        { "type": "action", "text": "Left carburetor heat — apply heat, observe slight RPM drop and possible smoothing; return to COLD", "response": "DROP NOTED; RETURNED TO COLD", "tickable": true },
+        { "type": "action", "text": "Left engine gauges — oil pressure, oil temperature, fuel pressure, manifold pressure", "response": "ALL IN GREEN ARCS PER POH", "tickable": true },
+        { "type": "action", "text": "Left throttle — return to idle", "response": "IDLE", "tickable": true },
+        { "type": "action", "text": "Right engine run-up — advance throttle to run-up RPM per POH", "response": "RPM STABLE", "tickable": true },
+        { "type": "action", "text": "Right magneto check — LEFT, RIGHT, BOTH", "response": "DROPS WITHIN LIMITS PER POH; NO ROUGHNESS", "tickable": true },
+        { "type": "action", "text": "Right propeller cycle — full forward, reduce RPM, observe drop, advance back to full forward", "response": "RPM DROP NOTED; RETURNED TO FULL FORWARD", "tickable": true },
+        { "type": "action", "text": "Right carburetor heat — apply and check, return to COLD", "response": "DROP NOTED; RETURNED TO COLD", "tickable": true },
+        { "type": "action", "text": "Right engine gauges — oil pressure, oil temperature, fuel pressure, manifold pressure", "response": "ALL IN GREEN ARCS PER POH", "tickable": true },
+        { "type": "action", "text": "Right throttle — return to idle", "response": "IDLE", "tickable": true },
+        { "type": "action", "text": "Gear handle", "response": "DOWN AND LOCKED; THREE GREEN LIGHTS", "tickable": true },
+        { "type": "action", "text": "Doors and windows", "response": "CLOSED AND LATCHED", "tickable": true },
+        { "type": "action", "text": "Instruments — gyros erect, altimeter set, heading indicator aligned with compass", "response": "SET AND CHECKED", "tickable": true },
+        { "type": "action", "text": "Lights — strobes and landing light as required", "response": "ON", "tickable": true },
+        { "type": "action", "text": "Engine-out procedures and Vyse — briefed", "response": "BRIEFED PER POH", "tickable": true },
+        { "type": "action", "text": "Takeoff clearance", "response": "RECEIVED OR AREA CLEAR", "tickable": true }
+      ]
+    },
+    {
+      "id": "takeoff",
+      "phase": "takeoff",
+      "title": "Takeoff",
+      "items": [
+        { "type": "action", "text": "Throttles — advance together smoothly to full power", "response": "FULL POWER; BOTH ENGINES CONFIRMED", "tickable": true },
+        { "type": "action", "text": "Engine gauges — scan both engines during takeoff roll", "response": "POWER EQUAL; ALL GAUGES GREEN", "tickable": true },
+        { "type": "action", "text": "Directional control — maintain runway centerline with rudder", "response": "TRACKING CENTERLINE", "tickable": true },
+        { "type": "action", "text": "Rotate — lift nosewheel at rotation speed per POH", "response": "ROTATE PER POH", "tickable": true },
+        { "type": "action", "text": "Positive rate of climb — verify on VSI and altimeter", "response": "POSITIVE RATE CONFIRMED", "tickable": true },
+        { "type": "action", "text": "Landing gear — retract", "response": "GEAR UP; NO RED LIGHTS", "tickable": true },
+        { "type": "action", "text": "Airspeed — accelerate to Vy or as directed by departure procedure", "response": "ESTABLISHED PER POH", "tickable": true },
+        { "type": "action", "text": "Flaps — retract at safe altitude and speed per POH", "response": "RETRACTED PER POH", "tickable": true }
+      ]
+    },
+    {
+      "id": "climb",
+      "phase": "climb",
+      "title": "Climb",
+      "items": [
+        { "type": "action", "text": "Airspeed — establish climb speed per POH", "response": "SET PER POH", "tickable": true },
+        { "type": "action", "text": "Power — reduce from takeoff power to climb power per POH; both engines", "response": "SET PER POH", "tickable": true },
+        { "type": "action", "text": "Propeller controls — reduce to climb RPM per POH", "response": "SET PER POH", "tickable": true },
+        { "type": "action", "text": "Mixture — adjust for altitude per POH", "response": "ADJUSTED PER POH", "tickable": true },
+        { "type": "action", "text": "Engine gauges — oil pressure, oil temp, CHT, fuel pressure, both engines", "response": "ALL IN GREEN ARCS", "tickable": true },
+        { "type": "action", "text": "Alternator output — both engines", "response": "CHARGING NORMALLY", "tickable": true },
+        { "type": "action", "text": "Gear — verify up and lights extinguished", "response": "GEAR UP; NO RED LIGHTS", "tickable": true },
+        { "type": "action", "text": "Fuel selectors — confirm both engines on correct tanks", "response": "LEFT ON LEFT; RIGHT ON RIGHT", "tickable": true },
+        { "type": "action", "text": "Carburetor heat — consider application in conditions conducive to icing per POH", "response": "AS REQUIRED", "tickable": true }
+      ]
+    },
+    {
+      "id": "cruise",
+      "phase": "cruise",
+      "title": "Cruise",
+      "items": [
+        { "type": "action", "text": "Power — set cruise power for both engines per POH; match manifold pressure and RPM", "response": "SET PER POH; ENGINES SYNCHRONIZED", "tickable": true },
+        { "type": "action", "text": "Mixture — lean for cruise altitude per POH", "response": "LEANED PER POH", "tickable": true },
+        { "type": "action", "text": "Engine gauges — oil pressure, oil temperature, CHT, EGT, fuel pressure; both engines", "response": "ALL IN GREEN ARCS PER POH", "tickable": true },
+        { "type": "action", "text": "Fuel quantities — both tanks; monitor for crossfeed if applicable per POH", "response": "MONITORED; BALANCED PER POH", "tickable": true },
+        { "type": "action", "text": "Trim — aircraft trimmed for hands-off level flight", "response": "TRIMMED", "tickable": true },
+        { "type": "action", "text": "Alternators — both engines producing; electrical loads balanced", "response": "CHARGING; LOAD BALANCED", "tickable": true },
+        { "type": "action", "text": "Vacuum — in operating range", "response": "IN GREEN ARC", "tickable": true },
+        { "type": "action", "text": "Carburetor heat — apply as required for icing conditions per POH", "response": "AS REQUIRED", "tickable": true },
+        { "type": "action", "text": "Fuel burn check — confirm consumption rate consistent with planning", "response": "CHECKED", "tickable": true }
+      ]
+    },
+    {
+      "id": "descent",
+      "phase": "descent",
+      "title": "Descent",
+      "items": [
+        { "type": "action", "text": "ATIS/AWOS — obtain destination weather", "response": "OBTAINED; ALTIMETER SET", "tickable": true },
+        { "type": "action", "text": "Fuel quantities — both tanks sufficient for approach and alternate if required", "response": "CHECKED; ADEQUATE", "tickable": true },
+        { "type": "action", "text": "Fuel selectors — both engines on correct respective tanks", "response": "CONFIRMED", "tickable": true },
+        { "type": "action", "text": "Mixture — enrich as altitude decreases per POH", "response": "ENRICHED PER POH", "tickable": true },
+        { "type": "action", "text": "Power — reduce gradually; avoid shock-cooling by monitoring CHT", "response": "REDUCED PER POH; CHT MONITORED", "tickable": true },
+        { "type": "action", "text": "Carburetor heat — apply when reducing power in descent; monitor for icing", "response": "APPLIED AS REQUIRED PER POH", "tickable": true },
+        { "type": "action", "text": "Engine gauges — both engines; confirm all parameters normal in reduced-power descent", "response": "ALL IN NORMAL RANGE", "tickable": true },
+        { "type": "action", "text": "Approach briefing — runway, pattern altitude, landing configuration, abort point", "response": "BRIEFED", "tickable": true }
+      ]
+    },
+    {
+      "id": "before-landing",
+      "phase": "before_landing",
+      "title": "Before Landing (GUMPS)",
+      "items": [
+        { "type": "note", "text": "Complete the GUMPS check on downwind, base, and final.", "tickable": false },
+        { "type": "action", "text": "G — Gas: fuel selectors on correct respective tanks for each engine; shutoff valves open", "response": "LEFT ON LEFT; RIGHT ON RIGHT; VALVES OPEN", "tickable": true },
+        { "type": "action", "text": "U — Undercarriage: gear handle DOWN; three green lights; no red lights", "response": "GEAR DOWN AND LOCKED; THREE GREEN", "tickable": true },
+        { "type": "action", "text": "M — Mixture: both engines rich for landing", "response": "BOTH RICH", "tickable": true },
+        { "type": "action", "text": "P — Propellers: both engines to full forward (high RPM) for go-around capability", "response": "BOTH FULL FORWARD", "tickable": true },
+        { "type": "action", "text": "S — Seat belts and switches: belts on; landing light on; boost pumps on if required per POH", "response": "BELTS FASTENED; LIGHT ON; PUMPS AS REQUIRED", "tickable": true },
+        { "type": "action", "text": "Flaps — set for landing approach per POH", "response": "SET PER POH", "tickable": true },
+        { "type": "action", "text": "Airspeed — stabilize at approach speed per POH by final", "response": "STABILIZED AT VREF PER POH", "tickable": true },
+        { "type": "action", "text": "Engine gauges — both engines; power sufficient for go-around", "response": "CONFIRMED; POWER AVAILABLE", "tickable": true }
+      ]
+    },
+    {
+      "id": "gear-check",
+      "phase": "before_landing",
+      "title": "Gear Check — Three Greens Confirmed",
+      "condition": "Retractable gear — perform before each landing",
+      "items": [
+        { "type": "action", "text": "Gear selector handle — DOWN position", "response": "DOWN", "tickable": true },
+        { "type": "action", "text": "Three green indicator lights — illuminated", "response": "THREE GREEN", "tickable": true },
+        { "type": "action", "text": "Gear position light — no red warning lights illuminated", "response": "NO RED LIGHTS", "tickable": true },
+        { "type": "action", "text": "Landing gear warning horn — test if equipped and conditions met per POH", "response": "TESTED / SILENT AS APPROPRIATE", "tickable": true }
+      ]
+    },
+    {
+      "id": "landing",
+      "phase": "landing",
+      "title": "Landing",
+      "items": [
+        { "type": "action", "text": "Final approach — stabilized on centerline, glidepath, and airspeed by published gate", "response": "STABLE APPROACH CONFIRMED", "tickable": true },
+        { "type": "action", "text": "Threshold — aim point established; airspeed per POH", "response": "VREF MAINTAINED", "tickable": true },
+        { "type": "action", "text": "Flare — reduce power smoothly over the threshold to idle", "response": "POWER TO IDLE IN FLARE", "tickable": true },
+        { "type": "action", "text": "Touchdown — on main gear; track centerline with rudder", "response": "SMOOTH TOUCHDOWN; CENTERLINE MAINTAINED", "tickable": true },
+        { "type": "action", "text": "Nosewheel — lower smoothly after speed decreases", "response": "LOWERED SMOOTHLY", "tickable": true },
+        { "type": "action", "text": "Braking — apply as needed; avoid skidding", "response": "APPLIED AS NEEDED", "tickable": true },
+        { "type": "action", "text": "Flaps — retract after clear of runway", "response": "RETRACTED AFTER CLEARING RUNWAY", "tickable": true }
+      ]
+    },
+    {
+      "id": "go-around",
+      "phase": "go_around",
+      "title": "Go-Around",
+      "items": [
+        { "type": "action", "text": "Throttles — both engines, advance smoothly to full power", "response": "FULL POWER", "tickable": true },
+        { "type": "action", "text": "Pitch — establish climb attitude per POH", "response": "CLIMB ATTITUDE", "tickable": true },
+        { "type": "action", "text": "Flaps — retract incrementally per POH; do not retract all at once close to the ground", "response": "INCREMENTAL RETRACTION PER POH", "tickable": true },
+        { "type": "action", "text": "Positive rate of climb — verify on VSI", "response": "POSITIVE RATE CONFIRMED", "tickable": true },
+        { "type": "action", "text": "Landing gear — retract once positive rate established", "response": "GEAR UP", "tickable": true },
+        { "type": "action", "text": "Airspeed — accelerate to Vy or climb speed per POH", "response": "ESTABLISHED PER POH", "tickable": true },
+        { "type": "action", "text": "ATC — advise of go-around", "response": "NOTIFIED", "tickable": true }
+      ]
+    },
+    {
+      "id": "after-landing",
+      "phase": "after_landing",
+      "title": "After Landing",
+      "items": [
+        { "type": "action", "text": "Flaps — retract after clearing runway", "response": "RETRACTED", "tickable": true },
+        { "type": "action", "text": "Carburetor heat — both engines, return to COLD", "response": "COLD", "tickable": true },
+        { "type": "action", "text": "Landing light — off when clear of runway if no longer needed", "response": "OFF OR AS REQUIRED", "tickable": true },
+        { "type": "action", "text": "Transponder — set to ground mode or as per local procedure", "response": "SET", "tickable": true },
+        { "type": "action", "text": "Fuel selectors — confirm both on respective tanks", "response": "CONFIRMED", "tickable": true },
+        { "type": "action", "text": "Taxi to parking — clear of active runway before performing checklist items", "response": "CLEAR OF RUNWAY", "tickable": true }
+      ]
+    },
+    {
+      "id": "shutdown",
+      "phase": "shutdown",
+      "title": "Engine Shutdown",
+      "items": [
+        { "type": "action", "text": "Parking brake", "response": "SET", "tickable": true },
+        { "type": "action", "text": "Throttles — both engines to idle", "response": "IDLE", "tickable": true },
+        { "type": "action", "text": "Avionics master", "response": "OFF", "tickable": true },
+        { "type": "action", "text": "Allow engines to cool at idle — per POH idle time before shutdown", "response": "COOLING PERIOD COMPLETE", "tickable": true },
+        { "type": "action", "text": "Mixture — both engines, pull to IDLE CUTOFF simultaneously or in sequence per POH", "response": "IDLE CUTOFF; BOTH ENGINES STOPPING", "tickable": true },
+        { "type": "action", "text": "Ignition switches — both engines, OFF after engines stop", "response": "OFF", "tickable": true },
+        { "type": "action", "text": "Throttles — both engines, closed", "response": "CLOSED", "tickable": true },
+        { "type": "action", "text": "Fuel selectors — both engines", "response": "OFF (or per POH / operator guidance)", "tickable": true },
+        { "type": "action", "text": "Master switch", "response": "OFF", "tickable": true }
+      ]
+    },
+    {
+      "id": "securing",
+      "phase": "securing",
+      "title": "Securing the Aircraft",
+      "items": [
+        { "type": "action", "text": "Control lock", "response": "INSTALLED", "tickable": true },
+        { "type": "action", "text": "Flaps", "response": "RETRACTED", "tickable": true },
+        { "type": "action", "text": "Pitot cover", "response": "INSTALLED", "tickable": true },
+        { "type": "action", "text": "Tiedowns — wing and tail", "response": "SECURED", "tickable": true },
+        { "type": "action", "text": "Wheel chocks", "response": "IN PLACE", "tickable": true },
+        { "type": "action", "text": "Fuel — fill tanks if appropriate to prevent moisture condensation overnight", "response": "TOPPED OR PER OPERATOR PREFERENCE", "tickable": true },
+        { "type": "action", "text": "Oil levels — check both engines while warm; top up as needed", "response": "CHECKED; TOPPED AS REQUIRED", "tickable": true },
+        { "type": "action", "text": "Hobbs and tach times — record for both engines", "response": "RECORDED IN LOGBOOK", "tickable": true },
+        { "type": "action", "text": "Logbook — squawks or discrepancies noted", "response": "RECORDED", "tickable": true },
+        { "type": "action", "text": "Cabin doors and windows", "response": "CLOSED AND LOCKED", "tickable": true }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,201 @@
+{
+  "open_checklist_version": "1.0",
+  "id": "beechcraft-bonanza-a36-emergency",
+  "title": "Beechcraft Bonanza A36 — Emergency Procedures",
+  "description": "Emergency procedures for the Beechcraft Bonanza A36 with Continental IO-550 fuel-injected engine, constant-speed propeller, and retractable tricycle gear. Memory items are marked. All airspeeds and numerical limits must come from the specific aircraft POH. The IO-550 is fuel-injected — carburetor ice is not applicable. Retractable gear requires specific gear-unsafe and emergency-extension procedures; locate the emergency gear extension handle before flight. Not a substitute for recurrent emergency training or qualified instruction in type.",
+  "aircraft": {
+    "make": "Beechcraft",
+    "model": "Bonanza",
+    "variant": "A36",
+    "icao_type": "BE36",
+    "category": "standard_normal",
+    "engine": [{ "make": "Continental", "model": "IO-550", "type": "piston_4stroke", "count": 1 }],
+    "propeller": "constant_speed",
+    "gear": "retractable"
+  },
+  "units": { "airspeed": "kt", "altitude": "ft", "fuel": "usgal", "weight": "lb", "pressure": "inhg", "temperature": "f" },
+  "provenance": {
+    "source": { "kind": "none", "notes": "No manufacturer document consulted. Written from general familiarity with the type." },
+    "transcription": { "method": "authored", "tool": "claude-sonnet-4-6", "date": "2026-08-11" },
+    "contributors": [{ "name": "Open Checklists project", "role": ["author"] }],
+    "revision": { "file_revision": "0.1.0", "updated": "2026-08-11" }
+  },
+  "verification": {
+    "source_fidelity": "not_applicable",
+    "operational_review": "none",
+    "completeness": "partial",
+    "known_issues": [
+      { "severity": "safety_defect", "description": "Contains no airspeeds, power settings, fuel quantities, or other numerical limitations — all must come from the specific aircraft POH.", "location": "whole file" },
+      { "severity": "content_gap", "description": "Equipment variations exist across A36 airframes. Verify every item against the specific aircraft and its POH before use.", "location": "whole file" }
+    ]
+  },
+  "rights": {
+    "status": "original_expression",
+    "corpus_license": "CC-BY-4.0",
+    "redistribution": "attribution_required",
+    "notes": "Manufacturer POH remains under copyright. This file does not reproduce its wording or selection of items."
+  },
+  "sections": [
+    {
+      "id": "engine-failure-before-rotation",
+      "phase": "engine_failure_before_rotation",
+      "title": "Engine Failure on Takeoff — Before or At Liftoff",
+      "criticality": "emergency",
+      "items": [
+        { "type": "action", "id": "efbr-throttle", "text": "Throttle", "response": "CLOSE IMMEDIATELY", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "efbr-brakes", "text": "Brakes — apply to stop within remaining runway", "response": "APPLIED FIRMLY", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "efbr-mixture", "text": "Mixture", "response": "IDLE CUTOFF", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "efbr-ignition", "text": "Ignition switch", "response": "OFF", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "efbr-master", "text": "Master switch", "response": "OFF", "tickable": true, "memory_item": true },
+        { "type": "action", "text": "Fuel selector", "response": "OFF", "tickable": true },
+        { "type": "caution", "text": "Do not attempt a turnback to the runway at low altitude. If airborne with insufficient runway remaining, land ahead or within a narrow arc of the runway heading on the best available surface.", "tickable": false },
+        { "type": "action", "text": "Occupants — advise to brace", "response": "BRACE FOR IMPACT", "tickable": true }
+      ]
+    },
+    {
+      "id": "engine-failure-after-takeoff",
+      "phase": "engine_failure_after_takeoff",
+      "title": "Engine Failure After Takeoff — Airborne, Low Altitude",
+      "criticality": "emergency",
+      "items": [
+        { "type": "action", "id": "efat-glide", "text": "Airspeed — establish best glide without delay", "response": "BEST GLIDE SPEED PER POH", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "efat-area", "text": "Landing area — choose a suitable surface ahead within glide range", "response": "SELECTED; COMMIT TO IT", "tickable": true, "memory_item": true },
+        { "type": "action", "text": "Fuel selector", "response": "SWITCH TO OPPOSITE TANK", "tickable": true },
+        { "type": "action", "text": "Mixture", "response": "RICH", "tickable": true },
+        { "type": "action", "text": "Ignition switch", "response": "BOTH — confirm ON", "tickable": true },
+        { "type": "action", "text": "Throttle — advance to full if restart attempted", "response": "FULL (if time and altitude permit)", "tickable": true },
+        { "type": "action", "text": "Landing gear — extend when landing surface is assured and within normal gear extension speed", "response": "GEAR DOWN; THREE GREEN CONFIRMED", "tickable": true },
+        { "type": "action", "text": "If restart fails — secure engine; follow forced landing checklist", "response": "FORCED LANDING CHECKLIST", "tickable": true }
+      ]
+    },
+    {
+      "id": "engine-failure-in-flight",
+      "phase": "engine_failure_in_flight",
+      "title": "Engine Failure in Flight",
+      "criticality": "emergency",
+      "items": [
+        { "type": "action", "id": "efif-glide", "text": "Airspeed — establish best glide", "response": "BEST GLIDE SPEED PER POH", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "efif-area", "text": "Landing area — identify best field within glide range", "response": "SELECTED", "tickable": true, "memory_item": true },
+        { "type": "action", "text": "Fuel selector", "response": "SWITCH TO OPPOSITE TANK", "tickable": true },
+        { "type": "action", "text": "Mixture", "response": "RICH", "tickable": true },
+        { "type": "action", "text": "Ignition switch", "response": "BOTH — confirm ON", "tickable": true },
+        { "type": "action", "text": "Throttle — advance to full for restart attempt", "response": "FULL", "tickable": true },
+        { "type": "action", "text": "Boost pump", "response": "ON — check fuel flow indication", "tickable": true },
+        { "type": "action", "text": "If restart attempt fails — confirm mixture to idle cutoff, ignition off, fuel selector off", "response": "ENGINE SECURED", "tickable": true },
+        { "type": "action", "text": "Squawk and communicate — declare emergency", "response": "SQUAWK 7700; ADVISE ATC", "tickable": true },
+        { "type": "action", "text": "Proceed to forced landing checklist", "response": "FORCED LANDING CHECKLIST", "tickable": true }
+      ]
+    },
+    {
+      "id": "engine-fire-in-flight",
+      "phase": "engine_fire_in_flight",
+      "title": "Engine Fire in Flight",
+      "criticality": "emergency",
+      "items": [
+        { "type": "action", "id": "eflight-mixture", "text": "Mixture", "response": "IDLE CUTOFF", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "eflight-fuel", "text": "Fuel selector", "response": "OFF", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "eflight-master", "text": "Master switch", "response": "OFF", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "eflight-throttle", "text": "Throttle", "response": "OPEN FULLY — starve any remaining combustion of fuel-air", "tickable": true, "memory_item": true },
+        { "type": "action", "text": "Airspeed — if fire persists, increase airspeed within Vne to attempt extinguishment by slipstream", "response": "INCREASE WITHIN LIMITS PER POH", "tickable": true },
+        { "type": "action", "text": "Declare emergency and communicate position", "response": "SQUAWK 7700; ADVISE ATC", "tickable": true },
+        { "type": "action", "text": "Proceed to forced landing checklist — land immediately", "response": "FORCED LANDING CHECKLIST; SHORTEST POSSIBLE TIME TO LANDING", "tickable": true }
+      ]
+    },
+    {
+      "id": "engine-fire-ground",
+      "phase": "engine_fire_ground",
+      "title": "Engine Fire on Ground",
+      "criticality": "emergency",
+      "items": [
+        { "type": "action", "id": "efground-throttle", "text": "Throttle", "response": "FULL OPEN BRIEFLY — draw fire back into engine if fire is in induction", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "efground-mixture", "text": "Mixture", "response": "IDLE CUTOFF", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "efground-fuel", "text": "Fuel selector", "response": "OFF", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "efground-ignition", "text": "Ignition switch", "response": "OFF", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "efground-master", "text": "Master switch", "response": "OFF", "tickable": true, "memory_item": true },
+        { "type": "action", "text": "Evacuate — all occupants exit and move upwind away from aircraft", "response": "AIRCRAFT EVACUATED", "tickable": true },
+        { "type": "action", "text": "Fire extinguisher — use if available and fire is accessible without risk", "response": "EXTINGUISHER USED IF SAFE TO DO SO", "tickable": true },
+        { "type": "action", "text": "Emergency services", "response": "CALL 911 OR AIRPORT EMERGENCY", "tickable": true }
+      ]
+    },
+    {
+      "id": "electrical-fire",
+      "phase": "electrical_fire",
+      "title": "Electrical Fire / Smoke in Cockpit",
+      "criticality": "emergency",
+      "items": [
+        { "type": "action", "id": "elfire-master", "text": "Master switch", "response": "OFF", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "elfire-avionics", "text": "Avionics master switch", "response": "OFF", "tickable": true, "memory_item": true },
+        { "type": "action", "text": "All individual switches — turn off all electrical equipment", "response": "ALL OFF", "tickable": true },
+        { "type": "action", "text": "Fresh air — open vents or window to ventilate cockpit if conditions permit", "response": "VENTILATED", "tickable": true },
+        { "type": "action", "text": "Fire extinguisher — if source is identified and fire is active", "response": "USED AS APPROPRIATE", "tickable": true },
+        { "type": "action", "text": "If smoke clears — restore master switch; bring up essential circuits one at a time to identify the faulty circuit", "response": "FAULTY CIRCUIT IDENTIFIED AND LEFT OFF", "tickable": true },
+        { "type": "action", "text": "Land as soon as practicable", "response": "DIVERT TO NEAREST SUITABLE AIRPORT", "tickable": true }
+      ]
+    },
+    {
+      "id": "oil-system-malfunction",
+      "phase": "oil_system_malfunction",
+      "title": "Loss of Oil Pressure",
+      "criticality": "emergency",
+      "items": [
+        { "type": "action", "id": "oil-power", "text": "Power — reduce to minimum needed for flight", "response": "REDUCED; LIMIT ENGINE STRESS", "tickable": true, "memory_item": true },
+        { "type": "action", "text": "Oil temperature — check for rise confirming actual oil starvation", "response": "MONITOR; RISING TEMP CONFIRMS OIL LOSS", "tickable": true },
+        { "type": "action", "text": "Land as soon as possible — do not continue if oil temperature rises or pressure remains zero", "response": "DIVERTING TO NEAREST AIRPORT", "tickable": true },
+        { "type": "action", "text": "Declare emergency and advise ATC of situation", "response": "SQUAWK 7700; ATC ADVISED", "tickable": true },
+        { "type": "caution", "text": "Zero oil pressure with rising temperature indicates imminent engine seizure. Anticipate engine failure and prepare for forced landing before the engine stops.", "tickable": false },
+        { "type": "action", "text": "Forced landing preparation — if engine seizes or stops, execute forced landing checklist", "response": "FORCED LANDING CHECKLIST", "tickable": true }
+      ]
+    },
+    {
+      "id": "forced-landing",
+      "phase": "forced_landing",
+      "title": "Forced Landing (Power-Off)",
+      "criticality": "emergency",
+      "items": [
+        { "type": "action", "id": "fl-glide", "text": "Airspeed — best glide maintained throughout", "response": "BEST GLIDE SPEED PER POH", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "fl-field", "text": "Field selection — choose longest suitable surface aligned with wind; aim long with room to manoeuvre", "response": "FIELD SELECTED", "tickable": true, "memory_item": true },
+        { "type": "action", "text": "Squawk and transmit — declare emergency, give position and intentions", "response": "SQUAWK 7700; POSITION TRANSMITTED ON 121.5 OR ATC FREQUENCY", "tickable": true },
+        { "type": "action", "text": "Fuel selector", "response": "OFF", "tickable": true },
+        { "type": "action", "text": "Mixture", "response": "IDLE CUTOFF", "tickable": true },
+        { "type": "action", "text": "Ignition switch", "response": "OFF", "tickable": true },
+        { "type": "action", "text": "Master switch — leave on until short final to maintain flap operation; off before touchdown", "response": "ON THROUGH FLAP EXTENSION; OFF BEFORE TOUCHDOWN", "tickable": true },
+        { "type": "action", "text": "Landing gear — extend when landing on the chosen field is assured; use emergency extension if normal system fails", "response": "GEAR DOWN AND LOCKED; THREE GREEN CONFIRMED", "tickable": true },
+        { "type": "action", "text": "Flaps — extend on final as altitude permits", "response": "EXTENDED PER FIELD AND ENERGY MANAGEMENT", "tickable": true },
+        { "type": "action", "text": "Seat belts and shoulder harnesses — tighten for all occupants", "response": "TIGHTENED", "tickable": true },
+        { "type": "action", "text": "Doors — unlatch just before touchdown to prevent jamming in structure", "response": "UNLATCHED", "tickable": true },
+        { "type": "action", "text": "Occupants — advise to brace for landing", "response": "BRACED", "tickable": true }
+      ]
+    },
+    {
+      "id": "landing-gear-malfunction",
+      "phase": "landing_gear_malfunction",
+      "title": "Gear Unsafe / Abnormal Gear Indication",
+      "criticality": "emergency",
+      "items": [
+        { "type": "action", "text": "Airspeed — slow to gear operating speed range and confirm within Vlo", "response": "AT OR BELOW Vlo PER POH", "tickable": true },
+        { "type": "action", "text": "Gear handle — cycle up then down; allow full extension time", "response": "RECYCLED; WAIT FOR INDICATOR RESPONSE", "tickable": true },
+        { "type": "action", "text": "Gear position indicators — check all three lights", "response": "NOTE ANY MISSING OR RED LIGHT", "tickable": true },
+        { "type": "action", "text": "Circuit breakers — check gear-related breakers for popped breakers", "response": "RESET IF POPPED; ONE ATTEMPT ONLY", "tickable": true },
+        { "type": "action", "text": "Gear warning horn — confirm horn sounds with power reduced and handle down", "response": "HORN RESPONSE CHECKED", "tickable": true },
+        { "type": "action", "text": "If normal system fails — proceed to emergency gear extension checklist", "response": "EMERGENCY EXTENSION CHECKLIST", "tickable": true },
+        { "type": "action", "text": "Advise ATC of gear uncertainty and request a low pass if available for visual confirmation", "response": "ATC ADVISED; VISUAL CONFIRMATION REQUESTED IF AVAILABLE", "tickable": true }
+      ]
+    },
+    {
+      "id": "emergency-gear-extension",
+      "phase": "landing_gear_malfunction",
+      "title": "Emergency Gear Extension (Manual Override)",
+      "criticality": "emergency",
+      "items": [
+        { "type": "action", "text": "Airspeed — reduce to below Vlo and maintain safe manoeuvreing margin", "response": "BELOW Vlo PER POH", "tickable": true },
+        { "type": "action", "text": "Gear handle", "response": "DOWN", "tickable": true },
+        { "type": "action", "text": "Emergency gear extension handle — locate on the floor or console per aircraft configuration", "response": "LOCATED", "tickable": true },
+        { "type": "action", "text": "Emergency extension — pull or turn handle per POH placarded instructions to release gear free-fall locks", "response": "HANDLE OPERATED PER POH", "tickable": true },
+        { "type": "action", "text": "Allow time for gravity and airstream to extend and lock all three gear legs", "response": "WAIT SEVERAL SECONDS", "tickable": true },
+        { "type": "action", "text": "Gear position indicators", "response": "THREE GREEN CONFIRMED; IF ANY LIGHT MISSING, TREAT AS UNSAFE", "tickable": true },
+        { "type": "caution", "text": "If less than three green lights after emergency extension, the gear may not be down and locked on all legs. Consider a low-speed fly-by for visual confirmation, and plan for a possible partial-gear or gear-up landing.", "tickable": false },
+        { "type": "action", "text": "Land as soon as possible — advise ATC and emergency services of gear status", "response": "EMERGENCY SERVICES ADVISED; LAND IMMEDIATELY", "tickable": true }
+      ]
+    }
+  ]
+}

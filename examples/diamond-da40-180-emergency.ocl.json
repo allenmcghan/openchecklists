@@ -1,0 +1,167 @@
+{
+  "open_checklist_version": "1.0",
+  "id": "diamond-da40-180-emergency",
+  "title": "Diamond DA40 180 — Emergency Procedures",
+  "description": "Emergency procedures for the Diamond DA40 with 180-hp Lycoming IO-360 engine and constant-speed propeller. Memory items are marked accordingly. Contains no numeric limitations; all airspeeds and power settings must come from the specific aircraft POH/AFM. The IO-360 is fuel-injected — there is no carburetor and no carburetor heat system; carburetor ice is not applicable. A note is included in the carb-ice section for reference. DA40-specific considerations: canopy-style door that must be unlatched before forced landing; T-tail pitch characteristics at slow speed; composite airframe.",
+  "aircraft": {
+    "make": "Diamond",
+    "model": "DA40",
+    "variant": "180",
+    "icao_type": "DA40",
+    "category": "standard_normal",
+    "engine": [{ "make": "Lycoming", "model": "IO-360", "type": "piston_4stroke", "count": 1 }],
+    "propeller": "constant_speed",
+    "gear": "fixed_tricycle"
+  },
+  "units": { "airspeed": "kt", "altitude": "ft", "fuel": "usgal", "weight": "lb", "pressure": "inhg", "temperature": "f" },
+  "provenance": {
+    "source": { "kind": "none", "notes": "No manufacturer document consulted. Written from general familiarity with the Diamond DA40, Lycoming IO-360 fuel-injected engine, and constant-speed propeller emergency procedures." },
+    "transcription": { "method": "authored", "tool": "claude-sonnet-4-6", "date": "2026-08-11" },
+    "contributors": [{ "name": "Open Checklists project", "role": ["author"] }],
+    "revision": { "file_revision": "0.1.0", "updated": "2026-08-11" }
+  },
+  "verification": {
+    "source_fidelity": "not_applicable",
+    "operational_review": "none",
+    "completeness": "partial",
+    "known_issues": [
+      { "severity": "safety_defect", "description": "Contains no airspeeds, power settings, or other numeric limits — all such values must come from the specific aircraft POH/AFM.", "location": "whole file" },
+      { "severity": "safety_defect", "description": "Emergency checklists must be practiced and the memory items memorized. This file is an aide-memoire only. Aviate first, then navigate, then communicate.", "location": "whole file" },
+      { "severity": "content_gap", "description": "Avionics configuration (G1000 vs steam-gauge) affects the information available during emergencies. Verify all procedures against the specific aircraft POH and supplements.", "location": "whole file" }
+    ]
+  },
+  "rights": {
+    "status": "original_expression",
+    "corpus_license": "CC-BY-4.0",
+    "redistribution": "attribution_required",
+    "notes": "Diamond Aircraft POH/AFM remains under copyright. This file is independently authored and does not reproduce the wording or item selection of any manufacturer document."
+  },
+  "sections": [
+    {
+      "id": "engine-failure-before-rotation",
+      "phase": "engine_failure_before_rotation",
+      "criticality": "emergency",
+      "title": "Engine Failure on Takeoff (Before or at Liftoff)",
+      "items": [
+        { "id": "engine-failure-before-rotation-1", "type": "action", "text": "Throttle", "response": "CLOSE IMMEDIATELY", "tickable": true, "memory_item": true },
+        { "id": "engine-failure-before-rotation-2", "type": "action", "text": "Brakes", "response": "APPLY FIRMLY — STOP ON REMAINING RUNWAY OR OVERRUN", "tickable": true, "memory_item": true },
+        { "id": "engine-failure-before-rotation-3", "type": "action", "text": "Mixture", "response": "IDLE CUT-OFF", "tickable": true, "memory_item": true },
+        { "id": "engine-failure-before-rotation-4", "type": "action", "text": "Ignition switch", "response": "OFF", "tickable": true, "memory_item": true },
+        { "id": "engine-failure-before-rotation-5", "type": "action", "text": "Fuel selector", "response": "OFF", "tickable": true, "memory_item": true },
+        { "id": "engine-failure-before-rotation-6", "type": "action", "text": "Master switches (battery and alternator)", "response": "OFF", "tickable": true, "memory_item": true },
+        { "id": "engine-failure-before-rotation-7", "type": "action", "text": "Canopy latch — if aircraft stops; unlatch to facilitate evacuation; exit promptly if fire risk exists", "response": "UNLATCH, EVACUATE UPWIND", "tickable": true }
+      ]
+    },
+    {
+      "id": "engine-failure-in-flight",
+      "phase": "engine_failure_in_flight",
+      "criticality": "emergency",
+      "title": "Engine Failure in Flight",
+      "items": [
+        { "id": "engine-failure-in-flight-1", "type": "action", "text": "Best glide speed — establish immediately on sidestick; DA40 glides well; do not let airspeed decay", "response": "BEST GLIDE SPEED PER POH", "tickable": true, "memory_item": true },
+        { "id": "engine-failure-in-flight-2", "type": "action", "text": "Suitable landing area — identify and turn toward best available option", "response": "LANDING AREA SELECTED", "tickable": true, "memory_item": true },
+        { "id": "engine-failure-in-flight-3", "type": "action", "text": "Fuel selector — cycle from current position to opposite tank or BOTH", "response": "ALTERNATE TANK OR BOTH", "tickable": true, "memory_item": true },
+        { "id": "engine-failure-in-flight-4", "type": "action", "text": "Mixture", "response": "RICH", "tickable": true, "memory_item": true },
+        { "id": "engine-failure-in-flight-5", "type": "action", "text": "Throttle", "response": "SMOOTHLY ADVANCE; CHECK FOR ENGINE RESPONSE", "tickable": true, "memory_item": true },
+        { "id": "engine-failure-in-flight-6", "type": "action", "text": "Ignition switch — check on BOTH; cycle if suspect", "response": "BOTH", "tickable": true },
+        { "id": "engine-failure-in-flight-7", "type": "action", "text": "Primer (if equipped) — verify locked and seated", "response": "LOCKED", "tickable": true },
+        { "id": "engine-failure-in-flight-8", "type": "action", "text": "Engine instruments — check for loss of oil pressure, high oil temperature, or other indication of cause", "response": "NOTED AND ACTED ON", "tickable": true },
+        { "id": "engine-failure-in-flight-9", "type": "action", "text": "Restart — if conditions and altitude permit; attempt start per POH; do not persist if no response", "response": "ATTEMPTED IF SAFE", "tickable": true },
+        { "id": "engine-failure-in-flight-10", "type": "action", "text": "Squawk 7700 — declare emergency on current frequency or 121.5", "response": "DECLARED", "tickable": true },
+        { "id": "engine-failure-in-flight-11", "type": "action", "text": "If no restart — proceed with forced landing checklist", "response": "FORCED LANDING INITIATED", "tickable": true }
+      ]
+    },
+    {
+      "id": "engine-fire-in-flight",
+      "phase": "engine_fire_in_flight",
+      "criticality": "emergency",
+      "title": "Engine Fire in Flight",
+      "items": [
+        { "id": "engine-fire-in-flight-1", "type": "action", "text": "Mixture", "response": "IDLE CUT-OFF", "tickable": true, "memory_item": true },
+        { "id": "engine-fire-in-flight-2", "type": "action", "text": "Fuel selector", "response": "OFF", "tickable": true, "memory_item": true },
+        { "id": "engine-fire-in-flight-3", "type": "action", "text": "Throttle", "response": "FULL OPEN (exhaust residual fuel through induction)", "tickable": true, "memory_item": true },
+        { "id": "engine-fire-in-flight-4", "type": "action", "text": "Master switches (battery and alternator)", "response": "OFF", "tickable": true, "memory_item": true },
+        { "id": "engine-fire-in-flight-5", "type": "action", "text": "Airspeed — increase to maximum glide within structural limits to help extinguish fire through airflow", "response": "AIRSPEED INCREASED PER POH", "tickable": true, "memory_item": true },
+        { "id": "engine-fire-in-flight-6", "type": "action", "text": "Emergency landing — initiate forced landing immediately; do not attempt restart", "response": "FORCED LANDING INITIATED", "tickable": true },
+        { "id": "engine-fire-in-flight-7", "type": "action", "text": "Declare emergency — squawk 7700; transmit position and intentions on 121.5 if able", "response": "DECLARED IF ABLE", "tickable": true },
+        { "id": "engine-fire-in-flight-8", "type": "action", "text": "Canopy — do not open in flight (fire and smoke inhalation hazard); delay until landing and evacuation", "response": "REMAIN CLOSED UNTIL ON GROUND", "tickable": true }
+      ]
+    },
+    {
+      "id": "engine-fire-ground",
+      "phase": "engine_fire_ground",
+      "criticality": "emergency",
+      "title": "Engine Fire on the Ground",
+      "items": [
+        { "id": "engine-fire-ground-1", "type": "action", "text": "Mixture", "response": "IDLE CUT-OFF", "tickable": true, "memory_item": true },
+        { "id": "engine-fire-ground-2", "type": "action", "text": "Fuel selector", "response": "OFF", "tickable": true, "memory_item": true },
+        { "id": "engine-fire-ground-3", "type": "action", "text": "Throttle — advance fully open to draw fire back into engine compartment", "response": "FULL OPEN", "tickable": true, "memory_item": true },
+        { "id": "engine-fire-ground-4", "type": "action", "text": "Ignition switch", "response": "OFF", "tickable": true, "memory_item": true },
+        { "id": "engine-fire-ground-5", "type": "action", "text": "Master switches", "response": "OFF", "tickable": true, "memory_item": true },
+        { "id": "engine-fire-ground-6", "type": "action", "text": "Canopy — unlatch and open; evacuate aircraft immediately", "response": "OPEN; EVACUATE UPWIND", "tickable": true, "memory_item": true },
+        { "id": "engine-fire-ground-7", "type": "action", "text": "Fire extinguisher — direct at base of fire if safe to do so; do not linger near aircraft", "response": "EXTINGUISHER APPLIED IF SAFE", "tickable": true },
+        { "id": "engine-fire-ground-8", "type": "action", "text": "Emergency services — call 911 or airport authority; do not attempt to fly the aircraft", "response": "CALLED", "tickable": true }
+      ]
+    },
+    {
+      "id": "electrical-fire",
+      "phase": "electrical_fire",
+      "criticality": "emergency",
+      "title": "Electrical Fire / Smoke in Cockpit",
+      "items": [
+        { "id": "electrical-fire-1", "type": "action", "text": "Master switches (battery and alternator)", "response": "OFF", "tickable": true, "memory_item": true },
+        { "id": "electrical-fire-2", "type": "action", "text": "All electrical switches — avionics, lights, pitot heat, fans", "response": "OFF", "tickable": true, "memory_item": true },
+        { "id": "electrical-fire-3", "type": "action", "text": "Vents / fresh air — increase airflow to dilute smoke; do not open canopy in flight unless specifically directed by POH", "response": "VENTS OPEN", "tickable": true, "memory_item": true },
+        { "id": "electrical-fire-4", "type": "action", "text": "Land as soon as possible — declare emergency; smoke and fumes impair pilot performance rapidly", "response": "NEAREST SUITABLE FIELD", "tickable": true, "memory_item": true },
+        { "id": "electrical-fire-5", "type": "action", "text": "Circuit breakers — if source is identifiable, pull relevant breaker; do not reset a tripped breaker if fire is suspected", "response": "OFFENDING CIRCUIT ISOLATED IF KNOWN", "tickable": true },
+        { "id": "electrical-fire-6", "type": "action", "text": "Battery master — may be restored selectively if radio contact is needed for approach; re-evaluate whether smoke resumes", "response": "RESTORE ONLY IF NECESSARY AND SAFE", "tickable": true },
+        { "id": "electrical-fire-7", "type": "action", "text": "Squawk 7700 — declare emergency on 121.5 if other comms are lost", "response": "DECLARED", "tickable": true }
+      ]
+    },
+    {
+      "id": "oil-pressure-loss",
+      "phase": "oil_system_malfunction",
+      "criticality": "emergency",
+      "title": "Loss of Oil Pressure",
+      "items": [
+        { "id": "oil-pressure-loss-1", "type": "action", "text": "Oil pressure — confirm indication is abnormally low or zero; cross-check oil temperature for confirming trend", "response": "CONFIRMED LOW", "tickable": true, "memory_item": true },
+        { "id": "oil-pressure-loss-2", "type": "action", "text": "Throttle — reduce to minimum power needed to maintain controlled flight; minimize engine load", "response": "REDUCE POWER", "tickable": true, "memory_item": true },
+        { "id": "oil-pressure-loss-3", "type": "action", "text": "Land immediately — engine failure is imminent if pressure is at or near zero; select best available field now", "response": "LAND AS SOON AS POSSIBLE", "tickable": true, "memory_item": true },
+        { "id": "oil-pressure-loss-4", "type": "action", "text": "Mixture — enrich if not already; do not lean a potentially overheating engine", "response": "RICH", "tickable": true },
+        { "id": "oil-pressure-loss-5", "type": "action", "text": "Declare emergency — squawk 7700; advise ATC of situation and intention", "response": "DECLARED", "tickable": true },
+        { "id": "oil-pressure-loss-6", "type": "action", "text": "Engine instruments — monitor CHT and oil temperature for continued degradation; be prepared for sudden seizure", "response": "MONITORING", "tickable": true },
+        { "id": "oil-pressure-loss-7", "type": "action", "text": "If oil temperature also rising rapidly — treat as imminent engine failure; do not delay forced landing", "response": "FORCED LANDING INITIATED", "tickable": true }
+      ]
+    },
+    {
+      "id": "carburetor-ice",
+      "phase": "carburetor_icing",
+      "criticality": "emergency",
+      "title": "Carburetor Ice — Not Applicable",
+      "items": [
+        { "id": "carburetor-ice-1", "type": "note", "text": "The Lycoming IO-360 installed in the DA40 180 is fuel-injected. It has no carburetor and no carburetor heat system. Carburetor icing cannot occur. If unexplained power loss occurs, refer to the Engine Failure in Flight checklist.", "tickable": false }
+      ]
+    },
+    {
+      "id": "forced-landing",
+      "phase": "forced_landing",
+      "criticality": "emergency",
+      "title": "Forced Landing (Power-Off)",
+      "items": [
+        { "id": "forced-landing-1", "type": "action", "text": "Best glide speed — establish and maintain throughout; the DA40's composite airframe glides efficiently", "response": "BEST GLIDE SPEED PER POH", "tickable": true, "memory_item": true },
+        { "id": "forced-landing-2", "type": "action", "text": "Landing site — select the best available field considering length, surface, slope, obstacles, and wind direction", "response": "FIELD SELECTED", "tickable": true, "memory_item": true },
+        { "id": "forced-landing-3", "type": "action", "text": "Squawk 7700 — declare emergency on current frequency or 121.5", "response": "DECLARED", "tickable": true, "memory_item": true },
+        { "id": "forced-landing-4", "type": "action", "text": "Fuel selector", "response": "OFF", "tickable": true },
+        { "id": "forced-landing-5", "type": "action", "text": "Mixture", "response": "IDLE CUT-OFF", "tickable": true },
+        { "id": "forced-landing-6", "type": "action", "text": "Propeller — if engine windmilling, consider setting prop full coarse (low RPM) per POH to reduce drag if time permits", "response": "PER POH GUIDANCE", "tickable": true },
+        { "id": "forced-landing-7", "type": "action", "text": "Ignition switch — off when landing is assured", "response": "OFF", "tickable": true },
+        { "id": "forced-landing-8", "type": "action", "text": "Master switches — off before impact to reduce electrical fire risk; leave on until confident landing is achievable", "response": "OFF BEFORE TOUCHDOWN", "tickable": true },
+        { "id": "forced-landing-9", "type": "action", "text": "Canopy latch — UNLATCH prior to touchdown to ensure exit is available after impact; do not open in flight", "response": "UNLATCHED (NOT OPENED)", "tickable": true, "memory_item": true },
+        { "id": "forced-landing-10", "type": "action", "text": "Seat belts and shoulder harnesses — as tight as possible on all occupants", "response": "TIGHTENED", "tickable": true },
+        { "id": "forced-landing-11", "type": "action", "text": "Flaps — extend per POH recommendation for terrain type; full flaps for short fields, partial for rough terrain", "response": "PER POH / TERRAIN", "tickable": true },
+        { "id": "forced-landing-12", "type": "action", "text": "Touchdown — aim for far edge of field; fly to the ground; do not stall high; T-tail — maintain positive control through flare; be alert for pitch sensitivity near stall", "response": "CONTROLLED TOUCHDOWN", "tickable": true },
+        { "id": "forced-landing-13", "type": "action", "text": "After stopping — canopy open; evacuate aircraft promptly and move upwind away from fuel", "response": "EVACUATED UPWIND", "tickable": true }
+      ]
+    }
+  ]
+}

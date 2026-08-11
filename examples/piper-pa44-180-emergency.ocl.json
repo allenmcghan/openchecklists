@@ -1,0 +1,277 @@
+{
+  "open_checklist_version": "1.0",
+  "id": "piper-pa44-180-emergency",
+  "title": "Piper PA-44-180 Seminole — Emergency Procedures",
+  "description": "Emergency procedures for the Piper PA-44-180 Seminole twin-engine trainer. Covers engine failure, engine fire, electrical emergencies, oil pressure loss, gear malfunctions, and single-engine operations. Memory items are marked and must be completed before consulting this checklist. The Seminole has counter-rotating propellers with no critical engine; single-engine performance is identical regardless of which engine fails. Each engine is fed by its own independent fuel system; the Seminole does not have crossfeed capability in standard configuration — consult the specific aircraft POH. All airspeeds (including Vyse/blue line and Vsse) must come from the POH. This document does not substitute for multi-engine training with a qualified instructor.",
+  "aircraft": {
+    "make": "Piper",
+    "model": "PA-44-180",
+    "variant": "Seminole",
+    "icao_type": "PA44",
+    "category": "standard_normal",
+    "engine": [{ "make": "Lycoming", "model": "O-360", "type": "piston_4stroke", "count": 2 }],
+    "propeller": "constant_speed",
+    "gear": "retractable"
+  },
+  "units": { "airspeed": "kt", "altitude": "ft", "fuel": "usgal", "weight": "lb", "pressure": "inhg", "temperature": "f" },
+  "provenance": {
+    "source": { "kind": "none", "notes": "No manufacturer document consulted. Written from general familiarity with the type." },
+    "transcription": { "method": "authored", "tool": "claude-sonnet-4-6", "date": "2026-08-11" },
+    "contributors": [{ "name": "Open Checklists project", "role": ["author"] }],
+    "revision": { "file_revision": "0.1.0", "updated": "2026-08-11" }
+  },
+  "verification": {
+    "source_fidelity": "not_applicable",
+    "operational_review": "none",
+    "completeness": "partial",
+    "known_issues": [
+      { "severity": "safety_defect", "description": "Contains no airspeeds, power settings, fuel quantities, or other numerical limitations — all must come from the specific aircraft POH. Vyse (blue line) is the single most critical speed in engine-out operations and must be known before flight.", "location": "whole file" },
+      { "severity": "content_gap", "description": "Equipment variations exist across PA-44-180 airframes. Verify items against the specific aircraft before use. Some aircraft may have crossfeed capability not reflected here.", "location": "whole file" }
+    ]
+  },
+  "rights": {
+    "status": "original_expression",
+    "corpus_license": "CC-BY-4.0",
+    "redistribution": "attribution_required",
+    "notes": "Manufacturer POH remains under copyright. This file does not reproduce its wording or selection of items."
+  },
+  "sections": [
+    {
+      "id": "engine-failure-takeoff",
+      "phase": "engine_failure_before_rotation",
+      "title": "Engine Failure on Takeoff — Before or at Rotation",
+      "criticality": "emergency",
+      "condition": "Engine failure during the takeoff roll or at the moment of rotation",
+      "items": [
+        { "type": "warning", "text": "An engine failure before reaching Vmc or Vyse with gear in transit is almost certainly not survivable as a continued takeoff. Abort unless airborne with positive control and altitude.", "tickable": false },
+        { "type": "action", "id": "eft-1", "text": "Throttles — both engines, close immediately", "response": "CLOSED", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "eft-2", "text": "Brakes — apply firmly and progressively to stop on remaining runway", "response": "MAXIMUM BRAKING AS REQUIRED", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "eft-3", "text": "Mixture controls — both engines, idle cutoff", "response": "IDLE CUTOFF", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "eft-4", "text": "Fuel selectors — both engines, off", "response": "OFF", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "eft-5", "text": "Ignition switches — both engines, off", "response": "OFF", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "eft-6", "text": "Master switch", "response": "OFF", "tickable": true, "memory_item": true },
+        { "type": "action", "text": "Evacuate aircraft if fire or other hazard present", "response": "AS REQUIRED", "tickable": true }
+      ]
+    },
+    {
+      "id": "engine-failure-after-takeoff",
+      "phase": "engine_failure_after_takeoff",
+      "title": "Engine Failure — After Liftoff (Airborne)",
+      "criticality": "emergency",
+      "condition": "Engine failure after becoming airborne; aircraft below safe single-engine maneuvering altitude",
+      "items": [
+        { "type": "warning", "text": "Below Vyse and below a safe altitude, attempting to maintain flight on one engine may be impossible. A straight-ahead landing on available terrain may be the only survivable option. Do not attempt to turn back to the field below a safe altitude.", "tickable": false },
+        { "type": "action", "id": "efat-1", "text": "Airspeed — establish and maintain Vyse (blue line) or best available", "response": "VYSE PER POH", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "efat-2", "text": "Operating engine — advance throttle to full power", "response": "FULL POWER ON OPERATING ENGINE", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "efat-3", "text": "Dead engine — identify by direction of yaw and failed gauges (dead foot — dead engine)", "response": "IDENTIFIED", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "efat-4", "text": "Dead engine propeller — feather by advancing prop control to full forward then pulling to feather", "response": "FEATHERED", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "efat-5", "text": "Landing gear — retract to reduce drag", "response": "GEAR UP", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "efat-6", "text": "Flaps — retract if extended", "response": "RETRACTED PER POH", "tickable": true, "memory_item": true },
+        { "type": "action", "text": "Bank — 5 degrees toward the operating engine; maintain with rudder", "response": "5 DEGREES INTO GOOD ENGINE", "tickable": true },
+        { "type": "action", "text": "Continue with Engine Failure in Flight checklist to secure failed engine", "response": "PROCEED TO ENGINE FAILURE IN FLIGHT", "tickable": true }
+      ]
+    },
+    {
+      "id": "engine-failure-in-flight",
+      "phase": "engine_failure_in_flight",
+      "title": "Engine Failure in Flight — Identify / Verify / Feather / Secure",
+      "criticality": "emergency",
+      "condition": "One engine loses power or stops during cruise or other in-flight phases",
+      "items": [
+        { "type": "note", "text": "The four-step memory sequence is: IDENTIFY — VERIFY — FEATHER — SECURE. Complete all four steps before consulting the written checklist.", "tickable": false },
+        { "type": "action", "id": "efif-1", "text": "IDENTIFY — dead foot, dead engine: the foot with less or no rudder pressure is on the same side as the failed engine", "response": "FAILED ENGINE IDENTIFIED", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "efif-2", "text": "VERIFY — advance throttle on the identified dead engine; confirm no power response and gauges confirm failure", "response": "NO POWER; FAILURE CONFIRMED", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "efif-3", "text": "FEATHER — move propeller control of the failed engine to feather", "response": "FEATHERED; PROP STOPPED OR SLOWING", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "efif-4", "text": "Airspeed — establish and maintain Vyse (blue line) or best climb/glide speed per POH", "response": "VYSE MAINTAINED PER POH", "tickable": true, "memory_item": true },
+        { "type": "action", "text": "Bank — 5 degrees toward the operating engine to minimize rudder workload", "response": "5 DEGREES INTO GOOD ENGINE", "tickable": true },
+        { "type": "action", "text": "Operating engine — confirm full power set", "response": "FULL POWER", "tickable": true },
+        { "type": "subtitle", "text": "SECURE the failed engine:", "tickable": false },
+        { "type": "action", "id": "efif-5", "text": "SECURE — throttle on failed engine", "response": "CLOSED", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "efif-6", "text": "SECURE — mixture on failed engine", "response": "IDLE CUTOFF", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "efif-7", "text": "SECURE — fuel selector on failed engine", "response": "OFF", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "efif-8", "text": "SECURE — magnetos on failed engine", "response": "OFF", "tickable": true, "memory_item": true },
+        { "type": "action", "text": "Alternator on failed engine", "response": "OFF", "tickable": true },
+        { "type": "action", "text": "Cowl flap on failed engine — as required per POH", "response": "AS REQUIRED", "tickable": true },
+        { "type": "action", "text": "Declare emergency if appropriate — advise ATC of single-engine condition", "response": "SQUAWK 7700; DECLARE EMERGENCY AS APPROPRIATE", "tickable": true },
+        { "type": "action", "text": "Divert — plan landing at nearest suitable airport; do not delay", "response": "NEAREST AIRPORT SELECTED; DIVERTING", "tickable": true }
+      ]
+    },
+    {
+      "id": "engine-fire-in-flight",
+      "phase": "engine_fire_in_flight",
+      "title": "Engine Fire in Flight",
+      "criticality": "emergency",
+      "condition": "Fire warning light, flames, smoke, or unusual odor indicating an engine fire while airborne",
+      "items": [
+        { "type": "action", "id": "efif-fire-1", "text": "Throttle — affected engine, close immediately", "response": "CLOSED", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "efif-fire-2", "text": "Fuel selector — affected engine, OFF", "response": "OFF", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "efif-fire-3", "text": "Mixture — affected engine, IDLE CUTOFF", "response": "IDLE CUTOFF", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "efif-fire-4", "text": "Propeller — affected engine, FEATHER", "response": "FEATHERED", "tickable": true, "memory_item": true },
+        { "type": "action", "text": "Magnetos — affected engine, OFF", "response": "OFF", "tickable": true },
+        { "type": "action", "text": "Alternator — affected engine, OFF", "response": "OFF", "tickable": true },
+        { "type": "action", "text": "Airspeed — increase if possible to help extinguish fire by airflow; do not exceed Vne", "response": "INCREASED; WITHIN LIMITS", "tickable": true },
+        { "type": "action", "text": "Fire extinguisher — use if fire enters cabin", "response": "AS REQUIRED", "tickable": true },
+        { "type": "action", "text": "If fire extinguished — execute single-engine approach; do not restart the engine", "response": "LAND AT NEAREST AIRPORT", "tickable": true },
+        { "type": "action", "text": "If fire not extinguished — execute emergency descent; prepare for forced landing", "response": "EMERGENCY DESCENT; LAND IMMEDIATELY", "tickable": true },
+        { "type": "action", "text": "Declare emergency — ATC notified", "response": "MAYDAY DECLARED; ATC NOTIFIED", "tickable": true }
+      ]
+    },
+    {
+      "id": "engine-fire-ground",
+      "phase": "engine_fire_ground",
+      "title": "Engine Fire on Ground",
+      "criticality": "emergency",
+      "condition": "Fire in engine compartment during start or while taxiing",
+      "items": [
+        { "type": "action", "id": "efg-1", "text": "Throttle — affected engine, open briefly to draw fire back into intake, then close", "response": "OPENED BRIEFLY THEN CLOSED", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "efg-2", "text": "Mixture — affected engine, IDLE CUTOFF", "response": "IDLE CUTOFF", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "efg-3", "text": "Fuel selector — affected engine, OFF", "response": "OFF", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "efg-4", "text": "Ignition — affected engine, OFF", "response": "OFF", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "efg-5", "text": "Master switch", "response": "OFF", "tickable": true, "memory_item": true },
+        { "type": "action", "text": "Evacuate aircraft immediately; move upwind", "response": "EVACUATED", "tickable": true },
+        { "type": "action", "text": "Fire extinguisher — use if trained; do not approach a fully involved engine fire", "response": "AS ABLE AND SAFE", "tickable": true },
+        { "type": "action", "text": "Emergency services — notify airport fire department", "response": "NOTIFIED", "tickable": true }
+      ]
+    },
+    {
+      "id": "electrical-fire",
+      "phase": "electrical_fire",
+      "title": "Electrical Fire / Smoke in Cockpit",
+      "criticality": "emergency",
+      "condition": "Burning smell, smoke, or visible arcing from electrical equipment",
+      "items": [
+        { "type": "action", "id": "elfire-1", "text": "Master switch", "response": "OFF", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "elfire-2", "text": "Avionics master", "response": "OFF", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "elfire-3", "text": "All electrical switches and circuit breakers", "response": "OFF", "tickable": true, "memory_item": true },
+        { "type": "action", "text": "Vents — open to clear smoke from cockpit; consider passenger oxygen if smoke is heavy", "response": "OPEN AS APPROPRIATE", "tickable": true },
+        { "type": "action", "text": "Fire extinguisher — discharge if fire is visible", "response": "AS REQUIRED", "tickable": true },
+        { "type": "action", "text": "If smoke clears — systematically restore essential electrical items one at a time to isolate the faulty circuit", "response": "RESTORE SELECTIVELY", "tickable": true },
+        { "type": "action", "text": "Land at nearest suitable airport", "response": "DIVERTING", "tickable": true },
+        { "type": "action", "text": "Declare emergency and notify ATC", "response": "MAYDAY DECLARED; ATC NOTIFIED", "tickable": true }
+      ]
+    },
+    {
+      "id": "oil-pressure-loss",
+      "phase": "oil_system_malfunction",
+      "title": "Loss of Oil Pressure — One Engine",
+      "criticality": "emergency",
+      "condition": "Oil pressure gauge on one engine reads in the yellow or red arc, or oil pressure warning light illuminates",
+      "items": [
+        { "type": "caution", "text": "Low oil pressure may precede engine failure by a short time. Begin planning for single-engine operations immediately. Do not wait for the engine to fail.", "tickable": false },
+        { "type": "action", "id": "oilp-1", "text": "Identify affected engine — note which oil pressure gauge is reading low", "response": "IDENTIFIED", "tickable": true, "memory_item": true },
+        { "type": "action", "text": "Oil temperature — check; rising temperature confirms oil loss or internal failure", "response": "MONITORED", "tickable": true },
+        { "type": "action", "text": "Power on affected engine — reduce to minimum required to maintain flight; do not shut down prematurely unless failure is imminent", "response": "REDUCED PER POH", "tickable": true },
+        { "type": "action", "text": "Airspeed — prepare to establish Vyse if engine fails", "response": "READY TO ESTABLISH VYSE", "tickable": true },
+        { "type": "action", "text": "Nearest suitable airport — identify and divert; do not continue to planned destination", "response": "DIVERTING IMMEDIATELY", "tickable": true },
+        { "type": "action", "text": "If engine seizes or fails — execute engine failure in flight procedures", "response": "EXECUTE ENGINE FAILURE CHECKLIST", "tickable": true },
+        { "type": "action", "text": "Declare emergency and notify ATC", "response": "MAYDAY OR PAN-PAN DECLARED; ATC NOTIFIED", "tickable": true }
+      ]
+    },
+    {
+      "id": "carburetor-ice",
+      "phase": "carburetor_icing",
+      "title": "Carburetor Ice — One or Both Engines",
+      "criticality": "abnormal",
+      "condition": "Unexplained loss of RPM or rough running, especially in humid conditions or when reducing power",
+      "items": [
+        { "type": "note", "text": "The O-360 is a carbureted engine. Carburetor ice can form at temperatures well above freezing in humid conditions. Partial ice may cause rough running before total power loss.", "tickable": false },
+        { "type": "action", "text": "Affected engine — apply full carburetor heat immediately; do not cycle on and off", "response": "FULL HEAT APPLIED", "tickable": true },
+        { "type": "action", "text": "Carburetor heat — expect a momentary further RPM drop as ice melts, followed by smooth power restoration", "response": "RPM DROP THEN RECOVERY EXPECTED", "tickable": true },
+        { "type": "action", "text": "If power does not restore — maintain carb heat and prepare for engine failure procedures", "response": "ENGINE FAILURE CHECKLIST AS REQUIRED", "tickable": true },
+        { "type": "action", "text": "Altitude and terrain — assess options for forced landing if both engines affected", "response": "TERRAIN ASSESSED; OPTIONS IDENTIFIED", "tickable": true },
+        { "type": "action", "text": "After power restored — maintain carburetor heat until clear of icing conditions per POH", "response": "HEAT MAINTAINED PER POH", "tickable": true },
+        { "type": "action", "text": "Monitor both engines for recurrence of roughness", "response": "BOTH ENGINES MONITORED", "tickable": true }
+      ]
+    },
+    {
+      "id": "forced-landing",
+      "phase": "forced_landing",
+      "title": "Forced Landing — Power-Off",
+      "criticality": "emergency",
+      "condition": "Both engines have failed or remaining power is insufficient to reach an airport",
+      "items": [
+        { "type": "warning", "text": "A dual-engine failure is extremely rare. Confirm both engines are truly failed before accepting a forced landing. Check fuel selectors, mixture, and magnetos.", "tickable": false },
+        { "type": "action", "id": "fl-1", "text": "Best glide speed — establish immediately per POH", "response": "BEST GLIDE ESTABLISHED", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "fl-2", "text": "Landing area — select best available field or road; favor into-wind and uphill if possible", "response": "FIELD SELECTED", "tickable": true, "memory_item": true },
+        { "type": "action", "text": "Fuel selectors — confirm both on correct tanks; attempt restart if cause is fuel starvation", "response": "CONFIRMED; RESTART ATTEMPTED IF APPROPRIATE", "tickable": true },
+        { "type": "action", "text": "Mixture — RICH for restart attempt", "response": "RICH", "tickable": true },
+        { "type": "action", "text": "Ignition — BOTH; attempt restart if time and altitude permit", "response": "RESTART ATTEMPTED AS APPROPRIATE", "tickable": true },
+        { "type": "action", "text": "Mayday — declare on 121.5 MHz; advise position, altitude, intentions", "response": "MAYDAY DECLARED; ATC NOTIFIED", "tickable": true },
+        { "type": "action", "text": "Transponder — 7700", "response": "SET 7700", "tickable": true },
+        { "type": "action", "text": "Fuel selectors — OFF before landing to reduce fire risk", "response": "OFF", "tickable": true },
+        { "type": "action", "text": "Mixture — IDLE CUTOFF", "response": "IDLE CUTOFF", "tickable": true },
+        { "type": "action", "text": "Ignition switches — OFF just before touchdown", "response": "OFF", "tickable": true },
+        { "type": "action", "text": "Master switch — OFF just before touchdown", "response": "OFF", "tickable": true },
+        { "type": "action", "text": "Doors — unlatch before touchdown to prevent jamming", "response": "UNLATCHED", "tickable": true },
+        { "type": "action", "text": "Seat belts and shoulder harnesses — confirm tight", "response": "CONFIRMED TIGHT", "tickable": true }
+      ]
+    },
+    {
+      "id": "gear-unsafe",
+      "phase": "landing_gear_malfunction",
+      "title": "Gear Unsafe / Abnormal Gear Indication",
+      "criticality": "emergency",
+      "condition": "One or more gear position lights fail to show green after gear extension, or red unsafe light illuminates",
+      "items": [
+        { "type": "action", "text": "Airspeed — reduce to below gear operating speed per POH", "response": "BELOW VLO PER POH", "tickable": true },
+        { "type": "action", "text": "Gear handle — cycle UP then DOWN; allow adequate time for system to respond", "response": "CYCLED; WAITING FOR INDICATION", "tickable": true },
+        { "type": "action", "text": "Circuit breakers — check gear-related breakers; reset if popped", "response": "CHECKED; RESET IF TRIPPED", "tickable": true },
+        { "type": "action", "text": "Gear position lights — check bulbs by pressing the test button if equipped", "response": "TESTED", "tickable": true },
+        { "type": "action", "text": "If no green after normal extension — refer to emergency gear extension procedure", "response": "PROCEED TO EMERGENCY GEAR EXTENSION", "tickable": true },
+        { "type": "action", "text": "Declare emergency and notify ATC; request emergency equipment standby", "response": "EMERGENCY DECLARED; EQUIPMENT REQUESTED", "tickable": true }
+      ]
+    },
+    {
+      "id": "emergency-gear-extension",
+      "phase": "landing_gear_malfunction",
+      "title": "Emergency Gear Extension",
+      "criticality": "emergency",
+      "condition": "Normal gear extension fails; gear not locked down; use manual/emergency extension system",
+      "items": [
+        { "type": "action", "text": "Airspeed — reduce to minimum safe airspeed per POH; below emergency extension speed", "response": "REDUCED PER POH", "tickable": true },
+        { "type": "action", "text": "Gear handle — ensure in DOWN position", "response": "DOWN", "tickable": true },
+        { "type": "action", "text": "Emergency gear extension — locate and activate the manual extension pump or override per POH specific to this aircraft", "response": "ACTIVATED PER POH", "tickable": true },
+        { "type": "action", "text": "Pump or pull override — operate per POH until three green lights illuminate", "response": "THREE GREEN CONFIRMED OR BEST INDICATION OBTAINED", "tickable": true },
+        { "type": "action", "text": "If gear still not confirmed down and locked — prepare for gear-up landing; follow forced-landing precautions", "response": "GEAR-UP LANDING PREPARED IF REQUIRED", "tickable": true },
+        { "type": "action", "text": "Notify ATC of gear status; request foam or emergency equipment as applicable", "response": "ATC NOTIFIED; EQUIPMENT REQUESTED", "tickable": true }
+      ]
+    },
+    {
+      "id": "single-engine-approach",
+      "phase": "engine_out_landing",
+      "title": "Single-Engine Approach and Landing",
+      "criticality": "emergency",
+      "condition": "One engine inoperative; planning and executing approach and landing",
+      "items": [
+        { "type": "warning", "text": "A go-around on one engine at low altitude and slow airspeed is extremely hazardous. Commit to landing once established on final. Plan ahead so go-around is not required.", "tickable": false },
+        { "type": "action", "text": "Operating engine — confirm full power available; do not reduce power on approach prematurely", "response": "FULL POWER AVAILABLE; CONFIRMED", "tickable": true },
+        { "type": "action", "text": "Airspeed — maintain at or above Vyse until landing assured; use POH single-engine approach speed on final", "response": "AT OR ABOVE POH APPROACH SPEED", "tickable": true },
+        { "type": "action", "text": "Flaps — extend incrementally; be cautious with full flaps due to increased drag on one engine", "response": "EXTENDED INCREMENTALLY PER POH", "tickable": true },
+        { "type": "action", "text": "Gear — extend with adequate altitude and airspeed to assure landing; expect higher drag", "response": "GEAR DOWN; THREE GREEN", "tickable": true },
+        { "type": "action", "text": "Runway — aim for a long runway if available; do not aim for the threshold; aim slightly beyond", "response": "LONG RUNWAY SELECTED; ADJUSTED AIM POINT", "tickable": true },
+        { "type": "action", "text": "Final approach — keep it flat and stable; avoid a steep descent that requires large power changes", "response": "FLAT STABLE APPROACH", "tickable": true },
+        { "type": "action", "text": "GUMPS check — Gas, Undercarriage, Mixture, Props, Seat belts/Switches", "response": "ALL CONFIRMED", "tickable": true },
+        { "type": "action", "text": "Operating engine throttle — reduce to idle only over the runway threshold when landing is assured", "response": "IDLE OVER THRESHOLD", "tickable": true },
+        { "type": "action", "text": "Touchdown — land positively; do not float; use available braking", "response": "FIRM TOUCHDOWN; BRAKES AS REQUIRED", "tickable": true }
+      ]
+    },
+    {
+      "id": "engine-out-go-around",
+      "phase": "go_around",
+      "title": "Engine-Out Go-Around",
+      "criticality": "emergency",
+      "condition": "Go-around required with one engine inoperative — extremely hazardous; avoid if possible",
+      "items": [
+        { "type": "warning", "text": "A single-engine go-around from a low, slow final is one of the most demanding maneuvers in multi-engine flying. Do not initiate unless a safe landing is truly impossible and altitude permits. The risk of losing control is very high near the ground at low speed.", "tickable": false },
+        { "type": "action", "id": "eogo-1", "text": "Operating engine — full power immediately and smoothly", "response": "FULL POWER ON OPERATING ENGINE", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "eogo-2", "text": "Pitch attitude — establish climb attitude per POH; avoid extreme pitch", "response": "CLIMB ATTITUDE", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "eogo-3", "text": "Airspeed — accelerate to Vyse immediately; never allow speed to fall below Vmc", "response": "ACCELERATING TO VYSE; ABOVE VMC", "tickable": true, "memory_item": true },
+        { "type": "action", "text": "Flaps — retract incrementally per POH as airspeed builds", "response": "INCREMENTAL RETRACTION PER POH", "tickable": true },
+        { "type": "action", "text": "Gear — retract after positive rate of climb is confirmed", "response": "GEAR UP; POSITIVE RATE CONFIRMED", "tickable": true },
+        { "type": "action", "text": "Directional control — maintain bank 5 degrees into operating engine; use rudder trim if available", "response": "CONTROLLED; BANK INTO GOOD ENGINE", "tickable": true },
+        { "type": "action", "text": "ATC — notify of go-around and single-engine status", "response": "ATC NOTIFIED", "tickable": true },
+        { "type": "action", "text": "Plan next approach — configure for a wider, higher pattern to allow time and altitude", "response": "LONGER APPROACH PLANNED", "tickable": true }
+      ]
+    }
+  ]
+}

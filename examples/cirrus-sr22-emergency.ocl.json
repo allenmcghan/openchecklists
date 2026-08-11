@@ -1,0 +1,175 @@
+{
+  "open_checklist_version": "1.0",
+  "id": "cirrus-sr22-emergency",
+  "title": "Cirrus SR22 G5 — Emergency Procedures",
+  "description": "Emergency procedures for the Cirrus SR22 G5 with Continental IO-550 fuel-injected engine and Cirrus Airframe Parachute System (CAPS). Memory items are marked. CAPS is a primary emergency tool on this aircraft — when in doubt, pull. All numeric limits, airspeeds, and CAPS deployment envelope must come from the specific aircraft POH/AFM. Not a substitute for Cirrus factory transition training or recurrent emergency training.",
+  "aircraft": {
+    "make": "Cirrus",
+    "model": "SR22",
+    "variant": "G5",
+    "icao_type": "SR22",
+    "category": "standard_normal",
+    "engine": [{ "make": "Continental", "model": "IO-550", "type": "piston_4stroke", "count": 1 }],
+    "propeller": "constant_speed",
+    "gear": "fixed_tricycle"
+  },
+  "units": { "airspeed": "kt", "altitude": "ft", "fuel": "usgal", "weight": "lb", "pressure": "inhg", "temperature": "f" },
+  "provenance": {
+    "source": { "kind": "none", "notes": "No manufacturer document consulted. Written from general familiarity with the type." },
+    "transcription": { "method": "authored", "tool": "claude-sonnet-4-6", "date": "2026-08-11" },
+    "contributors": [{ "name": "Open Checklists project", "role": ["author"] }],
+    "revision": { "file_revision": "0.1.0", "updated": "2026-08-11" }
+  },
+  "verification": {
+    "source_fidelity": "not_applicable",
+    "operational_review": "none",
+    "completeness": "partial",
+    "known_issues": [
+      { "severity": "safety_defect", "description": "Contains no airspeeds, power settings, fuel quantities, or other limitations — must come from aircraft POH. CAPS deployment envelope (minimum altitude, airspeed) is POH-specific and is NOT contained here.", "location": "whole file" },
+      { "severity": "content_gap", "description": "Equipment variations exist across SR22 G5 aircraft. Verify all emergency procedures against the specific aircraft POH before flight.", "location": "whole file" }
+    ]
+  },
+  "rights": {
+    "status": "original_expression",
+    "corpus_license": "CC-BY-4.0",
+    "redistribution": "attribution_required",
+    "notes": "Manufacturer POH and AFM remain under copyright. This file does not reproduce their wording or selection of items."
+  },
+  "sections": [
+    {
+      "id": "engine-failure-takeoff",
+      "phase": "engine_failure_before_rotation",
+      "title": "Engine Failure on Takeoff — Before or At Liftoff",
+      "criticality": "emergency",
+      "items": [
+        { "type": "action", "id": "eft-throttle", "text": "Throttle", "response": "CLOSE IMMEDIATELY", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "eft-brakes", "text": "Brakes — apply firmly to stop within remaining runway", "response": "APPLIED; MAXIMUM BRAKING IF NEEDED", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "eft-mixture", "text": "Mixture", "response": "IDLE CUTOFF", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "eft-ignition", "text": "Ignition switch", "response": "OFF", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "eft-master", "text": "Master switch — when clear of runway or stopping area", "response": "OFF", "tickable": true, "memory_item": true },
+        { "type": "action", "text": "If airborne with insufficient runway remaining — land straight ahead on available surface", "response": "DO NOT ATTEMPT TURN BACK TO RUNWAY AT LOW ALTITUDE", "tickable": true, "detail": "If the aircraft is airborne and cannot land straight ahead on the runway, consider CAPS if altitude is sufficient per POH. Do not attempt a 180-degree return at low altitude." },
+        { "type": "action", "text": "Occupants", "response": "ADVISE TO BRACE FOR IMPACT", "tickable": true }
+      ]
+    },
+    {
+      "id": "engine-failure-in-flight",
+      "phase": "engine_failure_in_flight",
+      "title": "Engine Failure in Flight",
+      "criticality": "emergency",
+      "items": [
+        { "type": "action", "id": "efif-glide", "text": "Airspeed — establish and maintain best glide speed", "response": "BEST GLIDE PER POH", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "efif-site", "text": "Landing site — identify a suitable area; begin maneuvering toward it", "response": "SITE SELECTED; TRACKING TOWARD IT", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "efif-fuel", "text": "Fuel selector", "response": "BOTH", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "efif-mixture", "text": "Mixture", "response": "RICH", "tickable": true, "memory_item": true },
+        { "type": "action", "text": "Ignition switch", "response": "BOTH — CONFIRM SWITCH IS ON", "tickable": true },
+        { "type": "action", "text": "Fuel pump", "response": "ON PER POH RESTART TECHNIQUE", "tickable": true },
+        { "type": "action", "text": "Throttle", "response": "ADVANCE TO CHECK FOR ENGINE RESPONSE", "tickable": true },
+        { "type": "action", "text": "Restart attempt — if altitude and conditions allow", "response": "FOLLOW POH ENGINE RESTART IN FLIGHT PROCEDURE", "tickable": true },
+        { "type": "action", "text": "Mayday — transmit on 121.5 MHz", "response": "AIRCRAFT TYPE, POSITION, ALTITUDE, SOULS ON BOARD, INTENTIONS", "tickable": true },
+        { "type": "action", "text": "Transponder", "response": "SQUAWK 7700", "tickable": true },
+        { "type": "action", "text": "If engine does not restart and altitude is insufficient for safe forced landing — consider CAPS deployment", "response": "EVALUATE CAPS PER POH CRITERIA", "tickable": true },
+        { "type": "reference", "text": "If proceeding to forced landing — see Forced Landing (Power-Off) checklist", "tickable": false, "reference": { "section_id": "forced-landing" } }
+      ]
+    },
+    {
+      "id": "engine-fire-in-flight",
+      "phase": "engine_fire_in_flight",
+      "title": "Engine Fire in Flight",
+      "criticality": "emergency",
+      "items": [
+        { "type": "action", "id": "eflight-mixture", "text": "Mixture", "response": "IDLE CUTOFF", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "eflight-fuel-pump", "text": "Fuel pump", "response": "OFF", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "eflight-throttle", "text": "Throttle", "response": "CLOSED", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "eflight-ignition", "text": "Ignition switch", "response": "OFF", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "eflight-fuel-sel", "text": "Fuel selector", "response": "OFF", "tickable": true, "memory_item": true },
+        { "type": "action", "text": "Master switch — electrical systems off to reduce ignition sources", "response": "OFF", "tickable": true },
+        { "type": "action", "text": "Airspeed — increase to assist fire extinguishing if altitude permits; do not exceed structural limits", "response": "INCREASE TO ASSIST; WITHIN SPEED LIMITS PER POH", "tickable": true },
+        { "type": "action", "text": "If fire continues — CAPS deployment; do not delay", "response": "CAPS PER POH; MAYDAY TRANSMITTED", "tickable": true },
+        { "type": "action", "text": "If fire extinguishes — execute forced landing; do not attempt restart", "response": "FORCED LANDING PROCEDURE", "tickable": true }
+      ]
+    },
+    {
+      "id": "engine-fire-ground",
+      "phase": "engine_fire_ground",
+      "title": "Engine Fire on Ground",
+      "criticality": "emergency",
+      "items": [
+        { "type": "action", "id": "efg-throttle", "text": "Throttle", "response": "CLOSED", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "efg-mixture", "text": "Mixture", "response": "IDLE CUTOFF", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "efg-fuel-pump", "text": "Fuel pump", "response": "OFF", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "efg-ignition", "text": "Ignition switch", "response": "OFF", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "efg-master", "text": "Master switch", "response": "OFF", "tickable": true, "memory_item": true },
+        { "type": "action", "text": "Evacuate the aircraft — all occupants exit immediately", "response": "EVACUATE UPWIND; MOVE WELL CLEAR OF AIRCRAFT", "tickable": true },
+        { "type": "action", "text": "Fire extinguisher — use available extinguisher if safe to do so without entering fire zone", "response": "APPLIED IF SAFE", "tickable": true },
+        { "type": "action", "text": "Emergency services", "response": "CALL 911 OR AIRPORT EMERGENCY SERVICES", "tickable": true }
+      ]
+    },
+    {
+      "id": "electrical-fire",
+      "phase": "electrical_fire",
+      "title": "Electrical Fire / Smoke in Cockpit",
+      "criticality": "emergency",
+      "items": [
+        { "type": "action", "id": "elfire-master", "text": "Master switch — battery and alternator", "response": "OFF", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "elfire-avionics", "text": "Avionics master", "response": "OFF", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "elfire-vents", "text": "All air vents and cabin heat ducts", "response": "CLOSE to reduce airflow feeding fire or spreading smoke", "tickable": true, "memory_item": true },
+        { "type": "action", "text": "Extinguisher — if available and accessible, discharge toward fire source", "response": "APPLIED", "tickable": true },
+        { "type": "action", "text": "If smoke clears — identify the faulty circuit before restoring power; restore avionics master cautiously one item at a time", "response": "ISOLATE FAULT BEFORE RESTORING", "tickable": true },
+        { "type": "action", "text": "If smoke persists — declare emergency; land as soon as possible", "response": "MAYDAY; DIVERT TO NEAREST AIRPORT", "tickable": true },
+        { "type": "action", "text": "Window or door — open slightly for ventilation if smoke impairs visibility and conditions permit", "response": "OPENED AS NEEDED FOR VISIBILITY", "tickable": true }
+      ]
+    },
+    {
+      "id": "oil-pressure-loss",
+      "phase": "oil_system_malfunction",
+      "title": "Loss of Oil Pressure",
+      "criticality": "emergency",
+      "items": [
+        { "type": "action", "id": "oil-reduce", "text": "Throttle — reduce power immediately to lower engine load", "response": "REDUCED; MINIMUM POWER NEEDED FOR FLIGHT", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "oil-land", "text": "Landing site — identify nearest suitable airport or field; begin divert", "response": "DIVERTING TO NEAREST AIRPORT", "tickable": true, "memory_item": true },
+        { "type": "action", "text": "Oil temperature — monitor for rapid rise indicating oil exhaustion", "response": "MONITORING; IF RISING RAPIDLY PREPARE FOR ENGINE SEIZURE", "tickable": true },
+        { "type": "action", "text": "Mayday — transmit if engine failure appears imminent", "response": "MAYDAY; POSITION AND INTENTIONS GIVEN", "tickable": true },
+        { "type": "action", "text": "If oil pressure drops to zero and engine roughness develops — prepare for engine failure; consider CAPS if altitude and conditions warrant", "response": "ENGINE FAILURE PROCEDURE INITIATED", "tickable": true },
+        { "type": "reference", "text": "If engine stops — see Engine Failure in Flight checklist", "tickable": false, "reference": { "section_id": "engine-failure-in-flight" } }
+      ]
+    },
+    {
+      "id": "forced-landing",
+      "phase": "forced_landing",
+      "title": "Forced Landing (Power-Off)",
+      "criticality": "emergency",
+      "items": [
+        { "type": "action", "id": "fl-glide", "text": "Airspeed — establish and hold best glide speed", "response": "BEST GLIDE PER POH; TRIM AS NEEDED", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "fl-site", "text": "Landing site — select largest, flattest field aligned with wind if possible; commit to it early", "response": "SITE COMMITTED; MANEUVERING TOWARD IT", "tickable": true, "memory_item": true },
+        { "type": "action", "text": "Mayday — transmit on 121.5 MHz; squawk 7700", "response": "TRANSMITTED; 7700 SET", "tickable": true },
+        { "type": "action", "text": "Fuel selector", "response": "OFF", "tickable": true },
+        { "type": "action", "text": "Mixture", "response": "IDLE CUTOFF", "tickable": true },
+        { "type": "action", "text": "Ignition switch", "response": "OFF", "tickable": true },
+        { "type": "action", "text": "Master switch — off before touchdown to eliminate electrical ignition sources", "response": "OFF BEFORE TOUCHDOWN", "tickable": true },
+        { "type": "action", "text": "Seat belts and shoulder harnesses — all occupants cinch tight; advise to brace", "response": "TIGHTENED; BRACE POSITION BRIEFED", "tickable": true },
+        { "type": "action", "text": "Flaps — extend for landing on confirmed reachable field; consider partial flaps if field is short", "response": "EXTENDED PER POH; APPROACH FLOWN", "tickable": true },
+        { "type": "action", "text": "Doors — unlatch prior to touchdown to ensure exit ability after impact", "response": "UNLATCHED", "tickable": true },
+        { "type": "note", "text": "Consider CAPS deployment if unable to reach a suitable landing surface and altitude allows. CAPS is the preferred outcome over an uncontrolled off-airport landing in unsurvivable terrain.", "tickable": false }
+      ]
+    },
+    {
+      "id": "caps-deployment",
+      "phase": "parachute_deployment",
+      "title": "CAPS Deployment — Cirrus Airframe Parachute System",
+      "criticality": "emergency",
+      "items": [
+        { "type": "warning", "text": "CAPS IS A LAST-RESORT AND IN CERTAIN EMERGENCY SCENARIOS THE PREFERRED OPTION. Deploy without hesitation when the aircraft cannot be controlled, when terrain precludes a survivable landing, or when the pilot becomes incapacitated. All numeric deployment envelope limits (minimum altitude, airspeed) come from the POH — not this file.", "tickable": false },
+        { "type": "action", "id": "caps-announce", "text": "Announce to occupants", "response": "BRACE — PARACHUTE BEING DEPLOYED", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "caps-throttle", "text": "Throttle", "response": "REDUCE AS PRACTICAL; DO NOT DELAY PULL", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "caps-pull", "text": "CAPS handle — grasp T-handle overhead; pull firmly through full stroke", "response": "PULL HARD UNTIL DETENT FELT; DO NOT STOP PARTWAY", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "caps-master-off", "text": "Master switch — after chute deploys and aircraft stabilizes under canopy", "response": "OFF", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "caps-fuel-off", "text": "Fuel selector", "response": "OFF", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "caps-mixture-off", "text": "Mixture", "response": "IDLE CUTOFF", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "caps-ignition-off", "text": "Ignition switch", "response": "OFF", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "caps-belts", "text": "Seat belts and shoulder harnesses — all occupants cinched as tight as possible", "response": "MAXIMUM TIGHTNESS", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "caps-brace", "text": "Brace position — all occupants; brace against seats; hands off all controls", "response": "BRACING FOR IMPACT", "tickable": true, "memory_item": true },
+        { "type": "note", "text": "After landing under CAPS: exit the aircraft quickly if fire risk exists. Do not restart the engine. Emergency services will respond to ELT and/or transmitted position.", "tickable": false }
+      ]
+    }
+  ]
+}

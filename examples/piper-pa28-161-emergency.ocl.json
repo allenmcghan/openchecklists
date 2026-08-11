@@ -1,0 +1,621 @@
+{
+  "open_checklist_version": "1.0",
+  "id": "piper-pa28-161-emergency",
+  "title": "Piper PA-28-161 Warrior II — Emergency Procedures (independently worded)",
+  "description": "Emergency procedures for the Piper PA-28-161 Warrior II with Lycoming O-320 engine. Memory items are marked. No airspeeds, power settings, fuel quantities, or other numerical limits are stated — those must come from the specific aircraft's POH. This file does not replace formal emergency training. Verify all procedures against the actual aircraft POH before flight.",
+  "aircraft": {
+    "make": "Piper",
+    "model": "PA-28-161",
+    "variant": "Warrior II",
+    "icao_type": "PA28",
+    "category": "standard_normal",
+    "engine": [
+      {
+        "make": "Lycoming",
+        "model": "O-320",
+        "type": "piston_4stroke",
+        "count": 1
+      }
+    ],
+    "propeller": "fixed_pitch",
+    "gear": "fixed_tricycle"
+  },
+  "units": {
+    "airspeed": "kt",
+    "altitude": "ft",
+    "fuel": "usgal",
+    "weight": "lb",
+    "pressure": "inhg",
+    "temperature": "f"
+  },
+  "provenance": {
+    "source": {
+      "kind": "none",
+      "notes": "No manufacturer document was consulted or copied. This file was authored from general familiarity with the PA-28-161 type. Numerical limitations are deliberately absent and must be supplied from the aircraft's own POH."
+    },
+    "transcription": {
+      "method": "authored",
+      "tool": "claude-sonnet-4-6",
+      "date": "2026-08-11"
+    },
+    "contributors": [
+      {
+        "name": "Open Checklists project",
+        "role": [
+          "author"
+        ]
+      }
+    ],
+    "revision": {
+      "file_revision": "0.1.0",
+      "updated": "2026-08-11"
+    }
+  },
+  "verification": {
+    "source_fidelity": "not_applicable",
+    "operational_review": "none",
+    "completeness": "partial",
+    "known_issues": [
+      {
+        "severity": "safety_defect",
+        "description": "Contains no airspeeds, power settings, fuel quantities or other limitations — must come from aircraft POH.",
+        "location": "whole file"
+      },
+      {
+        "severity": "content_gap",
+        "description": "Equipment variations exist across this model/variant. Verify items against the specific aircraft before use.",
+        "location": "whole file"
+      }
+    ]
+  },
+  "rights": {
+    "status": "original_expression",
+    "corpus_license": "CC-BY-4.0",
+    "redistribution": "attribution_required",
+    "notes": "Manufacturer POH remains under copyright. This file does not reproduce its wording or selection of items."
+  },
+  "sections": [
+    {
+      "id": "engine-failure-before-rotation",
+      "phase": "engine_failure_before_rotation",
+      "title": "Engine Failure on Takeoff Roll (Before Lift-Off)",
+      "criticality": "emergency",
+      "items": [
+        {
+          "id": "eftow-mem-1",
+          "type": "action",
+          "text": "Throttle",
+          "response": "CLOSED IMMEDIATELY",
+          "tickable": true,
+          "memory_item": true
+        },
+        {
+          "id": "eftow-mem-2",
+          "type": "action",
+          "text": "Brakes",
+          "response": "APPLY FIRMLY TO STOP ON REMAINING RUNWAY",
+          "tickable": true,
+          "memory_item": true
+        },
+        {
+          "id": "eftow-mem-3",
+          "type": "action",
+          "text": "Mixture",
+          "response": "IDLE CUT-OFF",
+          "tickable": true,
+          "memory_item": true
+        },
+        {
+          "id": "eftow-mem-4",
+          "type": "action",
+          "text": "Magneto / ignition switch",
+          "response": "OFF",
+          "tickable": true,
+          "memory_item": true
+        },
+        {
+          "id": "eftow-mem-5",
+          "type": "action",
+          "text": "Master switch",
+          "response": "OFF",
+          "tickable": true,
+          "memory_item": true
+        },
+        {
+          "type": "challenge",
+          "text": "If unable to stop on runway, steer to minimize hazard; avoid populated areas and fuel sources",
+          "tickable": true
+        }
+      ]
+    },
+    {
+      "id": "engine-failure-after-takeoff",
+      "phase": "engine_failure_after_takeoff",
+      "title": "Engine Failure After Lift-Off",
+      "criticality": "emergency",
+      "items": [
+        {
+          "id": "efat-mem-1",
+          "type": "action",
+          "text": "Airspeed",
+          "response": "BEST GLIDE — ESTABLISH IMMEDIATELY PER POH",
+          "tickable": true,
+          "memory_item": true
+        },
+        {
+          "type": "caution",
+          "text": "Do not attempt to turn back to the runway at low altitude. Land approximately straight ahead or with small heading changes to avoid obstacles.",
+          "tickable": false
+        },
+        {
+          "id": "efat-mem-2",
+          "type": "action",
+          "text": "Landing area — select best available surface ahead within the glide",
+          "response": "SELECTED",
+          "tickable": true,
+          "memory_item": true
+        },
+        {
+          "id": "efat-mem-3",
+          "type": "action",
+          "text": "Throttle",
+          "response": "CLOSED",
+          "tickable": true,
+          "memory_item": true
+        },
+        {
+          "type": "action",
+          "text": "Mixture",
+          "response": "IDLE CUT-OFF when landing is assured",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Ignition switch",
+          "response": "OFF when landing is assured",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Master switch",
+          "response": "OFF before touchdown",
+          "tickable": true
+        }
+      ]
+    },
+    {
+      "id": "engine-failure-in-flight",
+      "phase": "engine_failure_in_flight",
+      "title": "Engine Failure in Flight",
+      "criticality": "emergency",
+      "items": [
+        {
+          "id": "efif-mem-1",
+          "type": "action",
+          "text": "Airspeed",
+          "response": "BEST GLIDE PER POH — ESTABLISH IMMEDIATELY",
+          "tickable": true,
+          "memory_item": true
+        },
+        {
+          "id": "efif-mem-2",
+          "type": "action",
+          "text": "Landing area — identify best suitable field or airport within gliding range",
+          "response": "SELECTED; PATTERN TO IT PLANNED",
+          "tickable": true,
+          "memory_item": true
+        },
+        {
+          "id": "efif-mem-3",
+          "type": "action",
+          "text": "Fuel selector",
+          "response": "BOTH — confirm handle fully seated in detent",
+          "tickable": true,
+          "memory_item": true
+        },
+        {
+          "id": "efif-mem-4",
+          "type": "action",
+          "text": "Mixture",
+          "response": "RICH",
+          "tickable": true,
+          "memory_item": true
+        },
+        {
+          "id": "efif-mem-5",
+          "type": "action",
+          "text": "Carburetor heat",
+          "response": "ON — apply to clear possible carburetor ice",
+          "tickable": true,
+          "memory_item": true
+        },
+        {
+          "id": "efif-mem-6",
+          "type": "action",
+          "text": "Magnetos — cycle LEFT, then RIGHT, then BOTH",
+          "response": "CHECK FOR DEAD MAGNETO; RETURN TO BOTH OR OPERATING POSITION",
+          "tickable": true,
+          "memory_item": true
+        },
+        {
+          "type": "action",
+          "text": "Primer",
+          "response": "CONFIRM IN AND LOCKED",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Throttle — attempt restart if propeller is windmilling",
+          "response": "ADVANCE FROM IDLE; ATTEMPT RESTART",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Transponder",
+          "response": "SQUAWK 7700",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Mayday call — current frequency or 121.5 MHz",
+          "response": "POSITION, ALTITUDE, INTENTIONS TRANSMITTED",
+          "tickable": true
+        },
+        {
+          "type": "challenge",
+          "text": "If restart not achieved, commit to forced landing — do not delay the transition to forced landing procedure",
+          "tickable": true
+        }
+      ]
+    },
+    {
+      "id": "engine-fire-in-flight",
+      "phase": "engine_fire_in_flight",
+      "title": "Engine Fire in Flight",
+      "criticality": "emergency",
+      "items": [
+        {
+          "id": "eflight-mem-1",
+          "type": "action",
+          "text": "Mixture",
+          "response": "IDLE CUT-OFF — cut fuel to engine immediately",
+          "tickable": true,
+          "memory_item": true
+        },
+        {
+          "id": "eflight-mem-2",
+          "type": "action",
+          "text": "Fuel selector",
+          "response": "OFF",
+          "tickable": true,
+          "memory_item": true
+        },
+        {
+          "id": "eflight-mem-3",
+          "type": "action",
+          "text": "Throttle",
+          "response": "FULL OPEN — help exhaust residual fuel from the system",
+          "tickable": true,
+          "memory_item": true
+        },
+        {
+          "id": "eflight-mem-4",
+          "type": "action",
+          "text": "Master switch",
+          "response": "OFF — remove electrical ignition sources",
+          "tickable": true,
+          "memory_item": true
+        },
+        {
+          "id": "eflight-mem-5",
+          "type": "action",
+          "text": "Cabin heat and all air vents",
+          "response": "CLOSE ALL — prevent fumes and smoke from entering cabin",
+          "tickable": true,
+          "memory_item": true
+        },
+        {
+          "type": "action",
+          "text": "Airspeed — increase as practical to aid in extinguishing flames",
+          "response": "INCREASED WITHIN STRUCTURAL LIMITS",
+          "tickable": true
+        },
+        {
+          "type": "challenge",
+          "text": "Land immediately at the nearest suitable area — do not delay to troubleshoot",
+          "tickable": true
+        }
+      ]
+    },
+    {
+      "id": "engine-fire-ground",
+      "phase": "engine_fire_ground",
+      "title": "Engine Fire on Ground",
+      "criticality": "emergency",
+      "items": [
+        {
+          "id": "efgnd-mem-1",
+          "type": "action",
+          "text": "Throttle — advance briefly to full to draw flames back into the engine through the induction system",
+          "response": "FULL MOMENTARILY",
+          "tickable": true,
+          "memory_item": true
+        },
+        {
+          "id": "efgnd-mem-2",
+          "type": "action",
+          "text": "Mixture",
+          "response": "IDLE CUT-OFF",
+          "tickable": true,
+          "memory_item": true
+        },
+        {
+          "id": "efgnd-mem-3",
+          "type": "action",
+          "text": "Fuel selector",
+          "response": "OFF",
+          "tickable": true,
+          "memory_item": true
+        },
+        {
+          "id": "efgnd-mem-4",
+          "type": "action",
+          "text": "Magneto / ignition switch",
+          "response": "OFF",
+          "tickable": true,
+          "memory_item": true
+        },
+        {
+          "id": "efgnd-mem-5",
+          "type": "action",
+          "text": "Master switch",
+          "response": "OFF",
+          "tickable": true,
+          "memory_item": true
+        },
+        {
+          "type": "challenge",
+          "text": "Evacuate the aircraft immediately; move well clear upwind",
+          "tickable": true
+        },
+        {
+          "type": "challenge",
+          "text": "Use fire extinguisher only if the fire can be safely attacked without entering the hazard zone",
+          "tickable": true
+        }
+      ]
+    },
+    {
+      "id": "electrical-fire",
+      "phase": "electrical_fire",
+      "title": "Electrical Fire / Smoke in Cockpit",
+      "criticality": "emergency",
+      "items": [
+        {
+          "id": "elec-mem-1",
+          "type": "action",
+          "text": "Master switch",
+          "response": "OFF — remove electrical power from all circuits",
+          "tickable": true,
+          "memory_item": true
+        },
+        {
+          "id": "elec-mem-2",
+          "type": "action",
+          "text": "Avionics master",
+          "response": "OFF",
+          "tickable": true,
+          "memory_item": true
+        },
+        {
+          "id": "elec-mem-3",
+          "type": "action",
+          "text": "All individual switches",
+          "response": "OFF",
+          "tickable": true,
+          "memory_item": true
+        },
+        {
+          "id": "elec-mem-4",
+          "type": "action",
+          "text": "Cabin vents",
+          "response": "OPEN — ventilate to clear smoke from cockpit",
+          "tickable": true,
+          "memory_item": true
+        },
+        {
+          "type": "action",
+          "text": "If fire has subsided — master switch ON; restore switches one at a time to identify faulty circuit; leave faulty circuit OFF",
+          "response": "FAULTY CIRCUIT ISOLATED AND LEFT OFF",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Transponder — squawk 7700 if avionics are restored",
+          "response": "7700",
+          "tickable": true
+        },
+        {
+          "type": "challenge",
+          "text": "Land as soon as practicable — do not delay landing after any cockpit fire or smoke event",
+          "tickable": true
+        }
+      ]
+    },
+    {
+      "id": "loss-of-oil-pressure",
+      "phase": "oil_system_malfunction",
+      "title": "Loss of Oil Pressure",
+      "criticality": "emergency",
+      "items": [
+        {
+          "id": "oil-mem-1",
+          "type": "action",
+          "text": "Oil pressure indication",
+          "response": "CONFIRM — distinguish gradual decline from sudden loss",
+          "tickable": true,
+          "memory_item": true
+        },
+        {
+          "id": "oil-mem-2",
+          "type": "action",
+          "text": "Oil temperature",
+          "response": "MONITOR — rising temperature with falling pressure confirms oil system distress",
+          "tickable": true,
+          "memory_item": true
+        },
+        {
+          "id": "oil-mem-3",
+          "type": "action",
+          "text": "Power",
+          "response": "REDUCE TO MINIMUM REQUIRED; PLAN IMMEDIATE LANDING",
+          "tickable": true,
+          "memory_item": true
+        },
+        {
+          "type": "action",
+          "text": "Landing area — identify nearest suitable airport or field; begin descending toward it",
+          "response": "SELECTED; DESCENDING",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Mayday call — advise ATC of situation",
+          "response": "DECLARED ON CURRENT FREQUENCY OR 121.5 MHz",
+          "tickable": true
+        },
+        {
+          "type": "caution",
+          "text": "An engine with no oil pressure can seize without warning. Do not continue flight or delay landing.",
+          "tickable": false
+        }
+      ]
+    },
+    {
+      "id": "carburetor-ice",
+      "phase": "carburetor_icing",
+      "title": "Carburetor Ice",
+      "criticality": "abnormal",
+      "items": [
+        {
+          "id": "cice-mem-1",
+          "type": "action",
+          "text": "Recognition — unexplained RPM loss, rough running, or power loss; particularly in visible moisture or suspect temperature range",
+          "response": "SUSPECTED CARBURETOR ICE",
+          "tickable": true,
+          "memory_item": true
+        },
+        {
+          "id": "cice-mem-2",
+          "type": "action",
+          "text": "Carburetor heat",
+          "response": "FULL HOT — apply immediately; do not cycle on and off",
+          "tickable": true,
+          "memory_item": true
+        },
+        {
+          "type": "action",
+          "text": "Engine response — expect initial further RPM drop as ice melts; smooth return of RPM and power confirms ice was present",
+          "response": "MONITOR FOR RECOVERY",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Carburetor heat — leave ON until icing conditions are exited and normal operation is confirmed",
+          "response": "REMAIN ON AS REQUIRED",
+          "tickable": true
+        },
+        {
+          "type": "challenge",
+          "text": "If engine does not recover, declare emergency and initiate forced landing without delay",
+          "tickable": true
+        }
+      ]
+    },
+    {
+      "id": "forced-landing",
+      "phase": "forced_landing",
+      "title": "Forced Landing (Power-Off)",
+      "criticality": "emergency",
+      "items": [
+        {
+          "id": "fl-mem-1",
+          "type": "action",
+          "text": "Airspeed",
+          "response": "BEST GLIDE PER POH — ESTABLISH AND MAINTAIN",
+          "tickable": true,
+          "memory_item": true
+        },
+        {
+          "id": "fl-mem-2",
+          "type": "action",
+          "text": "Landing area — select largest available flat surface, preferably into wind; avoid terrain, wires, and populated areas",
+          "response": "SELECTED",
+          "tickable": true,
+          "memory_item": true
+        },
+        {
+          "id": "fl-mem-3",
+          "type": "action",
+          "text": "Mayday call — position, altitude, souls on board, intentions",
+          "response": "TRANSMITTED ON CURRENT FREQUENCY OR 121.5 MHz",
+          "tickable": true,
+          "memory_item": true
+        },
+        {
+          "type": "action",
+          "text": "Transponder",
+          "response": "SQUAWK 7700",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Approach — fly a recognizable pattern to the chosen field; preserve altitude margin; do not undershoot",
+          "response": "PATTERN TO SELECTED FIELD",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Flaps — deploy as needed to manage touchdown point and energy",
+          "response": "AS REQUIRED FOR FIELD LENGTH",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Fuel selector — OFF on short final",
+          "response": "OFF",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Mixture — IDLE CUT-OFF on short final",
+          "response": "IDLE CUT-OFF",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Magneto / ignition switch — OFF on short final",
+          "response": "OFF",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Master switch — OFF on short final",
+          "response": "OFF",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Doors — unlatch before touchdown to prevent jamming and ease evacuation",
+          "response": "UNLATCHED",
+          "tickable": true
+        },
+        {
+          "type": "challenge",
+          "text": "Touch down at minimum sink rate; aim for far end of available landing area to maximize rollout distance",
+          "tickable": true
+        }
+      ]
+    }
+  ]
+}

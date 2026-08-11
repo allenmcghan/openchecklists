@@ -1,0 +1,173 @@
+{
+  "open_checklist_version": "1.0",
+  "id": "cessna-206h-emergency",
+  "title": "Cessna 206H Stationair — Emergency Procedures",
+  "description": "Emergency and abnormal procedures checklist for the Cessna 206H Stationair (2000-present) with Continental IO-540 fuel-injected engine. Memory items are marked. The IO-540 is fuel-injected — no carburetor heat; alternate air induction applies instead. All numeric limits and airspeeds must come from the specific aircraft POH. This checklist supplements, but does not replace, recurrent emergency training.",
+  "aircraft": {
+    "make": "Cessna",
+    "model": "206",
+    "variant": "H",
+    "icao_type": "C206",
+    "category": "standard_normal",
+    "engine": [{ "make": "Continental", "model": "IO-540", "type": "piston_4stroke", "count": 1 }],
+    "propeller": "constant_speed",
+    "gear": "fixed_tricycle"
+  },
+  "units": { "airspeed": "kt", "altitude": "ft", "fuel": "usgal", "weight": "lb", "pressure": "inhg", "temperature": "f" },
+  "provenance": {
+    "source": { "kind": "none", "notes": "No manufacturer document consulted. Written from general familiarity with the type." },
+    "transcription": { "method": "authored", "tool": "claude-sonnet-4-6", "date": "2026-08-11" },
+    "contributors": [{ "name": "Open Checklists project", "role": ["author"] }],
+    "revision": { "file_revision": "0.1.0", "updated": "2026-08-11" }
+  },
+  "verification": {
+    "source_fidelity": "not_applicable",
+    "operational_review": "none",
+    "completeness": "partial",
+    "known_issues": [
+      { "severity": "safety_defect", "description": "Contains no airspeeds, power settings, fuel quantities or other limitations — must come from aircraft POH.", "location": "whole file" },
+      { "severity": "content_gap", "description": "Equipment variations exist across this model/variant. Verify items against the specific aircraft before use.", "location": "whole file" }
+    ]
+  },
+  "rights": {
+    "status": "original_expression",
+    "corpus_license": "CC-BY-4.0",
+    "redistribution": "attribution_required",
+    "notes": "Manufacturer POH remains under copyright. This file does not reproduce its wording or selection of items."
+  },
+  "sections": [
+    {
+      "id": "engine-failure-before-rotation",
+      "phase": "engine_failure_before_rotation",
+      "title": "Engine Failure on Takeoff — Before or At Liftoff",
+      "criticality": "emergency",
+      "items": [
+        { "type": "action", "id": "efbr-throttle", "text": "Throttle", "response": "CLOSE", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "efbr-brakes", "text": "Brakes — apply firmly to stop on remaining runway", "response": "APPLIED", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "efbr-mixture", "text": "Mixture", "response": "IDLE CUTOFF", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "efbr-magnetos", "text": "Magnetos", "response": "OFF", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "efbr-master", "text": "Master switch", "response": "OFF WHEN LANDING ASSURED", "tickable": true, "memory_item": true },
+        { "type": "action", "text": "If airborne with insufficient runway and altitude — land ahead", "response": "DO NOT TURN BACK TO RUNWAY AT LOW ALTITUDE; LAND ON BEST SURFACE WITHIN 30° OF RUNWAY HEADING", "tickable": true, "detail": "The 206H has a large useful load and may accelerate slowly; commit early to stopping on the remaining runway rather than continuing a questionable takeoff." },
+        { "type": "action", "text": "Cabin and cargo doors", "response": "UNLATCH BEFORE TOUCHDOWN TO PREVENT JAMMING ON IMPACT", "tickable": true },
+        { "type": "action", "text": "Occupants", "response": "ADVISE TO BRACE", "tickable": true }
+      ]
+    },
+    {
+      "id": "engine-failure-in-flight",
+      "phase": "engine_failure_in_flight",
+      "title": "Engine Failure in Flight",
+      "criticality": "emergency",
+      "items": [
+        { "type": "action", "id": "efif-glide", "text": "Airspeed — establish best glide", "response": "PITCH FOR VGLIDE PER POH; TRIM", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "efif-landing", "text": "Landing area — identify and turn toward best available", "response": "FIELD SELECTED WITHIN GLIDE RANGE", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "efif-fuel", "text": "Fuel selector", "response": "BOTH — CONFIRM SELECTED", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "efif-mixture", "text": "Mixture", "response": "RICH", "tickable": true, "memory_item": true },
+        { "type": "action", "text": "Fuel pump (boost pump)", "response": "ON", "tickable": true },
+        { "type": "action", "text": "Throttle", "response": "ADVANCE TO CHECK FOR FUEL FLOW RESPONSE", "tickable": true },
+        { "type": "action", "text": "Magnetos", "response": "BOTH — CONFIRM SWITCH IS ON", "tickable": true },
+        { "type": "action", "text": "Primer (if installed)", "response": "IN AND LOCKED", "tickable": true },
+        { "type": "action", "text": "Restart attempt — if altitude and conditions permit", "response": "FOLLOW POH RESTART PROCEDURE FOR CONDITIONS", "tickable": true },
+        { "type": "action", "text": "Mayday — transmit on 121.5 MHz or current frequency", "response": "AIRCRAFT TYPE, POSITION, ALTITUDE, SOULS ON BOARD, INTENTIONS", "tickable": true },
+        { "type": "action", "text": "Transponder", "response": "SQUAWK 7700", "tickable": true },
+        { "type": "reference", "text": "If engine does not restart — proceed to Forced Landing checklist", "tickable": false, "reference": { "section_id": "forced-landing" } }
+      ]
+    },
+    {
+      "id": "engine-fire-in-flight",
+      "phase": "engine_fire_in_flight",
+      "title": "Engine Fire in Flight",
+      "criticality": "emergency",
+      "items": [
+        { "type": "action", "id": "efi-mixture", "text": "Mixture", "response": "IDLE CUTOFF — STARVE FIRE OF FUEL", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "efi-fuel-selector", "text": "Fuel selector", "response": "OFF", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "efi-fuel-pump", "text": "Fuel pump (boost pump)", "response": "OFF", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "efi-throttle", "text": "Throttle", "response": "CLOSE", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "efi-ignition", "text": "Magnetos", "response": "OFF", "tickable": true, "memory_item": true },
+        { "type": "action", "text": "Cabin heat and fresh-air vents — all inlets", "response": "CLOSE TO PREVENT FUMES AND SMOKE FROM ENTERING CABIN", "tickable": true },
+        { "type": "action", "text": "Airspeed — increase if fire persists to extinguish by airflow", "response": "DO NOT EXCEED Vne", "tickable": true },
+        { "type": "action", "text": "Mayday — if communications still available before shutting electrics", "response": "DECLARED ON 121.5", "tickable": true },
+        { "type": "reference", "text": "Execute emergency descent and forced landing immediately", "tickable": false, "reference": { "section_id": "forced-landing" } }
+      ]
+    },
+    {
+      "id": "engine-fire-ground",
+      "phase": "engine_fire_ground",
+      "title": "Engine Fire on Ground",
+      "criticality": "emergency",
+      "items": [
+        { "type": "action", "id": "efg-intake", "text": "If start fire — throttle full open momentarily to draw fire back through intake", "response": "ATTEMPT 2–3 SECONDS OF CRANKING TO CLEAR FIRE; STOP IF FIRE DOES NOT EXTINGUISH IMMEDIATELY", "tickable": true, "memory_item": true, "detail": "This technique applies only when fire is in the induction system during start. Advance throttle fully, continue cranking briefly to draw fire into the engine and out." },
+        { "type": "action", "id": "efg-mixture", "text": "If fire continues — mixture", "response": "IDLE CUTOFF", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "efg-fuel", "text": "Fuel selector", "response": "OFF", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "efg-mags", "text": "Magnetos", "response": "OFF", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "efg-master", "text": "Master switch", "response": "OFF", "tickable": true, "memory_item": true },
+        { "type": "action", "text": "Evacuate aircraft — all occupants", "response": "EXIT IMMEDIATELY USING BOTH CABIN DOOR AND CARGO DOOR AS NEEDED; MOVE UPWIND", "tickable": true },
+        { "type": "action", "text": "Fire extinguisher", "response": "USE FROM OUTSIDE IF SAFE; STAY CLEAR OF PROPELLER ARC", "tickable": true },
+        { "type": "action", "text": "Emergency services", "response": "CONTACT AIRPORT ARFF OR CALL 911 IMMEDIATELY", "tickable": true }
+      ]
+    },
+    {
+      "id": "electrical-fire",
+      "phase": "electrical_fire",
+      "title": "Electrical Fire / Smoke in Cockpit",
+      "criticality": "emergency",
+      "items": [
+        { "type": "action", "id": "ef-avionics", "text": "Avionics master", "response": "OFF", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "ef-all-electrics", "text": "All electrical switches", "response": "OFF", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "ef-master", "text": "Master switch (alternator)", "response": "OFF — ISOLATE ALTERNATOR", "tickable": true, "memory_item": true },
+        { "type": "action", "text": "Vents and fresh-air inlets", "response": "OPEN TO VENTILATE SMOKE FROM CABIN", "tickable": true },
+        { "type": "action", "text": "Fire extinguisher — use if fire source visible and accessible", "response": "HALON PREFERRED IN COCKPIT; DIRECT AT BASE OF FLAME", "tickable": true },
+        { "type": "action", "text": "Suspected circuit breaker — pull", "response": "IDENTIFY AND PULL; DO NOT RESET A TRIPPED BREAKER INTO AN ACTIVE FAULT", "tickable": true },
+        { "type": "action", "text": "Electrical power — restore selectively if smoke clears", "response": "RESTORE BATTERY MASTER ONLY FIRST; THEN INDIVIDUAL SWITCHES ONE AT A TIME TO ISOLATE FAULT", "tickable": true },
+        { "type": "action", "text": "Land as soon as practicable", "response": "DIVERT TO NEAREST AIRPORT; DECLARE EMERGENCY IF SMOKE DOES NOT CLEAR", "tickable": true }
+      ]
+    },
+    {
+      "id": "oil-system-malfunction",
+      "phase": "oil_system_malfunction",
+      "title": "Loss of Oil Pressure",
+      "criticality": "emergency",
+      "items": [
+        { "type": "action", "id": "oil-confirm", "text": "Oil pressure and temperature — cross-check both gauges", "response": "LOW PRESSURE WITH RISING TEMPERATURE CONFIRMS GENUINE OIL LOSS", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "oil-power", "text": "Power — reduce to minimum required to sustain flight", "response": "REDUCE THROTTLE; MINIMIZE ENGINE STRESS", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "oil-land", "text": "Land as soon as possible — engine failure may be imminent", "response": "BEGIN IMMEDIATE DIVERSION TO NEAREST SUITABLE LANDING AREA", "tickable": true, "memory_item": true },
+        { "type": "action", "text": "Oil temperature — continue monitoring", "response": "RAPID RISE CONFIRMS GENUINE LOSS; PREPARE FOR POSSIBLE ENGINE SEIZURE", "tickable": true },
+        { "type": "action", "text": "Mayday and ATC notification", "response": "SQUAWK 7700; ADVISE ATC OF SITUATION AND LANDING INTENTIONS", "tickable": true },
+        { "type": "reference", "text": "If engine stops or seizure appears imminent — proceed to Engine Failure in Flight checklist", "tickable": false, "reference": { "section_id": "engine-failure-in-flight" } }
+      ]
+    },
+    {
+      "id": "icing",
+      "phase": "icing",
+      "title": "Induction System Icing (Fuel-Injected Engine)",
+      "criticality": "abnormal",
+      "items": [
+        { "type": "note", "text": "The Continental IO-540 is fuel-injected — there is no carburetor heat control. Induction system icing of the air inlet is possible in visible moisture combined with temperatures near freezing. This section addresses alternate air use in those conditions.", "tickable": false },
+        { "type": "action", "text": "Symptoms — unexplained power loss or rough running in visible moisture or near-freezing temperatures", "response": "SUSPECT INDUCTION ICING", "tickable": true },
+        { "type": "action", "text": "Alternate air — if equipped", "response": "OPEN PER POH; DRAWS UNFILTERED WARM AIR FROM INSIDE COWL", "tickable": true },
+        { "type": "action", "text": "Power response", "response": "MONITOR FOR RESTORATION; REMAIN IN ALTERNATE AIR UNTIL CLEAR OF ICING CONDITIONS IF POWER RETURNS", "tickable": true },
+        { "type": "action", "text": "Altitude and routing", "response": "CLIMB OR DIVERT TO EXIT ICING CONDITIONS", "tickable": true },
+        { "type": "action", "text": "If no power recovery", "response": "TREAT AS ENGINE FAILURE; PROCEED TO ENGINE FAILURE IN FLIGHT CHECKLIST", "tickable": true }
+      ]
+    },
+    {
+      "id": "forced-landing",
+      "phase": "forced_landing",
+      "title": "Forced Landing (Power-Off Landing Procedure)",
+      "criticality": "emergency",
+      "items": [
+        { "type": "action", "id": "fl-glide", "text": "Best glide speed", "response": "ESTABLISH AND TRIM — PITCH FOR VGLIDE PER POH", "tickable": true, "memory_item": true },
+        { "type": "action", "id": "fl-field", "text": "Field selection", "response": "CHOOSE LARGEST FLAT SURFACE INTO WIND; EVALUATE SURFACE, SLOPE, AND OBSTACLES", "tickable": true, "memory_item": true },
+        { "type": "action", "text": "Transponder", "response": "SQUAWK 7700", "tickable": true },
+        { "type": "action", "text": "Mayday — 121.5 MHz or current frequency", "response": "POSITION, ALTITUDE, NATURE OF EMERGENCY, INTENTIONS, SOULS ON BOARD", "tickable": true },
+        { "type": "action", "text": "Fuel selector", "response": "OFF", "tickable": true },
+        { "type": "action", "text": "Mixture", "response": "IDLE CUTOFF", "tickable": true },
+        { "type": "action", "text": "Magnetos", "response": "OFF", "tickable": true },
+        { "type": "action", "text": "Flaps — deploy incrementally on final", "response": "ADJUST GLIDE PATH AND REDUCE TOUCHDOWN SPEED; SET PER POH", "tickable": true },
+        { "type": "action", "text": "Seats and belts — all occupants", "response": "TIGHTENED AND BRACED; SHOULDER HARNESSES LOCKED", "tickable": true },
+        { "type": "action", "id": "fl-doors", "text": "Cabin and cargo doors", "response": "UNLATCH BEFORE TOUCHDOWN TO PREVENT JAMMING ON IMPACT", "tickable": true, "memory_item": true },
+        { "type": "action", "text": "Master switch", "response": "OFF SHORTLY BEFORE TOUCHDOWN ONCE LANDING IS ASSURED", "tickable": true },
+        { "type": "action", "text": "Touchdown", "response": "TOUCH DOWN AT MINIMUM AIRSPEED; HOLD NOSE HIGH AS LONG AS POSSIBLE TO DISSIPATE ENERGY", "tickable": true }
+      ]
+    }
+  ]
+}
