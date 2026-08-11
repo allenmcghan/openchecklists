@@ -406,6 +406,18 @@ JS = r"""
           items:           items
         };
 
+        // Save preflight log to OCL profile if signed in (awards points, feeds dashboard)
+        if (typeof oclReq === 'function') {
+          oclReq('POST', '/me/logs', {
+            checklist_id:    meta.id || '',
+            checklist_title: meta.title || document.title,
+            checklist_hash:  meta.content_hash || '',
+            items_total:     boxes.length,
+            items_checked:   ticks.size,
+            items:           items
+          }).catch(function(){});
+        }
+
         fetch('https://api.openchecklists.net/log.php', {
           method: 'POST',
           headers: {'Content-Type': 'application/json'},

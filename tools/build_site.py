@@ -279,20 +279,39 @@ def head(title: str, desc: str, rel: str = "") -> str:
 # renders a sign-in link or avatar pill in the nav. Self-contained, ~600 bytes.
 AUTH_PILL_JS = r"""
 <script>
+/* ---- OCL auth helpers — available on every page ---- */
+var OCL_API = 'https://app.openchecklists.net/api';
+
+function oclToken() {
+  var tok = sessionStorage.getItem('ocl:token');
+  if (!tok) return null;
+  try {
+    var p = JSON.parse(atob(tok.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
+    if (p.exp && p.exp < Date.now()/1000) { sessionStorage.removeItem('ocl:token'); return null; }
+    return tok;
+  } catch(e) { return null; }
+}
+
+function oclReq(method, path, body) {
+  var tok = oclToken();
+  if (!tok) return Promise.reject('not signed in');
+  return fetch(OCL_API + path, {
+    method: method,
+    headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + tok },
+    body: body ? JSON.stringify(body) : undefined,
+  }).then(function(r){ return r.json(); });
+}
+
 (function(){
-  var tok=sessionStorage.getItem('ocl:token');
-  if(!tok) return;
-  try{
-    var p=JSON.parse(atob(tok.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
-    if(p.exp&&p.exp<Date.now()/1000){sessionStorage.removeItem('ocl:token');return;}
-    var nav=document.querySelector('nav.nav');
-    if(!nav) return;
-    var pill=document.createElement('a');
-    pill.href='/profile.html';
-    pill.style.cssText='margin-left:auto;font-weight:700;color:var(--accent)';
-    pill.textContent='👤 My Profile';
-    nav.appendChild(pill);
-  }catch(e){}
+  var tok = oclToken();
+  if (!tok) return;
+  var nav = document.querySelector('nav.nav');
+  if (!nav) return;
+  var pill = document.createElement('a');
+  pill.href = '/profile';
+  pill.style.cssText = 'margin-left:auto;font-weight:700;color:var(--accent)';
+  pill.textContent = '👤 My Profile';
+  nav.appendChild(pill);
 })();
 </script>
 """

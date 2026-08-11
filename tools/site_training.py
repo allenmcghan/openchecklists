@@ -392,6 +392,10 @@ window.answerQ=function(containerId,qi,chosen){
   if(chosen!==q.ans) btns[q.ans].classList.add('correct');
   var expEl=document.getElementById('qexp-'+containerId+'-'+qi);
   if(expEl) expEl.style.display='block';
+  // Award points for correct answers (3 pts each via OCL API)
+  if(chosen===q.ans && typeof oclReq==='function'){
+    oclReq('POST','/me/quiz',{question:q.q}).catch(function(){});
+  }
 };
 
 window.showCertSec=function(certKey){

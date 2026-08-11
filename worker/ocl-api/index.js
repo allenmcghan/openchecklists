@@ -382,6 +382,13 @@ const routes = {
     return json({ok: true});
   },
 
+  // POST /api/me/quiz — award points for a correct quiz answer
+  'POST /api/me/quiz': async (req, env, claims) => {
+    const user = await ensureUser(env.DB, claims);
+    const result = await awardPoints(env.DB, user.id, 'quiz_correct');
+    return json({ok: true, points: result});
+  },
+
   // GET /api/leaderboard — only users who opted in
   'GET /api/leaderboard': async (req, env) => {
     const {results} = await env.DB.prepare(

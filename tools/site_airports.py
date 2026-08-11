@@ -635,6 +635,13 @@ function renderAirport(ap){
   if(ap.pattern_altitude_ft) patNote='<p style="font-size:.88rem;color:var(--muted)">Traffic pattern altitude: <strong>'+ap.pattern_altitude_ft+' ft AGL</strong></p>';
 
   var html=hero+mapDiv+wxDiv+tafDiv;
+  // ★ Save airport — calls OCL API if signed in, prompts sign-in otherwise
+  var starBtn='<button id="ap-star-btn" onclick="oclStarAirport()" '
+    +'style="margin:.6rem 0 1rem;background:none;border:1px solid var(--line);'
+    +'border-radius:.5rem;padding:.45rem .9rem;cursor:pointer;font-size:.9rem;color:var(--text)">'
+    +'☆ Save airport</button>';
+
+  html+=starBtn;
   html+='<h2 style="margin-top:1.4rem">Airport information</h2>';
   html+=patNote;
   html+='<div class="ap-sections">'+freqHtml+rwyHtml+'</div>';
@@ -648,6 +655,34 @@ function renderAirport(ap){
   // Init map after DOM update
   if(ap.lat&&ap.lon) setTimeout(function(){initMap(ap.lat,ap.lon,ap.name||apId);},50);
   if(WX&&(ap.icao||ap.ident)) setTimeout(function(){loadWeather(ap.icao||ap.ident);},100);
+}
+
+// ★ Save airport to user profile
+function oclStarAirport(){
+  var btn=document.getElementById('ap-star-btn');
+  if(!btn) return;
+  if(!oclToken()){
+    sessionStorage.setItem('ocl:return',location.href);
+    location.href='/profile';
+    return;
+  }
+  var apId=new URLSearchParams(location.search).get('id')||'';
+  var apName=document.querySelector('.ap-name')?document.querySelector('.ap-name').textContent.trim():'';
+  btn.disabled=true; btn.textContent='Saving…';
+  oclReq('POST','/me/airports',{ident:apId,name:apName})
+    .then(function(d){
+      if(d.ok||d.error==='airport already saved'){
+        btn.textContent='★ Saved';
+        btn.style.color='var(--accent)';
+        btn.style.borderColor='var(--accent)';
+      } else {
+        btn.textContent='☆ Save airport';
+        btn.disabled=false;
+      }
+    }).catch(function(){
+      btn.textContent='☆ Save airport';
+      btn.disabled=false;
+    });
 }
 
 // Load airport data
