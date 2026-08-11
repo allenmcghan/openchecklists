@@ -91,6 +91,28 @@ async function auth(req, env) {
   }
 }
 
+// ---- Auto-register OTP-by-Email for new Zitadel users ----
+// Zitadel passwordless magic-link ("send me a code") fails with COMMAND-JKLJ3 for any
+// user that doesn't have the OTP-email factor. We register it automatically on first
+// API contact so the user never hits that error. The call is idempotent in Zitadel
+// (duplicate add is a no-op), so we fire it on every first_login event.
+async function ensureOtpEmail(userId, issuer, svcToken) {
+  if (!svcToken) return; // secret not configured — skip silently
+  try {
+    await fetch(`${issuer}/v2/users/${userId}/otp_email`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${svcToken}`,
+      },
+      body: '{}',
+    });
+    // Non-2xx is fine — user may already have it; Zitadel returns 409 in that case.
+  } catch (_) {
+    // Network error — don't break login
+  }
+}
+
 // ---- Ensure user exists ----
 async function ensureUser(db, claims) {
   const id    = claims.sub;
@@ -188,11 +210,15 @@ const routes = {
       'SELECT SUM(points) as pts, COUNT(*) as entries FROM points_ledger WHERE user_id=?'
     ).bind(user.id).first();
 
-    // Award first login points if brand new
+    // Award first login points + register OTP-email factor if brand new
     const logCount = await env.DB.prepare(
       'SELECT COUNT(*) as n FROM points_ledger WHERE user_id=? AND event="first_login"'
     ).bind(user.id).first('n');
-    if (!logCount) await awardPoints(env.DB, user.id, 'first_login');
+    if (!logCount) {
+      await awardPoints(env.DB, user.id, 'first_login');
+      // Ensure the user can receive magic-link codes (idempotent in Zitadel)
+      await ensureOtpEmail(user.id, env.ZITADEL_ISSUER, env.ZITADEL_SVC_TOKEN);
+    }
 
     return json({
       id:                user.id,
