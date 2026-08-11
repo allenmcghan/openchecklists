@@ -1,0 +1,956 @@
+{
+  "open_checklist_version": "1.0",
+  "id": "faa-ppc-normal-ops",
+  "title": "Generic Powered Parachute — Normal Operating Procedures (FAA Powered Parachute Flying Handbook)",
+  "description": "A type-generic normal-operations checklist for certificated powered parachutes (PPC), assembled from the FAA Powered Parachute Flying Handbook (FAA-H-8083-12A), a US Government work in the public domain. Covers preflight documentation check, walk-around, engine start, warm-up, wing layout, before-takeoff, takeoff, cruise, approach, and shutdown. Not a substitute for the specific POH/AFM of any individual aircraft: the Handbook itself directs the pilot to the aircraft's own checklist. Items follow the sequence and wording of Chapters 5, 7, and adjacent sections of the source document.",
+  "aircraft": {
+    "make": "Generic",
+    "model": "Powered Parachute",
+    "category": "powered_parachute",
+    "engine": [
+      {
+        "make": "Generic",
+        "model": "Two-Stroke or Four-Stroke",
+        "type": "piston_2stroke",
+        "count": 1
+      }
+    ],
+    "propeller": "ground_adjustable",
+    "gear": "fixed_tricycle"
+  },
+  "units": {
+    "airspeed": "mph",
+    "altitude": "ft",
+    "fuel": "usgal",
+    "weight": "lb",
+    "temperature": "f"
+  },
+  "provenance": {
+    "source": {
+      "kind": "government_publication",
+      "title": "Powered Parachute Flying Handbook",
+      "publisher": "U.S. Department of Transportation, Federal Aviation Administration, Flight Standards Service",
+      "document_number": "FAA-H-8083-12A",
+      "pages": "Chapters 5, 7 (pp. 5-1 through 5-20, 7-1 through 7-10)",
+      "url": "https://www.faa.gov/sites/faa.gov/files/regulations_policies/handbooks_manuals/aviation/powered_parachute_handbook.pdf",
+      "retrieved": "2026-08-11",
+      "notes": "The Handbook presents procedures as prose text rather than a formal challenge/response checklist. Converting prose to challenge/response pairs is an editorial act by the transcriber; item text follows the Handbook's wording as closely as practical. The PAVE and LOC acronyms and the five-task walk-around structure (cart, powerplant, equipment, engine warm-up, wing) are taken directly from the source. All values in this file are generic; the pilot must consult the POH for the specific PPC being flown for numeric limits."
+    },
+    "transcription": {
+      "method": "manual_transcription",
+      "tool": "claude-sonnet-4-6",
+      "date": "2026-08-11"
+    },
+    "contributors": [
+      {
+        "name": "Open Checklists project",
+        "role": ["transcriber"]
+      }
+    ],
+    "revision": {
+      "file_revision": "0.1.0",
+      "updated": "2026-08-11"
+    }
+  },
+  "verification": {
+    "source_fidelity": "unreviewed",
+    "operational_review": "none",
+    "completeness": "partial",
+    "known_issues": [
+      {
+        "severity": "content_gap",
+        "description": "Type-generic by construction. Every aircraft-specific limit (RPM, CHT, EGT, fuel type, oil ratio, fuel quantity) is absent; consult the POH for the PPC being flown.",
+        "location": "whole file"
+      },
+      {
+        "severity": "content_gap",
+        "description": "The Handbook covers single-engine PPCs. Twin-engine PPCs (such as the PM-2) have additional considerations for engine synchronisation and single-engine handling not covered here.",
+        "location": "whole file"
+      },
+      {
+        "severity": "uncertain_reading",
+        "description": "The Handbook's prose procedures have been converted to challenge/response format by the transcriber. Wording may not match the pilot's POH.",
+        "location": "whole file"
+      }
+    ]
+  },
+  "rights": {
+    "status": "public_domain",
+    "public_domain_basis": "us_government_work",
+    "corpus_license": "CC0-1.0",
+    "redistribution": "unrestricted",
+    "notes": "Source is a work of the United States Government prepared by FAA employees in the course of their official duties and is not subject to copyright under 17 U.S.C. 105. Structural markup added by this project is dedicated under CC0-1.0."
+  },
+  "sections": [
+    {
+      "id": "pave-check",
+      "phase": "preflight_inspection",
+      "title": "Preflight Planning — PAVE",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "note",
+          "text": "Before going to the field, evaluate the PAVE factors: Pilot, Aircraft, enVironment, External pressures. Establish personal minimums for each factor before proceeding.",
+          "tickable": false
+        },
+        {
+          "type": "action",
+          "text": "Pilot (experience, currency, rest, illness, medication, stress)",
+          "response": "FIT FOR FLIGHT",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Aircraft (fuel, weight within limits, density altitude, required equipment)",
+          "response": "WITHIN LIMITS",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "enVironment (weather at departure, route, destination; NOTAMs; TFRs)",
+          "response": "ACCEPTABLE",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "External pressures (schedules, purpose of flight, perceived expectations)",
+          "response": "NOT AFFECTING DECISION",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Weather: wind speed and direction, gusts, thermals, convective activity",
+          "response": "WITHIN PERSONAL MINIMUMS",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Density altitude",
+          "response": "CALCULATED AND ACCEPTABLE",
+          "tickable": true
+        }
+      ]
+    },
+    {
+      "id": "certificates-documents",
+      "phase": "preflight_inspection",
+      "title": "Certificates and Documents (AROW)",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "note",
+          "text": "The following certificates and documents must be on board when the aircraft is operated. The mnemonic AROW: Airworthiness certificate, Registration, Operating limitations, Weight and balance.",
+          "tickable": false
+        },
+        {
+          "type": "action",
+          "text": "Airworthiness certificate",
+          "response": "ON BOARD",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Registration certificate",
+          "response": "ON BOARD",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Operating limitations (AFM/POH, placards, or instrument markings)",
+          "response": "ON BOARD",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Weight and balance data",
+          "response": "ON BOARD",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Pilot certificate and photo ID (or valid driver's licence for Sport Pilots)",
+          "response": "IN POSSESSION",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Aircraft logbooks (not required on board, but review for required inspections)",
+          "response": "ANNUAL INSPECTION CURRENT",
+          "tickable": true
+        }
+      ]
+    },
+    {
+      "id": "walk-around",
+      "phase": "preflight_inspection",
+      "title": "Walk-Around — Cart Inspection",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "note",
+          "text": "The PPC walk-around covers five tasks: (1) cart inspection, (2) powerplant inspection, (3) equipment check, (4) engine warm-up and check, (5) wing and suspension line inspection. Perform in a consistent, systematic sequence every flight.",
+          "tickable": false
+        },
+        {
+          "type": "subtitle",
+          "text": "Cart",
+          "tickable": false
+        },
+        {
+          "type": "action",
+          "text": "Nosewheel: play, tire inflation, axle bolt",
+          "response": "SECURE, PROPERLY INFLATED",
+          "tickable": true,
+          "indent": 1
+        },
+        {
+          "type": "action",
+          "text": "Ground steering bar connections and range of motion",
+          "response": "SMOOTH, FULL RANGE",
+          "tickable": true,
+          "indent": 1
+        },
+        {
+          "type": "action",
+          "text": "Front fork to nosewheel and gooseneck connections",
+          "response": "SECURE",
+          "tickable": true,
+          "indent": 1
+        },
+        {
+          "type": "action",
+          "text": "Brakes (if installed): cable or hydraulic, pads, alignment, no leaks",
+          "response": "SERVICEABLE",
+          "tickable": true,
+          "indent": 1
+        },
+        {
+          "type": "action",
+          "text": "Pilot seat, rails, seat belt attachment points",
+          "response": "SECURE, NO CRACKS, SEAT PIN LOCKED",
+          "tickable": true,
+          "indent": 1
+        },
+        {
+          "type": "action",
+          "text": "Ignition and battery switches",
+          "response": "OFF",
+          "tickable": true,
+          "indent": 1
+        },
+        {
+          "type": "action",
+          "text": "Primer or primer bulb (if equipped)",
+          "response": "RESISTANCE FELT, NO LEAKS",
+          "tickable": true,
+          "indent": 1
+        },
+        {
+          "type": "action",
+          "text": "Throttle control: full range of motion, no binding",
+          "response": "FREE AND SMOOTH",
+          "tickable": true,
+          "indent": 1
+        },
+        {
+          "type": "action",
+          "text": "Altimeter: set to field elevation or barometric pressure (if equipped)",
+          "response": "SET",
+          "tickable": true,
+          "indent": 1
+        },
+        {
+          "type": "action",
+          "text": "Engine instrument master ON: note fuel quantity indication",
+          "response": "NOTED FOR COMPARISON",
+          "tickable": true,
+          "indent": 1
+        },
+        {
+          "type": "action",
+          "text": "Airframe: distortion, wear points, loose bolts, cable kinks or frays",
+          "response": "NO DEFECTS",
+          "tickable": true,
+          "indent": 1
+        },
+        {
+          "type": "action",
+          "text": "Rear wheels, axle, tires: inflation, cuts, wear, wheel rotation",
+          "response": "SERVICEABLE",
+          "tickable": true,
+          "indent": 1
+        },
+        {
+          "type": "subtitle",
+          "text": "Fuel and oil",
+          "tickable": false
+        },
+        {
+          "type": "action",
+          "text": "Fuel: type, grade, and quantity — visually confirm tank level matches gauge",
+          "response": "CORRECT TYPE, QUANTITY CONFIRMED",
+          "tickable": true,
+          "indent": 1,
+          "detail": "Check engine manufacturer's recommendation for fuel type and, on two-stroke engines, oil-to-fuel premix ratio. Incorrect ratio causes seizure."
+        },
+        {
+          "type": "action",
+          "text": "Fuel sample: color, clarity, no water",
+          "response": "CLEAR, NO CONTAMINATION",
+          "tickable": true,
+          "indent": 1
+        },
+        {
+          "type": "action",
+          "text": "Oil level and type (four-stroke, or two-stroke oil injection reservoir)",
+          "response": "WITHIN LIMITS, CORRECT TYPE",
+          "tickable": true,
+          "indent": 1
+        },
+        {
+          "type": "subtitle",
+          "text": "Powerplant",
+          "tickable": false
+        },
+        {
+          "type": "warning",
+          "text": "Treat the propeller as live at all times. Keep the propeller arc clear during all ground operations.",
+          "tickable": false
+        },
+        {
+          "type": "action",
+          "text": "Propeller blades: cracks, chips, nicks; blade bolts secure",
+          "response": "NO DAMAGE, BOLTS SECURE",
+          "tickable": true,
+          "indent": 1
+        },
+        {
+          "type": "action",
+          "text": "Engine area: clear of loose items that could enter propeller arc",
+          "response": "CLEAR",
+          "tickable": true,
+          "indent": 1
+        },
+        {
+          "type": "action",
+          "text": "Carburetor(s): secure; air filter condition and fit",
+          "response": "SECURE, FILTER CLEAN",
+          "tickable": true,
+          "indent": 1
+        },
+        {
+          "type": "action",
+          "text": "Rubber manifolds: no cracks",
+          "response": "SERVICEABLE",
+          "tickable": true,
+          "indent": 1
+        },
+        {
+          "type": "action",
+          "text": "Spark plug caps: secure on all cylinders",
+          "response": "SECURE",
+          "tickable": true,
+          "indent": 1
+        },
+        {
+          "type": "action",
+          "text": "Gear reduction box: no leaking seals, no play in gears",
+          "response": "SERVICEABLE",
+          "tickable": true,
+          "indent": 1
+        },
+        {
+          "type": "action",
+          "text": "Fuel lines: no fuel dye staining (indicates leakage), no deterioration",
+          "response": "NO LEAKS",
+          "tickable": true,
+          "indent": 1
+        },
+        {
+          "type": "action",
+          "text": "Oil lines and drain plug: no leaks, cap secure",
+          "response": "SECURE, NO LEAKS",
+          "tickable": true,
+          "indent": 1
+        },
+        {
+          "type": "action",
+          "text": "Exhaust system: no white staining (exhaust leaks), springs secure, no cracks",
+          "response": "SECURE, NO LEAKS",
+          "tickable": true,
+          "indent": 1
+        },
+        {
+          "type": "action",
+          "text": "Cooling system (liquid-cooled engines): coolant level, overflow reservoir",
+          "response": "WITHIN LIMITS",
+          "tickable": true,
+          "indent": 1
+        },
+        {
+          "type": "action",
+          "text": "All visible wires and lines: security and condition",
+          "response": "SECURE, NO DAMAGE",
+          "tickable": true,
+          "indent": 1
+        }
+      ]
+    },
+    {
+      "id": "wing-inspection",
+      "phase": "preflight_inspection",
+      "title": "Wing and Suspension Line Inspection",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "note",
+          "text": "Perform wing inspection before every flight. The wing is as critical to airworthiness as the engine. Inspect methodically in the same order each time.",
+          "tickable": false
+        },
+        {
+          "type": "action",
+          "text": "Wind direction",
+          "response": "IDENTIFIED — POINT CART INTO WIND",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Wing removed from bag: not twisted, rotated, or turned",
+          "response": "CORRECT ORIENTATION CONFIRMED",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Wing fabric: tears, burns, abrasions, UV deterioration, cell debris",
+          "response": "NO DEFECTS, CELLS CLEAR",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Wing laid out centered behind cart — \"X\" in suspension lines directly behind prop centerline",
+          "response": "CENTERED",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Riser cables at cart attachment: not twisted around airframe, secure links finger-tight plus quarter-turn",
+          "response": "SECURE, NOT TWISTED",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "A-lines separated from B-lines at riser connection; A/C lines on top of B/D lines",
+          "response": "SEPARATED AND CLEAR",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Suspension lines: no tangles, knots, pressure knots, or broken strands; lines not wrapped over top of wing",
+          "response": "CLEAR — NO LINE-OVERS",
+          "tickable": true,
+          "detail": "A line-over is a line that goes over the top of the wing rather than straight to the riser. It will prevent proper inflation and is a no-go item. Inspect the leading edge and top surface carefully."
+        },
+        {
+          "type": "caution",
+          "text": "A line-over causes catastrophic wing deformation on inflation. Do not launch with any line-over present.",
+          "tickable": false
+        },
+        {
+          "type": "action",
+          "text": "Steering lines: clear of suspension lines, anchor knots secure, lines flow freely through guides and pulleys",
+          "response": "FREE AND SECURE",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Line-over check: no line over top surface of wing",
+          "response": "CONFIRMED — CLEAR",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Debris around wing and lines: ground clear of twigs, sticks, and objects that could cause pressure knots",
+          "response": "CLEAR",
+          "tickable": true
+        }
+      ]
+    },
+    {
+      "id": "engine-start",
+      "phase": "engine_start",
+      "title": "Engine Start",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Front wheels",
+          "response": "BRACED OR CHOCKED",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Area behind cart and in propeller arc",
+          "response": "CLEAR",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Wing lines",
+          "response": "AWAY FROM PROPELLER ARC",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Anti-collision strobe (if independent switch)",
+          "response": "ON",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Fuel system: prime as equipped",
+          "response": "PRIMED PER POH",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "IDLE",
+          "tickable": true
+        },
+        {
+          "type": "challenge",
+          "text": "Call \"CLEAR PROP\" — wait for clear response from bystanders before starting",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Magneto switches",
+          "response": "ON",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Engine gauge master switch",
+          "response": "ON",
+          "tickable": true
+        },
+        {
+          "type": "challenge",
+          "text": "Start engine — keep one hand on throttle",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Oil pressure (if applicable)",
+          "response": "RISING TO NORMAL RANGE",
+          "tickable": true,
+          "detail": "If oil pressure does not rise to manufacturer's specified value within a few seconds, shut down immediately to prevent engine damage."
+        },
+        {
+          "type": "action",
+          "text": "Starter engaged warning light (if equipped)",
+          "response": "NOT ILLUMINATED",
+          "tickable": true
+        }
+      ]
+    },
+    {
+      "id": "engine-warmup",
+      "phase": "engine_start",
+      "title": "Engine Warm-Up and Run-Up",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "caution",
+          "text": "Never skip the engine warm-up. Running a cold engine at high power is a leading cause of engine damage on two-stroke and four-stroke engines alike.",
+          "tickable": false
+        },
+        {
+          "type": "action",
+          "text": "Idle warm-up: allow engine to reach minimum operating temperature",
+          "response": "TEMPERATURE RISING NORMALLY",
+          "tickable": true,
+          "detail": "Minimum warm-up time is per the engine manufacturer's POH. In temperatures below 50°F, extend warm-up time. Monitor CHT."
+        },
+        {
+          "type": "action",
+          "text": "Engine gauges",
+          "response": "TEMPERATURES AND PRESSURES IN NORMAL RANGE",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Area behind cart still clear",
+          "response": "CLEAR",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Advance throttle to approximately 75% — hold 10 seconds",
+          "response": "SMOOTH OPERATION, NO ROUGH RUNNING",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Ignition system check (dual ignition): switch one off, check RPM, restore; then alternate",
+          "response": "BOTH CIRCUITS OPERATIONAL, RPM DROP WITHIN LIMITS",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "RPM at run-up power",
+          "response": "WITHIN MANUFACTURER'S LIMITS",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Engine temperatures (CHT, EGT) at run-up",
+          "response": "WITHIN LIMITS — DO NOT FLY IF ABNORMAL",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Throttle to idle — engine settles smoothly",
+          "response": "CONFIRMED",
+          "tickable": true
+        }
+      ]
+    },
+    {
+      "id": "before-takeoff",
+      "phase": "before_takeoff",
+      "title": "Before Takeoff Check",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "note",
+          "text": "The before-takeoff check is the final systematic check of engine, controls, systems, and avionics before flight. It is also a go/no-go decision point.",
+          "tickable": false
+        },
+        {
+          "type": "action",
+          "text": "Engine temperatures: confirm still within minimums since warm-up",
+          "response": "WITHIN LIMITS",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Wind direction",
+          "response": "RECHECKED — TAKEOFF POSITION CONFIRMED INTO WIND",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Steering and suspension lines: not in path of tires, not tangled in riser cables",
+          "response": "CLEAR",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Seat belt and shoulder harness",
+          "response": "FASTENED AND SNUG",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Seat position (if adjustable)",
+          "response": "LOCKED",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Loose items: nothing able to enter propeller arc",
+          "response": "SECURED",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Wire routing (GPS, intercom, headsets): does not interfere with controls",
+          "response": "CONFIRMED",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Strobe lights",
+          "response": "ON",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Electric fuel pump (if applicable)",
+          "response": "ON",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Fuel quantity",
+          "response": "ADEQUATE FOR INTENDED FLIGHT",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Ignition system check (final)",
+          "response": "COMPLETE",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Traffic pattern and intended takeoff runway/area",
+          "response": "CHECKED — CLEAR",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Radio call or traffic scan (as applicable)",
+          "response": "COMPLETE",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Passenger briefing (if passenger aboard)",
+          "response": "COMPLETE — SEATBELTS, EMERGENCY PROCEDURES, HANDS AND FEET INSIDE",
+          "tickable": true
+        }
+      ]
+    },
+    {
+      "id": "takeoff-roll-loc",
+      "phase": "takeoff",
+      "title": "Takeoff Roll — Wing Inflation and LOC Check",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "note",
+          "text": "LOC: L — Lines Free; O — Cells Open; C — Wing Centered. Do not advance to takeoff thrust until the wing passes the LOC check.",
+          "tickable": false
+        },
+        {
+          "type": "action",
+          "text": "Throttle: advance smoothly to one-half to two-thirds takeoff power",
+          "response": "SMOOTH APPLICATION",
+          "tickable": true,
+          "detail": "Too abrupt an application yanks the wing forward and can damage the riser system."
+        },
+        {
+          "type": "action",
+          "text": "Feet on steering bars throughout takeoff roll",
+          "response": "IN POSITION",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Wing inflating and rising: correct for any side that rises faster",
+          "response": "WING RISING SYMMETRICALLY",
+          "tickable": true
+        },
+        {
+          "type": "caution",
+          "text": "If a line-over is visible (wing pinched and deformed), shut down immediately and re-lay the wing. Do not continue the takeoff roll.",
+          "tickable": false
+        },
+        {
+          "type": "action",
+          "text": "LOC check: Lines free",
+          "response": "L — CONFIRMED",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "LOC check: all Cells open including end cells",
+          "response": "O — CONFIRMED",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "LOC check: Wing Centered overhead, forward to riser attachment points",
+          "response": "C — CONFIRMED",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Advance throttle to takeoff thrust",
+          "response": "SMOOTH APPLICATION TO FULL POWER",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Directional control during ground roll",
+          "response": "MAINTAINED WITH STEERING BARS",
+          "tickable": true
+        }
+      ]
+    },
+    {
+      "id": "initial-climb",
+      "phase": "climb",
+      "title": "Liftoff and Initial Climb",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "After liftoff: maintain full power and climb away from ground",
+          "response": "FULL POWER MAINTAINED",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Initial climb path: aligned with takeoff direction — clear of obstacles",
+          "response": "CLEAR",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Engine temperatures during climb",
+          "response": "MONITORED — WITHIN LIMITS",
+          "tickable": true,
+          "detail": "On a hot day or at density altitude, allow CHT to stabilize before sustained climbs. Reduce power if approaching limits."
+        },
+        {
+          "type": "action",
+          "text": "Reduce to cruise power at safe maneuvering altitude",
+          "response": "REDUCED TO CRUISE SETTING",
+          "tickable": true
+        }
+      ]
+    },
+    {
+      "id": "cruise",
+      "phase": "cruise",
+      "title": "Cruise",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "RPM",
+          "response": "SET TO CRUISE PER POH",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Engine temperatures: CHT and EGT",
+          "response": "STABLE WITHIN NORMAL RANGE",
+          "tickable": true
+        },
+        {
+          "type": "note",
+          "text": "Avoid prolonged idle on two-stroke engines during descent. Make brief power additions every 30–60 seconds to prevent plug fouling and prevent CHT from dropping too rapidly.",
+          "tickable": false
+        },
+        {
+          "type": "action",
+          "text": "Fuel endurance: note time and fuel remaining",
+          "response": "ADEQUATE — LAND BEFORE EXHAUSTION",
+          "tickable": true,
+          "detail": "Consult POH for fuel burn and minimum reserve. Manage the flight so that you land with the required fuel reserve remaining — do not plan to land on fumes."
+        }
+      ]
+    },
+    {
+      "id": "approach-landing",
+      "phase": "landing",
+      "title": "Approach and Landing",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Approach: plan into wind where possible",
+          "response": "INTO WIND",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Landing area: clear of obstacles, suitable surface",
+          "response": "CONFIRMED CLEAR",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Airspeed: maintain above stall during entire approach",
+          "response": "ABOVE MINIMUM",
+          "tickable": true
+        },
+        {
+          "type": "caution",
+          "text": "Avoid rapid throttle changes on approach. Rapid throttle movements cause pitch oscillations (porpoising). Use slow, smooth throttle inputs.",
+          "tickable": false
+        },
+        {
+          "type": "action",
+          "text": "Throttle to idle on short final",
+          "response": "IDLE",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Flare: begin approximately 1 second above the ground — push both foot steering bars smoothly forward",
+          "response": "SMOOTH FULL FLARE",
+          "tickable": true,
+          "detail": "Hold flare as rear wheels touch. Do not release flare when close to the ground without power — the canopy will surge forward and produce a dive."
+        },
+        {
+          "type": "action",
+          "text": "After touchdown: release flare smoothly — collapse canopy immediately",
+          "response": "CANOPY COLLAPSED AND CONTROLLED",
+          "tickable": true
+        }
+      ]
+    },
+    {
+      "id": "shutdown",
+      "phase": "shutdown",
+      "title": "Shutdown and Securing",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Idle: allow engine to cool for at least 1 minute",
+          "response": "IDLING — TEMPERATURES DROPPING",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Magneto switches",
+          "response": "OFF",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Propeller stopped: confirm before approaching",
+          "response": "STOPPED — CONFIRMED",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "All electronics and instruments",
+          "response": "OFF",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Fuel valve (if applicable)",
+          "response": "OFF",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Canopy: fold, pack into wing bag, and secure",
+          "response": "PACKED AND SECURED",
+          "tickable": true,
+          "detail": "Pack the canopy immediately after landing to protect from UV exposure and unexpected wind gusts. A free wing can be picked up by wind and drag the cart."
+        },
+        {
+          "type": "action",
+          "text": "Fuel cap",
+          "response": "SECURE, VENT CLEAR",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Tie-down or hangar as required",
+          "response": "SECURED",
+          "tickable": true
+        }
+      ]
+    }
+  ]
+}

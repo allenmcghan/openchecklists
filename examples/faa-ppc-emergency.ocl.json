@@ -1,0 +1,541 @@
+{
+  "open_checklist_version": "1.0",
+  "id": "faa-ppc-emergency",
+  "title": "Generic Powered Parachute — Emergency Procedures (FAA Powered Parachute Flying Handbook)",
+  "description": "Emergency procedures for certificated powered parachutes (PPC), transcribed from the FAA Powered Parachute Flying Handbook (FAA-H-8083-12A), Chapter 12, a US Government work in the public domain. Covers engine failure on climbout, engine failure in flight, water landing, in-flight fire, takeoff abort, wing anomalies (wall, lock-out, line-over, rollover), and porpoising. IMPORTANT: The Handbook explicitly states these guidelines are generic and do not replace the manufacturer's recommended procedures. The manufacturer's POH takes precedence wherever there is a conflict.",
+  "aircraft": {
+    "make": "Generic",
+    "model": "Powered Parachute",
+    "category": "powered_parachute",
+    "engine": [
+      {
+        "make": "Generic",
+        "model": "Two-Stroke or Four-Stroke",
+        "type": "piston_2stroke",
+        "count": 1
+      }
+    ],
+    "propeller": "ground_adjustable",
+    "gear": "fixed_tricycle"
+  },
+  "units": {
+    "airspeed": "mph",
+    "altitude": "ft",
+    "fuel": "usgal",
+    "weight": "lb",
+    "temperature": "f"
+  },
+  "provenance": {
+    "source": {
+      "kind": "government_publication",
+      "title": "Powered Parachute Flying Handbook",
+      "publisher": "U.S. Department of Transportation, Federal Aviation Administration, Flight Standards Service",
+      "document_number": "FAA-H-8083-12A",
+      "pages": "Chapter 12, pp. 12-1 through 12-9",
+      "url": "https://www.faa.gov/sites/faa.gov/files/regulations_policies/handbooks_manuals/aviation/powered_parachute_handbook.pdf",
+      "retrieved": "2026-08-11",
+      "notes": "The Handbook presents emergency procedures as prose paragraphs. Converting to challenge/response format is an editorial act by the transcriber. Numbered steps in the source (e.g., the water landing sequence) are preserved in order. The Handbook's own caution: these guidelines are generic and the manufacturer's POH takes precedence."
+    },
+    "transcription": {
+      "method": "manual_transcription",
+      "tool": "claude-sonnet-4-6",
+      "date": "2026-08-11"
+    },
+    "contributors": [
+      {
+        "name": "Open Checklists project",
+        "role": ["transcriber"]
+      }
+    ],
+    "revision": {
+      "file_revision": "0.1.0",
+      "updated": "2026-08-11"
+    }
+  },
+  "verification": {
+    "source_fidelity": "unreviewed",
+    "operational_review": "none",
+    "completeness": "partial",
+    "known_issues": [
+      {
+        "severity": "safety_defect",
+        "description": "These procedures are generic. No item has been checked against any specific aircraft's POH. The manufacturer's procedures take precedence.",
+        "location": "whole file"
+      },
+      {
+        "severity": "content_gap",
+        "description": "The Handbook covers single-engine PPCs. Twin-engine PPC engine-failure procedures differ significantly — a twin can continue flight on one engine under most conditions.",
+        "location": "section efato, section engine-failure-in-flight"
+      },
+      {
+        "severity": "content_gap",
+        "description": "Specific numeric limits (minimum restart altitude, glide ratios, fuel thresholds) are not provided — they are aircraft-specific and must come from the POH.",
+        "location": "whole file"
+      }
+    ]
+  },
+  "rights": {
+    "status": "public_domain",
+    "public_domain_basis": "us_government_work",
+    "corpus_license": "CC0-1.0",
+    "redistribution": "unrestricted",
+    "notes": "Source is a work of the United States Government prepared by FAA employees in the course of their official duties and is not subject to copyright under 17 U.S.C. 105. Structural markup added by this project is dedicated under CC0-1.0."
+  },
+  "sections": [
+    {
+      "id": "efato",
+      "phase": "engine_failure_after_takeoff",
+      "title": "Engine Failure on Climbout",
+      "criticality": "emergency",
+      "condition": "Engine fails or loses power immediately after liftoff or during initial climb before a safe maneuvering altitude is reached",
+      "items": [
+        {
+          "type": "warning",
+          "text": "Do not attempt to turn back to the field from low altitude. It is safer to establish the proper glide attitude and land straight ahead or slightly to either side of the takeoff path.",
+          "tickable": false
+        },
+        {
+          "type": "action",
+          "id": "efato-glide",
+          "text": "Glide attitude",
+          "response": "ESTABLISH IMMEDIATELY",
+          "memory_item": true,
+          "tickable": true,
+          "detail": "When the engine fails at low altitude, the cart swings back under the wing and the wing can surge forward into a dangerous dive. If the wing surges forward, immediately flare to slow the surge; gradually release the flare when the wing is back overhead in normal flying position."
+        },
+        {
+          "type": "action",
+          "id": "efato-land",
+          "text": "Landing area",
+          "response": "STRAIGHT AHEAD OR WITHIN 30 DEGREES",
+          "memory_item": true,
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "id": "efato-flare",
+          "text": "Full flare: approximately 1 second above ground — push both steering bars fully forward",
+          "response": "SMOOTH FULL FLARE — HOLD THROUGH TOUCHDOWN",
+          "memory_item": true,
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "After touchdown: collapse canopy immediately",
+          "response": "CANOPY COLLAPSED",
+          "tickable": true
+        }
+      ]
+    },
+    {
+      "id": "engine-failure-in-flight",
+      "phase": "engine_failure_in_flight",
+      "title": "Engine Failure In Flight",
+      "criticality": "emergency",
+      "condition": "Engine stops or loses power in flight at altitude",
+      "items": [
+        {
+          "type": "note",
+          "text": "A powered parachute glides. Loss of engine power is not an immediate catastrophe. Fly the aircraft. Select the safest landing area and glide to it.",
+          "tickable": false
+        },
+        {
+          "type": "action",
+          "id": "eif-fly",
+          "text": "Continue to fly the aircraft — maintain wing overhead in normal glide",
+          "response": "GLIDING",
+          "memory_item": true,
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "id": "eif-land",
+          "text": "Landing zone: safest available terrain — into wind if possible",
+          "response": "IDENTIFIED AND TRACKING",
+          "memory_item": true,
+          "tickable": true,
+          "detail": "Safe terrain is the primary priority; wind direction is secondary. Land into the wind if possible; downwind otherwise. Crosswind is the least favorable. Never fly over terrain you cannot land on given your altitude and glide slope."
+        },
+        {
+          "type": "action",
+          "text": "Engine restart: attempt only if altitude and cause permit — do not restart below manufacturer's minimum altitude",
+          "response": "ATTEMPTED IF ALTITUDE PERMITS — OTHERWISE GLIDE TO LANDING",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "id": "eif-flare",
+          "text": "Full flare approximately 1 second above ground — push both steering bars completely forward and hold",
+          "response": "SMOOTH FULL FLARE — HOLD THROUGH TOUCHDOWN",
+          "memory_item": true,
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "After touchdown: collapse canopy (engine already off)",
+          "response": "CANOPY COLLAPSED",
+          "tickable": true
+        }
+      ]
+    },
+    {
+      "id": "engine-failure-over-water",
+      "phase": "engine_failure_in_flight",
+      "title": "Engine Failure In Flight — Water Landing (PPCL)",
+      "criticality": "emergency",
+      "condition": "Engine failure over water with insufficient altitude to glide to shore",
+      "items": [
+        {
+          "type": "warning",
+          "text": "When planning any over-water flight, wear a life vest. Maintain altitude that permits gliding to land at all times. Carry a line-cutter that is accessible but cannot cause injury on impact.",
+          "tickable": false
+        },
+        {
+          "type": "action",
+          "text": "Align into wind and move toward shore if possible",
+          "response": "HEADING INTO WIND, CLOSEST TO SHORE",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Stay seated — cart provides impact protection",
+          "response": "REMAINING SEATED",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "All electronics",
+          "response": "OFF",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Objects that may delay evacuation (camera straps, communication cords)",
+          "response": "REMOVED OR DISCARDED",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Objects that may penetrate skin on impact",
+          "response": "DISCARDED",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Seatbelt and shoulder harness",
+          "response": "TIGHTENED",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "id": "water-impact-position",
+          "text": "At approximately 2 seconds (~25 ft) above water: head, neck, and legs tucked close to body; arms along head with hands over lower back of head",
+          "response": "IMPACT POSITION",
+          "memory_item": true,
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "After impact: release seatbelt and shoulder harness and exit cart",
+          "response": "EXITING",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "If entangled with canopy lines: use line-cutter and work to edge of wing",
+          "response": "CUTTING AND SURFACING",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Swim to shore — do not attempt to retrieve items from aircraft",
+          "response": "SWIMMING CLEAR",
+          "tickable": true
+        }
+      ]
+    },
+    {
+      "id": "in-flight-fire",
+      "phase": "engine_fire_in_flight",
+      "title": "In-Flight Fire",
+      "criticality": "emergency",
+      "condition": "Any sign of fire near the engine, fuel containers, or fuel lines",
+      "items": [
+        {
+          "type": "warning",
+          "text": "In-flight fire is one of the most serious emergencies a PPC pilot can encounter due to the flammability of the ram-air wing. Land immediately.",
+          "tickable": false
+        },
+        {
+          "type": "action",
+          "id": "fire-throttle",
+          "text": "Throttle",
+          "response": "IDLE",
+          "memory_item": true,
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "id": "fire-fuel",
+          "text": "Fuel valve(s)",
+          "response": "OFF IF ACCESSIBLE",
+          "memory_item": true,
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "id": "fire-magnetos",
+          "text": "Magnetos",
+          "response": "OFF",
+          "memory_item": true,
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "All electronics",
+          "response": "OFF",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "id": "fire-land",
+          "text": "Land immediately — stop as quickly as possible",
+          "response": "LANDING NOW",
+          "memory_item": true,
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "id": "fire-evacuate",
+          "text": "Evacuate the aircraft immediately and move away",
+          "response": "CLEAR OF AIRCRAFT",
+          "memory_item": true,
+          "tickable": true,
+          "detail": "After evacuating, the principal danger is fuel igniting and exploding. Get far away from the aircraft."
+        }
+      ]
+    },
+    {
+      "id": "takeoff-abort",
+      "phase": "engine_failure_before_rotation",
+      "title": "Rejected Takeoff / Abort",
+      "criticality": "abnormal",
+      "condition": "Any condition requiring termination of the takeoff during the ground roll or initial kiting",
+      "items": [
+        {
+          "type": "note",
+          "text": "Abort conditions include: lines restricted around airframe, wing wall, wing lock-out, line-over detected during rolling preflight, lines caught under a wheel, unsafe wing position.",
+          "tickable": false
+        },
+        {
+          "type": "action",
+          "id": "abort-throttle",
+          "text": "Throttle",
+          "response": "IDLE",
+          "memory_item": true,
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "id": "abort-magnetos",
+          "text": "Magneto switches",
+          "response": "OFF",
+          "memory_item": true,
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Maintain directional control: steer clear of obstacles during deceleration",
+          "response": "CONTROLLED STOP",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Collapse and pull down canopy",
+          "response": "CANOPY DOWN",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Identify and correct the cause before the next takeoff attempt",
+          "response": "CAUSE IDENTIFIED AND CORRECTED",
+          "tickable": true
+        }
+      ]
+    },
+    {
+      "id": "line-over",
+      "phase": "other",
+      "phase_label": "Takeoff Abnormal — Line-Over",
+      "title": "Line-Over Detected (Ground — Before Takeoff)",
+      "criticality": "abnormal",
+      "condition": "A suspension line is observed over the top surface of the wing during preflight or rolling preflight",
+      "items": [
+        {
+          "type": "warning",
+          "text": "A line-over will prevent proper wing inflation and will cause a severe yaw or roll on takeoff. This is a no-go condition. Do not launch.",
+          "tickable": false
+        },
+        {
+          "type": "action",
+          "text": "Abort takeoff: throttle idle, magnetos off",
+          "response": "ABORTED",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Identify which line is over the wing and which riser group it belongs to",
+          "response": "IDENTIFIED",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Pull the wing fabric through the loop made by the line-over",
+          "response": "LINE-OVER CLEARED",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Re-inspect all lines before next takeoff attempt",
+          "response": "REINSPECTED — CLEAR",
+          "tickable": true
+        }
+      ]
+    },
+    {
+      "id": "rollover",
+      "phase": "other",
+      "phase_label": "Takeoff Emergency — Rollover",
+      "title": "Wing Pull-Over (Rollover)",
+      "criticality": "emergency",
+      "condition": "Cart begins to tip over due to horizontal lift from wing not centered over cart",
+      "items": [
+        {
+          "type": "warning",
+          "text": "A rollover can cause death or serious injury. Prevention is by keeping the cart headed into the wind, allowing the wing time to center, and not rushing the takeoff roll.",
+          "tickable": false
+        },
+        {
+          "type": "note",
+          "text": "If cart is lifting on one side but recovery is still possible: immediately reduce engine RPM to reduce wing lift — this may allow the cart to settle back on all wheels.",
+          "tickable": false
+        },
+        {
+          "type": "action",
+          "id": "rollover-mag",
+          "text": "If past recovery point — magneto switches",
+          "response": "OFF — STOP PROPELLER",
+          "memory_item": true,
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "id": "rollover-tuck",
+          "text": "Do not try to stop the rollover with arms or legs — pull all limbs into tuck position",
+          "response": "LIMBS TUCKED IN",
+          "memory_item": true,
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "After cart stops: unstrap immediately and exit",
+          "response": "CLEAR OF CART",
+          "tickable": true
+        },
+        {
+          "type": "note",
+          "text": "If safe and not conflicting with 49 CFR 830 accident-reporting requirements, return the cart to upright position to prevent fuel and oil from spilling.",
+          "tickable": false
+        }
+      ]
+    },
+    {
+      "id": "porpoising",
+      "phase": "other",
+      "phase_label": "Landing Abnormal — Porpoising",
+      "title": "Porpoising on Landing Approach",
+      "criticality": "abnormal",
+      "condition": "Pilot-induced pitch oscillations developing during approach or landing",
+      "items": [
+        {
+          "type": "note",
+          "text": "Porpoising is caused by rapid or over-controlled throttle movements. There is an inherent delay between throttle change and pitch response. If oscillations begin developing on approach, go around immediately.",
+          "tickable": false
+        },
+        {
+          "type": "action",
+          "id": "porpoise-goaround",
+          "text": "Go around: apply full power and climb back to pattern altitude",
+          "response": "CLIMBING — FULL POWER",
+          "memory_item": true,
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "On next approach: slow, smooth throttle action — avoid over-control",
+          "response": "STABLE APPROACH",
+          "tickable": true
+        }
+      ]
+    },
+    {
+      "id": "wing-wall",
+      "phase": "other",
+      "phase_label": "Takeoff Abnormal — Wing Wall",
+      "title": "Wing Wall on Takeoff Roll",
+      "criticality": "abnormal",
+      "condition": "The canopy forms a wall-shape behind the cart: trailing edge on ground, leading edge vertical, wing not inflating and rising",
+      "items": [
+        {
+          "type": "caution",
+          "text": "The only safe solution to a wing wall is to abort, shut down, and re-lay the canopy. Attempting to 'pop' the wing out of the wall with throttle movements risks sucking lines into the propeller.",
+          "tickable": false
+        },
+        {
+          "type": "action",
+          "text": "Abort the takeoff: throttle idle, magnetos off",
+          "response": "ABORTED AND SHUT DOWN",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Re-lay canopy from the beginning",
+          "response": "CANOPY RE-LAID AND REINSPECTED",
+          "tickable": true
+        }
+      ]
+    },
+    {
+      "id": "wing-lockout",
+      "phase": "other",
+      "phase_label": "Takeoff Abnormal — Wing Lock-Out",
+      "title": "Wing Lock-Out on Takeoff Roll",
+      "criticality": "abnormal",
+      "condition": "The inflated canopy hangs at approximately 45 degrees behind the cart and will not rise overhead despite increasing groundspeed",
+      "items": [
+        {
+          "type": "note",
+          "text": "Two techniques exist to recover from a lock-out on a rectangular wing. Consult your flight instructor before attempting these on an elliptical wing, as the characteristics differ significantly.",
+          "tickable": false
+        },
+        {
+          "type": "action",
+          "text": "Method 1 — Reduce groundspeed until wing begins to fall back and down; then smoothly and firmly increase groundspeed to slingshot wing overhead before it touches the ground",
+          "response": "WING OVERHEAD — LOC CHECK BEFORE CONTINUING",
+          "tickable": true
+        },
+        {
+          "type": "action",
+          "text": "Method 2 — Maintain groundspeed and apply full flare (push both steering bars); hold until wing pulls back to approximately 60 degrees; then smoothly release flare to slingshot wing overhead",
+          "response": "WING OVERHEAD — LOC CHECK BEFORE CONTINUING",
+          "tickable": true
+        },
+        {
+          "type": "caution",
+          "text": "If neither technique brings the wing overhead cleanly, abort the takeoff. Do not launch with a lock-out.",
+          "tickable": false
+        }
+      ]
+    }
+  ]
+}
