@@ -50,34 +50,44 @@ async function handleWeather(ident, request) {
     // Normalize ident (KJFK or KFK, handle 3/4 letter codes)
     const icao = ident.length === 3 ? `K${ident}` : ident;
 
-    // Fetch from aviationweather.gov
-    const wxUrl = `${UPSTREAM_WEATHER}metar?ids=${encodeURIComponent(icao)}`;
+    // Fetch both METAR and TAF from aviationweather.gov
+    const metarUrl = `${UPSTREAM_WEATHER}metar?ids=${encodeURIComponent(icao)}`;
+    const tafUrl = `${UPSTREAM_WEATHER}taf?ids=${encodeURIComponent(icao)}`;
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), FETCH_TIMEOUT);
 
-    const res = await fetch(wxUrl, { signal: controller.signal });
+    const [metarRes, tafRes] = await Promise.all([
+      fetch(metarUrl, { signal: controller.signal }),
+      fetch(tafUrl, { signal: controller.signal }),
+    ]);
     clearTimeout(timeoutId);
 
-    if (!res.ok) {
-      throw new Error(`Upstream error: ${res.status}`);
+    if (!metarRes.ok || !tafRes.ok) {
+      throw new Error(`Upstream error: METAR ${metarRes.status}, TAF ${tafRes.status}`);
     }
 
-    const data = await res.json();
-    const metar = data.results?.[0]?.raw_text || "No METAR available";
+    const metarData = await metarRes.json();
+    const tafData = await tafRes.json();
+    const metar = metarData.results?.[0]?.raw_text || "No METAR available";
+    const taf = tafData.results?.[0]?.raw_text || "";
 
     const response = new Response(
       JSON.stringify({
         ident,
         metar,
+        taf,
         timestamp: new Date().toISOString(),
       }),
       {
-        headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" },
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          "Cache-Control": `public, max-age=${CACHE_TTL_WEATHER}`,
+        },
       }
     );
 
     // Cache the response
-    response.headers.append("Cache-Control", `public, max-age=${CACHE_TTL_WEATHER}`);
     await cache.put(cacheKey, response.clone());
 
     return response;
@@ -86,6 +96,7 @@ async function handleWeather(ident, request) {
       JSON.stringify({
         ident,
         metar: null,
+        taf: null,
         error: "Unable to fetch weather",
         timestamp: new Date().toISOString(),
       }),
