@@ -730,6 +730,48 @@ def family_page(family: str, members: list[dict], docs: dict[str, dict]) -> str:
     return "".join(out)
 
 
+def build_airport_pages(airport_data: list[dict], effective_date: str, output_dir: Path) -> int:
+    """
+    Generate airport detail pages for all airports in the corpus.
+
+    Args:
+        airport_data: List of airport dicts from NASR data
+        effective_date: AIRAC effective date (e.g., "2026-08-06")
+        output_dir: Directory to write airport HTML files
+
+    Returns:
+        Number of airports successfully generated
+    """
+    output_dir.mkdir(parents=True, exist_ok=True)
+    count = 0
+    errors = 0
+
+    for i, airport in enumerate(airport_data, start=1):
+        try:
+            ident = airport.get("ident", "").lower()
+            if not ident:
+                errors += 1
+                continue
+
+            html = render_airport_page(airport, effective_date)
+            out_file = output_dir / f"{ident}.html"
+            out_file.write_text(html, encoding="utf-8")
+            count += 1
+
+            # Progress every 1000 airports
+            if i % 1000 == 0:
+                print(f"    {i:,} airports processed...")
+
+        except Exception as e:
+            errors += 1
+            print(f"    ERROR building airport {airport.get('ident')}: {e}")
+
+    if errors:
+        print(f"    {errors} airport(s) skipped due to errors")
+
+    return count
+
+
 def render_airport_page(airport: dict, effective_date: str) -> str:
     """
     Render a complete airport page as HTML.
@@ -1157,12 +1199,38 @@ def main() -> int:
 
     airport_data = args.data / "airports"
     airports_shipped = 0
+    airports_built = 0
     if (airport_data / "index.json").exists():
         dest = args.out / "data" / "airports"
         shutil.copytree(airport_data, dest)
         airports_shipped = len(json.loads((airport_data / "index.json").read_text()))
         for f in sorted(dest.rglob("*.json")):
             artifacts.append(f)
+
+        # Task 3: Build airport detail pages for all airports
+        print(f"  building airport pages ({airports_shipped:,} airports)...")
+
+        # Load all airports from detail shards
+        all_airports = []
+        cycle_data = json.loads((airport_data / "cycle.json").read_text())
+        effective_date = cycle_data.get("effective", "")
+
+        # Read all airports from detail shards
+        for detail_file in sorted((airport_data / "detail").glob("*.json")):
+            try:
+                shard = json.load(detail_file.open())
+                if isinstance(shard, dict):
+                    all_airports.extend(shard.values())
+            except Exception as e:
+                print(f"    WARNING: failed to read {detail_file.name}: {e}")
+
+        # Generate airport pages
+        out_dir = args.out / "airport"
+        airports_built = build_airport_pages(all_airports, effective_date, out_dir)
+
+        # Track generated airport files as artifacts
+        for airport_file in out_dir.glob("*.html"):
+            artifacts.append(airport_file)
 
     # Hero and OG images
     for img_name in ("hero.png", "og-image.png"):
@@ -1308,12 +1376,18 @@ def main() -> int:
     (args.out / "manifest.sha256").write_text("\n".join(lines) + "\n")
 
     total = sum(1 for _ in args.out.rglob("*") if _.is_file())
-    print(f"built {args.out.relative_to(REPO)}: {len(entries)} checklists, {total} files")
+    try:
+        out_rel = args.out.relative_to(REPO)
+    except ValueError:
+        out_rel = args.out
+    print(f"built {out_rel}: {len(entries)} checklists, {total} files")
     print(f"  reviewed: {len(rev)}   quarantined: {len(unrev)}")
     print(f"  library passages: {library_shipped:,}"
           + ("" if library_shipped else "  (run tools/library.py ingest)"))
     print(f"  airports shipped: {airports_shipped:,}"
           + ("" if airports_shipped else "  (run tools/airports.py ingest)"))
+    if airports_built:
+        print(f"  airport pages built: {airports_built:,}")
     print(f"  {violations} export contract violation(s)")
     return 1 if violations else 0
 
