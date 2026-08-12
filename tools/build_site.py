@@ -750,15 +750,26 @@ def render_airport_page(airport: dict, effective_date: str) -> str:
     sectional = airport.get("sectional", "")
     lat = airport.get("lat", "")
     lon = airport.get("lon", "")
+    status = airport.get("status", "Open")
+    ownership = airport.get("owner", "Unknown")
 
     # Generate runway diagram SVG
     runway_svg = render_runway_svg(airport)
 
-    # Format frequencies
+    # Format frequencies with priority sorting
     freq_html = ""
     if airport.get("frequencies"):
-        freq_html = "<table class='freqtable'><tbody>"
-        for f in airport["frequencies"]:
+        freq_html = "<table class='freqtable'><thead><tr><th>Frequency</th><th>Use</th><th>Facility</th><th>Callsign</th><th>Hours</th></tr></thead><tbody>"
+        # Sort frequencies by VFR pilot priority
+        priority = ["CTAF", "Unicom", "Tower", "Ground", "Clearance delivery", "ATIS", "AWOS", "ASOS"]
+        sorted_freqs = sorted(
+            airport["frequencies"],
+            key=lambda f: (
+                priority.index(f.get("use", "")) if f.get("use") in priority else len(priority),
+                f.get("use", "")
+            )
+        )
+        for f in sorted_freqs:
             freq = f.get("frequency", "")
             use = f.get("use", "")
             facility = f.get("facility", "")
@@ -800,6 +811,7 @@ def render_airport_page(airport: dict, effective_date: str) -> str:
         .freqtable {{ width: 100%; border-collapse: collapse; margin: 1rem 0; }}
         .freqtable td {{ padding: 0.5rem; border-bottom: 1px solid #eee; }}
         .freqtable .staffed {{ color: #2e7d32; }}
+        .freqtable .automated {{ color: #999; }}
         .data-section {{ margin: 2rem 0; padding: 1rem; border: 1px solid #ddd; border-radius: 6px; }}
         .loading {{ color: #999; font-style: italic; }}
         .spinner {{ display: inline-block; width: 12px; height: 12px; border: 2px solid #f3f3f3; border-top: 2px solid #3498db; border-radius: 50%; animation: spin 0.8s linear infinite; }}
@@ -827,6 +839,14 @@ def render_airport_page(airport: dict, effective_date: str) -> str:
         <div class="fact">
             <div class="fact-label">Sectional</div>
             <div class="fact-value">{sectional or "N/A"}</div>
+        </div>
+        <div class="fact">
+            <div class="fact-label">Status</div>
+            <div class="fact-value">{status or "Open"}</div>
+        </div>
+        <div class="fact">
+            <div class="fact-label">Ownership</div>
+            <div class="fact-value">{ownership or "Unknown"}</div>
         </div>
     </section>
 
@@ -862,6 +882,15 @@ def render_airport_page(airport: dict, effective_date: str) -> str:
         <div class="loading"><span class="spinner"></span> Loading fuel info...</div>
     </section>
 
+    <section class="data-section">
+        <h2>Navigation Aids & References</h2>
+        <ul>
+            <li><a href="https://skyvector.com/?ll={lat},{lon}" target="_blank">Sectional Chart</a> (Sky Vector)</li>
+            <li><a href="https://www.faa.gov/air_traffic/publications/atpubs/atc/atc-300.html" target="_blank">Approach Plates</a> (FAA)</li>
+            <li><a href="https://www.airnav.com/airports/{ident}" target="_blank">Airport Diagram</a> (airnav.com)</li>
+        </ul>
+    </section>
+
     <footer>
         <p>Data effective {effective_date}. Always verify with current official sources.</p>
         <p><a href="/airports.html">Back to airport search</a></p>
@@ -878,14 +907,28 @@ L.tileLayer('https://{{s}}.tile.openstreetmap.org/{{z}}/{{x}}/{{y}}.png', {{
 }}).addTo(map);
 
 // Fetch live data
-window.OCL_AIRPORT = '{{ident}}';
+window.OCL_AIRPORT = '{ident}';
 window.OCL_API_BASE = '/api/airport/';
+
+async function fetchWithTimeout(url, timeout = 5000) {{
+    const controller = new AbortController();
+    const id = setTimeout(() => controller.abort(), timeout);
+    try {{
+        const response = await fetch(url, {{ signal: controller.signal, cache: 'no-store' }});
+        clearTimeout(id);
+        return response;
+    }} catch (err) {{
+        clearTimeout(id);
+        throw err;
+    }}
+}}
 
 function loadLiveData() {{
     const ident = window.OCL_AIRPORT;
+    const timeout = 5000; // 5 seconds per spec
 
     // Weather
-    fetch(`${{window.OCL_API_BASE}}${{ident}}/weather`, {{ cache: 'no-store' }})
+    fetchWithTimeout(`${{window.OCL_API_BASE}}${{ident}}/weather`, timeout)
         .then(r => r.json())
         .then(data => {{
             const el = document.getElementById('weather');
@@ -897,7 +940,7 @@ function loadLiveData() {{
         }});
 
     // NOTAMs
-    fetch(`${{window.OCL_API_BASE}}${{ident}}/notams`, {{ cache: 'no-store' }})
+    fetchWithTimeout(`${{window.OCL_API_BASE}}${{ident}}/notams`, timeout)
         .then(r => r.json())
         .then(data => {{
             const el = document.getElementById('notams');
@@ -913,7 +956,7 @@ function loadLiveData() {{
         }});
 
     // Airspace
-    fetch(`${{window.OCL_API_BASE}}${{ident}}/airspace`, {{ cache: 'no-store' }})
+    fetchWithTimeout(`${{window.OCL_API_BASE}}${{ident}}/airspace`, timeout)
         .then(r => r.json())
         .then(data => {{
             const el = document.getElementById('airspace');
@@ -921,11 +964,11 @@ function loadLiveData() {{
         }})
         .catch(err => {{
             const el = document.getElementById('airspace');
-            el.innerHTML = '<h2>Airspace</h2><div class="error">Unable to load airspace data.</div>';
+            el.innerHTML = '<h2>Airspace</h2><div class="error">Unable to load airspace data. <a href="https://www.faa.gov/air_traffic/nas/nes/airspace_fundamentals/" target="_blank">See FAA airspace info.</a></div>';
         }});
 
     // Fuel
-    fetch(`${{window.OCL_API_BASE}}${{ident}}/fuel`, {{ cache: 'no-store' }})
+    fetchWithTimeout(`${{window.OCL_API_BASE}}${{ident}}/fuel`, timeout)
         .then(r => r.json())
         .then(data => {{
             const el = document.getElementById('fuel');
@@ -934,7 +977,7 @@ function loadLiveData() {{
         }})
         .catch(err => {{
             const el = document.getElementById('fuel');
-            el.innerHTML = '<h2>Fuel & FBO</h2><div class="error">Unable to load fuel data. Contact the FBO for current information.</div>';
+            el.innerHTML = '<h2>Fuel & FBO</h2><div class="error">Unable to load fuel data. Contact the FBO or check <a href="https://www.100ll.com/" target="_blank">fuel availability sites</a>.</div>';
         }});
 }}
 
