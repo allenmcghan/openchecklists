@@ -4,7 +4,7 @@ import json
 import tempfile
 from pathlib import Path
 
-from build_site import render_airport_page
+from build_site import build_airport_pages, render_airport_page
 
 
 def test_airport_build_generates_files():
@@ -105,15 +105,12 @@ def test_airport_build_generates_files():
 
         effective_date = "2026-08-06"
 
-        # Generate airport pages (simulating build_airport_pages function)
+        # Call build_airport_pages directly
         out_dir = tmpdir / "airport"
-        out_dir.mkdir(parents=True)
+        count = build_airport_pages(airports, effective_date, out_dir)
 
-        for airport in airports:
-            ident = airport["ident"].lower()
-            html = render_airport_page(airport, effective_date)
-            out_file = out_dir / f"{ident}.html"
-            out_file.write_text(html, encoding="utf-8")
+        # Verify count returned
+        assert count == 2
 
         # Assertions
         # 1. Output directory was created

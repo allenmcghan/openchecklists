@@ -35,6 +35,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import logging
 import shutil
 import sys
 import urllib.parse
@@ -764,10 +765,10 @@ def build_airport_pages(airport_data: list[dict], effective_date: str, output_di
 
         except Exception as e:
             errors += 1
-            print(f"    ERROR building airport {airport.get('ident')}: {e}")
+            logging.warning(f"Error building {airport.get('ident')}: {e}")
 
     if errors:
-        print(f"    {errors} airport(s) skipped due to errors")
+        logging.warning(f"{errors} airport(s) skipped due to errors")
 
     return count
 
@@ -1211,14 +1212,15 @@ def main() -> int:
         print(f"  building airport pages ({airports_shipped:,} airports)...")
 
         # Load all airports from detail shards
-        all_airports = []
-        cycle_data = json.loads((airport_data / "cycle.json").read_text())
-        effective_date = cycle_data.get("effective", "")
+        all_airports: list[dict] = []
+        cycle_path = airport_data / "cycle.json"
+        effective_date = cycle_path.read_text().strip() if cycle_path.exists() else ""
 
         # Read all airports from detail shards
         for detail_file in sorted((airport_data / "detail").glob("*.json")):
             try:
-                shard = json.load(detail_file.open())
+                with detail_file.open() as fh:
+                    shard = json.load(fh)
                 if isinstance(shard, dict):
                     all_airports.extend(shard.values())
             except Exception as e:
