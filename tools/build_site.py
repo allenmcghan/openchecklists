@@ -741,48 +741,73 @@ def render_airport_page(airport: dict, effective_date: str) -> str:
     Returns:
         HTML string with embedded SVG diagram, static data, and live data zones.
     """
-    ident = airport.get("ident", "")
-    name = airport.get("name", ident)
-    city = airport.get("city", "")
-    state = airport.get("state", "")
+    from html import escape
+
+    ident = escape(airport.get("ident", ""))
+    name = escape(airport.get("name", ident))
+    city = escape(airport.get("city", ""))
+    state = escape(airport.get("state", ""))
     elevation = airport.get("elevation_ft", "")
     pattern_alt = airport.get("pattern_altitude_ft", "")
-    sectional = airport.get("sectional", "")
+    sectional = escape(airport.get("sectional", ""))
     lat = airport.get("lat", "")
     lon = airport.get("lon", "")
-    status = airport.get("status", "Open")
-    ownership = airport.get("owner", "Unknown")
+    status = escape(airport.get("status") or "Open")
+    ownership = escape(airport.get("owner") or "Unknown")
 
     # Generate runway diagram SVG
     runway_svg = render_runway_svg(airport)
+
+    # Validate lat/lon before rendering map
+    map_js = ""
+    try:
+        lat_f = float(lat) if lat else None
+        lon_f = float(lon) if lon else None
+        if lat_f is not None and lon_f is not None:
+            map_js = f"""
+        <section id="map"></section>
+        <script>
+            const map = L.map('map').setView([{lat_f}, {lon_f}], 14);
+            L.tileLayer('https://{{s}}.tile.openstreetmap.org/{{z}}/{{x}}/{{y}}.png', {{
+                attribution: '&copy; OpenStreetMap contributors',
+                maxZoom: 19,
+            }}).addTo(map);
+        </script>
+        """
+        else:
+            map_js = '<section class="data-section"><p class="error">Map coordinates unavailable.</p></section>'
+    except (ValueError, TypeError):
+        map_js = '<section class="data-section"><p class="error">Map coordinates unavailable.</p></section>'
 
     # Format frequencies with priority sorting
     freq_html = ""
     if airport.get("frequencies"):
         freq_html = "<table class='freqtable'><thead><tr><th>Frequency</th><th>Use</th><th>Facility</th><th>Callsign</th><th>Hours</th></tr></thead><tbody>"
-        # Sort frequencies by VFR pilot priority
+        # Sort frequencies by VFR pilot priority (case-insensitive)
         priority = ["CTAF", "Unicom", "Tower", "Ground", "Clearance delivery", "ATIS", "AWOS", "ASOS"]
+        priority_upper = [p.upper() for p in priority]
+
         sorted_freqs = sorted(
             airport["frequencies"],
             key=lambda f: (
-                priority.index(f.get("use", "")) if f.get("use") in priority else len(priority),
+                priority_upper.index(f.get("use", "").upper()) if f.get("use", "").upper() in priority_upper else len(priority),
                 f.get("use", "")
             )
         )
         for f in sorted_freqs:
-            freq = f.get("frequency", "")
-            use = f.get("use", "")
-            facility = f.get("facility", "")
-            callsign = f.get("callsign", "")
-            hours = f.get("hours", "")
+            freq = escape(f.get("frequency", ""))
+            use = escape(f.get("use", ""))
+            facility = escape(f.get("facility", "") or "")
+            callsign = escape(f.get("callsign", "") or "")
+            hours = escape(f.get("hours", "") or "")
             staffed = "staffed" if use in ("Tower", "Ground", "Clearance delivery") else "automated"
             freq_html += (
                 f"<tr class='{staffed}'>"
                 f"<td>{freq}</td>"
                 f"<td>{use}</td>"
-                f"<td>{facility or ''}</td>"
-                f"<td>{callsign or ''}</td>"
-                f"<td>{hours or ''}</td>"
+                f"<td>{facility}</td>"
+                f"<td>{callsign}</td>"
+                f"<td>{hours}</td>"
                 f"</tr>"
             )
         freq_html += "</tbody></table>"
@@ -809,6 +834,7 @@ def render_airport_page(airport: dict, effective_date: str) -> str:
         #runway-diagram {{ margin: 2rem 0; border: 1px solid #ddd; border-radius: 6px; padding: 1rem; background: #fafafa; }}
         #map {{ height: 400px; margin: 2rem 0; border: 1px solid #ddd; border-radius: 6px; }}
         .freqtable {{ width: 100%; border-collapse: collapse; margin: 1rem 0; }}
+        .freqtable th {{ padding: 0.5rem; border-bottom: 1px solid #ccc; font-weight: bold; text-align: left; background-color: #f5f5f5; }}
         .freqtable td {{ padding: 0.5rem; border-bottom: 1px solid #eee; }}
         .freqtable .staffed {{ color: #2e7d32; }}
         .freqtable .automated {{ color: #999; }}
@@ -842,11 +868,11 @@ def render_airport_page(airport: dict, effective_date: str) -> str:
         </div>
         <div class="fact">
             <div class="fact-label">Status</div>
-            <div class="fact-value">{status or "Open"}</div>
+            <div class="fact-value">{status}</div>
         </div>
         <div class="fact">
             <div class="fact-label">Ownership</div>
-            <div class="fact-value">{ownership or "Unknown"}</div>
+            <div class="fact-value">{ownership}</div>
         </div>
     </section>
 
@@ -855,7 +881,7 @@ def render_airport_page(airport: dict, effective_date: str) -> str:
         {runway_svg}
     </section>
 
-    <section id="map"></section>
+    {map_js}
 
     <section class="data-section">
         <h2>Frequencies</h2>
@@ -886,8 +912,7 @@ def render_airport_page(airport: dict, effective_date: str) -> str:
         <h2>Navigation Aids & References</h2>
         <ul>
             <li><a href="https://skyvector.com/?ll={lat},{lon}" target="_blank">Sectional Chart</a> (Sky Vector)</li>
-            <li><a href="https://www.faa.gov/air_traffic/publications/atpubs/atc/atc-300.html" target="_blank">Approach Plates</a> (FAA)</li>
-            <li><a href="https://www.airnav.com/airports/{ident}" target="_blank">Airport Diagram</a> (airnav.com)</li>
+            <li><a href="https://www.airnav.com/airports/{ident}" target="_blank">Approach Plates & Diagrams</a> (airnav.com)</li>
         </ul>
     </section>
 
@@ -899,12 +924,6 @@ def render_airport_page(airport: dict, effective_date: str) -> str:
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
-// Initialize map
-const map = L.map('map').setView([{lat}, {lon}], 14);
-L.tileLayer('https://{{s}}.tile.openstreetmap.org/{{z}}/{{x}}/{{y}}.png', {{
-    attribution: '&copy; OpenStreetMap contributors',
-    maxZoom: 19,
-}}).addTo(map);
 
 // Fetch live data
 window.OCL_AIRPORT = '{ident}';
@@ -982,7 +1001,9 @@ function loadLiveData() {{
 }}
 
 // Load live data on page load (after 500ms to let page render)
-setTimeout(loadLiveData, 500);
+if (document.getElementById('map')) {{
+    setTimeout(loadLiveData, 500);
+}}
 </script>
 </body>
 </html>"""
