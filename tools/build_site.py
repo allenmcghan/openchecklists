@@ -53,6 +53,7 @@ from site_pages import (  # noqa: E402
 )
 from diff import diff as semantic_diff, render_markdown as diff_markdown  # noqa: E402
 from validate import content_hash  # noqa: E402
+from render_runway_diagram import render_runway_svg  # noqa: E402
 
 REPO = Path(__file__).resolve().parent.parent
 OUT = REPO / "build" / "site"
@@ -727,6 +728,223 @@ def family_page(family: str, members: list[dict], docs: dict[str, dict]) -> str:
     )
     out.append(FOOT)
     return "".join(out)
+
+
+def render_airport_page(airport: dict, effective_date: str) -> str:
+    """
+    Render a complete airport page as HTML.
+
+    Args:
+        airport: Airport dict from NASR ingest (with all fields)
+        effective_date: AIRAC effective date string (YYYY-MM-DD)
+
+    Returns:
+        HTML string with embedded SVG diagram, static data, and live data zones.
+    """
+    ident = airport.get("ident", "")
+    name = airport.get("name", ident)
+    city = airport.get("city", "")
+    state = airport.get("state", "")
+    elevation = airport.get("elevation_ft", "")
+    pattern_alt = airport.get("pattern_altitude_ft", "")
+    sectional = airport.get("sectional", "")
+    lat = airport.get("lat", "")
+    lon = airport.get("lon", "")
+
+    # Generate runway diagram SVG
+    runway_svg = render_runway_svg(airport)
+
+    # Format frequencies
+    freq_html = ""
+    if airport.get("frequencies"):
+        freq_html = "<table class='freqtable'><tbody>"
+        for f in airport["frequencies"]:
+            freq = f.get("frequency", "")
+            use = f.get("use", "")
+            facility = f.get("facility", "")
+            callsign = f.get("callsign", "")
+            hours = f.get("hours", "")
+            staffed = "staffed" if use in ("Tower", "Ground", "Clearance delivery") else "automated"
+            freq_html += (
+                f"<tr class='{staffed}'>"
+                f"<td>{freq}</td>"
+                f"<td>{use}</td>"
+                f"<td>{facility or ''}</td>"
+                f"<td>{callsign or ''}</td>"
+                f"<td>{hours or ''}</td>"
+                f"</tr>"
+            )
+        freq_html += "</tbody></table>"
+    else:
+        freq_html = "<p class='muted'>No frequencies on record.</p>"
+
+    html = f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{name} ({ident}) - Open Checklists</title>
+    <meta name="description" content="Airport information for {name}">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        body {{ font-family: system-ui, -apple-system, sans-serif; margin: 0; padding: 1rem; }}
+        .wrap {{ max-width: 1000px; margin: 0 auto; }}
+        header {{ margin-bottom: 2rem; }}
+        h1 {{ margin: 0 0 0.5rem; }}
+        .facts {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin: 1rem 0; }}
+        .fact {{ border: 1px solid #ddd; padding: 0.75rem; border-radius: 6px; }}
+        .fact-label {{ font-size: 0.8rem; color: #666; text-transform: uppercase; }}
+        .fact-value {{ font-size: 1.1rem; font-weight: bold; }}
+        #runway-diagram {{ margin: 2rem 0; border: 1px solid #ddd; border-radius: 6px; padding: 1rem; background: #fafafa; }}
+        #map {{ height: 400px; margin: 2rem 0; border: 1px solid #ddd; border-radius: 6px; }}
+        .freqtable {{ width: 100%; border-collapse: collapse; margin: 1rem 0; }}
+        .freqtable td {{ padding: 0.5rem; border-bottom: 1px solid #eee; }}
+        .freqtable .staffed {{ color: #2e7d32; }}
+        .data-section {{ margin: 2rem 0; padding: 1rem; border: 1px solid #ddd; border-radius: 6px; }}
+        .loading {{ color: #999; font-style: italic; }}
+        .spinner {{ display: inline-block; width: 12px; height: 12px; border: 2px solid #f3f3f3; border-top: 2px solid #3498db; border-radius: 50%; animation: spin 0.8s linear infinite; }}
+        @keyframes spin {{ 0% {{ transform: rotate(0deg); }} 100% {{ transform: rotate(360deg); }} }}
+        .error {{ color: #c62828; background: #ffebee; padding: 0.75rem; border-radius: 4px; }}
+        footer {{ margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #ddd; font-size: 0.85rem; color: #666; }}
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <header>
+        <h1>{name}</h1>
+        <p class="muted">{city}, {state} • {ident}</p>
+    </header>
+
+    <section class="facts">
+        <div class="fact">
+            <div class="fact-label">Elevation</div>
+            <div class="fact-value">{elevation or "N/A"} ft</div>
+        </div>
+        <div class="fact">
+            <div class="fact-label">Pattern Alt</div>
+            <div class="fact-value">{pattern_alt or "N/A"} ft</div>
+        </div>
+        <div class="fact">
+            <div class="fact-label">Sectional</div>
+            <div class="fact-value">{sectional or "N/A"}</div>
+        </div>
+    </section>
+
+    <section id="runway-diagram">
+        <h2>Runways</h2>
+        {runway_svg}
+    </section>
+
+    <section id="map"></section>
+
+    <section class="data-section">
+        <h2>Frequencies</h2>
+        {freq_html}
+    </section>
+
+    <section id="weather" class="data-section">
+        <h2>Weather</h2>
+        <div class="loading"><span class="spinner"></span> Loading weather...</div>
+    </section>
+
+    <section id="notams" class="data-section">
+        <h2>NOTAMs</h2>
+        <div class="loading"><span class="spinner"></span> Loading NOTAMs...</div>
+    </section>
+
+    <section id="airspace" class="data-section">
+        <h2>Airspace</h2>
+        <div class="loading"><span class="spinner"></span> Loading airspace...</div>
+    </section>
+
+    <section id="fuel" class="data-section">
+        <h2>Fuel & FBO</h2>
+        <div class="loading"><span class="spinner"></span> Loading fuel info...</div>
+    </section>
+
+    <footer>
+        <p>Data effective {effective_date}. Always verify with current official sources.</p>
+        <p><a href="/airports.html">Back to airport search</a></p>
+    </footer>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+// Initialize map
+const map = L.map('map').setView([{lat}, {lon}], 14);
+L.tileLayer('https://{{s}}.tile.openstreetmap.org/{{z}}/{{x}}/{{y}}.png', {{
+    attribution: '&copy; OpenStreetMap contributors',
+    maxZoom: 19,
+}}).addTo(map);
+
+// Fetch live data
+window.OCL_AIRPORT = '{{ident}}';
+window.OCL_API_BASE = '/api/airport/';
+
+function loadLiveData() {{
+    const ident = window.OCL_AIRPORT;
+
+    // Weather
+    fetch(`${{window.OCL_API_BASE}}${{ident}}/weather`, {{ cache: 'no-store' }})
+        .then(r => r.json())
+        .then(data => {{
+            const el = document.getElementById('weather');
+            el.innerHTML = `<h2>Weather</h2><p>METAR: <code>${{data.metar}}</code></p>`;
+        }})
+        .catch(err => {{
+            const el = document.getElementById('weather');
+            el.innerHTML = '<h2>Weather</h2><div class="error">Unable to load live weather. <a href="https://aviationweather.gov" target="_blank">Check external source.</a></div>';
+        }});
+
+    // NOTAMs
+    fetch(`${{window.OCL_API_BASE}}${{ident}}/notams`, {{ cache: 'no-store' }})
+        .then(r => r.json())
+        .then(data => {{
+            const el = document.getElementById('notams');
+            if (data.notams && data.notams.length > 0) {{
+                el.innerHTML = '<h2>NOTAMs</h2><ul>' + data.notams.map(n => `<li>${{n.text}}</li>`).join('') + '</ul>';
+            }} else {{
+                el.innerHTML = '<h2>NOTAMs</h2><p class="muted">No active NOTAMs.</p>';
+            }}
+        }})
+        .catch(err => {{
+            const el = document.getElementById('notams');
+            el.innerHTML = '<h2>NOTAMs</h2><div class="error">Unable to load NOTAMs. <a href="https://notams.faa.gov" target="_blank">Check FAA NOTAM search.</a></div>';
+        }});
+
+    // Airspace
+    fetch(`${{window.OCL_API_BASE}}${{ident}}/airspace`, {{ cache: 'no-store' }})
+        .then(r => r.json())
+        .then(data => {{
+            const el = document.getElementById('airspace');
+            el.innerHTML = `<h2>Airspace</h2><p>Class <strong>${{data.airspace_class}}</strong></p>`;
+        }})
+        .catch(err => {{
+            const el = document.getElementById('airspace');
+            el.innerHTML = '<h2>Airspace</h2><div class="error">Unable to load airspace data.</div>';
+        }});
+
+    // Fuel
+    fetch(`${{window.OCL_API_BASE}}${{ident}}/fuel`, {{ cache: 'no-store' }})
+        .then(r => r.json())
+        .then(data => {{
+            const el = document.getElementById('fuel');
+            const fuels = data.fuel_types.join(', ') || 'None listed';
+            el.innerHTML = `<h2>Fuel & FBO</h2><p>Available fuel: <strong>${{fuels}}</strong></p>`;
+        }})
+        .catch(err => {{
+            const el = document.getElementById('fuel');
+            el.innerHTML = '<h2>Fuel & FBO</h2><div class="error">Unable to load fuel data. Contact the FBO for current information.</div>';
+        }});
+}}
+
+// Load live data on page load (after 500ms to let page render)
+setTimeout(loadLiveData, 500);
+</script>
+</body>
+</html>"""
+
+    return html
 
 
 def main() -> int:
