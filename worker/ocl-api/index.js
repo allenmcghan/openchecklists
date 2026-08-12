@@ -215,7 +215,10 @@ const routes = {
       'SELECT COUNT(*) as n FROM points_ledger WHERE user_id=? AND event="first_login"'
     ).bind(user.id).first('n');
     if (!logCount) {
-      await awardPoints(env.DB, user.id, 'first_login');
+      // awardPoints updates the users row; refresh our in-memory copy so the
+      // response reflects the just-awarded bonus instead of the pre-award total.
+      const award = await awardPoints(env.DB, user.id, 'first_login');
+      if (award) { user.total_points = award.total; user.level = award.level; }
       // Ensure the user can receive magic-link codes (idempotent in Zitadel)
       await ensureOtpEmail(user.id, env.ZITADEL_ISSUER, env.ZITADEL_SVC_TOKEN);
     }

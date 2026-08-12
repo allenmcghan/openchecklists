@@ -217,13 +217,19 @@ async function signIn() {
     redirect_uri:  location.origin + '/auth/callback.html',
     scope: 'openid email profile', state,
     code_challenge: cc, code_challenge_method: 'S256',
+    prompt: 'select_account',   // let the user pick / switch accounts without ending the SSO session
   });
   location.href = url;
 }
 
 function signOut() {
+  // Local-only sign-out by design: clear the site session but LEAVE the Zitadel
+  // SSO session intact so the user stays signed in to other Keylink apps. The
+  // prompt=select_account on signIn() lets them come back as a different account.
   sessionStorage.removeItem('ocl:token');
   sessionStorage.removeItem('ocl:refresh');
+  sessionStorage.removeItem('ocl:idtoken');
+  sessionStorage.removeItem('ocl:exp');
   location.href = '/';
 }
 
