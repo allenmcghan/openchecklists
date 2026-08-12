@@ -1,16 +1,69 @@
 import math
 
+def parse_magnetic_variation(mag_var_str):
+    """
+    Parse magnetic variation string like "10W" or "5E" to signed degrees.
+
+    Args:
+        mag_var_str: string like "10W" (10 degrees west = subtract) or "5E" (5 degrees east = add)
+
+    Returns:
+        signed float: positive = east, negative = west. Returns 0 if parsing fails.
+    """
+    if not mag_var_str:
+        return 0
+
+    mag_var_str = mag_var_str.strip()
+    if not mag_var_str:
+        return 0
+
+    try:
+        # Extract numeric part and direction
+        direction = mag_var_str[-1].upper()
+        value_str = mag_var_str[:-1].strip()
+        value = float(value_str)
+
+        # W (west) = subtract, E (east) = add
+        if direction == 'W':
+            return -value
+        elif direction == 'E':
+            return value
+        else:
+            return 0
+    except (ValueError, IndexError):
+        return 0
+
+
+def compute_magnetic_heading(true_heading, magnetic_variation):
+    """
+    Convert true heading to magnetic heading.
+
+    Magnetic heading = True heading + Magnetic variation
+    (Variation is positive for east, negative for west)
+
+    Args:
+        true_heading: degrees (0-360)
+        magnetic_variation: signed degrees from parse_magnetic_variation
+
+    Returns:
+        magnetic heading in range 0-360
+    """
+    magnetic_heading = (true_heading + magnetic_variation) % 360
+    return magnetic_heading
+
+
 def render_runway_svg(airport):
     """
     Generate SVG diagram for an airport's runways.
 
     Args:
-        airport: dict with keys 'ident', 'runways', 'runway_ends'
+        airport: dict with keys 'ident', 'runways', 'runway_ends', 'magnetic_variation'
                  runways: list of {id, length_ft, width_ft, surface, condition}
-                 runway_ends: dict mapping (ident, id) -> list of {end, true_heading, ...}
+                 runway_ends: dict mapping (ident, id) -> list of {end, true_heading, ils, displaced_threshold_ft, ...}
+                 magnetic_variation: string like "10W" or "5E"
 
     Returns:
-        SVG string with runways, labels, and interactive layers.
+        SVG string with runways, labels, ILS indicators, and displaced threshold marks.
     """
     if not airport.get("runways"):
         return _empty_svg()
@@ -25,6 +78,10 @@ def render_runway_svg(airport):
     max_length = max(r.get("length_ft", 0) for r in runways) or 5000
     if max_length > width_svg:
         scale = width_svg / max_length * 0.8
+
+    # Parse magnetic variation once for the airport
+    mag_var_str = airport.get("magnetic_variation", "")
+    magnetic_variation = parse_magnetic_variation(mag_var_str)
 
     # Color mapping for surface types
     surface_colors = {
@@ -44,6 +101,8 @@ def render_runway_svg(airport):
         '.rwy-line:hover { stroke-width: 12; opacity: 0.8; }',
         '.rwy-label { font-size: 14px; font-weight: bold; font-family: monospace; }',
         '.rwy-heading { font-size: 11px; font-family: monospace; }',
+        '.rwy-ils { font-size: 10px; font-weight: bold; fill: #d32f2f; }',
+        '.rwy-displaced-tick { stroke: #ff9800; stroke-width: 2; }',
         '</style>',
         f'<rect width="{width_svg}" height="{height_svg}" fill="#f5f5f5" />',
     ]
@@ -96,15 +155,68 @@ def render_runway_svg(airport):
             f'class="rwy-label" data-id="{rwy_id}">{rwy_id}</text>'
         )
 
-        # Headings at each end
-        svg_lines.append(
-            f'<text x="{x1}" y="{y1 - 20}" text-anchor="middle" '
-            f'class="rwy-heading">{int(heading_1)}°T</text>'
-        )
-        svg_lines.append(
-            f'<text x="{x2}" y="{y2 + 20}" text-anchor="middle" '
-            f'class="rwy-heading">{int(heading_2)}°T</text>'
-        )
+        # Headings at each end with ILS and displaced threshold
+        if ends:
+            for end_idx, end_data in enumerate(ends):
+                true_hdg = end_data.get("true_heading", heading_1 if end_idx == 0 else heading_2)
+                ils = end_data.get("ils")
+                displaced_threshold_ft = end_data.get("displaced_threshold_ft", 0)
+
+                # Choose endpoint
+                if end_idx == 0:
+                    end_x, end_y = x1, y1
+                    hdg_offset_y = -20
+                    text_offset = 5
+                else:
+                    end_x, end_y = x2, y2
+                    hdg_offset_y = 20
+                    text_offset = -5
+
+                # Compute magnetic heading if variation available
+                mag_hdg = compute_magnetic_heading(true_hdg, magnetic_variation)
+                heading_text = f"{int(true_hdg)}°T / {int(mag_hdg)}°M" if magnetic_variation != 0 else f"{int(true_hdg)}°T"
+
+                # Heading label
+                svg_lines.append(
+                    f'<text x="{end_x}" y="{end_y + hdg_offset_y}" text-anchor="middle" '
+                    f'class="rwy-heading">{heading_text}</text>'
+                )
+
+                # ILS indicator if present
+                if ils:
+                    svg_lines.append(
+                        f'<text x="{end_x}" y="{end_y + hdg_offset_y + 15}" text-anchor="middle" '
+                        f'class="rwy-ils">ILS</text>'
+                    )
+
+                # Displaced threshold tick mark if present
+                if displaced_threshold_ft and displaced_threshold_ft > 0:
+                    # Calculate inset point from runway end
+                    inset_px = displaced_threshold_ft * scale
+                    inset_x = end_x + inset_px * math.cos(heading_rad) * (1 if end_idx == 0 else -1)
+                    inset_y = end_y + inset_px * math.sin(heading_rad) * (1 if end_idx == 0 else -1)
+
+                    # Perpendicular tick mark (offset perpendicular to runway)
+                    tick_len = 15
+                    tick_x1 = inset_x - tick_len / 2 * math.cos(perp_rad)
+                    tick_y1 = inset_y - tick_len / 2 * math.sin(perp_rad)
+                    tick_x2 = inset_x + tick_len / 2 * math.cos(perp_rad)
+                    tick_y2 = inset_y + tick_len / 2 * math.sin(perp_rad)
+
+                    svg_lines.append(
+                        f'<line x1="{tick_x1}" y1="{tick_y1}" x2="{tick_x2}" y2="{tick_y2}" '
+                        f'class="rwy-displaced-tick" />'
+                    )
+        else:
+            # Fallback if no ends data
+            svg_lines.append(
+                f'<text x="{x1}" y="{y1 - 20}" text-anchor="middle" '
+                f'class="rwy-heading">{int(heading_1)}°T</text>'
+            )
+            svg_lines.append(
+                f'<text x="{x2}" y="{y2 + 20}" text-anchor="middle" '
+                f'class="rwy-heading">{int(heading_2)}°T</text>'
+            )
 
         # Length label
         svg_lines.append(
