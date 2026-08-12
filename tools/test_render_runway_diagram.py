@@ -92,9 +92,9 @@ def test_parse_magnetic_variation():
 
 def test_compute_magnetic_heading():
     """Test magnetic heading computation."""
-    assert compute_magnetic_heading(90, 5) == 95    # 90 + 5 = 95
-    assert compute_magnetic_heading(90, -5) == 85   # 90 - 5 = 85
-    assert compute_magnetic_heading(350, 15) == 5   # 350 + 15 wraps to 5
+    assert compute_magnetic_heading(90, 5) == 85    # 90 - 5 = 85
+    assert compute_magnetic_heading(90, -5) == 95   # 90 - (-5) = 95
+    assert compute_magnetic_heading(350, 15) == 335  # 350 - 15 = 335
     assert compute_magnetic_heading(10, 0) == 10    # No variation
 
 

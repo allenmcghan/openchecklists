@@ -1,6 +1,7 @@
 import math
 
-def parse_magnetic_variation(mag_var_str):
+
+def parse_magnetic_variation(mag_var_str: str | None) -> float:
     """
     Parse magnetic variation string like "10W" or "5E" to signed degrees.
 
@@ -34,11 +35,11 @@ def parse_magnetic_variation(mag_var_str):
         return 0
 
 
-def compute_magnetic_heading(true_heading, magnetic_variation):
+def compute_magnetic_heading(true_heading: float, magnetic_variation: float) -> float:
     """
     Convert true heading to magnetic heading.
 
-    Magnetic heading = True heading + Magnetic variation
+    Magnetic heading = True heading - Magnetic variation
     (Variation is positive for east, negative for west)
 
     Args:
@@ -48,11 +49,11 @@ def compute_magnetic_heading(true_heading, magnetic_variation):
     Returns:
         magnetic heading in range 0-360
     """
-    magnetic_heading = (true_heading + magnetic_variation) % 360
+    magnetic_heading = (true_heading - magnetic_variation) % 360
     return magnetic_heading
 
 
-def render_runway_svg(airport):
+def render_runway_svg(airport: dict) -> str:
     """
     Generate SVG diagram for an airport's runways.
 
@@ -138,8 +139,6 @@ def render_runway_svg(airport):
 
         # Perpendicular offset for width
         perp_rad = heading_rad + math.pi / 2
-        offset_x = half_width_px * math.cos(perp_rad)
-        offset_y = half_width_px * math.sin(perp_rad)
 
         # Runway rectangle (as path for simplicity)
         svg_lines.append(
@@ -166,11 +165,9 @@ def render_runway_svg(airport):
                 if end_idx == 0:
                     end_x, end_y = x1, y1
                     hdg_offset_y = -20
-                    text_offset = 5
                 else:
                     end_x, end_y = x2, y2
                     hdg_offset_y = 20
-                    text_offset = -5
 
                 # Compute magnetic heading if variation available
                 mag_hdg = compute_magnetic_heading(true_hdg, magnetic_variation)
