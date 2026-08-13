@@ -785,6 +785,7 @@ def render_airport_page(airport: dict, effective_date: str) -> str:
         HTML string with embedded SVG diagram, static data, and live data zones.
     """
     from html import escape
+    import json
 
     ident = escape(airport.get("ident", ""))
     name = escape(airport.get("name", ident))
@@ -800,6 +801,42 @@ def render_airport_page(airport: dict, effective_date: str) -> str:
 
     # Generate runway diagram SVG
     runway_svg = render_runway_svg(airport)
+
+    # Import magnetic variation parser
+    from render_runway_diagram import parse_magnetic_variation
+
+    # Build runway data object for modal
+    runway_data = {}
+    if airport.get("runways"):
+        mag_var = airport.get("magnetic_variation", "")
+        magnetic_variation = parse_magnetic_variation(mag_var)
+
+        for runway in airport["runways"]:
+            rwy_id = runway.get("id", "")
+            if rwy_id:
+                ends_key = (airport.get("ident"), rwy_id)
+                ends = airport.get("runway_ends", {}).get(ends_key, [])
+                runway_data[rwy_id] = {
+                    "id": rwy_id,
+                    "length_ft": runway.get("length_ft", ""),
+                    "width_ft": runway.get("width_ft", ""),
+                    "surface": runway.get("surface", ""),
+                    "condition": runway.get("condition", "Good"),
+                    "lighting": runway.get("lighting", "Not listed"),
+                    "ends": [
+                        {
+                            "end": end.get("end", ""),
+                            "true_heading": end.get("true_heading", 0),
+                            "ils": end.get("ils", "None"),
+                            "displaced_threshold_ft": end.get("displaced_threshold_ft", 0),
+                            "traffic_pattern": end.get("traffic_pattern", "L"),
+                        }
+                        for end in ends
+                    ]
+                }
+
+    runway_data_json = json.dumps(runway_data)
+    magnetic_var_deg = parse_magnetic_variation(airport.get("magnetic_variation", ""))
 
     # Validate lat/lon before rendering map
     map_js = ""
@@ -887,6 +924,62 @@ def render_airport_page(airport: dict, effective_date: str) -> str:
         @keyframes spin {{ 0% {{ transform: rotate(0deg); }} 100% {{ transform: rotate(360deg); }} }}
         .error {{ color: #c62828; background: #ffebee; padding: 0.75rem; border-radius: 4px; }}
         footer {{ margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #ddd; font-size: 0.85rem; color: #666; }}
+
+        /* Runway modal styles */
+        .modal {{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+        }}
+        .modal {{
+            display: none;
+        }}
+        .modal.open {{
+            display: flex;
+        }}
+        .modal-content {{
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            max-width: 500px;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }}
+        .modal-close {{
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #999;
+            transition: color 0.2s;
+        }}
+        .modal-close:hover {{
+            color: #333;
+        }}
+        .runway-end {{
+            margin: 1rem 0;
+            padding: 0.75rem;
+            border-left: 3px solid #1f4e79;
+            background: #f9f9f9;
+            border-radius: 4px;
+        }}
+        .runway-end strong {{
+            display: block;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }}
     </style>
 </head>
 <body>
@@ -918,6 +1011,32 @@ def render_airport_page(airport: dict, effective_date: str) -> str:
             <div class="fact-value">{ownership}</div>
         </div>
     </section>
+
+    <!-- Runway detail modal -->
+    <div id="runway-detail-modal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close">&times;</button>
+            <h3 id="runway-title"></h3>
+            <div id="runway-ends">
+                <div class="runway-end">
+                    <strong id="end1-id"></strong> (<span id="end1-heading-true"></span>°T / <span id="end1-heading-mag"></span>°M)
+                    <br/>ILS: <span id="end1-ils"></span>
+                    <br/>Displaced threshold: <span id="end1-displaced"></span>
+                    <br/>Traffic pattern: <span id="end1-pattern"></span>
+                </div>
+                <div class="runway-end">
+                    <strong id="end2-id"></strong> (<span id="end2-heading-true"></span>°T / <span id="end2-heading-mag"></span>°M)
+                    <br/>ILS: <span id="end2-ils"></span>
+                    <br/>Displaced threshold: <span id="end2-displaced"></span>
+                    <br/>Traffic pattern: <span id="end2-pattern"></span>
+                </div>
+            </div>
+            <p><strong>Length:</strong> <span id="runway-length"></span>' × <span id="runway-width"></span>'</p>
+            <p><strong>Surface:</strong> <span id="runway-surface"></span></p>
+            <p><strong>Condition:</strong> <span id="runway-condition"></span></p>
+            <p><strong>Lighting:</strong> <span id="runway-lighting"></span></p>
+        </div>
+    </div>
 
     <section id="runway-diagram">
         <h2>Runways</h2>
@@ -967,6 +1086,69 @@ def render_airport_page(airport: dict, effective_date: str) -> str:
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
+
+// Embed runway data for modal functionality
+window.OCL_RUNWAY_DATA = {runway_data_json};
+window.MAGNETIC_VAR = {magnetic_var_deg};
+
+// Runway modal functionality
+(function() {{
+    const runways = window.OCL_RUNWAY_DATA || {{}};
+    const modal = document.getElementById('runway-detail-modal');
+    const closeBtn = document.querySelector('.modal-close');
+
+    // Make runway elements clickable
+    document.querySelectorAll('svg .rwy-line, svg .rwy-label').forEach(function(el) {{
+        el.style.cursor = 'pointer';
+        el.addEventListener('click', function() {{
+            const rwyId = this.getAttribute('data-id');
+            showRunwayModal(rwyId);
+        }});
+    }});
+
+    function showRunwayModal(rwyId) {{
+        const rwy = runways[rwyId];
+        if (!rwy) return;
+
+        document.getElementById('runway-title').textContent = 'Runway ' + rwyId;
+        document.getElementById('runway-length').textContent = rwy.length_ft;
+        document.getElementById('runway-width').textContent = rwy.width_ft;
+        document.getElementById('runway-surface').textContent = rwy.surface;
+        document.getElementById('runway-condition').textContent = rwy.condition || 'Good';
+        document.getElementById('runway-lighting').textContent = rwy.lighting || 'Not listed';
+
+        // Fill in runway ends data if available
+        if (rwy.ends && rwy.ends.length >= 2) {{
+            const end1 = rwy.ends[0];
+            const end2 = rwy.ends[1];
+
+            function setEndData(prefix, end) {{
+                document.getElementById(prefix + '-id').textContent = end.end || '';
+                document.getElementById(prefix + '-heading-true').textContent = end.true_heading;
+                document.getElementById(prefix + '-heading-mag').textContent = Math.round((end.true_heading - window.MAGNETIC_VAR + 360) % 360);
+                document.getElementById(prefix + '-ils').textContent = end.ils || 'None';
+                document.getElementById(prefix + '-displaced').textContent = end.displaced_threshold_ft ? end.displaced_threshold_ft + ' ft' : 'None';
+                document.getElementById(prefix + '-pattern').textContent = end.traffic_pattern === 'R' ? 'Right' : 'Left';
+            }}
+
+            setEndData('end1', end1);
+            setEndData('end2', end2);
+        }}
+
+        modal.classList.add('open');
+    }}
+
+    // Close modal
+    closeBtn.addEventListener('click', function() {{
+        modal.classList.remove('open');
+    }});
+
+    modal.addEventListener('click', function(e) {{
+        if (e.target === modal) {{
+            modal.classList.remove('open');
+        }}
+    }});
+}})();
 
 // Fetch live data
 window.OCL_AIRPORT = '{ident}';
