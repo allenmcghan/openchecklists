@@ -354,6 +354,77 @@ JS = r"""
   refresh();
 
   // ---- Email-me-this-log ----
+  function sendPreflightProof(addr, msgEl, sendBtn) {
+    if (!addr || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(addr)) {
+      msgEl.textContent = 'Please enter a valid email address.';
+      msgEl.style.color = 'var(--warn)';
+      return;
+    }
+    sendBtn.disabled = true;
+    msgEl.textContent = 'Sending…';
+    msgEl.style.color = 'var(--muted)';
+
+    var items = boxes.map(function(b){
+      var k = key(b);
+      var ts = ticks.get(k) || '';
+      var label = b.closest('li') && b.closest('li').querySelector('.itext');
+      var text  = label ? label.textContent.trim() : b.dataset.index;
+      var resp  = b.closest('li') && b.closest('li').querySelector('.resp');
+      return {
+        state:     b.checked ? 'checked' : (ts ? 'skipped' : 'pending'),
+        text:      text,
+        response:  resp ? resp.textContent.trim() : '',
+        timestamp: ts
+      };
+    });
+
+    var reg = document.getElementById('reg');
+    var who = document.getElementById('who');
+    var payload = {
+      email:           addr,
+      checklist_title: meta.title || document.title,
+      aircraft:        (reg ? reg.value : '') + (who && who.value ? ' / ' + who.value : ''),
+      checklist_id:    meta.id || '',
+      content_hash:    meta.content_hash || '',
+      completed:       ticks.size,
+      total:           boxes.length,
+      items:           items
+    };
+
+    if (typeof oclReq === 'function') {
+      oclReq('POST', '/me/logs', {
+        checklist_id:    meta.id || '',
+        checklist_title: meta.title || document.title,
+        checklist_hash:  meta.content_hash || '',
+        items_total:     boxes.length,
+        items_checked:   ticks.size,
+        items:           items
+      }).catch(function(){});
+    }
+
+    fetch('https://api.openchecklists.net/log.php', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(payload)
+    })
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      if (d.ok) {
+        msgEl.textContent = '✓ Log sent to ' + addr;
+        msgEl.style.color = 'var(--ok)';
+      } else {
+        msgEl.textContent = 'Failed: ' + (d.error || 'unknown error');
+        msgEl.style.color = 'var(--warn)';
+      }
+      sendBtn.disabled = false;
+    })
+    .catch(function(){
+      msgEl.textContent = 'Could not connect — check your internet connection.';
+      msgEl.style.color = 'var(--warn)';
+      sendBtn.disabled = false;
+    });
+  }
+
   var emailBtn  = document.getElementById('emailbtn');
   var emailBar  = document.getElementById('emailbar');
   var emailAddr = document.getElementById('emailaddr');
@@ -365,82 +436,21 @@ JS = r"""
       emailBar.style.display = emailBar.style.display === 'flex' ? 'none' : 'flex';
       if (emailBar.style.display === 'flex') emailAddr.focus();
     });
-
     if (emailSend) {
       emailSend.addEventListener('click', function(){
-        var addr = (emailAddr.value || '').trim();
-        if (!addr || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(addr)) {
-          emailMsg.textContent = 'Please enter a valid email address.';
-          emailMsg.style.color = 'var(--warn)';
-          return;
-        }
-        emailSend.disabled = true;
-        emailMsg.textContent = 'Sending…';
-        emailMsg.style.color = 'var(--muted)';
-
-        // Build item list with timestamps
-        var items = boxes.map(function(b){
-          var k = key(b);
-          var ts = ticks.get(k) || '';
-          var label = b.closest('li') && b.closest('li').querySelector('.itext');
-          var text  = label ? label.textContent.trim() : b.dataset.index;
-          var resp  = b.closest('li') && b.closest('li').querySelector('.resp');
-          return {
-            state:     b.checked ? 'checked' : (ts ? 'skipped' : 'pending'),
-            text:      text,
-            response:  resp ? resp.textContent.trim() : '',
-            timestamp: ts
-          };
-        });
-
-        var reg = document.getElementById('reg');
-        var who = document.getElementById('who');
-        var payload = {
-          email:           addr,
-          checklist_title: meta.title || document.title,
-          aircraft:        (reg ? reg.value : '') + (who && who.value ? ' / ' + who.value : ''),
-          checklist_id:    meta.id || '',
-          content_hash:    meta.content_hash || '',
-          completed:       ticks.size,
-          total:           boxes.length,
-          items:           items
-        };
-
-        // Save preflight log to OCL profile if signed in (awards points, feeds dashboard)
-        if (typeof oclReq === 'function') {
-          oclReq('POST', '/me/logs', {
-            checklist_id:    meta.id || '',
-            checklist_title: meta.title || document.title,
-            checklist_hash:  meta.content_hash || '',
-            items_total:     boxes.length,
-            items_checked:   ticks.size,
-            items:           items
-          }).catch(function(){});
-        }
-
-        fetch('https://api.openchecklists.net/log.php', {
-          method: 'POST',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify(payload)
-        })
-        .then(function(r){ return r.json(); })
-        .then(function(d){
-          if (d.ok) {
-            emailMsg.textContent = '✓ Log sent to ' + addr;
-            emailMsg.style.color = 'var(--ok)';
-          } else {
-            emailMsg.textContent = 'Failed: ' + (d.error || 'unknown error');
-            emailMsg.style.color = 'var(--warn)';
-          }
-          emailSend.disabled = false;
-        })
-        .catch(function(){
-          emailMsg.textContent = 'Could not connect — check your internet connection.';
-          emailMsg.style.color = 'var(--warn)';
-          emailSend.disabled = false;
-        });
+        sendPreflightProof((emailAddr.value || '').trim(), emailMsg, emailSend);
       });
     }
+  }
+
+  // Bottom email CTA
+  var emailSend2 = document.getElementById('emailsend2');
+  var emailAddr2 = document.getElementById('emailaddr2');
+  var emailMsg2  = document.getElementById('emailmsg2');
+  if (emailSend2 && emailAddr2) {
+    emailSend2.addEventListener('click', function(){
+      sendPreflightProof((emailAddr2.value || '').trim(), emailMsg2, emailSend2);
+    });
   }
 
 })();
@@ -563,6 +573,25 @@ def render(doc: dict, paper: str, site_rel: str | None = None) -> str:
   <p><strong>Checklist hash:</strong> <code>{chash[:32]}…</code></p>
   <p>Generated from <code>{esc(doc.get('id'))}.ocl.json</code> by the Open Checklists
   reference renderer. Verify against the aircraft's own approved documentation before use.</p>
+</div>
+
+<div class="noprint" style="margin:2rem 0 3rem;padding:1.6rem 1.4rem;border:1px solid var(--line);border-radius:var(--radius);background:#fff;text-align:center">
+  <h3 style="margin:0 0 .4rem;font-size:1.1rem">Send yourself a preflight proof</h3>
+  <p style="color:var(--muted);font-size:.9rem;margin:0 0 1.1rem;max-width:38rem;margin-left:auto;margin-right:auto">
+    Enter your email to receive a timestamped record of every item you checked — your personal log of this preflight.
+  </p>
+  <div style="display:flex;gap:.5rem;flex-wrap:wrap;justify-content:center;max-width:36rem;margin:0 auto">
+    <input type="email" id="emailaddr2" placeholder="your@email.com"
+      style="flex:1;min-width:14rem;font:inherit;padding:.6rem .85rem;min-height:2.75rem;
+      border:1px solid var(--line);border-radius:999px;background:#fff;color:var(--fg)">
+    <button id="emailsend2"
+      style="background:var(--accent);color:#fff;border:none;border-radius:999px;
+      padding:.6rem 1.3rem;font:inherit;font-weight:650;cursor:pointer;min-height:2.75rem;
+      white-space:nowrap">
+      Send proof ✓
+    </button>
+  </div>
+  <p id="emailmsg2" style="font-size:.88rem;color:var(--muted);margin:.6rem 0 0"></p>
 </div>
 </div>
 

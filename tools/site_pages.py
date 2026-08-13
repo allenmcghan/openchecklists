@@ -35,15 +35,15 @@ def landing_body() -> str:
     return """
 <div class="hero">
   <div class="hero-img-wrap">
-    <img src="hero.png" alt="Paramotor pilot launching over a green airfield at dawn"
+    <img src="hero.png" alt="Cessna 172 on a grass runway at a small general aviation airport"
          class="hero-img" width="1024" height="1024" loading="eager">
   </div>
   <div class="hero-text">
     <h1 class="hero-h">Your checklist.<br>Every flight.<br>Every aircraft.</h1>
-    <p class="hero-p">Free, open checklists for paramotors, hang gliders, gliders,
-    ultralights, drones, Cessnas, airliners — any aircraft. Read them on your phone at
-    the aircraft, print them at kneeboard size, get an emailed proof after every
-    preflight. No account required.</p>
+    <p class="hero-p">Free, open checklists for Cessnas, Pipers, Cubs, airliners, gliders,
+    ultralights, paramotors, and drones — any aircraft with wings. Read on your phone at
+    the aircraft, print at kneeboard size, email yourself a timestamped proof after every
+    preflight.</p>
     <p class="hero-cta">
       <a class="cta" href="catalogue.html">Browse checklists</a>
       <a class="cta ghost" href="airports.html">Airport frequencies</a>
@@ -56,29 +56,29 @@ def landing_body() -> str:
 
 <h2>Every aircraft. Every pilot.</h2>
 <div class="aircraft-types">
-  <a class="atype" href="catalogue.html?q=paramotor">
-    <span class="atype-icon">🪂</span>
-    <span class="atype-label">Paramotor &amp;<br>Powered Parachute</span>
-  </a>
-  <a class="atype" href="catalogue.html?q=hang+glider">
-    <span class="atype-icon">🪁</span>
-    <span class="atype-label">Hang Glider</span>
-  </a>
-  <a class="atype" href="catalogue.html?q=glider">
+  <a class="atype" href="catalogue.html?q=general+aviation">
     <span class="atype-icon">✈</span>
-    <span class="atype-label">Glider &amp;<br>Sailplane</span>
+    <span class="atype-label">General Aviation</span>
+  </a>
+  <a class="atype" href="catalogue.html?q=light+sport">
+    <span class="atype-icon">🛩</span>
+    <span class="atype-label">Sport Pilot / LSA</span>
   </a>
   <a class="atype" href="catalogue.html?q=ultralight">
-    <span class="atype-icon">🛩</span>
-    <span class="atype-label">Ultralight &amp;<br>Part 103</span>
+    <span class="atype-icon">🛸</span>
+    <span class="atype-label">Ultralight / Part 103</span>
   </a>
-  <a class="atype" href="catalogue.html?q=general+aviation">
-    <span class="atype-icon">🛫</span>
-    <span class="atype-label">General Aviation</span>
+  <a class="atype" href="catalogue.html?q=paramotor">
+    <span class="atype-icon">🪂</span>
+    <span class="atype-label">Paramotor / PPG</span>
+  </a>
+  <a class="atype" href="catalogue.html?q=glider">
+    <span class="atype-icon">🌤</span>
+    <span class="atype-label">Glider &amp;<br>Sailplane</span>
   </a>
   <a class="atype" href="catalogue.html?q=drone">
     <span class="atype-icon">🚁</span>
-    <span class="atype-label">Drone &amp; UAV<br>(Part 107)</span>
+    <span class="atype-label">Drone / Part 107</span>
   </a>
 </div>
 
@@ -129,18 +129,17 @@ def landing_body() -> str:
 manual. For type-certificated aircraft, the approved AFM governs. Every checklist
 states its source and verification status — read that before you rely on it.</p>
 
-<p>Part 103 ultralights, paramotors, hang gliders and experimental aircraft are often
-not required to have a flight manual at all. For those, a well-sourced community
-checklist is the best available resource — and being honest about that is exactly the
-point.</p>
+<p>For certificated aircraft (Cessna, Piper, experimental category, etc.), every checklist
+notes whether it was compared item-by-item against the manufacturer's POH. For aircraft
+that don't have a required flight manual — paramotors, hang gliders, ultralight Part 103
+— a well-sourced community checklist is the best available resource, and being honest
+about that is exactly the point.</p>
 
 <h2>Start here</h2>
 <p>
 <a href="catalogue.html">Browse all checklists</a> &middot;
 <a href="airports.html">Airport frequencies and weather</a> &middot;
-<a href="training.html">Study for your certificate</a> &middot;
-<a href="editor.html">Write a checklist for your aircraft</a> &middot;
-<a href="contribute.html">Contribute one</a>
+<a href="training.html">Study for your certificate</a>
 </p>
 """
 

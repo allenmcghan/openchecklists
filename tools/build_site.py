@@ -269,10 +269,6 @@ def head(title: str, desc: str, rel: str = "") -> str:
 <a href="{rel}planner.html">Plan a Flight</a>
 <a href="{rel}training.html">Training</a>
 <a href="{rel}search.html">Troubleshooting</a>
-<a href="{rel}editor.html">Editor</a>
-<a href="{rel}projects.html">Projects</a>
-<a href="{rel}contribute.html">Contribute</a>
-<a href="{rel}about.html">How to read a file</a>
 </nav>
 </div></header>
 <main class="wrap" id="main">
@@ -306,14 +302,13 @@ function oclReq(method, path, body) {
 }
 
 (function(){
-  var tok = oclToken();
-  if (!tok) return;
   var nav = document.querySelector('nav.nav');
   if (!nav) return;
+  var tok = oclToken();
   var pill = document.createElement('a');
-  pill.href = '/profile';
-  pill.style.cssText = 'margin-left:auto;font-weight:700;color:var(--accent)';
-  pill.textContent = '👤 My Profile';
+  pill.style.cssText = 'margin-left:auto;font-weight:700;color:var(--accent);white-space:nowrap;padding:.5rem .72rem;border-radius:999px';
+  pill.href = '/profile.html';
+  pill.textContent = tok ? '👤 My Account' : 'Sign in';
   nav.appendChild(pill);
 })();
 </script>
@@ -896,349 +891,243 @@ def render_airport_page(airport: dict, effective_date: str) -> str:
     else:
         freq_html = "<p class='muted'>No frequencies on record.</p>"
 
-    html = f"""<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{name} ({ident}) - Open Checklists</title>
-    <meta name="description" content="Airport information for {name}">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <style>
-        body {{ font-family: system-ui, -apple-system, sans-serif; margin: 0; padding: 1rem; }}
-        .wrap {{ max-width: 1000px; margin: 0 auto; }}
-        header {{ margin-bottom: 2rem; }}
-        h1 {{ margin: 0 0 0.5rem; }}
-        .facts {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin: 1rem 0; }}
-        .fact {{ border: 1px solid #ddd; padding: 0.75rem; border-radius: 6px; }}
-        .fact-label {{ font-size: 0.8rem; color: #666; text-transform: uppercase; }}
-        .fact-value {{ font-size: 1.1rem; font-weight: bold; }}
-        #runway-diagram {{ margin: 2rem 0; border: 1px solid #ddd; border-radius: 6px; padding: 1rem; background: #fafafa; }}
-        #map {{ height: 400px; margin: 2rem 0; border: 1px solid #ddd; border-radius: 6px; }}
-        .freqtable {{ width: 100%; border-collapse: collapse; margin: 1rem 0; }}
-        .freqtable th {{ padding: 0.5rem; border-bottom: 1px solid #ccc; font-weight: bold; text-align: left; background-color: #f5f5f5; }}
-        .freqtable td {{ padding: 0.5rem; border-bottom: 1px solid #eee; }}
-        .freqtable .staffed {{ color: #2e7d32; }}
-        .freqtable .automated {{ color: #999; }}
-        .data-section {{ margin: 2rem 0; padding: 1rem; border: 1px solid #ddd; border-radius: 6px; }}
-        .loading {{ color: #999; font-style: italic; }}
-        .spinner {{ display: inline-block; width: 12px; height: 12px; border: 2px solid #f3f3f3; border-top: 2px solid #3498db; border-radius: 50%; animation: spin 0.8s linear infinite; }}
-        @keyframes spin {{ 0% {{ transform: rotate(0deg); }} 100% {{ transform: rotate(360deg); }} }}
-        .error {{ color: #c62828; background: #ffebee; padding: 0.75rem; border-radius: 4px; }}
-        footer {{ margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #ddd; font-size: 0.85rem; color: #666; }}
+    html = head(
+        f"{name} ({ident}) — {city}, {state}",
+        f"Airport information, radio frequencies, live weather and NOTAMs for {name} ({ident}).",
+        rel="../"
+    )
+    html += f"""
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<style>
+#map{{height:300px;border-radius:var(--radius);margin:1.5rem 0;border:1px solid var(--line);overflow:hidden}}
+.fact-grid{{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:.65rem;margin:1rem 0 1.5rem}}
+.fact-card{{background:#fff;border:1px solid var(--line);border-radius:var(--radius-sm);padding:.8rem .9rem}}
+.fact-card .lbl{{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:.2rem}}
+.fact-card .val{{font-size:1rem;font-weight:700}}
+.rwy-chips{{display:flex;flex-wrap:wrap;gap:.5rem;margin:.8rem 0}}
+.rwy-chip{{background:var(--card);border:1px solid var(--line);border-radius:var(--pill);padding:.4rem .9rem;font-size:.88rem;font-weight:600;cursor:pointer;color:var(--fg);transition:background .15s,border-color .15s}}
+.rwy-chip:hover,.rwy-chip.active{{background:var(--accent-weak);border-color:var(--accent-2);color:var(--accent)}}
+.rwy-detail{{display:none;background:var(--card);border-radius:var(--radius-sm);padding:1rem 1.1rem;margin:.35rem 0 .8rem;border:1px solid var(--line);font-size:.9rem}}
+.rwy-detail.open{{display:block}}
+.rwy-detail p{{margin:.3rem 0}}
+.live-card{{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:1.1rem 1.2rem;margin:.8rem 0;box-shadow:var(--shadow-sm)}}
+.live-card h3{{margin:0 0 .5rem;font-size:1rem;font-weight:700}}
+.spinner-sm{{display:inline-block;width:13px;height:13px;border:2px solid var(--line);border-top-color:var(--accent);border-radius:50%;animation:rsp .7s linear infinite;vertical-align:middle;margin-right:.4rem}}
+@keyframes rsp{{to{{transform:rotate(360deg)}}}}
+.wx-badge{{display:inline-block;padding:.18rem .52rem;border-radius:var(--pill);font-size:.7rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;vertical-align:middle}}
+.wx-vfr{{background:var(--ok-weak);color:var(--ok)}}
+.wx-mvfr{{background:var(--caut-weak);color:var(--caut)}}
+.wx-ifr{{background:var(--warn-weak);color:var(--warn)}}
+.freq-ctaf{{font-weight:700;color:var(--accent)}}
+.ext-links{{display:flex;gap:.5rem;flex-wrap:wrap;margin:.6rem 0}}
+.ext-links a{{display:inline-flex;align-items:center;gap:.3rem;padding:.38rem .8rem;border:1px solid var(--line);border-radius:var(--pill);font-size:.84rem;color:var(--muted);text-decoration:none}}
+.ext-links a:hover{{border-color:var(--accent-2);color:var(--accent)}}
+</style>
 
-        /* Runway modal styles */
-        .modal {{
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 100;
-        }}
-        .modal {{
-            display: none;
-        }}
-        .modal.open {{
-            display: flex;
-        }}
-        .modal-content {{
-            background: white;
-            padding: 2rem;
-            border-radius: 8px;
-            max-width: 500px;
-            max-height: 80vh;
-            overflow-y: auto;
-            position: relative;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }}
-        .modal-close {{
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: #999;
-            transition: color 0.2s;
-        }}
-        .modal-close:hover {{
-            color: #333;
-        }}
-        .runway-end {{
-            margin: 1rem 0;
-            padding: 0.75rem;
-            border-left: 3px solid #1f4e79;
-            background: #f9f9f9;
-            border-radius: 4px;
-        }}
-        .runway-end strong {{
-            display: block;
-            font-size: 1.1rem;
-            margin-bottom: 0.5rem;
-        }}
-    </style>
-</head>
-<body>
-<div class="wrap">
-    <header>
-        <h1>{name}</h1>
-        <p class="muted">{city}, {state} • {ident}</p>
-    </header>
+<div style="display:flex;align-items:baseline;gap:.8rem;flex-wrap:wrap;margin-bottom:.2rem">
+  <span style="font-size:2.6rem;font-weight:800;letter-spacing:-.04em;color:var(--accent);line-height:1">{ident}</span>
+  <span class="badge">{status}</span>
+</div>
+<h1 style="margin:.1rem 0 .05rem;font-size:1.5rem">{name}</h1>
+<p class="lede" style="margin:0 0 1.2rem;font-size:.95rem">{city}, {state}</p>
 
-    <section class="facts">
-        <div class="fact">
-            <div class="fact-label">Elevation</div>
-            <div class="fact-value">{elevation or "N/A"} ft</div>
-        </div>
-        <div class="fact">
-            <div class="fact-label">Pattern Alt</div>
-            <div class="fact-value">{pattern_alt or "N/A"} ft</div>
-        </div>
-        <div class="fact">
-            <div class="fact-label">Sectional</div>
-            <div class="fact-value">{sectional or "N/A"}</div>
-        </div>
-        <div class="fact">
-            <div class="fact-label">Status</div>
-            <div class="fact-value">{status}</div>
-        </div>
-        <div class="fact">
-            <div class="fact-label">Ownership</div>
-            <div class="fact-value">{ownership}</div>
-        </div>
-        {f'<div class="fact"><div class="fact-label">Phone</div><div class="fact-value"><a href="tel:{manager_phone}">{manager_phone}</a></div></div>' if manager_phone else ''}
-    </section>
-
-    <div style="margin:1rem 0"><a href="/planner.html?dep={escape(ident)}" style="display:inline-flex;align-items:center;gap:.4rem;background:#1f4e79;color:#fff;padding:.55rem 1rem;border-radius:999px;font-size:.88rem;font-weight:650;text-decoration:none">✈ Plan a flight from {escape(ident)} →</a></div>
-
-    <!-- Runway detail modal -->
-    <div id="runway-detail-modal" class="modal">
-        <div class="modal-content">
-            <button class="modal-close">&times;</button>
-            <h3 id="runway-title"></h3>
-            <div id="runway-ends">
-                <div class="runway-end">
-                    <strong id="end1-id"></strong> (<span id="end1-heading-true"></span>°T / <span id="end1-heading-mag"></span>°M)
-                    <br/>ILS: <span id="end1-ils"></span>
-                    <br/>Displaced threshold: <span id="end1-displaced"></span>
-                    <br/>Traffic pattern: <span id="end1-pattern"></span>
-                </div>
-                <div class="runway-end">
-                    <strong id="end2-id"></strong> (<span id="end2-heading-true"></span>°T / <span id="end2-heading-mag"></span>°M)
-                    <br/>ILS: <span id="end2-ils"></span>
-                    <br/>Displaced threshold: <span id="end2-displaced"></span>
-                    <br/>Traffic pattern: <span id="end2-pattern"></span>
-                </div>
-            </div>
-            <p><strong>Length:</strong> <span id="runway-length"></span>' × <span id="runway-width"></span>'</p>
-            <p><strong>Surface:</strong> <span id="runway-surface"></span></p>
-            <p><strong>Condition:</strong> <span id="runway-condition"></span></p>
-            <p><strong>Lighting:</strong> <span id="runway-lighting"></span></p>
-        </div>
-    </div>
-
-    <section id="runway-diagram">
-        <h2>Runways</h2>
-        {runway_svg}
-    </section>
-
-    {map_js}
-
-    <section class="data-section">
-        <h2>Frequencies</h2>
-        {freq_html}
-    </section>
-
-    <section id="weather" class="data-section">
-        <h2>Weather</h2>
-        <div class="loading"><span class="spinner"></span> Loading weather...</div>
-    </section>
-
-    <section id="notams" class="data-section">
-        <h2>NOTAMs</h2>
-        <div class="loading"><span class="spinner"></span> Loading NOTAMs...</div>
-    </section>
-
-    <section id="airspace" class="data-section">
-        <h2>Airspace</h2>
-        <div class="loading"><span class="spinner"></span> Loading airspace...</div>
-    </section>
-
-    <section id="fuel" class="data-section">
-        <h2>Fuel & FBO</h2>
-        <div class="loading"><span class="spinner"></span> Loading fuel info...</div>
-    </section>
-
-    <section class="data-section">
-        <h2>Navigation Aids & References</h2>
-        <ul>
-            <li><a href="https://skyvector.com/?ll={lat},{lon}" target="_blank">Sectional Chart</a> (Sky Vector)</li>
-            <li><a href="https://www.airnav.com/airports/{ident}" target="_blank">Approach Plates & Diagrams</a> (airnav.com)</li>
-        </ul>
-    </section>
-
-    <footer>
-        <p>Data effective {effective_date}. Always verify with current official sources.</p>
-        <p><a href="/airports.html">Back to airport search</a></p>
-    </footer>
+<div class="fact-grid">
+  <div class="fact-card"><div class="lbl">Elevation</div><div class="val">{elevation or "—"} ft MSL</div></div>
+  <div class="fact-card"><div class="lbl">Pattern Alt</div><div class="val">{pattern_alt or "—"} ft</div></div>
+  <div class="fact-card"><div class="lbl">Sectional</div><div class="val">{sectional or "—"}</div></div>
+  <div class="fact-card"><div class="lbl">Ownership</div><div class="val">{ownership}</div></div>
+  {'<div class="fact-card"><div class="lbl">Phone</div><div class="val"><a href="tel:' + manager_phone + '">' + manager_phone + '</a></div></div>' if manager_phone else ''}
 </div>
 
+<div style="margin:0 0 1.8rem">
+  <a class="cta" href="/planner.html?dep={ident}" style="font-size:.88rem;min-height:2.4rem;padding:.5rem 1.1rem">✈ Plan a flight from {ident}</a>
+</div>
+
+<h2>Runways</h2>
+{runway_svg}
+"""
+    # Runway inline detail cards
+    if airport.get("runways"):
+        html += '<div class="rwy-chips">'
+        for rwy in airport["runways"]:
+            rwy_id = escape(rwy.get("id", ""))
+            if rwy_id:
+                html += f'<button class="rwy-chip" onclick="toggleRwy(this,\'{rwy_id}\')">{rwy_id}</button>'
+        html += '</div>'
+        for rwy in airport["runways"]:
+            rwy_id = escape(rwy.get("id", ""))
+            if not rwy_id:
+                continue
+            length = rwy.get("length_ft", "?")
+            width = rwy.get("width_ft", "?")
+            surface = rwy.get("surface", "Unknown surface")
+            lighting = rwy.get("lighting", "Not listed")
+            ends = runway_data.get(rwy_id, {}).get("ends", [])
+            ends_html = ""
+            for end in ends:
+                end_id = escape(str(end.get("end", "")))
+                hdg = end.get("true_heading", "?")
+                ils = escape(str(end.get("ils", "None") or "None"))
+                dp = end.get("displaced_threshold_ft", 0) or 0
+                pat = "Right" if end.get("traffic_pattern") == "R" else "Left"
+                ends_html += f'<p><strong>Runway {end_id}:</strong> {hdg}°T · ILS: {ils} · Displaced: {dp} ft · Pattern: {pat}</p>'
+            html += f'<div class="rwy-detail" id="rwy-{rwy_id}"><p><strong>{length} × {width} ft</strong> · {surface} · Lighting: {lighting}</p>{ends_html}</div>'
+    else:
+        html += '<p class="muted">No runway data on record.</p>'
+
+    # Map
+    html += map_js
+
+    # Frequencies
+    html += """
+<h2>Frequencies</h2>
+<div class="scroll">
+<table class="freqtable">
+<thead><tr><th>MHz</th><th>Use</th><th>Facility</th><th>Callsign</th><th>Hours</th></tr></thead>
+<tbody>
+"""
+    if airport.get("frequencies"):
+        for f in sorted(
+            airport["frequencies"],
+            key=lambda f: (
+                ["CTAF", "UNICOM", "TOWER", "GROUND", "CLEARANCE DELIVERY", "ATIS", "AWOS", "ASOS"].index(f.get("use", "").upper())
+                if f.get("use", "").upper() in ["CTAF", "UNICOM", "TOWER", "GROUND", "CLEARANCE DELIVERY", "ATIS", "AWOS", "ASOS"] else 99,
+                f.get("use", "")
+            )
+        ):
+            freq = escape(f.get("frequency", ""))
+            use = escape(f.get("use", ""))
+            facility = escape(f.get("facility", "") or "")
+            callsign = escape(f.get("callsign", "") or "")
+            hours = escape(f.get("hours", "") or "")
+            is_ctaf = use.upper() in ("CTAF", "UNICOM", "TOWER")
+            cls = ' class="freq-ctaf"' if is_ctaf else ''
+            html += f'<tr><td{cls}>{freq}</td><td{cls}>{use}</td><td>{facility}</td><td>{callsign}</td><td>{hours}</td></tr>\n'
+    else:
+        html += '<tr><td colspan="5" class="muted">No frequencies on record.</td></tr>'
+    html += '</tbody></table></div>'
+
+    # Live data sections
+    html += """
+<h2>Live Data</h2>
+<div id="weather" class="live-card"><span class="spinner-sm"></span> Loading weather...</div>
+<div id="notams" class="live-card"><span class="spinner-sm"></span> Loading NOTAMs...</div>
+<div id="fuel" class="live-card"><span class="spinner-sm"></span> Loading fuel &amp; FBO...</div>
+"""
+
+    # External links
+    ext_lat = lat or "0"
+    ext_lon = lon or "0"
+    html += f"""
+<h2>External Links</h2>
+<div class="ext-links">
+  <a href="https://skyvector.com/?ll={ext_lat},{ext_lon}" target="_blank" rel="noopener">📡 SkyVector</a>
+  <a href="https://www.airnav.com/airports/{ident}" target="_blank" rel="noopener">📋 AirNav</a>
+  <a href="https://notams.faa.gov/notamSearch/search" target="_blank" rel="noopener">⚠ FAA NOTAMs</a>
+  <a href="https://aviationweather.gov/metar?ids={ident}" target="_blank" rel="noopener">🌤 Wx Forecast</a>
+</div>
+"""
+
+    # Scripts and inline airport footer
+    html += f"""
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
-
-// Embed runway data for modal functionality
-window.OCL_RUNWAY_DATA = {runway_data_json};
-window.MAGNETIC_VAR = {magnetic_var_deg};
-
-// Runway modal functionality
-(function() {{
-    const runways = window.OCL_RUNWAY_DATA || {{}};
-    const modal = document.getElementById('runway-detail-modal');
-    const closeBtn = document.querySelector('.modal-close');
-
-    // Make runway elements clickable
-    document.querySelectorAll('svg .rwy-line, svg .rwy-label').forEach(function(el) {{
-        el.style.cursor = 'pointer';
-        el.addEventListener('click', function() {{
-            const rwyId = this.getAttribute('data-id');
-            showRunwayModal(rwyId);
-        }});
-    }});
-
-    function showRunwayModal(rwyId) {{
-        const rwy = runways[rwyId];
-        if (!rwy) return;
-
-        document.getElementById('runway-title').textContent = 'Runway ' + rwyId;
-        document.getElementById('runway-length').textContent = rwy.length_ft;
-        document.getElementById('runway-width').textContent = rwy.width_ft;
-        document.getElementById('runway-surface').textContent = rwy.surface;
-        document.getElementById('runway-condition').textContent = rwy.condition || 'Good';
-        document.getElementById('runway-lighting').textContent = rwy.lighting || 'Not listed';
-
-        // Fill in runway ends data if available
-        if (rwy.ends && rwy.ends.length >= 2) {{
-            const end1 = rwy.ends[0];
-            const end2 = rwy.ends[1];
-
-            function setEndData(prefix, end) {{
-                document.getElementById(prefix + '-id').textContent = end.end || '';
-                document.getElementById(prefix + '-heading-true').textContent = end.true_heading;
-                document.getElementById(prefix + '-heading-mag').textContent = Math.round((end.true_heading - window.MAGNETIC_VAR + 360) % 360);
-                document.getElementById(prefix + '-ils').textContent = end.ils || 'None';
-                document.getElementById(prefix + '-displaced').textContent = end.displaced_threshold_ft ? end.displaced_threshold_ft + ' ft' : 'None';
-                document.getElementById(prefix + '-pattern').textContent = end.traffic_pattern === 'R' ? 'Right' : 'Left';
-            }}
-
-            setEndData('end1', end1);
-            setEndData('end2', end2);
-        }}
-
-        modal.classList.add('open');
-    }}
-
-    // Close modal
-    closeBtn.addEventListener('click', function() {{
-        modal.classList.remove('open');
-    }});
-
-    modal.addEventListener('click', function(e) {{
-        if (e.target === modal) {{
-            modal.classList.remove('open');
-        }}
-    }});
-}})();
-
-// Fetch live data
 window.OCL_AIRPORT = '{ident}';
-window.OCL_API_BASE = '/api/airport/';
+window.OCL_API_BASE = 'https://app.openchecklists.net/api/airport/';
 
-async function fetchWithTimeout(url, timeout = 5000) {{
-    const controller = new AbortController();
-    const id = setTimeout(() => controller.abort(), timeout);
-    try {{
-        const response = await fetch(url, {{ signal: controller.signal, cache: 'no-store' }});
-        clearTimeout(id);
-        return response;
-    }} catch (err) {{
-        clearTimeout(id);
-        throw err;
+function toggleRwy(btn, id) {{
+  var el = document.getElementById('rwy-' + id);
+  if (!el) return;
+  var open = el.classList.toggle('open');
+  btn.classList.toggle('active', open);
+}}
+
+async function fetchLive(url, timeout) {{
+  var ctrl = new AbortController();
+  var t = setTimeout(function(){{ ctrl.abort(); }}, timeout || 6000);
+  try {{
+    var r = await fetch(url, {{ signal: ctrl.signal, cache: 'no-store' }});
+    clearTimeout(t);
+    return r;
+  }} catch(e) {{ clearTimeout(t); throw e; }}
+}}
+
+async function loadLiveData() {{
+  var ident = window.OCL_AIRPORT;
+  var base = window.OCL_API_BASE;
+
+  // Weather
+  try {{
+    var r = await fetchLive(base + ident + '/weather');
+    var data = await r.json();
+    var el = document.getElementById('weather');
+    var metar = (data.metar != null && data.metar !== '') ? data.metar : null;
+    var taf = data.taf || null;
+    var badge = '';
+    if (data.flight_category) {{
+      var cat = data.flight_category.toUpperCase();
+      var cls = cat === 'VFR' ? 'wx-vfr' : cat === 'MVFR' ? 'wx-mvfr' : 'wx-ifr';
+      badge = ' <span class="wx-badge ' + cls + '">' + cat + '</span>';
     }}
+    el.innerHTML = '<h3>Weather' + badge + '</h3>' +
+      (metar ? '<p><strong>METAR:</strong> <code>' + metar + '</code></p>' : '<p class="muted">No METAR available.</p>') +
+      (taf ? '<p><strong>TAF:</strong> <code>' + taf + '</code></p>' : '');
+  }} catch(e) {{
+    document.getElementById('weather').innerHTML = '<h3>Weather</h3><p>Unable to load. <a href="https://aviationweather.gov/metar?ids={ident}" target="_blank">Check aviationweather.gov</a></p>';
+  }}
+
+  // NOTAMs
+  try {{
+    var r2 = await fetchLive(base + ident + '/notams');
+    var d2 = await r2.json();
+    var el2 = document.getElementById('notams');
+    if (d2.notams && d2.notams.length > 0) {{
+      var items = d2.notams.map(function(n){{ return '<li style="margin:.35rem 0;font-size:.88rem">' + (n.text || n) + '</li>'; }}).join('');
+      el2.innerHTML = '<h3>NOTAMs (' + d2.notams.length + ')</h3><ul style="padding-left:1.2rem;margin:.4rem 0">' + items + '</ul>';
+    }} else {{
+      el2.innerHTML = '<h3>NOTAMs</h3><p style="color:var(--ok)">✓ No active NOTAMs.</p>';
+    }}
+  }} catch(e) {{
+    document.getElementById('notams').innerHTML = '<h3>NOTAMs</h3><p>Unable to load. <a href="https://notams.faa.gov/notamSearch/search" target="_blank">Check FAA NOTAM search</a></p>';
+  }}
+
+  // Fuel
+  try {{
+    var r3 = await fetchLive(base + ident + '/fuel');
+    var d3 = await r3.json();
+    var el3 = document.getElementById('fuel');
+    var fuels = (d3.fuel_types || []).join(', ') || 'None listed';
+    var fbo = d3.fbo_name ? '<br><strong>FBO:</strong> ' + d3.fbo_name : '';
+    el3.innerHTML = '<h3>Fuel &amp; FBO</h3><p><strong>Available:</strong> ' + fuels + fbo + '</p>';
+  }} catch(e) {{
+    document.getElementById('fuel').innerHTML = '<h3>Fuel &amp; FBO</h3><p>Unable to load fuel data.</p>';
+  }}
 }}
 
-function loadLiveData() {{
-    const ident = window.OCL_AIRPORT;
-    const timeout = 5000; // 5 seconds per spec
-
-    // Weather
-    fetchWithTimeout(`${{window.OCL_API_BASE}}${{ident}}/weather`, timeout)
-        .then(r => r.json())
-        .then(data => {{
-            const el = document.getElementById('weather');
-            const metar = (data.metar != null && data.metar !== '') ? data.metar : null;
-            el.innerHTML = metar
-                ? `<h2>Weather</h2><p>METAR: <code>${{metar}}</code></p>`
-                : '<h2>Weather</h2><p class="muted">No METAR data available for this airport.</p>';
-        }})
-        .catch(err => {{
-            const el = document.getElementById('weather');
-            el.innerHTML = '<h2>Weather</h2><div class="error">Unable to load live weather. <a href="https://aviationweather.gov" target="_blank">Check external source.</a></div>';
-        }});
-
-    // NOTAMs
-    fetchWithTimeout(`${{window.OCL_API_BASE}}${{ident}}/notams`, timeout)
-        .then(r => r.json())
-        .then(data => {{
-            const el = document.getElementById('notams');
-            if (data.notams && data.notams.length > 0) {{
-                el.innerHTML = '<h2>NOTAMs</h2><ul>' + data.notams.map(n => `<li>${{n.text}}</li>`).join('') + '</ul>';
-            }} else {{
-                el.innerHTML = '<h2>NOTAMs</h2><p class="muted">No active NOTAMs.</p>';
-            }}
-        }})
-        .catch(err => {{
-            const el = document.getElementById('notams');
-            el.innerHTML = '<h2>NOTAMs</h2><div class="error">Unable to load NOTAMs. <a href="https://notams.faa.gov" target="_blank">Check FAA NOTAM search.</a></div>';
-        }});
-
-    // Airspace
-    fetchWithTimeout(`${{window.OCL_API_BASE}}${{ident}}/airspace`, timeout)
-        .then(r => r.json())
-        .then(data => {{
-            const el = document.getElementById('airspace');
-            el.innerHTML = `<h2>Airspace</h2><p>Class <strong>${{data.airspace_class}}</strong></p>`;
-        }})
-        .catch(err => {{
-            const el = document.getElementById('airspace');
-            el.innerHTML = '<h2>Airspace</h2><div class="error">Unable to load airspace data. <a href="https://www.faa.gov/air_traffic/nas/nes/airspace_fundamentals/" target="_blank">See FAA airspace info.</a></div>';
-        }});
-
-    // Fuel
-    fetchWithTimeout(`${{window.OCL_API_BASE}}${{ident}}/fuel`, timeout)
-        .then(r => r.json())
-        .then(data => {{
-            const el = document.getElementById('fuel');
-            const fuels = data.fuel_types.join(', ') || 'None listed';
-            el.innerHTML = `<h2>Fuel & FBO</h2><p>Available fuel: <strong>${{fuels}}</strong></p>`;
-        }})
-        .catch(err => {{
-            const el = document.getElementById('fuel');
-            el.innerHTML = '<h2>Fuel & FBO</h2><div class="error">Unable to load fuel data. Contact the FBO or check <a href="https://www.100ll.com/" target="_blank">fuel availability sites</a>.</div>';
-        }});
+setTimeout(loadLiveData, 400);
+</script>
+</main>
+<footer class="site"><div class="wrap">
+<p><strong>Nothing here is approved data.</strong> Always verify with current official sources before flight.</p>
+<p class="fnav">
+<a href="/">Home</a> &middot;
+<a href="/airports.html">Airports</a> &middot;
+<a href="/planner.html">Plan a Flight</a> &middot;
+<a href="/training.html">Training</a> &middot;
+<a href="/catalogue.html">Checklists</a> &middot;
+<a href="/privacy.html">Privacy</a> &middot;
+<a href="/terms.html">Terms</a>
+</p>
+<p>Data effective {effective_date}. Source: FAA NASR 28-day cycle.</p>
+</div></footer>
+<script>
+if ('serviceWorker' in navigator) {{
+  navigator.serviceWorker.register('/sw.js').catch(function(){{}});
 }}
-
-// Load live data on page load (after 500ms to let page render)
-setTimeout(loadLiveData, 500);
 </script>
 </body>
-</html>"""
-
+</html>
+"""
     return html
 
 

@@ -80,11 +80,15 @@ input:focus,select:focus{outline:none;border-color:#1f4e79;background:#fff}
 .plan-meta{font-size:.68rem;color:#888;margin-top:1px}
 .plan-reuse{font-size:.65rem;color:#1f4e79;margin-top:2px}
 @media(max-width:680px){.layout{grid-template-columns:1fr}.grid2{grid-template-columns:1fr}.grid3{grid-template-columns:1fr 1fr}.steps{gap:2px}}
+/* Guest aircraft form */
+.guest-ac-form{background:#f8fafd;border:1px solid #dde3ee;border-radius:10px;padding:1rem 1.1rem .8rem}
+.guest-ac-note{font-size:.78rem;color:#555;margin-bottom:.8rem;line-height:1.5}
+.guest-ac-note strong{color:#1f4e79}
 </style>
 </head>
 <body>
 <div class="page">
-  <h1>Plan a Flight</h1>
+  <h1><a href="/index.html" style="color:inherit;text-decoration:none">Plan a Flight</a></h1>
   <p class="sub">VFR preflight briefing — weather, NOTAMs, frequencies, fuel. Print or email when done.</p>
 
   <div id="guest-notice" class="guest-notice" style="display:none">
@@ -179,6 +183,7 @@ let aircraft = [];
 let airports = [];
 let wz = { step: 1, ac: null, dep: '', dest: '', alt: '', depart_at: '', fuel: null, reserve: 30 };
 let wxCache = {};
+let guestAircraft = null; // populated by the guest inline form in Step 1
 
 // Auth
 function getToken() { return sessionStorage.getItem('ocl:token'); }
@@ -288,26 +293,100 @@ function renderStep() {
 }
 
 function renderAircraftStep() {
-  const cards = aircraft.map(a =>
-    `<div class="ac-card${wz.ac&&wz.ac.n_number===a.n_number?' sel':''}" onclick='selectAC(${JSON.stringify(a)})'>
-      <div class="ac-reg">${a.n_number}</div>
-      <div class="ac-model">${a.make} ${a.model}</div>
-      <div class="ac-specs">${a.fuel_capacity_gal} gal &middot; ${a.cruise_speed_ktas} kt &middot; ${a.burn_rate_gph} GPH</div>
-    </div>`
-  ).join('');
-  const addCard = `<div class="ac-add" onclick="window.location='/profile'">+ Add aircraft in profile</div>`;
+  // Signed-in path: show saved aircraft grid
+  if (tok) {
+    const cards = aircraft.map(a =>
+      `<div class="ac-card${wz.ac&&wz.ac.n_number===a.n_number?' sel':''}" onclick='selectAC(${JSON.stringify(a)})'>
+        <div class="ac-reg">${a.n_number}</div>
+        <div class="ac-model">${a.make} ${a.model}</div>
+        <div class="ac-specs">${a.fuel_capacity_gal} gal &middot; ${a.cruise_speed_ktas} kt &middot; ${a.burn_rate_gph} GPH</div>
+      </div>`
+    ).join('');
+    const addCard = `<div class="ac-add" onclick="window.location='/profile'">+ Add aircraft in profile</div>`;
+    return `<div class="card">
+      <div class="card-hdr"><h2>Step 1 &mdash; Select your aircraft</h2><p>Your saved aircraft appear below. Manage them in your profile.</p></div>
+      <div class="card-body">
+        <div class="ac-grid">${cards}${addCard}</div>
+        ${!aircraft.length ? '<p style="color:#888;font-size:.85rem;margin-top:.4rem">No aircraft saved. <a href="/profile" style="color:#1f4e79">Add one in your profile</a>.</p>' : ''}
+      </div>
+      <div class="card-foot">
+        <span></span>
+        <button class="btn btn-primary" onclick="nextStep()" ${!wz.ac?'disabled':''}>Next: Route &rarr;</button>
+      </div>
+    </div>
+    ${wz.ac ? `<div class="summary-strip">&#10003; <strong>${wz.ac.n_number}</strong> &middot; ${wz.ac.make} ${wz.ac.model} &middot; ${wz.ac.fuel_capacity_gal} gal &middot; ${wz.ac.cruise_speed_ktas} kt</div>` : ''}`;
+  }
+
+  // Guest path: inline quick-entry form
+  const g = guestAircraft || {};
   return `<div class="card">
-    <div class="card-hdr"><h2>Step 1 &mdash; Select your aircraft</h2><p>Your saved aircraft appear below. Manage them in your profile.</p></div>
+    <div class="card-hdr"><h2>Step 1 &mdash; Your aircraft</h2><p>No account needed — just enter your aircraft details to generate a briefing.</p></div>
     <div class="card-body">
-      <div class="ac-grid">${cards}${addCard}</div>
-      ${!aircraft.length ? '<p style="color:#888;font-size:.85rem">No aircraft saved. <a href="/profile" style="color:#1f4e79">Add one in your profile</a> or continue as guest.</p>' : ''}
+      <div class="guest-ac-form">
+        <p class="guest-ac-note"><strong>Guest planning</strong> — fill in the details below and we'll generate your briefing. <a href="/login" style="color:#1f4e79">Sign in</a> to save aircraft for future flights.</p>
+        <div class="grid2">
+          <div class="field">
+            <label>N-Number / Registration</label>
+            <input id="g-reg" type="text" value="${g.n_number||''}" placeholder="N12345 or GAABC" style="text-transform:uppercase">
+          </div>
+          <div class="field">
+            <label>Make &amp; Model</label>
+            <input id="g-model" type="text" value="${g.make_model||''}" placeholder="Cessna 172">
+          </div>
+        </div>
+        <div class="grid3">
+          <div class="field">
+            <label>Fuel onboard (gal)</label>
+            <input id="g-fuel" type="number" value="${g.fuel_capacity_gal||''}" min="0" step="0.5" placeholder="35">
+          </div>
+          <div class="field">
+            <label>Burn rate (GPH)</label>
+            <input id="g-burn" type="number" value="${g.burn_rate_gph||''}" min="1" step="0.1" placeholder="8.5">
+          </div>
+          <div class="field">
+            <label>Cruise speed (KTAS)</label>
+            <input id="g-cruise" type="number" value="${g.cruise_speed_ktas||''}" min="1" step="1" placeholder="110">
+          </div>
+        </div>
+      </div>
     </div>
     <div class="card-foot">
       <span></span>
-      <button class="btn btn-primary" onclick="nextStep()" ${!wz.ac?'disabled':''}>Next: Route &rarr;</button>
+      <button class="btn btn-primary" onclick="submitGuestAircraft()">Use this aircraft &rarr;</button>
     </div>
   </div>
   ${wz.ac ? `<div class="summary-strip">&#10003; <strong>${wz.ac.n_number}</strong> &middot; ${wz.ac.make} ${wz.ac.model} &middot; ${wz.ac.fuel_capacity_gal} gal &middot; ${wz.ac.cruise_speed_ktas} kt</div>` : ''}`;
+}
+
+function submitGuestAircraft() {
+  const reg = (document.getElementById('g-reg').value || '').toUpperCase().trim();
+  const makeModel = (document.getElementById('g-model').value || '').trim();
+  const fuel = parseFloat(document.getElementById('g-fuel').value) || 0;
+  const burn = parseFloat(document.getElementById('g-burn').value) || 0;
+  const cruise = parseFloat(document.getElementById('g-cruise').value) || 0;
+
+  if (!reg) { alert('Please enter an N-Number or registration.'); return; }
+  if (!makeModel) { alert('Please enter the Make & Model.'); return; }
+  if (!fuel || fuel <= 0) { alert('Please enter fuel onboard.'); return; }
+  if (!burn || burn <= 0) { alert('Please enter a burn rate (GPH).'); return; }
+  if (!cruise || cruise <= 0) { alert('Please enter cruise speed (KTAS).'); return; }
+
+  // Split make/model: first word = make, rest = model
+  const parts = makeModel.split(/\s+/);
+  const make = parts[0];
+  const model = parts.slice(1).join(' ') || parts[0];
+
+  guestAircraft = {
+    n_number: reg,
+    make,
+    model,
+    make_model: makeModel,
+    fuel_capacity_gal: fuel,
+    burn_rate_gph: burn,
+    cruise_speed_ktas: cruise
+  };
+
+  selectAC(guestAircraft);
 }
 
 function selectAC(a) {
