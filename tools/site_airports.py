@@ -180,7 +180,7 @@ AIRPORT_JS = r"""
     if (a.r) bits.push(a.r.toLocaleString() + ' ft');
     if (a.e != null) bits.push(a.e + ' ft elev');
     if (a.f) bits.push(a.f + ' freq');
-    return '<li class="aprow"><a href="airport.html?id=' + esc(a.i) + '" style="text-decoration:none;color:inherit;display:block"><b>' + esc(a.i) + '</b>' +
+    return '<li class="aprow"><a href="/airport/' + esc(a.i.toLowerCase()) + '/" style="text-decoration:none;color:inherit;display:block"><b>' + esc(a.i) + '</b>' +
       (a.k ? ' <span class="muted">' + esc(a.k) + '</span>' : '') +
       ' ' + esc(a.n) + '<div class="sub">' + esc(a.c) + ', ' + esc(a.s) + ' · ' +
       bits.join(' · ') + '</div></a></li>';
