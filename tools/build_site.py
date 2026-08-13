@@ -1031,9 +1031,17 @@ def render_airport_page(airport: dict, effective_date: str) -> str:
     html += '</tbody></table></div>'
 
     # Live data sections
-    html += """
+    if lat_f is not None and lon_f is not None:
+        windy_embed = f"""<div id="windy-wrap" style="display:none;margin:.6rem 0;border-radius:var(--radius);overflow:hidden;border:1px solid var(--line)">
+<iframe width="100%" height="360" src="https://embed.windy.com/embed2.html?lat={lat_f}&lon={lon_f}&zoom=10&level=surface&overlay=wind&product=ecmwf&menu=&message=true&marker=true&metricWind=kt&metricTemp=%C2%B0F" frameborder="0" loading="lazy" title="Windy weather map"></iframe>
+</div>"""
+    else:
+        windy_embed = ""
+
+    html += f"""
 <h2>Live Data</h2>
 <div id="weather" class="live-card"><span class="spinner-sm"></span> Loading weather...</div>
+{windy_embed}
 <div id="notams" class="live-card"><span class="spinner-sm"></span> Loading NOTAMs...</div>
 <div id="fuel" class="live-card"><span class="spinner-sm"></span> Loading fuel &amp; FBO...</div>
 """
@@ -1062,11 +1070,15 @@ def render_airport_page(airport: dict, effective_date: str) -> str:
 </div>
 """
 
+    # Lat/lon JS vars for weather fallback
+    _lat_lon_js = f"window.OCL_LAT={lat_f};window.OCL_LON={lon_f};" if (lat_f is not None and lon_f is not None) else "window.OCL_LAT=null;window.OCL_LON=null;"
+
     # Scripts and inline airport footer
     html += f"""
 <script>
 window.OCL_AIRPORT = '{ident}';
 window.OCL_API_BASE = 'https://app.openchecklists.net/api/airport/';
+{_lat_lon_js}
 
 function toggleRwy(btn, id) {{
   var el = document.getElementById('rwy-' + id);
@@ -1089,31 +1101,112 @@ async function loadLiveData() {{
   var ident = window.OCL_AIRPORT;
   var base = window.OCL_API_BASE;
 
-  // Weather
-  try {{
-    var r = await fetchLive(base + ident + '/weather');
-    var data = await r.json();
-    var el = document.getElementById('weather');
-    if (data.error || (!data.metar && !data.taf)) {{
-      el.innerHTML = '<h3>Weather</h3><p class="muted">No METAR reporting station at this airport. ' +
-        '<a href="https://aviationweather.gov/metar?ids={ident}" target="_blank" rel="noopener">Check nearby METARs</a> · ' +
-        '<a href="https://www.aviationweather.gov/adds/metars/?station_ids={ident}&std_trans=standard&chk_sta=on&hoursStr=most+recent" target="_blank" rel="noopener">ADDS</a></p>';
-      return;
-    }}
-    var metar = (data.metar != null && data.metar !== '') ? data.metar : null;
-    var taf = data.taf || null;
-    var badge = '';
-    if (data.flight_category) {{
-      var cat = data.flight_category.toUpperCase();
-      var cls = cat === 'VFR' ? 'wx-vfr' : cat === 'MVFR' ? 'wx-mvfr' : 'wx-ifr';
-      badge = ' <span class="wx-badge ' + cls + '">' + cat + '</span>';
-    }}
-    el.innerHTML = '<h3>Weather' + badge + '</h3>' +
-      (metar ? '<p><strong>METAR:</strong> <code>' + metar + '</code></p>' : '<p class="muted">No METAR available.</p>') +
-      (taf ? '<p><strong>TAF:</strong> <code>' + taf + '</code></p>' : '');
-  }} catch(e) {{
-    document.getElementById('weather').innerHTML = '<h3>Weather</h3><p>Unable to load. <a href="https://aviationweather.gov/metar?ids={ident}" target="_blank">Check aviationweather.gov</a></p>';
+  // ── Weather: OCL API → aviationweather.gov → Open-Meteo ────────
+  var OCL_WX_IDENT = ident; // closure
+
+  function wxBadge(cat) {{
+    if (!cat) return '';
+    cat = cat.toUpperCase();
+    var cls = cat === 'VFR' ? 'wx-vfr' : cat === 'MVFR' ? 'wx-mvfr' : 'wx-ifr';
+    return '<span class="wx-badge ' + cls + '">' + cat + '</span> ';
   }}
+
+  function windyBtn() {{
+    return '<p style="margin:.6rem 0 0"><button onclick="(function(){{var w=document.getElementById(\'windy-wrap\');if(w){{w.style.display=\'block\';w.scrollIntoView({{behavior:\'smooth\',block:\'nearest\'}})}}}})();" style="background:none;border:1px solid var(--line);border-radius:999px;padding:.28rem .75rem;font:inherit;font-size:.8rem;cursor:pointer;color:var(--muted)">🌐 Show weather map</button></p>';
+  }}
+
+  function renderOCLWeather(el, d) {{
+    var metar = d.metar || null;
+    var taf = d.taf || null;
+    el.innerHTML = '<h3>Weather ' + wxBadge(d.flight_category) + '</h3>' +
+      (metar ? '<p><strong>METAR:</strong> <code>' + metar + '</code></p>' : '') +
+      (taf ? '<details style="margin:.3rem 0"><summary style="cursor:pointer;font-size:.88rem;font-weight:600">TAF</summary><p style="margin:.3rem 0"><code style="font-size:.8rem;white-space:pre-wrap">' + taf + '</code></p></details>' : '') +
+      windyBtn();
+  }}
+
+  function renderAWCWeather(el, obs) {{
+    var raw = obs.rawOb || '';
+    var taf = obs.rawTaf || '';
+    var cat = obs.flight_category || '';
+    var wdir = obs.wdir, wspd = obs.wspd, wgst = obs.wgst;
+    var windStr = (wdir != null && wspd != null) ? wdir + '° at ' + wspd + (wgst ? '/' + wgst : '') + ' kt' : '';
+    var tempF = obs.temp != null ? Math.round(obs.temp * 9/5 + 32) + '°F' : '';
+    var visib = obs.visib ? obs.visib + ' SM' : '';
+    var ceiling = obs.ceiling ? obs.ceiling + ' ft AGL' : 'Clear above';
+    var altim = obs.altim ? obs.altim.toFixed(2) + ' inHg' : '';
+    var parts = [windStr, visib ? 'Vis: ' + visib : '', 'Ceiling: ' + ceiling, tempF, altim].filter(Boolean);
+    el.innerHTML = '<h3>Weather ' + wxBadge(cat) + '<small style="font-weight:400;font-size:.72rem;color:var(--muted)"> aviationweather.gov</small></h3>' +
+      (raw ? '<p><strong>METAR:</strong> <code>' + raw + '</code></p>' : '') +
+      (parts.length ? '<p class="muted" style="font-size:.86rem">' + parts.join(' · ') + '</p>' : '') +
+      (taf ? '<details style="margin:.3rem 0"><summary style="cursor:pointer;font-size:.88rem;font-weight:600">TAF</summary><p style="margin:.3rem 0"><code style="font-size:.8rem;white-space:pre-wrap">' + taf + '</code></p></details>' : '') +
+      windyBtn();
+  }}
+
+  var WMO = {{0:'Clear sky',1:'Mainly clear',2:'Partly cloudy',3:'Overcast',
+    45:'Fog',48:'Freezing fog',51:'Light drizzle',53:'Drizzle',55:'Heavy drizzle',
+    61:'Light rain',63:'Rain',65:'Heavy rain',71:'Light snow',73:'Snow',75:'Heavy snow',
+    77:'Snow grains',80:'Light showers',81:'Showers',82:'Heavy showers',
+    95:'Thunderstorm',96:'T-storm + hail',99:'T-storm + heavy hail'}};
+
+  function renderOpenMeteo(el, c) {{
+    var desc = WMO[c.weather_code] || 'Unknown';
+    var wspd = Math.round(c.wind_speed_10m || 0);
+    var wgst = c.wind_gusts_10m ? Math.round(c.wind_gusts_10m) : null;
+    var wdir = c.wind_direction_10m || 0;
+    var tempF = c.temperature_2m != null ? Math.round(c.temperature_2m) + '°F' : '';
+    var rhum = c.relative_humidity_2m ? c.relative_humidity_2m + '% RH' : '';
+    var windStr = wdir + '° at ' + wspd + (wgst ? '/' + wgst : '') + ' kt';
+    var cards = [
+      ['Conditions', desc],
+      ['Wind', windStr],
+      tempF ? ['Temp', tempF] : null,
+      rhum ? ['Humidity', rhum] : null,
+    ].filter(Boolean).map(function(p){{
+      return '<div class="fact-card"><div class="lbl">' + p[0] + '</div><div class="val" style="font-size:.9rem">' + p[1] + '</div></div>';
+    }}).join('');
+    el.innerHTML = '<h3>Conditions <small style="font-weight:400;font-size:.72rem;color:var(--muted)"> Open-Meteo · no METAR at this airport</small></h3>' +
+      '<div class="fact-grid" style="margin:.4rem 0 .5rem">' + cards + '</div>' +
+      '<p class="muted" style="font-size:.75rem;margin:.1rem 0">Forecast model only — not a certified METAR. <a href="https://aviationweather.gov/metar?ids=' + OCL_WX_IDENT + '" target="_blank" rel="noopener">Check nearest METAR ↗</a></p>' +
+      windyBtn();
+  }}
+
+  async function loadWeather() {{
+    var el = document.getElementById('weather');
+    var LAT = window.OCL_LAT, LON = window.OCL_LON;
+
+    // 1 — OCL API
+    try {{
+      var r1 = await fetchLive(base + ident + '/weather', 5000);
+      var d1 = await r1.json();
+      if (!d1.error && (d1.metar || d1.taf)) {{ renderOCLWeather(el, d1); return; }}
+    }} catch(e) {{}}
+
+    // 2 — aviationweather.gov public REST API
+    try {{
+      var r2 = await fetchLive('https://aviationweather.gov/api/data/metar?ids=' + ident + '&format=json&taf=true&hours=2', 8000);
+      var d2 = await r2.json();
+      if (Array.isArray(d2) && d2.length) {{ renderAWCWeather(el, d2[0]); return; }}
+    }} catch(e) {{}}
+
+    // 3 — Open-Meteo (free, no key, accepts lat/lon)
+    if (LAT && LON) {{
+      try {{
+        var omUrl = 'https://api.open-meteo.com/v1/forecast?latitude=' + LAT + '&longitude=' + LON +
+          '&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m,wind_direction_10m,wind_gusts_10m,precipitation' +
+          '&wind_speed_unit=kn&temperature_unit=fahrenheit&forecast_days=1';
+        var r3 = await fetchLive(omUrl, 8000);
+        var d3 = await r3.json();
+        if (d3 && d3.current) {{ renderOpenMeteo(el, d3.current); return; }}
+      }} catch(e) {{}}
+    }}
+
+    // All sources failed
+    el.innerHTML = '<h3>Weather</h3><p class="muted">Weather unavailable. ' +
+      '<a href="https://aviationweather.gov" target="_blank" rel="noopener">Check aviationweather.gov →</a></p>' +
+      windyBtn();
+  }}
+
+  loadWeather();
 
   // NOTAMs
   try {{

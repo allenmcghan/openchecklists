@@ -75,7 +75,7 @@ def _client() -> anthropic.Anthropic:
     return anthropic.Anthropic()  # reads ANTHROPIC_API_KEY / ANTHROPIC_BASE_URL
 
 
-def llm_text(system: str, user: str, model: str, max_tokens: int = MAX_TOKENS, thinking_budget: int = 1024) -> str:
+def llm_text(system: str, user: str, model: str, max_tokens: int = MAX_TOKENS, thinking_budget: int = 0) -> str:
     client = _client()
     thinking = {"type": "enabled", "budget_tokens": thinking_budget} if thinking_budget > 0 else {"type": "disabled"}
     resp = client.messages.create(
@@ -98,6 +98,18 @@ def parse_json(text: str) -> dict:
     if start == -1 or end == -1 or end <= start:
         raise ValueError("no JSON object found in model output")
     return json.loads(text[start:end + 1])
+
+
+def llm_json(system: str, user: str, model: str, max_tokens: int, thinking_budget: int) -> tuple[dict, str]:
+    """One LLM call returning parsed JSON, with a single repair retry on bad JSON."""
+    raw = llm_text(system, user, model, max_tokens, thinking_budget)
+    try:
+        return parse_json(raw), raw
+    except Exception as exc:
+        print(f"  parse failed ({type(exc).__name__}), retrying with repair ...", file=sys.stderr)
+        user2 = user + "\n\nYour previous response was not valid JSON. Output ONLY a valid JSON object, no commentary."
+        raw2 = llm_text(system, user2, model, max_tokens, thinking_budget)
+        return parse_json(raw2), raw2
 
 
 def build_user_prompt(schema: dict, meta: dict, source_text: str) -> str:
@@ -248,6 +260,37 @@ def slugify(s: str) -> str:
     return s or "checklist"
 
 
+VALID_CRITICALITY = {"normal", "abnormal", "emergency"}
+INFORMATIONAL = {"subtitle", "note", "caution", "warning", "reference", "blank"}
+TASK = {"action", "challenge"}
+
+
+def repair_schema(doc: dict) -> dict:
+    """Deterministic fixes for the mechanical schema rules the model can trip on.
+
+    These are structural corrections derived directly from item type — they do
+    not change content or numbers, so they are safe to apply before validation.
+    """
+    for si, section in enumerate(doc.get("sections", [])):
+        if section.get("criticality") not in VALID_CRITICALITY:
+            section["criticality"] = "normal"
+        for ii, item in enumerate(section.get("items", [])):
+            t = item.get("type")
+            if t in INFORMATIONAL:
+                item["tickable"] = False
+            elif t in TASK:
+                item["tickable"] = True
+            if item.get("memory_item") and not item.get("id"):
+                item["id"] = (slugify(item.get("text", "")) or f"item-{si}-{ii}")[:60]
+            if t == "action" and not item.get("response"):
+                item["type"] = "challenge"
+                item.pop("response", None)
+            if t == "reference" and not item.get("reference"):
+                item["type"] = "note"
+                item.pop("reference", None)
+    return doc
+
+
 def meta_from_path(p: Path, root: Path, args) -> dict:
     """Best-effort aircraft metadata from a <Mfr>/<Model>/<file>.txt mirror path."""
     rel = p.relative_to(root)
@@ -271,20 +314,24 @@ def meta_from_path(p: Path, root: Path, args) -> dict:
 
 def transcribe_one(source_path: Path, meta: dict, out_dir: Path, args, schema: dict) -> str:
     source_text = source_path.read_text(encoding="utf-8", errors="replace")
+    # The schema requires source.title whenever the source kind is a real
+    # document (not none/unknown). Fall back to the filename if not given.
+    if meta.get("source_kind") not in ("none", "unknown") and not meta.get("source_title"):
+        meta["source_title"] = source_path.name
     out_dir.mkdir(parents=True, exist_ok=True)
     cache_dir = out_dir / f".{meta['id']}.passes"
     if args.skip_llm:
-        p1 = json.loads((cache_dir / "pass1.json").read_text())
-        p2 = json.loads((cache_dir / "pass2.json").read_text())
+        p1 = repair_schema(json.loads((cache_dir / "pass1.json").read_text()))
+        p2 = repair_schema(json.loads((cache_dir / "pass2.json").read_text()))
     else:
         user = build_user_prompt(schema, meta, source_text)
         cache_dir.mkdir(parents=True, exist_ok=True)
-        raw1 = llm_text(SYSTEM_PROMPTS["faithful"], user, args.model_pass1, args.max_tokens, args.thinking_budget)
+        p1, raw1 = llm_json(SYSTEM_PROMPTS["faithful"], user, args.model_pass1, args.max_tokens, args.thinking_budget)
         (cache_dir / "pass1.raw.txt").write_text(raw1, encoding="utf-8")
-        p1 = parse_json(raw1)
-        raw2 = llm_text(SYSTEM_PROMPTS["skeptical"], user, args.model_pass2, args.max_tokens, args.thinking_budget)
+        p1 = repair_schema(p1)
+        p2, raw2 = llm_json(SYSTEM_PROMPTS["skeptical"], user, args.model_pass2, args.max_tokens, args.thinking_budget)
         (cache_dir / "pass2.raw.txt").write_text(raw2, encoding="utf-8")
-        p2 = parse_json(raw2)
+        p2 = repair_schema(p2)
         (cache_dir / "pass1.json").write_text(json.dumps(p1, indent=2))
         (cache_dir / "pass2.json").write_text(json.dumps(p2, indent=2))
 
@@ -308,8 +355,11 @@ def transcribe_one(source_path: Path, meta: dict, out_dir: Path, args, schema: d
 
 def run_batch(args, schema: dict) -> int:
     root = args.batch
-    skip_stems = {"readme", "file_id", "file-id"}
-    sources = sorted(p for p in root.rglob("*.txt") if p.stem.lower() not in skip_stems)
+    def skip(p: Path) -> bool:
+        low = p.stem.lower()
+        return (low in {"readme", "file_id", "file-id"}
+                or re.search(r"\bwb\b|weight|balance", low) is not None)
+    sources = sorted(p for p in root.rglob("*.txt") if not skip(p))
     if args.limit:
         sources = sources[: args.limit]
     out_root = args.out_dir or (root / "ocl")
@@ -350,7 +400,7 @@ def main() -> int:
     ap.add_argument("--model-pass1", default=DEFAULT_MODEL)
     ap.add_argument("--model-pass2", default=DEFAULT_MODEL)
     ap.add_argument("--max-tokens", type=int, default=MAX_TOKENS)
-    ap.add_argument("--thinking-budget", type=int, default=1024, help="thinking tokens (0 = disable)")
+    ap.add_argument("--thinking-budget", type=int, default=0, help="thinking tokens (0 = disable; the proxy's thinking eats the output budget and truncates long JSON)")
     ap.add_argument("--out-dir", type=Path, default=None)
     ap.add_argument("--skip-llm", action="store_true", help="re-merge cached passes without LLM calls")
     args = ap.parse_args()
