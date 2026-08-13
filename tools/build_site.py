@@ -798,6 +798,7 @@ def render_airport_page(airport: dict, effective_date: str) -> str:
     lon = airport.get("lon", "")
     status = escape(airport.get("status") or "Open")
     ownership = escape(airport.get("owner") or "Unknown")
+    manager_phone = escape((airport.get("manager_phone") or "").strip())
 
     # Generate runway diagram SVG
     runway_svg = render_runway_svg(airport)
@@ -855,9 +856,9 @@ def render_airport_page(airport: dict, effective_date: str) -> str:
         </script>
         """
         else:
-            map_js = '<section class="data-section"><p class="error">Map coordinates unavailable.</p></section>'
+            map_js = ''
     except (ValueError, TypeError):
-        map_js = '<section class="data-section"><p class="error">Map coordinates unavailable.</p></section>'
+        map_js = ''
 
     # Format frequencies with priority sorting
     freq_html = ""
@@ -1010,6 +1011,7 @@ def render_airport_page(airport: dict, effective_date: str) -> str:
             <div class="fact-label">Ownership</div>
             <div class="fact-value">{ownership}</div>
         </div>
+        {f'<div class="fact"><div class="fact-label">Phone</div><div class="fact-value"><a href="tel:{manager_phone}">{manager_phone}</a></div></div>' if manager_phone else ''}
     </section>
 
     <!-- Runway detail modal -->
@@ -1176,7 +1178,10 @@ function loadLiveData() {{
         .then(r => r.json())
         .then(data => {{
             const el = document.getElementById('weather');
-            el.innerHTML = `<h2>Weather</h2><p>METAR: <code>${{data.metar}}</code></p>`;
+            const metar = (data.metar != null && data.metar !== '') ? data.metar : null;
+            el.innerHTML = metar
+                ? `<h2>Weather</h2><p>METAR: <code>${{metar}}</code></p>`
+                : '<h2>Weather</h2><p class="muted">No METAR data available for this airport.</p>';
         }})
         .catch(err => {{
             const el = document.getElementById('weather');
@@ -1226,9 +1231,7 @@ function loadLiveData() {{
 }}
 
 // Load live data on page load (after 500ms to let page render)
-if (document.getElementById('map')) {{
-    setTimeout(loadLiveData, 500);
-}}
+setTimeout(loadLiveData, 500);
 </script>
 </body>
 </html>"""
