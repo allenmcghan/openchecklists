@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flight Planner — Design Q3</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #f4f6f9; color: #1a1a2e; padding: 2rem 1rem; }
+  .page { max-width: 1060px; margin: 0 auto; }
+  .badge { display: inline-block; background: #1f4e79; color: #fff; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 10px; border-radius: 20px; margin-bottom: 1rem; }
+  h1 { font-size: 1.5rem; font-weight: 700; margin-bottom: 0.35rem; color: #1f4e79; }
+  .sub { color: #555; font-size: 0.92rem; margin-bottom: 1.8rem; line-height: 1.5; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.2rem; }
+  .card { background: #fff; border: 2.5px solid #dde3ee; border-radius: 14px; overflow: hidden; cursor: pointer; transition: border-color 0.15s, box-shadow 0.15s; }
+  .card:hover { border-color: #1f4e79; box-shadow: 0 3px 16px rgba(31,78,121,0.12); }
+  .card.selected { border-color: #1f4e79; }
+  .card-label { background: #1f4e79; color: #fff; font-weight: 700; font-size: 0.75rem; letter-spacing: 0.06em; padding: 7px 14px; display: flex; justify-content: space-between; align-items: center; }
+  .card-label .rec { font-size: 0.68rem; font-weight: 400; opacity: 0.85; }
+  .mockup { background: #f0f4f9; padding: 0.9rem; border-bottom: 1px solid #e0e7f0; }
+
+  /* --- Wizard mockup --- */
+  .wiz-steps { display: flex; gap: 0; margin-bottom: 10px; }
+  .wiz-step { flex: 1; text-align: center; padding: 5px 2px; font-size: 0.58rem; font-weight: 600; border-bottom: 3px solid #dde3ee; color: #aaa; }
+  .wiz-step.done { border-color: #27ae60; color: #27ae60; }
+  .wiz-step.active { border-color: #1f4e79; color: #1f4e79; background: #eef4fb; border-radius: 4px 4px 0 0; }
+  .wiz-body { background: #fff; border-radius: 8px; padding: 10px; }
+  .wiz-body h4 { font-size: 0.72rem; font-weight: 700; color: #1f4e79; margin-bottom: 6px; }
+  .wiz-ac { display: flex; gap: 6px; margin-bottom: 6px; }
+  .wiz-ac-card { background: #f4f6f9; border: 1.5px solid #dde3ee; border-radius: 6px; padding: 6px 9px; flex: 1; font-size: 0.58rem; color: #333; cursor: pointer; }
+  .wiz-ac-card.sel { border-color: #1f4e79; background: #eef4fb; }
+  .wiz-ac-card b { display: block; font-size: 0.65rem; color: #1f4e79; }
+  .wiz-nav { display: flex; justify-content: flex-end; margin-top: 8px; }
+  .wiz-btn { background: #1f4e79; color: #fff; border: none; padding: 5px 14px; border-radius: 5px; font-size: 0.65rem; font-weight: 700; }
+
+  /* --- Single page mockup --- */
+  .sp-form { background: #fff; border-radius: 8px; padding: 10px; }
+  .sp-section { margin-bottom: 8px; }
+  .sp-label { font-size: 0.58rem; font-weight: 700; color: #1f4e79; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 3px; }
+  .sp-field { background: #f4f6f9; border-radius: 4px; padding: 5px 8px; font-size: 0.6rem; color: #888; margin-bottom: 3px; }
+  .sp-row { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
+  .sp-gen { background: #1f4e79; color: #fff; border-radius: 5px; padding: 6px; font-size: 0.65rem; font-weight: 700; text-align: center; margin-top: 4px; }
+  .sp-divider { height: 1px; background: #e0e7f0; margin: 8px 0; }
+
+  /* --- Map mockup --- */
+  .map-wrap { position: relative; border-radius: 8px; overflow: hidden; height: 130px; background: #d4e6c3; }
+  .map-grid { position: absolute; inset: 0; }
+  .map-road-h { position: absolute; height: 1px; background: rgba(255,255,255,0.4); left: 0; right: 0; }
+  .map-road-v { position: absolute; width: 1px; background: rgba(255,255,255,0.4); top: 0; bottom: 0; }
+  .map-apt { position: absolute; width: 10px; height: 10px; border-radius: 50%; background: #1f4e79; border: 2px solid #fff; transform: translate(-50%,-50%); cursor: pointer; }
+  .map-apt-lbl { position: absolute; font-size: 0.5rem; font-weight: 700; color: #1f4e79; background: rgba(255,255,255,0.9); padding: 1px 4px; border-radius: 3px; transform: translate(-50%, 8px); white-space: nowrap; }
+  .map-route { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
+  .map-panel { position: absolute; right: 6px; top: 6px; background: rgba(255,255,255,0.93); border-radius: 6px; padding: 6px 8px; font-size: 0.58rem; width: 100px; box-shadow: 0 1px 6px rgba(0,0,0,0.1); }
+  .map-panel b { display: block; font-size: 0.62rem; color: #1f4e79; margin-bottom: 3px; }
+  .map-wp { background: #f4f6f9; border-radius: 3px; padding: 2px 5px; margin-bottom: 2px; font-size: 0.58rem; color: #333; }
+  .map-btn { background: #1f4e79; color: #fff; border-radius: 4px; padding: 3px 6px; font-size: 0.58rem; font-weight: 700; margin-top: 4px; text-align: center; }
+
+  .card-body { padding: 12px 14px; }
+  .card-body h3 { font-size: 0.92rem; font-weight: 700; color: #1f4e79; margin-bottom: 5px; }
+  .card-body p { font-size: 0.82rem; color: #444; line-height: 1.5; }
+  .tag { display: inline-block; font-size: 0.7rem; font-weight: 600; padding: 2px 8px; border-radius: 10px; margin-top: 6px; }
+  .tag.green { background: #d4edda; color: #155724; }
+  .tag.blue { background: #d1ecf1; color: #0c5460; }
+  .tag.purple { background: #e8d5f5; color: #5b2d8e; }
+  .selected-ring { display: none; text-align: center; font-size: 0.72rem; color: #1f4e79; font-weight: 700; padding: 5px; }
+  .card.selected .selected-ring { display: block; }
+  .confirm { text-align: center; margin-top: 1.4rem; }
+  .confirm button { background: #1f4e79; color: #fff; border: none; padding: 0.7rem 1.8rem; border-radius: 8px; font-size: 0.95rem; font-weight: 600; cursor: pointer; opacity: 0.4; pointer-events: none; transition: opacity 0.2s; }
+  .confirm button.active { opacity: 1; pointer-events: auto; }
+  .footnote { margin-top: 1.4rem; font-size: 0.78rem; color: #aaa; text-align: center; }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="badge">Flight Planner Design — Question 3 of ~5</div>
+  <h1>How does a pilot build their flight plan?</h1>
+  <p class="sub">Once they land on <code>/planner</code>, what's the planning experience? All three collect the same data — the difference is <strong>how it's presented</strong>.</p>
+
+  <div class="cards">
+
+    <!-- A: Guided Wizard -->
+    <div class="card" onclick="pick(this,'A')">
+      <div class="card-label">A — Guided wizard (step-by-step) <span class="rec">★ Recommended</span></div>
+      <div class="mockup">
+        <div class="wiz-steps">
+          <div class="wiz-step done">① Aircraft</div>
+          <div class="wiz-step active">② Route</div>
+          <div class="wiz-step">③ Weather</div>
+          <div class="wiz-step">④ Fuel</div>
+          <div class="wiz-step">⑤ Review</div>
+        </div>
+        <div class="wiz-body">
+          <h4>Step 2 — Where are you flying?</h4>
+          <div class="sp-row" style="margin-bottom:5px;">
+            <div class="sp-field">Departure: KBTL</div>
+            <div class="sp-field">Destination: KGRR</div>
+          </div>
+          <div class="sp-field" style="color:#555;">Alternate (optional): KAZO</div>
+          <div style="font-size:0.58rem;color:#888;margin-top:5px;">Saved airports: <span style="color:#1f4e79;font-weight:600;cursor:pointer;">KBTL</span> · <span style="color:#1f4e79;font-weight:600;cursor:pointer;">KGRR</span> · <span style="color:#1f4e79;font-weight:600;cursor:pointer;">KAZO</span></div>
+          <div class="wiz-nav"><button class="wiz-btn">Next: Weather →</button></div>
+        </div>
+      </div>
+      <div class="card-body">
+        <h3>Guided, one step at a time</h3>
+        <p>Pilot is walked through 5 focused screens: select aircraft → set route → review weather → check fuel → get briefing. Each step is short. Saved aircraft and airports appear as one-click shortcuts. Best for students and occasional fliers.</p>
+        <span class="tag green">✓ Least intimidating — great for students</span>
+      </div>
+      <div class="selected-ring">✓ Selected</div>
+    </div>
+
+    <!-- B: Single page -->
+    <div class="card" onclick="pick(this,'B')">
+      <div class="card-label">B — Single-page form</div>
+      <div class="mockup">
+        <div class="sp-form">
+          <div class="sp-section">
+            <div class="sp-label">Aircraft</div>
+            <div class="sp-field">N12345 · Cessna 172S · 35 gal · 110 kt cruise</div>
+          </div>
+          <div class="sp-divider"></div>
+          <div class="sp-section">
+            <div class="sp-label">Route</div>
+            <div class="sp-row">
+              <div class="sp-field">Dep: KBTL</div>
+              <div class="sp-field">Dest: KGRR</div>
+            </div>
+            <div class="sp-field">Alternate: KAZO</div>
+          </div>
+          <div class="sp-divider"></div>
+          <div class="sp-section">
+            <div class="sp-label">Fuel &amp; Reserves</div>
+            <div class="sp-row">
+              <div class="sp-field">Fuel onboard: 35 gal</div>
+              <div class="sp-field">Reserve: 30 min</div>
+            </div>
+          </div>
+          <div class="sp-gen">Generate Briefing →</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <h3>Everything on one scrollable page</h3>
+        <p>All fields visible at once — aircraft, route, fuel. Experienced pilots can fill it in under 60 seconds and hit Generate. Saved data pre-fills most fields. Faster for repeat users who know what they're doing.</p>
+        <span class="tag blue">Fastest for experienced pilots</span>
+      </div>
+      <div class="selected-ring">✓ Selected</div>
+    </div>
+
+    <!-- C: Map-first -->
+    <div class="card" onclick="pick(this,'C')">
+      <div class="card-label">C — Map-first route builder</div>
+      <div class="mockup">
+        <div class="map-wrap">
+          <!-- fake terrain -->
+          <div style="position:absolute;inset:0;background:linear-gradient(160deg,#d4e6c3 60%,#b8d4a8 100%);"></div>
+          <!-- roads -->
+          <div class="map-road-h" style="top:40%"></div>
+          <div class="map-road-h" style="top:70%"></div>
+          <div class="map-road-v" style="left:30%"></div>
+          <div class="map-road-v" style="left:65%"></div>
+          <!-- route line -->
+          <svg class="map-route" viewBox="0 0 300 130" xmlns="http://www.w3.org/2000/svg">
+            <line x1="60" y1="80" x2="165" y2="50" stroke="#1f4e79" stroke-width="2" stroke-dasharray="5,3"/>
+            <line x1="165" y1="50" x2="240" y2="65" stroke="#1f4e79" stroke-width="2" stroke-dasharray="5,3"/>
+          </svg>
+          <!-- airports -->
+          <div class="map-apt" style="left:20%;top:62%"></div>
+          <div class="map-apt-lbl" style="left:20%;top:62%">KBTL</div>
+          <div class="map-apt" style="left:55%;top:38%;background:#e74c3c"></div>
+          <div class="map-apt-lbl" style="left:55%;top:38%">KGRR</div>
+          <div class="map-apt" style="left:80%;top:50%"></div>
+          <div class="map-apt-lbl" style="left:80%;top:50%">KAZO</div>
+          <!-- panel -->
+          <div class="map-panel">
+            <b>Route</b>
+            <div class="map-wp">🛫 KBTL</div>
+            <div class="map-wp">🏁 KGRR</div>
+            <div class="map-wp" style="color:#aaa;">+ waypoint</div>
+            <div class="map-btn">Build Briefing →</div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <h3>Click airports on a map to build route</h3>
+        <p>Leaflet map (same as airport pages) lets pilot click airports to add them to the route. Panel on the side shows the sequence. Great for spatial thinkers and pilots who are still deciding where to fly.</p>
+        <span class="tag purple">Most visual — higher dev effort</span>
+      </div>
+      <div class="selected-ring">✓ Selected</div>
+    </div>
+
+  </div>
+
+  <p style="font-size:0.82rem;color:#666;margin-top:1rem;text-align:center;">
+    Can mix: e.g., Wizard (A) with a map for the route step. Let me know if you want a hybrid.
+  </p>
+
+  <div class="confirm">
+    <button id="btn" onclick="done()">Confirm selection →</button>
+  </div>
+  <p class="footnote">openchecklists.net · internal design review · not indexed</p>
+</div>
+<script>
+var sel = null;
+function pick(el, val) {
+  document.querySelectorAll('.card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  sel = val;
+  document.getElementById('btn').classList.add('active');
+}
+function done() {
+  if (!sel) return;
+  document.getElementById('btn').textContent = '✓ Recorded — reply in chat to continue';
+  document.getElementById('btn').style.background = '#27ae60';
+  history.replaceState(null,'','?sel='+sel);
+}
+</script>
+</body>
+</html>
