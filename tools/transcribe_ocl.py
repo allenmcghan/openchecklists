@@ -263,6 +263,35 @@ def slugify(s: str) -> str:
 VALID_CRITICALITY = {"normal", "abnormal", "emergency"}
 INFORMATIONAL = {"subtitle", "note", "caution", "warning", "reference", "blank"}
 TASK = {"action", "challenge"}
+VALID_PHASES = frozenset({
+    "preflight_inspection", "before_start", "engine_start", "after_start", "before_taxi", "taxi",
+    "before_takeoff", "takeoff", "after_takeoff", "climb", "cruise", "descent", "arrival",
+    "approach", "before_landing", "landing", "go_around", "after_landing", "shutdown", "securing",
+    "postflight", "engine_failure_before_rotation", "engine_failure_after_takeoff",
+    "engine_failure_in_flight", "engine_restart_in_flight", "engine_fire_ground",
+    "engine_fire_in_flight", "cabin_fire", "electrical_fire", "smoke_removal", "forced_landing",
+    "ditching", "electrical_failure", "alternator_failure", "fuel_system_malfunction",
+    "oil_system_malfunction", "landing_gear_malfunction", "flap_malfunction", "trim_malfunction",
+    "control_malfunction", "brake_failure", "pitot_static_failure", "vacuum_failure",
+    "avionics_failure", "autopilot_malfunction", "icing", "carburetor_icing", "inadvertent_imc",
+    "spin_recovery", "unusual_attitude_recovery", "structural_damage", "door_open_in_flight",
+    "emergency_descent", "parachute_deployment", "engine_out_landing", "weight_and_balance",
+    "performance", "limitations", "reference", "other",
+})
+
+
+ITEM_TYPES = {"action", "challenge", "subtitle", "note", "caution", "warning", "reference", "blank"}
+TYPE_TYPO_FIX = {"subtitile": "subtitle", "subtitl": "subtitle", "warnng": "warning", "cution": "caution"}
+VALID_QUANTITIES = {"airspeed", "altitude", "rpm", "pressure", "temperature", "fuel",
+                    "weight", "time", "distance", "percent", "voltage", "current", "angle"}
+
+
+def _sanitize_id(s: str) -> str:
+    return re.sub(r"[^a-z0-9-]+", "-", s.lower()).strip("-")[:60]
+
+
+def _clip(s: str, n: int) -> str:
+    return s if len(s) <= n else s[: n - 3] + "..."
 
 
 def repair_schema(doc: dict) -> dict:
@@ -271,23 +300,52 @@ def repair_schema(doc: dict) -> dict:
     These are structural corrections derived directly from item type — they do
     not change content or numbers, so they are safe to apply before validation.
     """
+    # Pass 1: fix section-level fields and sanitize ids.
     for si, section in enumerate(doc.get("sections", [])):
         if section.get("criticality") not in VALID_CRITICALITY:
             section["criticality"] = "normal"
+        if section.get("phase") not in VALID_PHASES:
+            section["phase"] = "other"
+            if not section.get("phase_label"):
+                section["phase_label"] = section.get("title", "other")
+        if section.get("id"):
+            section["id"] = _sanitize_id(section["id"])
+
+    section_ids = {s.get("id") for s in doc.get("sections", []) if s.get("id")}
+
+    # Pass 2: fix item-level fields.
+    for si, section in enumerate(doc.get("sections", [])):
         for ii, item in enumerate(section.get("items", [])):
             t = item.get("type")
+            if t not in ITEM_TYPES:
+                item["type"] = TYPE_TYPO_FIX.get(t, "note")
+                t = item["type"]
             if t in INFORMATIONAL:
                 item["tickable"] = False
+                item.pop("memory_item", None)
             elif t in TASK:
                 item["tickable"] = True
+            if t != "action":
+                # Only an action carries a response or a comparable value.
+                item.pop("response", None)
+                item.pop("value", None)
             if item.get("memory_item") and not item.get("id"):
                 item["id"] = (slugify(item.get("text", "")) or f"item-{si}-{ii}")[:60]
+            if item.get("id"):
+                item["id"] = _sanitize_id(item["id"])
+            for field, maxlen in (("text", 2000), ("response", 500), ("detail", 4000), ("condition", 300)):
+                if isinstance(item.get(field), str):
+                    item[field] = _clip(item[field], maxlen)
             if t == "action" and not item.get("response"):
                 item["type"] = "challenge"
-                item.pop("response", None)
-            if t == "reference" and not item.get("reference"):
-                item["type"] = "note"
-                item.pop("reference", None)
+            if t == "reference":
+                ref = item.get("reference")
+                if not (isinstance(ref, dict) and ref.get("section_id") in section_ids):
+                    item["type"] = "note"
+                    item.pop("reference", None)
+            v = item.get("value")
+            if isinstance(v, dict) and v.get("quantity") not in VALID_QUANTITIES:
+                item.pop("value", None)
     return doc
 
 

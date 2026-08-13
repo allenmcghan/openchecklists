@@ -640,6 +640,101 @@ const routes = {
   // POST /api/plan/:id/email — email a briefing for a plan (public — no auth required)
   'POST /api/plan': emailPlan,
 
+  // ── Public aviation data — no auth ──────────────────────────────────────────
+
+  // GET /api/airport/:ident/weather|notams|fuel
+  // Proxies aviationweather.gov server-side so browsers avoid CORS errors.
+  'GET /api/airport': async (req, env, _claims, params) => {
+    const parts = (params.id || '').split('/');
+    const ident = (parts[0] || '').toUpperCase();
+    const dtype = parts[1] || '';
+    if (!ident) return err('Airport identifier required', 400);
+    // aviationweather.gov uses ICAO format — 3-letter FAA codes need K prefix for US airports
+    const icao = ident.length === 3 ? 'K' + ident : ident;
+
+    if (dtype === 'weather') {
+      try {
+        const r = await fetch(
+          `https://aviationweather.gov/api/data/metar?ids=${icao}&format=json&taf=true&hours=2`,
+          { signal: AbortSignal.timeout(8000) }
+        );
+        const data = await r.json();
+        if (!Array.isArray(data) || !data.length) return json({ error: 'No METAR data' });
+        const o = data[0];
+        return json({
+          metar: o.rawOb || null,
+          taf: o.rawTaf || null,
+          flight_category: o.fltCat || null,
+          temp_c: o.temp ?? null,
+          wind_dir: o.wdir ?? null,
+          wind_kt: o.wspd ?? null,
+          gust_kt: o.wgst ?? null,
+          visibility_sm: o.visib ?? null,
+          ceiling_ft: o.ceiling ?? null,
+          altim_inhg: o.altim ?? null,
+          source: 'aviationweather.gov',
+        });
+      } catch (e) {
+        return json({ error: 'Weather unavailable' });
+      }
+    }
+
+    if (dtype === 'notams') {
+      try {
+        const r = await fetch(
+          `https://aviationweather.gov/api/data/notam?ids=${icao}&format=json`,
+          { signal: AbortSignal.timeout(8000) }
+        );
+        const data = await r.json();
+        if (!Array.isArray(data)) return json({ notams: [] });
+        return json({
+          notams: data.map(n => ({ text: n.notamTxt || n.rawText || String(n) })),
+        });
+      } catch (e) {
+        return json({ notams: [] });
+      }
+    }
+
+    if (dtype === 'fuel') {
+      return json({ fuel_types: [], error: 'No free fuel API available' });
+    }
+
+    return err('Unknown airport data type', 404);
+  },
+
+  // GET /api/proxy/windtemp   — winds aloft (CORS proxy)
+  // GET /api/proxy/pirep/:id  — PIREPs within 50nm (CORS proxy)
+  'GET /api/proxy': async (req, env, _claims, params) => {
+    const parts = (params.id || '').split('/');
+    const ptype = parts[0];
+    const pident = (parts[1] || '').toUpperCase();
+
+    // Proxy handler — also add K prefix for PIREP queries
+    const picao = pident.length === 3 ? 'K' + pident : pident;
+    let url;
+    if (ptype === 'windtemp') {
+      url = 'https://aviationweather.gov/api/data/windtemp?region=all&level=low&fcst=06&format=json';
+    } else if (ptype === 'pirep' && pident) {
+      url = `https://aviationweather.gov/api/data/pirep?format=json&distance=50&id=${picao}`;
+    } else {
+      return err('Unknown proxy type', 400);
+    }
+
+    try {
+      const r = await fetch(url, { signal: AbortSignal.timeout(10000) });
+      const body = await r.text();
+      return new Response(body, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+          'Cache-Control': 'public, max-age=300',
+        },
+      });
+    } catch (e) {
+      return json({ error: 'Proxy fetch failed' });
+    }
+  },
+
   // GET /api/share/:logId — public shareable log snapshot
   'GET /api/share': async (req, env, _claims, params) => {
     const log = await env.DB.prepare(
@@ -679,7 +774,7 @@ export default {
     const claims = await auth(req, env);
 
     // Routes that don't require auth
-    const publicRoutes = ['GET /api/leaderboard', 'GET /api/share', 'GET /api/plan', 'POST /api/me/plans', 'POST /api/plan'];
+    const publicRoutes = ['GET /api/leaderboard', 'GET /api/share', 'GET /api/plan', 'POST /api/me/plans', 'POST /api/plan', 'GET /api/airport', 'GET /api/proxy'];
 
     // Match most-specific (longest path) routes first so that e.g.
     // `GET /api/me/aircraft` is not swallowed by the `GET /api/me` prefix.

@@ -1183,6 +1183,8 @@ function toggleRwy(btn, id) {{
   if (si) si.textContent = ss ? fmtLocal(ss) + ' (' + fmtUTC(ss) + ')' : 'N/A';
   if (ti) ti.textContent = ct ? 'End ' + fmtLocal(ct) : 'N/A';
   if (dawn) ti.textContent = 'Begin ' + fmtLocal(dawn) + ' / End ' + (ct ? fmtLocal(ct) : 'N/A');
+  // If UTC sunset is past midnight and appears "before" sunrise, add 24h
+  if (sr && ss && ss < sr) ss = new Date(ss.getTime() + 86400000);
   if (di && sr && ss) {{
     var mins = Math.round((ss - sr) / 60000);
     di.textContent = Math.floor(mins/60) + 'h ' + (mins % 60) + 'm';
@@ -1288,14 +1290,7 @@ async function loadLiveData() {{
       if (!d1.error && (d1.metar || d1.taf)) {{ renderOCLWeather(el, d1); return; }}
     }} catch(e) {{}}
 
-    // 2 — aviationweather.gov public REST API
-    try {{
-      var r2 = await fetchLive('https://aviationweather.gov/api/data/metar?ids=' + ident + '&format=json&taf=true&hours=2', 8000);
-      var d2 = await r2.json();
-      if (Array.isArray(d2) && d2.length) {{ renderAWCWeather(el, d2[0]); return; }}
-    }} catch(e) {{}}
-
-    // 3 — Open-Meteo (free, no key, accepts lat/lon)
+    // 2 — Open-Meteo (airports with no METAR station)
     if (LAT && LON) {{
       try {{
         var omUrl = 'https://api.open-meteo.com/v1/forecast?latitude=' + LAT + '&longitude=' + LON +
@@ -1348,45 +1343,50 @@ async function loadLiveData() {{
     document.getElementById('fuel').innerHTML = '<h3>Fuel &amp; FBO</h3><p>Unable to load fuel data.</p>';
   }}
 
-  // Winds aloft
-  try {{
-    var rw = await fetchLive('https://aviationweather.gov/api/data/windtemp?region=all&level=low&fcst=06&format=json', 10000);
-    var dw = await rw.json();
-    var elw = document.getElementById('winds-aloft');
-    // Find the nearest station to our airport
-    if (dw && Array.isArray(dw) && dw.length > 0) {{
-      var LAT2 = window.OCL_LAT, LON2 = window.OCL_LON;
-      var best = dw[0], bestDist = Infinity;
-      if (LAT2 && LON2) {{
-        dw.forEach(function(s) {{
-          if (!s.lat || !s.lon) return;
-          var d = Math.abs(s.lat - LAT2) + Math.abs(s.lon - LON2);
-          if (d < bestDist) {{ bestDist = d; best = s; }}
-        }});
-      }}
-      var rows = '';
-      var altitudes = [['3000', best.w3000], ['6000', best.w6000], ['9000', best.w9000], ['12000', best.w12000]];
-      altitudes.forEach(function(a) {{
-        if (a[1]) {{
-          rows += '<tr><td>' + a[0] + ' ft</td><td>' + a[1] + '</td></tr>';
+  // Winds aloft — Open-Meteo pressure-level winds (JSON, no CORS, lat/lon)
+  var elw = document.getElementById('winds-aloft');
+  var WLAT = window.OCL_LAT, WLON = window.OCL_LON;
+  if (WLAT && WLON) {{
+    try {{
+      var wUrl = 'https://api.open-meteo.com/v1/forecast?latitude=' + WLAT + '&longitude=' + WLON +
+        '&hourly=wind_speed_925hPa,wind_direction_925hPa,wind_speed_850hPa,wind_direction_850hPa,wind_speed_700hPa,wind_direction_700hPa,temperature_850hPa,temperature_700hPa' +
+        '&wind_speed_unit=kn&temperature_unit=fahrenheit&forecast_days=1&timezone=auto';
+      var rw = await fetchLive(wUrl, 10000);
+      var dw = await rw.json();
+      if (dw && dw.hourly) {{
+        var h = dw.hourly;
+        var now = new Date();
+        var hi = Math.min(now.getHours(), (h.wind_speed_925hPa || []).length - 1);
+        function wrow(alt, spd, dir, temp) {{
+          if (spd == null) return '';
+          var kts = Math.round(spd);
+          var dirS = dir != null ? Math.round(dir) + '°' : '—';
+          var tempS = temp != null ? ' / ' + Math.round(temp) + '°F' : '';
+          return '<tr><td>' + alt + '</td><td>' + dirS + ' @ ' + kts + ' kt' + tempS + '</td></tr>';
         }}
-      }});
-      if (rows) {{
-        elw.innerHTML = '<h3>Winds Aloft <small style="font-weight:400;font-size:.72rem;color:var(--muted)"> nearest station: ' + (best.stationId || '') + '</small></h3>' +
-          '<table style="font-size:.86rem"><thead><tr><th>Altitude</th><th>Wind/Temp</th></tr></thead><tbody>' + rows + '</tbody></table>';
+        var rows =
+          wrow('~3,000 ft (925hPa)', h.wind_speed_925hPa[hi], h.wind_direction_925hPa[hi], null) +
+          wrow('~5,000 ft (850hPa)', h.wind_speed_850hPa[hi], h.wind_direction_850hPa[hi], h.temperature_850hPa ? h.temperature_850hPa[hi] : null) +
+          wrow('~10,000 ft (700hPa)', h.wind_speed_700hPa[hi], h.wind_direction_700hPa[hi], h.temperature_700hPa ? h.temperature_700hPa[hi] : null);
+        if (rows) {{
+          elw.innerHTML = '<h3>Winds Aloft <small style="font-weight:400;font-size:.72rem;color:var(--muted)"> Open-Meteo forecast model</small></h3>' +
+            '<table style="font-size:.86rem"><thead><tr><th>Altitude</th><th>Wind / Temp</th></tr></thead><tbody>' + rows + '</tbody></table>';
+        }} else {{
+          elw.innerHTML = '<h3>Winds Aloft</h3><p class="muted">No winds aloft data.</p>';
+        }}
       }} else {{
-        elw.innerHTML = '<h3>Winds Aloft</h3><p class="muted">No winds aloft data available.</p>';
+        elw.innerHTML = '<h3>Winds Aloft</h3><p class="muted">Winds aloft data unavailable.</p>';
       }}
-    }} else {{
-      document.getElementById('winds-aloft').innerHTML = '<h3>Winds Aloft</h3><p class="muted">Winds aloft data unavailable.</p>';
+    }} catch(e) {{
+      elw.innerHTML = '<h3>Winds Aloft</h3><p class="muted">Winds aloft unavailable.</p>';
     }}
-  }} catch(e) {{
-    document.getElementById('winds-aloft').innerHTML = '<h3>Winds Aloft</h3><p class="muted">Winds aloft unavailable.</p>';
+  }} else {{
+    if (elw) elw.innerHTML = '<h3>Winds Aloft</h3><p class="muted">No coordinates for this airport.</p>';
   }}
 
   // PIREPs
   try {{
-    var rp = await fetchLive('https://aviationweather.gov/api/data/pirep?format=json&distance=50&id=' + ident, 8000);
+    var rp = await fetchLive('https://app.openchecklists.net/api/proxy/pirep/' + ident, 8000);
     var dp = await rp.json();
     var elp = document.getElementById('pireps');
     if (dp && Array.isArray(dp) && dp.length > 0) {{
