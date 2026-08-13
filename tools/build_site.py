@@ -266,6 +266,7 @@ def head(title: str, desc: str, rel: str = "") -> str:
 <nav class="nav" aria-label="Primary">
 <a href="{rel}catalogue.html">Checklists</a>
 <a href="{rel}airports.html">Airports &amp; weather</a>
+<a href="{rel}planner.html">Plan a Flight</a>
 <a href="{rel}training.html">Training</a>
 <a href="{rel}search.html">Troubleshooting</a>
 <a href="{rel}editor.html">Editor</a>
@@ -1014,6 +1015,8 @@ def render_airport_page(airport: dict, effective_date: str) -> str:
         {f'<div class="fact"><div class="fact-label">Phone</div><div class="fact-value"><a href="tel:{manager_phone}">{manager_phone}</a></div></div>' if manager_phone else ''}
     </section>
 
+    <div style="margin:1rem 0"><a href="/planner.html?dep={escape(ident)}" style="display:inline-flex;align-items:center;gap:.4rem;background:#1f4e79;color:#fff;padding:.55rem 1rem;border-radius:999px;font-size:.88rem;font-weight:650;text-decoration:none">✈ Plan a flight from {escape(ident)} →</a></div>
+
     <!-- Runway detail modal -->
     <div id="runway-detail-modal" class="modal">
         <div class="modal-content">
@@ -1455,6 +1458,16 @@ def main() -> int:
         (args.out / "auth").mkdir(exist_ok=True)
         _sh.copy2(callback_src, args.out / "auth" / "callback.html")
         artifacts.append(args.out / "auth" / "callback.html")
+    planner_src = ocl_api / "planner.html"
+    if planner_src.exists():
+        shutil.copy2(planner_src, args.out / "planner.html")
+        artifacts.append(args.out / "planner.html")
+    plan_src = ocl_api / "plan-detail.html"
+    if plan_src.exists():
+        plan_dir = args.out / "plan"
+        plan_dir.mkdir(exist_ok=True)
+        shutil.copy2(plan_src, plan_dir / "index.html")
+        artifacts.append(plan_dir / "index.html")
     (args.out / "editor.html").write_text(editor_page(head, FOOT, catalogue), encoding="utf-8")
     artifacts += static_pages + [args.out / "editor.html"]
 
@@ -1499,6 +1512,9 @@ def main() -> int:
         if src.exists():
             shutil.copy(src, args.out / png)
             artifacts.append(args.out / png)
+
+    # SPA routing: /plan/* → /plan/index.html so plan IDs work as path segments
+    (args.out / "_redirects").write_text("/plan/* /plan/index.html 200\n", encoding="utf-8")
 
     precache = (
         ["index.html", "catalogue.html", "editor.html", "about.html", "contribute.html",
