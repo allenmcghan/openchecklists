@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flight Planner — Design Q1</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #f4f6f9; color: #1a1a2e; min-height: 100vh; padding: 2rem 1rem; }
+  .page { max-width: 820px; margin: 0 auto; }
+  .badge { display: inline-block; background: #1f4e79; color: #fff; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 10px; border-radius: 20px; margin-bottom: 1rem; }
+  h1 { font-size: 1.6rem; font-weight: 700; margin-bottom: 0.4rem; color: #1f4e79; }
+  .sub { color: #555; font-size: 1rem; margin-bottom: 2rem; line-height: 1.5; }
+  .options { display: grid; gap: 1rem; }
+  .opt { background: #fff; border: 2px solid #dde3ee; border-radius: 12px; padding: 1.4rem 1.6rem; cursor: pointer; transition: border-color 0.15s, box-shadow 0.15s; display: flex; gap: 1.2rem; align-items: flex-start; }
+  .opt:hover { border-color: #1f4e79; box-shadow: 0 2px 12px rgba(31,78,121,0.1); }
+  .opt.selected { border-color: #1f4e79; background: #eef4fb; }
+  .letter { width: 2rem; height: 2rem; border-radius: 50%; background: #1f4e79; color: #fff; font-weight: 700; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+  .opt.selected .letter { background: #0d3357; }
+  .opt-body h2 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.3rem; }
+  .opt-body p { font-size: 0.9rem; color: #444; line-height: 1.5; }
+  .tag { display: inline-block; font-size: 0.72rem; font-weight: 600; padding: 2px 8px; border-radius: 10px; margin-top: 0.5rem; }
+  .tag.green { background: #d4edda; color: #155724; }
+  .tag.blue { background: #d1ecf1; color: #0c5460; }
+  .tag.orange { background: #fff3cd; color: #856404; }
+  .footnote { margin-top: 2rem; font-size: 0.82rem; color: #888; text-align: center; }
+  .confirm { margin-top: 1.5rem; text-align: center; }
+  .confirm button { background: #1f4e79; color: #fff; border: none; padding: 0.75rem 2rem; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; opacity: 0.4; pointer-events: none; transition: opacity 0.2s; }
+  .confirm button.active { opacity: 1; pointer-events: auto; }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="badge">Flight Planner Design — Question 1 of ~6</div>
+  <h1>What flight types should the planner support at launch?</h1>
+  <p class="sub">This is the most important scope decision. VFR and IFR planning have very different workflows, data needs, and complexity. Pick what fits your primary audience.</p>
+
+  <div class="options" id="opts">
+
+    <div class="opt" onclick="pick(this,'A')">
+      <div class="letter">A</div>
+      <div class="opt-body">
+        <h2>VFR Only — start focused</h2>
+        <p>Visual flight rules planning: departure airport, route waypoints, destination, alternate. Pulls weather (METAR/TAF), NOTAMs, airspace, fuel from the existing airport pages. Student pilots and fair-weather fliers covered immediately.</p>
+        <span class="tag green">✓ Recommended — ships fast, serves the majority</span>
+      </div>
+    </div>
+
+    <div class="opt" onclick="pick(this,'B')">
+      <div class="letter">B</div>
+      <div class="opt-body">
+        <h2>VFR + Basic IFR — instrument-aware</h2>
+        <p>Everything in A, plus: IFR alternate requirements, instrument approach plate links, fuel reserve rules (45 min IFR vs 30 min VFR), and filed route format (DCT/airways). Does not file plans directly with FAA yet.</p>
+        <span class="tag blue">Broader audience; 30–40% more complexity</span>
+      </div>
+    </div>
+
+    <div class="opt" onclick="pick(this,'C')">
+      <div class="letter">C</div>
+      <div class="opt-body">
+        <h2>Full IFR + FAA Filing — complete platform</h2>
+        <p>Everything in B, plus direct FAA DUATS/Leidos FlightService integration to file the plan. Includes SID/STAR routing, preferred routes, EFB-quality briefing. Very ambitious for v1; a near-complete flight software product.</p>
+        <span class="tag orange">⚠ High risk — 4–6× scope of option A</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="confirm">
+    <button id="btn" onclick="done()">Confirm selection →</button>
+  </div>
+
+  <p class="footnote">openchecklists.net · internal design review · not indexed</p>
+</div>
+
+<script>
+var sel = null;
+function pick(el, val) {
+  document.querySelectorAll('.opt').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  sel = val;
+  document.getElementById('btn').classList.add('active');
+}
+function done() {
+  if (!sel) return;
+  document.getElementById('btn').textContent = '✓ Selection recorded — reply in chat to continue';
+  document.getElementById('btn').style.background = '#27ae60';
+  // Record to query string for logging
+  history.replaceState(null,'','?sel='+sel);
+}
+</script>
+</body>
+</html>

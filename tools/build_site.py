@@ -1455,6 +1455,16 @@ def main() -> int:
     (args.out / "editor.html").write_text(editor_page(head, FOOT, catalogue), encoding="utf-8")
     artifacts += static_pages + [args.out / "editor.html"]
 
+    # Brainstorm mockups — hidden design-in-progress pages for internal review.
+    brainstorm_src = REPO / "brainstorm"
+    if brainstorm_src.exists():
+        import shutil as _bsh
+        brainstorm_out = args.out / "brainstorm"
+        brainstorm_out.mkdir(exist_ok=True)
+        for f in brainstorm_src.iterdir():
+            if f.suffix == ".html":
+                _bsh.copy2(f, brainstorm_out / f.name)
+
     # PWA: installable on a phone, and cached so it works at the aircraft with no
     # signal. The corpus is small and static, so precaching the shell is enough.
     (args.out / "icon.svg").write_text(FAVICON_SVG, encoding="utf-8")
