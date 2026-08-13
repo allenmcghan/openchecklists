@@ -309,7 +309,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; b
             <div class="fuel-row">
               <div class="field-group">
                 <label>Fuel onboard (gal)</label>
-                <input type="number" value="35" min="0">
+                <input type="number" value="35" min="0" max="35">
                 <div class="field-hint">Full tanks = 35 gal</div>
               </div>
               <div class="field-group">
@@ -358,6 +358,24 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; b
         <div style="margin-top:10px;padding-top:10px;border-top:1px solid #f0f4f9;">
           <a href="#" style="font-size:0.75rem;color:#1f4e79;">View all plans →</a>
         </div>
+      </div>
+
+      <div class="sidebar-card" style="margin-top:1rem;">
+        <h3>Saved Airports</h3>
+        <div style="font-size:0.82rem;padding:4px 0;border-bottom:1px solid #f0f4f9;margin-bottom:6px;">
+          <strong>KBTL</strong> · Battle Creek Executive<br>
+          <span style="color:#888;font-size:0.72rem;">269-966-3470</span>
+        </div>
+        <div style="font-size:0.82rem;padding:4px 0;border-bottom:1px solid #f0f4f9;margin-bottom:6px;">
+          <strong>KGRR</strong> · Gerald R. Ford Intl<br>
+          <span style="color:#888;font-size:0.72rem;">616-233-6000</span>
+        </div>
+        <div style="font-size:0.82rem;padding:4px 0;margin-bottom:6px;">
+          <strong>KAZO</strong> · Kalamazoo/Battle Creek<br>
+          <span style="color:#888;font-size:0.72rem;">269-388-3668</span>
+        </div>
+        <div style="font-size:0.72rem;color:#aaa;margin-bottom:8px;">Phone data from NASR</div>
+        <a href="#" style="font-size:0.75rem;color:#1f4e79;">+ Add airport</a>
       </div>
 
       <div class="sidebar-card" style="margin-top:1rem;">
@@ -425,6 +443,17 @@ document.querySelectorAll('.fav-chip').forEach(chip => {
     const inputs = this.closest('.field-group').querySelectorAll('input');
     if (inputs.length) inputs[0].value = this.textContent;
   });
+});
+</script>
+
+<script>
+// Default departure date/time fields to now; block past dates
+const now = new Date();
+const pad = n => String(n).padStart(2,'0');
+const local = `${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())}T${pad(now.getHours())}:${pad(now.getMinutes())}`;
+document.querySelectorAll('input[type=datetime-local]').forEach(el => {
+  el.value = local;
+  el.min = local;
 });
 </script>
 </body>
