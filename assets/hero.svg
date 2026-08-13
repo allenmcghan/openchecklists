@@ -1,0 +1,262 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 512" role="img" aria-labelledby="c172-title">
+<title id="c172-title">Cessna 172 Skyhawk approaching a grass-strip runway</title>
+<defs>
+  <linearGradient id="g-sky" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%"   stop-color="#0b2e5c"/>
+    <stop offset="45%"  stop-color="#1a5ba3"/>
+    <stop offset="82%"  stop-color="#3d8fd1"/>
+    <stop offset="100%" stop-color="#7cbee8"/>
+  </linearGradient>
+  <linearGradient id="g-gnd" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%"   stop-color="#4a8c35"/>
+    <stop offset="100%" stop-color="#2b5620"/>
+  </linearGradient>
+  <linearGradient id="g-fuse" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%"   stop-color="#ffffff"/>
+    <stop offset="100%" stop-color="#e6eaf0"/>
+  </linearGradient>
+  <linearGradient id="g-cowl" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%"   stop-color="#e0e4ea"/>
+    <stop offset="100%" stop-color="#c8ced8"/>
+  </linearGradient>
+  <filter id="ac-drop" x="-10%" y="-10%" width="120%" height="130%">
+    <feDropShadow dx="2" dy="8" stdDeviation="9" flood-color="rgba(0,0,0,0.18)"/>
+  </filter>
+</defs>
+
+<!-- ── SKY ────────────────────────────────────────────── -->
+<rect width="1024" height="512" fill="url(#g-sky)"/>
+
+<!-- Subtle horizon haze -->
+<rect x="0" y="348" width="1024" height="52" fill="white" opacity="0.05"/>
+
+<!-- ── CLOUDS ──────────────────────────────────────────── -->
+<g opacity="0.22">
+  <ellipse cx="135" cy="95"  rx="115" ry="38" fill="white"/>
+  <ellipse cx="95"  cy="114" rx="68"  ry="30" fill="white"/>
+  <ellipse cx="185" cy="110" rx="78"  ry="33" fill="white"/>
+  <ellipse cx="215" cy="102" rx="50"  ry="24" fill="white"/>
+</g>
+<g opacity="0.17">
+  <ellipse cx="875" cy="72"  rx="98"  ry="33" fill="white"/>
+  <ellipse cx="838" cy="88"  rx="60"  ry="27" fill="white"/>
+  <ellipse cx="912" cy="85"  rx="68"  ry="29" fill="white"/>
+</g>
+<g opacity="0.12">
+  <ellipse cx="555" cy="52"  rx="68"  ry="21" fill="white"/>
+  <ellipse cx="518" cy="63"  rx="42"  ry="18" fill="white"/>
+  <ellipse cx="590" cy="60"  rx="52"  ry="20" fill="white"/>
+</g>
+
+<!-- ── GROUND / RUNWAY ─────────────────────────────────── -->
+<rect x="0" y="400" width="1024" height="112" fill="url(#g-gnd)"/>
+<!-- Asphalt runway strip -->
+<rect x="0" y="400" width="1024" height="36" fill="#424242" opacity="0.65"/>
+<!-- Runway edges -->
+<line x1="0" y1="400" x2="1024" y2="400" stroke="#d8d0b0" stroke-width="2.5" opacity="0.45"/>
+<line x1="0" y1="436" x2="1024" y2="436" stroke="#d8d0b0" stroke-width="2.5" opacity="0.45"/>
+<!-- Runway centreline dashes -->
+<g fill="#d8d0b0" opacity="0.5">
+  <rect x="50"  y="415" width="55" height="3" rx="1"/>
+  <rect x="170" y="415" width="55" height="3" rx="1"/>
+  <rect x="290" y="415" width="55" height="3" rx="1"/>
+  <rect x="410" y="415" width="55" height="3" rx="1"/>
+  <rect x="530" y="415" width="55" height="3" rx="1"/>
+  <rect x="650" y="415" width="55" height="3" rx="1"/>
+  <rect x="770" y="415" width="55" height="3" rx="1"/>
+  <rect x="890" y="415" width="55" height="3" rx="1"/>
+</g>
+<!-- Threshold markings -->
+<g fill="#d8d0b0" opacity="0.55">
+  <rect x="44"  y="401" width="36" height="7" rx="1"/>
+  <rect x="44"  y="413" width="36" height="7" rx="1"/>
+  <rect x="44"  y="425" width="36" height="7" rx="1"/>
+  <rect x="88"  y="401" width="36" height="7" rx="1"/>
+  <rect x="88"  y="413" width="36" height="7" rx="1"/>
+  <rect x="88"  y="425" width="36" height="7" rx="1"/>
+</g>
+<!-- Runway edge lights -->
+<g fill="white" opacity="0.65">
+  <circle cx="160"  cy="400" r="2.5"/>
+  <circle cx="310"  cy="400" r="2.5"/>
+  <circle cx="460"  cy="400" r="2.5"/>
+  <circle cx="610"  cy="400" r="2.5"/>
+  <circle cx="760"  cy="400" r="2.5"/>
+  <circle cx="910"  cy="400" r="2.5"/>
+  <circle cx="160"  cy="436" r="2.5"/>
+  <circle cx="310"  cy="436" r="2.5"/>
+  <circle cx="460"  cy="436" r="2.5"/>
+  <circle cx="610"  cy="436" r="2.5"/>
+  <circle cx="760"  cy="436" r="2.5"/>
+  <circle cx="910"  cy="436" r="2.5"/>
+</g>
+<!-- Ground shadow cast by aircraft -->
+<ellipse cx="455" cy="408" rx="255" ry="9" fill="black" opacity="0.07"/>
+
+<!-- ── CESSNA 172 SKYHAWK ─────────────────────────────── -->
+<!-- Aircraft pointing right (nose left → tail right), flying level at ~250ft AGL -->
+<!-- Fuselage center y ≈ 240; nose x ≈ 180; tail x ≈ 810 -->
+
+<g filter="url(#ac-drop)">
+
+  <!-- HORIZONTAL STABILIZER (left / visible side) -->
+  <path d="M 775,252 L 848,240 L 850,246 L 778,260 Z"
+        fill="white" stroke="#c8cdd8" stroke-width="0.8"/>
+  <!-- Elevator hinge -->
+  <line x1="812" y1="244" x2="814" y2="252" stroke="#c0c5d0" stroke-width="1"/>
+
+  <!-- VERTICAL FIN + RUDDER -->
+  <path d="M 775,252 L 779,164
+           C 780,155 789,150 796,153
+           L 808,256 Z"
+        fill="white" stroke="#c8cdd8" stroke-width="0.8"/>
+  <!-- Rudder (trailing portion of fin) -->
+  <path d="M 796,153 C 804,150 815,150 820,158 L 808,256 Z"
+        fill="#eef0f4" stroke="#c0c5d0" stroke-width="0.8"/>
+  <!-- Rudder hinge line -->
+  <line x1="808" y1="158" x2="808" y2="256" stroke="#c8cdd8" stroke-width="1.2"/>
+
+  <!-- WING STRUT (v-brace from belly to underside of wing) -->
+  <path d="M 492,276 L 468,224 L 476,224 L 498,275 Z"
+        fill="#b5bcc8" stroke="#a8b0bc" stroke-width="0.5"/>
+
+  <!-- WING – forward span (left of fuselage, toward canvas-left) -->
+  <path d="M 348,220 L 158,213 C 149,213 145,217 146,221
+           L 148,227 L 350,229 Z"
+        fill="url(#g-fuse)" stroke="#c8cdd8" stroke-width="0.8"/>
+  <!-- WING – aft span (right of fuselage, toward tail) -->
+  <path d="M 496,220 L 768,213 C 777,213 782,217 780,221
+           L 778,226 L 496,228 Z"
+        fill="url(#g-fuse)" stroke="#c8cdd8" stroke-width="0.8"/>
+  <!-- Wing root cap (covers join at fuselage top) -->
+  <rect x="348" y="220" width="148" height="9" fill="#f5f6f8"/>
+
+  <!-- FUSELAGE -->
+  <path d="
+    M 185,260
+    C 185,242 196,226 218,220
+    L 268,218
+    L 350,215
+    L 496,215
+    C 548,215 590,223 620,234
+    L 775,252
+    L 808,262
+    L 808,268
+    L 775,268
+    L 606,262
+    L 496,268
+    L 295,272
+    L 220,272
+    C 202,274 186,272 185,260
+    Z
+  " fill="url(#g-fuse)" stroke="#c8cdd8" stroke-width="1"/>
+
+  <!-- ENGINE COWLING -->
+  <path d="
+    M 185,260
+    C 181,252 177,243 177,234
+    C 177,222 184,212 198,208
+    L 268,208 L 298,208
+    L 298,272 L 222,272
+    C 203,274 186,272 185,260 Z
+  " fill="url(#g-cowl)" stroke="#b8bec8" stroke-width="1"/>
+  <!-- Cowl air intake (bottom) -->
+  <path d="M 178,255 C 178,264 186,270 195,270
+           L 216,270 L 216,260 L 190,260 Z" fill="#8a9099"/>
+  <!-- Cowl top louvre detail -->
+  <line x1="198" y1="210" x2="230" y2="210" stroke="#c0c5cc" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="198" y1="214" x2="230" y2="214" stroke="#c0c5cc" stroke-width="2"   stroke-linecap="round"/>
+  <!-- Exhaust stub (underside of cowl) -->
+  <rect x="205" y="268" width="18" height="6" rx="2" fill="#888" opacity="0.7"/>
+
+  <!-- PROPELLER DISC (motion blur) -->
+  <ellipse cx="177" cy="234" rx="10" ry="68" fill="#6a7080" opacity="0.2"/>
+  <!-- Propeller blades -->
+  <line x1="170" y1="183" x2="184" y2="285"
+        stroke="#505560" stroke-width="10" stroke-linecap="round" opacity="0.65"/>
+  <line x1="184" y1="188" x2="170" y2="282"
+        stroke="#505560" stroke-width="7"  stroke-linecap="round" opacity="0.35"/>
+  <!-- Spinner -->
+  <ellipse cx="174" cy="234" rx="13" ry="16"
+           fill="#d0d3da" stroke="#b8bcc8" stroke-width="1.2"/>
+
+  <!-- COCKPIT GREENHOUSE -->
+  <!-- Windshield (front, sloped aft) -->
+  <path d="M 270,218 L 302,218 L 300,236 L 270,245 Z"
+        fill="#1a4880" opacity="0.78"/>
+  <!-- Window 1 – pilot -->
+  <path d="M 308,217 L 366,216 L 364,232 L 308,237 Z"
+        fill="#1a5292" opacity="0.74"/>
+  <!-- Window 2 – co-pilot / front passenger -->
+  <path d="M 373,216 L 430,216 L 428,231 L 372,233 Z"
+        fill="#1a508f" opacity="0.70"/>
+  <!-- Window 3 – rear passenger -->
+  <path d="M 437,216 L 493,217 L 491,230 L 436,232 Z"
+        fill="#194e8c" opacity="0.64"/>
+  <!-- Rear quarter window -->
+  <path d="M 499,217 L 538,219 L 536,230 L 498,229 Z"
+        fill="#194880" opacity="0.5"/>
+  <!-- Window A-pillar / dividers -->
+  <g stroke="white" stroke-width="2.8" opacity="0.92" stroke-linecap="round">
+    <line x1="304" y1="218" x2="302" y2="236"/>
+    <line x1="369" y1="216" x2="367" y2="233"/>
+    <line x1="433" y1="216" x2="431" y2="231"/>
+    <line x1="495" y1="217" x2="493" y2="230"/>
+  </g>
+
+  <!-- ACCENT STRIPE (navy, along mid-fuselage) -->
+  <path d="M 228,246 L 610,237 L 775,252 L 777,257 L 610,242 L 228,251 Z"
+        fill="#1f4e79" opacity="0.52"/>
+  <!-- Thin accent line above -->
+  <path d="M 232,243 L 608,234 L 609,236 L 232,245 Z"
+        fill="#2d6fbd" opacity="0.38"/>
+
+  <!-- REGISTRATION / MARKINGS -->
+  <text x="360" y="262"
+        font-family="'Courier New',Courier,monospace"
+        font-size="11.5" font-weight="700"
+        fill="#1f4e79" letter-spacing="2.2" opacity="0.88">N172SK</text>
+
+  <!-- LANDING GEAR -->
+  <!-- Main gear – gear doors (wheel pants) -->
+  <path d="M 442,269 L 472,269 L 470,292 L 443,292 Z" fill="#c0c6d0" rx="2"/>
+  <path d="M 524,268 L 554,268 L 552,290 L 526,290 Z" fill="#c0c6d0" rx="2"/>
+  <!-- Struts -->
+  <line x1="455" y1="270" x2="453" y2="314" stroke="#88909a" stroke-width="5.5" stroke-linecap="round"/>
+  <line x1="536" y1="270" x2="534" y2="312" stroke="#88909a" stroke-width="5.5" stroke-linecap="round"/>
+  <!-- Axles -->
+  <line x1="440" y1="314" x2="466" y2="314" stroke="#707580" stroke-width="4"/>
+  <line x1="521" y1="312" x2="547" y2="312" stroke="#707580" stroke-width="4"/>
+  <!-- Main wheels -->
+  <ellipse cx="453" cy="321" rx="17" ry="11" fill="#38383e" stroke="#505058" stroke-width="1.2"/>
+  <ellipse cx="534" cy="319" rx="17" ry="11" fill="#38383e" stroke="#505058" stroke-width="1.2"/>
+  <!-- Hub caps -->
+  <ellipse cx="453" cy="321" rx="7"  ry="5"  fill="#70747c"/>
+  <ellipse cx="534" cy="319" rx="7"  ry="5"  fill="#70747c"/>
+  <!-- Nose gear -->
+  <line x1="255" y1="270" x2="253" y2="308" stroke="#88909a" stroke-width="4.5" stroke-linecap="round"/>
+  <ellipse cx="253" cy="315" rx="12" ry="8"  fill="#38383e" stroke="#505058" stroke-width="1.2"/>
+  <ellipse cx="253" cy="315" rx="5"  ry="3.5" fill="#70747c"/>
+
+  <!-- NAVIGATION LIGHTS -->
+  <!-- Left wingtip: RED -->
+  <circle cx="148" cy="220" r="5.5" fill="#ff2020" opacity="0.88"/>
+  <circle cx="148" cy="220" r="9"   fill="#ff2020" opacity="0.18"/>
+  <!-- Right wingtip: GREEN -->
+  <circle cx="780" cy="219" r="5.5" fill="#20d440" opacity="0.88"/>
+  <circle cx="780" cy="219" r="9"   fill="#20d440" opacity="0.18"/>
+  <!-- Tail strobe -->
+  <circle cx="810" cy="168" r="3.5" fill="white" opacity="0.9"/>
+  <circle cx="810" cy="168" r="7"   fill="white" opacity="0.22"/>
+  <!-- Beacon (on cabin top) -->
+  <ellipse cx="420" cy="214" rx="7" ry="4" fill="#cc2020" opacity="0.6"/>
+
+  <!-- COM antenna (blade, on cabin top) -->
+  <line x1="390" y1="214" x2="394" y2="196" stroke="#909098" stroke-width="1.8" stroke-linecap="round"/>
+  <!-- VHF blade antenna (belly) -->
+  <line x1="430" y1="270" x2="430" y2="294" stroke="#909098" stroke-width="1.6" stroke-linecap="round"/>
+  <!-- Static wicks (wingtip trailing edge) -->
+  <line x1="780" y1="224" x2="789" y2="228" stroke="#b0b5c0" stroke-width="1.5" stroke-linecap="round"/>
+
+</g>
+</svg>

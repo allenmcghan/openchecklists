@@ -1312,7 +1312,7 @@ def main() -> int:
             artifacts.append(airport_file)
 
     # Hero and OG images
-    for img_name in ("hero.png", "og-image.png"):
+    for img_name in ("hero.png", "hero.svg", "og-image.png"):
         src = REPO / "assets" / img_name
         if src.exists():
             import shutil as _sh

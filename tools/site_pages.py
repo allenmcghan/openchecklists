@@ -35,8 +35,8 @@ def landing_body() -> str:
     return """
 <div class="hero">
   <div class="hero-img-wrap">
-    <img src="hero.png" alt="Cessna 172 on a grass runway at a small general aviation airport"
-         class="hero-img" width="1024" height="1024" loading="eager">
+    <img src="hero.svg" alt="Cessna 172 Skyhawk on final approach to a grass-strip runway"
+         class="hero-img" width="1024" height="512" loading="eager">
   </div>
   <div class="hero-text">
     <h1 class="hero-h">Your checklist.<br>Every flight.<br>Every aircraft.</h1>
@@ -147,8 +147,8 @@ about that is exactly the point.</p>
 HERO_CSS = """
 .hero{display:grid;grid-template-columns:1fr;gap:0;margin:0 -1.15rem 1.4rem;
 border-bottom:1px solid var(--line);overflow:hidden}
-.hero-img-wrap{position:relative;max-height:320px;overflow:hidden}
-.hero-img{width:100%;height:100%;object-fit:cover;object-position:center 40%;display:block}
+.hero-img-wrap{position:relative;max-height:300px;overflow:hidden;background:#1a5ba3}
+.hero-img{width:100%;height:100%;object-fit:cover;object-position:center 38%;display:block}
 .hero-text{padding:1.6rem 1.15rem 1.8rem}
 .hero-h{font-size:clamp(2rem,7vw,3rem);line-height:1.06;letter-spacing:-.032em;
 margin:.1rem 0 .7rem;font-weight:820}
