@@ -77,3 +77,20 @@ CREATE TABLE IF NOT EXISTS saved_checklists (
   saved_at       TEXT
 );
 CREATE INDEX IF NOT EXISTS idx_checklists_public ON saved_checklists(is_public, saved_at);
+
+CREATE TABLE IF NOT EXISTS flight_plans (
+  id                TEXT PRIMARY KEY,
+  user_id           TEXT,
+  created_at        TEXT NOT NULL,
+  aircraft_snapshot TEXT NOT NULL,
+  departure         TEXT NOT NULL,
+  destination       TEXT NOT NULL,
+  alternate         TEXT,
+  depart_at         TEXT,
+  fuel_onboard      REAL,
+  reserve_min       INTEGER DEFAULT 30,
+  snapshot          TEXT NOT NULL
+);
+
+CREATE INDEX IF NOT EXISTS idx_flight_plans_user ON flight_plans(user_id);
+CREATE INDEX IF NOT EXISTS idx_flight_plans_created ON flight_plans(created_at DESC);
