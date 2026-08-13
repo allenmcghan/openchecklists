@@ -638,7 +638,7 @@ const routes = {
   'GET /api/plan': getPlan,
 
   // POST /api/plan/:id/email — email a briefing for a plan (public — no auth required)
-  'POST /api/plan/': emailPlan,
+  'POST /api/plan': emailPlan,
 
   // GET /api/share/:logId — public shareable log snapshot
   'GET /api/share': async (req, env, _claims, params) => {
@@ -679,7 +679,7 @@ export default {
     const claims = await auth(req, env);
 
     // Routes that don't require auth
-    const publicRoutes = ['GET /api/leaderboard', 'GET /api/share', 'GET /api/plan', 'POST /api/me/plans', 'POST /api/plan/'];
+    const publicRoutes = ['GET /api/leaderboard', 'GET /api/share', 'GET /api/plan', 'POST /api/me/plans', 'POST /api/plan'];
 
     // Match most-specific (longest path) routes first so that e.g.
     // `GET /api/me/aircraft` is not swallowed by the `GET /api/me` prefix.
