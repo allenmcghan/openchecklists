@@ -35,8 +35,8 @@ def landing_body() -> str:
     return """
 <div class="hero">
   <div class="hero-img-wrap">
-    <img src="hero.svg" alt="Cessna 172 Skyhawk on final approach to a grass-strip runway"
-         class="hero-img" width="1024" height="512" loading="eager">
+    <img src="hero.png" alt="Cessna 172 Skyhawk in flight over green farmland"
+         class="hero-img" width="1408" height="768" loading="eager">
   </div>
   <div class="hero-text">
     <h1 class="hero-h">Your checklist.<br>Every flight.<br>Every aircraft.</h1>

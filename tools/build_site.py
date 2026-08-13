@@ -846,10 +846,10 @@ def render_airport_page(airport: dict, effective_date: str) -> str:
 <section id="map"></section>
 <script>
 (function() {{
-  var map = L.map('map', {{zoomControl: true}}).setView([{lat_f}, {lon_f}], 14);
+  var map = L.map('map', {{zoomControl: true}}).setView([{lat_f}, {lon_f}], 15);
 
   var streets = L.tileLayer('https://{{s}}.tile.openstreetmap.org/{{z}}/{{x}}/{{y}}.png', {{
-    attribution: '© OpenStreetMap contributors',
+    attribution: '© OpenStreetMap',
     maxZoom: 19
   }});
 
@@ -858,11 +858,19 @@ def render_airport_page(airport: dict, effective_date: str) -> str:
     maxZoom: 19
   }});
 
-  streets.addTo(map);
+  var sectional = L.tileLayer('https://vfrmap.com/{{z}}/{{y}}/{{x}}.jpg', {{
+    attribution: '© VFRMap — FAA Sectional Charts',
+    maxZoom: 11,
+    minZoom: 3,
+    opacity: 0.9
+  }});
+
+  satellite.addTo(map);
 
   var baseLayers = {{
+    'Satellite': satellite,
     'Street': streets,
-    'Satellite': satellite
+    'Sectional': sectional
   }};
 
   L.control.layers(baseLayers, {{}}, {{position: 'topright', collapsed: false}}).addTo(map);
@@ -966,8 +974,12 @@ def render_airport_page(airport: dict, effective_date: str) -> str:
   <a class="cta" href="/planner.html?dep={ident}" style="font-size:.88rem;min-height:2.4rem;padding:.5rem 1.1rem">✈ Plan a flight from {ident}</a>
 </div>
 
+"""
+    # Map (shown before runways so pilots see the aerial view right away)
+    html += map_js
+
+    html += """
 <h2>Runways</h2>
-{runway_svg}
 """
     # Runway inline detail cards
     if airport.get("runways"):
@@ -998,9 +1010,6 @@ def render_airport_page(airport: dict, effective_date: str) -> str:
     else:
         html += '<p class="muted">No runway data on record.</p>'
 
-    # Map
-    html += map_js
-
     # Frequencies
     html += """
 <h2>Frequencies</h2>
@@ -1030,6 +1039,19 @@ def render_airport_page(airport: dict, effective_date: str) -> str:
         html += '<tr><td colspan="5" class="muted">No frequencies on record.</td></tr>'
     html += '</tbody></table></div>'
 
+    # Sun Times card (JS calculated from lat/lon, no API needed)
+    if lat_f is not None and lon_f is not None:
+        html += f"""
+<div class="live-card" style="margin:.8rem 0">
+  <h3 style="margin:0 0 .5rem">Sun Times</h3>
+  <div id="sun-times" style="display:flex;gap:1.5rem;flex-wrap:wrap;font-size:.9rem">
+    <div><span class="lbl">Sunrise</span><br><strong id="sun-rise">—</strong></div>
+    <div><span class="lbl">Sunset</span><br><strong id="sun-set">—</strong></div>
+    <div><span class="lbl">Civil Twilight</span><br><strong id="sun-twilight">—</strong></div>
+    <div><span class="lbl">Day Length</span><br><strong id="sun-daylen">—</strong></div>
+  </div>
+</div>"""
+
     # Live data sections
     if lat_f is not None and lon_f is not None:
         windy_embed = f"""<div id="windy-wrap" style="display:none;margin:.6rem 0;border-radius:var(--radius);overflow:hidden;border:1px solid var(--line)">
@@ -1044,6 +1066,8 @@ def render_airport_page(airport: dict, effective_date: str) -> str:
 {windy_embed}
 <div id="notams" class="live-card"><span class="spinner-sm"></span> Loading NOTAMs...</div>
 <div id="fuel" class="live-card"><span class="spinner-sm"></span> Loading fuel &amp; FBO...</div>
+<div id="winds-aloft" class="live-card"><span class="spinner-sm"></span> Loading winds aloft...</div>
+<div id="pireps" class="live-card"><span class="spinner-sm"></span> Loading PIREPs...</div>
 """
 
     # External links
@@ -1086,6 +1110,86 @@ function toggleRwy(btn, id) {{
   var open = el.classList.toggle('open');
   btn.classList.toggle('active', open);
 }}
+
+// Sun times calculated from lat/lon (no API needed)
+(function() {{
+  var lat = window.OCL_LAT, lon = window.OCL_LON;
+  if (!lat || !lon) return;
+  var now = new Date();
+  function calcSun(date, lat, lon, rise) {{
+    var D2R = Math.PI / 180, R2D = 180 / Math.PI;
+    var day = Math.floor((date - new Date(date.getFullYear(),0,0)) / 86400000);
+    var lonHour = lon / 15;
+    var t = rise ? day + ((6 - lonHour) / 24) : day + ((18 - lonHour) / 24);
+    var M = (0.9856 * t) - 3.289;
+    var L = M + (1.916 * Math.sin(M * D2R)) + (0.020 * Math.sin(2 * M * D2R)) + 282.634;
+    L = ((L % 360) + 360) % 360;
+    var RA = R2D * Math.atan(0.91764 * Math.tan(L * D2R));
+    RA = ((RA % 360) + 360) % 360;
+    var Lq = Math.floor(L / 90) * 90, RAq = Math.floor(RA / 90) * 90;
+    RA = (RA + Lq - RAq) / 15;
+    var sinDec = 0.39782 * Math.sin(L * D2R);
+    var cosDec = Math.cos(Math.asin(sinDec));
+    var cosH = (-0.01454 - (sinDec * Math.sin(lat * D2R))) / (cosDec * Math.cos(lat * D2R));
+    if (cosH > 1 || cosH < -1) return null;
+    var H = rise ? 360 - R2D * Math.acos(cosH) : R2D * Math.acos(cosH);
+    H = H / 15;
+    var T = H + RA - (0.06571 * t) - 6.622;
+    var UT = T - lonHour;
+    UT = ((UT % 24) + 24) % 24;
+    var hrs = Math.floor(UT), mins = Math.round((UT - hrs) * 60);
+    return new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), hrs, mins));
+  }}
+  function calcTwilight(date, lat, lon, rise) {{
+    var D2R = Math.PI / 180, R2D = 180 / Math.PI;
+    var day = Math.floor((date - new Date(date.getFullYear(),0,0)) / 86400000);
+    var lonHour = lon / 15;
+    var t = rise ? day + ((6 - lonHour) / 24) : day + ((18 - lonHour) / 24);
+    var M = (0.9856 * t) - 3.289;
+    var L = M + (1.916 * Math.sin(M * D2R)) + (0.020 * Math.sin(2 * M * D2R)) + 282.634;
+    L = ((L % 360) + 360) % 360;
+    var RA = R2D * Math.atan(0.91764 * Math.tan(L * D2R));
+    RA = ((RA % 360) + 360) % 360;
+    var Lq = Math.floor(L / 90) * 90, RAq = Math.floor(RA / 90) * 90;
+    RA = (RA + Lq - RAq) / 15;
+    var sinDec = 0.39782 * Math.sin(L * D2R);
+    var cosDec = Math.cos(Math.asin(sinDec));
+    var cosH = (-0.10453 - (sinDec * Math.sin(lat * D2R))) / (cosDec * Math.cos(lat * D2R));
+    if (cosH > 1 || cosH < -1) return null;
+    var H = rise ? 360 - R2D * Math.acos(cosH) : R2D * Math.acos(cosH);
+    H = H / 15;
+    var T = H + RA - (0.06571 * t) - 6.622;
+    var UT = T - lonHour;
+    UT = ((UT % 24) + 24) % 24;
+    var hrs = Math.floor(UT), mins = Math.round((UT - hrs) * 60);
+    return new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), hrs, mins));
+  }}
+  function fmtUTC(d) {{
+    if (!d) return 'N/A';
+    return d.toISOString().slice(11,16) + 'Z';
+  }}
+  function fmtLocal(d) {{
+    if (!d) return 'N/A';
+    try {{ return d.toLocaleTimeString([], {{hour:'2-digit',minute:'2-digit'}}); }} catch(e) {{ return fmtUTC(d); }}
+  }}
+  var today = new Date();
+  var sr = calcSun(today, lat, lon, true);
+  var ss = calcSun(today, lat, lon, false);
+  var ct = calcTwilight(today, lat, lon, false);
+  var dawn = calcTwilight(today, lat, lon, true);
+  var ri = document.getElementById('sun-rise');
+  var si = document.getElementById('sun-set');
+  var ti = document.getElementById('sun-twilight');
+  var di = document.getElementById('sun-daylen');
+  if (ri) ri.textContent = sr ? fmtLocal(sr) + ' (' + fmtUTC(sr) + ')' : 'N/A';
+  if (si) si.textContent = ss ? fmtLocal(ss) + ' (' + fmtUTC(ss) + ')' : 'N/A';
+  if (ti) ti.textContent = ct ? 'End ' + fmtLocal(ct) : 'N/A';
+  if (dawn) ti.textContent = 'Begin ' + fmtLocal(dawn) + ' / End ' + (ct ? fmtLocal(ct) : 'N/A');
+  if (di && sr && ss) {{
+    var mins = Math.round((ss - sr) / 60000);
+    di.textContent = Math.floor(mins/60) + 'h ' + (mins % 60) + 'm';
+  }}
+}})();
 
 async function fetchLive(url, timeout) {{
   var ctrl = new AbortController();
@@ -1239,6 +1343,65 @@ async function loadLiveData() {{
     }}
   }} catch(e) {{
     document.getElementById('fuel').innerHTML = '<h3>Fuel &amp; FBO</h3><p>Unable to load fuel data.</p>';
+  }}
+
+  // Winds aloft
+  try {{
+    var rw = await fetchLive('https://aviationweather.gov/api/data/windtemp?region=all&level=low&fcst=06&format=json', 10000);
+    var dw = await rw.json();
+    var elw = document.getElementById('winds-aloft');
+    // Find the nearest station to our airport
+    if (dw && Array.isArray(dw) && dw.length > 0) {{
+      var LAT2 = window.OCL_LAT, LON2 = window.OCL_LON;
+      var best = dw[0], bestDist = Infinity;
+      if (LAT2 && LON2) {{
+        dw.forEach(function(s) {{
+          if (!s.lat || !s.lon) return;
+          var d = Math.abs(s.lat - LAT2) + Math.abs(s.lon - LON2);
+          if (d < bestDist) {{ bestDist = d; best = s; }}
+        }});
+      }}
+      var rows = '';
+      var altitudes = [['3000', best.w3000], ['6000', best.w6000], ['9000', best.w9000], ['12000', best.w12000]];
+      altitudes.forEach(function(a) {{
+        if (a[1]) {{
+          rows += '<tr><td>' + a[0] + ' ft</td><td>' + a[1] + '</td></tr>';
+        }}
+      }});
+      if (rows) {{
+        elw.innerHTML = '<h3>Winds Aloft <small style="font-weight:400;font-size:.72rem;color:var(--muted)"> nearest station: ' + (best.stationId || '') + '</small></h3>' +
+          '<table style="font-size:.86rem"><thead><tr><th>Altitude</th><th>Wind/Temp</th></tr></thead><tbody>' + rows + '</tbody></table>';
+      }} else {{
+        elw.innerHTML = '<h3>Winds Aloft</h3><p class="muted">No winds aloft data available.</p>';
+      }}
+    }} else {{
+      document.getElementById('winds-aloft').innerHTML = '<h3>Winds Aloft</h3><p class="muted">Winds aloft data unavailable.</p>';
+    }}
+  }} catch(e) {{
+    document.getElementById('winds-aloft').innerHTML = '<h3>Winds Aloft</h3><p class="muted">Winds aloft unavailable.</p>';
+  }}
+
+  // PIREPs
+  try {{
+    var rp = await fetchLive('https://aviationweather.gov/api/data/pirep?format=json&distance=50&id=' + ident, 8000);
+    var dp = await rp.json();
+    var elp = document.getElementById('pireps');
+    if (dp && Array.isArray(dp) && dp.length > 0) {{
+      var recent = dp.slice(0, 5);
+      var items = recent.map(function(p) {{
+        var alt = p.altitude ? p.altitude + ' ft' : '';
+        var sky = p.skyCondition || '';
+        var turb = p.turbulence ? ' · Turb: ' + p.turbulence : '';
+        var ice = p.icing ? ' · Ice: ' + p.icing : '';
+        var loc = p.location || p.icaoId || '';
+        return '<li style="margin:.35rem 0;font-size:.85rem"><strong>' + (alt || loc) + '</strong>' + turb + ice + (sky ? ' · ' + sky : '') + '</li>';
+      }}).join('');
+      elp.innerHTML = '<h3>PIREPs — nearby pilot reports (' + dp.length + ')</h3><ul style="padding-left:1.2rem;margin:.3rem 0">' + items + '</ul>';
+    }} else {{
+      elp.innerHTML = '<h3>PIREPs</h3><p class="muted">No recent pilot reports within 50 nm.</p>';
+    }}
+  }} catch(e) {{
+    document.getElementById('pireps').innerHTML = '<h3>PIREPs</h3><p class="muted">Pilot reports unavailable.</p>';
   }}
 }}
 
