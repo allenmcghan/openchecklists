@@ -842,15 +842,38 @@ def render_airport_page(airport: dict, effective_date: str) -> str:
         lon_f = float(lon) if lon else None
         if lat_f is not None and lon_f is not None:
             map_js = f"""
-        <section id="map"></section>
-        <script>
-            const map = L.map('map').setView([{lat_f}, {lon_f}], 14);
-            L.tileLayer('https://{{s}}.tile.openstreetmap.org/{{z}}/{{x}}/{{y}}.png', {{
-                attribution: '&copy; OpenStreetMap contributors',
-                maxZoom: 19,
-            }}).addTo(map);
-        </script>
-        """
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<section id="map"></section>
+<script>
+(function() {{
+  var map = L.map('map', {{zoomControl: true}}).setView([{lat_f}, {lon_f}], 14);
+
+  var streets = L.tileLayer('https://{{s}}.tile.openstreetmap.org/{{z}}/{{x}}/{{y}}.png', {{
+    attribution: '© OpenStreetMap contributors',
+    maxZoom: 19
+  }});
+
+  var satellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{{z}}/{{y}}/{{x}}', {{
+    attribution: 'ESRI World Imagery',
+    maxZoom: 19
+  }});
+
+  streets.addTo(map);
+
+  var baseLayers = {{
+    'Street': streets,
+    'Satellite': satellite
+  }};
+
+  L.control.layers(baseLayers, {{}}, {{position: 'topright', collapsed: false}}).addTo(map);
+
+  L.marker([{lat_f}, {lon_f}])
+    .addTo(map)
+    .bindPopup('<strong>{ident}</strong><br>{escape(name)}<br>{escape(city)}, {escape(state)}<br>Elev: {elevation or "N/A"} ft')
+    .openPopup();
+}})();
+</script>
+"""
         else:
             map_js = ''
     except (ValueError, TypeError):
@@ -1028,9 +1051,19 @@ def render_airport_page(airport: dict, effective_date: str) -> str:
 </div>
 """
 
+    # Live Resources section
+    html += f"""
+<h2>Live Resources</h2>
+<div class="ext-links">
+  <a href="https://www.liveatc.net/search/?icao={ident}" target="_blank" rel="noopener">🎧 LiveATC Audio</a>
+  <a href="https://www.flightaware.com/live/airport/{ident}" target="_blank" rel="noopener">✈ FlightAware</a>
+  <a href="https://weathercams.faa.gov/" target="_blank" rel="noopener">📷 FAA WxCams</a>
+  <a href="https://www.1800wxbrief.com/" target="_blank" rel="noopener">📋 1800wxBrief</a>
+</div>
+"""
+
     # Scripts and inline airport footer
     html += f"""
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
 window.OCL_AIRPORT = '{ident}';
 window.OCL_API_BASE = 'https://app.openchecklists.net/api/airport/';
@@ -1061,6 +1094,12 @@ async function loadLiveData() {{
     var r = await fetchLive(base + ident + '/weather');
     var data = await r.json();
     var el = document.getElementById('weather');
+    if (data.error || (!data.metar && !data.taf)) {{
+      el.innerHTML = '<h3>Weather</h3><p class="muted">No METAR reporting station at this airport. ' +
+        '<a href="https://aviationweather.gov/metar?ids={ident}" target="_blank" rel="noopener">Check nearby METARs</a> · ' +
+        '<a href="https://www.aviationweather.gov/adds/metars/?station_ids={ident}&std_trans=standard&chk_sta=on&hoursStr=most+recent" target="_blank" rel="noopener">ADDS</a></p>';
+      return;
+    }}
     var metar = (data.metar != null && data.metar !== '') ? data.metar : null;
     var taf = data.taf || null;
     var badge = '';
@@ -1081,7 +1120,9 @@ async function loadLiveData() {{
     var r2 = await fetchLive(base + ident + '/notams');
     var d2 = await r2.json();
     var el2 = document.getElementById('notams');
-    if (d2.notams && d2.notams.length > 0) {{
+    if (d2.error) {{
+      el2.innerHTML = '<h3>NOTAMs</h3><p class="muted">NOTAMs unavailable for this airport. <a href="https://notams.faa.gov/notamSearch/search" target="_blank" rel="noopener">Check FAA NOTAM search</a></p>';
+    }} else if (d2.notams && d2.notams.length > 0) {{
       var items = d2.notams.map(function(n){{ return '<li style="margin:.35rem 0;font-size:.88rem">' + (n.text || n) + '</li>'; }}).join('');
       el2.innerHTML = '<h3>NOTAMs (' + d2.notams.length + ')</h3><ul style="padding-left:1.2rem;margin:.4rem 0">' + items + '</ul>';
     }} else {{
@@ -1096,9 +1137,13 @@ async function loadLiveData() {{
     var r3 = await fetchLive(base + ident + '/fuel');
     var d3 = await r3.json();
     var el3 = document.getElementById('fuel');
-    var fuels = (d3.fuel_types || []).join(', ') || 'None listed';
-    var fbo = d3.fbo_name ? '<br><strong>FBO:</strong> ' + d3.fbo_name : '';
-    el3.innerHTML = '<h3>Fuel &amp; FBO</h3><p><strong>Available:</strong> ' + fuels + fbo + '</p>';
+    if (d3.error) {{
+      el3.innerHTML = '<h3>Fuel &amp; FBO</h3><p class="muted">No fuel data on record for this airport.</p>';
+    }} else {{
+      var fuels = (d3.fuel_types || []).join(', ') || 'None listed';
+      var fbo = d3.fbo_name ? '<br><strong>FBO:</strong> ' + d3.fbo_name : '';
+      el3.innerHTML = '<h3>Fuel &amp; FBO</h3><p><strong>Available:</strong> ' + fuels + fbo + '</p>';
+    }}
   }} catch(e) {{
     document.getElementById('fuel').innerHTML = '<h3>Fuel &amp; FBO</h3><p>Unable to load fuel data.</p>';
   }}

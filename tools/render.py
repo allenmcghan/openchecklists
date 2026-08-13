@@ -506,6 +506,47 @@ def render(doc: dict, paper: str, site_rel: str | None = None) -> str:
         )
         issue_html = f'<div class="banner quarantine"><span class="hd">Known issues</span><ul>{rows}</ul></div>'
 
+    _rel = site_rel if site_rel is not None else '/'
+
+    _nav_css = """\
+/* Site nav */
+header.ocl-site{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.92);
+backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+border-bottom:1px solid #e6e9f0;margin-bottom:.5rem}
+header.ocl-site .hw{max-width:62rem;margin:0 auto;padding:.45rem 1.1rem;
+display:flex;align-items:center;gap:.8rem;flex-wrap:wrap}
+.ocl-brand{display:inline-flex;align-items:center;gap:.5rem;color:#0f1826;
+font-weight:800;font-size:1rem;text-decoration:none;letter-spacing:-.02em;flex:none}
+.ocl-brand:hover{text-decoration:none}
+.ocl-brand svg{width:1.5rem;height:1.5rem;flex:none}
+.ocl-nav{display:flex;gap:.1rem;overflow-x:auto;scrollbar-width:none;margin-left:auto;flex-wrap:wrap}
+.ocl-nav::-webkit-scrollbar{display:none}
+.ocl-nav a{white-space:nowrap;color:#586274;font-size:.88rem;font-weight:500;
+padding:.4rem .65rem;border-radius:999px;text-decoration:none}
+.ocl-nav a:hover{color:#1f4e79;background:#eaf1fb;text-decoration:none}
+.ocl-nav .auth-pill{margin-left:.3rem;font-weight:700;color:#1f4e79}"""
+
+    _auth_script = """\
+<script>
+(function(){
+  function oclToken(){
+    var t=sessionStorage.getItem('ocl:token');
+    if(!t)return null;
+    try{var p=JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
+    if(p.exp&&p.exp<Date.now()/1000){sessionStorage.removeItem('ocl:token');return null;}
+    return t;}catch(e){return null;}
+  }
+  var nav=document.querySelector('.ocl-nav');
+  if(nav){
+    var pill=document.createElement('a');
+    pill.className='auth-pill';
+    pill.href='/profile.html';
+    pill.textContent=oclToken()?'\U0001F464 My Account':'Sign in';
+    nav.appendChild(pill);
+  }
+})();
+</script>"""
+
     return f"""<!doctype html>
 <html lang="en">
 <head>
@@ -514,8 +555,27 @@ def render(doc: dict, paper: str, site_rel: str | None = None) -> str:
 <title>{esc(doc.get('title'))}</title>
 <style>{CSS}</style>
 <style id="pagesize">@page{{size:{w} {h};margin:{m}}}</style>
+<style>{_nav_css}</style>
 </head>
 <body>
+{_auth_script}
+<header class="ocl-site">
+  <div class="hw">
+    <a class="ocl-brand" href="{_rel}index.html">
+      <svg viewBox="0 0 40 40" role="img" aria-label="Open Checklists" fill="none">
+        <rect width="40" height="40" rx="10" fill="#1f4e79"/>
+        <path d="M9 22 L16.5 29.5 L32 9" stroke="#fff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Open Checklists
+    </a>
+    <nav class="ocl-nav" aria-label="Site">
+      <a href="{_rel}catalogue.html">Checklists</a>
+      <a href="{_rel}airports.html">Airports</a>
+      <a href="{_rel}planner.html">Plan a Flight</a>
+      <a href="{_rel}training.html">Training</a>
+    </nav>
+  </div>
+</header>
 <div class="wrap">
 
 <div class="bar noprint">

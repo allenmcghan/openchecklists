@@ -84,9 +84,42 @@ input:focus,select:focus{outline:none;border-color:#1f4e79;background:#fff}
 .guest-ac-form{background:#f8fafd;border:1px solid #dde3ee;border-radius:10px;padding:1rem 1.1rem .8rem}
 .guest-ac-note{font-size:.78rem;color:#555;margin-bottom:.8rem;line-height:1.5}
 .guest-ac-note strong{color:#1f4e79}
+/* Site nav header */
+header.ocl-site{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.92);
+backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+border-bottom:1px solid #e6e9f0;margin-bottom:0}
+header.ocl-site .hw{max-width:72rem;margin:0 auto;padding:.45rem 1.1rem;
+display:flex;align-items:center;gap:.8rem;flex-wrap:wrap}
+.ocl-brand{display:inline-flex;align-items:center;gap:.5rem;color:#0f1826;
+font-weight:800;font-size:1rem;text-decoration:none;letter-spacing:-.02em;flex:none}
+.ocl-brand:hover{text-decoration:none}
+.ocl-brand svg{width:1.5rem;height:1.5rem;flex:none}
+.ocl-nav{display:flex;gap:.1rem;overflow-x:auto;scrollbar-width:none;margin-left:auto;flex-wrap:wrap}
+.ocl-nav::-webkit-scrollbar{display:none}
+.ocl-nav a{white-space:nowrap;color:#586274;font-size:.88rem;font-weight:500;
+padding:.4rem .65rem;border-radius:999px;text-decoration:none}
+.ocl-nav a:hover{color:#1f4e79;background:#eaf1fb;text-decoration:none}
+.ocl-nav .auth-pill{margin-left:.3rem;font-weight:700;color:#1f4e79}
 </style>
 </head>
 <body>
+<header class="ocl-site">
+  <div class="hw">
+    <a class="ocl-brand" href="/index.html">
+      <svg viewBox="0 0 40 40" role="img" aria-label="Open Checklists" fill="none">
+        <rect width="40" height="40" rx="10" fill="#1f4e79"/>
+        <path d="M9 22 L16.5 29.5 L32 9" stroke="#fff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Open Checklists
+    </a>
+    <nav class="ocl-nav" id="site-nav" aria-label="Site">
+      <a href="/catalogue.html">Checklists</a>
+      <a href="/airports.html">Airports</a>
+      <a href="/training.html">Training</a>
+      <a href="/search.html">Troubleshooting</a>
+    </nav>
+  </div>
+</header>
 <div class="page">
   <h1><a href="/index.html" style="color:inherit;text-decoration:none">Plan a Flight</a></h1>
   <p class="sub">VFR preflight briefing — weather, NOTAMs, frequencies, fuel. Print or email when done.</p>
@@ -188,6 +221,18 @@ let guestAircraft = null; // populated by the guest inline form in Step 1
 // Auth
 function getToken() { return sessionStorage.getItem('ocl:token'); }
 tok = getToken();
+
+// Inject auth pill into site nav
+(function() {
+  var nav = document.getElementById('site-nav');
+  if (!nav) return;
+  var pill = document.createElement('a');
+  pill.className = 'auth-pill';
+  pill.href = '/profile.html';
+  // Use the planner's existing getToken() function
+  pill.textContent = getToken() ? '👤 My Account' : 'Sign in';
+  nav.appendChild(pill);
+})();
 
 // Init
 async function init() {
