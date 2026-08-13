@@ -201,6 +201,130 @@ Respond with JSON only: {"approved":true/false,"notes":"brief reason","safety_is
   }
 }
 
+// ---- Plan handlers ----
+
+async function listPlans(req, env) {
+  const user = await auth(req, env);
+  if (!user) return new Response('Unauthorized', { status: 401 });
+  const { results } = await env.DB.prepare(
+    `SELECT id, departure, destination, alternate, depart_at, created_at, aircraft_snapshot
+     FROM flight_plans WHERE user_id=? ORDER BY created_at DESC LIMIT 20`
+  ).bind(user.sub).all();
+  return new Response(JSON.stringify(results || []), {
+    headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+  });
+}
+
+async function savePlan(req, env) {
+  const user = await auth(req, env);
+  const userId = user ? user.sub : null;
+
+  let body;
+  try { body = await req.json(); } catch { return new Response('Bad JSON', { status: 400 }); }
+
+  const { aircraft, departure, destination, alternate, depart_at, fuel_onboard, reserve_min } = body;
+  if (!departure || !destination) {
+    return new Response(JSON.stringify({ error: 'departure and destination required' }), { status: 422, headers: { 'Content-Type': 'application/json' } });
+  }
+
+  const airports = [departure, destination, alternate].filter(Boolean);
+  const wxCalls = airports.map(id =>
+    fetch(`https://openchecklists.net/api/airport/${id}/weather`, { signal: AbortSignal.timeout(5000) })
+      .then(r => r.json()).catch(() => null)
+  );
+  const notamCalls = airports.map(id =>
+    fetch(`https://openchecklists.net/api/airport/${id}/notams`, { signal: AbortSignal.timeout(5000) })
+      .then(r => r.json()).catch(() => null)
+  );
+  const fuelCall = fetch(`https://openchecklists.net/api/airport/${departure}/fuel`, { signal: AbortSignal.timeout(5000) })
+    .then(r => r.json()).catch(() => null);
+
+  const [wxResults, notamResults, fuelResult] = await Promise.all([
+    Promise.all(wxCalls), Promise.all(notamCalls), fuelCall
+  ]);
+
+  const snapshot = {
+    departure, destination, alternate: alternate || null,
+    weather: Object.fromEntries(airports.map((id, i) => [id, wxResults[i]])),
+    notams: Object.fromEntries(airports.map((id, i) => [id, notamResults[i]])),
+    fuel: fuelResult,
+    aircraft,
+    depart_at, fuel_onboard, reserve_min: reserve_min || 30,
+    generated_at: new Date().toISOString()
+  };
+
+  const randBytes = new Uint8Array(4);
+  crypto.getRandomValues(randBytes);
+  const id = 'ocl-' + Array.from(randBytes).map(b => b.toString(36).padStart(2,'0')).join('').slice(0, 6);
+
+  await env.DB.prepare(
+    `INSERT INTO flight_plans (id, user_id, created_at, aircraft_snapshot, departure, destination,
+       alternate, depart_at, fuel_onboard, reserve_min, snapshot)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+  ).bind(
+    id, userId, new Date().toISOString(),
+    JSON.stringify(aircraft || {}),
+    departure, destination, alternate || null, depart_at || null,
+    fuel_onboard || null, reserve_min || 30,
+    JSON.stringify(snapshot)
+  ).run();
+
+  return new Response(JSON.stringify({ id }), {
+    status: 201,
+    headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+  });
+}
+
+async function getPlan(req, env) {
+  const parts = new URL(req.url).pathname.split('/').filter(Boolean);
+  const id = parts[2]; // /api/plan/:id — take index 2
+  if (!id || !/^ocl-[a-z0-9]+$/i.test(id)) {
+    return new Response(JSON.stringify({ error: 'Invalid plan ID' }), { status: 400, headers: { 'Content-Type': 'application/json' } });
+  }
+
+  const row = await env.DB.prepare('SELECT * FROM flight_plans WHERE id=?').bind(id).first();
+  if (!row) return new Response(JSON.stringify({ error: 'Not found' }), { status: 404, headers: { 'Content-Type': 'application/json' } });
+
+  let snapshot = JSON.parse(row.snapshot);
+  const url = new URL(req.url);
+
+  if (url.searchParams.get('refresh') === '1') {
+    const airports = [row.departure, row.destination, row.alternate].filter(Boolean);
+    const fresh = await Promise.all(airports.map(apt =>
+      Promise.all([
+        fetch(`https://openchecklists.net/api/airport/${apt}/weather`, { signal: AbortSignal.timeout(5000) })
+          .then(r => r.json()).catch(() => null),
+        fetch(`https://openchecklists.net/api/airport/${apt}/notams`, { signal: AbortSignal.timeout(5000) })
+          .then(r => r.json()).catch(() => null)
+      ])
+    ));
+    airports.forEach((apt, i) => {
+      if (!snapshot.weather) snapshot.weather = {};
+      if (!snapshot.notams) snapshot.notams = {};
+      snapshot.weather[apt] = fresh[i][0];
+      snapshot.notams[apt] = fresh[i][1];
+    });
+    snapshot.refreshed_at = new Date().toISOString();
+  }
+
+  const plan = {
+    id: row.id,
+    departure: row.departure,
+    destination: row.destination,
+    alternate: row.alternate,
+    depart_at: row.depart_at,
+    fuel_onboard: row.fuel_onboard,
+    reserve_min: row.reserve_min,
+    aircraft: JSON.parse(row.aircraft_snapshot || '{}'),
+    snapshot,
+    created_at: row.created_at
+  };
+
+  return new Response(JSON.stringify(plan), {
+    headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+  });
+}
+
 // ---- Route handlers ----
 const routes = {
   // GET /api/me
@@ -441,6 +565,15 @@ const routes = {
     });
   },
 
+  // GET /api/me/plans — list saved flight plans (auth required)
+  'GET /api/me/plans': listPlans,
+
+  // POST /api/me/plans — save a new flight plan (anonymous allowed)
+  'POST /api/me/plans': savePlan,
+
+  // GET /api/plan/:id — retrieve a flight plan by ID (public)
+  'GET /api/plan': getPlan,
+
   // GET /api/share/:logId — public shareable log snapshot
   'GET /api/share': async (req, env, _claims, params) => {
     const log = await env.DB.prepare(
@@ -480,7 +613,7 @@ export default {
     const claims = await auth(req, env);
 
     // Routes that don't require auth
-    const publicRoutes = ['GET /api/leaderboard', 'GET /api/share'];
+    const publicRoutes = ['GET /api/leaderboard', 'GET /api/share', 'GET /api/plan', 'POST /api/me/plans'];
 
     // Match most-specific (longest path) routes first so that e.g.
     // `GET /api/me/aircraft` is not swallowed by the `GET /api/me` prefix.
