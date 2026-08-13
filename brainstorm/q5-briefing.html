@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PreFlight Briefing — N12345 KBTL→KGRR</title>
+<style>
+@media print {
+  .no-print { display: none !important; }
+  body { background: #fff; font-size: 11pt; }
+  .briefing { box-shadow: none; }
+  .airport-section { page-break-inside: avoid; }
+  .fuel-card { page-break-inside: avoid; }
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #e8edf4; color: #1a1a2e; }
+
+/* ── Action bar (no-print) ── */
+.action-bar { background: #1f4e79; color: #fff; padding: 0.7rem 1.2rem; display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; position: sticky; top: 0; z-index: 50; }
+.action-bar .plan-id { font-size: 0.78rem; opacity: 0.7; margin-right: auto; }
+.action-bar .plan-id strong { opacity: 1; font-size: 0.88rem; }
+.ab-btn { display: inline-flex; align-items: center; gap: 5px; padding: 7px 14px; border-radius: 7px; font-size: 0.82rem; font-weight: 700; cursor: pointer; border: none; transition: opacity 0.15s; }
+.ab-btn:hover { opacity: 0.85; }
+.ab-pdf { background: #e67e22; color: #fff; }
+.ab-email { background: rgba(255,255,255,0.15); color: #fff; border: 1px solid rgba(255,255,255,0.3); }
+.ab-print { background: rgba(255,255,255,0.15); color: #fff; border: 1px solid rgba(255,255,255,0.3); }
+.ab-refresh { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.8); border: 1px solid rgba(255,255,255,0.2); font-size: 0.75rem; }
+.refresh-age { font-size: 0.7rem; color: rgba(255,255,255,0.55); margin-left: 2px; }
+
+/* ── Briefing document ── */
+.briefing { max-width: 780px; margin: 1.5rem auto; background: #fff; border-radius: 12px; box-shadow: 0 4px 24px rgba(0,0,0,0.1); overflow: hidden; }
+
+/* Flight summary banner */
+.flight-banner { background: linear-gradient(135deg, #1f4e79 0%, #2980b9 100%); color: #fff; padding: 1.4rem 1.6rem; }
+.flight-banner .route { font-size: 1.8rem; font-weight: 800; letter-spacing: -0.02em; line-height: 1; margin-bottom: 0.5rem; }
+.flight-banner .route .arrow { opacity: 0.6; margin: 0 0.3rem; }
+.flight-banner .route .alt-airport { font-size: 1.1rem; opacity: 0.75; font-weight: 600; }
+.flight-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; margin-top: 0.7rem; }
+.flight-meta-item { font-size: 0.8rem; opacity: 0.85; }
+.flight-meta-item strong { display: block; font-size: 1rem; opacity: 1; font-weight: 700; }
+.vfr-badge { display: inline-block; background: #27ae60; color: #fff; font-size: 0.72rem; font-weight: 800; padding: 2px 9px; border-radius: 10px; letter-spacing: 0.06em; vertical-align: middle; margin-left: 8px; }
+.mvfr-badge { background: #2980b9; }
+.ifr-badge { background: #c0392b; }
+
+/* Airport sections */
+.airport-section { border-bottom: 2px solid #e8edf4; padding: 1.2rem 1.6rem; }
+.airport-section:last-of-type { border-bottom: none; }
+.apt-hdr { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1rem; }
+.apt-ident-block { }
+.apt-ident { font-size: 2rem; font-weight: 900; color: #1f4e79; line-height: 1; letter-spacing: -0.02em; }
+.apt-role { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #fff; padding: 2px 8px; border-radius: 10px; margin-top: 3px; display: inline-block; }
+.apt-role.dep { background: #1f4e79; }
+.apt-role.dest { background: #27ae60; }
+.apt-role.alt { background: #8e44ad; }
+.apt-info { flex: 1; }
+.apt-name { font-size: 1.05rem; font-weight: 700; color: #1a1a2e; }
+.apt-sub { font-size: 0.8rem; color: #666; margin-top: 2px; line-height: 1.5; }
+.apt-phone { font-size: 0.8rem; color: #1f4e79; font-weight: 600; }
+.apt-phone a { color: #1f4e79; text-decoration: none; }
+.apt-phone a:hover { text-decoration: underline; }
+
+/* Data grid within airport section */
+.apt-data { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+@media (max-width: 600px) { .apt-data { grid-template-columns: 1fr; } }
+.data-block { background: #f8fafd; border-radius: 8px; padding: 0.75rem; border: 1px solid #e8edf4; }
+.data-block.full { grid-column: 1 / -1; }
+.data-label { font-size: 0.65rem; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 5px; }
+
+/* Weather */
+.metar-raw { font-family: ui-monospace, monospace; font-size: 0.75rem; color: #333; background: #fff; padding: 6px 8px; border-radius: 5px; border: 1px solid #e0e6f0; word-break: break-all; line-height: 1.5; margin-bottom: 5px; }
+.wx-summary { font-size: 0.82rem; color: #444; line-height: 1.5; }
+.wx-summary .wx-val { font-weight: 600; color: #1a1a2e; }
+.taf-block { margin-top: 6px; border-top: 1px solid #e8edf4; padding-top: 6px; }
+.taf-label { font-size: 0.65rem; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 3px; }
+.taf-raw { font-family: ui-monospace, monospace; font-size: 0.7rem; color: #555; line-height: 1.6; }
+
+/* NOTAMs */
+.notam-list { list-style: none; padding: 0; }
+.notam-item { border-left: 3px solid #e0e6f0; padding: 4px 8px; margin-bottom: 5px; font-size: 0.78rem; color: #444; line-height: 1.45; }
+.notam-item.warn { border-color: #e67e22; }
+.notam-item .notam-hdr { font-size: 0.68rem; color: #888; margin-bottom: 2px; }
+.no-notams { font-size: 0.82rem; color: #27ae60; font-weight: 600; }
+
+/* Frequencies */
+.freq-table { width: 100%; border-collapse: collapse; font-size: 0.78rem; }
+.freq-table th { text-align: left; color: #888; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.06em; padding: 3px 6px 5px; border-bottom: 1px solid #e8edf4; }
+.freq-table td { padding: 4px 6px; border-bottom: 1px solid #f0f4f9; }
+.freq-table tr:last-child td { border-bottom: none; }
+.freq-mhz { font-weight: 700; color: #1f4e79; font-size: 0.85rem; }
+.freq-use { color: #333; }
+.freq-ctaf { color: #e67e22; font-weight: 700; }
+
+/* Runways */
+.rwy-list { display: flex; flex-wrap: wrap; gap: 6px; }
+.rwy-chip { background: #1f4e79; color: #fff; border-radius: 6px; padding: 4px 10px; font-size: 0.75rem; font-weight: 700; }
+.rwy-detail { font-size: 0.72rem; color: #666; margin-top: 4px; }
+
+/* Fuel card */
+.fuel-card { border-top: 2px solid #e8edf4; background: #f8fafd; padding: 1.2rem 1.6rem; }
+.fuel-card h3 { font-size: 0.78rem; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 0.8rem; }
+.fuel-table { width: 100%; border-collapse: collapse; }
+.fuel-table td { padding: 5px 8px; font-size: 0.85rem; border-bottom: 1px solid #e8edf4; }
+.fuel-table td:first-child { color: #555; }
+.fuel-table td:last-child { font-weight: 700; color: #1a1a2e; text-align: right; }
+.fuel-table tr.total td { font-weight: 800; color: #1f4e79; border-top: 2px solid #dde3ee; }
+.fuel-table tr.warn td { color: #c0392b; }
+.fuel-ok { color: #27ae60 !important; }
+.fuel-warn { color: #c0392b !important; }
+.endurance-bar-wrap { margin-top: 0.8rem; }
+.endurance-bar-label { font-size: 0.72rem; color: #666; margin-bottom: 4px; }
+.endurance-bar { height: 12px; background: #e8edf4; border-radius: 10px; overflow: hidden; display: flex; }
+.bar-flight { background: #1f4e79; }
+.bar-reserve { background: #f39c12; }
+.bar-extra { background: #27ae60; }
+.bar-legend { display: flex; gap: 12px; margin-top: 5px; font-size: 0.68rem; color: #666; }
+.bar-legend span::before { content: "■ "; }
+.bar-legend .l1::before { color: #1f4e79; }
+.bar-legend .l2::before { color: #f39c12; }
+.bar-legend .l3::before { color: #27ae60; }
+
+/* Footer */
+.briefing-footer { background: #1f4e79; color: rgba(255,255,255,0.65); font-size: 0.72rem; padding: 0.8rem 1.6rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; }
+.briefing-footer strong { color: #fff; }
+.briefing-footer a { color: rgba(255,255,255,0.75); }
+
+/* Design note */
+.design-note { max-width: 780px; margin: 1rem auto 2rem; background: #fff3cd; border: 1px solid #ffc107; border-radius: 10px; padding: 1rem 1.2rem; font-size: 0.82rem; }
+.design-note h4 { color: #856404; font-weight: 700; margin-bottom: 5px; }
+.design-note ul { padding-left: 1.2rem; color: #555; line-height: 1.8; }
+</style>
+</head>
+<body>
+
+<!-- Action bar -->
+<div class="action-bar no-print">
+  <div class="plan-id"><strong>KBTL → KGRR</strong> · N12345 · Aug 13, 2026 · Plan #ocl-4829</div>
+  <button class="ab-btn ab-pdf" onclick="alert('jsPDF generates and downloads the PDF')">⬇ Download PDF</button>
+  <button class="ab-btn ab-email" onclick="alert('Enter your email to receive this briefing')">✉ Email to Me</button>
+  <button class="ab-btn ab-print" onclick="window.print()">🖨 Print</button>
+  <button class="ab-btn ab-refresh">🔄 Refresh live data<span class="refresh-age">(data 4 min old)</span></button>
+</div>
+
+<!-- Briefing document -->
+<div class="briefing">
+
+  <!-- ── Flight summary banner ── -->
+  <div class="flight-banner">
+    <div class="route">
+      KBTL <span class="arrow">→</span> KGRR
+      <span class="alt-airport">alt: KAZO</span>
+      <span class="vfr-badge">VFR</span>
+    </div>
+    <div class="flight-meta">
+      <div class="flight-meta-item"><strong>N12345</strong>Aircraft</div>
+      <div class="flight-meta-item"><strong>Cessna 172S</strong>Type</div>
+      <div class="flight-meta-item"><strong>Wed Aug 13, 2026</strong>Date</div>
+      <div class="flight-meta-item"><strong>10:00 AM local</strong>Departure</div>
+      <div class="flight-meta-item"><strong>~38 min</strong>Est. en route</div>
+      <div class="flight-meta-item"><strong>69 nm</strong>Distance</div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════ -->
+  <!-- DEPARTURE — KBTL -->
+  <!-- ══════════════════════════════════════ -->
+  <div class="airport-section">
+    <div class="apt-hdr">
+      <div class="apt-ident-block">
+        <div class="apt-ident">KBTL</div>
+        <span class="apt-role dep">Departure</span>
+      </div>
+      <div class="apt-info">
+        <div class="apt-name">W.K. Kellogg Airport</div>
+        <div class="apt-sub">Battle Creek, MI · Class D · Elev 952 ft · Pattern 1952 ft</div>
+        <div class="apt-phone">📞 <a href="tel:+12699663470">(269) 966-3470</a> · Tower: (269) 966-3473</div>
+      </div>
+    </div>
+
+    <div class="apt-data">
+
+      <!-- Weather -->
+      <div class="data-block full">
+        <div class="data-label">Weather <span class="vfr-badge">VFR</span></div>
+        <div class="metar-raw">KBTL 131456Z 27012KT 10SM FEW050 24/11 A2994 RMK AO2 SLP138 T02440111</div>
+        <div class="wx-summary">
+          Wind <span class="wx-val">270° at 12 kt</span> ·
+          Vis <span class="wx-val">10+ SM</span> ·
+          Sky <span class="wx-val">Few clouds 5,000 ft</span> ·
+          Temp <span class="wx-val">24°C / Dew 11°C</span> ·
+          Altimeter <span class="wx-val">29.94 inHg</span>
+        </div>
+      </div>
+
+      <!-- NOTAMs -->
+      <div class="data-block">
+        <div class="data-label">NOTAMs</div>
+        <ul class="notam-list">
+          <li class="notam-item warn">
+            <div class="notam-hdr">Effective until Aug 15 18:00Z</div>
+            RWY 05/23 CLSD FOR MAINTENANCE 1200-2200Z DAILY
+          </li>
+          <li class="notam-item">
+            <div class="notam-hdr">Effective until Sep 1</div>
+            TAXIWAY ALPHA 300FT FROM RWY 05 THRESHOLD CLSD
+          </li>
+        </ul>
+      </div>
+
+      <!-- Frequencies -->
+      <div class="data-block">
+        <div class="data-label">Frequencies</div>
+        <table class="freq-table">
+          <thead><tr><th>MHz</th><th>Use</th></tr></thead>
+          <tbody>
+            <tr><td class="freq-mhz freq-ctaf">124.0</td><td class="freq-use freq-ctaf">Tower / CTAF</td></tr>
+            <tr><td class="freq-mhz">121.9</td><td class="freq-use">Ground</td></tr>
+            <tr><td class="freq-mhz">135.45</td><td class="freq-use">ATIS</td></tr>
+            <tr><td class="freq-mhz">121.0</td><td class="freq-use">Chicago Approach</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Runways -->
+      <div class="data-block full">
+        <div class="data-label">Runways</div>
+        <div class="rwy-list">
+          <span class="rwy-chip">05/23</span>
+          <span class="rwy-chip" style="background:#e67e22;">17/35 ⚠</span>
+        </div>
+        <div class="rwy-detail">05/23: 8,002 ft × 150 ft · Asphalt · ILS Rwy 5 (109.5) · Active ·
+          17/35: 6,498 ft · CLOSED per NOTAM</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════ -->
+  <!-- DESTINATION — KGRR -->
+  <!-- ══════════════════════════════════════ -->
+  <div class="airport-section">
+    <div class="apt-hdr">
+      <div class="apt-ident-block">
+        <div class="apt-ident">KGRR</div>
+        <span class="apt-role dest">Destination</span>
+      </div>
+      <div class="apt-info">
+        <div class="apt-name">Gerald R. Ford International</div>
+        <div class="apt-sub">Grand Rapids, MI · Class C · Elev 794 ft · Pattern 1794 ft</div>
+        <div class="apt-phone">📞 <a href="tel:+16162336000">(616) 233-6000</a></div>
+      </div>
+    </div>
+
+    <div class="apt-data">
+
+      <div class="data-block full">
+        <div class="data-label">Weather <span class="vfr-badge">VFR</span></div>
+        <div class="metar-raw">KGRR 131453Z 25008KT 10SM SCT060 22/09 A2997 RMK AO2 SLP147 T02220094</div>
+        <div class="wx-summary">
+          Wind <span class="wx-val">250° at 8 kt</span> ·
+          Vis <span class="wx-val">10+ SM</span> ·
+          Sky <span class="wx-val">Scattered 6,000 ft</span> ·
+          Temp <span class="wx-val">22°C / Dew 9°C</span> ·
+          Altimeter <span class="wx-val">29.97 inHg</span>
+        </div>
+        <div class="taf-block">
+          <div class="taf-label">TAF</div>
+          <div class="taf-raw">KGRR 131120Z 1312/1412 25010KT P6SM SCT060<br>
+            TEMPO 1316/1320 VRB15G22KT 4SM TSRA BKN030CB<br>
+            FM140000 22005KT P6SM FEW040</div>
+        </div>
+      </div>
+
+      <div class="data-block">
+        <div class="data-label">NOTAMs</div>
+        <div class="no-notams">✓ No active NOTAMs</div>
+      </div>
+
+      <div class="data-block">
+        <div class="data-label">Frequencies</div>
+        <table class="freq-table">
+          <tbody>
+            <tr><td class="freq-mhz">119.7</td><td class="freq-use">Tower</td></tr>
+            <tr><td class="freq-mhz">121.9</td><td class="freq-use">Ground</td></tr>
+            <tr><td class="freq-mhz">128.15</td><td class="freq-use">ATIS</td></tr>
+            <tr><td class="freq-mhz">124.0</td><td class="freq-use">Approach</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="data-block full">
+        <div class="data-label">Runways</div>
+        <div class="rwy-list">
+          <span class="rwy-chip">08R/26L</span>
+          <span class="rwy-chip">08L/26R</span>
+          <span class="rwy-chip">17/35</span>
+        </div>
+        <div class="rwy-detail">08R/26L: 10,000 ft × 150 ft · Asphalt · ILS both ends ·
+          08L/26R: 5,000 ft × 100 ft ·
+          17/35: 3,922 ft × 75 ft</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════ -->
+  <!-- ALTERNATE — KAZO (compact) -->
+  <!-- ══════════════════════════════════════ -->
+  <div class="airport-section">
+    <div class="apt-hdr">
+      <div class="apt-ident-block">
+        <div class="apt-ident" style="font-size:1.4rem;">KAZO</div>
+        <span class="apt-role alt">Alternate</span>
+      </div>
+      <div class="apt-info">
+        <div class="apt-name">Kalamazoo/Battle Creek International</div>
+        <div class="apt-sub">Kalamazoo, MI · Class C · Elev 874 ft</div>
+        <div class="apt-phone">📞 <a href="tel:+12693886868">(269) 388-6868</a></div>
+      </div>
+    </div>
+    <div class="apt-data">
+      <div class="data-block">
+        <div class="data-label">Weather <span class="vfr-badge">VFR</span></div>
+        <div class="metar-raw" style="font-size:0.68rem;">KAZO 131455Z 26010KT 10SM FEW070 23/10 A2995</div>
+        <div class="wx-summary" style="font-size:0.76rem;">Wind 260° at 10 kt · 10+ SM · Temp 23°C · Alt 29.95</div>
+      </div>
+      <div class="data-block">
+        <div class="data-label">Key Freq &amp; NOTAMs</div>
+        <table class="freq-table">
+          <tbody>
+            <tr><td class="freq-mhz">124.2</td><td>Tower</td></tr>
+            <tr><td class="freq-mhz">135.6</td><td>ATIS</td></tr>
+          </tbody>
+        </table>
+        <div style="margin-top:6px;" class="no-notams">✓ No active NOTAMs</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════ -->
+  <!-- FUEL PLANNING -->
+  <!-- ══════════════════════════════════════ -->
+  <div class="fuel-card">
+    <h3>⛽ Fuel Planning — N12345 Cessna 172S</h3>
+    <table class="fuel-table">
+      <tr><td>Fuel onboard</td><td>35.0 gal</td></tr>
+      <tr><td>Burn rate</td><td>8.5 GPH</td></tr>
+      <tr><td>Est. en route time</td><td>38 min</td></tr>
+      <tr><td>Fuel to destination</td><td>5.4 gal</td></tr>
+      <tr><td>VFR reserve (30 min)</td><td>4.3 gal</td></tr>
+      <tr class="total"><td>Min fuel required</td><td>9.7 gal</td></tr>
+      <tr><td>Fuel remaining at dest (above reserve)</td><td class="fuel-ok">25.3 gal ✓</td></tr>
+      <tr><td>Total endurance</td><td>4 hr 7 min</td></tr>
+    </table>
+
+    <div class="endurance-bar-wrap">
+      <div class="endurance-bar-label">Fuel endurance breakdown (4 hr 7 min total)</div>
+      <div class="endurance-bar">
+        <div class="bar-flight" style="width:15%;"></div>
+        <div class="bar-reserve" style="width:10%;"></div>
+        <div class="bar-extra" style="width:75%;"></div>
+      </div>
+      <div class="bar-legend">
+        <span class="l1">Flight time (38 min)</span>
+        <span class="l2">Reserve (30 min)</span>
+        <span class="l3">Extra margin (3 hr 0 min)</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="briefing-footer">
+    <div>
+      <strong>OpenChecklists.net</strong> · PreFlight Plan #ocl-4829 ·
+      Generated Wed Aug 13 2026 09:47 local
+    </div>
+    <div>
+      Live refresh: <a href="https://openchecklists.net/plan/ocl-4829">openchecklists.net/plan/ocl-4829</a>
+    </div>
+  </div>
+
+</div>
+
+<!-- Design notes -->
+<div class="design-note no-print">
+  <h4>Design Section 3 — Briefing Output</h4>
+  <ul>
+    <li><strong>Action bar</strong> — sticky, always visible. "Download PDF" triggers jsPDF. "Email to Me" asks for address (creates account if guest). "Refresh" re-fetches live data and updates the briefing in place.</li>
+    <li><strong>VFR badge</strong> — color-coded per airport (green VFR / blue MVFR / red IFR / purple LIFR) based on ceiling and visibility parsed from METAR.</li>
+    <li><strong>NOTAM highlighting</strong> — runway closure NOTAMs get orange left border. All NOTAMs shown; none hidden.</li>
+    <li><strong>CTAF/Tower</strong> — highlighted in orange in the frequency table. Easy to spot at a glance.</li>
+    <li><strong>Runways with NOTAMs</strong> — closed runway chips shown in orange with ⚠ symbol.</li>
+    <li><strong>Alternate is compact</strong> — less detail than departure/destination since it's the fallback.</li>
+    <li><strong>Fuel bar</strong> — visual endurance breakdown makes it instantly clear how much margin exists.</li>
+    <li><strong>Refresh link in footer</strong> — this URL is printed on the PDF so the pilot can tap it in-flight for fresh weather when they have signal.</li>
+    <li><strong>Print button</strong> — try it. The action bar hides, PDF header shows, page breaks work.</li>
+  </ul>
+</div>
+
+</body>
+</html>
