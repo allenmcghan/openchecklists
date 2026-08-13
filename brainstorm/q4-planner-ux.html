@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flight Planner — Design Section 2</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #f0f4f9; color: #1a1a2e; }
+
+/* ── Simulated site nav ── */
+.site-nav { background: #1f4e79; color: #fff; padding: 0 1.5rem; height: 48px; display: flex; align-items: center; gap: 1.5rem; font-size: 0.82rem; position: sticky; top: 0; z-index: 100; }
+.site-nav .logo { font-weight: 800; font-size: 0.95rem; margin-right: 1rem; }
+.site-nav a { color: rgba(255,255,255,0.75); text-decoration: none; }
+.site-nav a.active { color: #fff; background: rgba(255,255,255,0.15); padding: 4px 10px; border-radius: 14px; font-weight: 600; }
+.site-nav .spacer { flex: 1; }
+.site-nav .sign-in { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); padding: 4px 12px; border-radius: 14px; cursor: pointer; font-size: 0.78rem; }
+
+/* ── Page shell ── */
+.page { max-width: 900px; margin: 0 auto; padding: 1.5rem 1rem 3rem; }
+.page-hdr { margin-bottom: 1.4rem; }
+.page-hdr h1 { font-size: 1.6rem; font-weight: 800; color: #1f4e79; }
+.page-hdr p { color: #555; font-size: 0.92rem; margin-top: 4px; }
+
+/* ── Mode tabs ── */
+.mode-tabs { display: flex; gap: 0; border-bottom: 2px solid #dde3ee; margin-bottom: 1.4rem; }
+.mode-tab { padding: 10px 20px; font-size: 0.88rem; font-weight: 600; color: #888; cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -2px; transition: color 0.15s, border-color 0.15s; }
+.mode-tab.active { color: #1f4e79; border-color: #1f4e79; }
+.mode-tab:hover:not(.active) { color: #444; }
+
+/* ── Wizard mode ── */
+.wizard { display: block; }
+.quick { display: none; }
+.showing-quick .wizard { display: none; }
+.showing-quick .quick { display: block; }
+
+/* Wizard steps bar */
+.steps { display: flex; align-items: center; margin-bottom: 1.6rem; background: #fff; border-radius: 10px; padding: 12px 16px; box-shadow: 0 1px 6px rgba(0,0,0,0.06); }
+.step { display: flex; align-items: center; gap: 7px; flex: 1; }
+.step-num { width: 26px; height: 26px; border-radius: 50%; font-size: 0.72rem; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.step-num.done { background: #27ae60; color: #fff; }
+.step-num.active { background: #1f4e79; color: #fff; }
+.step-num.todo { background: #e0e7f0; color: #888; }
+.step-label { font-size: 0.72rem; font-weight: 600; }
+.step-label.done { color: #27ae60; }
+.step-label.active { color: #1f4e79; }
+.step-label.todo { color: #aaa; }
+.step-connector { flex: 0 0 20px; height: 2px; background: #e0e7f0; margin: 0 4px; }
+.step-connector.done { background: #27ae60; }
+
+/* Wizard card */
+.wiz-card { background: #fff; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.07); overflow: hidden; }
+.wiz-card-hdr { padding: 1.2rem 1.5rem; border-bottom: 1px solid #f0f4f9; }
+.wiz-card-hdr h2 { font-size: 1.1rem; font-weight: 700; color: #1f4e79; }
+.wiz-card-hdr p { font-size: 0.85rem; color: #666; margin-top: 3px; }
+.wiz-card-body { padding: 1.4rem 1.5rem; }
+.wiz-card-foot { padding: 1rem 1.5rem; border-top: 1px solid #f0f4f9; display: flex; justify-content: space-between; align-items: center; }
+
+/* Aircraft cards */
+.ac-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; margin-bottom: 1rem; }
+.ac-card { border: 2px solid #dde3ee; border-radius: 10px; padding: 12px 14px; cursor: pointer; transition: border-color 0.15s, background 0.15s; }
+.ac-card:hover { border-color: #1f4e79; }
+.ac-card.selected { border-color: #1f4e79; background: #eef4fb; }
+.ac-card .reg { font-size: 1.1rem; font-weight: 800; color: #1f4e79; }
+.ac-card .model { font-size: 0.8rem; color: #555; margin-top: 2px; }
+.ac-card .specs { font-size: 0.72rem; color: #888; margin-top: 5px; line-height: 1.5; }
+.ac-add { border: 2px dashed #ccd5e0; border-radius: 10px; padding: 12px 14px; cursor: pointer; color: #888; font-size: 0.82rem; display: flex; align-items: center; justify-content: center; gap: 6px; min-height: 90px; }
+.ac-add:hover { border-color: #1f4e79; color: #1f4e79; }
+
+/* Route inputs */
+.route-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
+.field-group label { display: block; font-size: 0.72rem; font-weight: 700; color: #1f4e79; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 5px; }
+.airport-input { display: flex; gap: 6px; }
+.airport-input input { flex: 1; background: #f4f6f9; border: 1.5px solid #dde3ee; border-radius: 7px; padding: 9px 12px; font-size: 0.9rem; font-weight: 600; font-family: inherit; letter-spacing: 0.05em; color: #1f4e79; }
+.airport-input input::placeholder { color: #bbb; font-weight: 400; letter-spacing: 0; }
+.airport-input input:focus { outline: none; border-color: #1f4e79; background: #fff; }
+.fav-btn { background: #f4f6f9; border: 1.5px solid #dde3ee; border-radius: 7px; padding: 0 10px; font-size: 0.8rem; cursor: pointer; color: #888; white-space: nowrap; }
+.fav-btn:hover { border-color: #1f4e79; color: #1f4e79; }
+.fav-chips { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px; }
+.fav-chip { background: #eef4fb; border: 1px solid #c5d8ee; color: #1f4e79; font-size: 0.72rem; font-weight: 700; padding: 3px 9px; border-radius: 12px; cursor: pointer; letter-spacing: 0.04em; }
+.fav-chip:hover { background: #1f4e79; color: #fff; }
+.optional-note { font-size: 0.75rem; color: #aaa; margin-left: 4px; font-weight: 400; }
+
+/* Fuel row */
+.fuel-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-top: 4px; }
+.field-group select, .field-group input[type=number] { width: 100%; background: #f4f6f9; border: 1.5px solid #dde3ee; border-radius: 7px; padding: 9px 12px; font-size: 0.88rem; font-family: inherit; color: #333; }
+.field-group select:focus, .field-group input[type=number]:focus { outline: none; border-color: #1f4e79; background: #fff; }
+.field-hint { font-size: 0.72rem; color: #aaa; margin-top: 4px; }
+
+/* Nav buttons */
+.btn-primary { background: #1f4e79; color: #fff; border: none; padding: 10px 22px; border-radius: 8px; font-size: 0.88rem; font-weight: 700; cursor: pointer; }
+.btn-primary:hover { background: #174069; }
+.btn-ghost { background: transparent; border: 1.5px solid #dde3ee; color: #555; padding: 9px 18px; border-radius: 8px; font-size: 0.88rem; font-weight: 600; cursor: pointer; }
+.btn-ghost:hover { border-color: #1f4e79; color: #1f4e79; }
+.btn-generate { background: #e67e22; color: #fff; border: none; padding: 12px 28px; border-radius: 8px; font-size: 1rem; font-weight: 800; cursor: pointer; letter-spacing: 0.01em; }
+.btn-generate:hover { background: #cf6d17; }
+
+/* Guest notice */
+.guest-notice { background: #fff8e6; border: 1px solid #f5d580; border-radius: 8px; padding: 10px 14px; font-size: 0.82rem; color: #7a5c00; margin-bottom: 1rem; display: flex; gap: 8px; align-items: flex-start; }
+
+/* Quick plan (single page) */
+.quick-form { background: #fff; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.07); padding: 1.5rem; }
+.qf-section { margin-bottom: 1.4rem; padding-bottom: 1.4rem; border-bottom: 1px solid #f0f4f9; }
+.qf-section:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+.qf-section h3 { font-size: 0.8rem; font-weight: 700; color: #1f4e79; text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 10px; }
+.qf-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.qf-ac-selected { background: #eef4fb; border: 2px solid #1f4e79; border-radius: 8px; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center; }
+.qf-ac-selected .info { font-size: 0.85rem; font-weight: 700; color: #1f4e79; }
+.qf-ac-selected .specs { font-size: 0.75rem; color: #555; margin-top: 2px; }
+.qf-ac-selected .change { font-size: 0.75rem; color: #1f4e79; cursor: pointer; text-decoration: underline; }
+
+/* Recent plans sidebar */
+.layout { display: grid; grid-template-columns: 1fr 260px; gap: 1.2rem; }
+.sidebar { }
+.sidebar-card { background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); padding: 1rem; }
+.sidebar-card h3 { font-size: 0.78rem; font-weight: 700; color: #1f4e79; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 10px; }
+.plan-item { padding: 8px 0; border-bottom: 1px solid #f0f4f9; cursor: pointer; }
+.plan-item:last-child { border-bottom: none; }
+.plan-item:hover .plan-route { color: #1f4e79; }
+.plan-route { font-size: 0.85rem; font-weight: 700; color: #333; transition: color 0.1s; }
+.plan-meta { font-size: 0.72rem; color: #888; margin-top: 2px; }
+.plan-reuse { font-size: 0.7rem; color: #1f4e79; font-weight: 600; margin-top: 3px; }
+
+/* Feedback panel */
+.feedback-bar { background: #1f4e79; color: #fff; padding: 0.8rem 1rem; border-radius: 8px; margin-top: 1.5rem; font-size: 0.82rem; display: flex; justify-content: space-between; align-items: center; }
+.feedback-bar strong { font-size: 0.88rem; }
+.feedback-bar .actions { display: flex; gap: 8px; }
+.feedback-bar button { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); color: #fff; padding: 5px 12px; border-radius: 6px; font-size: 0.78rem; cursor: pointer; font-weight: 600; }
+.feedback-bar button:hover { background: rgba(255,255,255,0.25); }
+
+/* Design notes overlay */
+.design-notes { background: #fff3cd; border: 1px solid #ffc107; border-radius: 10px; padding: 1rem 1.2rem; margin-top: 1.5rem; font-size: 0.82rem; }
+.design-notes h4 { color: #856404; font-size: 0.82rem; font-weight: 700; margin-bottom: 6px; }
+.design-notes ul { padding-left: 1.2rem; color: #555; line-height: 1.7; }
+
+@media (max-width: 700px) {
+  .layout { grid-template-columns: 1fr; }
+  .route-grid, .qf-row, .fuel-row { grid-template-columns: 1fr; }
+  .steps { overflow-x: auto; }
+  .site-nav a:not(.active) { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- Simulated site nav -->
+<nav class="site-nav">
+  <span class="logo">✈ OpenChecklists</span>
+  <a href="#">Airports</a>
+  <a href="#">Library</a>
+  <a href="#">Training</a>
+  <a href="#" class="active">Plan a Flight</a>
+  <div class="spacer"></div>
+  <span class="sign-in">Sign in / Register</span>
+</nav>
+
+<div class="page">
+  <div class="layout">
+    <div>
+      <div class="page-hdr">
+        <h1>Plan a Flight</h1>
+        <p>Build a complete VFR preflight briefing. Download your PDF or email it to yourself — works offline in the cockpit.</p>
+      </div>
+
+      <!-- Guest notice (shown when not signed in) -->
+      <div class="guest-notice">
+        💡 <span>You're planning as a guest. Enter your email when you generate your briefing — we'll send the PDF and create your free account so you can access this plan later.</span>
+      </div>
+
+      <!-- Mode tabs -->
+      <div class="mode-tabs">
+        <div class="mode-tab active" onclick="showMode('wizard',this)">Guided Planning</div>
+        <div class="mode-tab" onclick="showMode('quick',this)">Quick Plan</div>
+      </div>
+
+      <!-- ═══ WIZARD MODE ═══ -->
+      <div class="wizard" id="wizard-panel">
+
+        <!-- Steps bar -->
+        <div class="steps">
+          <div class="step">
+            <div class="step-num done">✓</div>
+            <span class="step-label done">Aircraft</span>
+          </div>
+          <div class="step-connector done"></div>
+          <div class="step">
+            <div class="step-num active">2</div>
+            <span class="step-label active">Route</span>
+          </div>
+          <div class="step-connector"></div>
+          <div class="step">
+            <div class="step-num todo">3</div>
+            <span class="step-label todo">Weather</span>
+          </div>
+          <div class="step-connector"></div>
+          <div class="step">
+            <div class="step-num todo">4</div>
+            <span class="step-label todo">Fuel</span>
+          </div>
+          <div class="step-connector"></div>
+          <div class="step">
+            <div class="step-num todo">5</div>
+            <span class="step-label todo">Briefing</span>
+          </div>
+        </div>
+
+        <!-- Step 2: Route (currently active) -->
+        <div class="wiz-card">
+          <div class="wiz-card-hdr">
+            <h2>Step 2 — Where are you flying?</h2>
+            <p>Enter airport identifiers (ICAO or FAA). Your saved airports appear as shortcuts below each field.</p>
+          </div>
+          <div class="wiz-card-body">
+
+            <div class="route-grid">
+              <div class="field-group">
+                <label>Departure airport</label>
+                <div class="airport-input">
+                  <input type="text" value="KBTL" maxlength="4">
+                </div>
+                <div class="fav-chips" style="margin-top:6px;">
+                  <span class="fav-chip">KBTL</span>
+                  <span class="fav-chip">KGRR</span>
+                  <span class="fav-chip">KAZO</span>
+                </div>
+              </div>
+              <div class="field-group">
+                <label>Destination airport</label>
+                <div class="airport-input">
+                  <input type="text" placeholder="e.g. KGRR" maxlength="4">
+                </div>
+                <div class="fav-chips" style="margin-top:6px;">
+                  <span class="fav-chip">KBTL</span>
+                  <span class="fav-chip">KGRR</span>
+                  <span class="fav-chip">KAZO</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="field-group" style="margin-bottom:14px;">
+              <label>Alternate airport <span class="optional-note">(optional — recommended if wx &lt; 2,000 ft / 3 SM)</span></label>
+              <div class="airport-input">
+                <input type="text" placeholder="e.g. KAZO" maxlength="4" style="max-width:180px;">
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label>Departure date &amp; time (local)</label>
+              <input type="datetime-local" style="background:#f4f6f9;border:1.5px solid #dde3ee;border-radius:7px;padding:9px 12px;font-size:0.88rem;font-family:inherit;width:auto;">
+            </div>
+
+          </div>
+          <div class="wiz-card-foot">
+            <button class="btn-ghost">← Back: Aircraft</button>
+            <button class="btn-primary">Next: Weather →</button>
+          </div>
+        </div>
+
+        <!-- Step 1 summary (collapsed, shown above) -->
+        <div style="background:#f8fafd;border:1px solid #e0e7f0;border-radius:8px;padding:10px 14px;margin-top:10px;font-size:0.82rem;color:#555;display:flex;gap:8px;align-items:center;">
+          <span style="color:#27ae60;font-size:1rem;">✓</span>
+          <span><strong style="color:#333;">N12345</strong> · Cessna 172S · 35 gal · 110 kt cruise · 8.5 GPH</span>
+          <span style="margin-left:auto;color:#1f4e79;cursor:pointer;font-size:0.75rem;text-decoration:underline;">Change aircraft</span>
+        </div>
+
+      </div><!-- /wizard -->
+
+      <!-- ═══ QUICK PLAN MODE ═══ -->
+      <div class="quick" id="quick-panel">
+        <div class="quick-form">
+
+          <div class="qf-section">
+            <h3>Aircraft</h3>
+            <div class="qf-ac-selected">
+              <div>
+                <div class="info">N12345 — Cessna 172S</div>
+                <div class="specs">35 gal · 110 kt cruise · 8.5 GPH burn</div>
+              </div>
+              <span class="change">Change</span>
+            </div>
+          </div>
+
+          <div class="qf-section">
+            <h3>Route</h3>
+            <div class="qf-row" style="margin-bottom:10px;">
+              <div class="field-group">
+                <label>Departure</label>
+                <div class="airport-input">
+                  <input type="text" value="KBTL">
+                </div>
+              </div>
+              <div class="field-group">
+                <label>Destination</label>
+                <div class="airport-input">
+                  <input type="text" placeholder="ICAO">
+                </div>
+              </div>
+            </div>
+            <div class="field-group">
+              <label>Alternate <span class="optional-note">(optional)</span></label>
+              <div class="airport-input">
+                <input type="text" placeholder="ICAO" style="max-width:160px;">
+              </div>
+            </div>
+          </div>
+
+          <div class="qf-section">
+            <h3>Fuel</h3>
+            <div class="fuel-row">
+              <div class="field-group">
+                <label>Fuel onboard (gal)</label>
+                <input type="number" value="35" min="0">
+                <div class="field-hint">Full tanks = 35 gal</div>
+              </div>
+              <div class="field-group">
+                <label>Planned reserve</label>
+                <select>
+                  <option>30 min VFR</option>
+                  <option>45 min night/IFR</option>
+                  <option>1 hr conservative</option>
+                </select>
+              </div>
+              <div class="field-group">
+                <label>Dep. time (local)</label>
+                <input type="datetime-local">
+              </div>
+            </div>
+          </div>
+
+          <div style="display:flex;justify-content:flex-end;padding-top:0.5rem;">
+            <button class="btn-generate">Generate Briefing →</button>
+          </div>
+
+        </div>
+      </div><!-- /quick -->
+
+    </div><!-- /main col -->
+
+    <!-- ── Sidebar ── -->
+    <div class="sidebar">
+      <div class="sidebar-card">
+        <h3>Recent Plans</h3>
+        <div class="plan-item">
+          <div class="plan-route">KBTL → KGRR</div>
+          <div class="plan-meta">Aug 10 · N12345 · 38 min ETE</div>
+          <div class="plan-reuse">↺ Reuse this plan</div>
+        </div>
+        <div class="plan-item">
+          <div class="plan-route">KGRR → KAZO</div>
+          <div class="plan-meta">Aug 7 · N12345 · 22 min ETE</div>
+          <div class="plan-reuse">↺ Reuse this plan</div>
+        </div>
+        <div class="plan-item">
+          <div class="plan-route">KBTL → KLANSING</div>
+          <div class="plan-meta">Jul 30 · N12345 · 51 min ETE</div>
+          <div class="plan-reuse">↺ Reuse this plan</div>
+        </div>
+        <div style="margin-top:10px;padding-top:10px;border-top:1px solid #f0f4f9;">
+          <a href="#" style="font-size:0.75rem;color:#1f4e79;">View all plans →</a>
+        </div>
+      </div>
+
+      <div class="sidebar-card" style="margin-top:1rem;">
+        <h3>My Aircraft</h3>
+        <div style="font-size:0.82rem;padding:4px 0;border-bottom:1px solid #f0f4f9;margin-bottom:6px;">
+          <strong>N12345</strong> · C172S<br>
+          <span style="color:#888;font-size:0.72rem;">35 gal · 110 kt · 8.5 GPH</span>
+        </div>
+        <a href="#" style="font-size:0.75rem;color:#1f4e79;">+ Add aircraft</a>
+      </div>
+    </div>
+
+  </div><!-- /layout -->
+
+  <!-- Feedback bar -->
+  <div class="feedback-bar">
+    <div>
+      <strong>Design Section 2 — Planner UX</strong><br>
+      Does this layout work? Review both tabs above (Guided Planning + Quick Plan).
+    </div>
+    <div class="actions">
+      <button onclick="record('approve')">✓ Looks good</button>
+      <button onclick="record('revise')">Request changes</button>
+    </div>
+  </div>
+
+  <!-- Design annotations -->
+  <div class="design-notes">
+    <h4>Design notes</h4>
+    <ul>
+      <li><strong>Guided Planning tab</strong> — 5-step wizard, shown at step 2 (Route). Aircraft summary collapses above. Saved airports appear as clickable chips under each field.</li>
+      <li><strong>Quick Plan tab</strong> — single scrollable form, aircraft pre-selected, all fields visible. For returning pilots.</li>
+      <li><strong>Recent Plans sidebar</strong> — "Reuse this plan" pre-fills all fields with a previous flight. Guest users see an empty sidebar with a prompt to sign in.</li>
+      <li><strong>My Aircraft sidebar</strong> — quick summary; links to profile to manage aircraft.</li>
+      <li><strong>Guest notice</strong> — friendly, non-blocking. Email prompt deferred to generation step.</li>
+      <li><strong>Step 4 (Fuel)</strong> — will show calculated range, endurance, and fuel-to-destination with auto-filled aircraft burn rate.</li>
+      <li><strong>Step 5 (Briefing)</strong> — generates the full briefing; triggers PDF download and email prompt.</li>
+    </ul>
+  </div>
+
+</div>
+
+<script>
+function showMode(mode, tab) {
+  document.querySelectorAll('.mode-tab').forEach(t => t.classList.remove('active'));
+  tab.classList.add('active');
+  const wrap = document.getElementById('wizard-panel').parentElement;
+  if (mode === 'quick') {
+    document.getElementById('wizard-panel').style.display = 'none';
+    document.getElementById('quick-panel').style.display = 'block';
+  } else {
+    document.getElementById('wizard-panel').style.display = 'block';
+    document.getElementById('quick-panel').style.display = 'none';
+  }
+}
+function record(v) {
+  const btn = event.target;
+  btn.textContent = '✓ Recorded';
+  btn.style.background = '#27ae60';
+  history.replaceState(null,'','?feedback='+v);
+}
+// Chip clicks fill input
+document.querySelectorAll('.fav-chip').forEach(chip => {
+  chip.addEventListener('click', function() {
+    const inputs = this.closest('.field-group').querySelectorAll('input');
+    if (inputs.length) inputs[0].value = this.textContent;
+  });
+});
+</script>
+</body>
+</html>
