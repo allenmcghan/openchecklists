@@ -167,7 +167,46 @@ describe('Airport API Worker', () => {
   });
 
   describe('Fuel endpoint', () => {
-    it('should return JSON with fuel types', async () => {
+    it('should return JSON with fuel types and prices when FAA data available', async () => {
+      // Mock FAA fuel prices fetch
+      mockFetch.mockResolvedValueOnce(
+        new Response(
+          `STATE,AVGAS/GALS,JETFUEL/GALS
+ALABAMA,5.68,4.87
+NEW YORK,5.75,4.92
+CALIFORNIA,5.82,5.01`,
+          { status: 200 }
+        )
+      );
+
+      global.caches.default.match.mockResolvedValueOnce(null); // Cache miss
+
+      const request = new Request('http://localhost/api/airport/KJFK/fuel', {
+        method: 'GET',
+      });
+      const response = await worker.fetch(request);
+
+      expect(response.status).toBe(200);
+      const data = await response.json();
+      expect(data.ident).toBe('KJFK');
+      expect(Array.isArray(data.fuel_types)).toBe(true);
+      expect(data.fuel_types).toContain('100LL');
+      expect(data.fuel_types).toContain('Jet-A');
+      expect(data.timestamp).toBeDefined();
+      expect(response.headers.get('Access-Control-Allow-Origin')).toBe('*');
+      // For KJFK (New York), should have prices
+      expect(data.prices).toBeDefined();
+      if (data.prices) {
+        expect(data.prices['100LL']).toBeDefined();
+        expect(data.prices['Jet-A']).toBeDefined();
+      }
+    });
+
+    it('should return fuel types with null prices when FAA data unavailable', async () => {
+      mockFetch.mockRejectedValueOnce(new Error('Fetch failed'));
+
+      global.caches.default.match.mockResolvedValueOnce(null);
+
       const request = new Request('http://localhost/api/airport/KJFK/fuel', {
         method: 'GET',
       });
@@ -178,7 +217,26 @@ describe('Airport API Worker', () => {
       expect(data.ident).toBe('KJFK');
       expect(Array.isArray(data.fuel_types)).toBe(true);
       expect(data.timestamp).toBeDefined();
-      expect(response.headers.get('Access-Control-Allow-Origin')).toBe('*');
+      expect(data.note).toBeDefined();
+    });
+
+    it('should cache fuel responses', async () => {
+      mockFetch.mockResolvedValueOnce(
+        new Response(
+          `STATE,AVGAS/GALS,JETFUEL/GALS
+ALABAMA,5.68,4.87`,
+          { status: 200 }
+        )
+      );
+
+      global.caches.default.match.mockResolvedValueOnce(null);
+
+      const request = new Request('http://localhost/api/airport/KJFK/fuel', {
+        method: 'GET',
+      });
+      await worker.fetch(request);
+
+      expect(global.caches.default.put).toHaveBeenCalled();
     });
   });
 
