@@ -858,19 +858,17 @@ def render_airport_page(airport: dict, effective_date: str) -> str:
     maxZoom: 19
   }});
 
-  var sectional = L.tileLayer('https://vfrmap.com/{{z}}/{{y}}/{{x}}.jpg', {{
-    attribution: '© VFRMap — FAA Sectional Charts',
-    maxZoom: 11,
-    minZoom: 3,
-    opacity: 0.9
+  var topo = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{{z}}/{{y}}/{{x}}', {{
+    attribution: 'ESRI World Topo',
+    maxZoom: 18
   }});
 
   satellite.addTo(map);
 
   var baseLayers = {{
     'Satellite': satellite,
-    'Street': streets,
-    'Sectional': sectional
+    'Terrain': topo,
+    'Street': streets
   }};
 
   L.control.layers(baseLayers, {{}}, {{position: 'topright', collapsed: false}}).addTo(map);
@@ -1215,8 +1213,13 @@ async function loadLiveData() {{
     return '<span class="wx-badge ' + cls + '">' + cat + '</span> ';
   }}
 
+  function showWindy() {{
+    var w = document.getElementById('windy-wrap');
+    if (w) {{ w.style.display = 'block'; w.scrollIntoView({{behavior:'smooth',block:'nearest'}}); }}
+  }}
+
   function windyBtn() {{
-    return '<p style="margin:.6rem 0 0"><button onclick="(function(){{var w=document.getElementById(\'windy-wrap\');if(w){{w.style.display=\'block\';w.scrollIntoView({{behavior:\'smooth\',block:\'nearest\'}})}}}})();" style="background:none;border:1px solid var(--line);border-radius:999px;padding:.28rem .75rem;font:inherit;font-size:.8rem;cursor:pointer;color:var(--muted)">🌐 Show weather map</button></p>';
+    return '<p style="margin:.6rem 0 0"><button onclick="showWindy()" style="background:none;border:1px solid var(--line);border-radius:999px;padding:.28rem .75rem;font:inherit;font-size:.8rem;cursor:pointer;color:var(--muted)">🌐 Show weather map</button></p>';
   }}
 
   function renderOCLWeather(el, d) {{

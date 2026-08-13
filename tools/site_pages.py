@@ -39,22 +39,78 @@ def landing_body() -> str:
          class="hero-img" width="1408" height="768" loading="eager">
   </div>
   <div class="hero-text">
-    <h1 class="hero-h">Your checklist.<br>Every flight.<br>Every aircraft.</h1>
-    <p class="hero-p">Free, open checklists for Cessnas, Pipers, Cubs, airliners, gliders,
-    ultralights, paramotors, and drones — any aircraft with wings. Read on your phone at
-    the aircraft, print at kneeboard size, email yourself a timestamped proof after every
-    preflight.</p>
+    <h1 class="hero-h">Everything you need<br>before you fly.</h1>
+    <p class="hero-p">Live weather, NOTAMs, frequencies, fuel, runway data, and flight planning
+    for every public airport in the United States — all in one place, free, no account required.</p>
     <p class="hero-cta">
-      <a class="cta" href="catalogue.html">Browse checklists</a>
-      <a class="cta ghost" href="airports.html">Airport frequencies</a>
-      <a class="cta ghost" href="training.html">Study for your certificate</a>
+      <a class="cta" href="planner.html">Plan a Flight</a>
+      <a class="cta ghost" href="airports.html">Look Up an Airport</a>
+      <a class="cta ghost" href="catalogue.html">Browse Checklists</a>
     </p>
-    <p class="tag">Free forever &middot; No account &middot; Works offline &middot; Nothing uploaded
-    unless you choose to contribute it.</p>
+    <p class="tag">19,426 airports &middot; Live METAR &amp; TAF &middot; NOTAMs &middot; Works offline &middot; Free forever</p>
   </div>
 </div>
 
-<h2>Every aircraft. Every pilot.</h2>
+<h2>Your complete pre-flight kit</h2>
+<p class="lede">Every airport page gives you what you'd otherwise have to hunt across four different apps.</p>
+
+<div class="grid3">
+  <div class="feat">
+    <h3>🌤 Live weather at every airport</h3>
+    <p>METAR, TAF, and winds aloft pulled directly from aviationweather.gov. Airports without
+    an ASOS station get Open-Meteo current conditions. VFR/MVFR/IFR badge at a glance.</p>
+  </div>
+  <div class="feat">
+    <h3>📡 Frequencies &amp; NOTAMs</h3>
+    <p>Every radio frequency — CTAF, Tower, Ground, ATIS, Approach — sorted by priority.
+    Active NOTAMs loaded live. Runway data with surface, lighting, and ILS approach info.</p>
+  </div>
+  <div class="feat">
+    <h3>⛽ Fuel, FBO &amp; phone numbers</h3>
+    <p>Fuel grades available, FBO name, and the airport manager's phone number for every
+    entry in the FAA NASR database. One tap to call from your phone in the cockpit.</p>
+  </div>
+  <div class="feat">
+    <h3>🗺 Satellite &amp; terrain maps</h3>
+    <p>Interactive satellite view defaults to the airport the moment you open the page.
+    Switch to terrain for elevation awareness, or street for local area context.</p>
+  </div>
+  <div class="feat">
+    <h3>☀ Sunrise &amp; sunset</h3>
+    <p>Exact local sunrise, sunset, and civil twilight times calculated for the airport's
+    coordinates — no lookup needed, right on the airport page.</p>
+  </div>
+  <div class="feat">
+    <h3>✈ End-to-end flight planning</h3>
+    <p>Enter your aircraft profile, pick your route, review weather at every stop,
+    calculate fuel, and generate a complete pre-flight briefing you can print or email
+    to yourself for the cockpit.</p>
+  </div>
+</div>
+
+<div class="feat-row">
+  <div class="feat-row-item">
+    <strong>Look up any airport</strong>
+    <span>Search by name, city, identifier, or state. Every public and private strip in
+    the US, from Class B towered airports to grass strips, with full FAA data.</span>
+    <a href="airports.html">Search airports &rarr;</a>
+  </div>
+  <div class="feat-row-item">
+    <strong>Plan your route</strong>
+    <span>Save your aircraft profile once. Then pick departure, destination, and alternate —
+    and get a full weather briefing, fuel calc, and printable cockpit reference in under
+    two minutes.</span>
+    <a href="planner.html">Open the planner &rarr;</a>
+  </div>
+  <div class="feat-row-item">
+    <strong>Study for your certificate</strong>
+    <span>Every FAA handbook — PHAK, Instrument Flying, Aviation Weather, AC&nbsp;43.13 —
+    indexed and searchable. Sample tests for every certificate level.</span>
+    <a href="training.html">Start studying &rarr;</a>
+  </div>
+</div>
+
+<h2>Free checklists for every aircraft</h2>
 <div class="aircraft-types">
   <a class="atype" href="catalogue.html?q=general+aviation">
     <span class="atype-icon">✈</span>
@@ -74,7 +130,7 @@ def landing_body() -> str:
   </a>
   <a class="atype" href="catalogue.html?q=glider">
     <span class="atype-icon">🌤</span>
-    <span class="atype-label">Glider &amp;<br>Sailplane</span>
+    <span class="atype-label">Glider &amp; Sailplane</span>
   </a>
   <a class="atype" href="catalogue.html?q=drone">
     <span class="atype-icon">🚁</span>
@@ -82,64 +138,18 @@ def landing_body() -> str:
   </a>
 </div>
 
-<div class="grid3">
-  <div class="feat">
-    <h3>Your preflight, with proof</h3>
-    <p>Tick items on your phone in real time. When you're done, enter your email and
-    receive a timestamped log — every item checked, every item skipped, and when each
-    one was done. Your own record of every preflight, in your inbox.</p>
-  </div>
-  <div class="feat">
-    <h3>Honest about the source</h3>
-    <p>Every checklist shows where it came from and whether someone has
-    double-checked it against that source. Nothing is dressed up as "verified" if
-    nobody has actually sat down and compared it item by item.</p>
-  </div>
-  <div class="feat">
-    <h3>Works your way</h3>
-    <p>Print to any paper size — letter, kneeboard, index card. Export as PDF, Word,
-    CSV, or Markdown. Fork any checklist and change what your aircraft does
-    differently. No account, no lock-in, no rate limits.</p>
-  </div>
-</div>
-
-<div class="feat-row">
-  <div class="feat-row-item">
-    <strong>19,426 airports</strong>
-    <span>Radio frequencies, runways, fuel, pattern altitude — every public and
-    private strip in the US, from the FAA&rsquo;s 28-day data.</span>
-    <a href="airports.html">Look up any airport &rarr;</a>
-  </div>
-  <div class="feat-row-item">
-    <strong>Free study material</strong>
-    <span>Every FAA handbook — PHAK, Instrument Flying, Aviation Weather, AC&nbsp;43.13 —
-    indexed and searchable. Plus sample tests for every certificate level.</span>
-    <a href="training.html">Start studying &rarr;</a>
-  </div>
-  <div class="feat-row-item">
-    <strong>Open format</strong>
-    <span>A documented JSON schema so any app can read these checklists. A hash of
-    every file so you can verify what you downloaded is what was published.</span>
-    <a href="about.html">How the format works &rarr;</a>
-  </div>
-</div>
-
 <h2>What this is not</h2>
-<p><strong>Not approved data.</strong> Nothing here replaces your aircraft's own flight
-manual. For type-certificated aircraft, the approved AFM governs. Every checklist
-states its source and verification status — read that before you rely on it.</p>
+<p><strong>Not a replacement for official sources.</strong> Every airport page links directly
+to aviationweather.gov, the FAA NOTAM system, and 1800wxBrief. Use this to gather and
+organize information quickly — then verify critical data from official sources before you fly.</p>
+<p>For certificated aircraft, the approved AFM/POH governs. Every checklist on this site
+shows where it came from and whether someone has compared it item-by-item against that source.</p>
 
-<p>For certificated aircraft (Cessna, Piper, experimental category, etc.), every checklist
-notes whether it was compared item-by-item against the manufacturer's POH. For aircraft
-that don't have a required flight manual — paramotors, hang gliders, ultralight Part 103
-— a well-sourced community checklist is the best available resource, and being honest
-about that is exactly the point.</p>
-
-<h2>Start here</h2>
-<p>
+<p class="tag" style="margin-top:2rem">
 <a href="catalogue.html">Browse all checklists</a> &middot;
-<a href="airports.html">Airport frequencies and weather</a> &middot;
-<a href="training.html">Study for your certificate</a>
+<a href="airports.html">Airport search</a> &middot;
+<a href="training.html">Study resources</a> &middot;
+<a href="about.html">Verification states</a>
 </p>
 """
 
