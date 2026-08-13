@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Plan a Flight — OpenChecklists</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#f0f4f9;color:#1a1a2e;min-height:100vh}
+.page{max-width:900px;margin:0 auto;padding:1.5rem 1rem 3rem}
+h1{font-size:1.55rem;font-weight:800;color:#1f4e79;margin-bottom:.3rem}
+.sub{color:#666;font-size:.9rem;margin-bottom:1.2rem}
+.guest-notice{background:#fff8e6;border:1px solid #f5d580;border-radius:8px;padding:10px 14px;font-size:.82rem;color:#7a5c00;margin-bottom:1rem;display:flex;gap:8px;align-items:flex-start}
+.tabs{display:flex;border-bottom:2px solid #dde3ee;margin-bottom:1.4rem}
+.tab{padding:10px 20px;font-size:.88rem;font-weight:600;color:#888;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px}
+.tab.active{color:#1f4e79;border-color:#1f4e79}
+.panel{display:none}.panel.active{display:block}
+/* Steps */
+.steps{display:flex;align-items:center;background:#fff;border-radius:10px;padding:10px 14px;box-shadow:0 1px 6px rgba(0,0,0,.06);margin-bottom:1.4rem;overflow-x:auto}
+.snum{width:24px;height:24px;border-radius:50%;font-size:.7rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.snum.done{background:#27ae60;color:#fff}
+.snum.active{background:#1f4e79;color:#fff}
+.snum.todo{background:#e0e7f0;color:#888}
+.slbl{font-size:.7rem;font-weight:600;margin-left:5px;white-space:nowrap}
+.slbl.done{color:#27ae60}.slbl.active{color:#1f4e79}.slbl.todo{color:#aaa}
+.sconn{flex:0 0 16px;height:2px;background:#e0e7f0;margin:0 4px;flex-shrink:0}
+.sconn.done{background:#27ae60}
+/* Cards */
+.card{background:#fff;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,.07);overflow:hidden;margin-bottom:.8rem}
+.card-hdr{padding:1rem 1.2rem;border-bottom:1px solid #f0f4f9}
+.card-hdr h2{font-size:1rem;font-weight:700;color:#1f4e79}
+.card-hdr p{font-size:.82rem;color:#666;margin-top:3px}
+.card-body{padding:1.2rem}
+.card-foot{padding:.8rem 1.2rem;border-top:1px solid #f0f4f9;display:flex;justify-content:space-between;align-items:center}
+/* AC grid */
+.ac-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px;margin-bottom:.8rem}
+.ac-card{border:2px solid #dde3ee;border-radius:10px;padding:10px 12px;cursor:pointer}
+.ac-card.sel{border-color:#1f4e79;background:#eef4fb}
+.ac-reg{font-size:1rem;font-weight:800;color:#1f4e79}
+.ac-model{font-size:.78rem;color:#555;margin-top:2px}
+.ac-specs{font-size:.68rem;color:#888;margin-top:4px;line-height:1.4}
+.ac-add{border:2px dashed #ccd5e0;border-radius:10px;padding:10px 12px;cursor:pointer;color:#888;font-size:.8rem;display:flex;align-items:center;justify-content:center;gap:5px;min-height:80px}
+.ac-add:hover{border-color:#1f4e79;color:#1f4e79}
+/* Fields */
+label{display:block;font-size:.68rem;font-weight:700;color:#1f4e79;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
+input,select{width:100%;background:#f4f6f9;border:1.5px solid #dde3ee;border-radius:7px;padding:8px 11px;font-size:.88rem;font-family:inherit;color:#333}
+input:focus,select:focus{outline:none;border-color:#1f4e79;background:#fff}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:10px}
+.field{margin-bottom:10px}
+.chips{display:flex;gap:5px;flex-wrap:wrap;margin-top:5px}
+.chip{background:#eef4fb;border:1px solid #c5d8ee;color:#1f4e79;font-size:.68rem;font-weight:700;padding:2px 8px;border-radius:10px;cursor:pointer;letter-spacing:.04em}
+.chip:hover{background:#1f4e79;color:#fff}
+.hint{font-size:.68rem;color:#aaa;margin-top:3px}
+/* Buttons */
+.btn{display:inline-flex;align-items:center;gap:5px;padding:9px 18px;border-radius:8px;font-size:.85rem;font-weight:700;cursor:pointer;border:none;font-family:inherit}
+.btn-primary{background:#1f4e79;color:#fff}
+.btn-ghost{background:transparent;border:1.5px solid #dde3ee;color:#555}
+.btn-ghost:hover{border-color:#1f4e79;color:#1f4e79}
+.btn-generate{background:#e67e22;color:#fff;font-size:.95rem;padding:11px 24px}
+.btn-generate:hover{background:#cf6d17}
+.btn-generate:disabled{opacity:.5;cursor:not-allowed}
+/* Summary strip */
+.summary-strip{background:#f0f8f4;border:1px solid #c8e6d4;border-radius:8px;padding:8px 12px;font-size:.8rem;color:#333;display:flex;align-items:center;gap:8px;margin-bottom:.8rem}
+.summary-strip .change{margin-left:auto;color:#1f4e79;cursor:pointer;font-size:.72rem;text-decoration:underline}
+/* WX preview */
+.wx-card{background:#f8fafd;border:1px solid #e0e7f0;border-radius:8px;padding:10px 14px;margin-bottom:8px}
+.wx-apt{font-weight:800;color:#1f4e79;font-size:.88rem;margin-bottom:4px}
+.wx-metar{font-family:monospace;font-size:.72rem;color:#555;word-break:break-all;margin-bottom:4px}
+.wx-badge{display:inline-block;font-size:.65rem;font-weight:700;padding:1px 7px;border-radius:8px;color:#fff}
+.vfr{background:#27ae60}.mvfr{background:#2980b9}.ifr{background:#c0392b}.lifr{background:#6c3483}
+.wx-loading{color:#888;font-size:.8rem;font-style:italic}
+/* Sidebar */
+.layout{display:grid;grid-template-columns:1fr 240px;gap:1rem}
+.sidebar-card{background:#fff;border-radius:10px;box-shadow:0 1px 8px rgba(0,0,0,.06);padding:1rem;margin-bottom:.8rem}
+.sidebar-card h3{font-size:.72rem;font-weight:700;color:#1f4e79;text-transform:uppercase;letter-spacing:.07em;margin-bottom:.6rem}
+.plan-row{padding:6px 0;border-bottom:1px solid #f0f4f9;cursor:pointer}
+.plan-row:last-child{border-bottom:none}
+.plan-route{font-size:.82rem;font-weight:700;color:#333}
+.plan-meta{font-size:.68rem;color:#888;margin-top:1px}
+.plan-reuse{font-size:.65rem;color:#1f4e79;margin-top:2px}
+@media(max-width:680px){.layout{grid-template-columns:1fr}.grid2{grid-template-columns:1fr}.grid3{grid-template-columns:1fr 1fr}.steps{gap:2px}}
+</style>
+</head>
+<body>
+<div class="page">
+  <h1>Plan a Flight</h1>
+  <p class="sub">VFR preflight briefing — weather, NOTAMs, frequencies, fuel. Print or email when done.</p>
+
+  <div id="guest-notice" class="guest-notice" style="display:none">
+    Planning as a guest. Enter your email when you generate — we'll send the briefing and create your free account.
+  </div>
+
+  <div class="layout">
+    <div id="main-col">
+      <div class="tabs">
+        <div class="tab active" onclick="switchTab('wizard',this)">Guided Planning</div>
+        <div class="tab" onclick="switchTab('quick',this)">Quick Plan</div>
+      </div>
+
+      <!-- WIZARD PANEL -->
+      <div id="wizard" class="panel active">
+        <div class="steps" id="steps-bar">
+          <!-- Rendered by JS -->
+        </div>
+        <div id="wizard-step-content"></div>
+      </div>
+
+      <!-- QUICK PLAN PANEL -->
+      <div id="quick" class="panel">
+        <div class="card">
+          <div class="card-hdr"><h2>Quick Plan</h2><p>All fields on one page — for pilots with saved aircraft.</p></div>
+          <div class="card-body">
+            <div class="field">
+              <label>Aircraft</label>
+              <div id="qp-aircraft-area"><p style="color:#888;font-size:.85rem">Loading aircraft…</p></div>
+            </div>
+            <div class="grid2">
+              <div class="field">
+                <label>Departure</label>
+                <input id="qp-dep" type="text" placeholder="ICAO" maxlength="4" style="text-transform:uppercase">
+                <div class="chips" id="qp-dep-chips"></div>
+              </div>
+              <div class="field">
+                <label>Destination</label>
+                <input id="qp-dest" type="text" placeholder="ICAO" maxlength="4" style="text-transform:uppercase">
+                <div class="chips" id="qp-dest-chips"></div>
+              </div>
+            </div>
+            <div class="field">
+              <label>Alternate <span style="font-weight:400;color:#aaa">(optional)</span></label>
+              <input id="qp-alt" type="text" placeholder="ICAO" maxlength="4" style="text-transform:uppercase;max-width:160px">
+            </div>
+            <div class="grid3">
+              <div class="field">
+                <label>Fuel onboard (gal)</label>
+                <input id="qp-fuel" type="number" min="0" step="0.5" placeholder="35">
+                <div class="hint" id="qp-fuel-hint"></div>
+              </div>
+              <div class="field">
+                <label>Reserve</label>
+                <select id="qp-reserve">
+                  <option value="30">30 min VFR</option>
+                  <option value="45">45 min night/IFR</option>
+                  <option value="60">60 min conservative</option>
+                </select>
+              </div>
+              <div class="field">
+                <label>Departure time</label>
+                <input id="qp-depart" type="datetime-local">
+              </div>
+            </div>
+          </div>
+          <div class="card-foot">
+            <span></span>
+            <button class="btn btn-generate" id="qp-generate" onclick="submitPlan('quick')">Generate Briefing &rarr;</button>
+          </div>
+        </div>
+      </div>
+    </div><!-- /main-col -->
+
+    <div id="sidebar">
+      <div class="sidebar-card">
+        <h3>Recent Plans</h3>
+        <div id="recent-plans"><p style="font-size:.78rem;color:#888">Sign in to see your plan history.</p></div>
+      </div>
+      <div class="sidebar-card">
+        <h3>My Aircraft</h3>
+        <div id="sidebar-aircraft"><p style="font-size:.78rem;color:#888">Sign in to see saved aircraft.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const API = 'https://app.openchecklists.net';
+let tok = null;
+let aircraft = [];
+let airports = [];
+let wz = { step: 1, ac: null, dep: '', dest: '', alt: '', depart_at: '', fuel: null, reserve: 30 };
+let wxCache = {};
+
+// Auth
+function getToken() { return sessionStorage.getItem('ocl:token'); }
+tok = getToken();
+
+// Init
+async function init() {
+  // Pre-fill departure from URL param (set by airport pages)
+  const urlParams = new URLSearchParams(window.location.search);
+  const depParam = urlParams.get('dep');
+  if (depParam) wz.dep = depParam.toUpperCase();
+
+  // Set default datetime (now, no past)
+  const now = new Date();
+  const pad = n => String(n).padStart(2,'0');
+  const localNow = `${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())}T${pad(now.getHours())}:${pad(now.getMinutes())}`;
+  document.querySelectorAll('input[type=datetime-local]').forEach(el => { el.value = localNow; el.min = localNow; });
+
+  if (!tok) {
+    document.getElementById('guest-notice').style.display = 'flex';
+  } else {
+    // Load aircraft, airports, recent plans
+    const [acResp, apResp, planResp] = await Promise.allSettled([
+      fetch(API + '/api/me/aircraft', { headers: { Authorization: 'Bearer ' + tok } }).then(r => r.json()),
+      fetch(API + '/api/me/airports', { headers: { Authorization: 'Bearer ' + tok } }).then(r => r.json()),
+      fetch(API + '/api/me/plans', { headers: { Authorization: 'Bearer ' + tok } }).then(r => r.json())
+    ]);
+    aircraft = acResp.status === 'fulfilled' && Array.isArray(acResp.value) ? acResp.value : [];
+    airports = apResp.status === 'fulfilled' && Array.isArray(apResp.value) ? apResp.value : [];
+    renderSidebar(planResp.status === 'fulfilled' ? planResp.value : []);
+  }
+  renderStep();
+  renderQuickPlan();
+}
+
+// Sidebar
+function renderSidebar(plans) {
+  const rp = document.getElementById('recent-plans');
+  const sa = document.getElementById('sidebar-aircraft');
+  if (plans && plans.length) {
+    rp.innerHTML = plans.slice(0,5).map(p => {
+      const ac = JSON.parse(typeof p.aircraft_snapshot === 'string' ? p.aircraft_snapshot : '{}');
+      return `<div class="plan-row" onclick="reusePlan(${JSON.stringify(p).replace(/"/g,'&quot;')})">
+        <div class="plan-route">${p.departure} &rarr; ${p.destination}</div>
+        <div class="plan-meta">${p.created_at ? p.created_at.slice(0,10) : ''} &middot; ${ac.n_number||''}</div>
+        <div class="plan-reuse">&#8634; Reuse this plan</div>
+      </div>`;
+    }).join('');
+  } else {
+    rp.innerHTML = '<p style="font-size:.78rem;color:#888">No recent plans.</p>';
+  }
+  if (aircraft.length) {
+    sa.innerHTML = aircraft.map(a =>
+      `<div style="font-size:.82rem;padding:4px 0;border-bottom:1px solid #f0f4f9">
+        <strong>${a.n_number}</strong> &middot; ${a.make} ${a.model}<br>
+        <span style="color:#888;font-size:.7rem">${a.fuel_capacity_gal} gal &middot; ${a.cruise_speed_ktas} kt &middot; ${a.burn_rate_gph} GPH</span>
+      </div>`
+    ).join('') + `<a href="/profile" style="font-size:.72rem;color:#1f4e79;margin-top:6px;display:inline-block">+ Add aircraft</a>`;
+  } else {
+    sa.innerHTML = `<a href="/profile" style="font-size:.78rem;color:#1f4e79">+ Add your first aircraft</a>`;
+  }
+}
+
+function reusePlan(p) {
+  const ac = JSON.parse(typeof p.aircraft_snapshot === 'string' ? p.aircraft_snapshot : '{}');
+  wz = { step: 2, ac, dep: p.departure, dest: p.destination, alt: p.alternate||'', depart_at: '', fuel: ac.fuel_capacity_gal||null, reserve: p.reserve_min||30 };
+  document.querySelector('.tab').click();
+  renderStep();
+}
+
+// Wizard
+function renderStepBar() {
+  const steps = ['Aircraft','Route','Weather','Fuel','Review'];
+  const bar = document.getElementById('steps-bar');
+  bar.innerHTML = steps.map((s,i) => {
+    const n = i+1;
+    const cls = n < wz.step ? 'done' : n === wz.step ? 'active' : 'todo';
+    const lbl = n < wz.step ? '&#10003;' : n;
+    return (i > 0 ? `<div class="sconn ${n <= wz.step ? 'done' : ''}"></div>` : '') +
+      `<div style="display:flex;align-items:center;gap:4px"><div class="snum ${cls}">${lbl}</div><span class="slbl ${cls}">${s}</span></div>`;
+  }).join('');
+}
+
+function renderStep() {
+  renderStepBar();
+  const el = document.getElementById('wizard-step-content');
+  if (wz.step === 1) el.innerHTML = renderAircraftStep();
+  else if (wz.step === 2) el.innerHTML = renderRouteStep();
+  else if (wz.step === 3) el.innerHTML = renderWeatherStep();
+  else if (wz.step === 4) el.innerHTML = renderFuelStep();
+  else if (wz.step === 5) el.innerHTML = renderReviewStep();
+
+  // Re-attach event listeners
+  document.querySelectorAll('.chip[data-field]').forEach(chip => {
+    chip.onclick = () => {
+      const inp = document.getElementById(chip.dataset.field);
+      if (inp) inp.value = chip.textContent.trim();
+    };
+  });
+  document.querySelectorAll('input[type=datetime-local]').forEach(el => {
+    const now = new Date();
+    const pad = n => String(n).padStart(2,'0');
+    const localNow = `${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())}T${pad(now.getHours())}:${pad(now.getMinutes())}`;
+    if (!el.value) el.value = localNow;
+    el.min = localNow;
+  });
+}
+
+function renderAircraftStep() {
+  const cards = aircraft.map(a =>
+    `<div class="ac-card${wz.ac&&wz.ac.n_number===a.n_number?' sel':''}" onclick='selectAC(${JSON.stringify(a)})'>
+      <div class="ac-reg">${a.n_number}</div>
+      <div class="ac-model">${a.make} ${a.model}</div>
+      <div class="ac-specs">${a.fuel_capacity_gal} gal &middot; ${a.cruise_speed_ktas} kt &middot; ${a.burn_rate_gph} GPH</div>
+    </div>`
+  ).join('');
+  const addCard = `<div class="ac-add" onclick="window.location='/profile'">+ Add aircraft in profile</div>`;
+  return `<div class="card">
+    <div class="card-hdr"><h2>Step 1 &mdash; Select your aircraft</h2><p>Your saved aircraft appear below. Manage them in your profile.</p></div>
+    <div class="card-body">
+      <div class="ac-grid">${cards}${addCard}</div>
+      ${!aircraft.length ? '<p style="color:#888;font-size:.85rem">No aircraft saved. <a href="/profile" style="color:#1f4e79">Add one in your profile</a> or continue as guest.</p>' : ''}
+    </div>
+    <div class="card-foot">
+      <span></span>
+      <button class="btn btn-primary" onclick="nextStep()" ${!wz.ac?'disabled':''}>Next: Route &rarr;</button>
+    </div>
+  </div>
+  ${wz.ac ? `<div class="summary-strip">&#10003; <strong>${wz.ac.n_number}</strong> &middot; ${wz.ac.make} ${wz.ac.model} &middot; ${wz.ac.fuel_capacity_gal} gal &middot; ${wz.ac.cruise_speed_ktas} kt</div>` : ''}`;
+}
+
+function selectAC(a) {
+  wz.ac = a;
+  wz.fuel = a.fuel_capacity_gal;
+  renderStep();
+}
+
+function renderRouteStep() {
+  const favChips = (field) => airports.map(ap =>
+    `<div class="chip" data-field="${field}">${ap.ident}</div>`).join('');
+  return `<div class="card">
+    <div class="card-hdr"><h2>Step 2 &mdash; Where are you flying?</h2><p>Enter ICAO identifiers. Click a saved airport chip to fill the field.</p></div>
+    <div class="card-body">
+      <div class="grid2">
+        <div class="field">
+          <label>Departure airport</label>
+          <input id="wz-dep" type="text" value="${wz.dep}" maxlength="4" style="text-transform:uppercase" placeholder="e.g. KBTL">
+          <div class="chips">${favChips('wz-dep')}</div>
+        </div>
+        <div class="field">
+          <label>Destination airport</label>
+          <input id="wz-dest" type="text" value="${wz.dest}" maxlength="4" style="text-transform:uppercase" placeholder="e.g. KGRR">
+          <div class="chips">${favChips('wz-dest')}</div>
+        </div>
+      </div>
+      <div class="field">
+        <label>Alternate airport <span style="font-weight:400;color:#aaa">(optional)</span></label>
+        <input id="wz-alt" type="text" value="${wz.alt}" maxlength="4" style="text-transform:uppercase;max-width:160px" placeholder="e.g. KAZO">
+        <div class="hint">Recommended when ceiling &lt; 2,000 ft or vis &lt; 3 SM</div>
+      </div>
+      <div class="field" style="max-width:220px">
+        <label>Departure time (local)</label>
+        <input id="wz-depart" type="datetime-local" value="${wz.depart_at}">
+      </div>
+    </div>
+    <div class="card-foot">
+      <button class="btn btn-ghost" onclick="prevStep()">&larr; Back</button>
+      <button class="btn btn-primary" onclick="saveRoute()">Next: Weather &rarr;</button>
+    </div>
+  </div>
+  ${wz.ac ? `<div class="summary-strip">&#10003; <strong>${wz.ac.n_number}</strong> &middot; ${wz.ac.make} ${wz.ac.model}<span class="change" onclick="wz.step=1;renderStep()">Change aircraft</span></div>` : ''}`;
+}
+
+function saveRoute() {
+  wz.dep = (document.getElementById('wz-dep').value||'').toUpperCase().trim();
+  wz.dest = (document.getElementById('wz-dest').value||'').toUpperCase().trim();
+  wz.alt = (document.getElementById('wz-alt').value||'').toUpperCase().trim();
+  wz.depart_at = document.getElementById('wz-depart').value || '';
+  if (!wz.dep || !wz.dest) { alert('Enter departure and destination airports.'); return; }
+  nextStep();
+  fetchWeather();
+}
+
+async function fetchWeather() {
+  const apts = [wz.dep, wz.dest, wz.alt].filter(Boolean);
+  for (const apt of apts) {
+    if (!wxCache[apt]) {
+      wxCache[apt] = 'loading';
+      fetch(`https://openchecklists.net/api/airport/${apt}/weather`)
+        .then(r => r.json()).then(d => { wxCache[apt] = d; renderStep(); })
+        .catch(() => { wxCache[apt] = null; renderStep(); });
+    }
+  }
+}
+
+function wxBadge(metar) {
+  if (!metar) return '';
+  const vis = (metar.match(/\s(\d+)SM/) || [])[1];
+  const ovc = metar.match(/(?:OVC|BKN)(\d{3})/)?.[1];
+  const ceil = ovc ? parseInt(ovc) * 100 : 99999;
+  const v = parseInt(vis || '10');
+  let cat = 'vfr', lbl = 'VFR';
+  if (ceil < 500 || v < 1) { cat = 'lifr'; lbl = 'LIFR'; }
+  else if (ceil < 1000 || v < 3) { cat = 'ifr'; lbl = 'IFR'; }
+  else if (ceil < 3000 || v < 5) { cat = 'mvfr'; lbl = 'MVFR'; }
+  return `<span class="wx-badge ${cat}">${lbl}</span>`;
+}
+
+function renderWeatherStep() {
+  const apts = [wz.dep, wz.dest, wz.alt].filter(Boolean);
+  const cards = apts.map(apt => {
+    const wx = wxCache[apt];
+    const role = apt===wz.dep?'Departure':apt===wz.dest?'Destination':'Alternate';
+    let body = '<p class="wx-loading">Loading&hellip;</p>';
+    if (wx === null) body = '<p style="color:#c0392b;font-size:.8rem">Unable to load weather. Check aviationweather.gov.</p>';
+    else if (wx && wx !== 'loading') {
+      body = `<div class="wx-metar">${wx.metar || 'No METAR available'}</div>${wxBadge(wx.metar)}`;
+      if (wx.taf) body += `<div class="hint" style="margin-top:6px"><strong>TAF:</strong> ${wx.taf.slice(0,120)}&hellip;</div>`;
+    }
+    return `<div class="wx-card"><div class="wx-apt">${apt} <span style="font-weight:400;color:#888;font-size:.75rem">${role}</span></div>${body}</div>`;
+  }).join('');
+  return `<div class="card">
+    <div class="card-hdr"><h2>Step 3 &mdash; Weather Preview</h2><p>Live conditions at your airports. Review before continuing.</p></div>
+    <div class="card-body">${cards || '<p style="color:#888">No airports selected.</p>'}</div>
+    <div class="card-foot">
+      <button class="btn btn-ghost" onclick="prevStep()">&larr; Back</button>
+      <button class="btn btn-primary" onclick="nextStep()">Next: Fuel &rarr;</button>
+    </div>
+  </div>`;
+}
+
+function renderFuelStep() {
+  const cap = wz.ac ? wz.ac.fuel_capacity_gal : '';
+  const fuel = wz.fuel || cap || '';
+  const burn = wz.ac ? wz.ac.burn_rate_gph : 8.5;
+  const cruise = wz.ac ? wz.ac.cruise_speed_ktas : 110;
+  return `<div class="card">
+    <div class="card-hdr"><h2>Step 4 &mdash; Fuel Planning</h2><p>Enter fuel onboard. We'll calculate your margin and endurance.</p></div>
+    <div class="card-body">
+      <div class="grid3">
+        <div class="field">
+          <label>Fuel onboard (gal)</label>
+          <input id="wz-fuel" type="number" value="${fuel}" min="0" max="${cap||999}" step="0.5" oninput="calcFuel()">
+          ${cap ? `<div class="hint">Full tanks = ${cap} gal</div>` : ''}
+        </div>
+        <div class="field">
+          <label>Reserve requirement</label>
+          <select id="wz-reserve" onchange="calcFuel()">
+            <option value="30"${wz.reserve===30?' selected':''}>30 min VFR</option>
+            <option value="45"${wz.reserve===45?' selected':''}>45 min night/IFR</option>
+            <option value="60"${wz.reserve===60?' selected':''}>60 min conservative</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Burn rate (GPH)</label>
+          <input id="wz-burn" type="number" value="${burn}" min="1" step="0.1" oninput="calcFuel()">
+        </div>
+      </div>
+      <div id="fuel-result" style="margin-top:.5rem;font-size:.85rem;color:#444"></div>
+    </div>
+    <div class="card-foot">
+      <button class="btn btn-ghost" onclick="prevStep()">&larr; Back</button>
+      <button class="btn btn-primary" onclick="saveFuel()">Next: Review &rarr;</button>
+    </div>
+  </div>`;
+}
+
+function calcFuel() {
+  const fuel = parseFloat(document.getElementById('wz-fuel') ? document.getElementById('wz-fuel').value : 0) || 0;
+  const reserve = parseInt(document.getElementById('wz-reserve') ? document.getElementById('wz-reserve').value : 30) || 30;
+  const burn = parseFloat(document.getElementById('wz-burn') ? document.getElementById('wz-burn').value : 8.5) || 8.5;
+  const reserveGal = (reserve / 60) * burn;
+  const available = fuel - reserveGal;
+  const endurance = fuel / burn;
+  const enduranceH = Math.floor(endurance);
+  const enduranceM = Math.round((endurance - enduranceH) * 60);
+  const ok = available > 0;
+  const el = document.getElementById('fuel-result');
+  if (el) el.innerHTML =
+    `Reserve required: <strong>${reserveGal.toFixed(1)} gal</strong> &middot;
+     Usable after reserve: <strong style="color:${ok?'#27ae60':'#c0392b'}">${available.toFixed(1)} gal</strong> &middot;
+     Total endurance: <strong>${enduranceH} hr ${enduranceM} min</strong>`;
+}
+
+function saveFuel() {
+  wz.fuel = parseFloat(document.getElementById('wz-fuel') ? document.getElementById('wz-fuel').value : null) || null;
+  wz.reserve = parseInt(document.getElementById('wz-reserve') ? document.getElementById('wz-reserve').value : 30) || 30;
+  if (wz.ac && document.getElementById('wz-burn')) {
+    wz.ac.burn_rate_gph = parseFloat(document.getElementById('wz-burn').value) || wz.ac.burn_rate_gph;
+  }
+  nextStep();
+}
+
+function renderReviewStep() {
+  const ac = wz.ac || {};
+  return `<div class="card">
+    <div class="card-hdr"><h2>Step 5 &mdash; Review &amp; Generate</h2><p>Confirm your plan details, then generate your briefing.</p></div>
+    <div class="card-body">
+      <table style="width:100%;font-size:.85rem;border-collapse:collapse">
+        <tr><td style="padding:5px 8px;color:#666;width:140px">Aircraft</td><td style="padding:5px 8px;font-weight:700">${ac.n_number||'Guest'} &middot; ${ac.make||''} ${ac.model||''}</td></tr>
+        <tr style="background:#f8fafd"><td style="padding:5px 8px;color:#666">Departure</td><td style="padding:5px 8px;font-weight:700">${wz.dep}</td></tr>
+        <tr><td style="padding:5px 8px;color:#666">Destination</td><td style="padding:5px 8px;font-weight:700">${wz.dest}</td></tr>
+        ${wz.alt?`<tr style="background:#f8fafd"><td style="padding:5px 8px;color:#666">Alternate</td><td style="padding:5px 8px;font-weight:700">${wz.alt}</td></tr>`:''}
+        <tr${wz.alt?'':' style="background:#f8fafd"'}><td style="padding:5px 8px;color:#666">Depart at</td><td style="padding:5px 8px">${wz.depart_at||'Not specified'}</td></tr>
+        <tr style="background:#f8fafd"><td style="padding:5px 8px;color:#666">Fuel onboard</td><td style="padding:5px 8px">${wz.fuel||'&mdash;'} gal &middot; ${wz.reserve}-min reserve</td></tr>
+      </table>
+    </div>
+    <div class="card-foot">
+      <button class="btn btn-ghost" onclick="prevStep()">&larr; Back</button>
+      <button class="btn btn-generate" id="wz-generate" onclick="submitPlan('wizard')">Generate Briefing &rarr;</button>
+    </div>
+  </div>`;
+}
+
+function nextStep() { wz.step = Math.min(5, wz.step + 1); renderStep(); }
+function prevStep() { wz.step = Math.max(1, wz.step - 1); renderStep(); }
+
+// Quick Plan
+function renderQuickPlan() {
+  const area = document.getElementById('qp-aircraft-area');
+  if (!area) return;
+  if (!aircraft.length) {
+    area.innerHTML = '<p style="color:#888;font-size:.85rem;margin-bottom:4px">No aircraft saved. <a href="/profile" style="color:#1f4e79">Add in profile</a> &mdash; or continue without (guest).</p>';
+    return;
+  }
+  var sel = aircraft[0];
+  area.innerHTML = `<div style="display:flex;gap:8px;flex-wrap:wrap">` +
+    aircraft.map(a =>
+      `<div class="ac-card" style="flex:0 0 auto;min-width:150px" id="qp-ac-${a.n_number}" onclick='qpSelectAC(${JSON.stringify(a)})'>
+        <div class="ac-reg">${a.n_number}</div>
+        <div class="ac-model">${a.make} ${a.model}</div>
+      </div>`
+    ).join('') + `</div>`;
+  qpSelectAC(sel);
+
+  const depChips = document.getElementById('qp-dep-chips');
+  const destChips = document.getElementById('qp-dest-chips');
+  if (depChips) depChips.innerHTML = airports.map(ap =>
+    `<div class="chip" onclick="document.getElementById('qp-dep').value='${ap.ident}'">${ap.ident}</div>`).join('');
+  if (destChips) destChips.innerHTML = airports.map(ap =>
+    `<div class="chip" onclick="document.getElementById('qp-dest').value='${ap.ident}'">${ap.ident}</div>`).join('');
+}
+
+let qpAC = null;
+function qpSelectAC(a) {
+  qpAC = a;
+  document.querySelectorAll('[id^=qp-ac-]').forEach(el => el.classList.remove('sel'));
+  const el = document.getElementById('qp-ac-' + a.n_number);
+  if (el) el.classList.add('sel');
+  const fuelInp = document.getElementById('qp-fuel');
+  if (fuelInp) { fuelInp.value = a.fuel_capacity_gal; fuelInp.max = a.fuel_capacity_gal; }
+  const hint = document.getElementById('qp-fuel-hint');
+  if (hint) hint.textContent = `Full tanks = ${a.fuel_capacity_gal} gal`;
+}
+
+// Submit
+async function submitPlan(mode) {
+  const btn = document.getElementById(mode === 'wizard' ? 'wz-generate' : 'qp-generate');
+  if (btn) { btn.disabled = true; btn.textContent = 'Generating…'; }
+
+  let ac, dep, dest, alt, depart_at, fuel_onboard, reserve_min;
+  if (mode === 'wizard') {
+    ac = wz.ac; dep = wz.dep; dest = wz.dest; alt = wz.alt;
+    depart_at = wz.depart_at; fuel_onboard = wz.fuel; reserve_min = wz.reserve;
+  } else {
+    ac = qpAC;
+    dep = (document.getElementById('qp-dep').value||'').toUpperCase().trim();
+    dest = (document.getElementById('qp-dest').value||'').toUpperCase().trim();
+    alt = (document.getElementById('qp-alt').value||'').toUpperCase().trim();
+    depart_at = document.getElementById('qp-depart').value;
+    fuel_onboard = parseFloat(document.getElementById('qp-fuel').value) || null;
+    reserve_min = parseInt(document.getElementById('qp-reserve').value) || 30;
+  }
+
+  if (!dep || !dest) { alert('Enter departure and destination airports.'); if(btn){btn.disabled=false;btn.textContent='Generate Briefing →';} return; }
+
+  const headers = { 'Content-Type': 'application/json' };
+  if (tok) headers['Authorization'] = 'Bearer ' + tok;
+
+  try {
+    const resp = await fetch(API + '/api/me/plans', {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({ aircraft: ac, departure: dep, destination: dest, alternate: alt||null, depart_at, fuel_onboard, reserve_min })
+    });
+    if (!resp.ok) throw new Error('Server error ' + resp.status);
+    const data = await resp.json();
+    window.location.href = '/plan/' + data.id;
+  } catch (e) {
+    alert('Failed to generate plan: ' + e.message);
+    if (btn) { btn.disabled = false; btn.textContent = 'Generate Briefing →'; }
+  }
+}
+
+// Tabs
+function switchTab(id, el) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById(id).classList.add('active');
+  if (id === 'quick') renderQuickPlan();
+}
+
+init();
+</script>
+</body>
+</html>

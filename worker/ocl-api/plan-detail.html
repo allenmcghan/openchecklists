@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PreFlight Briefing — OpenChecklists</title>
+<style>
+@media print{
+  .no-print{display:none!important}
+  body{background:#fff;font-size:10pt}
+  .briefing{box-shadow:none;border-radius:0;max-width:100%}
+  .airport-section{page-break-inside:avoid}
+  .fuel-card{page-break-inside:avoid}
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#e8edf4;color:#1a1a2e;min-height:100vh}
+/* Action bar */
+.action-bar{background:#1f4e79;color:#fff;padding:.6rem 1.2rem;display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;position:sticky;top:0;z-index:50}
+.ab-id{font-size:.78rem;opacity:.7;margin-right:auto}
+.ab-id strong{opacity:1;font-size:.88rem}
+.ab-btn{display:inline-flex;align-items:center;gap:4px;padding:6px 13px;border-radius:7px;font-size:.78rem;font-weight:700;cursor:pointer;border:none;font-family:inherit}
+.ab-pdf{background:#e67e22;color:#fff}
+.ab-email{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.3)}
+.ab-print{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.3)}
+.ab-refresh{background:rgba(255,255,255,.1);color:rgba(255,255,255,.8);border:1px solid rgba(255,255,255,.2);font-size:.72rem}
+/* Briefing doc */
+.briefing{max-width:780px;margin:1.5rem auto;background:#fff;border-radius:10px;box-shadow:0 4px 24px rgba(0,0,0,.1);overflow:hidden}
+/* Banner */
+.banner{background:linear-gradient(135deg,#1f4e79,#2980b9);color:#fff;padding:1.2rem 1.5rem}
+.banner .route{font-size:1.7rem;font-weight:800;letter-spacing:-.02em;line-height:1;margin-bottom:.4rem}
+.banner .meta{display:flex;gap:1.2rem;flex-wrap:wrap;margin-top:.5rem}
+.banner .mi{font-size:.78rem;opacity:.85}
+.banner .mi strong{display:block;font-size:.95rem;opacity:1;font-weight:700}
+.badge{display:inline-block;font-size:.65rem;font-weight:800;padding:2px 8px;border-radius:8px;color:#fff;margin-left:6px;vertical-align:middle}
+.vfr{background:#27ae60}.mvfr{background:#2980b9}.ifr{background:#c0392b}.lifr{background:#6c3483}
+/* Airport section */
+.apt-sec{border-bottom:2px solid #e8edf4;padding:1.1rem 1.5rem}
+.apt-sec:last-of-type{border-bottom:none}
+.apt-hdr{display:flex;gap:1rem;margin-bottom:.9rem;align-items:flex-start}
+.apt-ident{font-size:1.8rem;font-weight:900;color:#1f4e79;line-height:1;letter-spacing:-.02em}
+.apt-role{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#fff;padding:2px 8px;border-radius:8px;margin-top:3px;display:inline-block}
+.dep{background:#1f4e79}.dest{background:#27ae60}.alt-role{background:#8e44ad}
+.apt-name{font-size:1rem;font-weight:700}
+.apt-sub{font-size:.78rem;color:#666;margin-top:2px;line-height:1.4}
+.apt-phone{font-size:.78rem;color:#1f4e79;font-weight:600;margin-top:2px}
+.apt-phone a{color:#1f4e79;text-decoration:none}
+.data-grid{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
+.data-grid .full{grid-column:1/-1}
+.db{background:#f8fafd;border:1px solid #e8edf4;border-radius:8px;padding:.7rem}
+.dl{font-size:.62rem;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.07em;margin-bottom:4px}
+.metar{font-family:monospace;font-size:.72rem;color:#333;background:#fff;padding:5px 7px;border:1px solid #e0e6f0;border-radius:5px;word-break:break-all;line-height:1.5;margin-bottom:4px}
+.wx-sum{font-size:.78rem;color:#444;line-height:1.5}
+.taf-hdr{font-size:.62rem;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.06em;margin:.5rem 0 3px;border-top:1px solid #e8edf4;padding-top:.4rem}
+.taf-raw{font-family:monospace;font-size:.68rem;color:#555;line-height:1.5}
+.notam-list{list-style:none}
+.notam-item{border-left:3px solid #e0e6f0;padding:3px 8px;margin-bottom:4px;font-size:.75rem;color:#444;line-height:1.4}
+.notam-item.warn{border-color:#e67e22}
+.notam-hdr{font-size:.65rem;color:#888;margin-bottom:1px}
+.no-notams{font-size:.78rem;color:#27ae60;font-weight:600}
+.freq-tbl{width:100%;border-collapse:collapse;font-size:.75rem}
+.freq-tbl th{text-align:left;color:#888;font-size:.62rem;text-transform:uppercase;letter-spacing:.06em;padding:2px 5px 4px;border-bottom:1px solid #e8edf4}
+.freq-tbl td{padding:3px 5px;border-bottom:1px solid #f0f4f9}
+.freq-tbl tr:last-child td{border-bottom:none}
+.freq-mhz{font-weight:700;color:#1f4e79;font-size:.82rem}
+.freq-ctaf{color:#e67e22;font-weight:700}
+.rwy-chips{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:4px}
+.rwy-chip{background:#1f4e79;color:#fff;border-radius:6px;padding:3px 9px;font-size:.72rem;font-weight:700}
+.rwy-chip.closed{background:#e67e22}
+.rwy-detail{font-size:.7rem;color:#666;line-height:1.5}
+/* Fuel card */
+.fuel-card{border-top:2px solid #e8edf4;background:#f8fafd;padding:1.1rem 1.5rem}
+.fuel-card h3{font-size:.72rem;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.07em;margin-bottom:.7rem}
+.fuel-tbl{width:100%;border-collapse:collapse}
+.fuel-tbl td{padding:4px 7px;font-size:.82rem;border-bottom:1px solid #e8edf4}
+.fuel-tbl td:first-child{color:#555}
+.fuel-tbl td:last-child{font-weight:700;text-align:right}
+.fuel-tbl tr.total td{font-weight:800;color:#1f4e79;border-top:2px solid #dde3ee}
+.fuel-ok{color:#27ae60!important}.fuel-warn{color:#c0392b!important}
+.end-bar{height:11px;background:#e8edf4;border-radius:8px;overflow:hidden;display:flex;margin:.6rem 0 .3rem}
+.bar-fl{background:#1f4e79}.bar-rv{background:#f39c12}.bar-ex{background:#27ae60}
+.bar-leg{display:flex;gap:10px;font-size:.65rem;color:#666}
+.bar-leg span::before{content:"&#9632; "}
+.bl1::before{color:#1f4e79}.bl2::before{color:#f39c12}.bl3::before{color:#27ae60}
+/* Footer */
+.brief-foot{background:#1f4e79;color:rgba(255,255,255,.65);font-size:.7rem;padding:.7rem 1.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.4rem}
+.brief-foot strong{color:#fff}.brief-foot a{color:rgba(255,255,255,.75)}
+/* Email modal */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;align-items:center;justify-content:center}
+.modal-overlay.open{display:flex}
+.modal{background:#fff;border-radius:12px;padding:1.5rem;max-width:400px;width:90%;box-shadow:0 8px 40px rgba(0,0,0,.2)}
+.modal h3{font-size:1rem;font-weight:700;color:#1f4e79;margin-bottom:.5rem}
+.modal p{font-size:.85rem;color:#555;margin-bottom:.8rem}
+.modal input{width:100%;border:1.5px solid #dde3ee;border-radius:7px;padding:9px 12px;font-size:.88rem;font-family:inherit;margin-bottom:.8rem}
+.modal input:focus{outline:none;border-color:#1f4e79}
+.modal-btns{display:flex;gap:.5rem;justify-content:flex-end}
+.m-cancel{background:transparent;border:1.5px solid #dde3ee;color:#555;padding:8px 16px;border-radius:7px;font-size:.82rem;cursor:pointer;font-family:inherit}
+.m-send{background:#1f4e79;color:#fff;border:none;padding:8px 16px;border-radius:7px;font-size:.82rem;font-weight:700;cursor:pointer;font-family:inherit}
+.error{color:#c0392b;font-size:.78rem;margin-top:.3rem}
+@media(max-width:600px){.data-grid{grid-template-columns:1fr}.banner .meta{gap:.7rem}}
+</style>
+</head>
+<body>
+
+<!-- Email modal -->
+<div class="modal-overlay" id="email-modal">
+  <div class="modal">
+    <h3>Email your briefing</h3>
+    <p>We'll send the full briefing to your email. If you're new, this creates your free account.</p>
+    <input type="email" id="email-input" placeholder="your@email.com">
+    <div class="error" id="email-error" style="display:none"></div>
+    <div class="modal-btns">
+      <button class="m-cancel" onclick="closeEmail()">Cancel</button>
+      <button class="m-send" id="email-send-btn" onclick="sendEmail()">Send Briefing</button>
+    </div>
+  </div>
+</div>
+
+<!-- Action bar -->
+<div class="action-bar no-print">
+  <div class="ab-id"><strong id="ab-route">Loading&hellip;</strong> &middot; <span id="ab-id"></span></div>
+  <button class="ab-btn ab-pdf" onclick="window.print()">Download PDF</button>
+  <button class="ab-btn ab-email" onclick="openEmail()">Email to Me</button>
+  <button class="ab-btn ab-print" onclick="window.print()">Print</button>
+  <button class="ab-btn ab-refresh" id="refresh-btn" onclick="refreshData()">Refresh <span id="data-age"></span></button>
+</div>
+
+<div class="briefing" id="briefing">
+  <div style="padding:2rem;text-align:center;color:#888" id="loading-msg">Loading briefing&hellip;</div>
+</div>
+
+<script>
+const API = 'https://app.openchecklists.net';
+var planId = window.location.pathname.split('/').filter(Boolean).pop();
+var planData = null;
+
+async function load(refresh) {
+  var planUrl = 'https://app.openchecklists.net/api/plan/' + planId + (refresh ? '?refresh=1' : '');
+  try {
+    var resp = await fetch(planUrl);
+    if (!resp.ok) throw new Error('Plan not found');
+    planData = await resp.json();
+    render(planData);
+  } catch (e) {
+    document.getElementById('briefing').innerHTML = `<div style="padding:2rem;text-align:center;color:#c0392b">
+      <h2>Plan not found</h2><p>The plan ID "${planId}" doesn't exist or has expired.</p>
+      <a href="/planner" style="color:#1f4e79;margin-top:1rem;display:inline-block">&larr; Plan a new flight</a>
+    </div>`;
+  }
+}
+
+function wxBadge(metar) {
+  if (!metar) return '';
+  var ovc = metar.match(/(?:OVC|BKN)(\d{3})/);
+  var ceil = ovc ? parseInt(ovc[1]) * 100 : 99999;
+  var visM = metar.match(/\s(\d+)SM/);
+  var vis = parseInt(visM ? visM[1] : '10');
+  var cat = 'vfr', lbl = 'VFR';
+  if (ceil < 500 || vis < 1) { cat = 'lifr'; lbl = 'LIFR'; }
+  else if (ceil < 1000 || vis < 3) { cat = 'ifr'; lbl = 'IFR'; }
+  else if (ceil < 3000 || vis < 5) { cat = 'mvfr'; lbl = 'MVFR'; }
+  return `<span class="badge ${cat}">${lbl}</span>`;
+}
+
+function wxSummary(metar) {
+  if (!metar) return 'No METAR available for this airport.';
+  var wind = metar.match(/(\d{3}|VRB)(\d{2,3})(?:G(\d{2,3}))?KT/);
+  var vis = metar.match(/\s(\d+)SM/);
+  var sky = metar.match(/(FEW|SCT|BKN|OVC)(\d{3})/g);
+  var temp = metar.match(/(\d{2})\/(\d{2})/);
+  var alt = metar.match(/A(\d{4})/);
+  var parts = [];
+  if (wind) parts.push(`Wind ${wind[1]}&deg; at ${parseInt(wind[2])} kt${wind[3] ? ' gust ' + parseInt(wind[3]) + ' kt' : ''}`);
+  if (vis) parts.push(`Vis ${vis[1]} SM`);
+  if (sky && sky.length) parts.push(sky.map(function(s) {
+    var m = s.match(/(FEW|SCT|BKN|OVC)(\d{3})/);
+    var cov = m[1], hft = m[2];
+    var h = parseInt(hft) * 100;
+    return cov.charAt(0) + cov.slice(1).toLowerCase() + ' ' + h.toLocaleString() + ' ft';
+  }).join(', '));
+  if (temp) parts.push(`Temp ${temp[1]}&deg;C / Dew ${temp[2]}&deg;C`);
+  if (alt) parts.push(`Alt ${(parseInt(alt[1]) / 100).toFixed(2)} inHg`);
+  return parts.join(' &middot; ') || metar;
+}
+
+function formatNotams(notams) {
+  if (!notams || !notams.notams || !notams.notams.length) return '<div class="no-notams">&#10003; No active NOTAMs</div>';
+  return '<ul class="notam-list">' + notams.notams.map(function(n) {
+    var isWarn = n.text && /RWY|CLSD|UNSERVICEABLE|OBST/i.test(n.text);
+    return `<li class="notam-item${isWarn ? ' warn' : ''}">
+      <div class="notam-hdr">${n.effective || ''} &ndash; ${n.expiration || ''}</div>
+      ${n.text || ''}
+    </li>`;
+  }).join('') + '</ul>';
+}
+
+function formatFreqs(apt, snap) {
+  var freqs = (snap && snap.frequencies && snap.frequencies[apt]) ? snap.frequencies[apt] : [];
+  if (!freqs.length) return '<p style="font-size:.75rem;color:#888">See airport page for frequencies.</p>';
+  var PRIORITY = ['CTAF','UNICOM','TOWER','GND','ATIS','AWOS','ASOS'];
+  var sorted = freqs.slice().sort(function(a, b) {
+    var ai = PRIORITY.findIndex(function(p) { return (a.use || '').toUpperCase().includes(p); });
+    var bi = PRIORITY.findIndex(function(p) { return (b.use || '').toUpperCase().includes(p); });
+    return (ai < 0 ? 99 : ai) - (bi < 0 ? 99 : bi);
+  });
+  return `<table class="freq-tbl">
+    <thead><tr><th>MHz</th><th>Use</th></tr></thead>
+    <tbody>${sorted.slice(0,6).map(function(f) {
+      var isCtaf = /CTAF|UNICOM/i.test(f.use || '');
+      return `<tr><td class="freq-mhz${isCtaf ? ' freq-ctaf' : ''}">${f.frequency || ''}</td><td class="${isCtaf ? 'freq-ctaf' : ''}">${f.use || ''}</td></tr>`;
+    }).join('')}</tbody>
+  </table>`;
+}
+
+function fuelBar(onboard, burnGph, etMin, reserveMin) {
+  var total = onboard / burnGph * 60;
+  var flPct = Math.min(100, (etMin / total) * 100);
+  var rvPct = Math.min(100 - flPct, (reserveMin / total) * 100);
+  var exPct = Math.max(0, 100 - flPct - rvPct);
+  return `<div class="end-bar">
+    <div class="bar-fl" style="width:${flPct}%"></div>
+    <div class="bar-rv" style="width:${rvPct}%"></div>
+    <div class="bar-ex" style="width:${exPct}%"></div>
+  </div>
+  <div class="bar-leg">
+    <span class="bl1">Flight est.</span>
+    <span class="bl2">Reserve (${reserveMin} min)</span>
+    <span class="bl3">Extra margin</span>
+  </div>`;
+}
+
+function renderAptSection(aptIdent, role, snap) {
+  var wx = snap.weather ? snap.weather[aptIdent] : null;
+  var notams = snap.notams ? snap.notams[aptIdent] : null;
+  var metar = wx ? wx.metar || null : null;
+  var taf = wx ? wx.taf || null : null;
+  var roleCls = role === 'Departure' ? 'dep' : role === 'Destination' ? 'dest' : 'alt-role';
+  var isAlt = role === 'Alternate';
+
+  return `<div class="apt-sec">
+    <div class="apt-hdr">
+      <div>
+        <div class="apt-ident" style="${isAlt ? 'font-size:1.4rem' : ''}">${aptIdent}</div>
+        <span class="apt-role ${roleCls}">${role}</span>
+      </div>
+      <div style="flex:1">
+        <div class="apt-name">See <a href="/airport/${aptIdent.toLowerCase()}" style="color:#1f4e79">${aptIdent} airport page</a> for full details</div>
+        <div class="apt-sub">Frequencies, runway diagrams, and navigation aids on the airport page.</div>
+      </div>
+    </div>
+    <div class="data-grid">
+      <div class="db full">
+        <div class="dl">Weather ${wxBadge(metar)}</div>
+        ${metar ? `<div class="metar">${metar}</div><div class="wx-sum">${wxSummary(metar)}</div>` : '<p style="font-size:.78rem;color:#888">No METAR available for this airport.</p>'}
+        ${taf && !isAlt ? `<div class="taf-hdr">TAF</div><div class="taf-raw">${taf.replace(/\n/g, '<br>')}</div>` : ''}
+      </div>
+      <div class="db">
+        <div class="dl">NOTAMs</div>
+        ${formatNotams(notams)}
+      </div>
+      <div class="db">
+        <div class="dl">Frequencies</div>
+        ${formatFreqs(aptIdent, snap)}
+        <div style="margin-top:6px"><a href="/airport/${aptIdent.toLowerCase()}" style="font-size:.7rem;color:#1f4e79">Full frequency list &rarr;</a></div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function render(plan) {
+  var snap = plan.snapshot || {};
+  var ac = plan.aircraft || {};
+  var dep = plan.departure, dest = plan.destination, alt = plan.alternate;
+  var route = dep + ' → ' + dest + (alt ? ' (alt: ' + alt + ')' : '');
+
+  document.title = 'PreFlight — ' + dep + ' → ' + dest + ' — OpenChecklists';
+  document.getElementById('ab-route').textContent = route;
+  document.getElementById('ab-id').textContent = 'Plan #' + plan.id;
+
+  // Data age
+  var genAt = snap.generated_at || plan.created_at;
+  if (genAt) {
+    var mins = Math.round((Date.now() - new Date(genAt).getTime()) / 60000);
+    document.getElementById('data-age').textContent = '(data ' + (mins < 60 ? mins + 'min' : Math.round(mins / 60) + 'h') + ' old)';
+  }
+
+  // Fuel math
+  var fuelOnboard = plan.fuel_onboard || ac.fuel_capacity_gal || 0;
+  var burnGph = ac.burn_rate_gph || 8.5;
+  var reserveMin = plan.reserve_min || 30;
+  var reserveGal = (reserveMin / 60) * burnGph;
+  var etMin = 0;
+  var margin = fuelOnboard - reserveGal;
+  var enduranceMin = (fuelOnboard / burnGph) * 60;
+  var endH = Math.floor(enduranceMin / 60), endM = Math.round(enduranceMin % 60);
+  var marginOk = margin > (60 / 60 * burnGph);
+
+  var depAt = plan.depart_at ? new Date(plan.depart_at).toLocaleString() : 'Today';
+
+  var html = `
+    <div class="banner">
+      <div class="route">${dep} &rarr; ${dest}${alt ? ` <span style="font-size:1rem;opacity:.75;font-weight:600">(alt: ${alt})</span>` : ''}</div>
+      <div class="meta">
+        <div class="mi"><strong>${ac.n_number || 'Guest'}</strong>Aircraft</div>
+        <div class="mi"><strong>${ac.make || ''} ${ac.model || ''}</strong>Type</div>
+        <div class="mi"><strong>${depAt}</strong>Departure</div>
+        <div class="mi"><strong>${fuelOnboard} gal onboard</strong>Fuel</div>
+      </div>
+    </div>
+    ${renderAptSection(dep, 'Departure', snap)}
+    ${renderAptSection(dest, 'Destination', snap)}
+    ${alt ? renderAptSection(alt, 'Alternate', snap) : ''}
+    <div class="fuel-card">
+      <h3>Fuel Planning &mdash; ${ac.n_number || ''} ${ac.make || ''} ${ac.model || ''}</h3>
+      <table class="fuel-tbl">
+        <tr><td>Fuel onboard</td><td>${fuelOnboard} gal</td></tr>
+        <tr><td>Burn rate</td><td>${burnGph} GPH</td></tr>
+        <tr><td>Reserve required (${reserveMin} min)</td><td>${reserveGal.toFixed(1)} gal</td></tr>
+        <tr class="total"><td>Margin above reserve</td><td class="${marginOk ? 'fuel-ok' : 'fuel-warn'}">${margin.toFixed(1)} gal ${marginOk ? '&#10003;' : '&#9888;'}</td></tr>
+        <tr><td>Total endurance</td><td>${endH} hr ${endM} min</td></tr>
+      </table>
+      ${fuelBar(fuelOnboard, burnGph, etMin, reserveMin)}
+    </div>
+    <div class="brief-foot">
+      <div><strong>OpenChecklists.net</strong> &middot; Plan #${plan.id} &middot; Generated ${genAt ? new Date(genAt).toLocaleString() : 'now'}</div>
+      <div>Live refresh: <a href="https://openchecklists.net/plan/${plan.id}">openchecklists.net/plan/${plan.id}</a></div>
+    </div>
+  `;
+  document.getElementById('briefing').innerHTML = html;
+}
+
+// Email
+function openEmail() {
+  var tok = sessionStorage.getItem('ocl:token');
+  if (tok) {
+    fetch('https://app.openchecklists.net/api/me', { headers: { Authorization: 'Bearer ' + tok } })
+      .then(function(r) { return r.json(); })
+      .then(function(d) { if (d.email) document.getElementById('email-input').value = d.email; })
+      .catch(function() {});
+  }
+  document.getElementById('email-modal').classList.add('open');
+  setTimeout(function() { document.getElementById('email-input').focus(); }, 100);
+}
+
+function closeEmail() {
+  document.getElementById('email-modal').classList.remove('open');
+}
+
+async function sendEmail() {
+  var email = document.getElementById('email-input').value.trim();
+  var errEl = document.getElementById('email-error');
+  errEl.style.display = 'none';
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    errEl.textContent = 'Enter a valid email address.';
+    errEl.style.display = 'block';
+    return;
+  }
+  var btn = document.getElementById('email-send-btn');
+  btn.disabled = true;
+  btn.textContent = 'Sending…';
+  try {
+    var resp = await fetch('https://app.openchecklists.net/api/plan/' + planId + '/email', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: email })
+    });
+    if (!resp.ok) throw new Error('Send failed');
+    btn.textContent = '✓ Sent!';
+    setTimeout(closeEmail, 1500);
+  } catch (e) {
+    errEl.textContent = 'Failed to send. Try again.';
+    errEl.style.display = 'block';
+    btn.disabled = false;
+    btn.textContent = 'Send Briefing';
+  }
+}
+
+// Refresh
+async function refreshData() {
+  var btn = document.getElementById('refresh-btn');
+  btn.disabled = true;
+  btn.textContent = 'Refreshing…';
+  await load(true);
+  btn.disabled = false;
+  btn.textContent = 'Refresh';
+}
+
+load(false);
+</script>
+</body>
+</html>
