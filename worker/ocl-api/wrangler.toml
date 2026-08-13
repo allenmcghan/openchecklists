@@ -15,5 +15,9 @@ database_id = "d2ae495d-dfe6-4336-a2c8-7e80c8e950a5"
 ZITADEL_ISSUER = "https://auth.keylinkit.net"
 OCL_ORIGIN = "https://openchecklists.net"
 
+[[routes]]
+pattern = "app.openchecklists.net/*"
+zone_id = "333d9ca7b20f21c3c62d99452ac1d5f0"
+
 # Secrets (set via: wrangler secret put ANTHROPIC_API_KEY)
 # ANTHROPIC_API_KEY — for AI checklist review
