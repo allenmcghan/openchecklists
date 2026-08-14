@@ -685,6 +685,29 @@ const routes = {
 
   // ── Public aviation data — no auth ──────────────────────────────────────────
 
+  // POST /api/airport/email-pdf — email a client-generated airport PDF to the
+  // user. The browser can't call the kw3 mailer directly (the server adds a
+  // duplicate wildcard CORS header), so we relay server-side with a shared
+  // secret. Body: { email, ident, name, pdf_base64 }.
+  'POST /api/airport': async (req, env, _claims, params) => {
+    const parts = (params.id || '').split('/');
+    if ((parts[0] || '') !== 'email-pdf') return err('Unknown airport action', 404);
+    const b = await req.json().catch(() => ({}));
+    if (!b.email || !b.pdf_base64) return err('email and pdf_base64 required', 422);
+    try {
+      const r = await fetch('https://api.openchecklists.net/airport-pdf.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'X-OCL-Secret': env.OCL_PDF_SECRET || '' },
+        body: JSON.stringify({ email: b.email, ident: b.ident || '', name: b.name || '', pdf_base64: b.pdf_base64 }),
+        signal: AbortSignal.timeout(15000),
+      });
+      const data = await r.json().catch(() => ({ error: 'relay error' }));
+      return json(data, r.ok ? 200 : 502);
+    } catch (e) {
+      return json({ error: 'mail relay unavailable' }, 502);
+    }
+  },
+
   // GET /api/airport/:ident/weather|notams|fuel
   // Proxies aviationweather.gov server-side so browsers avoid CORS errors.
   'GET /api/airport': async (req, env, _claims, params) => {
@@ -817,7 +840,7 @@ export default {
     const claims = await auth(req, env);
 
     // Routes that don't require auth
-    const publicRoutes = ['GET /api/leaderboard', 'GET /api/share', 'GET /api/plan', 'POST /api/me/plans', 'POST /api/plan', 'GET /api/airport', 'GET /api/proxy'];
+    const publicRoutes = ['GET /api/leaderboard', 'GET /api/share', 'GET /api/plan', 'POST /api/me/plans', 'POST /api/plan', 'GET /api/airport', 'POST /api/airport', 'GET /api/proxy'];
 
     // Match most-specific (longest path) routes first so that e.g.
     // `GET /api/me/aircraft` is not swallowed by the `GET /api/me` prefix.

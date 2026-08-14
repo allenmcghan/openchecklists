@@ -187,6 +187,7 @@ AIRPORT_APP_JS = r"""
       '<div class="ctl"><label for="ap-date">Date</label><input type="date" id="ap-date"></div>' +
       '<div class="ap-actions">' +
       '<button class="ap-btn" id="ap-pdf" type="button">⬇ Save as PDF</button>' +
+      '<button class="ap-btn" id="ap-email" type="button">✉ Email PDF</button>' +
       '</div></div>' +
       '<div id="ap-typenote" class="wx-src" style="margin:.1rem 0 0"></div>';
 
@@ -350,16 +351,40 @@ AIRPORT_APP_JS = r"""
         if (window.__reloadWx) window.__reloadWx();
       });
     }
-    // PDF button (download). Email-a-PDF-attachment comes in a follow-up.
     var pdfBtn = document.getElementById('ap-pdf');
     if (pdfBtn) pdfBtn.addEventListener('click', function(){ oclAirportPdf(a); });
+    var emBtn = document.getElementById('ap-email');
+    if (emBtn) emBtn.addEventListener('click', function(){ oclEmailAirportPdf(a, emBtn); });
+  }
+
+  // Generate the PDF (as above) and email it as an attachment via the worker.
+  function oclEmailAirportPdf(a, btn){
+    var doc = buildAirportPdf(a);
+    if (!doc) return;
+    var to = prompt('Email the ' + (a.ident||'airport') + ' PDF to:');
+    if (!to) return;
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(to)){ alert('That does not look like a valid email address.'); return; }
+    var b64 = doc.output('datauristring').split(',')[1];
+    var orig = btn.textContent; btn.textContent = 'Sending…'; btn.disabled = true;
+    fetch('https://app.openchecklists.net/api/airport/email-pdf', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ email: to, ident: a.ident||'', name: a.name||'', pdf_base64: b64 })
+    }).then(function(r){ return r.json(); }).then(function(d){
+      btn.disabled = false;
+      if (d.ok){ btn.textContent = '✓ Sent'; setTimeout(function(){ btn.textContent = orig; }, 3000); }
+      else { btn.textContent = orig; alert('Could not send: ' + (d.error || 'unknown error')); }
+    }).catch(function(){ btn.disabled = false; btn.textContent = orig; alert('Could not reach the mail service.'); });
   }
 
   // Build a clean, structured PDF of the airport from its data + whatever
   // weather is currently shown. Built from data (not a screenshot) so map tiles
   // and the Windy iframe don't need to render into a canvas.
   function oclAirportPdf(a){
-    if (!(window.jspdf && window.jspdf.jsPDF)){ alert('PDF library still loading — try again in a second.'); return; }
+    var doc = buildAirportPdf(a);
+    if (doc) doc.save((a.ident || 'airport') + '-airport.pdf');
+  }
+  function buildAirportPdf(a){
+    if (!(window.jspdf && window.jspdf.jsPDF)){ alert('PDF library still loading — try again in a second.'); return null; }
     var doc = new window.jspdf.jsPDF({unit:'pt', format:'letter'});
     var M = 48, y = 56, W = 612;
     function line(txt, opts){
@@ -408,7 +433,7 @@ AIRPORT_APP_JS = r"""
     }
     gap(6);
     line('Generated ' + new Date().toLocaleString() + ' from openchecklists.net. Unverified snapshot — NOT an official weather briefing. 14 CFR 91.103 requires an official briefing (1800wxbrief.com) before flight.', {size:8, color:[138,90,0]});
-    doc.save(ident + '-airport.pdf');
+    return doc;
   }
 
   function initMap(lat, lon, ident, name, city, state, elevation){
