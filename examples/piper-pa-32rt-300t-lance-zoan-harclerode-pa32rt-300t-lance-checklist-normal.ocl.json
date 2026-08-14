@@ -1,0 +1,1647 @@
+{
+  "open_checklist_version": "1.0",
+  "id": "piper-pa-32rt-300t-lance-zoan-harclerode-pa32rt-300t-lance-checklist-normal",
+  "title": "Piper PA-32RT-300T Lance — zoan_harclerode_PA32RT-300T-Lance_Checklist_Normal",
+  "description": "Transcription of a printed normal-operations checklist for a Piper PA-32RT-300T Lance, N39619.",
+  "aircraft": {
+    "make": "Piper",
+    "model": "PA-32RT-300T Lance",
+    "category": "standard_normal",
+    "icao_type": "P32R",
+    "engine": [
+      {
+        "make": "Lycoming",
+        "model": "TIO-540",
+        "type": "piston_4stroke",
+        "count": 1
+      }
+    ],
+    "propeller": "constant_speed",
+    "gear": "retractable",
+    "airframe_family": "pa-32rt"
+  },
+  "provenance": {
+    "source": {
+      "kind": "third_party_checklist",
+      "title": "Piper/PA-32RT-300T Lance/zoan_harclerode_PA32RT-300T-Lance_Checklist_Normal.txt"
+    },
+    "transcription": {
+      "method": "format_conversion",
+      "date": "2026-08-14",
+      "converted_from": "doc"
+    },
+    "contributors": [
+      {
+        "name": "Open Checklists project",
+        "role": [
+          "transcriber"
+        ]
+      }
+    ],
+    "revision": {
+      "file_revision": "0.1.0",
+      "updated": "2026-08-14"
+    }
+  },
+  "verification": {
+    "source_fidelity": "unreviewed",
+    "operational_review": "none",
+    "completeness": "full",
+    "known_issues": [
+      {
+        "severity": "content_gap",
+        "description": "Section \"COLD WEATHER STARTING (BELOW 20°)\" item count differs between passes (17 vs 16); verify nothing was dropped.",
+        "location": "COLD WEATHER STARTING (BELOW 20°)"
+      },
+      {
+        "severity": "content_gap",
+        "description": "Section \"CRITICAL NUMBERS\" item count differs between passes (3 vs 11); verify nothing was dropped.",
+        "location": "CRITICAL NUMBERS"
+      },
+      {
+        "severity": "content_gap",
+        "description": "Section \"STARTING WITH EXTERNAL POWER SOURCE\" item count differs between passes (9 vs 8); verify nothing was dropped.",
+        "location": "STARTING WITH EXTERNAL POWER SOURCE"
+      },
+      {
+        "severity": "content_gap",
+        "description": "Section \"TAKEOFF\" item count differs between passes (14 vs 13); verify nothing was dropped.",
+        "location": "TAKEOFF"
+      }
+    ],
+    "reviews": [
+      {
+        "type": "source_comparison",
+        "reviewer": "ai-dual-pass-review",
+        "date": "2026-08-14",
+        "notes": "Automated AI review: two independent transcription passes + numeric/item-count disagreement resolution. Not human-verified; baseline for community correction."
+      }
+    ]
+  },
+  "rights": {
+    "status": "licensed",
+    "upstream_holder": "freechecklists.net",
+    "upstream_license": "content-reuse permission granted by the site author for this replacement project",
+    "notes": "Transcribed from the freechecklists.net archive under the author's reuse grant. Individual checklist wording may be substantially the source's; per-file contributor authorship is unknown."
+  },
+  "units": {
+    "airspeed": "kt",
+    "altitude": "ft",
+    "fuel": "usgal",
+    "weight": "lb",
+    "pressure": "inhg",
+    "temperature": "f"
+  },
+  "speeds": {
+    "vx": 77,
+    "vy": 89,
+    "vno": 150,
+    "vne": 191,
+    "va": {
+      "min": 107,
+      "max": 132
+    },
+    "vso": 52,
+    "vs": 57
+  },
+  "sections": [
+    {
+      "phase": "before_start",
+      "title": "BEFORE STARTING ENGINE",
+      "items": [
+        {
+          "type": "action",
+          "text": "Parking brakes",
+          "response": "SET",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Propeller",
+          "response": "FULL INCREASE RPM",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Fuel selector",
+          "response": "DESIRED TANK",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Cowl flaps",
+          "response": "OPEN",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "note",
+          "text": "Time & tank",
+          "tickable": false,
+          "source_confidence": 0.6
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "engine_start",
+      "title": "STARTING ENGINE WHEN COLD",
+      "items": [
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "1/2\" OPEN",
+          "tickable": true,
+          "source_confidence": 0.8
+        },
+        {
+          "type": "action",
+          "text": "Master switch",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Electric fuel pump",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Mixture",
+          "response": "PRIME – THEN IDLE CUT-OFF",
+          "tickable": true,
+          "source_confidence": 0.8
+        },
+        {
+          "type": "action",
+          "text": "Starter",
+          "response": "ENGAGE",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Mixture",
+          "response": "FULL RICH",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "ADJUST",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Oil pressure",
+          "response": "CHECK",
+          "tickable": true,
+          "source_confidence": 0.85
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "engine_start",
+      "title": "COLD WEATHER STARTING (BELOW 20°)",
+      "items": [
+        {
+          "type": "note",
+          "text": "Use of preheat should be considered if available. Rotate engine through 10 blades during preflight inspection.",
+          "tickable": false,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "caution",
+          "text": "Insure magneto & master switches are \"OFF\" before rotating engine manually.",
+          "tickable": false,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Master switch",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "External power",
+          "response": "CONNECTED",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Mixture",
+          "response": "RICH",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Propeller",
+          "response": "FORWARD",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "OPEN 1/2\"",
+          "tickable": true,
+          "source_confidence": 0.8
+        },
+        {
+          "type": "action",
+          "text": "Fuel boost pump",
+          "response": "ON FOR 5-6 SEC.",
+          "tickable": true,
+          "source_confidence": 0.8
+        },
+        {
+          "type": "action",
+          "text": "Fuel boost pump",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Engage starter",
+          "response": "ROTATE ENGINE THROUGH 10 BLADES",
+          "tickable": true,
+          "source_confidence": 0.8
+        },
+        {
+          "type": "action",
+          "text": "Fuel boost pump",
+          "response": "ON FOR 5-6 SEC.",
+          "tickable": true,
+          "source_confidence": 0.8
+        },
+        {
+          "type": "action",
+          "text": "Fuel boost pump",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Starter",
+          "response": "ENGAGE",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "subtitle",
+          "text": "When engine fires,",
+          "tickable": false,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Fuel boost pump",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "External power",
+          "response": "DISCONNECT",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Master switch",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 0.85
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "engine_start",
+      "title": "STARTING ENGINE WHEN HOT",
+      "items": [
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "1/2\" OPEN",
+          "tickable": true,
+          "source_confidence": 0.8
+        },
+        {
+          "type": "action",
+          "text": "Master switch",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Electric fuel pump",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Mixture",
+          "response": "IDLE CUT-OFF",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Starter",
+          "response": "ENGAGE",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Mixture",
+          "response": "ADVANCE",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "ADJUST",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Oil pressure",
+          "response": "CHECK",
+          "tickable": true,
+          "source_confidence": 0.85
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "engine_start",
+      "title": "STARTING ENGINE WHEN FLOODED",
+      "items": [
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "OPEN FULL",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Master switch",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Electric fuel pump",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Mixture",
+          "response": "IDLE CUT-OFF",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Starter",
+          "response": "ENGAGE",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Mixture",
+          "response": "ADVANCE",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "RETARD",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Oil pressure",
+          "response": "CHECK",
+          "tickable": true,
+          "source_confidence": 0.85
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "engine_start",
+      "title": "STARTING WITH EXTERNAL POWER SOURCE",
+      "items": [
+        {
+          "type": "action",
+          "text": "Master switch",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "All electrical equipment",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Terminals",
+          "response": "CONNECT",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "External power plug",
+          "response": "INSERT IN FUSELAGE",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "subtitle",
+          "text": "Proceed with normal start",
+          "tickable": false,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "LOWEST POSSIBLE RPM",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "External power plug",
+          "response": "DISCONNECT FROM FUSELAGE",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Master switch",
+          "response": "ON – CHECK AMMETER",
+          "tickable": true,
+          "source_confidence": 0.8
+        },
+        {
+          "type": "action",
+          "text": "Oil pressure",
+          "response": "CHECK",
+          "tickable": true,
+          "source_confidence": 0.85
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "after_start",
+      "title": "WARM-UP",
+      "items": [
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "1000 TO 1200 RPM",
+          "tickable": true,
+          "source_confidence": 0.85
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "taxi",
+      "title": "TAXIING",
+      "items": [
+        {
+          "type": "action",
+          "text": "Parking brakes",
+          "response": "RELEASE",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Chocks",
+          "response": "REMOVED",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Taxi area",
+          "response": "CLEAR",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "APPLY SLOWLY",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Prop",
+          "response": "HIGH RPM",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Brakes",
+          "response": "CHECK",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Steering",
+          "response": "CHECK",
+          "tickable": true,
+          "source_confidence": 0.85
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "before_takeoff",
+      "title": "GROUND CHECK",
+      "items": [
+        {
+          "type": "action",
+          "text": "Parking brakes",
+          "response": "SET",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Propeller",
+          "response": "FULL INCREASE",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "2000 RPM",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Magnetos",
+          "response": "MAX DROP 175 RPM – MAX DIFF. 50 RPM",
+          "tickable": true,
+          "source_confidence": 0.8
+        },
+        {
+          "type": "action",
+          "text": "Vacuum",
+          "response": "5.0\" HG. ± .1",
+          "tickable": true,
+          "source_confidence": 0.7
+        },
+        {
+          "type": "action",
+          "text": "Oil temp",
+          "response": "CHECK",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Oil pressure",
+          "response": "CHECK",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Air conditioner",
+          "response": "CHECK",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Annunciator panel",
+          "response": "PRESS-TO-TEST",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Propeller",
+          "response": "EXERCISE – THEN FULL INCREASE",
+          "tickable": true,
+          "source_confidence": 0.8
+        },
+        {
+          "type": "action",
+          "text": "Alternate air",
+          "response": "CHECK",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "note",
+          "text": "Engine is warm for takeoff when throttle can be opened without engine faltering.",
+          "tickable": false,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Electric fuel pump",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Fuel flow",
+          "response": "CHECK",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "RETARD",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Manifold pressure line",
+          "response": "DRAIN",
+          "tickable": true,
+          "source_confidence": 0.85
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "before_takeoff",
+      "title": "BEFORE TAKEOFF",
+      "items": [
+        {
+          "type": "action",
+          "text": "Master switch",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Flight instruments",
+          "response": "CHECK",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Fuel selector",
+          "response": "PROPER TANK",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Engine gauges",
+          "response": "CHECK",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Alternate air",
+          "response": "CLOSED",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Seat backs",
+          "response": "ERECT",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Cowl flaps",
+          "response": "OPEN",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Mixture",
+          "response": "SET",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Prop",
+          "response": "SET",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Belts / harness",
+          "response": "FASTENED",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Empty seats",
+          "response": "SEAT BELTS SNUGLY FASTENED",
+          "tickable": true,
+          "source_confidence": 0.8
+        },
+        {
+          "type": "action",
+          "text": "Flaps",
+          "response": "SET",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Trim tabs – rudder & elevator",
+          "response": "SET",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Controls",
+          "response": "FREE & CORRECT",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Doors",
+          "response": "LATCHED",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Air conditioner",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Parking Brake",
+          "response": "RELEASE",
+          "tickable": true,
+          "source_confidence": 0.85
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "before_takeoff",
+      "title": "TAKING THE RUNWAY",
+      "items": [
+        {
+          "type": "action",
+          "text": "Electric fuel pump",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Lights",
+          "response": "ON AS DESIRED",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Approach & Runway",
+          "response": "HAVE CLEARANCE & CLEAR VISUAL PATH",
+          "tickable": true,
+          "source_confidence": 0.8
+        },
+        {
+          "type": "action",
+          "text": "Time & Tank",
+          "response": "RECORDED",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Transponder",
+          "response": "ON ALT",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Cowl flaps",
+          "response": "OPEN",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Flaps",
+          "response": "SET",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Trim",
+          "response": "SLIGHTLY AFT OF NEUTRAL",
+          "tickable": true,
+          "source_confidence": 0.85
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "takeoff",
+      "title": "TAKEOFF",
+      "items": [
+        {
+          "type": "subtitle",
+          "text": "NORMAL",
+          "tickable": false,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Power",
+          "response": "MAX 36\"/2700 RPM – 5 MINUTE LIMIT",
+          "tickable": true,
+          "source_confidence": 0.8
+        },
+        {
+          "type": "action",
+          "text": "Accelerate to Vr",
+          "response": "75 TO 85 KIAS",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Control wheel back pressure",
+          "response": "ROTATE TO CLIMB ATTITUDE",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "subtitle",
+          "text": "SHORT OR SOFT FIELD, OBSTACLE CLEARANCE",
+          "tickable": false,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Flaps",
+          "response": "SECOND NOTCH",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Trim",
+          "response": "SLIGHT AFT OF NEUTRAL",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "FULL POWER PRIOR TO BRAKE RELEASE",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Accelerate to",
+          "response": "65 TO 69 KIAS DEPENDING ON AIRCRAFT WEIGHT",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Control wheel back pressure",
+          "response": "ROTATE TO CLIMB ATTITUDE",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "After breaking ground, accelerate to",
+          "response": "65 TO 70 KIAS DEPENDING ON A/C WEIGHT",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Gear (Override Engaged)",
+          "response": "UP",
+          "tickable": true,
+          "source_confidence": 0.8
+        },
+        {
+          "type": "challenge",
+          "text": "Accelerate to climb speed",
+          "tickable": true,
+          "source_confidence": 0.7
+        },
+        {
+          "type": "action",
+          "text": "Flaps",
+          "response": "RETRACT SLOWLY",
+          "tickable": true,
+          "source_confidence": 0.85
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "climb",
+      "title": "CLIMB",
+      "items": [
+        {
+          "type": "action",
+          "text": "Vy (3600 lb) (gear down) (F0) (T/O pwr)",
+          "response": "89 KIAS",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Vy (3600 lb) (gear up) (F0) (T/O pwr)",
+          "response": "93 KIAS",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Vy (3600 lb) (gear up) (F0) (Max. cont. pwr)",
+          "response": "95 KIAS",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Vx (3600 lb) (gear down) (F0) (T/O pwr)",
+          "response": "77 KIAS",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Vx (3600 lb) (gear up) (F0) (T/O pwr)",
+          "response": "80 KIAS",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Vx (3600 lb) (gear up) (F0) (Max. cont. pwr)",
+          "response": "82 KIAS",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "En Route",
+          "response": "105 KIAS",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Mixture",
+          "response": "RICH",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Electric Fuel Pump",
+          "response": "OFF @ SAFE ALTITUDE (ON ABOVE 14,000 FEET)",
+          "tickable": true,
+          "source_confidence": 0.8
+        },
+        {
+          "type": "action",
+          "text": "Transition Altitude abv FL180",
+          "response": "SET ALTIMETER 29.92",
+          "tickable": true,
+          "source_confidence": 0.8
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "cruise",
+      "title": "CRUISING",
+      "items": [
+        {
+          "type": "action",
+          "text": "Normal max power",
+          "response": "81%",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Power",
+          "response": "SET PER POWER TABLE",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Mixture",
+          "response": "ADJUST",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Cowl flaps",
+          "response": "SET",
+          "tickable": true,
+          "source_confidence": 0.85
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "reference",
+      "title": "CRITICAL NUMBERS",
+      "items": [
+        {
+          "type": "action",
+          "text": "CHT",
+          "response": "150°F TO 435°F",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "note",
+          "text": "Oil Temps: Above 60°F OAT 180° - 245°; 30° - 90° 180° - 245°; 0° - 70° 170° - 225°; Below 10°F 160° - 210°",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "note",
+          "text": "Maneuvering Speeds (Va): 3600# max gross 132; 3242.5 125.75; 2885 119.5; 2527.5 113.25; 2170 107",
+          "tickable": false,
+          "source_confidence": 0.5
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "descent",
+      "title": "DESCENT",
+      "items": [
+        {
+          "type": "action",
+          "text": "Mixture",
+          "response": "ABOVE 1350°F EGT",
+          "tickable": true,
+          "source_confidence": 0.8
+        },
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "ABOVE 15\" MP",
+          "tickable": true,
+          "source_confidence": 0.8
+        },
+        {
+          "type": "action",
+          "text": "Propeller",
+          "response": "CRUISE SETTING",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Altimeter",
+          "response": "SET TO STATION PRESSURE",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Oxygen",
+          "response": "OFF BELOW 10,000 FT",
+          "tickable": true,
+          "source_confidence": 0.85
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "approach",
+      "title": "APPROACH & LANDING",
+      "items": [
+        {
+          "type": "action",
+          "text": "Fuel selector",
+          "response": "PROPER TANK",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Seat backs",
+          "response": "ERECT",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Belts / harness",
+          "response": "FASTEN",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Electric fuel pump",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Mixture",
+          "response": "SET",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Propeller",
+          "response": "SET FOR GO AROUND",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Cowl flaps",
+          "response": "OPEN",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Gear",
+          "response": "DOWN – 129 KIAS MAX.",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Flaps",
+          "response": "SET – WHITE ARC",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Air conditioner",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "subtitle",
+          "text": "NORMAL TECHNIQUE",
+          "tickable": false,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Flaps",
+          "response": "AS REQUIRED",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Trim",
+          "response": "95 KIAS",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "AS REQUIRED",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "subtitle",
+          "text": "SHORT FIELD TECHNIQUE",
+          "tickable": false,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Flaps",
+          "response": "40 – FULL FLAPS – 3RD NOTCH",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Trim",
+          "response": "76 KIAS*",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "AS REQUIRED",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "caution",
+          "text": "When C.G. is forward of 82 inches, use 90 KIAS approach speed.",
+          "tickable": false,
+          "source_confidence": 0.85
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "go_around",
+      "title": "GO-AROUND",
+      "items": [
+        {
+          "type": "action",
+          "text": "Propeller",
+          "response": "FULL INCREASE",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "AS REQUIRED (NOT TO EXCEED 36\" MP)",
+          "tickable": true,
+          "source_confidence": 0.8
+        },
+        {
+          "type": "action",
+          "text": "Control wheel",
+          "response": "BACK PRESSURE TO ROTATE TO CLIMB ATTITUDE",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Gear",
+          "response": "UP",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Flaps",
+          "response": "RETRACT SLOWLY",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Trim",
+          "response": "AS REQUIRED",
+          "tickable": true,
+          "source_confidence": 0.85
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "shutdown",
+      "title": "STOPPING ENGINE",
+      "items": [
+        {
+          "type": "action",
+          "text": "Flaps",
+          "response": "RETRACT",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Electric fuel pump",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Air conditioner",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Radios",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Lights",
+          "response": "OFF AS REQUIRED",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Propeller",
+          "response": "FULL INCREASE",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "FULL AFT",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Magnetos",
+          "response": "CHECK GROUND",
+          "tickable": true,
+          "source_confidence": 0.8
+        },
+        {
+          "type": "action",
+          "text": "Mixture",
+          "response": "IDLE CUT-OFF",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Magnetos",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Master switch",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.85
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "securing",
+      "title": "PARKING",
+      "items": [
+        {
+          "type": "action",
+          "text": "Parking brake",
+          "response": "SET AS REQUIRED",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Control wheel",
+          "response": "SECURE WITH SEAT BELT",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Flaps",
+          "response": "FULL UP",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Wheel Chocks & lock",
+          "response": "IN PLACE",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Tie downs",
+          "response": "SECURE",
+          "tickable": true,
+          "source_confidence": 0.85
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "reference",
+      "title": "SPEED SHEET KIAS",
+      "items": [
+        {
+          "type": "note",
+          "text": "Take-off: normal F0 – F10 80 – 85",
+          "tickable": false,
+          "source_confidence": 0.8
+        },
+        {
+          "type": "note",
+          "text": "Take-off: soft & short fld F25 65/69 – 80 – 93",
+          "tickable": false,
+          "source_confidence": 0.8
+        },
+        {
+          "type": "note",
+          "text": "Vx: 77 (G↓ F↑ t/o pwr); 80 (G↑F↑t/o pwr); 82 (G↑F↑max cont pwr)",
+          "tickable": false,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "note",
+          "text": "Vy: 89 (G↓ F↑ t/o pwr); 93 (G↑F↑t/o pwr); 95 (G↑F↑max cont pwr)",
+          "tickable": false,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "note",
+          "text": "Close door 87 (vents - closed, storm window – open)",
+          "tickable": false,
+          "source_confidence": 0.7
+        },
+        {
+          "type": "note",
+          "text": "Enroute Climb 105",
+          "tickable": false,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "note",
+          "text": "Max Gear Retract 106",
+          "tickable": false,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "note",
+          "text": "Max Flap Ext 109",
+          "tickable": false,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "note",
+          "text": "Max Gear Ext'g 129",
+          "tickable": false,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "note",
+          "text": "Vno 150",
+          "tickable": false,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "note",
+          "text": "Vne 191",
+          "tickable": false,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "note",
+          "text": "Va 132 – 107",
+          "tickable": false,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "note",
+          "text": "E descent: 10\"mp – prop full fwd – cowl flaps closed - 109G↓F↓ - 1350° EGT",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "note",
+          "text": "BEST GLIDE 92",
+          "tickable": false,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "note",
+          "text": "E-gear down 87",
+          "tickable": false,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "note",
+          "text": "Downwind G↓ F10 110",
+          "tickable": false,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "note",
+          "text": "Base G↓ F25 105",
+          "tickable": false,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "note",
+          "text": "Apch – normal G↓ F40 95 (fwd c.g. 90)",
+          "tickable": false,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "note",
+          "text": "Over-the-fence **GEAR DOWN** 85",
+          "tickable": false,
+          "source_confidence": 0.8
+        },
+        {
+          "type": "note",
+          "text": "Touch down 65",
+          "tickable": false,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "note",
+          "text": "Short Field power off 76",
+          "tickable": false,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "note",
+          "text": "Vso 52",
+          "tickable": false,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "note",
+          "text": "Vs 57",
+          "tickable": false,
+          "source_confidence": 0.85
+        }
+      ],
+      "criticality": "normal"
+    }
+  ]
+}

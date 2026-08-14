@@ -1,0 +1,797 @@
+{
+  "open_checklist_version": "1.0",
+  "id": "piper-pa-28-200r-arrow-ii-mikeomalley-pa28r-200-checklist-emergency",
+  "title": "Piper PA-28-200R Arrow II — MikeOMalley_PA28R-200_CHECKLIST-EMERGENCY",
+  "aircraft": {
+    "make": "Piper",
+    "model": "PA-28-200R Arrow II",
+    "category": "standard_normal"
+  },
+  "provenance": {
+    "source": {
+      "kind": "third_party_checklist",
+      "title": "Piper/PA-28-200R Arrow II/MikeOMalley_PA28R-200_CHECKLIST-EMERGENCY.txt"
+    },
+    "transcription": {
+      "method": "format_conversion",
+      "date": "2026-08-14",
+      "converted_from": "doc"
+    },
+    "contributors": [
+      {
+        "name": "Open Checklists project",
+        "role": [
+          "transcriber"
+        ]
+      }
+    ],
+    "revision": {
+      "file_revision": "0.1.0",
+      "updated": "2026-08-14"
+    }
+  },
+  "verification": {
+    "source_fidelity": "unreviewed",
+    "operational_review": "none",
+    "completeness": "full",
+    "known_issues": [],
+    "reviews": [
+      {
+        "type": "source_comparison",
+        "reviewer": "ai-dual-pass-review",
+        "date": "2026-08-14",
+        "notes": "Automated AI review: two independent transcription passes + numeric/item-count disagreement resolution. Not human-verified; baseline for community correction."
+      }
+    ]
+  },
+  "rights": {
+    "status": "licensed",
+    "upstream_holder": "freechecklists.net",
+    "upstream_license": "content-reuse permission granted by the site author for this replacement project",
+    "notes": "Transcribed from the freechecklists.net archive under the author's reuse grant. Individual checklist wording may be substantially the source's; per-file contributor authorship is unknown."
+  },
+  "sections": [
+    {
+      "phase": "engine_failure_in_flight",
+      "title": "ENGINE POWER LOSS INFLIGHT",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "PITCH FOR 105",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "FIND SUITABLE FIELD",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "ATTEMPT RESTART",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Fuel selector",
+          "response": "Full tank",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Fuel Pump",
+          "response": "ON",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Mixture",
+          "response": "ADJUST (RICH)",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Alternate Air",
+          "response": "ON",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Engine Gauges",
+          "response": "CHECK",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Fuel Selector",
+          "response": "CHECK POSITION",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "subtitle",
+          "text": "WHEN POWER RESTORED",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Alternate air",
+          "response": "OFF",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Fuel pump",
+          "response": "OFF",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "subtitle",
+          "text": "IF POWER NOT RESTORED",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Ignition switch",
+          "response": "“R” then “L” then “Both”",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Throttle and Mixture",
+          "response": "Adjust",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "reference",
+          "text": "IF POWER STILL NOT RESTORED PROCEDE TO POWER OFF LANDING CHECKLIST",
+          "tickable": false,
+          "reference": {
+            "section_id": "power-off-landing"
+          },
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "forced_landing",
+      "title": "POWER OFF LANDING",
+      "criticality": "emergency",
+      "id": "power-off-landing",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "GEAR DOWN",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "SECURE ENGINE",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Mixture",
+          "response": "IDLE CUTOFF",
+          "tickable": true,
+          "indent": 1,
+          "memory_item": true,
+          "id": "power-off-landing-mixture-cutoff",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "CLOSE",
+          "tickable": true,
+          "indent": 1,
+          "memory_item": true,
+          "id": "power-off-landing-throttle-close",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Gear",
+          "response": "DOWN",
+          "tickable": true,
+          "indent": 1,
+          "memory_item": true,
+          "id": "power-off-landing-gear-down",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Master",
+          "response": "OFF",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Ignition",
+          "response": "OFF",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Fuel selector",
+          "response": "OFF",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "BRIEF PASSENGERS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "SEATS",
+          "response": "ADJUST FULL AFT",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "SEATBELTS",
+          "response": "TIGHTEN",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "DOOR",
+          "response": "PROP OPEN",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "FLAPS",
+          "response": "AS REQUIRED",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "TOUCHDOWN AT SLOWEST POSSIBLE SPEED",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "other",
+      "phase_label": "Propeller Overspeed",
+      "title": "PROPELLER OVERSPEED",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "THROTTLE",
+          "response": "RETARD",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "OIL PRESSURE",
+          "response": "CHECK",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "PROPELLER- FULL DECREASE RPM, THEN SET IF ANY CONTROL",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "AIRSPEED- REDUCE",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "THROTTLE- AS REQUIRED TO REMAIN BELOW 2700 RPM",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "landing_gear_malfunction",
+      "title": "EMERGENCY GEAR EXTENTION",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "Master",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Breakers",
+          "response": "CHECK",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Panel lights",
+          "response": "OFF (IN DAYTIME)",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Gear indicator bulbs",
+          "response": "CHECK",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Airspeed- REDUCE BELOW 100",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Landing gear selector",
+          "response": "DOWN",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Engage Emergency Gear Leaver",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "subtitle",
+          "text": "IF GEAR STILL NOT DOWN",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Yaw aircraft sharply back and forth with rudder, and pitch aircraft up sharply",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "spin_recovery",
+      "title": "SPINS",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "THROTTLE",
+          "response": "IDLE",
+          "tickable": true,
+          "memory_item": true,
+          "id": "spins-throttle-idle",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "RUDDER",
+          "response": "FULL OPPOSITE DIRECTION OF ROTATION",
+          "tickable": true,
+          "memory_item": true,
+          "id": "spins-rudder-opposite",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "CONTROL WHEEL",
+          "response": "FULL FORWARD",
+          "tickable": true,
+          "memory_item": true,
+          "id": "spins-control-wheel-forward",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "RUDDER",
+          "response": "NEUTRAL (WHEN ROTATION STOPS)",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "CONTROL WHEEL",
+          "response": "AS REQUIRED",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "other",
+      "phase_label": "Fire",
+      "title": "FIRE",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "subtitle",
+          "text": "ON GROUND",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "subtitle",
+          "text": "DURING ENGINE START",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "MIXTURE",
+          "response": "IDLE CUTOFF",
+          "tickable": true,
+          "indent": 1,
+          "memory_item": true,
+          "id": "fire-ground-start-mixture-cutoff",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "THROTTLE",
+          "response": "OPEN",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "STARTER",
+          "response": "CONTINUE CRANKING",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "subtitle",
+          "text": "AFTER ENGINE START",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "CONTINUE OPERATING",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "FUEL SELECTOR",
+          "response": "OFF",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "subtitle",
+          "text": "BEFORE EXTERNAL EXTINGUISHER APPLICATION",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "MIXTURE",
+          "response": "IDLE CUTOFF",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "subtitle",
+          "text": "IN-FLIGHT",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "SOURCE OF FIRE",
+          "response": "CHECK",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "subtitle",
+          "text": "ELECTRICAL FIRE",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Master Switch",
+          "response": "OFF",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Vents",
+          "response": "OPEN",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Cabin Heat",
+          "response": "OFF",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "LAND AS SOON AS PRACTICABLE",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "subtitle",
+          "text": "ENGINE FIRE",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Fuel Selector",
+          "response": "OFF",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "CLOSED",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Mixture",
+          "response": "IDLE CUTOFF",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Heater",
+          "response": "OFF",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Defroster",
+          "response": "OFF",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "LAND IMMEDIATELY",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "oil_system_malfunction",
+      "title": "LOSS OF OIL PRESSURE",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "Oil Temp",
+          "response": "CHECK",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Power- reduce if possible",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "LAND AS SOON AS PRACTICAL",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "PREPARE FOR ENGINE FAILURE",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "fuel_system_malfunction",
+      "title": "LOSS OF FUEL PRESSURE",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "Fuel Pump",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Mixture",
+          "response": "FULL RICH",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Fuel Selector",
+          "response": "CHECK",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "LAND AS SOON AS PRACTICABLE",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "engine_failure_in_flight",
+      "title": "ENGINE ROUGHNESS",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "Alternate Air",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Mixture",
+          "response": "ADJUST",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Fuel Pump",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Fuel Selector",
+          "response": "SWITCH",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Engine Gauges",
+          "response": "CHECK",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Mags",
+          "response": "CHECK",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "LAND AT NEAREST AIRPORT",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "PREPARE FOR POWER OFF LANDING",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "alternator_failure",
+      "title": "ALTERNATOR FAILURE",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "Electrical Load",
+          "response": "REDUCE",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Breakers",
+          "response": "CHECK",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "“ALT” Switch",
+          "response": "CYCLE",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "If alternator does not reset, reduce electrical load and land as soon as practicable. If battery is completely discharged, landing gear will not function normally, nor will position indicators, stall warning horn, or landing gear warning horn.",
+          "tickable": false,
+          "source_confidence": 1.0
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1240 @@
+{
+  "open_checklist_version": "1.0",
+  "id": "beechcraft-be-350-king-air-max-beech-king-air-350-check",
+  "title": "Beechcraft BE-350 King Air — MAX_Beech_King_Air_350_Check",
+  "description": "Checklist for Microsoft Flight Simulator only. Not for real world flight!",
+  "aircraft": {
+    "make": "Beechcraft",
+    "model": "BE-350 King Air",
+    "category": "standard_normal"
+  },
+  "units": {
+    "airspeed": "kt",
+    "altitude": "ft",
+    "pressure": "inhg"
+  },
+  "speeds": {
+    "v1": 105,
+    "vr": 110,
+    "v2": 115
+  },
+  "provenance": {
+    "source": {
+      "kind": "third_party_checklist",
+      "title": "Beechcraft/BE-350 King Air/MAX_Beech_King_Air_350_Check.txt"
+    },
+    "transcription": {
+      "method": "format_conversion",
+      "date": "2026-08-13",
+      "converted_from": "doc"
+    },
+    "contributors": [
+      {
+        "name": "Open Checklists project",
+        "role": [
+          "transcriber"
+        ]
+      }
+    ],
+    "revision": {
+      "file_revision": "0.1.0",
+      "updated": "2026-08-13"
+    }
+  },
+  "verification": {
+    "source_fidelity": "unreviewed",
+    "operational_review": "none",
+    "completeness": "full",
+    "known_issues": [],
+    "reviews": [
+      {
+        "type": "source_comparison",
+        "reviewer": "ai-dual-pass-review",
+        "date": "2026-08-14",
+        "notes": "Automated AI review: two independent transcription passes + numeric/item-count disagreement resolution. Not human-verified; baseline for community correction."
+      }
+    ]
+  },
+  "rights": {
+    "status": "licensed",
+    "upstream_holder": "freechecklists.net",
+    "upstream_license": "content-reuse permission granted by the site author for this replacement project",
+    "notes": "Transcribed from the freechecklists.net archive under the author's reuse grant. Individual checklist wording may be substantially the source's; per-file contributor authorship is unknown."
+  },
+  "sections": [
+    {
+      "phase": "before_start",
+      "title": "Pre-Start Checklist",
+      "items": [
+        {
+          "type": "warning",
+          "text": "CHECKLIST FOR MICROSOFT FLIGHT SIMULATOR ONLY. NOT FOR REAL WORLD FLIGHT!",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Parking Brakes",
+          "response": "SET",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "IDLE",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Battery Switch",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Avionics Master Switch",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Master Caution Display",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Flaps",
+          "response": "UP",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Propeller",
+          "response": "HIGH RPM",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Fuel Cond. Lever",
+          "response": "FUEL CUTOFF (Ctrl-Shift-F1)",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Landing Gear Lever",
+          "response": "CHECK DOWN",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Battery Switch",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Panel Lights",
+          "response": "ON if required",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Fuel Quantity",
+          "response": "CHECK",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Flight controls",
+          "response": "CHECK",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Avionics Master Switch",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Check Weather",
+          "response": "(ATIS, Flight Services)",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Anti-ice Switch",
+          "response": "TEST/CHECK",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Anti-ice Annunciators",
+          "response": "ILLUMINATED",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Request Clearance",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Transponder",
+          "response": "STANDBY",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Beacon",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "engine_start",
+      "title": "Startup Checklist",
+      "items": [
+        {
+          "type": "action",
+          "text": "Engine and Propeller Area",
+          "response": "CLEAR",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "IDLE",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Fuel Flow / Fuel Cond. Lever",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Right Ignition and Engine Start Switch",
+          "response": "ON (hold until engine starts)",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Right ITT and N1 Turbine RPM",
+          "response": "MONITOR",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Right FUEL PRESS LO Annunciator",
+          "response": "EXTINGUISHED",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Right OIL PRESS LO Annunciator",
+          "response": "EXTINGUISHED",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Right Oil Pressure",
+          "response": "CHECK",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Right Generator",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "subtitle",
+          "text": "==> Repeat for left engine",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Feather/Unfeather Props",
+          "response": "CHECK once",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Master Warning Display",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Master Caution Display",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Throttle Quadrant Display",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Engine Instruments",
+          "response": "CHECK",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "before_taxi",
+      "title": "Before Taxi Checklist",
+      "items": [
+        {
+          "type": "action",
+          "text": "Nav Lights",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Taxi Lights",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Heading Indicator / Altimeter",
+          "response": "SET",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Instruments",
+          "response": "NORMAL OPERATION",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Radios and Avionics",
+          "response": "CHECKED and SET",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Autopilot",
+          "response": "SET and OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "F/D",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Yaw Damper",
+          "response": "ON AS REQUIRED",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Autofeather",
+          "response": "ARM",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Anti-ice",
+          "response": "AS REQUIRED",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Request Taxi Clearance",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "taxi",
+      "title": "Taxi Checklist",
+      "items": [
+        {
+          "type": "action",
+          "text": "Parking Brake",
+          "response": "RELEASE",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Taxi to assigned runway",
+          "response": "SPEED Max. 20 knots",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Brakes",
+          "response": "CHECK during taxi",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Directional Gyro",
+          "response": "PROPER IND. during turns",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Turn Coordinator",
+          "response": "PROPER IND. during turns",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Artificial Horizon",
+          "response": "ERECT during turns",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "before_takeoff",
+      "title": "Before Take-off Checklist",
+      "items": [
+        {
+          "type": "action",
+          "text": "Parking Brake",
+          "response": "SET",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Fuel Quantity",
+          "response": "CHECK",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "IDLE",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Propeller",
+          "response": "HIGH RPM",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Elevator Trim",
+          "response": "SET for takeoff",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Flight Controls",
+          "response": "FREE AND CORRECT",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Radios and Avionics",
+          "response": "SET",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Landing Lights",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Taxi Lights",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Engine Instruments",
+          "response": "CHECK",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Annunciator Lights",
+          "response": "CHECK",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Strobe Light",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Pitot Heat",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Anti-ice",
+          "response": "AS REQUIRED",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Transponder",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Request Takeoff Clearance",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "takeoff",
+      "title": "Take-off Checklist",
+      "items": [
+        {
+          "type": "action",
+          "text": "Smoothly increase thrust to",
+          "response": "FULL",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Brakes",
+          "response": "RELEASE",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "V1 =",
+          "response": "105 KIAS (descision)",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Vr =",
+          "response": "110 KIAS (rotate)",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "V2 =",
+          "response": "115 KIAS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Pitch",
+          "response": "10-15 degrees",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "At Positive Climb Rate",
+          "response": "Touch Brakes",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Landing Gear",
+          "response": "RETRACT",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Trim for climb to maintain",
+          "response": "140 KIAS Torque 65",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Annunciator Lights",
+          "response": "CHECK",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Engine Instruments",
+          "response": "CHECK",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "climb",
+      "title": "Climb-out Checklist",
+      "items": [
+        {
+          "type": "action",
+          "text": "Propeller Synchrophaser",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Autopilot",
+          "response": "CHECK and SET",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Landing Lights",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Airspeed",
+          "response": "160 KIAS Torque 80",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Engine Instruments",
+          "response": "MONITOR",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "ATC",
+          "response": "AS REQUIRED",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "At Transition Altitude (FL180) set Altimeter to 29,92\" (1013mb)",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "cruise",
+      "title": "Cruise Checklist",
+      "items": [
+        {
+          "type": "action",
+          "text": "Accelerate to cruise speed",
+          "response": "220-240 KIAS Torque 80",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Autofeather",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Service Ceiling",
+          "response": "35’000 ft",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Engine+Instruments",
+          "response": "CHECK",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Engine Temperatures",
+          "response": "STABILIZE at cruise cond.",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Anti-ice",
+          "response": "AS REQUIRED",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Fuel Quantity",
+          "response": "CHECK",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Radios",
+          "response": "TUNED and SET",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Autopilot",
+          "response": "CHECK and SET",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Lights",
+          "response": "as required",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Engine Instruments",
+          "response": "CHECK",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "descent",
+      "title": "Descent Checklist",
+      "items": [
+        {
+          "type": "action",
+          "text": "Atis/Airport Information",
+          "response": "CHECK",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Altimeter",
+          "response": "CHECK",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Radios",
+          "response": "SET",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Autofeather",
+          "response": "ARM",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Descent Speed",
+          "response": "180 KIAS Torque 10",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Flaps",
+          "response": "CHECK UP",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Landing Gear",
+          "response": "CHECK UP",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Fuel Balance",
+          "response": "CHECK",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "At Transition Altitude (FL180) reset Altimeter to local",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Check Weather",
+          "response": "(ATIS, Flight Services)",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "approach",
+      "title": "Approach Checklist",
+      "items": [
+        {
+          "type": "subtitle",
+          "text": "Localizer Level Flight :",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Landing Lights",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Autofeather",
+          "response": "VERIFY ARMED",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Propeller",
+          "response": "HIGH RPM",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Fuel Cond. Lever",
+          "response": "FULL",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Anti-ice",
+          "response": "AS REQUIRED",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Speed: Establish",
+          "response": "150 KIAS Torque 30",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Flaps",
+          "response": "SET APPR",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Speed: Establish",
+          "response": "130 KIAS Torque 40",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Landing Gear",
+          "response": "DOWN",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Turning toward runway: set flaps",
+          "response": "FULL DOWN",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "subtitle",
+          "text": "Final Glideslope Descent :",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Speed: Establish",
+          "response": "110 KIAS Torque 25",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Elevator Trim",
+          "response": "AS DESIRED",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Parking Brake",
+          "response": "VERIFY OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "landing",
+      "title": "Landing Checklist",
+      "items": [
+        {
+          "type": "action",
+          "text": "Landing Gear",
+          "response": "CHECK DOWN, 3 GREEN",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Autopilot",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Landing Speed",
+          "response": "100 KIAS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Touchdown",
+          "response": "MAIN WHEELS FIRST",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Landing Roll",
+          "response": "LOWER NOSE WHEEL",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "After touchdown",
+          "response": "Apply Reverse Thrust, at 50 kts: Cancel Reverse Thrust",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "after_landing",
+      "title": "Taxi To Ramp",
+      "items": [
+        {
+          "type": "action",
+          "text": "Strobe Light",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Flaps",
+          "response": "RETRACT",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Taxi Lights",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Landing Lights",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Anti-ice",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Speed",
+          "response": "Max. 20 knots",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Elevator Trim",
+          "response": "TAKEOFF SETTING",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Avionics/Radios",
+          "response": "AS REQUIRED",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Transponder",
+          "response": "1200",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "shutdown",
+      "title": "Shutdown Checklist",
+      "items": [
+        {
+          "type": "action",
+          "text": "Parking",
+          "response": "SET",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Brake Throttle",
+          "response": "IDLE",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Autofeather",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "F/D",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Avionics Switch",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Taxi Lights",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Nav Lights",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Pitot Heat",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Fuel Cond. Lever",
+          "response": "CUTOFF (Ctrl-Shift-F1)",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Propeller",
+          "response": "FEATHER",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Beacon",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Panel Light",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Battery Switch",
+          "response": "OFF when N1<15%",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Generator Switches",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "securing",
+      "title": "Securing Aircraft",
+      "items": [
+        {
+          "type": "action",
+          "text": "Parking Brake",
+          "response": "Verify SET",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "Verify IDLE",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "All Switches",
+          "response": "Verify OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ],
+      "criticality": "normal"
+    }
+  ]
+}

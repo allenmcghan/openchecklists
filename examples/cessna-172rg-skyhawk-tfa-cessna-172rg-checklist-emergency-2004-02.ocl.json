@@ -1,0 +1,1468 @@
+{
+  "open_checklist_version": "1.0",
+  "id": "cessna-172rg-skyhawk-tfa-cessna-172rg-checklist-emergency-2004-02",
+  "title": "Cessna 172RG Skyhawk — TFA_Cessna_172RG_Checklist_Emergency_2004-02",
+  "aircraft": {
+    "make": "Cessna",
+    "model": "172RG Skyhawk",
+    "category": "standard_normal"
+  },
+  "provenance": {
+    "source": {
+      "kind": "third_party_checklist",
+      "title": "Cessna/172RG Skyhawk/TFA_Cessna_172RG_Checklist_Emergency_2004-02.txt"
+    },
+    "transcription": {
+      "method": "format_conversion",
+      "date": "2026-08-13",
+      "converted_from": "doc"
+    },
+    "contributors": [
+      {
+        "name": "Open Checklists project",
+        "role": [
+          "transcriber"
+        ]
+      }
+    ],
+    "revision": {
+      "file_revision": "0.1.0",
+      "updated": "2026-08-13"
+    }
+  },
+  "verification": {
+    "source_fidelity": "unreviewed",
+    "operational_review": "none",
+    "completeness": "full",
+    "known_issues": [
+      {
+        "severity": "content_gap",
+        "description": "Section \"EMERGENCY LANDING WITHOUT ENGINE POWER\" item count differs between passes (13 vs 11); verify nothing was dropped.",
+        "location": "EMERGENCY LANDING WITHOUT ENGINE POWER"
+      },
+      {
+        "severity": "content_gap",
+        "description": "Section \"ENGINE FAILURE DURING FLIGHT\" item count differs between passes (8 vs 7); verify nothing was dropped.",
+        "location": "ENGINE FAILURE DURING FLIGHT"
+      },
+      {
+        "severity": "content_gap",
+        "description": "Section \"ENGINE FAILURE IMMEDIATELY AFTER TAKE-OFF\" item count differs between passes (7 vs 6); verify nothing was dropped.",
+        "location": "ENGINE FAILURE IMMEDIATELY AFTER TAKE-OFF"
+      },
+      {
+        "severity": "content_gap",
+        "description": "Section \"LANDING GEAR FAILS TO RETRACT\" item count differs between passes (7 vs 6); verify nothing was dropped.",
+        "location": "LANDING GEAR FAILS TO RETRACT"
+      },
+      {
+        "severity": "content_gap",
+        "description": "Section \"PRECAUTIONARY LANDING WITH ENGINE POWER\" item count differs between passes (15 vs 14); verify nothing was dropped.",
+        "location": "PRECAUTIONARY LANDING WITH ENGINE POWER"
+      }
+    ],
+    "reviews": [
+      {
+        "type": "source_comparison",
+        "reviewer": "ai-dual-pass-review",
+        "date": "2026-08-14",
+        "notes": "Automated AI review: two independent transcription passes + numeric/item-count disagreement resolution. Not human-verified; baseline for community correction."
+      }
+    ]
+  },
+  "rights": {
+    "status": "licensed",
+    "upstream_holder": "freechecklists.net",
+    "upstream_license": "content-reuse permission granted by the site author for this replacement project",
+    "notes": "Transcribed from the freechecklists.net archive under the author's reuse grant. Individual checklist wording may be substantially the source's; per-file contributor authorship is unknown."
+  },
+  "units": {
+    "airspeed": "kt"
+  },
+  "sections": [
+    {
+      "phase": "engine_failure_before_rotation",
+      "title": "ENGINE FAILURE DURING TAKEOFF RUN",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "THROTTLE",
+          "response": "IDLE",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "BRAKES",
+          "response": "APPLY",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "WING FLAPS",
+          "response": "RETRACT",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "MIXTURE",
+          "response": "IDLE",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "IGNITION SWITCH",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "MASTER SWITCH",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "phase": "engine_failure_after_takeoff",
+      "title": "ENGINE FAILURE IMMEDIATELY AFTER TAKE-OFF",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "AIRSPEED",
+          "response": "70 KIAS",
+          "tickable": true,
+          "source_confidence": 0.9,
+          "value": {
+            "quantity": "airspeed",
+            "unit": "kt",
+            "target": 70
+          }
+        },
+        {
+          "type": "note",
+          "text": "65 KIAS Flaps down",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "MIXTURE",
+          "response": "IDLE",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FUEL VALVE",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "IGNITION SWITCH",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FLAPS",
+          "response": "AS REQ (30° rec)",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "MASTER SWITCH",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "phase": "engine_failure_in_flight",
+      "title": "ENGINE FAILURE DURING FLIGHT",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "AIRSPEED",
+          "response": "75 KIAS",
+          "tickable": true,
+          "source_confidence": 0.9,
+          "value": {
+            "quantity": "airspeed",
+            "unit": "kt",
+            "target": 75
+          }
+        },
+        {
+          "type": "action",
+          "text": "CARB HEAT",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FUEL VALVE",
+          "response": "BOTH",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "MIXTURE",
+          "response": "RICH",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "AUX FUEL PUMP",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "note",
+          "text": "If fuel press is below .5 psi",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "IGNITION SWITCH",
+          "response": "BOTH",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "PRIMER",
+          "response": "IN & LOCKED",
+          "tickable": true,
+          "source_confidence": 0.9
+        }
+      ]
+    },
+    {
+      "phase": "forced_landing",
+      "title": "EMERGENCY LANDING WITHOUT ENGINE POWER",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "SEATBELTS",
+          "response": "SECURE",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "AIRSPEED",
+          "response": "75 KIAS",
+          "tickable": true,
+          "source_confidence": 0.9,
+          "value": {
+            "quantity": "airspeed",
+            "unit": "kt",
+            "target": 75
+          }
+        },
+        {
+          "type": "note",
+          "text": "65 KIAS Flaps down",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "MIXTURE",
+          "response": "IDLE",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FUEL VALVE",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "IGNITION SWITCH",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "LANDING GEAR",
+          "response": "DOWN",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "note",
+          "text": "(UP FOR SOFT TERRAIN)",
+          "tickable": false,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "WING FLAPS",
+          "response": "AS REQ",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "MASTER SWITCH",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "DOORS",
+          "response": "UNLATCHED",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "TOUCHDOWN",
+          "response": "TAIL LOW",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "BRAKES",
+          "response": "HEAVILY",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "phase": "forced_landing",
+      "title": "PRECAUTIONARY LANDING WITH ENGINE POWER",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "SEATBELTS",
+          "response": "SECURE",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "WING FLAPS",
+          "response": "20°",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "AIRSPEED",
+          "response": "65 KIAS",
+          "tickable": true,
+          "source_confidence": 0.9,
+          "value": {
+            "quantity": "airspeed",
+            "unit": "kt",
+            "target": 65
+          }
+        },
+        {
+          "type": "action",
+          "text": "FIELD",
+          "response": "FLY OVER",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "ELECT SWITCHES",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "LANDING GEAR",
+          "response": "DOWN",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "note",
+          "text": "(UP FOR SOFT TERRAIN)",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "WING FLAPS",
+          "response": "30° FINAL",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "AIRSPEED",
+          "response": "65 KIAS",
+          "tickable": true,
+          "source_confidence": 0.5,
+          "value": {
+            "quantity": "airspeed",
+            "unit": "kt",
+            "target": 65
+          }
+        },
+        {
+          "type": "action",
+          "text": "DOORS",
+          "response": "UNLATCH",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "AVIONICS MASTER",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "MASTER SWITCH",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "TOUCHDOWN",
+          "response": "TAIL LOW",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "IGNITION SWITCH",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "BRAKES",
+          "response": "HEAVILY",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "phase": "engine_fire_ground",
+      "title": "DURING START ON GROUND",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "CRANKING",
+          "response": "CONTINUE",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "subtitle",
+          "text": "IF ENGINE STARTS:",
+          "tickable": false,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "POWER",
+          "response": "1700 RPM",
+          "tickable": true,
+          "source_confidence": 0.85,
+          "value": {
+            "quantity": "rpm",
+            "unit": "rpm",
+            "target": 1700
+          }
+        },
+        {
+          "type": "action",
+          "text": "ENGINE",
+          "response": "SHUT DOWN",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "note",
+          "text": "(Inspect for damage)",
+          "tickable": false,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "subtitle",
+          "text": "IF ENGINE FAILS TO START:",
+          "tickable": false,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "THROTTLE",
+          "response": "FULL OPEN",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "MIXTURE",
+          "response": "IDLE",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "CRANKING",
+          "response": "CONTINUE",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FIRE EXT",
+          "response": "OBTAIN",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "ENGINE",
+          "response": "SECURE",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "MASTER SWITCH",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.95,
+          "indent": 1
+        },
+        {
+          "type": "action",
+          "text": "IGN. SWITCH",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.95,
+          "indent": 1
+        },
+        {
+          "type": "action",
+          "text": "FUEL VALVE",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.95,
+          "indent": 1
+        },
+        {
+          "type": "action",
+          "text": "FIRE",
+          "response": "EXTINGUISH",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "DAMAGE",
+          "response": "INSPECT",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "phase": "engine_fire_in_flight",
+      "title": "ENGINE FIRE IN FLIGHT",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "MIXTURE",
+          "response": "IDLE",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FUEL VALVE",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "MASTER SWITCH",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "CABIN HEAT/AIR",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "AIRSPEED",
+          "response": "105 KIAS",
+          "tickable": true,
+          "source_confidence": 0.9,
+          "value": {
+            "quantity": "airspeed",
+            "unit": "kt",
+            "target": 105
+          }
+        },
+        {
+          "type": "note",
+          "text": "If fire is not extinguished, increase glide to an airspeed that provides an incombustible mixture.",
+          "tickable": false,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "FORCED LAND",
+          "response": "EXECUTE",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "phase": "cabin_fire",
+      "title": "CABIN FIRE",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "MASTER SWITCH",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "VENTS",
+          "response": "CLOSED",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FIRE EXT",
+          "response": "ACTIVATE",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "CABIN",
+          "response": "VENTILATE",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "LAND",
+          "response": "ASAP",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "phase": "electrical_fire",
+      "title": "ELECTRICAL FIRE IN FLIGHT",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "MASTER SWITCH",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "AVIONICS PWR SW",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "ELECTRICAL SWS",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "VENTS",
+          "response": "CLOSED",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "EXTINGUISHER",
+          "response": "ACTIVATE",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "CABIN",
+          "response": "VENTILATE",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "MASTER SWITCH",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "C/BREAKERS",
+          "response": "CHECK",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "RADIO SWITCHES",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "AVIONICS PWR SW",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "ELECTRICAL SWITCHES",
+          "response": "ON ONE AT A TIME",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "VENTS",
+          "response": "OPEN",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "phase": "engine_fire_in_flight",
+      "title": "WING FIRE",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "NAV LIGHTS",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "STROBE LIGHTS",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "PITOT HEAT SWITCH",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "phase": "landing_gear_malfunction",
+      "title": "LANDING WITH FLAT MAIN TIRE",
+      "criticality": "abnormal",
+      "items": [
+        {
+          "type": "action",
+          "text": "APPROACH",
+          "response": "NORMAL",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "TOUCHDOWN",
+          "response": "GOOD WHEEL FIRST",
+          "tickable": true,
+          "source_confidence": 0.9
+        }
+      ]
+    },
+    {
+      "phase": "landing_gear_malfunction",
+      "title": "LANDING GEAR FAILS TO RETRACT",
+      "criticality": "abnormal",
+      "items": [
+        {
+          "type": "action",
+          "text": "MASTER SWITCH",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "GEAR LEVER",
+          "response": "CHECK UP",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "CIRCUIT BREAKERS",
+          "response": "IN",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "GEAR UP LIGHT",
+          "response": "CHECK",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "GEAR LEVER",
+          "response": "RECYCLE",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "GEAR MOTOR",
+          "response": "CHECK",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "note",
+          "text": "(ammeter and noise)",
+          "tickable": false,
+          "source_confidence": 0.9
+        }
+      ]
+    },
+    {
+      "phase": "landing_gear_malfunction",
+      "title": "LANDING GEAR FAILS TO EXTEND",
+      "criticality": "abnormal",
+      "items": [
+        {
+          "type": "action",
+          "text": "MASTER SWITCH",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "GEAR LEVER",
+          "response": "DOWN",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "CIRCUIT BREAKERS",
+          "response": "IN",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "AIRSPEED",
+          "response": "100 KIAS/LESS",
+          "tickable": true,
+          "source_confidence": 0.9,
+          "value": {
+            "quantity": "airspeed",
+            "unit": "kt",
+            "max": 100
+          }
+        },
+        {
+          "type": "action",
+          "text": "EMERGENCY PUMP",
+          "response": "PUMP",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "GEAR DOWN LIGHT",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "PUMP HANDLE",
+          "response": "STOW",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "phase": "landing_gear_malfunction",
+      "title": "GEAR UP LANDING",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "GEAR LEVER",
+          "response": "UP",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "CIRCUIT BREAKERS",
+          "response": "IN",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "RUNWAY",
+          "response": "SELECT",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FLAPS",
+          "response": "30° ON FINAL",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "AIRSPEED",
+          "response": "65 KIAS",
+          "tickable": true,
+          "source_confidence": 0.9,
+          "value": {
+            "quantity": "airspeed",
+            "unit": "kt",
+            "target": 65
+          }
+        },
+        {
+          "type": "action",
+          "text": "DOORS",
+          "response": "UNLATCHED",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "AVIONICS PWR. SW",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "MASTER SWITCH",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "TOUCH DWN",
+          "response": "TAIL LOW",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "MIXTURE",
+          "response": "IDLE",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "IGNITION SWITCH",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FUEL VALVE",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "AIRPLANE",
+          "response": "EVACUATE",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "phase": "landing_gear_malfunction",
+      "title": "LANDING WITHOUT POSITIVE INDICATION OF GEAR LOCKING",
+      "criticality": "abnormal",
+      "items": [
+        {
+          "type": "action",
+          "text": "B4 LAND CHECK",
+          "response": "DO",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "APPROACH",
+          "response": "NORMAL",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "CIRCUIT BREAKERS",
+          "response": "IN",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "LANDING",
+          "response": "TAIL LOW",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "BRAKING",
+          "response": "MINIMUM",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "TAXI",
+          "response": "SLOWLY",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "ENGINE",
+          "response": "SHUTDOW",
+          "tickable": true,
+          "source_confidence": 0.8
+        }
+      ]
+    },
+    {
+      "phase": "landing_gear_malfunction",
+      "title": "LANDING WITH DEFECTIVE NOSE GEAR",
+      "criticality": "abnormal",
+      "items": [
+        {
+          "type": "action",
+          "text": "MOVABLE LOAD X-FR.",
+          "response": "TO BAGGAGE AREA",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "PASSENGER",
+          "response": "MOVE TO REAR SEAT",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "B4 LAND CHECK",
+          "response": "DO",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "RUNWAY",
+          "response": "HARD/SMOOTH",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "FLAPS",
+          "response": "30 DEGREES",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "CABIN DOORS",
+          "response": "UNLATCH",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "AVIONICS PWR SW",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "MASTER SWITCH",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "LAND",
+          "response": "TAIL LOW",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "MIXTURE",
+          "response": "IDLE",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "IGNITION SWITCH",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FUEL SELECTOR",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "HOLD NOSE UP",
+          "response": "HOLD",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "AIRPLANE",
+          "response": "EVACUATE",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "phase": "electrical_failure",
+      "title": "LOW VOLTAGE LIGHT DURING FLIGHT",
+      "criticality": "abnormal",
+      "condition": "AMMETER INDICATES DISCHARGE",
+      "items": [
+        {
+          "type": "action",
+          "text": "AVIONICS PWR SW",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "ALTERNATOR C/B",
+          "response": "CHECK IN",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "MASTER SWITCH",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "MASTER SWITCH",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "LOW-VOLT LIGHT",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "AVIONICS PWR SW",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "subtitle",
+          "text": "IF LOW-VOLTAGE LIGHT ILLUMINATES AGAIN:",
+          "tickable": false,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "ALTERNATOR",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "ESSENTIAL RADIOS ONLY",
+          "response": "USE",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "FLIGHT",
+          "response": "TERMINATE",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "phase": "alternator_failure",
+      "title": "AMMETER EXCESSIVE RATE OF CHARGE",
+      "criticality": "abnormal",
+      "condition": "FULL SCALE DEFLECTION",
+      "items": [
+        {
+          "type": "action",
+          "text": "ALTERNATOR",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "ALTERNATOR C/B",
+          "response": "PULL",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "ONLY ESSENTIAL RADIOS",
+          "response": "USE",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "FLIGHT",
+          "response": "TERMINATE",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "phase": "ditching",
+      "title": "DITCHING",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "RADIO MAYDAY",
+          "response": "ON 121.5",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "XPONDER",
+          "response": "SQUAWK 7700",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "HEAVY OBJECTS",
+          "response": "SECURE OR JETISON",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "LANDING GEAR",
+          "response": "UP",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FLAPS",
+          "response": "20° to 30°",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "SEATBELTS",
+          "response": "SECURE",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "AIRSPEED",
+          "response": "60 KIAS",
+          "tickable": true,
+          "source_confidence": 0.9,
+          "value": {
+            "quantity": "airspeed",
+            "unit": "kt",
+            "target": 60
+          }
+        },
+        {
+          "type": "action",
+          "text": "DESCENT RATE",
+          "response": "300 FT/MIN",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "note",
+          "text": "IF NO POWER AVAILABLE, 70 KIAS FLAPS UP OR 65 KIAS WITH 10 DEGREES FLAPS",
+          "tickable": false,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "subtitle",
+          "text": "APPROACH:",
+          "tickable": false,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "note",
+          "text": "HIGH WINDS HEAVY SEAS: INTO WIND",
+          "tickable": false,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "note",
+          "text": "LIGHT WINDS & HEAVY SWELLS: PARALLEL TO SWELLS",
+          "tickable": false,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "DOORS",
+          "response": "UNLATCH",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "TOUCHDOWN",
+          "response": "LEVEL",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FACE",
+          "response": "CUSHION",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "AIRPLANE",
+          "response": "EVACUATE",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "VESTS & RAFT",
+          "response": "INFLATE",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    }
+  ]
+}

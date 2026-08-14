@@ -1,0 +1,1351 @@
+{
+  "open_checklist_version": "1.0",
+  "id": "piper-pa-28-161-warrior-ii-p28a-checklist-moorabbin",
+  "title": "Piper PA-28-161 Warrior II — p28a_checklist_moorabbin",
+  "aircraft": {
+    "make": "Piper",
+    "model": "PA-28-161 Warrior II",
+    "category": "standard_normal"
+  },
+  "provenance": {
+    "source": {
+      "kind": "third_party_checklist",
+      "title": "Piper/PA-28-161 Warrior II/p28a_checklist_moorabbin.txt"
+    },
+    "transcription": {
+      "method": "format_conversion",
+      "date": "2026-08-14",
+      "converted_from": "doc"
+    },
+    "contributors": [
+      {
+        "name": "Open Checklists project",
+        "role": [
+          "transcriber"
+        ]
+      }
+    ],
+    "revision": {
+      "file_revision": "0.1.0",
+      "updated": "2026-08-14"
+    }
+  },
+  "verification": {
+    "source_fidelity": "unreviewed",
+    "operational_review": "none",
+    "completeness": "full",
+    "known_issues": [
+      {
+        "severity": "content_gap",
+        "description": "Section \"POWER OFF LANDING\" item count differs between passes (1 vs 3); verify nothing was dropped.",
+        "location": "POWER OFF LANDING"
+      }
+    ],
+    "reviews": [
+      {
+        "type": "source_comparison",
+        "reviewer": "ai-dual-pass-review",
+        "date": "2026-08-14",
+        "notes": "Automated AI review: two independent transcription passes + numeric/item-count disagreement resolution. Not human-verified; baseline for community correction."
+      }
+    ]
+  },
+  "rights": {
+    "status": "licensed",
+    "upstream_holder": "freechecklists.net",
+    "upstream_license": "content-reuse permission granted by the site author for this replacement project",
+    "notes": "Transcribed from the freechecklists.net archive under the author's reuse grant. Individual checklist wording may be substantially the source's; per-file contributor authorship is unknown."
+  },
+  "units": {
+    "airspeed": "kt",
+    "altitude": "ft",
+    "fuel": "l",
+    "weight": "kg",
+    "pressure": "inhg",
+    "temperature": "c"
+  },
+  "speeds": {
+    "vs1": 50,
+    "vs0": 44,
+    "vx": 63,
+    "vy": 79,
+    "vno": 126,
+    "vne": 160,
+    "vfe": 103,
+    "va": {
+      "min": 88,
+      "max": 111
+    },
+    "best_glide": 73,
+    "toss": 64,
+    "base": 70,
+    "threshold": 65,
+    "cruise_climb": 87,
+    "max_crosswind": 17
+  },
+  "sections": [
+    {
+      "id": "pre-start",
+      "phase": "before_start",
+      "title": "PRE START",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "Loose items stowed",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Seat adjusted",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Hatches and harnesses secure",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Trims through range set to take off",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "Flaps checked, set zero",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Park Brake on",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Fuel on left tank",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Carburetor Heat off",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Mixture idle cut off",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Throttle closed",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Instruments checked and set",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Avionics off",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Switches off",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Master on",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Circuit breakers in",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Controls full and free, correct sense",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "id": "start-checks",
+      "phase": "engine_start",
+      "title": "START CHECKS",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "Mixture rich",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Throttle 1 cm open",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Fuel pump on, check press & off",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Prime Cold – 5 times, Hot – 0 times",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Check “Clear Prop”",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Magnetos start",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "id": "after-start",
+      "phase": "after_start",
+      "title": "AFTER START",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "Throttle set 1000 rpm",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Oil pressure green within 30 secs",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Alternator on",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Ammeter positive charge",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Suction within limits",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Gyro instruments erection and sync",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Annunciators test & out",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Avionics on",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Beacon on",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Transponder STBY",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "id": "taxi-checks",
+      "phase": "taxi",
+      "title": "TAXI CHECKS",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "Brakes checked",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Instruments turning checks",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "id": "run-up-checks",
+      "phase": "before_takeoff",
+      "title": "RUN-UP CHECKS",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "Park brake on",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Fuel selector check tank",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Oil temp & pressure green arc",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Lookout all clear",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Throttle set 2000 rpm",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Oil temp & pressure green arc",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "Magnetos left, both, right, both",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Carb Heat on, check, drop then off",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Ammeter positive charge",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Suction 4.8” – 5.1” Hg",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Slow idle smooth running",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Throttle set 1000 rpm",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "id": "pre-to-vital-actions",
+      "phase": "before_takeoff",
+      "title": "PRE T/O VITAL ACTIONS",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "T trims set, throttle friction adjusted",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "M mixture rich",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "P primer – locked",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "F fuel on, contents checked",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "F 3 stages flap checked",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "I instruments checked and set",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "auto pilot checked",
+          "indent": 1,
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "S switches, as required",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "C controls full & free",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "H hatches & harnesses secure",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "id": "pre-line-up-checks",
+      "phase": "before_takeoff",
+      "title": "PRE LINE UP CHECKS",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "F fuel pump on, flaps set",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "I instruments, DG to runway heading",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "S switches, lights as required",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "T transponder to ALT",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "id": "after-to-checks",
+      "phase": "after_takeoff",
+      "title": "AFTER T/O CHECKS",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "Flaps retracted",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Power set as required",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Oil temp & pressure green arc",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Fuel pump off, pressure checked",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "id": "pre-manoeuvre-checks",
+      "phase": "cruise",
+      "title": "Pre manoeuvre checks",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "H Height",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "A Airframe",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "S Security",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "E Engine",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "L Location",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "L Lookout",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "id": "pre-landing-checks",
+      "phase": "before_landing",
+      "title": "PRE LANDING CHECKS",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "B Brakes, check pressure and off",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "U Undercarriage down",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "M Mixture rich",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "F Fuel pump on, press & contents",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "O Oil Temp & Pressure",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "C Carb Heat on",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "H Hatches & Harnesses secure",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "id": "after-landing-checks",
+      "phase": "after_landing",
+      "title": "AFTER LANDING CHECKS",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "Flaps retract",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Fuel Pump off",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Strobes off",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Transponder STBY",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Radio to SMC",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "id": "shutdown",
+      "phase": "shutdown",
+      "title": "SHUTDOWN",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "Park brake on",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Throttle set 1000 rpm",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Avionics off",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Beacon off",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Magnetos check for RPM drop",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Temp and pressure green arc",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Alternator off",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Mixture idle cut off",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Master off",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Magnetos off, key out",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Park brake release if tieing down",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "id": "post-flight",
+      "phase": "postflight",
+      "title": "POST FLIGHT",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "Controls secure",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Hatches secure",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Tie downs secured",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "id": "radio-frequencies",
+      "phase": "reference",
+      "title": "RADIO FREQUENCIES",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "MB GROUND 119.9 MHz",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "MB TOWER (EAST) 118.1 MHz",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "MB TOWER (WEST) 123.0 MHz",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "MB ATIS 398 or 120.9 MHz",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "EN GROUND 121.9 MHz",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "EN TOWER 125.1 MHz",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "EN ATIS 356 or 119.8 MHz",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "ML RAS 135.7 MHz",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "ML APP 124.7 MHz",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "ML DEP 118.9 or 129.4 MHz",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "ML TWR 120.5 MHz",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "ML SMC 121.7 MHz",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "ML ACD 127.2 MHz",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "ML ATIS 114.1 or 132.7 MHz",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "id": "engine-fire-during-start",
+      "phase": "engine_fire_ground",
+      "title": "ENGINE FIRE DURING START",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "Starter crank engine",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Mixture idle cut off",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Throttle open",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Electric fuel pump off",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Fuel selector off",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Abandon if fire continues",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "id": "engine-fire-in-flight",
+      "phase": "engine_fire_in_flight",
+      "title": "ENGINE FIRE IN FLIGHT",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "Mixture idle cut-off",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Throttle closed",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Fuel Pump off",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Fuel Selector off",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Heater off",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Defroster off",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Proceed with POWER OFF LANDING",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "id": "engine-failure-in-flight",
+      "phase": "engine_failure_in_flight",
+      "title": "ENGINE FAILURE IN FLIGHT",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "subtitle",
+          "text": "INITIAL ACTIONS:",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "CHECK FOR FIRE",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Throttle set 1/3 position",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Carburetor Heat on",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Mixture rich",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Fuel pump on",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Fuel selector change tanks",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "ASSESS WIND",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "SELECT FIELD",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "MAKE PLAN",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "subtitle",
+          "text": "TROUBLE CHECKS:",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Fuel on contents checked",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Mixture through range, set rich",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "Oil temps and pressure",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Switches check magnetos",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Throttle through range set 1/3 position",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "MAYDAY CALL",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "subtitle",
+          "text": "SHUTDOWN CHECKS:",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Brakes check pressure and off",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Undercarriage down",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Switches all off, fuel off",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Hatches and harnesses secure",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "id": "loss-of-oil-pressure-high-oil-temperature",
+      "phase": "oil_system_malfunction",
+      "title": "LOSS OF OIL PRESSURE / HIGH OIL TEMPERATURE",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "Land as soon as possible and investigate cause.",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Prepare for power off landing",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "id": "power-off-landing",
+      "phase": "forced_landing",
+      "title": "POWER OFF LANDING",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "note",
+          "text": "For other emergency procedures refer to section 3 of the Pilots Operating Handbook.",
+          "tickable": false,
+          "source_confidence": 0.5
+        }
+      ]
+    },
+    {
+      "id": "airspeeds",
+      "phase": "reference",
+      "title": "AIRSPEEDS",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "Basic Stall Speed (VS1) 50 KIAS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Stall with Flap (VS0) 44 KIAS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Best Climb Angle (VX) 63 KIAS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Best Climb Rate (VY) 79 KIAS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Cruise Climb (Normal) 87 KIAS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Flap Limit Speed (VFE) 103 KIAS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Threshold 65 KIAS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Manoeuvre Speed (VA) 88 - 111 KIAS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Flight Planning TAS 105 KTAS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Maximum Cruising (VNO) 126 KIAS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Never Exceed (VNE) 160 KIAS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Best Glide 73 KIAS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "TOSS 64 KIAS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Base 70 KIAS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Maximum Crosswind 17 KIAS",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "id": "weight-limitations",
+      "phase": "limitations",
+      "title": "WEIGHT LIMITATIONS",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "Max Takeoff Weight 1055 Kg Lb",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "Empty Weight: Refer flight manual",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Max Baggage Weight",
+          "tickable": true,
+          "source_confidence": 0.6
+        }
+      ]
+    },
+    {
+      "id": "fuel",
+      "phase": "reference",
+      "title": "FUEL",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "Type: 100 Octane Avgas (green) or 100 LL (blue)",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Quantity: Total 189 lt, Useable 181 lt (fuel flow at 75%)",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "Typical Consumption: 36 lt per hour",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Endurance with 45 min reserve intact: 5 hrs",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "id": "power-settings",
+      "phase": "reference",
+      "title": "POWER SETTINGS",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "Max RPM 2700 RPM",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Static RPM",
+          "tickable": true,
+          "source_confidence": 0.5
+        }
+      ]
+    },
+    {
+      "id": "engine",
+      "phase": "reference",
+      "title": "ENGINE",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "Avco Lycoming IO-320 D2A or D3G",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "4 cylinder, horizontally opposed, direct drive, air cooled, fuel injected",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Output: 160 Hp @ 2700 rpm",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "id": "oil",
+      "phase": "reference",
+      "title": "OIL",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "Type: Aviation grade D100",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Quantity: Max 8 US quarts, Min 6 US quarts (Company reqts)",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    }
+  ]
+}

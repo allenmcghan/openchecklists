@@ -1,0 +1,920 @@
+{
+  "open_checklist_version": "1.0",
+  "id": "fokker-100-max-fokker100-650-check",
+  "title": "Fokker 100 — MAX_Fokker100-650_Check",
+  "aircraft": {
+    "make": "Fokker",
+    "model": "100",
+    "category": "standard_normal"
+  },
+  "provenance": {
+    "source": {
+      "kind": "third_party_checklist",
+      "title": "Fokker/100/MAX_Fokker100-650_Check.txt"
+    },
+    "transcription": {
+      "method": "format_conversion",
+      "date": "2026-08-13",
+      "converted_from": "doc"
+    },
+    "contributors": [
+      {
+        "name": "Open Checklists project",
+        "role": [
+          "transcriber"
+        ]
+      }
+    ],
+    "revision": {
+      "file_revision": "0.1.0",
+      "updated": "2026-08-13"
+    }
+  },
+  "verification": {
+    "source_fidelity": "unreviewed",
+    "operational_review": "none",
+    "completeness": "full",
+    "known_issues": [
+      {
+        "severity": "content_gap",
+        "description": "Section \"TAKEOFF\" item count differs between passes (18 vs 19); verify nothing was dropped.",
+        "location": "TAKEOFF"
+      }
+    ],
+    "reviews": [
+      {
+        "type": "source_comparison",
+        "reviewer": "ai-dual-pass-review",
+        "date": "2026-08-14",
+        "notes": "Automated AI review: two independent transcription passes + numeric/item-count disagreement resolution. Not human-verified; baseline for community correction."
+      }
+    ]
+  },
+  "rights": {
+    "status": "licensed",
+    "upstream_holder": "freechecklists.net",
+    "upstream_license": "content-reuse permission granted by the site author for this replacement project",
+    "notes": "Transcribed from the freechecklists.net archive under the author's reuse grant. Individual checklist wording may be substantially the source's; per-file contributor authorship is unknown."
+  },
+  "sections": [
+    {
+      "phase": "before_start",
+      "title": "BEFORE START",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Seat Belt - No SMKG",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 0.65
+        },
+        {
+          "type": "action",
+          "text": "Fuel Quantity",
+          "response": "CHECKED",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Altimetars",
+          "response": "SET",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Ship's Papers",
+          "response": "ON BOARD",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "FMP",
+          "response": "SET",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "L-R FMS",
+          "response": "SET",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "MFDS/TRP",
+          "response": "SET",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Nav/Com",
+          "response": "SET",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Parking Brake",
+          "response": "SET",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "L-R Windows And Doors",
+          "response": "CLOSED",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "engine_start",
+      "title": "CLEARED FOR ENGINE START",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "ENG Anti-Icing",
+          "response": "Check OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Beacon",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Engine Panel",
+          "response": "SET",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Fuel Pumps",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Windows And Probe Heat",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Bleed Press",
+          "response": "CHECK",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Thrust Levers",
+          "response": "FWD IDLE",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Start Engines",
+          "tickable": true,
+          "source_confidence": 0.9
+        }
+      ]
+    },
+    {
+      "phase": "after_start",
+      "title": "AFTER START",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Anti-Icing",
+          "response": "SET",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Engine Panel",
+          "response": "CHECKED",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Alert Lights",
+          "response": "OUT",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Flaps",
+          "response": "SET FOR TAKEOFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Fuel Levers",
+          "response": "CHECKED OPEN",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Trims",
+          "response": "SET",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Door Selector",
+          "response": "AUTOMATIC",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "before_takeoff",
+      "title": "DURING TAXI/BEFORE TAKEOFF",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Flight Instruments",
+          "response": "CHECKED",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "FMP",
+          "response": "SET",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "ABS",
+          "response": "RTO",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Brake Temperatures",
+          "response": "CHECKED",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "TO Data And Breifing",
+          "response": "COMPLETED",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Flight Controls",
+          "response": "CHECKED",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Radar And Transponder",
+          "response": "AS REQUIRED",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "before_takeoff",
+      "title": "CLEARED FOR TAKEOFF",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "APU",
+          "response": "AS REQUIRED",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "TO Config",
+          "response": "CHECKED",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "takeoff",
+      "title": "TAKEOFF",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Brakes",
+          "response": "RELEASE",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Thrust Levers",
+          "response": "ADVANCE SMOOTHLY TO 40% N1",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Thrust Levers",
+          "response": "ADVANCE SMOOTHLY TO 100% N1",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "subtitle",
+          "text": "--or--",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "TO/GA Mode",
+          "detail": "Engage",
+          "tickable": true,
+          "source_confidence": 0.7
+        },
+        {
+          "type": "action",
+          "text": "Engine Instruments",
+          "response": "MONITOR",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Airspeed 80 KIAS",
+          "response": "CALLOUT \"80 KNOTS\"",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Airspeed V1",
+          "response": "CALLOUT \"V1\"",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Airspeed VR",
+          "response": "CALLOUT \"ROTATE\"",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Airspeed V2",
+          "response": "CALLOUT \"V2\"",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Landing Gear",
+          "response": "UP (WHEN POSITIVE CLIMB ESTABLISHED)",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Airspeed",
+          "response": "250 KIAS AT 3,000' AGL",
+          "detail": "MAINTAIN V2+20 KIAS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Autopilot",
+          "response": "ENGAGE AT 1,000' AGL",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Flaps",
+          "response": "UP AT 210 KIAS",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Autothrottle",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Thrust Levers",
+          "response": "90% N1",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Airspeed",
+          "response": "250 KIAS AT 3,000' AGL",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Landing Gear Lever",
+          "response": "Verify OFF",
+          "tickable": true,
+          "source_confidence": 0.5
+        }
+      ]
+    },
+    {
+      "phase": "after_takeoff",
+      "title": "AFTER TAKEOFF",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "MFDS",
+          "response": "CHECKED",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Altimeters",
+          "response": "SET",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "climb",
+      "title": "CLIMB",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Airspeed",
+          "response": "MAINTAIN 250 KIAS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Landing Lights",
+          "response": "OFF ABOVE 10,000' MSL",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Airspeed",
+          "response": "280 KIAS ABOVE 10,000' MSL",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Seat Belt",
+          "response": "OFF ABOVE 10,000' MSL",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "cruise",
+      "title": "CRUISE",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Thrust Levers",
+          "response": "AS DESIRED",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Trim",
+          "response": "AS NECESSARY",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "descent",
+      "title": "BEFORE APPROACH/DESCENT",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Seat Belt",
+          "response": "ON BELOW 10,000' MSL",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Landing Alt",
+          "response": "CHECKED",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Ignition",
+          "response": "AS REQUIRED",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "ABS",
+          "response": "AS REQUIRED",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "MFDS",
+          "response": "CHECKED",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Altimeters",
+          "response": "SET",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Landing Data/Approach Briefing",
+          "response": "COMPLETED",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Airspeed",
+          "response": "<250 KIAS BELOW 10,000' MSL",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Landing Lights",
+          "response": "ON BELOW 10,000' MSL",
+          "tickable": true,
+          "source_confidence": 0.5
+        }
+      ]
+    },
+    {
+      "phase": "approach",
+      "title": "APPROACH",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Airspeed",
+          "response": "AS DESIRED",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Thrust Levers",
+          "response": "AS DESIRED",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Flaps",
+          "response": "AS DESIRED",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Autopilot",
+          "response": "AS DESIRED",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "before_landing",
+      "title": "LANDING",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Landing Gear",
+          "response": "DOWN",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Flaps",
+          "response": "SET",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Lift Dampers",
+          "response": "ARMED",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "(use Shift+T)",
+          "tickable": false,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "landing",
+      "title": "LANDING ROLL",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Thrust Levers",
+          "response": "IDLE",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Autopilot",
+          "response": "CHECK DISENGAGED",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Autothrottle",
+          "response": "CHECK OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Lift Dumpers",
+          "response": "CHECK FULL UP",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Brake",
+          "response": "AS REQUIRED",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Thrust Levers",
+          "response": "REVERSE",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Thrust Levers",
+          "response": "IDLE AT 60 KIAS",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "after_landing",
+      "title": "TAXI-IN",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Lift Dumpers",
+          "response": "DOWN",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Flap Lever",
+          "response": "UP",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Pitot Heat",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Landing Lights",
+          "response": "AS DESIRED",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Flight Director",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Transponder",
+          "response": "AS REQUIRED",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "securing",
+      "title": "PARKING",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Parking Brake",
+          "response": "AS REQUIRED",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Door Selector",
+          "response": "MANUAL",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "APU",
+          "response": "AVAILABLE",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Speed Brake And Lift Dumpers",
+          "response": "IN",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Flaps",
+          "response": "SET",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "RADAR",
+          "response": "CHECK OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Anti-Icing",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Fuel Levers",
+          "response": "SHUT",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Flight Controls",
+          "response": "LOCKED",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Seat Belt",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Exterior Lights",
+          "response": "CHECK",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Fuel Pumps",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Air Conditioning",
+          "response": "SET",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "EFIS",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "MFDS",
+          "response": "CHECKED",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "shutdown",
+      "title": "FINAL STOP",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "APU",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "BATTERIES",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    }
+  ]
+}

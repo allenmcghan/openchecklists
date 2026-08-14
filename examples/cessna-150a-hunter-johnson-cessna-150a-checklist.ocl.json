@@ -1,0 +1,695 @@
+{
+  "open_checklist_version": "1.0",
+  "id": "cessna-150a-hunter-johnson-cessna-150a-checklist",
+  "title": "Cessna 150A — Hunter_Johnson_Cessna_150A_checklist",
+  "aircraft": {
+    "make": "Cessna",
+    "model": "150A",
+    "category": "standard_normal"
+  },
+  "provenance": {
+    "source": {
+      "kind": "third_party_checklist",
+      "title": "Cessna/150A/Hunter_Johnson_Cessna_150A_checklist.txt"
+    },
+    "transcription": {
+      "method": "format_conversion",
+      "date": "2026-08-13",
+      "converted_from": "doc"
+    },
+    "contributors": [
+      {
+        "name": "Open Checklists project",
+        "role": [
+          "transcriber"
+        ]
+      }
+    ],
+    "revision": {
+      "file_revision": "0.1.0",
+      "updated": "2026-08-13"
+    }
+  },
+  "verification": {
+    "source_fidelity": "unreviewed",
+    "operational_review": "none",
+    "completeness": "full",
+    "known_issues": [],
+    "reviews": [
+      {
+        "type": "source_comparison",
+        "reviewer": "ai-dual-pass-review",
+        "date": "2026-08-14",
+        "notes": "Automated AI review: two independent transcription passes + numeric/item-count disagreement resolution. Not human-verified; baseline for community correction."
+      }
+    ]
+  },
+  "rights": {
+    "status": "licensed",
+    "upstream_holder": "freechecklists.net",
+    "upstream_license": "content-reuse permission granted by the site author for this replacement project",
+    "notes": "Transcribed from the freechecklists.net archive under the author's reuse grant. Individual checklist wording may be substantially the source's; per-file contributor authorship is unknown."
+  },
+  "units": {
+    "airspeed": "mph",
+    "altitude": "ft",
+    "fuel": "usgal",
+    "pressure": "inhg",
+    "temperature": "f"
+  },
+  "speeds": {
+    "normal_takeoff_rotation": 50,
+    "normal_takeoff_climb": 70,
+    "short_field_climb": 70,
+    "enroute_climb_min": 70,
+    "enroute_climb_max": 75,
+    "normal_landing_min": 70,
+    "normal_landing_max": 75,
+    "short_field_landing_approach": 65,
+    "balked_landing_climb": 70,
+    "flap_operating_max": 80
+  },
+  "sections": [
+    {
+      "phase": "before_start",
+      "title": "Before Starting Engine",
+      "items": [
+        {
+          "type": "action",
+          "text": "Preflight",
+          "response": "COMPLETE",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Seats, Belts",
+          "response": "ADJUST and LOCK",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Fuel Shutoff Valve",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Radios, Elec. Equip.",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Brakes",
+          "response": "TEST and SET",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Fuses",
+          "response": "CHECK",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "engine_start",
+      "title": "Starting Engine",
+      "items": [
+        {
+          "type": "action",
+          "text": "Mixture",
+          "response": "RICH",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Carb. Heat",
+          "response": "COLD",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Prime",
+          "response": "4 SHOTS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "¼ Inch Open",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Propeller Area",
+          "response": "CLEAR",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Master Switch",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Magnetos",
+          "response": "BOTH",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Starter Handle",
+          "response": "PULL",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "1,000RPM",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Oil Pressure",
+          "response": "CHECK",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "before_takeoff",
+      "title": "Before Takeoff",
+      "items": [
+        {
+          "type": "action",
+          "text": "Parking Brake",
+          "response": "SET",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Cabin Doors",
+          "response": "CLOSED and LATCHED",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Flight Controls",
+          "response": "FREE and CORRECT",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Flight Instruments",
+          "response": "SET",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Fuel Shutoff Valve",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Mixture",
+          "response": "RICH",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Elevator Trim",
+          "response": "SET FOR TAKEOFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "1700RPM",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Magnetos",
+          "response": "CHECK (less than 125PRM)",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Carb. Heat",
+          "response": "Check (for RPM drop)",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Engine Instruments",
+          "response": "CHECK",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Generator Light",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Suction Gauge",
+          "response": "CHECK",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Radios",
+          "response": "SET",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Flashing Bcn, Nav. Lights",
+          "response": "ON (as req’d)",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Throttle Friction Lock",
+          "response": "ADJUST",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Brakes",
+          "response": "RELEASE",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "takeoff",
+      "title": "Takeoff",
+      "items": [
+        {
+          "type": "subtitle",
+          "text": "Normal Takeoff",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Wing Flaps",
+          "response": "0-10 DEGREES",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Carb. Heat",
+          "response": "COLD",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "FULL OPEN",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Elevator",
+          "response": "LIFT NOSE at 50MPH",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Climb Speed",
+          "response": "70MPH",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "takeoff",
+      "title": "Short-Field Takeoff",
+      "items": [
+        {
+          "type": "action",
+          "text": "Wing Flaps",
+          "response": "10 DEGREES",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Carb. Heat",
+          "response": "COLD",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Brakes",
+          "response": "APPLY",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "FULL OPEN",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Mixture",
+          "response": "RICH",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Brakes",
+          "response": "RELEASE",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Elevator",
+          "response": "SLIGHTLY TAIL LOW",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Climb Speed",
+          "response": "70MPH (until Clear of obstacles)",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Wing Flaps",
+          "response": "RETRACT (slowly, in increments)",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "climb",
+      "title": "Enroute Climb",
+      "items": [
+        {
+          "type": "action",
+          "text": "Airspeed",
+          "response": "70-75MPH",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "FULL OPEN",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Mixture",
+          "response": "RICH (below 3000ft)",
+          "tickable": true,
+          "source_confidence": 0.5
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "cruise",
+      "title": "Cruise",
+      "items": [
+        {
+          "type": "action",
+          "text": "Power",
+          "response": "1900-2550PRM (no more than 75%)",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Elevator Trim",
+          "response": "ADJUST",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Mixture",
+          "response": "LEAN (above 3000ft)",
+          "tickable": true,
+          "source_confidence": 0.5
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "before_landing",
+      "title": "Before Landing",
+      "items": [
+        {
+          "type": "action",
+          "text": "Seats, Belts",
+          "response": "ADJUST and LOCK",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Carb. Heat",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "landing",
+      "title": "Landing",
+      "items": [
+        {
+          "type": "subtitle",
+          "text": "Normal Landing",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Airspeed",
+          "response": "70-75MPH",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Wing Flaps",
+          "response": "AS DESIRED (under 80MPH)",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Pitch",
+          "response": "for 70MPH (on final)",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "landing",
+      "title": "Short-Field Landing",
+      "items": [
+        {
+          "type": "action",
+          "text": "Airspeed",
+          "response": "70-75MPH",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Wing Flaps",
+          "response": "30 Degrees (under 80MPH)",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Airspeed",
+          "response": "65MPH",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Power",
+          "response": "REDUCE to idle",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "go_around",
+      "title": "Balked Landing",
+      "items": [
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "FULL OPEN",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Carb. Heat",
+          "response": "COLD",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Wing Flaps",
+          "response": "RETRACT to 20 Degrees",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Airspeed",
+          "response": "70MPH",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Wing Flaps",
+          "response": "RETRACT (slowly)",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "after_landing",
+      "title": "After Landing",
+      "items": [
+        {
+          "type": "action",
+          "text": "Wing Flaps",
+          "response": "UP",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Carb. Heat",
+          "response": "COLD",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "securing",
+      "title": "Securing Airplane",
+      "items": [
+        {
+          "type": "action",
+          "text": "Radios, Elec. Equip.",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Mixture",
+          "response": "IDLE CUT-OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Magneto Switch",
+          "response": "OFF (key out)",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Master Switch",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Control Lock",
+          "response": "INSTALL",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ],
+      "criticality": "normal"
+    }
+  ]
+}

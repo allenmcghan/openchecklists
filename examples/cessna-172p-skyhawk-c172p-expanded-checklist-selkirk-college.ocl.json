@@ -1,0 +1,1332 @@
+{
+  "open_checklist_version": "1.0",
+  "id": "cessna-172p-skyhawk-c172p-expanded-checklist-selkirk-college",
+  "title": "Cessna 172P Skyhawk — c172p_expanded_checklist_selkirk_college",
+  "aircraft": {
+    "make": "Cessna",
+    "model": "172P Skyhawk",
+    "category": "standard_normal"
+  },
+  "provenance": {
+    "source": {
+      "kind": "third_party_checklist",
+      "title": "Cessna/172P Skyhawk/c172p_expanded_checklist_selkirk_college.txt"
+    },
+    "transcription": {
+      "method": "format_conversion",
+      "date": "2026-08-13",
+      "converted_from": "doc"
+    },
+    "contributors": [
+      {
+        "name": "Open Checklists project",
+        "role": [
+          "transcriber"
+        ]
+      }
+    ],
+    "revision": {
+      "file_revision": "0.1.0",
+      "updated": "2026-08-13"
+    }
+  },
+  "verification": {
+    "source_fidelity": "unreviewed",
+    "operational_review": "none",
+    "completeness": "full",
+    "known_issues": [
+      {
+        "severity": "content_gap",
+        "description": "Section \"Post-Start\" item count differs between passes (29 vs 9); verify nothing was dropped.",
+        "location": "Post-Start"
+      }
+    ],
+    "reviews": [
+      {
+        "type": "source_comparison",
+        "reviewer": "ai-dual-pass-review",
+        "date": "2026-08-14",
+        "notes": "Automated AI review: two independent transcription passes + numeric/item-count disagreement resolution. Not human-verified; baseline for community correction."
+      }
+    ]
+  },
+  "rights": {
+    "status": "licensed",
+    "upstream_holder": "freechecklists.net",
+    "upstream_license": "content-reuse permission granted by the site author for this replacement project",
+    "notes": "Transcribed from the freechecklists.net archive under the author's reuse grant. Individual checklist wording may be substantially the source's; per-file contributor authorship is unknown."
+  },
+  "units": {
+    "airspeed": "kt",
+    "altitude": "ft",
+    "fuel": "usgal",
+    "weight": "lb",
+    "pressure": "inhg",
+    "temperature": "c"
+  },
+  "speeds": {},
+  "sections": [
+    {
+      "phase": "before_start",
+      "title": "Before Start",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "note",
+          "text": "NOTE: A * A means both pilots respond, normally left seat first",
+          "tickable": false,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "PASSENGER BRIEFING",
+          "response": "COMPLETED (AS REQUIRED)",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "note",
+          "text": "When carrying NON-PILOT passengers complete a briefing which covers:",
+          "tickable": false,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "The location and use of emergency exits, emergency locator transmitter and fire extinguisher.",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "No smoking",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "Use of seat belts",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "Operation of main door, intercom, lights if applicable",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "Actions to take in the unlikely event of an emergency",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "Other items for use in an emergency.",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "note",
+          "text": "When carrying Non-Selair pilots complete a briefing which covers:",
+          "tickable": false,
+          "source_confidence": 0.8
+        },
+        {
+          "type": "challenge",
+          "text": "The location and operation of all exits",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "No smoking",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "Use of seat belts",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "Location of ELT",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "Operation of intercom",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "Any operational duties expected of the Aguest pilot@.",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 0.6
+        },
+        {
+          "type": "action",
+          "text": "DISPATCH LOG",
+          "response": "COMPLETED",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "LOGS & DOCUMENTS",
+          "response": "ON BOARD & VALID",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "SEATS & BELTS",
+          "response": "LOCKED & SECURE *",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "note",
+          "text": "Make sure the seat is positioned to allow for proper rudder movement. Ensure seat locking pins are engaged and confirm this by making a twisting motion.",
+          "tickable": false,
+          "indent": 1,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "note",
+          "text": "Lap belt and shoulder harness can be loose enough to reach all required items in the cockpit at this point and will be tightened further on the Pre-Takeoff check.",
+          "tickable": false,
+          "indent": 1,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "CONTROLS",
+          "response": "FREE & CORRECT",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "note",
+          "text": "Perform the Abox check@ starting with a left turn",
+          "tickable": false,
+          "indent": 1,
+          "source_confidence": 0.6
+        },
+        {
+          "type": "action",
+          "text": "PARKING BRAKE",
+          "response": "SET",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "note",
+          "text": "Depress the brake pedals and hold while setting park brake",
+          "tickable": false,
+          "indent": 1,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "CIRCUIT BREAKERS",
+          "response": "ALL IN",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "note",
+          "text": "Any CBs locked in the out position and labelled >unserviceable maintenance= are to be left out",
+          "tickable": false,
+          "indent": 1,
+          "source_confidence": 0.7
+        },
+        {
+          "type": "action",
+          "text": "ELECTRICS",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "note",
+          "text": "Turn all the white electric switches on the left sub-panel off",
+          "tickable": false,
+          "indent": 1,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "note",
+          "text": "Turn off the rheostat for the panel and radio lights (rotate counter clockwise)",
+          "tickable": false,
+          "indent": 1,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "note",
+          "text": "Turn off the map light on the left door post. (Note: this maybe be left on for a night start)",
+          "tickable": false,
+          "indent": 1,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "note",
+          "text": "Turn off the dome/courtesy light on the overhead panel",
+          "tickable": false,
+          "indent": 1,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "AVIONICS SWITCH",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "MASTER",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "AVIONICS",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "note",
+          "text": "Confirm the radios are not on. Look at the radios to see that the LEDs are not lit up.",
+          "tickable": false,
+          "indent": 1,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "AVIONICS FAN",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "note",
+          "text": "Listen for the fan",
+          "tickable": false,
+          "indent": 1,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "BEACON",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "LOW VOLTAGE LIGHT",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "note",
+          "text": "If the low voltage light does not come on, turn on additional ELECTRICS. The light should be on within 10 seconds.",
+          "tickable": false,
+          "indent": 1,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "AMMETER",
+          "response": "CHECKED",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "note",
+          "text": "The ammeter should show a slight discharge. The reading may be fluctuating slightly in synchronization with the flashing of the beacon.",
+          "tickable": false,
+          "indent": 1,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FUEL",
+          "response": "QUANTITY CHECKED, ON LEFT",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "FLAPS",
+          "response": "UP",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "note",
+          "text": "Normal flap operations should have been checked on the walk around prior to the flight. If not then check that the flaps will stop at each intermediate setting during the retraction.",
+          "tickable": false,
+          "indent": 1,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "phase": "engine_start",
+      "title": "Engine Start",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "MIXTURE",
+          "response": "FULL RICH",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "PRIMER",
+          "response": "PRIMED & LOCKED",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "note",
+          "text": "Prime zero to three strokes for normal operation in OAT greater than zero. Prime more than three strokes for cold starts in OAT less than zero, but have fire guard standing by. Do not prime more than six strokes.",
+          "tickable": false,
+          "indent": 1,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "THROTTLE",
+          "response": "SET",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "note",
+          "text": "If starting without using any prime (engine warm), set the throttle to the idle stop (fully closed). If starting with prime, set the throttle to one quarter inch from the idle stop.",
+          "tickable": false,
+          "indent": 1,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "ENGINE (START)",
+          "response": "STARTED",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "note",
+          "text": "Call ACLEAR@ out the window loud enough to be heard just prior to cranking the engine. Crank the engine for no more than 30 seconds. Once the engine starts adjust the throttle to achieve 800 to 1000 RPM, depending on temperature of engine. Wait for the oil pressure to rise and stabilize - SHUT DOWN IF NO OIL PRESSURE WITHIN 30 SECONDS. Once the oil pressure has stabilized adjust the throttle to 1000 RPM. DURING COLD WEATHER, SET RPM 700-800 FOR ENGINE WARM-UP.",
+          "tickable": false,
+          "indent": 1,
+          "source_confidence": 0.8
+        },
+        {
+          "type": "action",
+          "text": "OIL PRESSURE",
+          "response": "NORMAL",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "AMMETER",
+          "response": "CHECKED",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "note",
+          "text": "If the start required cranking for more than 5 to 10 seconds expect approximately half scale deflection of the ammeter. The ammeter should return to within one needle width of the centre within 2 minutes or less after start.",
+          "tickable": false,
+          "indent": 1,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "SUCTION",
+          "response": "CHECKED",
+          "tickable": true,
+          "source_confidence": 0.98
+        }
+      ]
+    },
+    {
+      "phase": "after_start",
+      "title": "Post-Start",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "AVIONICS SWITCH",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "ELECTRICS",
+          "response": "ON (AS REQUIRED)",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "ELT",
+          "response": "CHECKED",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "note",
+          "text": "Select 121.5 and turn the volume DOWN to a minimum. Pull the volume/squelch knob out. Turn up the volume until reaching a comfortable listening level. Check for an ELT tone, then push in the squelch.",
+          "tickable": false,
+          "indent": 1,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "INSTRUMENT PANEL",
+          "response": "PANEL CHECKED",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "note",
+          "text": "Scan the panel from left to right and top to bottom. Check and set all instruments:",
+          "tickable": false,
+          "indent": 1,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "Clock set (universal time)",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "ASI on zero",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "Attitude indicator set to eye level",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "Altimeter works normally and set to field elevation",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "RPM set",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "Ammeter normal",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "Engine gauges normal",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "Turn coordinator normal",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "Set Heading Indicator (remember to use the compass card)",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "VSI reads zero",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "Adjust cabin heat/defrost as required",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "RADIOS",
+          "response": "RADIOS CHECKED",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "note",
+          "text": "Get ATIS first if available",
+          "tickable": false,
+          "indent": 1,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "Marker beacons push to test and set audio",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "All other audio panel switches set as required",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "Intercom set as required",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "Comm radios volumes set as required, set to Ground, MF or ATF",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "VORs checked (VOT preferred or other test if VOT unavailable)",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "ILS/LOC test",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "ADF test",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "DME test (maybe be done with VOR or ILS test if more convenient)",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "Transponder test",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FUEL SELECTOR",
+          "response": "QUANTITY CHECKED, ON RIGHT",
+          "tickable": true,
+          "source_confidence": 0.98
+        }
+      ]
+    },
+    {
+      "phase": "taxi",
+      "title": "Taxi",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "BRAKES",
+          "response": "CHECKED",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "INSTRUMENTS",
+          "response": "CHECKED",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "note",
+          "text": "If operating single-pilot, the taxi check list is NOT to be read while taxiing. Instead, the brakes and instruments will be checked while taxiing and then the check list will be read once the aircraft is parked in the run-up area.",
+          "tickable": false,
+          "indent": 1,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "phase": "before_takeoff",
+      "title": "Run-Up",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "PARKING BRAKE",
+          "response": "SET",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "THROTTLE",
+          "response": "1000",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FUEL SELECTOR",
+          "response": "QUANTITY CHECKED, ON BOTH",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "ENGINE GUAGES",
+          "response": "NORMAL",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "note",
+          "text": "It is normal to have no oil temperature showing at this point. As long as the engine reacts smoothly to the throttle the run-up can be continued.",
+          "tickable": false,
+          "indent": 1,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "THROTTLE",
+          "response": "1700",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "ENGINE GAUGES",
+          "response": "NORMAL",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "SUCTION",
+          "response": "NORMAL",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "MIXTURE",
+          "response": "CHECKED",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "note",
+          "text": "Slowly pull out the mixture control (use the vernier when close to the required setting) until a slight loss of RPM is detected. This confirms that the mixture is working. Return the mixture to full rich.",
+          "tickable": false,
+          "indent": 1,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "CARB HEAT",
+          "response": "CHECKED",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "note",
+          "text": "Pull out the Carb Heat knob and check for a small loss of RPM. Leave the Carb Heat on for at least 10 seconds and ensure that the RPM remains stable. Any rise in RPM is an indication that ice is present. Leave the Carb Heat on until the rise stops and then leave it on for at least a further 10 seconds. Return the Carb Heat to the cold position.",
+          "tickable": false,
+          "indent": 1,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "MAGNETOS",
+          "response": "CHECKED",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "note",
+          "text": "Maximum drop 125 RPM. Maximum differential 50 RPM",
+          "tickable": false,
+          "indent": 1,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "THROTTLE",
+          "response": "IDLE CHECKED",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "note",
+          "text": "Pull Carb Heat hot. Slowly reduce the throttle all the way to idle. Check that the oil pressure drops smoothly while the RPM decreases. Check the idle is set between 500 and 700 RPM with the Carb Heat hot. Check ammeter/alternator operation - normally the alternator will still produce enough current to maintain positive ammeter reading at idle but it is acceptable if the ammeter becomes negative at this point and the low voltage light comes on, as long as the ammeter returns to positive and the light goes out when the RPM is returned to 1000.",
+          "tickable": false,
+          "indent": 1,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "THROTTLE",
+          "response": "1000, CARB HEAT COLD",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "note",
+          "text": "Return the rpm to 900, put the carb heat to the cold position and adjust the rpm if needed to 1000.",
+          "tickable": false,
+          "indent": 1,
+          "source_confidence": 0.9
+        }
+      ]
+    },
+    {
+      "phase": "before_takeoff",
+      "title": "Pre-Takeoff",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "SEAT & BELTS",
+          "response": "LOCKED & SECURE *",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "note",
+          "text": "Shoulder harness should now be snugged so that no more than a 3 to 4 inch gap remains between the harness and chest. The lap belt should be snug.",
+          "tickable": false,
+          "indent": 1,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "CONTROLS",
+          "response": "FREE",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "TRIMS",
+          "response": "________SET",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "note",
+          "text": "SPD and SPY have Arudder trim@. On these aircraft the rudder trim should be adjusted to neutral for takeoff. The elevator trim should be adjusted to the takeoff mark on the scale, this will not necessarily be neutral as viewed out the rear window. Once set, the call will be A ONE SET@ or ATWO SET@ as the case may be.",
+          "tickable": false,
+          "indent": 1,
+          "source_confidence": 0.6
+        },
+        {
+          "type": "action",
+          "text": "FUEL SELECTOR",
+          "response": "QUANTITY CHECKED, ON BOTH",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "FLAPS",
+          "response": "SET FOR TAKEOFF",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "note",
+          "text": "Normal takeoffs are with 0Ε flap, short or soft fields with 10Ε.",
+          "tickable": false,
+          "indent": 1,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "ALTERNATE STATIC",
+          "response": "CHECKED & OFF",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "note",
+          "text": "Select Alternate Static on, usually there is a slight jump in the VSI and Altimeter when Alternate Static is selected. However, the primary concern is to allow the instruments to stabilize and check that they read the same values on the alternate source as on the primary source.",
+          "tickable": false,
+          "indent": 1,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "MIXTURE",
+          "response": "FULL RICH",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "THROTTLE TENSION",
+          "response": "SET",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "CARB HEAT",
+          "response": "COLD",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "CIRCUIT BREAKERS",
+          "response": "ALL IN",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "PRIMER",
+          "response": "LOCKED",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "ENGINE GAUGES",
+          "response": "NORMAL",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "ALTIMETER",
+          "response": "_________SET",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "CLOCK",
+          "response": "_________CHECKED",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "HEADING INDICATOR",
+          "response": "CHECKED & SET",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "IFR CLEARANCE",
+          "response": "CLEARANCE REVIEWED",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "CREW BRIEFING",
+          "response": "BRIEFING COMPLETE",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "note",
+          "text": "At this point in the checklist call A DOWN TO THE LINE@. Any takeoff clearance required should be received at this time.",
+          "tickable": false,
+          "source_confidence": 0.8
+        },
+        {
+          "type": "note",
+          "text": "A lookout for traffic should be completed; some items may be selected as required while waiting for traffic. The remaining items are then completed while taxiing to position. IF REQUESTING TAKE-OFF CLEARANCE FROM A TOWER, YOU SHOULD BE READY FOR TAKE-OFF!",
+          "tickable": false,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "DOORS & WINDOWS",
+          "response": "CLOSED & LOCKED *",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "PITOT HEAT",
+          "response": "ON OR OFF (AS REQUIRED)",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "note",
+          "text": "Pitot heat will be on for any IFR flight. Pitot heat is not required for VFR flight unless ice conditions are suspected or encountered. In any case of doubt, turn on the pitot heat on.",
+          "tickable": false,
+          "indent": 1,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "LANDING LIGHT",
+          "response": "ON OR OFF (AS REQUIRED)",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "note",
+          "text": "The landing light will NOT be used for daytime flight unless the pulse light is unserviceable. The landing light should be on for night takeoffs and landings unless selected off for training purposes.",
+          "tickable": false,
+          "indent": 1,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "STROBES",
+          "response": "ON (IF EQUIPPED)",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "PULSE LIGHT",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "TRANSPONDER",
+          "response": "ON ALT______________",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "TIME",
+          "response": "NOTED",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "HEADING INDICATOR",
+          "response": "CHECKED ON RUNWAY",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "note",
+          "text": "If set accurately the heading indicator should read the runway heading when lined up for takeoff. Small errors less than 5Ε can be accepted. Larger errors should be investigated before attempting either instrument flight or cross-country navigation.",
+          "tickable": false,
+          "indent": 1,
+          "source_confidence": 0.5
+        }
+      ]
+    },
+    {
+      "phase": "after_takeoff",
+      "title": "Post-Takeoff",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "FLAPS",
+          "response": "UP",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "ENGINE GAUGES",
+          "response": "NORMAL",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "LANDING LIGHT",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "note",
+          "text": "The Post-Takeoff checklist is not to be read until well clear of airport circuit area.",
+          "tickable": false,
+          "indent": 1,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "phase": "before_landing",
+      "title": "Pre-Landing",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "SEATS & BELTS",
+          "response": "LOCKED & SECURE *",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "BRAKES",
+          "response": "CHECKED & OFF",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "note",
+          "text": "Ensure that the parking brake is in the off position, then press the toe-brake pedals and ensure that normal pressure is felt.",
+          "tickable": false,
+          "indent": 1,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FUEL SELECTOR",
+          "response": "QUANTITY CHECKED, ON BOTH",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "MIXTURE",
+          "response": "FULL RICH",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "CARB HEAT",
+          "response": "HOT",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "ELECTRICS",
+          "response": "ON (AS REQUIRED)",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "MAGNETOS",
+          "response": "ON BOTH",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "LANDING LIGHT",
+          "response": "ON OR OFF (AS REQUIRED)",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "note",
+          "text": "The landing light is not normally used for day landings since it overrides the pulse light, but should normally be used for night landings. If, for training purposes, the landing is to be conducted without a landing light, then the pulse light should also be turned off.",
+          "tickable": false,
+          "indent": 1,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "phase": "after_landing",
+      "title": "Post-Landing",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "FLAPS",
+          "response": "UP",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "CARB HEAT",
+          "response": "COLD",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "TRANSPONDER",
+          "response": "STANDBY",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "MINIMUM ELECTRICS",
+          "response": "SET",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "note",
+          "text": "Turn off all electrics, except for the beacon, for day operations. Additional electrics, as required, can be kept on for night operations.",
+          "tickable": false,
+          "indent": 1,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "phase": "shutdown",
+      "title": "Shut-Down",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "PARKING BRAKE",
+          "response": "SET",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "THROTTLE",
+          "response": "1000",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "ELT",
+          "response": "CHECKED",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "ELECTRICS",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "MASTER",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "THROTTLE",
+          "response": "IDLE",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "LIVE MAG",
+          "response": "CHECKED",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "note",
+          "text": "Slowly select first right then left magneto confirming that the engine runs on each individual selection. Select the mags to OFF then quickly back to BOTH. The engine should begin to quit, if it does not, there may be a live mag which MUST be checked before further flight. Have all ground handlers warned about the hazard immediately.",
+          "tickable": false,
+          "indent": 1,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "MIXTURE",
+          "response": "IDLE CUT-OFF",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "MAGNETOS",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "FUEL SELECTOR",
+          "response": "ON LEFT",
+          "tickable": true,
+          "source_confidence": 0.98
+        }
+      ]
+    }
+  ]
+}

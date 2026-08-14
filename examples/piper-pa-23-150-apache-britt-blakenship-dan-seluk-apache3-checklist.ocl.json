@@ -1,0 +1,4105 @@
+{
+  "open_checklist_version": "1.0",
+  "id": "piper-pa-23-150-apache-britt-blakenship-dan-seluk-apache3-checklist",
+  "title": "Piper PA-23-150 Apache — Britt_Blakenship_Dan_Seluk_APACHE3_Checklist",
+  "aircraft": {
+    "make": "Piper",
+    "model": "PA-23-150 Apache",
+    "category": "standard_normal"
+  },
+  "provenance": {
+    "source": {
+      "kind": "third_party_checklist",
+      "title": "Piper/PA-23-150 Apache/Britt_Blakenship_Dan_Seluk_APACHE3_Checklist.txt"
+    },
+    "transcription": {
+      "method": "format_conversion",
+      "date": "2026-08-14",
+      "converted_from": "doc"
+    },
+    "contributors": [
+      {
+        "name": "Open Checklists project",
+        "role": [
+          "transcriber"
+        ]
+      }
+    ],
+    "revision": {
+      "file_revision": "0.1.0",
+      "updated": "2026-08-14"
+    }
+  },
+  "verification": {
+    "source_fidelity": "unreviewed",
+    "operational_review": "none",
+    "completeness": "full",
+    "known_issues": [
+      {
+        "severity": "content_gap",
+        "description": "Section \"Captain's Brief\" item count differs between passes (3 vs 7); verify nothing was dropped.",
+        "location": "Captain's Brief"
+      },
+      {
+        "severity": "content_gap",
+        "description": "Section \"Drag Demonstration (MEI Only)\" item count differs between passes (16 vs 18); verify nothing was dropped.",
+        "location": "Drag Demonstration (MEI Only)"
+      },
+      {
+        "severity": "content_gap",
+        "description": "Section \"Engine Failure in Flight Above VMC\" item count differs between passes (17 vs 18); verify nothing was dropped.",
+        "location": "Engine Failure in Flight Above VMC"
+      },
+      {
+        "severity": "content_gap",
+        "description": "Section \"Power Off Stall - (Dirty)\" item count differs between passes (16 vs 18); verify nothing was dropped.",
+        "location": "Power Off Stall - (Dirty)"
+      },
+      {
+        "severity": "content_gap",
+        "description": "Section \"Power On Stall - (Clean)\" item count differs between passes (15 vs 16); verify nothing was dropped.",
+        "location": "Power On Stall - (Clean)"
+      },
+      {
+        "severity": "content_gap",
+        "description": "Section \"Slow Flight\" item count differs between passes (17 vs 19); verify nothing was dropped.",
+        "location": "Slow Flight"
+      },
+      {
+        "severity": "content_gap",
+        "description": "Section \"Steep Power Turns\" item count differs between passes (11 vs 12); verify nothing was dropped.",
+        "location": "Steep Power Turns"
+      }
+    ],
+    "reviews": [
+      {
+        "type": "source_comparison",
+        "reviewer": "ai-dual-pass-review",
+        "date": "2026-08-14",
+        "notes": "Automated AI review: two independent transcription passes + numeric/item-count disagreement resolution. Not human-verified; baseline for community correction."
+      }
+    ]
+  },
+  "rights": {
+    "status": "licensed",
+    "upstream_holder": "freechecklists.net",
+    "upstream_license": "content-reuse permission granted by the site author for this replacement project",
+    "notes": "Transcribed from the freechecklists.net archive under the author's reuse grant. Individual checklist wording may be substantially the source's; per-file contributor authorship is unknown."
+  },
+  "units": {
+    "airspeed": "kt",
+    "altitude": "ft",
+    "fuel": "usgal",
+    "weight": "lb",
+    "pressure": "inhg",
+    "temperature": "f"
+  },
+  "speeds": {
+    "vso": 53,
+    "vs1": 57,
+    "vmc": 68,
+    "vx": 66,
+    "vxse": 74,
+    "vyse": 83,
+    "vy": 87,
+    "vfe": 87,
+    "va": 108,
+    "vle": 108,
+    "vno": 143,
+    "vne": 181,
+    "vlo": 108
+  },
+  "sections": [
+    {
+      "phase": "preflight_inspection",
+      "title": "Preparation",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "AIRPLANE STATUS",
+          "response": "A.R.R.O.W.",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "BAGGAGE",
+          "response": "Secure",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "WEIGHT",
+          "response": "Within Envelope",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "CHARTS & NAV EQUIP.",
+          "response": "Check",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "MIKE AND HEADS.",
+          "response": "Check",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "PERFORMANCE",
+          "response": "Computed",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "phase": "preflight_inspection",
+      "title": "Preflight — Inside Cabin",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "MAG. SWITCHES",
+          "response": "Off",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "MASTER SWITCH",
+          "response": "Off",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "PARKING BRAKE",
+          "response": "Set",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FLAPS",
+          "response": "Lower 1/2 with hand pump",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "CROSSFEED",
+          "response": "Check & off",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "phase": "preflight_inspection",
+      "title": "Preflight — Right Wing",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "FLAP",
+          "response": "Security, dents, nicks, rivets, cracks, hinges",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "AILERONS",
+          "response": "Security, dents, nicks, rivets, cracks, hinges",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "WING TIP",
+          "response": "Dents and cracks",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "POSITION LIGHTS",
+          "response": "Secure",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "LEADING EDGE",
+          "response": "Dents",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FUEL",
+          "response": "Visually check quantity, gas caps and cover plates",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "OIL",
+          "response": "Visually check quantity, min. 6 qts.",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "PROPELLER",
+          "response": "Nicks, cracks",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "AIR INLET",
+          "response": "No obstructions, generator and belt",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "COWLING",
+          "response": "Fasteners secure and dents",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "GEAR LEG",
+          "response": "Oleo strut 2 1/2\" to 3\"",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "TIRE",
+          "response": "Inflation, slippage, wear",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "CHOCKS",
+          "response": "Remove",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "GEAR WELL AND DOORS",
+          "response": "Oil leaks, hinges, security",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FUEL SUMP",
+          "response": "Sample fuel, check drain",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "phase": "preflight_inspection",
+      "title": "Preflight — Nose",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "NOSE GEAR",
+          "response": "Oleo strut 2 1/2\" - 3\"",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "GEAR WELL & DOORS",
+          "response": "Security, hinges, springs, oil leaks",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "LANDING LIGHT",
+          "response": "Secure",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "TIRE",
+          "response": "Inflation, slippage, wear",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "CHOCKS",
+          "response": "Remove",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "ANTENNA",
+          "response": "Secure",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "phase": "preflight_inspection",
+      "title": "Preflight — Left Wing",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "STATIC AIR INLET",
+          "response": "Clean, no obstructions",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "OIL",
+          "response": "Visually check quantity, 6 qts. min.",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "PROPELLER",
+          "response": "Nicks and cracks",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "AIR INLET",
+          "response": "No obstructions",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "GEAR LEG",
+          "response": "Oleo strut 2 1/2\" to 3\"",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "TIRE",
+          "response": "Inflation, slippage and wear",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "GEAR WELL & DOORS",
+          "response": "Oil leaks, hinges, area",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "CHOCKS",
+          "response": "Remove",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FUEL",
+          "response": "Visually check quantity, caps and cover plates",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "LEADING EDGE",
+          "response": "Dents",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "PITOT TUBE",
+          "response": "Cover removed, obstructions",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "WING TIP",
+          "response": "Dents, cracks",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "POSITION LIGHT",
+          "response": "Secure",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "AILERON",
+          "response": "Area, dents, nicks, popped rivets, cracks, hinges",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "phase": "preflight_inspection",
+      "title": "Preflight — Fuselage, Left Side",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "SKIN",
+          "response": "Dents, wrinkles, popped rivets, secure",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "ANTENNA",
+          "response": "Secure",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "phase": "preflight_inspection",
+      "title": "Preflight — Empennage",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "HINGES",
+          "response": "Security, hardware safetied",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "TRAILING EDGE",
+          "response": "Cracks",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "ELEVATOR HORN CASTING",
+          "response": "Cracks",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "RUDDER TAB",
+          "response": "Neutral, dents",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "phase": "preflight_inspection",
+      "title": "Preflight — Fuselage, Right Side",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "SKIN",
+          "response": "Dents, wrinkles, popped rivets, cracks",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "BELLY",
+          "response": "Dents, wrinkles, popped rivets, cracks",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "BAGGAGE DOOR SECURE",
+          "response": "Secure",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "phase": "before_start",
+      "title": "Before Starting Engine",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "SEATS AND BELTS",
+          "response": "Adjust and lock",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FUEL VALVES",
+          "response": "On - cross feed off",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "PRIMERS",
+          "response": "In and locked",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "RADIOS AND ELECT. EQUIP.",
+          "response": "Off",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "CIRCUIT BREAKERS",
+          "response": "In",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "BRAKES",
+          "response": "Test and hold",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "phase": "engine_start",
+      "title": "Starting Engine",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "PARKING BRAKE",
+          "response": "On",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "MASTER SWITCH",
+          "response": "On",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "GENERATORS",
+          "response": "On",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FUEL QTY",
+          "response": "Check",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "GEAR LIGHTS",
+          "response": "Three in the green",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "ELECTRIC FUEL PUMP",
+          "response": "#1 On",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "FUEL PRESSURE",
+          "response": "Normal",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "PRIME",
+          "response": "3 to 5 as required",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "MIXTURE",
+          "response": "Rich",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "PROPELLERS",
+          "response": "Foreward",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "THROTTLE",
+          "response": "open 1/4",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "CARB. HEAT",
+          "response": "Off",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "note",
+          "text": "FOR EXTREMELY COLD STARTS - Pull Propeller through 4 to 6 times by hand",
+          "tickable": false,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "MAGNETOS",
+          "response": "All On",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "STARTER",
+          "response": "Engage #1 first",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "IDLE",
+          "response": "800 to 1000 RPMs",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "OIL PRESSURE / TEMP.",
+          "response": "Check",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "ELECTRIC PUMP",
+          "response": "Off",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "note",
+          "text": "REPEAT STEPS 6 THRU 17 FOR #2 ENGINE",
+          "tickable": false,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "TURN & BANK / ROTATING BEACON",
+          "response": "On",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "RADIOS",
+          "response": "Set",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "phase": "before_takeoff",
+      "title": "Engine Run-Up",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "BRAKES",
+          "response": "Hold",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FUEL VALVES",
+          "response": "On",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "CROSS FEED",
+          "response": "Off",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "MIXTURE",
+          "response": "Rich",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "PROPELLERS",
+          "response": "Forward",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "THROTTLES",
+          "response": "1800 RPMs",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "ENGINE & INST.",
+          "response": "CHECK: Oil Temp / Press., Amp. meter, Suction: Gyro/Horiz--4 to 6, Source-------8 to 10",
+          "tickable": true,
+          "source_confidence": 0.8
+        },
+        {
+          "type": "action",
+          "text": "MAGNETO CHECK",
+          "response": "Max Drop 100 RPMs",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "PROPELLERS",
+          "response": "Cycle 3 Times. Check: RPM Drop 300 to 400 RPMs, Increase in MAP / Decrease in Oil Press.",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "CARB. HEAT",
+          "response": "Check Drop",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "THROTTLES",
+          "response": "reduce to 1000 RPMs",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FLAPS",
+          "response": "Check Operation with Engine Pump",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FLIGHT CONTROLS",
+          "response": "Free and Correct",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "TRIM TABS",
+          "response": "Set for Take off",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FLIGHT INSTRUMENTS",
+          "response": "Set",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "CAPTAINS BRIEFING",
+          "response": "Give",
+          "tickable": true,
+          "source_confidence": 0.9
+        }
+      ]
+    },
+    {
+      "phase": "before_takeoff",
+      "title": "Before Takeoff",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "FUEL VALVES",
+          "response": "On",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "CROSSFEED",
+          "response": "Off",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "MIXTURES",
+          "response": "Rich",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "PROPELLERS",
+          "response": "Forward",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FUEL PUMPS",
+          "response": "On",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "RADIOS",
+          "response": "Set",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "TRANSPONDER",
+          "response": "Mode C",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "phase": "takeoff",
+      "title": "Normal Takeoff",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "BRAKES",
+          "response": "Apply",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "THROTTLES",
+          "response": "2000 RPMs check engine instruments",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "BRAKES",
+          "response": "Release",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "POWER & AIRSPEED",
+          "response": "Full and Monitor",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "ROTATE",
+          "response": "73 KIAS (Vmc + 5 kts.)",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "LANDING GEAR",
+          "response": "Up when no remaining runway is available",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "ACCELERATE",
+          "response": "104 KIAS for cruise climb",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "phase": "takeoff",
+      "title": "Maximum Performance Takeoff",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "BRAKES",
+          "response": "Hold",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "THROTTLES",
+          "response": "Advance to full power",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "ENGINE INSTRUMENTS",
+          "response": "Monitor",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "BRAKES",
+          "response": "Release",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "POWER AND AIRSPEED",
+          "response": "Full and monitor",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "ROTATE",
+          "response": "68 KIAS",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "GEAR",
+          "response": "Up with positive rate of climb",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "CLIMB",
+          "response": "74 KIAS (Vxse) Until all obstacles are cleared",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "ACCELERATE",
+          "response": "87 KIAS (Vy) For the climb out",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "phase": "climb",
+      "title": "Climb",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "POWER",
+          "response": "Reduce to 25\" MP 2400 RPMs at 500 AGL",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "AIRSPEED",
+          "response": "104 KIAS for cruise climb",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "ENGINE INSTRUMENTS",
+          "response": "Monitor",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FUEL PUMPS",
+          "response": "Secure one at a time at 1000 AGL",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "phase": "cruise",
+      "title": "Cruise",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "POWER",
+          "response": "Set to 22\" MP 2200 RPMs",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "MIXTURE",
+          "response": "Lean as required",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "ENGINE INSTRUMENTS",
+          "response": "Monitor",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "phase": "descent",
+      "title": "Descent",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "MIXTURES",
+          "response": "Enrich with descent",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "POWER",
+          "response": "As required",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "CARB HEAT",
+          "response": "As required",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "phase": "before_landing",
+      "title": "Before Landing",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "CARB HEAT",
+          "response": "On as required",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "MIXTURES",
+          "response": "Rich",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "THROTTLES",
+          "response": "17\" MP",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "PROPELLERS",
+          "response": "Full forward on final",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FUEL PUMPS",
+          "response": "On",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "LANDING GEAR",
+          "response": "3 down and Locked (below 109 KIAS)",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FLAPS",
+          "response": "Full on final (below 88 KIAS)",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "SEAT BELTS",
+          "response": "Fastened",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FUEL VALVES",
+          "response": "On",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "CROSSFEED",
+          "response": "Off",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "phase": "landing",
+      "title": "Landing",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "AIRSPEED",
+          "response": "83 KIAS On final (blue line)",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "POWER",
+          "response": "Reduce as necessary",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FLAPS",
+          "response": "full on final",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "phase": "landing",
+      "title": "Maximum Performance Landing",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "AIRSPEED",
+          "response": "74 KIAS final approach (Vxse)",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "POWER",
+          "response": "Reduce to idle on flare",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FLAPS",
+          "response": "Full on final w/ obstacles cleared",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "BRAKES",
+          "response": "Max. aerodynamic and wheel",
+          "tickable": true,
+          "source_confidence": 0.9
+        }
+      ]
+    },
+    {
+      "phase": "go_around",
+      "title": "Go Around",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "THROTTLES",
+          "response": "Forward",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FLAPS",
+          "response": "Up",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "LANDING GEAR",
+          "response": "Up",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "AIRSPEED",
+          "response": "Climb at 87 KIAS (74 KIAS if obstacles)",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "phase": "after_landing",
+      "title": "After Landing",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "FLAPS",
+          "response": "Up",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FUEL PUMPS",
+          "response": "Off",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "CARB HEAT",
+          "response": "Off",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "phase": "shutdown",
+      "title": "Shutdown",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "RADIOS",
+          "response": "Off",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "THROTTLES",
+          "response": "1000 RPMs",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "MIXTURES",
+          "response": "Idle cutoff",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "MAGNETOS",
+          "response": "Off",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "TURN AND BANK",
+          "response": "Off",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "ROTATING BEACON",
+          "response": "Off",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "MASTER SWITCH",
+          "response": "Off",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "CONTROLS",
+          "response": "Secure with seat belt",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "phase": "engine_failure_before_rotation",
+      "title": "Engine Failure on Takeoff Roll",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "THROTTLES",
+          "response": "CLOSED",
+          "tickable": true,
+          "memory_item": true,
+          "id": "efr-throttles",
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "DIRECTIONAL CONTROL",
+          "response": "MAINTAIN",
+          "tickable": true,
+          "memory_item": true,
+          "id": "efr-directional",
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "BRAKES",
+          "response": "AS NECESSARY",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "phase": "engine_failure_before_rotation",
+      "title": "Engine Failure After Takeoff (Gear Down, Runway Remaining)",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "THROTTLES",
+          "response": "CLOSED",
+          "tickable": true,
+          "memory_item": true,
+          "id": "efat-throttles",
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "DIRECTIONAL CONTROL",
+          "response": "MAINTAIN, Land on remaining runway",
+          "tickable": true,
+          "memory_item": true,
+          "id": "efat-directional",
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "BRAKES",
+          "response": "AS NECESSARY TO STOP AIRCRAFT",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "phase": "engine_failure_after_takeoff",
+      "title": "Engine Failure After Liftoff (Gear Up, Committed to Fly)",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "MIXTURES",
+          "response": "FORWARD",
+          "tickable": true,
+          "memory_item": true,
+          "id": "efal-mixtures",
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "PROPELLERS",
+          "response": "FORWARD",
+          "tickable": true,
+          "memory_item": true,
+          "id": "efal-props",
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "THROTTLES",
+          "response": "FORWARD",
+          "tickable": true,
+          "memory_item": true,
+          "id": "efal-throttles",
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FLAPS AND GEAR",
+          "response": "UP",
+          "tickable": true,
+          "memory_item": true,
+          "id": "efal-flaps-gear",
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "AIRSPEED",
+          "response": "MAINTAIN BLUE LINE 83 KIAS",
+          "tickable": true,
+          "memory_item": true,
+          "id": "efal-airspeed",
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "DIRECTIONAL CONTROL",
+          "response": "MAINTAIN",
+          "tickable": true,
+          "memory_item": true,
+          "id": "efal-directional",
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "IDENTIFY FAILED ENGINE",
+          "response": "\"DEAD FOOT, DEAD ENGINE\"",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "VERIFY FAILED ENGINE",
+          "response": "CLOSE THROTTLE",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FEATHER FAILED ENGINE",
+          "response": "PROP CONTROL TO FEATHER",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "BANK",
+          "response": "3-5 DEG. INTO GOOD ENGINE",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "CLIMB",
+          "response": "STRAIGHT AHEAD TO ATTAIN ALTITUDE",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "INOP. ENGINE",
+          "response": "COMPLETE SINGLE ENGINE SECURING PROCEDURES",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "LAND AS SOON AS POSSIBLE",
+          "tickable": true,
+          "source_confidence": 0.85
+        }
+      ]
+    },
+    {
+      "phase": "engine_failure_in_flight",
+      "title": "Engine Failure in Flight Below VMC",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "POWER",
+          "response": "OFF",
+          "tickable": true,
+          "memory_item": true,
+          "id": "efbvmc-power",
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "NOSE",
+          "response": "DOWN TO ATTAIN VMC",
+          "tickable": true,
+          "memory_item": true,
+          "id": "efbvmc-nose",
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FLAPS AND GEAR",
+          "response": "UP (use pump handle for left engine failure)",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "AIRSPEED",
+          "response": "ATTAIN VMC",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "SEE \"ENGINE FAILURE IN FLIGHT ABOVE VMC\"",
+          "tickable": true,
+          "source_confidence": 0.9
+        }
+      ]
+    },
+    {
+      "phase": "engine_failure_in_flight",
+      "title": "Engine Failure in Flight Above VMC",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "MIXTURES",
+          "response": "FORWARD",
+          "tickable": true,
+          "memory_item": true,
+          "id": "efavmc-mixtures",
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "PROPELLERS",
+          "response": "FORWARD",
+          "tickable": true,
+          "memory_item": true,
+          "id": "efavmc-props",
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "THROTTLES",
+          "response": "FORWARD",
+          "tickable": true,
+          "memory_item": true,
+          "id": "efavmc-throttles",
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FLAPS & GEAR",
+          "response": "VERIFY UP",
+          "tickable": true,
+          "memory_item": true,
+          "id": "efavmc-flaps-gear",
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "IDENTIFY FAILED ENGINE",
+          "response": "\"DEAD FOOT, DEAD ENGINE\"",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "VERIFY FAILED ENGINE",
+          "response": "CLOSE THROTTLE, NO CHANGE",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "SPEED",
+          "response": "83 KIAS (Blue line) or (96 KIAS SE Cruise)",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "TROUBLESHOOT (LEFT TO RIGHT) A. MAGNETOS",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "TROUBLESHOOT (LEFT TO RIGHT) B. FUEL PUMPS",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "TROUBLESHOOT (LEFT TO RIGHT) C. FUEL PRESS/QTY.",
+          "response": "CHECK",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "TROUBLESHOOT (LEFT TO RIGHT) D. OIL PRESS/TEMP.",
+          "response": "CHECK",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "TROUBLESHOOT (LEFT TO RIGHT) E. FUEL VALVES/X-FEED",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "subtitle",
+          "text": "If Troubleshooting Is Unsuccessful",
+          "tickable": false,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "PROPELLER",
+          "response": "FEATHER",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "POWER",
+          "response": "24\" MP / 2400 RPMs ON GOOD ENGINE",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "INOP ENGINE",
+          "response": "COMPLETE ENGINE SECURING PROCEDURES",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "LAND AS SOON AS POSSIBLE",
+          "tickable": true,
+          "source_confidence": 0.9
+        }
+      ]
+    },
+    {
+      "phase": "engine_failure_in_flight",
+      "title": "Engine Securing Procedures",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "THROTTLE",
+          "response": "CLOSED",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "PROPELLER",
+          "response": "FEATHER (500) RPM MIN.",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "MIXTURE",
+          "response": "IDLE CUTOFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "MAGNETOS",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FUEL PUMP",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FUEL VALVE",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "GENERATOR",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "ELECTRICAL LOAD",
+          "response": "CONSIDERED",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "note",
+          "text": "Hydraulic pump on left engine only. Use hand pump to actuate flaps & gear when left engine is out. Gear can be extended with hand pump or CO2.",
+          "tickable": false,
+          "source_confidence": 0.9
+        }
+      ]
+    },
+    {
+      "phase": "engine_out_landing",
+      "title": "Single Engine Landing",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "INOP. ENGINE",
+          "response": "ENGINE SECURING PROCEDURES COMPLETE",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "HYDRAULIC PUMP",
+          "response": "CHECK",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "SEAT BELTS",
+          "response": "SECURE",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FUEL PUMP (OPER. ENG.)",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "MIXTURE (OPER. ENG.)",
+          "response": "RICH",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "PROPELLER (OPER. ENG.)",
+          "response": "FORWARD",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FUEL QUANTITY",
+          "response": "CHECK",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FUEL VALVE (OPER. ENG.)",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "CROSSFEED",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "AIRSPEED",
+          "response": "83 KIAS (Blue line)",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "ALTITUDE",
+          "response": "HIGHER THAN NORMAL UNTIL LANDING ASSURED",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "subtitle",
+          "text": "When Landing Assured",
+          "tickable": false,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "note",
+          "text": "If the left engine is inop. the gear must be extended with the hand pump or CO2 system and the flaps must be lowered with the hand pump.",
+          "tickable": false,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "GEAR",
+          "response": "DOWN",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FLAPS",
+          "response": "DOWN",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "POWER",
+          "response": "REDUCE SLOWLY AND FLARE",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "TRIM",
+          "response": "AS POWER IS REDUCED (airplane will yaw in the direction of the good engine)",
+          "tickable": true,
+          "source_confidence": 0.9
+        }
+      ]
+    },
+    {
+      "phase": "go_around",
+      "title": "Single Engine Go Around",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "warning",
+          "text": "AVOID IF AT ALL POSSIBLE. DO NOT ATTEMPT IF GEAR AND FLAPS ARE EXTENDED AND LEFT ENGINE IS FEATHERED!!!",
+          "tickable": false,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "AIRSPEED",
+          "response": "83 KIAS, (blue line)",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "POWER",
+          "response": "MAX ON GOOD ENGINE",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FLAPS",
+          "response": "UP",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "GEAR",
+          "response": "UP",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "phase": "engine_restart_in_flight",
+      "title": "Air Start (Unfeathering Procedures)",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "THROTTLE",
+          "response": "OPEN 1/8",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "MIXTURE",
+          "response": "RICH",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "PROPELLER",
+          "response": "FORWARD",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FUEL PUMP",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FUEL VALVE",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "MAGNETOS",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "PRIME",
+          "response": "THREE STROKES OF THROTTLE",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "STARTER",
+          "response": "ENGAGE AND HOLD UNTIL ENGINE STARTS, AS ENGINE STARTS REGULATE THROTTLE TO AVOID VIBRATION",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "WARM UP",
+          "response": "10\" MP FOR 2 - 4 MIN.",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FUEL PUMPS",
+          "response": "AS REQUIRED",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "POWER",
+          "response": "AS REQUIRED",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "GENERATOR",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "phase": "forced_landing",
+      "title": "Gear Up Landing",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "NORMAL CHECKLIST",
+          "response": "COMPLETE (EXCEPT GEAR SELECTOR)",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "GEAR SELECTOR",
+          "response": "UP",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FLAPS",
+          "response": "Up",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "APPROACH",
+          "response": "NORMAL WITH POWER",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "THROTTLES",
+          "response": "CLOSE BEFORE TOUCHDOWN",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "MIXTURES",
+          "response": "IDLE CUT OFF BEFORE TOUCHDOWN",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "MAGNETO SWITCHES",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FINAL APPROACH",
+          "response": "At minimum speed if time permits use starter to position propeller parallel with wing.",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "TOUCHDOWN",
+          "response": "MASTER SWITCH OFF PRIOR TO CONTACT",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "phase": "engine_failure_in_flight",
+      "title": "Engine Roughness",
+      "criticality": "abnormal",
+      "items": [
+        {
+          "type": "action",
+          "text": "FUEL PUMPS",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "ENGINE INSTRUMENTS",
+          "response": "SCAN FOR CAUSE",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "MIXTURE",
+          "response": "ADJUST AS REQUIRED",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "MAGNETOS",
+          "response": "CHECK",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "CARB HEAT",
+          "response": "AS REQUIRED",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "phase": "oil_system_malfunction",
+      "title": "Engine Overheat",
+      "criticality": "abnormal",
+      "items": [
+        {
+          "type": "action",
+          "text": "MIXTURE",
+          "response": "ENRICHEN",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "POWER",
+          "response": "REDUCE",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "AIRSPEED",
+          "response": "INCREASE (ALTITUDE PERMITTING)",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "phase": "oil_system_malfunction",
+      "title": "Loss of Oil Pressure",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "ENGINE",
+          "response": "SECURE ENGINE PER PROCEDURE",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "phase": "landing_gear_malfunction",
+      "title": "Emergency Gear Extension — Extending Gear with Hand Pump",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "SPEED",
+          "response": "108 KIAS MAX.",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "GEAR HANDLE",
+          "response": "DOWN",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "HAND PUMP",
+          "response": "PULL OUT AND PUMP 30 to 40 TIMES",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "phase": "landing_gear_malfunction",
+      "title": "Emergency Gear Extension — Emergency Blow Down Bottle",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "SPEED",
+          "response": "108 KIAS MAX.",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "GEAR HANDLE",
+          "response": "DOWN",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "CO2 FIRING RING",
+          "response": "PULL OUT AS FAR AS POSSIBLE (3\")",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "warning",
+          "text": "DO NOT ATTEMPT TO RAISE GEAR HYDRAULICALLY AFTER CO2 EXTENSION!!!",
+          "tickable": false,
+          "source_confidence": 0.9
+        }
+      ]
+    },
+    {
+      "phase": "flap_malfunction",
+      "title": "Manual Extension of Wing Flaps",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "FLAP CONTROL",
+          "response": "DOWN",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "EMERGENCY HAND PUMP",
+          "response": "PULL OUT AND PUMP APPROX 12 TIMES",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "phase": "fuel_system_malfunction",
+      "title": "Going Into Crossfeed",
+      "criticality": "abnormal",
+      "items": [
+        {
+          "type": "action",
+          "text": "FUEL VALVE, BAD ENGINE",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FUEL PUMP, BAD ENGINE",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "CROSSFEED",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FUEL VALVE, GOOD ENGINE",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FUEL PRESSURE",
+          "response": "CONFIRM",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "phase": "fuel_system_malfunction",
+      "title": "Coming Out of Crossfeed",
+      "criticality": "abnormal",
+      "items": [
+        {
+          "type": "action",
+          "text": "FUEL VALVE, GOOD ENGINE",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "CROSSFEED",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FUEL PUMP, BAD ENGINE",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FUEL PRESSURE",
+          "response": "CONFIRM",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FUEL VALVE, BAD ENGINE",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "phase": "engine_fire_ground",
+      "title": "Engine Fire on Ground",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "FUEL VALVE",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FUEL PUMP",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "THROTTLE",
+          "response": "OPEN",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "RADIO",
+          "response": "CALL FOR ASSISTANCE",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "MIXTURE",
+          "response": "IDLE CUT OFF IF FIRE CONTINUES",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "FIRE EXTINGUISHER",
+          "response": "USE",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "phase": "cabin_fire",
+      "title": "Cabin Fire",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "VENTS",
+          "response": "CLOSED",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FIRE EXTINGUISHER",
+          "response": "USE",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "WHEN FIRE IS OUT",
+          "response": "VENTILATE CABIN",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "phase": "electrical_fire",
+      "title": "Electrical Fire",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "MASTER SWITCH",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "GENERATORS",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "CIRCUIT BREAKERS",
+          "response": "CHECK THEN PULL OUT",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "ELECTRICAL SWITCHES",
+          "response": "ALL OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "AVIONICS",
+          "response": "ALL OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "VENTILATORS",
+          "response": "CLOSED",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FIRE EXTINGUISHERS",
+          "response": "USE",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "subtitle",
+          "text": "When Fire Is Out",
+          "tickable": false,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "MASTER SWITCH",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "GENERATORS",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "VENTILATORS",
+          "response": "OPEN",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "SWITCHES AND C/Bs",
+          "response": "ON (ONE AT A TIME!)",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "phase": "engine_fire_in_flight",
+      "title": "Engine Fire in Flight",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "MIXTURE",
+          "response": "IDLE CUT OFF",
+          "tickable": true,
+          "memory_item": true,
+          "id": "efif-mixture",
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FUEL PUMP",
+          "response": "OFF",
+          "tickable": true,
+          "memory_item": true,
+          "id": "efif-fuel-pump",
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FUEL VALVE",
+          "response": "OFF",
+          "tickable": true,
+          "memory_item": true,
+          "id": "efif-fuel-valve",
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "PROPELLER",
+          "response": "FEATHER",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "POWER",
+          "response": "24\" MP / 2400 RPMs GOOD ENGINE",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FLAPS & GEAR",
+          "response": "VERIFY UP",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "GENERATOR",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "MAGNETOS",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "ELECTRICAL LOAD",
+          "response": "REDUCE",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "note",
+          "text": "IF FIRE PERSISTS, INCREASE AIRSPEED AS MUCH AS POSSIBLE IN AN ATTEMPT TO BLOW OUT THE FIRE",
+          "tickable": false,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "ENGINE",
+          "response": "SECURE AS PER PROCEDURE",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "LAND AS SOON AS POSSIBLE",
+          "tickable": true,
+          "source_confidence": 0.9
+        }
+      ]
+    },
+    {
+      "phase": "emergency_descent",
+      "title": "Emergency Descent",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "THROTTLES",
+          "response": "REDUCE TO 13\" MP",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "PROPELLERS",
+          "response": "FULL FORWARD",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "DIVE",
+          "response": "148 KIAS, 108 IN ROUGH AIR",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "phase": "door_open_in_flight",
+      "title": "Door Open in Flight",
+      "criticality": "abnormal",
+      "items": [
+        {
+          "type": "action",
+          "text": "AIRSPEED",
+          "response": "SLOW TO REDUCE BUFFETING",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "LAND AT NEAREST AIRPORT IF UNABLE TO SECURE",
+          "tickable": true,
+          "source_confidence": 0.9
+        }
+      ]
+    },
+    {
+      "phase": "spin_recovery",
+      "title": "Spin Recovery",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "note",
+          "text": "THIS PROCEDURE IS BASED ON THEORY, NOT ACTUAL TESTS.",
+          "tickable": false,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "THROTTLES",
+          "response": "REDUCE BOTH TO IDLE",
+          "tickable": true,
+          "memory_item": true,
+          "id": "spin-throttles",
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "RUDDER",
+          "response": "FULL OPPOSITE UNTIL ROTATION STOPS",
+          "tickable": true,
+          "memory_item": true,
+          "id": "spin-rudder",
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "AILERONS",
+          "response": "NEUTRAL",
+          "tickable": true,
+          "memory_item": true,
+          "id": "spin-ailerons",
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "CONTROL WHEEL",
+          "response": "NEUTRAL, THEN FWD. IF NECESSARY",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "SMOOTHLY RECOVER FROM RESULTING DIVE",
+          "tickable": true,
+          "source_confidence": 0.9
+        }
+      ]
+    },
+    {
+      "phase": "structural_damage",
+      "title": "Airframe Vibration",
+      "criticality": "abnormal",
+      "items": [
+        {
+          "type": "action",
+          "text": "AIRSPEED",
+          "response": "REDUCE UNTIL VIBRATION STOPS",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "HANDLE CONTROLS SMOOTHLY & GENTLY",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "LAND AND INVESTIGATE",
+          "tickable": true,
+          "source_confidence": 0.9
+        }
+      ]
+    },
+    {
+      "phase": "engine_failure_in_flight",
+      "title": "Overspeeding Propellers",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "THROTTLE",
+          "response": "REDUCE",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "AIRSPEED",
+          "response": "REDUCE",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "THROTTLE",
+          "response": "ADD SLOWLY AFTER RPM IS UNDER CONTROL",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "AIRSPEED",
+          "response": "MAINTAIN BELOW SPEED WHERE PROBLEM OCCURRED",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "note",
+          "text": "Prop will not feather while overspeeding. While in overspeed condition do not select feather and do not shut down engine.",
+          "tickable": false,
+          "source_confidence": 0.9
+        }
+      ]
+    },
+    {
+      "phase": "cruise",
+      "title": "Rough Air Operation",
+      "criticality": "abnormal",
+      "items": [
+        {
+          "type": "action",
+          "text": "AIRSPEED",
+          "response": "Va: 108 KIAS OR LESS",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "ATTITUDE",
+          "response": "MAINTAIN AND AVOID ABRUPT MANEUVERS",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "SEAT BELTS",
+          "response": "SECURE",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "phase": "other",
+      "phase_label": "Commercial Maneuvers",
+      "title": "Steep Power Turns",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "At least 3000' AGL",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "Clear area",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "Configuration: a. Mixtures rich",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "challenge",
+          "text": "Configuration: b. Props 2200 RPMs",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "Configuration: c. Power 22\" MP",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "Pick reference point and line up",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "Smoothly roll into a 50 deg. bank +/- 5 deg.",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "Add power to maintain 120 KIAS +/- 10 kts.",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "Maintain altitude +/- 100'",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "Roll out after 360 deg. +/- 10 deg. of entry heading",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "Reduce to 22\" MP / 2200 RPMs for cruise",
+          "tickable": true,
+          "source_confidence": 0.5
+        }
+      ]
+    },
+    {
+      "phase": "other",
+      "phase_label": "Commercial Maneuvers",
+      "title": "Slow Flight",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "At least 3000' AGL",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "Clear the area",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "Configuration: a. Mixtures rich",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "challenge",
+          "text": "Configuration: b. Power 17\" MP",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "Configuration: c. Props full RPM",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "Configuration: d. Gear down",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "challenge",
+          "text": "Configuration: e. Flaps full down",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "challenge",
+          "text": "Slow to 68 KIAS +/-5 kts. (1.2Vs1)",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "Power to 22\" MP",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "Maintain heading +/- 10 deg.",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "Maintain altitude +/- 50'",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "Maintain bank angle +/- 10 deg. in turns",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "Recovery: a. Full power",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "Recovery: b. Flaps up",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "challenge",
+          "text": "Recovery: c. Gear up",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "challenge",
+          "text": "Recovery: d. Maintain heading and altitude",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "challenge",
+          "text": "Return to cruise - 22\" MP / 2200 RPMs",
+          "tickable": true,
+          "source_confidence": 0.5
+        }
+      ]
+    },
+    {
+      "phase": "other",
+      "phase_label": "Commercial Maneuvers",
+      "title": "Power On Stall - (Clean)",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "At least 3000' AGL",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "Clear area",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "Configuration: a. Mixture rich",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "challenge",
+          "text": "Configuration: b. Power reduce to 13\" MP",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "Configuration: c. Props full forward",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "Configuration: d. Gear up",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "challenge",
+          "text": "Configuration: e. Flaps up",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "challenge",
+          "text": "Configuration: f. Slow to Vr",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "challenge",
+          "text": "Apply 55% to 60% of full power and establish climb attitude",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "Hold heading +/- 10 deg. or bank angle 20 deg. +/- 10 deg.",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "Announce the onset of the stall (i.e: buffet / stall warning horn near 57KIAS)",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "Recover Promptly: a. Full power AND",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "challenge",
+          "text": "Recover Promptly: b. Decrease pitch",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "challenge",
+          "text": "Recover Promptly: c. Level the wings",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "challenge",
+          "text": "Return to cruise 22\" MP / 2200 RPMs",
+          "tickable": true,
+          "source_confidence": 0.5
+        }
+      ]
+    },
+    {
+      "phase": "other",
+      "phase_label": "Commercial Maneuvers",
+      "title": "Power Off Stall - (Dirty)",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "At least 3000' AGL",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "Clear area",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "Configuration: a. Mixtures rich",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "challenge",
+          "text": "Configuration: b. Power 13\" MP",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "Configuration: c. Props full forward",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "Configuration: d. Gear down",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "challenge",
+          "text": "Configuration: e. Flaps full",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "challenge",
+          "text": "Establish an approach descent rate",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "Increase pitch to induce a stall",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "Hold heading +/- 10 deg. or bank angle >31deg. +/- 10 deg.",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "Announce the onset of the stall (i.e: buffet / stall warning horn near 53 KIAS)",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "Recover promptly as stall occurs: a. Full power - Reduce pitch",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "Recover promptly as stall occurs: b. Flaps up half way",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "challenge",
+          "text": "Recover promptly as stall occurs: c. Gear up (after positive rate of climb established)",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "challenge",
+          "text": "Recover promptly as stall occurs: d. Flaps up before 88 KIAS",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "Return to cruise 22\" MP / 2200 RPMs",
+          "tickable": true,
+          "source_confidence": 0.5
+        }
+      ]
+    },
+    {
+      "phase": "engine_failure_after_takeoff",
+      "title": "Engine Failure After Lift-Off — Committed to Fly!",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "Maintain control and establish blue line 83 KIAS",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "EVERYTHING FORWARD: a. Mixtures",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "challenge",
+          "text": "EVERYTHING FORWARD: b. Props",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "challenge",
+          "text": "EVERYTHING FORWARD: c. Throttles",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "challenge",
+          "text": "Verify blue line",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "Verify flaps and gear up",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "Verify blue line",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "IDENTIFY, VERIFY, FEATHER!",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "Continue climbing at blue line & secure failed engine with the checklist",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "Return for a landing",
+          "tickable": true,
+          "source_confidence": 0.9
+        }
+      ]
+    },
+    {
+      "phase": "other",
+      "phase_label": "Commercial Maneuvers",
+      "title": "Maneuvering with One Engine Inoperative",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "Clear area",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "At least 3000' AGL",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "Simulate engine failure",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "Everything forward: a. Mixture",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "challenge",
+          "text": "Everything forward: b. Props",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "challenge",
+          "text": "Everything forward: c. Throttles full forward",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "challenge",
+          "text": "Verify flaps up",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "Verify gear up",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "Identify, Verify, Feather",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "Maintain heading +/- 10 deg.",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "Maintain Altitude +/- 100'",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "Power to 24\" MP / 2400 RPMs on good engine",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "Secure failed engine as per checklist",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "Demonstrate: a. Straight and level",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "challenge",
+          "text": "Demonstrate: b. Turns in both directions",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "challenge",
+          "text": "Demonstrate: c. Descent to assigned altitude if possible",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "challenge",
+          "text": "Demonstrate: d. Climb to assigned altitude if possible",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "challenge",
+          "text": "Re-start engine as per checklist",
+          "tickable": true,
+          "source_confidence": 0.9
+        }
+      ]
+    },
+    {
+      "phase": "other",
+      "phase_label": "Commercial Maneuvers",
+      "title": "Drag Demonstration (MEI Only)",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "Clear the area",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "At least 3000' AGL",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "Configuration: a. Mixtures rich",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "challenge",
+          "text": "Configuration: b. Power 17\" MP",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "Configuration: c. Props full forward",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "Configuration: d. Flaps up",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "challenge",
+          "text": "Configuration: e. Gear up",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "challenge",
+          "text": "Reduce airspeed to Vyse (83 KIAS)",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "Set critical engine to zero thrust (12\"MP) and set right engine to approximately 23\"MP and maintain heading, altitude and blue line",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "Vary airspeed from Vyse and demonstrate effect of airspeed changes on performance",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "Maintain Vyse +/- 5 kts. & heading +/- 10 deg. and demonstrate effect of configurations on performance: a. Clean",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "Maintain Vyse +/- 5 kts. & heading +/- 10 deg. and demonstrate effect of configurations on performance: b. Gear down",
+          "tickable": true,
+          "source_confidence": 0.8
+        },
+        {
+          "type": "challenge",
+          "text": "Maintain Vyse +/- 5 kts. & heading +/- 10 deg. and demonstrate effect of configurations on performance: c. Flaps down",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "Maintain Vyse +/- 5 kts. & heading +/- 10 deg. and demonstrate effect of configurations on performance: d. Gear and flaps down",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "Maintain Vyse +/- 5 kts. & heading +/- 10 deg. and demonstrate effect of configurations on performance: e. Critical engine windmilling (idle)",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "Return to cruise",
+          "tickable": true,
+          "source_confidence": 0.9
+        }
+      ]
+    },
+    {
+      "phase": "go_around",
+      "title": "Go Around (Commercial)",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "Full power",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "Flaps up",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "Gear up when no landing is possible",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "Climb at 83 KIAS Vyse (74 KIAS Vxse if obstacles)",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "At 500' AGL reduce to climb power, 25/24, and accelerate to 87 KIAS",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "Set up for another approach (Complete landing checklist)",
+          "tickable": true,
+          "source_confidence": 0.9
+        }
+      ]
+    },
+    {
+      "phase": "emergency_descent",
+      "title": "Emergency Descent (Commercial)",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "Reduce power to 13\"",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "Props full foreward",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "Dive 143 KIAS, 108 in rough air",
+          "tickable": true,
+          "source_confidence": 0.9
+        }
+      ]
+    },
+    {
+      "phase": "other",
+      "phase_label": "Commercial Maneuvers",
+      "title": "VMC Demonstration",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "Clear area",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "At least 3000' AGL",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "Configuration: a. Mixture rich",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "challenge",
+          "text": "Configuration: b. Power 17\" MP",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "challenge",
+          "text": "Configuration: c. Props full forward",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "challenge",
+          "text": "Configuration: d. Flaps up",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "challenge",
+          "text": "Configuration: e. Gear up",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "challenge",
+          "text": "Lower airspeed to Vyse 83 KIAS",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "Power to idle on critical engine (left, windmilling)",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "Full power on right engine",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "Hold heading (3 to 5 deg. bank into good engine)",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "Establish climb attitude so airspeed bleeds off at 1 kt. per second",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "Recover at first indication of lost directional control: a. Nose over",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "challenge",
+          "text": "Recover at first indication of lost directional control: b. Power off",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "challenge",
+          "text": "Recover at first indication of lost directional control: a & b SIMULTANEOUSLY",
+          "tickable": true,
+          "source_confidence": 0.8
+        },
+        {
+          "type": "challenge",
+          "text": "Recover at first indication of lost directional control: c. Power back up on good engine when airspeed is above Vmc 68 KIAS",
+          "tickable": true,
+          "source_confidence": 0.8
+        },
+        {
+          "type": "challenge",
+          "text": "Recover at first indication of lost directional control: d. Airspeed to Vyse 83 KIAS",
+          "tickable": true,
+          "source_confidence": 0.8
+        }
+      ]
+    },
+    {
+      "phase": "takeoff",
+      "title": "Maximum Performance Take Off (Commercial)",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "Brakes on",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "Throttles full power",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "Check instruments",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "Brakes off",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "Monitor power and airspeed",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "Rotate 68 KIAS",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "Gear up with positive rate of climb",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "Climb at 66 KIAS (Vx) until obstacles",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "Accelerate to 83 KIAS (Vyse) for climb",
+          "tickable": true,
+          "source_confidence": 0.9
+        }
+      ]
+    },
+    {
+      "phase": "landing",
+      "title": "Maximum Performance Landing (Commercial)",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "Fuel valves on",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "Crossfeed off",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "Mixture rich",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "Power and props - reduce and full",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "challenge",
+          "text": "Fuel pumps on",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "Gear down and checked below 109 KIAS",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "Flaps as required below 88 KIAS",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "Monitor instruments",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "Seat belts fastened and secured",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "Maintain 74 KIAS on final",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "Power to idle during flare",
+          "tickable": true,
+          "source_confidence": 0.9
+        }
+      ]
+    },
+    {
+      "phase": "reference",
+      "title": "PA-23-150 V Speeds (KIAS)",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Vso",
+          "response": "53 - Stall flaps/gear down (Gross wt. 3500)",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Vs1",
+          "response": "57 - Stall flaps/gear up",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Vmc",
+          "response": "68 - S.E. Min. controllable A/S (Red line)",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Vx",
+          "response": "66 - Best angle of climb",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Vxse",
+          "response": "74 - S.E. Best angle",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Vyse",
+          "response": "83 - S.E. best rate (blue line)",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Vy",
+          "response": "87 - Best rate of climb",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Vfe",
+          "response": "87 - Flaps extended speed",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Va",
+          "response": "108 - Maneuvering speed",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Vle",
+          "response": "108 - Landing gear extended",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Vno",
+          "response": "143 - Maximum structural cruising speed",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Vne",
+          "response": "181 - Never exceed",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Vlo",
+          "response": "108 - Landing gear operate",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "phase": "reference",
+      "title": "PA-23-150 V Speeds (MPH)",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Vso",
+          "response": "61 - Stall flaps/gear down (Gross wt. 3500)",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Vs1",
+          "response": "66 - Stall flaps/gear up",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Vmc",
+          "response": "78 - S.E. Min. controllable A/S (Red line)",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Vx",
+          "response": "76 - Best angle of climb",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Vxse",
+          "response": "85 - S.E. Best angle",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Vyse",
+          "response": "95 - S.E. best rate (blue line)",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Vy",
+          "response": "100 - Best rate of climb",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Vfe",
+          "response": "99 - Flaps extended speed",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Va",
+          "response": "124 - Maneuvering speed",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Vle",
+          "response": "124 - Landing gear extended",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Vno",
+          "response": "165 - Maximum structural cruising speed",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Vne",
+          "response": "208 - Never exceed",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Vlo",
+          "response": "124 - Landing gear operate",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "phase": "reference",
+      "title": "Captain's Brief",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "note",
+          "text": "During this take off I will handle the flight controls and power controls. I'd like you to monitor the engine instruments. If you see anything abnormal, point it out and I will take the necessary action.",
+          "tickable": false,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "note",
+          "text": "If during this take off anything abnormal occurs: - I will abort if we are still on the runway - If we are airborne with sufficient runway remaining, I will abort if the gear is still down. - If we are airborne and committed to fly, I will perform the immediate action procedures, maintain blue line at 83 KIAS and return for a landing - If we experience an engine failure during cruise I will perform immediate action procedures and trouble shoot using the checklist",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "note",
+          "text": "If I need assistance I will ask for it specifically",
+          "tickable": false,
+          "source_confidence": 0.9
+        }
+      ]
+    },
+    {
+      "phase": "reference",
+      "title": "Additional POH Data",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "note",
+          "text": "GREEN ARC = 57 to 143 KIAS (66-165 MPH)",
+          "tickable": false,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "note",
+          "text": "YELLOW ARC = 143 to 181 KIAS (165-208 MPH)",
+          "tickable": false,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "note",
+          "text": "WHITE ARC = 53 to 87 KIAS (61-100MPH)",
+          "tickable": false,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "note",
+          "text": "RED LINE = 2700 RPMs",
+          "tickable": false,
+          "source_confidence": 0.95
+        }
+      ]
+    }
+  ]
+}

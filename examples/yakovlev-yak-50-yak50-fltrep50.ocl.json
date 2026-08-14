@@ -1,0 +1,936 @@
+{
+  "open_checklist_version": "1.0",
+  "id": "yakovlev-yak-50-yak50-fltrep50",
+  "title": "Yakovlev Yak 50 — yak50_fltrep50",
+  "aircraft": {
+    "make": "Yakovlev",
+    "model": "Yak 50",
+    "category": "standard_normal"
+  },
+  "provenance": {
+    "source": {
+      "kind": "third_party_checklist",
+      "title": "Yakovlev/Yak 50/yak50_fltrep50.txt"
+    },
+    "transcription": {
+      "method": "format_conversion",
+      "date": "2026-08-14",
+      "converted_from": "doc"
+    },
+    "contributors": [
+      {
+        "name": "Open Checklists project",
+        "role": [
+          "transcriber"
+        ]
+      }
+    ],
+    "revision": {
+      "file_revision": "0.1.0",
+      "updated": "2026-08-14"
+    }
+  },
+  "verification": {
+    "source_fidelity": "unreviewed",
+    "operational_review": "none",
+    "completeness": "full",
+    "known_issues": [
+      {
+        "severity": "content_gap",
+        "description": "Section \"Aircraft Description\" item count differs between passes (25 vs 24); verify nothing was dropped.",
+        "location": "Aircraft Description"
+      },
+      {
+        "severity": "content_gap",
+        "description": "Section \"Cruise\" item count differs between passes (4 vs 6); verify nothing was dropped.",
+        "location": "Cruise"
+      }
+    ],
+    "reviews": [
+      {
+        "type": "source_comparison",
+        "reviewer": "ai-dual-pass-review",
+        "date": "2026-08-14",
+        "notes": "Automated AI review: two independent transcription passes + numeric/item-count disagreement resolution. Not human-verified; baseline for community correction."
+      }
+    ]
+  },
+  "rights": {
+    "status": "licensed",
+    "upstream_holder": "freechecklists.net",
+    "upstream_license": "content-reuse permission granted by the site author for this replacement project",
+    "notes": "Transcribed from the freechecklists.net archive under the author's reuse grant. Individual checklist wording may be substantially the source's; per-file contributor authorship is unknown."
+  },
+  "units": {
+    "airspeed": "kt",
+    "altitude": "ft",
+    "fuel": "impgal",
+    "weight": "lb",
+    "pressure": "inhg",
+    "temperature": "f"
+  },
+  "speeds": {
+    "vne": 232,
+    "max_level_speed": 162,
+    "cruise_speed": 151,
+    "stall_power_off": 48,
+    "stall_power_on": 45
+  },
+  "sections": [
+    {
+      "phase": "reference",
+      "phase_label": "Aircraft Description",
+      "title": "Aircraft Description",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "subtitle",
+          "text": "General",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "The Yak 50 is an all-metal tail dragger designed solely for advanced aerobatics training and competition.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "The fuselage is semi monocoque, a combination of stressed skin and steel re-enforcement.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "The strong but simple main gear is semi-retractable, the lockable tailwheel permanently extended.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "The Yak 50 has no flaps.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Flying controls are conventional and operated by control cables for the elevator and rudder, push rods for the ailerons.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Only the elevator trim is adjustable in flight, the rudder and ailerons served by fixed tabs which are manipulated on the ground.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "subtitle",
+          "text": "Engine Power",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Powerplant: Ivchenko M14 radial, supercharged nine cylinder radial, 360hp at max rpm.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Propeller: variable pitched two-bladed paddle via a simple gearbox.",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "note",
+          "text": "Fuel capacity on the basic aircraft is 11.4 imperial gallons contained in a single tank mounted aft of the firewall.",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "note",
+          "text": "Maximum flight endurance is quoted as 50 minutes and this figure can be halved during advanced aerobatic flights.",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "note",
+          "text": "A welcome mod fitted to the vast majority of Yak 50s is the installation of a cruise tank which more than doubles the fuel capacity, although the G limits are reduced when full fuel is carried.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "The Yak 50 uses pneumatics for engine starting, gear and brake operation.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "The aircraft's air bottle will give around 12 start attempts before a recharge is necessary and a reserve bottle is also installed for emergency gear extension.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "The main bottle gets recharged automatically once the engine has started.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "subtitle",
+          "text": "Cockpit",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "The undercarriage lever is positioned on the left of the main panel, two green lights confirming that the gear is down and locked when the aircraft is on the ground.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "The throttle, rpm and lock lever form a meaty quadrant on the left shelf with another panel ahead comprising levers for the engine cooling gills and oil cooler flap.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "For most of the year the cooling levers will reside in the fully forward (open) position.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "The big red lever is the fuel shut off, replacing the emergency function of a mixture lever. Fuel mixture control is fully automatic.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "The instrument panel uses metric units. Most owners replace the altimeter since it reads in meters. The airspeed indicator reads in km/h.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "The engine has two main control indicators: an rpm gauge reading from 0 to 100%, and a manifold pressure gauge reading in mm of mercury.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "The Yak 50's electrics are in the centre of the panel and the fuel primer is located to the top right.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "The mag switch is mounted on the left of the panel next to the engine starter button.",
+          "tickable": false,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "preflight_inspection",
+      "title": "Preflight / Before Entering Cockpit",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "note",
+          "text": "Climbing into the cockpit and strapping into the chunky five point harness, one is immediately aware of the ruggedness of the Yak 50.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Visibility from the cockpit is excellent in every direction except forwards.",
+          "tickable": false,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "engine_start",
+      "title": "Engine Start",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Battery master",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Ignition and mags",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Primer lever",
+          "response": "TURN LEFT",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Primer pump",
+          "response": "PUMP 5 TIMES",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Primer lever",
+          "response": "TURN RIGHT",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Primer pump while helper turns prop",
+          "response": "PUMP SIMULTANEOUSLY",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Prop blades past windscreen",
+          "response": "9 BLADES",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Prop turner",
+          "response": "CLEAR",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Battery, ignition and generator",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "OPEN 2 INCHES",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Starter switch",
+          "response": "HIT",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "As engine fires, mags",
+          "response": "BOTH",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Keep engine going with primer pumps",
+          "response": "LIBERAL PUMPS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "caution",
+          "text": "Don't bother pumping the throttle – no accelerator pump is fitted and this will have zero effect.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "caution",
+          "text": "After start, leave the primer centralised, not turned to the right. Result of leaving it right: rough running engine, excessive fuel burn and early engine overhaul.",
+          "tickable": false,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "after_start",
+      "title": "After Start / Warm Up",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "After a few seconds the engine settles down",
+          "response": "CHECK",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Switches",
+          "response": "SET",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Radio",
+          "response": "ADJUST",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Straps",
+          "response": "RETIGHTEN",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "A cold Ivchenko does not warm up to taxying temperature in less than five minutes, with ten minutes being more typical on a standard UK day.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Oil temperature reaches 40 degree point",
+          "response": "WAIT",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Engine run",
+          "response": "DO",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "taxi",
+      "title": "Taxi",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "note",
+          "text": "Differential braking is applied by a stick-mounted hand lever and controlled by the amount of rudder applied away from its neutral position.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "With the stick in the aft position, the Yak 50's tailwheel will lock straight.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "caution",
+          "text": "To turn, push the stick forward; taxying with the stick aft locks the tailwheel straight.",
+          "tickable": false,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "before_takeoff",
+      "title": "Before Takeoff",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Throttle and rpm levers",
+          "response": "FULLY FORWARD",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Left rudder (prop goes round the 'wrong' way)",
+          "response": "PUSH",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "ADVANCE FULL FORWARD",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "takeoff",
+      "title": "Takeoff",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Once aircraft is underway, stick",
+          "response": "FORWARD TO RAISE TAIL",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Take-off roll is around 100 metres at MTOW.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Climbs at 3,000 feet per minute.",
+          "tickable": false,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "after_takeoff",
+      "title": "After Takeoff / Climb",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Gear",
+          "response": "RAISE BEFORE 200 KM/H",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Prop rpm",
+          "response": "REDUCE TO MAX 82%",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "A more modest '70%, 70mm' setting conserves engine life.",
+          "tickable": false,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "cruise",
+      "title": "Cruise",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "note",
+          "text": "In the cruise any 'square' setting will do, for example, for 70 on the manifold gauge set 70% rpm, for 60 manifold set 60%.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Cruise speed",
+          "response": "UP TO 280 KM/H (151 KT)",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "note",
+          "text": "Full throttle and 82% are the quoted maximum continuous power setting, giving max level speed of 300 km/h (162 Kt).",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "note",
+          "text": "Major engine overhaul every 500 hours.",
+          "tickable": false,
+          "source_confidence": 0.5
+        }
+      ]
+    },
+    {
+      "phase": "descent",
+      "title": "Descent / Circuit",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "note",
+          "text": "In the circuit the Yak is easy to operate. The sum total of good all-round visibility, draggy aeroplane and high power results in a slick approach every time.",
+          "tickable": false,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "approach",
+      "title": "Approach",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Undercarriage",
+          "response": "LOWER AT 200 KM/H OR LESS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Approach speed",
+          "response": "150 KM/H",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Threshold speed",
+          "response": "100 KM/H",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "The speed reduction on finals requires the throttle to be closed early and the aircraft held off until the speed bleeds back.",
+          "tickable": false,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "landing",
+      "title": "Landing",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "caution",
+          "text": "The Yak's large wing and short undercarriage can cause an excessive float if the airspeed is too high on landing.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "With repeated practise the Yak can be brought to a halt in 150 metres on a dry surface.",
+          "tickable": false,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "reference",
+      "phase_label": "Control Harmony and Aerobatics",
+      "title": "Control Harmony and Aerobatics",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "note",
+          "text": "Control harmony is typically 3.2.3 for ailerons, elevator and rudder instead of the classical 1,2,3.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Spades are an option on the Yak 50, recommended for serious aerobatic pilots.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "In pitch the Yak 50's stick force per G is very light; pulling up to the nine G maximum does not require excessive strength.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "During advanced aerobatics many pilots release the throttle to fly with two hands on the stick.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "With the aircraft wound up to its Vno of 400 km/h (226kt) the Yak 50 can perform huge lazy loops, barrel rolls and wing overs with low G forces.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Stalls and spins are surprisingly docile. Stall and spin recovery are predictable and standard. Some advanced aerobats have to be positively wrestled out of an established spin; the Yak 50 is one of the exceptions.",
+          "tickable": false,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "reference",
+      "phase_label": "Fuel and Range",
+      "title": "Fuel and Range",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "note",
+          "text": "With a standard 55 litre fuel tank fitted, an airfield will be needed every 60nm when cruising at 162kt.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "A more sedate 200 km/h (108kt) improves the range to 85nm.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "With a cruise tank fitted the aircraft's best range jumps to 250nm at economy cruise.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Given such a short range, a GPS is a very desirable installation for a Yak 50.",
+          "tickable": false,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "reference",
+      "phase_label": "Specifications",
+      "title": "Specifications — Yak 50",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "subtitle",
+          "text": "External Dimensions",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Span",
+          "response": "31 FT 3 IN",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Length",
+          "response": "24 FT 5 IN",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Wing area",
+          "response": "161 SQ FT",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "subtitle",
+          "text": "Weights and Loadings",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Empty weight",
+          "response": "1,624 LB",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Useful load",
+          "response": "496 LB* / 377 LB",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Gross weight",
+          "response": "2,120 LB / 2,001 LB",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Power loading",
+          "response": "5.9 LB/HP",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Wing loading",
+          "response": "13.1 LB/SQ FT",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Fuel capacity",
+          "response": "26.2 IMP GALLONS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "G limits",
+          "response": "+9G / -6.6G",
+          "tickable": true,
+          "source_confidence": 0.8
+        },
+        {
+          "type": "action",
+          "text": "Number of seats",
+          "response": "1",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "(*denotes aerobatic figures)",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "subtitle",
+          "text": "Power",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Engine manufacturer/type",
+          "response": "IVCHENKO (VEDENEYEV) M14P",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Max power",
+          "response": "360 HP @ 2,900 PROP RPM",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Propeller type and diameter",
+          "response": "2-BLADE VP 94.2 IN",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "subtitle",
+          "text": "Performance",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Vne",
+          "response": "232 KT",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Maximum level speed",
+          "response": "162 KT",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Cruise speed @ 75%",
+          "response": "151 KT",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Stall speed, power off",
+          "response": "48 KT",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Stall speed, power on",
+          "response": "45 KT",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Rate of climb (sea level)",
+          "response": "3,000 FT/MIN",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Ceiling (oxygen limited)",
+          "response": "10,000 FT",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Take off run",
+          "response": "328 FT",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Landing run",
+          "response": "492 FT",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Range (cruise tank, 45 min reserve)",
+          "response": "200 NM",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Endurance",
+          "response": "2.5 HR",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "subtitle",
+          "text": "Price",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Price",
+          "response": "£35,000-£45,000",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "UK suppliers",
+          "response": "MARK AND JOHN JEFFERIES AT YAK UK, LITTLE GRANSDEN AIRFIELD, BEDFORDSHIRE. TELEPHONE (01767) 651156",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    }
+  ]
+}

@@ -337,8 +337,8 @@ flight. No warranty of any kind &mdash; see <a href="terms.html">terms</a>.</p>
 <a href="terms.html">Terms</a> &middot;
 <a href="takedown.html">Takedown</a> &middot;
 <a href="contact.html">Contact</a></p>
-<p>Corpus rights are recorded per file. This site collects nothing: no analytics, no
-cookies, no accounts. Your saved checklists stay in your browser.</p>
+<p>Corpus rights are recorded per file. No analytics, no tracking cookies.
+Optional account for saving aircraft profiles and plan history &mdash; see <a href="privacy.html">privacy policy</a>.</p>
 </div></footer>
 <script>
 if ('serviceWorker' in navigator) {
@@ -1589,34 +1589,33 @@ def main() -> int:
         for f in sorted(dest.rglob("*.json")):
             artifacts.append(f)
 
-        # Task 3: Build airport detail pages for all airports
-        print(f"  building airport pages ({airports_shipped:,} airports)...")
+        # One client-rendered template serves every /airport/<id>/ URL. We used
+        # to pre-render ~19,000 static pages here, but that blew past Cloudflare
+        # Pages' 20,000-file deploy limit. The template reads the same NASR
+        # detail shards (shipped above to /data/airports/detail/) in the browser,
+        # so the page is identical while the deploy stays tiny. A _redirects
+        # rewrite (written below) maps /airport/<id>/ onto this file.
+        from site_airport_app import airport_app_page  # noqa: E402
 
-        # Load all airports from detail shards
-        all_airports: list[dict] = []
         cycle_path = airport_data / "cycle.json"
-        effective_date = cycle_path.read_text().strip() if cycle_path.exists() else ""
-
-        # Read all airports from detail shards
-        for detail_file in sorted((airport_data / "detail").glob("*.json")):
+        effective_date = "current cycle"
+        if cycle_path.exists():
             try:
-                with detail_file.open() as fh:
-                    shard = json.load(fh)
-                if isinstance(shard, dict):
-                    all_airports.extend(shard.values())
-            except Exception as e:
-                print(f"    WARNING: failed to read {detail_file.name}: {e}")
+                effective_date = json.loads(cycle_path.read_text()).get("effective") or "current cycle"
+            except (ValueError, OSError):
+                effective_date = "current cycle"
 
-        # Generate airport pages
         out_dir = args.out / "airport"
-        airports_built = build_airport_pages(all_airports, effective_date, out_dir)
-
-        # Track generated airport files as artifacts
-        for airport_file in out_dir.glob("*.html"):
-            artifacts.append(airport_file)
+        out_dir.mkdir(parents=True, exist_ok=True)
+        (out_dir / "index.html").write_text(
+            airport_app_page(head, effective_date), encoding="utf-8"
+        )
+        artifacts.append(out_dir / "index.html")
+        airports_built = 1
+        print(f"  airport template: 1 client-rendered page for {airports_shipped:,} airports")
 
     # Hero and OG images
-    for img_name in ("hero.png", "hero.svg", "og-image.png"):
+    for img_name in ("hero.png", "hero.svg", "og-image.png", "planner-hero.jpg"):
         src = REPO / "assets" / img_name
         if src.exists():
             import shutil as _sh
@@ -1696,8 +1695,17 @@ def main() -> int:
             shutil.copy(src, args.out / png)
             artifacts.append(args.out / png)
 
-    # SPA routing: /plan/* → /plan/index.html so plan IDs work as path segments
-    (args.out / "_redirects").write_text("/plan/* /plan/index.html 200\n", encoding="utf-8")
+    # SPA routing so path segments resolve to their single-page template:
+    #   /plan/*    → the shared plan-detail briefing SPA
+    #   /airport/* → the one client-rendered airport page (reads the id from the
+    #                URL and fetches NASR shards in the browser). The exclusion
+    #                for the template file itself keeps the rewrite from looping.
+    (args.out / "_redirects").write_text(
+        "/plan/* /plan/index.html 200\n"
+        "/airport/index.html /airport/index.html 200\n"
+        "/airport/* /airport/index.html 200\n",
+        encoding="utf-8",
+    )
 
     precache = (
         ["index.html", "catalogue.html", "editor.html", "about.html", "contribute.html",

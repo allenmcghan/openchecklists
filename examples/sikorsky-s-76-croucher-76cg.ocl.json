@@ -1,0 +1,743 @@
+{
+  "open_checklist_version": "1.0",
+  "id": "sikorsky-s-76-croucher-76cg",
+  "title": "Sikorsky S-76 — croucher_76cg",
+  "aircraft": {
+    "make": "Sikorsky",
+    "model": "S-76",
+    "category": "standard_normal"
+  },
+  "provenance": {
+    "source": {
+      "kind": "third_party_checklist",
+      "title": "Sikorsky/S-76/croucher_76cg.txt"
+    },
+    "transcription": {
+      "method": "format_conversion",
+      "date": "2026-08-14",
+      "converted_from": "doc"
+    },
+    "contributors": [
+      {
+        "name": "Open Checklists project",
+        "role": [
+          "transcriber"
+        ]
+      }
+    ],
+    "revision": {
+      "file_revision": "0.1.0",
+      "updated": "2026-08-14"
+    }
+  },
+  "verification": {
+    "source_fidelity": "unreviewed",
+    "operational_review": "none",
+    "completeness": "full",
+    "known_issues": [
+      {
+        "severity": "content_gap",
+        "description": "Section \"Weight and Balance\" item count differs between passes (75 vs 82); verify nothing was dropped.",
+        "location": "Weight and Balance"
+      }
+    ],
+    "reviews": [
+      {
+        "type": "source_comparison",
+        "reviewer": "ai-dual-pass-review",
+        "date": "2026-08-14",
+        "notes": "Automated AI review: two independent transcription passes + numeric/item-count disagreement resolution. Not human-verified; baseline for community correction."
+      }
+    ]
+  },
+  "rights": {
+    "status": "licensed",
+    "upstream_holder": "freechecklists.net",
+    "upstream_license": "content-reuse permission granted by the site author for this replacement project",
+    "notes": "Transcribed from the freechecklists.net archive under the author's reuse grant. Individual checklist wording may be substantially the source's; per-file contributor authorship is unknown."
+  },
+  "units": {
+    "weight": "lb"
+  },
+  "sections": [
+    {
+      "phase": "weight_and_balance",
+      "title": "Weight and Balance",
+      "id": "weight-and-balance",
+      "items": [
+        {
+          "type": "action",
+          "text": "Basic Wt Lbs",
+          "response": "7558",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Long Index",
+          "response": "203.8",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Cockpit (B1)",
+          "response": "400",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Cabin (C1)",
+          "response": "0",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Cabin (C2)",
+          "response": "0",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Cabin (C3)",
+          "response": "0",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Manual Basic Wt",
+          "response": "7000",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Manual CG",
+          "response": "200",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Baggage (C6)",
+          "response": "0",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Hook",
+          "response": "0",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Oil (Gals)",
+          "response": "2.5",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Washer (Qts)",
+          "response": "5",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Fuel Lb/US gal",
+          "response": "6.6",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Fuel US Gals*",
+          "response": "Takeoff 175, 30 Mins 140.9090909090909, 1 Hr 106.81818181818183, 1.5 Hrs 72.72727272727273, 2 Hrs 38.63636363636364",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "note",
+          "text": "*550 lbs/hr",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "AUW",
+          "response": "Takeoff 9142.7, 30 Mins 8917.7, 1 Hr 8692.7, 1.5 Hrs 8467.7, 2 Hrs 8242.7",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Long CG",
+          "response": "Takeoff 200.86605926039354, 30 Mins 200.47160366462205, 1 Hr 200.0567280591761, 1.5 Hrs 199.61980466950882, 2 Hrs 199.15902798840185",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Payload",
+          "response": "Takeoff 1357.2999999999993, 30 Mins 1582.2999999999993, 1 Hr 1807.2999999999993, 1.5 Hrs 2032.2999999999993, 2 Hrs 2257.2999999999993",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Wt - Takeoff",
+          "response": "9142.7",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Arm - Takeoff",
+          "response": "200.86605926039354",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Mom - Takeoff",
+          "response": "1836458.12",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Wt - 30 Mins",
+          "response": "8917.7",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Arm - 30 Mins",
+          "response": "200.47160366462205",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Mom - 30 Mins",
+          "response": "1787745.62",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Wt - 1 Hr",
+          "response": "8692.7",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Arm - 1 Hr",
+          "response": "200.0567280591761",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Mom - 1 Hr",
+          "response": "1739033.12",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Wt - 1.5 Hrs",
+          "response": "8467.7",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Arm - 1.5 Hrs",
+          "response": "199.61980466950882",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Mom - 1.5 Hrs",
+          "response": "1690320.62",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Wt - 2 Hrs",
+          "response": "8242.7",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Arm - 2 Hrs",
+          "response": "199.15902798840185",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Mom - 2 Hrs",
+          "response": "1641608.12",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Aircraft Wt",
+          "response": "7558",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Aircraft Arm",
+          "response": "203.8",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Aircraft Mom",
+          "response": "1540320.4000000001",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "B1 Wt",
+          "response": "400",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "B1 Arm",
+          "response": "102.5",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "B1 Mom",
+          "response": "41000",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "C1 Wt",
+          "response": "0",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "C1 Arm",
+          "response": "135.5",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "C1 Mom",
+          "response": "0",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "C2 Wt",
+          "response": "0",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "C2 Arm",
+          "response": "166.5",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "C2 Mom",
+          "response": "0",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "C3 Wt",
+          "response": "0",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "C3 Arm",
+          "response": "197.5",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "C3 Mom",
+          "response": "0",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "C6 Wt",
+          "response": "0",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "C6 Arm",
+          "response": "235",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "C6 Mom",
+          "response": "0",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Hook Wt",
+          "response": "0",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Hook Arm",
+          "response": "181.5",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Hook Mom",
+          "response": "0",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Oil Wt",
+          "response": "19.3",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Oil Arm",
+          "response": "231",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Oil Mom",
+          "response": "4458.3",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Washer Wt",
+          "response": "10.4",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Washer Arm",
+          "response": "59.8",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Washer Mom",
+          "response": "621.92",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Fuel Wt - Takeoff",
+          "response": "1155",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Fuel Arm - Takeoff",
+          "response": "216.5",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Fuel Mom - Takeoff",
+          "response": "250057.5",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Fuel Wt - 30 Mins",
+          "response": "930",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Fuel Arm - 30 Mins",
+          "response": "216.5",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Fuel Mom - 30 Mins",
+          "response": "201345",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Fuel Wt - 1 Hr",
+          "response": "705",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Fuel Arm - 1 Hr",
+          "response": "216.5",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Fuel Mom - 1 Hr",
+          "response": "152632.5",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Fuel Wt - 1.5 Hrs",
+          "response": "480",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Fuel Arm - 1.5 Hrs",
+          "response": "216.5",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Fuel Mom - 1.5 Hrs",
+          "response": "103920",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Fuel Wt - 2 Hrs",
+          "response": "255",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Fuel Arm - 2 Hrs",
+          "response": "216.5",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Fuel Mom - 2 Hrs",
+          "response": "55207.5",
+          "tickable": true,
+          "source_confidence": 0.5
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "other",
+      "phase_label": "CG Addendum",
+      "title": "CG Addendum",
+      "id": "cg-addendum",
+      "items": [
+        {
+          "type": "action",
+          "text": "CG Addendum 1 - Long",
+          "response": "203.8",
+          "tickable": true,
+          "source_confidence": 0.6
+        },
+        {
+          "type": "action",
+          "text": "CG Addendum 2 - Long",
+          "response": "202",
+          "tickable": true,
+          "source_confidence": 0.6
+        },
+        {
+          "type": "action",
+          "text": "CG Addendum 2 - Wt",
+          "response": "6100",
+          "tickable": true,
+          "source_confidence": 0.6
+        },
+        {
+          "type": "action",
+          "text": "CG Addendum 3 - Long",
+          "response": "193",
+          "tickable": true,
+          "source_confidence": 0.6
+        },
+        {
+          "type": "action",
+          "text": "CG Addendum 3 - Wt",
+          "response": "6500",
+          "tickable": true,
+          "source_confidence": 0.6
+        },
+        {
+          "type": "action",
+          "text": "CG Addendum 4 - Long",
+          "response": "193",
+          "tickable": true,
+          "source_confidence": 0.6
+        },
+        {
+          "type": "action",
+          "text": "CG Addendum 4 - Wt",
+          "response": "8500",
+          "tickable": true,
+          "source_confidence": 0.6
+        },
+        {
+          "type": "action",
+          "text": "CG Addendum 5 - Long",
+          "response": "198.3",
+          "tickable": true,
+          "source_confidence": 0.6
+        },
+        {
+          "type": "action",
+          "text": "CG Addendum 5 - Wt",
+          "response": "10500",
+          "tickable": true,
+          "source_confidence": 0.6
+        },
+        {
+          "type": "action",
+          "text": "CG Addendum 6 - Long",
+          "response": "204.3",
+          "tickable": true,
+          "source_confidence": 0.6
+        },
+        {
+          "type": "action",
+          "text": "CG Addendum 6 - Wt",
+          "response": "10500",
+          "tickable": true,
+          "source_confidence": 0.6
+        },
+        {
+          "type": "action",
+          "text": "CG Addendum 7 - Long",
+          "response": "210",
+          "tickable": true,
+          "source_confidence": 0.6
+        },
+        {
+          "type": "action",
+          "text": "CG Addendum 7 - Wt",
+          "response": "8700",
+          "tickable": true,
+          "source_confidence": 0.6
+        },
+        {
+          "type": "action",
+          "text": "CG Addendum 8 - Long",
+          "response": "210",
+          "tickable": true,
+          "source_confidence": 0.6
+        },
+        {
+          "type": "action",
+          "text": "CG Addendum 8 - Wt",
+          "response": "6780",
+          "tickable": true,
+          "source_confidence": 0.6
+        },
+        {
+          "type": "action",
+          "text": "CG Addendum 9 - Long",
+          "response": "202",
+          "tickable": true,
+          "source_confidence": 0.6
+        },
+        {
+          "type": "action",
+          "text": "CG Addendum 9 - Wt",
+          "response": "6100",
+          "tickable": true,
+          "source_confidence": 0.6
+        },
+        {
+          "type": "note",
+          "text": "CG Addendum 10",
+          "tickable": false,
+          "source_confidence": 0.4
+        },
+        {
+          "type": "note",
+          "text": "CG Addendum 11",
+          "tickable": false,
+          "source_confidence": 0.4
+        },
+        {
+          "type": "action",
+          "text": "CG Envelope",
+          "response": "See CG Addendum 1-9",
+          "tickable": true,
+          "source_confidence": 0.4
+        }
+      ],
+      "criticality": "normal"
+    }
+  ]
+}

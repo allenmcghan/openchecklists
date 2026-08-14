@@ -1,0 +1,461 @@
+{
+  "open_checklist_version": "1.0",
+  "id": "saab-340-max-fs2ks340-check",
+  "title": "Saab 340 — MAX_Fs2ks340_Check",
+  "aircraft": {
+    "make": "Saab",
+    "model": "340",
+    "category": "standard_normal"
+  },
+  "provenance": {
+    "source": {
+      "kind": "third_party_checklist",
+      "title": "Saab/340/MAX_Fs2ks340_Check.txt"
+    },
+    "transcription": {
+      "method": "format_conversion",
+      "date": "2026-08-14",
+      "converted_from": "doc"
+    },
+    "contributors": [
+      {
+        "name": "Open Checklists project",
+        "role": [
+          "transcriber"
+        ]
+      }
+    ],
+    "revision": {
+      "file_revision": "0.1.0",
+      "updated": "2026-08-14"
+    }
+  },
+  "verification": {
+    "source_fidelity": "unreviewed",
+    "operational_review": "none",
+    "completeness": "full",
+    "known_issues": [],
+    "reviews": [
+      {
+        "type": "source_comparison",
+        "reviewer": "ai-dual-pass-review",
+        "date": "2026-08-14",
+        "notes": "Automated AI review: two independent transcription passes + numeric/item-count disagreement resolution. Not human-verified; baseline for community correction."
+      }
+    ]
+  },
+  "rights": {
+    "status": "licensed",
+    "upstream_holder": "freechecklists.net",
+    "upstream_license": "content-reuse permission granted by the site author for this replacement project",
+    "notes": "Transcribed from the freechecklists.net archive under the author's reuse grant. Individual checklist wording may be substantially the source's; per-file contributor authorship is unknown."
+  },
+  "units": {
+    "airspeed": "kt",
+    "altitude": "ft"
+  },
+  "sections": [
+    {
+      "phase": "engine_start",
+      "title": "ENGINE STARTUP",
+      "items": [
+        {
+          "type": "action",
+          "text": "Park Brakes",
+          "response": "SET",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Battery switch",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Strobe and Beacon Lights",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Click on automatic startup engine button or CTRL+E",
+          "response": "PERFORM",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "after_start",
+      "title": "AFTER ENGINE STARTUP",
+      "items": [
+        {
+          "type": "action",
+          "text": "Startup Engine Time",
+          "response": "LOGGED",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Engine power",
+          "response": "IDLE",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Low Idle",
+          "response": "CHECKED",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Fuel/Weight",
+          "response": "CHECKED AND LOGGED",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Avionic Master",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "ATIS",
+          "response": "LOGGED",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Navaids",
+          "response": "SET",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "AP Settings",
+          "response": "SET",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "AP MAIN",
+          "response": "OFF",
+          "indent": 1,
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Pitot Heat",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "NAV Lights",
+          "response": "AS NEEDED",
+          "tickable": true,
+          "source_confidence": 0.9
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "before_takeoff",
+      "title": "BEFORE TAKEOFF",
+      "items": [
+        {
+          "type": "action",
+          "text": "Flaps",
+          "response": "7° (1ST POSITION)",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Prop RPM",
+          "response": "HIGH",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Trim position",
+          "response": "CHECKED",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "AP MAIN and Flight Director",
+          "response": "ARMED",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Anti-Ice",
+          "response": "AS NEEDED",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Altimeters",
+          "response": "SET",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Landing Lights",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Transponder",
+          "response": "CODE SET",
+          "tickable": true,
+          "source_confidence": 0.9
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "takeoff",
+      "title": "TAKEOFF AND CLIMB",
+      "items": [
+        {
+          "type": "action",
+          "text": "Thrust",
+          "response": "MAX POWER OR 95%",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "Release Brakes",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Engine parameters",
+          "response": "CHECK",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Rotate at MTOW",
+          "response": "115 KTS",
+          "tickable": true,
+          "source_confidence": 0.85,
+          "value": {
+            "quantity": "airspeed",
+            "unit": "kt",
+            "target": 115,
+            "comparison": "equal"
+          }
+        },
+        {
+          "type": "action",
+          "text": "Pitch attitude after T/O",
+          "response": "10°",
+          "tickable": true,
+          "source_confidence": 0.8
+        },
+        {
+          "type": "challenge",
+          "text": "Retract landing gear with positive ROC",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "At 500 ft and 130 kts IAS — Flaps",
+          "response": "UP",
+          "tickable": true,
+          "source_confidence": 0.85,
+          "value": {
+            "quantity": "airspeed",
+            "unit": "kt",
+            "target": 130,
+            "comparison": "equal"
+          }
+        },
+        {
+          "type": "challenge",
+          "text": "Let accelerate to 160 kts IAS",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Reduce TORQUE",
+          "response": "90-95%",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Engage AP with an initial ROC",
+          "response": "2000 FPM",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Maintain until cruise altitude",
+          "response": "160 KTS IAS AND 1500-2500 FPM ROC",
+          "tickable": true,
+          "source_confidence": 0.85
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "cruise",
+      "title": "CRUISE",
+      "items": [
+        {
+          "type": "action",
+          "text": "Reduce Prop RPM (ctrl-F2)",
+          "response": "1650 RPM",
+          "tickable": true,
+          "source_confidence": 0.85,
+          "value": {
+            "quantity": "rpm",
+            "unit": "rpm",
+            "target": 1650,
+            "comparison": "equal"
+          }
+        },
+        {
+          "type": "action",
+          "text": "Reduce TORQUE",
+          "response": "75-80%",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "note",
+          "text": "Usual cruise altitude is FL150-FL200",
+          "tickable": false,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "note",
+          "text": "Standard cruise speed is 280 kts TAS",
+          "tickable": false,
+          "source_confidence": 0.9
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "descent",
+      "title": "DESCENT",
+      "items": [
+        {
+          "type": "action",
+          "text": "Establish a descent rate",
+          "response": "1,500 FPM",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Maintain during descent",
+          "response": "240 KTS IAS",
+          "tickable": true,
+          "source_confidence": 0.9,
+          "value": {
+            "quantity": "airspeed",
+            "unit": "kt",
+            "target": 240,
+            "comparison": "equal"
+          }
+        },
+        {
+          "type": "action",
+          "text": "Landing Lights below 10,000 ft",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 0.9
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "approach",
+      "title": "APPROACH AND LANDING",
+      "items": [
+        {
+          "type": "action",
+          "text": "PROP RPM (ctrl-F4)",
+          "response": "HIGH",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Level approach flight (20-25 NM) clean configuration",
+          "response": "210 KTS",
+          "tickable": true,
+          "source_confidence": 0.85,
+          "value": {
+            "quantity": "airspeed",
+            "unit": "kt",
+            "target": 210,
+            "comparison": "equal"
+          }
+        },
+        {
+          "type": "action",
+          "text": "Glide slope alive — reduce speed and set Flaps 1 (7°)",
+          "response": "170 KTS",
+          "tickable": true,
+          "source_confidence": 0.8,
+          "value": {
+            "quantity": "airspeed",
+            "unit": "kt",
+            "target": 170,
+            "comparison": "equal"
+          }
+        },
+        {
+          "type": "action",
+          "text": "Passing the OM or 1500 ft — Gear Down, Flaps 3 (20°), Speed (Vref+5)",
+          "response": "125 KTS",
+          "tickable": true,
+          "source_confidence": 0.75,
+          "value": {
+            "quantity": "airspeed",
+            "unit": "kt",
+            "target": 125,
+            "comparison": "equal"
+          }
+        }
+      ],
+      "criticality": "normal"
+    }
+  ]
+}

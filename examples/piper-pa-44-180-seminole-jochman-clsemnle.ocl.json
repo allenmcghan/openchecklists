@@ -1,0 +1,1559 @@
+{
+  "open_checklist_version": "1.0",
+  "id": "piper-pa-44-180-seminole-jochman-clsemnle",
+  "title": "Piper PA-44-180 Seminole — jochman-clsemnle",
+  "aircraft": {
+    "make": "Piper",
+    "model": "PA-44-180 Seminole",
+    "category": "standard_normal"
+  },
+  "units": {
+    "airspeed": "kt",
+    "altitude": "ft",
+    "fuel": "usgal",
+    "weight": "lb",
+    "pressure": "inhg"
+  },
+  "speeds": {
+    "vs0": 55,
+    "vs1": 57,
+    "fence_speed": 75,
+    "approach_speed": 84,
+    "vx": 82,
+    "vy": 88,
+    "vfe": 111,
+    "vle": 140,
+    "vlr": 109,
+    "va": 135,
+    "vno": 169,
+    "vne": 202,
+    "vmc": 56,
+    "vxse": 82,
+    "vyse": 88
+  },
+  "provenance": {
+    "source": {
+      "kind": "third_party_checklist",
+      "title": "Piper/PA-44-180 Seminole/jochman-clsemnle.txt"
+    },
+    "transcription": {
+      "method": "format_conversion",
+      "date": "2026-08-14",
+      "converted_from": "doc"
+    },
+    "contributors": [
+      {
+        "name": "Open Checklists project",
+        "role": [
+          "transcriber"
+        ]
+      }
+    ],
+    "revision": {
+      "file_revision": "0.1.0",
+      "updated": "2026-08-14"
+    }
+  },
+  "verification": {
+    "source_fidelity": "unreviewed",
+    "operational_review": "none",
+    "completeness": "full",
+    "known_issues": [],
+    "reviews": [
+      {
+        "type": "source_comparison",
+        "reviewer": "ai-dual-pass-review",
+        "date": "2026-08-14",
+        "notes": "Automated AI review: two independent transcription passes + numeric/item-count disagreement resolution. Not human-verified; baseline for community correction."
+      }
+    ]
+  },
+  "rights": {
+    "status": "licensed",
+    "upstream_holder": "freechecklists.net",
+    "upstream_license": "content-reuse permission granted by the site author for this replacement project",
+    "notes": "Transcribed from the freechecklists.net archive under the author's reuse grant. Individual checklist wording may be substantially the source's; per-file contributor authorship is unknown."
+  },
+  "sections": [
+    {
+      "phase": "engine_failure_in_flight",
+      "title": "Engine Failure",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "Minimum Control Speed",
+          "response": "56 KIAS",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Blue Line Speed",
+          "response": "88 KIAS",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Mixture, Prop, Throttle",
+          "response": "FORWARD",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Flaps & Gear",
+          "response": "RETRACT",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Electric Fuel Pumps",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Identify",
+          "response": "DEAD FOOT = DEAD ENGINE",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Verify",
+          "response": "RETARD THROTTLE",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Propeller of Dead Engine",
+          "response": "FEATHER",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Mixture of Dead Engine",
+          "response": "IDLE CUT OFF",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Trim",
+          "response": "AS REQUIRED",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Bank",
+          "response": "5º TO GOOD ENGINE",
+          "tickable": true,
+          "source_confidence": 0.5,
+          "memory_item": false,
+          "value": {
+            "quantity": "angle",
+            "unit": "deg",
+            "target": 5
+          }
+        },
+        {
+          "type": "action",
+          "text": "Fuel Pump of Dead Engine",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Magnetos of Dead Engine",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Cowl Flaps of Dead Engine",
+          "response": "CLOSE",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Cowl Flaps of Good Engine",
+          "response": "AS NEEDED",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Alternator of Dead Engine",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Electrical Load",
+          "response": "REDUCE",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Fuel to Dead Engine",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Fuel to Good Engine",
+          "response": "ON or CROSSFEED",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Fuel Pump of Good Engine",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        }
+      ]
+    },
+    {
+      "phase": "engine_restart_in_flight",
+      "title": "Restart Engine",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "Mixture",
+          "response": "AS REQUIRED",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Fuel Boost Pump",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Fuel Selector",
+          "response": "CROSSFEED",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Magnetos",
+          "response": "SELECT L or R ONLY",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Carburetor Heat",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        }
+      ]
+    },
+    {
+      "phase": "engine_restart_in_flight",
+      "title": "Unfeathering Procedure",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "Fuel Selector Dead Engine",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Fuel Pump on Dead Engine",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Prop",
+          "response": "FORWARD",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "2 STROKES, OPEN ¼ INCH",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Mixture",
+          "response": "RICH",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Magneto Switches",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Starter",
+          "response": "ENGAGE, PROP WINDMILLS",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "RETARD, ENGINE WARM",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "challenge",
+          "text": "If engine does not start",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Prime",
+          "response": "AS REQUIRED",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false,
+          "indent": 1
+        },
+        {
+          "type": "action",
+          "text": "Repeat Steps",
+          "response": "STEPS 6, 7, 8",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false,
+          "indent": 1
+        },
+        {
+          "type": "action",
+          "text": "Alternator",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        }
+      ]
+    },
+    {
+      "phase": "before_start",
+      "title": "Before Engine Start",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Seats",
+          "response": "ADJUSTED",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Seat Belts, Harness",
+          "response": "FASTENED",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Parking Brake",
+          "response": "SET",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Circuit Breakers",
+          "response": "IN",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Radios",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Cowl Flaps",
+          "response": "OPEN",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Carburetor Heat",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Alternators",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Propeller Sync.",
+          "response": "MANUAL",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        }
+      ]
+    },
+    {
+      "phase": "engine_start",
+      "title": "Starting Engines",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Fuel Selector",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Mixture Controls",
+          "response": "RICH",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Throttle Controls",
+          "response": "OPEN ½ INCH",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Propeller Controls",
+          "response": "FORWARD",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Master Switch",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Magneto Switchs",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Electric Fuel Pump",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Prime",
+          "response": "AS REQUIRED",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Propeller Area",
+          "response": "CLEAR",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Starter",
+          "response": "ENGAGE",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "ADJUST",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Oil Pressure",
+          "response": "CHECK",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Repeat Steps 8-12 for Other Engine",
+          "response": "COMPLETE",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Electric Fuel Pumps",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        }
+      ]
+    },
+    {
+      "phase": "engine_start",
+      "title": "Hot Engine Start",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Throttle Controls",
+          "response": "OPEN ½ INCH",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Propeller Controls",
+          "response": "FORWARD",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Master Switch",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Electric Fuel Pump",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Mixture Controls",
+          "response": "RICH",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Magneto Switch",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Propeller Area",
+          "response": "CLEAR",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Starter",
+          "response": "ENGAGE",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "ADJUST",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Oil Pressure",
+          "response": "CHECK",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Repeat Steps 7-10 for Other Engine",
+          "response": "COMPLETE",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        }
+      ]
+    },
+    {
+      "phase": "engine_start",
+      "title": "Flooded Engine Start",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Mixture Controls",
+          "response": "IDLE CUT-OFF",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Throttle Controls",
+          "response": "FULL FORWARD",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Propeller Controls",
+          "response": "FORWARD",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Master Switch",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Magneto Switch",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Electric Fuel Pump",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Propeller Area",
+          "response": "CLEAR",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Starter",
+          "response": "ENGAGE",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "note",
+          "text": "When engine fires, retard throttle and advance mixture slowly.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Oil Pressure",
+          "response": "CHECK",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        }
+      ]
+    },
+    {
+      "phase": "before_takeoff",
+      "title": "Pre-Takeoff Check",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Parking Brake",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "subtitle",
+          "text": "Engine Run-Up",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Mixture Controls",
+          "response": "FORWARD",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false,
+          "indent": 1
+        },
+        {
+          "type": "action",
+          "text": "Propeller Controls",
+          "response": "FORWARD",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false,
+          "indent": 1
+        },
+        {
+          "type": "action",
+          "text": "Propeller Sync.",
+          "response": "MANUAL",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false,
+          "indent": 1
+        },
+        {
+          "type": "action",
+          "text": "Throttle Controls",
+          "response": "1500 RPM",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false,
+          "indent": 1,
+          "value": {
+            "quantity": "rpm",
+            "unit": "rpm",
+            "target": 1500
+          }
+        },
+        {
+          "type": "action",
+          "text": "Propeller Controls",
+          "response": "CHECK FEATHER",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false,
+          "indent": 1
+        },
+        {
+          "type": "action",
+          "text": "Throttle Controls",
+          "response": "2000 RPM",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false,
+          "indent": 1,
+          "value": {
+            "quantity": "rpm",
+            "unit": "rpm",
+            "target": 2000
+          }
+        },
+        {
+          "type": "action",
+          "text": "Propeller Governor",
+          "response": "CHECK",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false,
+          "indent": 1
+        },
+        {
+          "type": "action",
+          "text": "Propeller Controls",
+          "response": "EXERCISE",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false,
+          "indent": 1
+        },
+        {
+          "type": "action",
+          "text": "Propeller Controls",
+          "response": "FULL FORWARD",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false,
+          "indent": 1
+        },
+        {
+          "type": "action",
+          "text": "Carburetor Heat",
+          "response": "CHECK",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false,
+          "indent": 1
+        },
+        {
+          "type": "action",
+          "text": "Engine Gauges",
+          "response": "GREEN",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false,
+          "indent": 1
+        },
+        {
+          "type": "action",
+          "text": "Vacuum Gauge",
+          "response": "4.8 to 5.2",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false,
+          "indent": 1,
+          "value": {
+            "quantity": "pressure",
+            "unit": "inHg",
+            "min": 4.8,
+            "max": 5.2
+          }
+        },
+        {
+          "type": "action",
+          "text": "Magnetos",
+          "response": "CHECK",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false,
+          "indent": 1
+        },
+        {
+          "type": "action",
+          "text": "Alternators",
+          "response": "CHECK",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false,
+          "indent": 1
+        },
+        {
+          "type": "action",
+          "text": "Throttles",
+          "response": "800-1000 RPM",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false,
+          "indent": 1,
+          "value": {
+            "quantity": "rpm",
+            "unit": "rpm",
+            "min": 800,
+            "max": 1000
+          }
+        },
+        {
+          "type": "action",
+          "text": "Fuel",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Alternators",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Altimeter",
+          "response": "SET",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Attitude Indicator",
+          "response": "SET",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Directional Gyro",
+          "response": "SET",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Clock",
+          "response": "WOUND & SET",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Mixtures",
+          "response": "SET",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        }
+      ]
+    },
+    {
+      "phase": "before_takeoff",
+      "title": "Pre-Takeoff Check - Continued",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Propellers",
+          "response": "FORWARD",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Friction Lock",
+          "response": "ADJUST",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Carburetor Heat",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Cowl Flaps",
+          "response": "SET",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Seat Backs",
+          "response": "ERECT",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Wing Flaps",
+          "response": "SET",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Trim (Stabilator & Rudder)",
+          "response": "SET",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Seat Belts, Harnesses",
+          "response": "FASTENED",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Empty Seat Belts",
+          "response": "FASTENED",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Controls",
+          "response": "FREE & CORRECT",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Doors",
+          "response": "LATCHED",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Electric Fuel Pumps",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Pitot Heat",
+          "response": "AS REQUIRED",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Transponder",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Lights",
+          "response": "AS REQUIRED",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        }
+      ]
+    },
+    {
+      "phase": "takeoff",
+      "title": "Takeoff and Landing Speeds",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "subtitle",
+          "text": "Normal T/O:",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "0º Flaps, VR=75 KIAS",
+          "tickable": false,
+          "source_confidence": 1.0,
+          "indent": 1
+        },
+        {
+          "type": "note",
+          "text": "then VY =88 KIAS, Gear UP",
+          "tickable": false,
+          "source_confidence": 1.0,
+          "indent": 1
+        },
+        {
+          "type": "subtitle",
+          "text": "Short Field T/O, no Obstacle:",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "0º Flaps, Trim Set, Brakes ON",
+          "tickable": false,
+          "source_confidence": 1.0,
+          "indent": 1
+        },
+        {
+          "type": "note",
+          "text": "Full Power before Brake Release, VR=70 KIAS",
+          "tickable": false,
+          "source_confidence": 1.0,
+          "indent": 1
+        },
+        {
+          "type": "note",
+          "text": "75 KIAS to 50’, then VY =88 KIAS. Gear UP",
+          "tickable": false,
+          "source_confidence": 1.0,
+          "indent": 1
+        },
+        {
+          "type": "subtitle",
+          "text": "Short Field T/O, Obstacle Clearance:",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "25º Flaps, Trim Set, Brakes ON",
+          "tickable": false,
+          "source_confidence": 1.0,
+          "indent": 1
+        },
+        {
+          "type": "note",
+          "text": "Full Power before Brake Release, VR=63 KIAS",
+          "tickable": false,
+          "source_confidence": 1.0,
+          "indent": 1
+        },
+        {
+          "type": "note",
+          "text": "67 KIAS to 50’, Gear UP",
+          "tickable": false,
+          "source_confidence": 1.0,
+          "indent": 1
+        },
+        {
+          "type": "subtitle",
+          "text": "Landing Speeds:",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Traffic Pattern   100 KIAS",
+          "tickable": false,
+          "source_confidence": 1.0,
+          "indent": 1
+        },
+        {
+          "type": "note",
+          "text": "Final        90 KIAS",
+          "tickable": false,
+          "source_confidence": 1.0,
+          "indent": 1
+        },
+        {
+          "type": "note",
+          "text": "Lightly Loaded    80 KIAS",
+          "tickable": false,
+          "source_confidence": 1.0,
+          "indent": 1
+        },
+        {
+          "type": "note",
+          "text": "Short Field       75 KIAS",
+          "tickable": false,
+          "source_confidence": 1.0,
+          "indent": 1
+        }
+      ]
+    },
+    {
+      "phase": "before_landing",
+      "title": "Pre-Landing Check",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Seat Backs",
+          "response": "ERECT",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Seat Belts, Harnesses",
+          "response": "FASTENED",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Fuel Selectors",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Cowl Flaps",
+          "response": "AS REQUIRED",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Electric Fuel Pumps",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Mixture Controls",
+          "response": "RICH",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Propellers",
+          "response": "2500 RPM",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false,
+          "value": {
+            "quantity": "rpm",
+            "unit": "rpm",
+            "target": 2500
+          }
+        },
+        {
+          "type": "action",
+          "text": "Propeller Sync.",
+          "response": "MANUAL",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Landing Gear",
+          "response": "DOWN",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Flaps",
+          "response": "AS REQUIRED",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        }
+      ]
+    },
+    {
+      "phase": "after_landing",
+      "title": "Post Landing Check",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Wing Flaps",
+          "response": "RETRACT",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Cowl Flaps",
+          "response": "OPEN",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Electric Fuel Pumps",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Carburetor Heat",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        }
+      ]
+    },
+    {
+      "phase": "shutdown",
+      "title": "Shut Down",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "AFT",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Radios and Electric Equipment",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Mixture Controls",
+          "response": "IDLE CUT-OFF",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Magneto Switches",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Alternators",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Master Switch",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        },
+        {
+          "type": "action",
+          "text": "Parking Brake",
+          "response": "AS REQUIRED",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "memory_item": false
+        }
+      ]
+    },
+    {
+      "phase": "performance",
+      "title": "Aircraft Performance Speeds",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "note",
+          "text": "VS0 – Landing configuration stall at gross weight, power off    55 KIAS",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "VS1 – Cruise configuration stall at gross weight, power off     57 KIAS",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "1.3 VS0 – Fence Speed    75 KIAS",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "1.5 VS0 – Approach Speed      84 KIAS",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "VX – Best Angle of Climb Speed      82 KIAS",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "VY – Best Rate of Climb Speed       88 KIAS",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Normal Cruise      24 Hg 2400 RPM",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Slow Cruise   23 Hg 2300 RPM",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "VFE – Max. Flap Extension     111 KIAS",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "VLE – Max. Gear Extension     140 KIAS",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "VLR – Max. Gear Retraction    109 KIAS",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "VA – Maneuvering Speed   135 KIAS",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "VNO – Top of Green Arc   169 KIAS",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "VNE – Red Line – Never Exceed       202 KIAS",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "VMC – Minimum Control Speed with Critical Engine Inoperative (Red Radial)  56 KIAS",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "VXSE – Best Angle of Climb Speed, One Engine Inoperative   82 KIAS",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "VYSE – Best Rate of Climb Speed, One Engine Inoperative    88 KIAS",
+          "tickable": false,
+          "source_confidence": 1.0
+        }
+      ]
+    }
+  ]
+}

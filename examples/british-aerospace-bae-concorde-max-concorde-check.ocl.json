@@ -1,0 +1,686 @@
+{
+  "open_checklist_version": "1.0",
+  "id": "british-aerospace-bae-concorde-max-concorde-check",
+  "title": "British Aerospace _ BAE Concorde — MAX_Concorde_Check",
+  "aircraft": {
+    "make": "British Aerospace _ BAE",
+    "model": "Concorde",
+    "category": "standard_normal"
+  },
+  "provenance": {
+    "source": {
+      "kind": "third_party_checklist",
+      "title": "British Aerospace _ BAE/Concorde/MAX_Concorde_Check.txt"
+    },
+    "transcription": {
+      "method": "format_conversion",
+      "date": "2026-08-13",
+      "converted_from": "doc"
+    },
+    "contributors": [
+      {
+        "name": "Open Checklists project",
+        "role": [
+          "transcriber"
+        ]
+      }
+    ],
+    "revision": {
+      "file_revision": "0.1.0",
+      "updated": "2026-08-13"
+    }
+  },
+  "verification": {
+    "source_fidelity": "unreviewed",
+    "operational_review": "none",
+    "completeness": "full",
+    "known_issues": [
+      {
+        "severity": "content_gap",
+        "description": "Section \"DECOLLO\" item count differs between passes (9 vs 10); verify nothing was dropped.",
+        "location": "DECOLLO"
+      }
+    ],
+    "reviews": [
+      {
+        "type": "source_comparison",
+        "reviewer": "ai-dual-pass-review",
+        "date": "2026-08-14",
+        "notes": "Automated AI review: two independent transcription passes + numeric/item-count disagreement resolution. Not human-verified; baseline for community correction."
+      }
+    ]
+  },
+  "rights": {
+    "status": "licensed",
+    "upstream_holder": "freechecklists.net",
+    "upstream_license": "content-reuse permission granted by the site author for this replacement project",
+    "notes": "Transcribed from the freechecklists.net archive under the author's reuse grant. Individual checklist wording may be substantially the source's; per-file contributor authorship is unknown."
+  },
+  "sections": [
+    {
+      "phase": "before_start",
+      "title": "PRIMA DELL'ACCENSIONE",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Freno di parcheggio",
+          "response": "INSERIRE",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "detail": "(premere CTRL+ . (PUNTO))"
+        },
+        {
+          "type": "action",
+          "text": "Altimetri",
+          "response": "REGOLARE",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Interruttore principale",
+          "response": "ACCESO",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Interruttore generale avionica",
+          "response": "ACCESO",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Avionica",
+          "response": "REGOLARE",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "detail": "(premere MAIUSC+2 per visualizzare la plancia radio)"
+        },
+        {
+          "type": "action",
+          "text": "Pilota automatico",
+          "response": "REGOLARE E DISINSERIRE",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Strumenti",
+          "response": "CONTROLLATI",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Luci di navigazione",
+          "response": "COME RICHIESTO",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Batteria",
+          "response": "ACCESA",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "detail": "(premere MAIUSC+6 per visualizzare il pannello carburante)"
+        },
+        {
+          "type": "action",
+          "text": "Luci anti-collisione",
+          "response": "ACCESE",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "engine_start",
+      "title": "ACCENSIONE MOTORI",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "note",
+          "text": "Premere MAIUSC+4 per visualizzare il quadrante delle manette",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Premere MAIUSC+6 per visualizzare il pannello carburante",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Premere CTRL+E per avviare la sequenza automatica di accensione dei motori.",
+          "tickable": false,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "after_start",
+      "title": "DOPO L'ACCENSIONE",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Controlli di volo",
+          "response": "CONTROLLARE",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Trim",
+          "response": "REGOLARE",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "detail": "(premere il tasto 1 o il tasto 7 del tastierino numerico, come necessario)"
+        },
+        {
+          "type": "action",
+          "text": "Sistema di sghiacciamento",
+          "response": "INSERITO",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "taxi",
+      "title": "RULLAGGIO",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Visore/Muso",
+          "response": "5 GRADI",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "detail": "(premere F7 fino a 5)"
+        },
+        {
+          "type": "action",
+          "text": "Freni",
+          "response": "CONTROLLARE",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "detail": "(premere il tasto . (PUNTO))"
+        },
+        {
+          "type": "action",
+          "text": "Strumenti di volo",
+          "response": "CONTROLLARE",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Controlli di volo",
+          "response": "CONTROLLARE",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Trim",
+          "response": "CONTROLLARE",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "detail": "(con BLOCNUM premere il tasto 1 o il tasto 7 come necessario)"
+        },
+        {
+          "type": "action",
+          "text": "Interruttori accensione",
+          "response": "CONTROLLARE ACCESI",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "detail": "(premere MAIUSC+6 per visualizzare il pannello carburante)"
+        },
+        {
+          "type": "action",
+          "text": "Manette",
+          "response": "MINIMO",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "detail": "(premere F1)"
+        },
+        {
+          "type": "action",
+          "text": "Carburante",
+          "response": "CONTROLLARE",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "C.G. (BARICENTRO)",
+          "response": "CONTROLLARE CHE SIA ENTRO I LIMITI",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Luci di atterraggio",
+          "response": "COME RICHIESTO",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Transponder",
+          "response": "CONTROLLARE",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "detail": "(premere MAIUSC+2 per visualizzare la plancia radio)"
+        }
+      ]
+    },
+    {
+      "phase": "takeoff",
+      "title": "DECOLLO",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Reheat (Postbruciatore)",
+          "response": "ACCESO",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "detail": "(premere MAIUSC+F4)"
+        },
+        {
+          "type": "action",
+          "text": "Manette",
+          "response": "PIENA POTENZA",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "detail": "(premere F3 fino al massimo)"
+        },
+        {
+          "type": "action",
+          "text": "Strumenti motore",
+          "response": "CONTROLLARE",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Velocità 80 KIAS",
+          "response": "CHIAMARE \"80 NODI\"",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "VERIFICARE IMPOSTAZIONE SPINTA CORRETTA",
+          "response": "VERIFICARE",
+          "tickable": true,
+          "source_confidence": 0.7,
+          "detail": "La riga sorgente appare come \"-- VERIFICARE IMPOSTAZIONE SPINTA CORRETTA\"; interpretata come item di verifica."
+        },
+        {
+          "type": "action",
+          "text": "Velocità V1",
+          "response": "CHIAMARE \"V1\"",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Velocità VR",
+          "response": "CHIAMARE \"ROTATE\"",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "detail": "RUOTARE A CIRCA 13 GRADI"
+        },
+        {
+          "type": "action",
+          "text": "Velocità V2",
+          "response": "CHIAMARE \"V2\"",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Carrello",
+          "response": "SU (QUANDO SI OTTIENE UN RATEO DI SALITA POSITIVO)",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "detail": "(premere G)"
+        }
+      ]
+    },
+    {
+      "phase": "after_takeoff",
+      "title": "DOPO IL DECOLLO",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Carrello di atterraggio",
+          "response": "NEUTRALE (VERIFICARE)",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Luci di atterraggio",
+          "response": "SPENTE",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Reheat (Postbruciatore)",
+          "response": "SPENTO",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "detail": "(premere MAIUSC+F4)"
+        },
+        {
+          "type": "action",
+          "text": "Muso/Visore",
+          "response": "SU",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "detail": "(premere F6 fino a sollevarlo)"
+        }
+      ]
+    },
+    {
+      "phase": "climb",
+      "title": "SALITA",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Altimetro",
+          "response": "REGOLARE 29.92 ATTRAVERSANDO 18.000 MSL",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Trasferimento carburante",
+          "response": "AFT (POPPA) (C.G. 55%)",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "detail": "(premere MAIUSC+6 per visualizzare il pannello carburante)"
+        }
+      ]
+    },
+    {
+      "phase": "cruise",
+      "title": "VOLO TRANSONICO",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Reheat (Postbruciatore)",
+          "response": "ACCESO",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "detail": "(premere MAIUSC+F4)"
+        },
+        {
+          "type": "action",
+          "text": "Trasferimento carburante",
+          "response": "AFT (POPPA) (entro i limiti del C.G.)",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "detail": "(premere MAIUSC+6 per visualizzare il pannello carburante)"
+        },
+        {
+          "type": "action",
+          "text": "Sistema sghiacciamento",
+          "response": "SPENTO",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Reheat (Postbruciatore)",
+          "response": "SPENTO A MACH 1.7",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "detail": "(premere MAIUSC+F4)"
+        }
+      ]
+    },
+    {
+      "phase": "descent",
+      "title": "DECELERAZIONE E DISCESA",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Briefing",
+          "response": "RIVEDERE AVVICINAMENTO",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Altimetri",
+          "response": "CONTROLLARE",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Velocità",
+          "response": "RIDURRE A 350 KIAS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Quota",
+          "response": "SCENDERE COME RICHIESTO",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Trasferimento carburante",
+          "response": "IN AVANTI (entro i limiti C.G.)",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "detail": "(premere MAIUSC+6 per visualizzare il pannello carburante)"
+        }
+      ]
+    },
+    {
+      "phase": "approach",
+      "title": "AVVICINAMENTO",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Carburante/C.G.",
+          "response": "CONTROLLARE",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "detail": "(premere MAIUSC+6 per visualizzare il pannello carburante)"
+        },
+        {
+          "type": "action",
+          "text": "Visore/Muso",
+          "response": "5 GRADI",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "detail": "(premere F7 fino a 5)"
+        }
+      ]
+    },
+    {
+      "phase": "landing",
+      "title": "ATTERRAGGIO",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Carrello d'atterraggio",
+          "response": "GIÙ",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "detail": "(premere G)"
+        },
+        {
+          "type": "action",
+          "text": "Visore/Muso",
+          "response": "ABBASSATO",
+          "tickable": true,
+          "source_confidence": 0.9,
+          "detail": "(premere F7 fino a Dn (Giù))"
+        }
+      ]
+    },
+    {
+      "phase": "after_landing",
+      "title": "CORSA DI ATTERRAGGIO",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Manette",
+          "response": "AL MINIMO",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "detail": "(premere F1)"
+        },
+        {
+          "type": "action",
+          "text": "Manette",
+          "response": "INVERSIONE SPINTA AL CONTATTO",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "detail": "(premere F2 fino a Reverse)"
+        },
+        {
+          "type": "action",
+          "text": "Manette",
+          "response": "AL MINIMO A 60 KIAS",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "detail": "(premere F1)"
+        },
+        {
+          "type": "action",
+          "text": "Freni",
+          "response": "COME NECESSARIO",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "detail": "(premere il tasto . (PUNTO))"
+        }
+      ]
+    },
+    {
+      "phase": "after_landing",
+      "title": "DOPO L'ATTERRAGGIO",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Visore/Muso",
+          "response": "GIÙ 5 GRADI",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "detail": "(premere F6 fino a 5)"
+        },
+        {
+          "type": "action",
+          "text": "Motori interni",
+          "response": "COME RICHIESTO",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Transponder",
+          "response": "STANDBY",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "detail": "(premere MAIUSC+2 per visualizzare la plancia radio)"
+        }
+      ]
+    },
+    {
+      "phase": "securing",
+      "title": "PARCHEGGIO",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Freno di parcheggio",
+          "response": "INSERIRE",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "detail": "(premere CTRL+ . (PUNTO))"
+        },
+        {
+          "type": "action",
+          "text": "Luci",
+          "response": "SPENTE",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Visore/Muso",
+          "response": "SU",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "detail": "(premere F6 fino a SU)"
+        },
+        {
+          "type": "action",
+          "text": "Generatori",
+          "response": "SPENTI",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "detail": "(premere MAIUSC+6 per visualizzare il pannello carburante)"
+        },
+        {
+          "type": "action",
+          "text": "Interruttori accensione",
+          "response": "SPENTI",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Batteria",
+          "response": "SPENTA",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "reference",
+      "title": "NOTA",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "note",
+          "text": "le checklist reali dell'aeromobile sono state modificate per Flight Simulator 2000.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Per imparare a utilizzare, stampare e personalizzare le checklist, consultare la sezione Guida simulatore nella Guida in linea (fare clic su \"Utilizzo del cosciale\").",
+          "tickable": false,
+          "source_confidence": 1.0
+        }
+      ]
+    }
+  ]
+}

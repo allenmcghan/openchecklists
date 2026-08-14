@@ -1,0 +1,594 @@
+{
+  "open_checklist_version": "1.0",
+  "id": "stinson-108-voyager-station-wagon-timothy-j-briggs-stn108-2",
+  "title": "Stinson 108 Voyager _ Station Wagon — timothy_j_briggs_stn108-2",
+  "aircraft": {
+    "make": "Stinson",
+    "model": "108 Voyager _ Station Wagon",
+    "category": "standard_normal"
+  },
+  "provenance": {
+    "source": {
+      "kind": "third_party_checklist",
+      "title": "Stinson/108 Voyager _ Station Wagon/timothy_j_briggs_stn108-2.txt"
+    },
+    "transcription": {
+      "method": "format_conversion",
+      "date": "2026-08-14",
+      "converted_from": "doc"
+    },
+    "contributors": [
+      {
+        "name": "Open Checklists project",
+        "role": [
+          "transcriber"
+        ]
+      }
+    ],
+    "revision": {
+      "file_revision": "0.1.0",
+      "updated": "2026-08-14"
+    }
+  },
+  "verification": {
+    "source_fidelity": "unreviewed",
+    "operational_review": "none",
+    "completeness": "full",
+    "known_issues": [],
+    "reviews": [
+      {
+        "type": "source_comparison",
+        "reviewer": "ai-dual-pass-review",
+        "date": "2026-08-14",
+        "notes": "Automated AI review: two independent transcription passes + numeric/item-count disagreement resolution. Not human-verified; baseline for community correction."
+      }
+    ]
+  },
+  "rights": {
+    "status": "licensed",
+    "upstream_holder": "freechecklists.net",
+    "upstream_license": "content-reuse permission granted by the site author for this replacement project",
+    "notes": "Transcribed from the freechecklists.net archive under the author's reuse grant. Individual checklist wording may be substantially the source's; per-file contributor authorship is unknown."
+  },
+  "units": {
+    "weight": "lb"
+  },
+  "sections": [
+    {
+      "phase": "reference",
+      "title": "INFO",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "subtitle",
+          "text": "Weight and Balance Calculator Information",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "White blocks are modifiable. Colored blocks contain protected formulas and text.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "NOTE: All data and formulas are based on the Airplane Owners Manual for the Stinson 108-2 Aircraft. CAA approved 1947.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "subtitle",
+          "text": "SETTING UP THE CALCULATOR FOR YOUR AIRCRAFT",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Enter your aircraft's registration number.",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Enter your aircraft's max weight and fuel capacity into the appropriate blocks.",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Enter your aircraft's empty weight and moment into the appropriate blocks.",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Enter oil weight into the block. Moment will be calculated. Useful load and full fuel payload values will be calculated.",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Verify \"ARM\" (station) values are accurate for your aircraft. Change as needed to duplicate W & B data for your aircraft. Default values are based on the 108-2 Airplane Flight Manual.",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "The calculator is now set up for your Stinson.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Once you have verified that the correct \"ARM\" values are in the blocks, I recommend that you \"Protect\" those blocks from inadvertent changes.",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Click this button to protect \"ARM\" values.",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "You will notice the Arm blocks are now blue, meaning they cannot be modified.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "If you realize after Protecting the Calculator that you made a mistake, hit this button to \"Unprotect\" and make changes.",
+          "tickable": false,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "reference",
+      "title": "USING THE CALCULATOR",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "There is a spot for each seat in the aircraft. Enter the weight of each person into the appropriate white block. If a seat is empty, enter 0 or just hit \"delete\".",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Station Wagon models with the rear seats removed for cargo loading should use the \"Cabin Cargo\" block for loads placed there. Otherwise, leave it blank.",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Enter the weight of baggage compartment items into the corresponding white block.",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Enter the total fuel load in gallons.",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "That's it!! The calculator will compute weights, moments, CG point and MAC percentages. It will also plot the CG point on the envelope graph. (you can hit the button to center up the graph on your monitor)",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "If a CG, weight or MAC limit is exceeded it will alert you with RED TEXT adjacent the exceeded value.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "If you have questions or comments, E-mail me at mplstim@bellsouth.net",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Good luck and happy landings!!",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Tim Briggs",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "P.S. I also have similar spreadsheets programmed for: Piper Cherokee, Cessna 172 and Grumman Tiger aircraft. Drop me an E-mail if you'd like one or if you would like one designed for another aircraft.",
+          "tickable": false,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "reference",
+      "title": "108-2",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "subtitle",
+          "text": "STINSON 108-1, 108-2 WEIGHT AND BALANCE",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "AIRCRAFT",
+          "response": "N6968M",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "MAX T/O WEIGHT",
+          "response": "2230",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "TOTAL FUEL CAPACITY",
+          "response": "40",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "MAX USEFUL LOAD",
+          "response": "816",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "FULL FUEL PAYLOAD",
+          "response": "576",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "4. All data is based on POH for Aircraft 991PK",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "subtitle",
+          "text": "WEIGHT / ARM / MOMENT",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "EMPTY WEIGHT — WEIGHT",
+          "response": "1397",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "EMPTY WEIGHT — ARM",
+          "response": "11.4",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "EMPTY WEIGHT — MOMENT",
+          "response": "15947.5",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "OIL — WEIGHT",
+          "response": "17",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "OIL — ARM",
+          "response": "-49",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "OIL — MOMENT",
+          "response": "-833",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Front Seats — WEIGHT",
+          "response": "230",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Front Seats — ARM",
+          "response": "16",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Front Seats — MOMENT",
+          "response": "3680",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Back Seats — WEIGHT",
+          "response": "0",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Back Seats — ARM",
+          "response": "48",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Back Seats — MOMENT",
+          "response": "0",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Cabin Cargo (Station Wagons) — WEIGHT",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Cabin Cargo (Station Wagons) — ARM",
+          "response": "46.86",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Cabin Cargo (Station Wagons) — MOMENT",
+          "response": "0",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Rear Baggage — WEIGHT",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Rear Baggage — ARM",
+          "response": "75.5",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Rear Baggage — MOMENT",
+          "response": "0",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Fuel (Enter Gals) — WEIGHT",
+          "response": "38",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Fuel (Enter Gals) — ARM",
+          "response": "22",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Fuel (Enter Gals) — MOMENT",
+          "response": "5016",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "subtitle",
+          "text": "TOTALS",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "TOTALS — WEIGHT",
+          "response": "1872",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "TOTALS — MOMENT",
+          "response": "23810.5",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "CG",
+          "response": "12.719284188034187",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "%MAC (LIMITS = 18.2-37.5)",
+          "response": "21.98069223069223",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "subtitle",
+          "text": "UTILITY CAT CG RANGE FIGURES / NORMAL CAT CG RANGE FIGURES",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Utility Cat — 1300",
+          "response": "18.2",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Normal Cat — 1300",
+          "response": "18.2",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Utility Cat — 1550",
+          "response": "18.2",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Normal Cat — 1550",
+          "response": "18.2",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Utility Cat — 1925 lower",
+          "response": "20.6",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Normal Cat — 2230 lower",
+          "response": "22.4",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Utility Cat — 1925 upper",
+          "response": "29.4",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Normal Cat — 2230 upper",
+          "response": "37.5",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Utility Cat — 1300 upper",
+          "response": "29.4",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Normal Cat — 1300 upper",
+          "response": "37.5",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Utility Cat — 1300 lower",
+          "response": "18.2",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Normal Cat — 1300 lower",
+          "response": "18.2",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "reference",
+      "title": "CROSSWIND CALC",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "RUNWAY HEADING",
+          "response": "250",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "WIND DIRECTION",
+          "response": "200",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "WIND VELOCITY",
+          "response": "15",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "CROSSWIND COMPONENT",
+          "response": "5.35818585470191",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "HEADWIND COMPONENT",
+          "response": "9.64181414529809",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "TAILWIND COMPONENT",
+          "response": "0",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,2799 @@
+{
+  "open_checklist_version": "1.0",
+  "id": "piper-pa-38-112-tomahawk-marcelo-castellani-piper-tomahawk-checklist-wb",
+  "title": "Piper PA-38-112 Tomahawk — Marcelo_Castellani_Piper_Tomahawk_checklist_wb",
+  "aircraft": {
+    "make": "Piper",
+    "model": "PA-38-112 Tomahawk",
+    "category": "standard_normal"
+  },
+  "provenance": {
+    "source": {
+      "kind": "third_party_checklist",
+      "title": "Piper/PA-38-112 Tomahawk/Marcelo_Castellani_Piper_Tomahawk_checklist_wb.txt"
+    },
+    "transcription": {
+      "method": "format_conversion",
+      "date": "2026-08-14",
+      "converted_from": "doc"
+    },
+    "contributors": [
+      {
+        "name": "Open Checklists project",
+        "role": [
+          "transcriber"
+        ]
+      }
+    ],
+    "revision": {
+      "file_revision": "0.1.0",
+      "updated": "2026-08-14"
+    }
+  },
+  "verification": {
+    "source_fidelity": "unreviewed",
+    "operational_review": "none",
+    "completeness": "full",
+    "known_issues": [
+      {
+        "severity": "content_gap",
+        "description": "Section \"Fuego en Vuelo\" item count differs between passes (15 vs 14); verify nothing was dropped.",
+        "location": "Fuego en Vuelo"
+      },
+      {
+        "severity": "content_gap",
+        "description": "Section \"Límites de Variación de la Ubicación del Centro de Gravedad\" item count differs between passes (7 vs 2); verify nothing was dropped.",
+        "location": "Límites de Variación de la Ubicación del Centro de Gravedad"
+      },
+      {
+        "severity": "content_gap",
+        "description": "Section \"Tabla de Referencia para Cálculo de Peso y Balanceo\" item count differs between passes (6 vs 5); verify nothing was dropped.",
+        "location": "Tabla de Referencia para Cálculo de Peso y Balanceo"
+      }
+    ],
+    "reviews": [
+      {
+        "type": "source_comparison",
+        "reviewer": "ai-dual-pass-review",
+        "date": "2026-08-14",
+        "notes": "Automated AI review: two independent transcription passes + numeric/item-count disagreement resolution. Not human-verified; baseline for community correction."
+      }
+    ]
+  },
+  "rights": {
+    "status": "licensed",
+    "upstream_holder": "freechecklists.net",
+    "upstream_license": "content-reuse permission granted by the site author for this replacement project",
+    "notes": "Transcribed from the freechecklists.net archive under the author's reuse grant. Individual checklist wording may be substantially the source's; per-file contributor authorship is unknown."
+  },
+  "units": {
+    "airspeed": "kt",
+    "altitude": "ft",
+    "fuel": "usgal",
+    "weight": "lb",
+    "pressure": "psi",
+    "temperature": "f"
+  },
+  "speeds": {
+    "vne": 138,
+    "vno": 110,
+    "va": 103,
+    "vfe": 89,
+    "vs1": 52,
+    "vs0": 49,
+    "vx": 61,
+    "vy": 70,
+    "vr": 55,
+    "vre": 70,
+    "vbg": 70
+  },
+  "sections": [
+    {
+      "phase": "limitations",
+      "title": "Limitaciones de Velocidad",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "subtitle",
+          "text": "Limitaciones de Velocidad",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "VNE - Velocidad Nunca Exceder",
+          "response": "138 KIAS / 155 MPH",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "VNO - Velocidad Máxima Estructural de Crucero",
+          "response": "110 KIAS / 123 MPH",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "VA - Velocidad de Maniobra, 1670 Libras",
+          "response": "103 KIAS / 115 MPH",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "VA - Velocidad de Maniobra, 1275 Libras",
+          "response": "90 KIAS / 101 MPH",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "VFE - Velocidad Máxima con Flaps Extendidos",
+          "response": "89 KIAS / 100 MPH",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "VS1 - Velocidad de pérdida (flaps arriba y 1670 Libras)",
+          "response": "52 KIAS / 58 MPH",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "VS0 - Velocidad de pérdida (configuración de aterrizaje y 1670 Libras)",
+          "response": "49 KIAS / 55 MPH",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Capacidad de viento cruzado demostrada",
+          "response": "15 KIAS / 17 MPH",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "limitations",
+      "title": "Velocidades Óptimas/Recomendadas",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "subtitle",
+          "text": "Velocidades Óptimas/Recomendadas",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "VX - Ascenso a mejor ángulo",
+          "response": "61 KIAS / 68 MPH",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "VY - Ascenso a mejor régimen",
+          "response": "70 KIAS / 78 MPH",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "VR - Velocidad Normal de Rotación",
+          "response": "55 KIAS / 62 MPH",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "VRe - Normal de Aproximación",
+          "response": "70 KIAS / 78 MPH",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Normal de Aterrizaje",
+          "response": "62 KIAS / 69 MPH",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "VL/D - Velocidad Óptima de Planeo",
+          "response": "70 KIAS / 78 MPH",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "limitations",
+      "title": "Límites de Motor",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "subtitle",
+          "text": "Límites de Motor",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Máxima potencia y régimen",
+          "response": "112 HP / 2600 RPM",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Máxima temperatura de aceite",
+          "response": "245°F / 118,3°C",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Máxima presión de aceite",
+          "response": "100 lb/in² / 7 kg/cm²",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Mínima presión de aceite",
+          "response": "25 lb/in² / 1,7 kg/cm²",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Máxima presión de combustible",
+          "response": "8 lb/in² / 0,56 kg/cm²",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Mínima presión de combustible",
+          "response": "0,5 lb/in² / 0,035 kg/cm²",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "limitations",
+      "title": "Límites de Maniobra (Categoría Utilitaria)",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "subtitle",
+          "text": "Límites de Maniobra (Categoría Utilitaria)",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Chandelles",
+          "response": "100 KIAS / 115 MPH",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Ochos Perezosos",
+          "response": "100 KIAS / 115 MPH",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Virajes Escarpados",
+          "response": "100 KIAS / 115 MPH",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Barrenas/Tirabuzones (flaps retraídos)",
+          "response": "Desaceleración lenta",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "limitations",
+      "title": "Especificaciones Técnicas",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "subtitle",
+          "text": "Especificaciones Técnicas",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Peso máximo de despegue",
+          "response": "757 kg / 1670 lb",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Peso vacío operativo",
+          "response": "493 kg / 1085 lb",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Carga útil",
+          "response": "264 kg / 581 lb",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Equipaje máximo",
+          "response": "45 kg / 100 lb",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Combustible usable máximo",
+          "response": "113 L / 30 US gal",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "engine_failure_before_rotation",
+      "title": "Pérdida de Potencia en el Despegue (Aeronave en Tierra)",
+      "criticality": "emergency",
+      "condition": "Pérdida de potencia en el despegue con aeronave en tierra",
+      "items": [
+        {
+          "type": "subtitle",
+          "text": "Con pista remanente suficiente",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Acelerador",
+          "response": "Cerrar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Frenos",
+          "response": "Aplicar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Detenerse directamente al frente",
+          "response": "Aplicar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "subtitle",
+          "text": "Pista remanente insuficiente",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Acelerador",
+          "response": "Cerrar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Frenos",
+          "response": "Aplicar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Mezcla",
+          "response": "Pobre cortada",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Selector de tanque",
+          "response": "Cerrado",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Master switch",
+          "response": "Off (BAT y ALT)",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Llave de ignición",
+          "response": "Off",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Mantener control direccional y evitar obstáculos",
+          "response": "Verificar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Puertas",
+          "response": "Destrabar",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "engine_failure_after_takeoff",
+      "title": "Pérdida de Potencia en el Despegue (Aeronave en el Aire)",
+      "criticality": "emergency",
+      "condition": "Pérdida de potencia en el despegue con aeronave en el aire",
+      "items": [
+        {
+          "type": "subtitle",
+          "text": "Con pista remanente suficiente",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Velocidad",
+          "response": "70 KIAS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Mantener control direccional",
+          "response": "Verificar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Aterrizar directamente al frente",
+          "response": "Verificar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "subtitle",
+          "text": "Pista remanente insuficiente",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Velocidad",
+          "response": "70 KIAS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Acelerador",
+          "response": "Cerrar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Mezcla",
+          "response": "Pobre cortada",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Selector de tanque",
+          "response": "Cerrado",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Master switch",
+          "response": "Off (BAT y ALT)",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Llave de ignición",
+          "response": "Off",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Aterrizar directamente al frente",
+          "response": "Verificar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Mantener control direccional y evitar obstáculos",
+          "response": "Verificar",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "engine_failure_in_flight",
+      "title": "Falla de Motor en Vuelo",
+      "criticality": "emergency",
+      "condition": "Falla de motor en vuelo",
+      "items": [
+        {
+          "type": "action",
+          "text": "Velocidad",
+          "response": "70 KIAS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Selector de tanque",
+          "response": "Cambiar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Bomba de combustible",
+          "response": "Conectar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Mezcla",
+          "response": "Toda rica",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Calefacción al carburador",
+          "response": "Colocar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Primer",
+          "response": "Verificar adentro y trabado",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Instrumentos de motor",
+          "response": "Verificar parámetros",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Llave de ignición",
+          "response": "Verificar Left, Right y Both",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Si el motor no reenciende, planificar aterrizaje con motor detenido",
+          "response": "Planificar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "warning",
+          "text": "Por debajo de 1000 ft AGL no intente ningún reencendido, solo planificar el circuito de emergencia",
+          "tickable": false,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "engine_fire_ground",
+      "title": "Fuego en el Motor Durante la Puesta en Marcha",
+      "criticality": "emergency",
+      "condition": "Fuego en el motor durante la puesta en marcha",
+      "items": [
+        {
+          "type": "action",
+          "text": "Arrancador",
+          "response": "Acoplar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Mezcla",
+          "response": "Pobre cortada",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Acelerador",
+          "response": "Todo abierto",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Bomba de combustible",
+          "response": "Off",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Selector de tanque",
+          "response": "Cerrado",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Master switch",
+          "response": "Off (BAT)",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Advierta al apoyo de tierra",
+          "response": "Advertir",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Abandone la aeronave",
+          "response": "Abandonar",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "engine_fire_in_flight",
+      "title": "Fuego en Vuelo",
+      "criticality": "emergency",
+      "condition": "Fuego en vuelo",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "DETERMINE EL ORIGEN DEL FUEGO",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "subtitle",
+          "text": "Fuego en el motor",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Selector de tanque",
+          "response": "Cerrado",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Mezcla",
+          "response": "Pobre cortada",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Acelerador",
+          "response": "Cerrar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Bomba de combustible",
+          "response": "Off",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Calefacción al carburador",
+          "response": "Cerrar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Calefacción de cabina",
+          "response": "Cerrar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Prepare la cabina para un aterrizaje con motor detenido",
+          "response": "Preparar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "subtitle",
+          "text": "Fuego eléctrico (Humo en cabina)",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Master switch",
+          "response": "Off (BAT y ALT)",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Calefacción de cabina",
+          "response": "Cerrar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Acelerador",
+          "response": "Cerrar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Stormwindow",
+          "response": "Abrir",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Aterrizar lo antes posible",
+          "response": "Aterrizar",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "oil_system_malfunction",
+      "title": "Baja Presión de Aceite",
+      "criticality": "emergency",
+      "condition": "Baja presión de aceite",
+      "items": [
+        {
+          "type": "action",
+          "text": "Temperatura de aceite",
+          "response": "Verificar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Aterrizar lo antes posible",
+          "response": "Aterrizar",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "fuel_system_malfunction",
+      "title": "Baja Presión de Combustible",
+      "criticality": "emergency",
+      "condition": "Baja presión de combustible",
+      "items": [
+        {
+          "type": "action",
+          "text": "Bomba de combustible",
+          "response": "Conectar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Selector de tanque",
+          "response": "Cambiar",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "alternator_failure",
+      "title": "Falla de Alternador",
+      "criticality": "emergency",
+      "condition": "Falla de alternador",
+      "items": [
+        {
+          "type": "action",
+          "text": "Fusible de alternador",
+          "response": "Verificar adentro",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Alternador",
+          "response": "Off, luego On",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Reducir cargas eléctricas",
+          "response": "Reducir",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Si no se restaura la carga",
+          "response": "ALT off",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "preflight_inspection",
+      "title": "Inspección Previa al Vuelo",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "subtitle",
+          "text": "CABINA",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Freno de estacionamiento",
+          "response": "Colocar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Llave de ignición",
+          "response": "Off",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Batería",
+          "response": "On",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Indicadores de combustible",
+          "response": "Verificar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Luz de alternador",
+          "response": "Verificar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Aviso de pérdida",
+          "response": "Verificar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Equipos radioeléctricos",
+          "response": "Off",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Batería",
+          "response": "Off",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Comandos de vuelo",
+          "response": "Verificar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Flaps",
+          "response": "Verificar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Static Drain",
+          "response": "Drenar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Parabrisas y lunetas",
+          "response": "Limpiar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Equipaje",
+          "response": "Amarrado",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Documentación",
+          "response": "A bordo",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "subtitle",
+          "text": "ALA IZQUIERDA",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Condición de la superficie",
+          "response": "Verificar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Flap y charnela",
+          "response": "Verificar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Alerón y charnela",
+          "response": "Verificar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Puntera de plano",
+          "response": "Verificar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Luces de puntera",
+          "response": "Verificar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Tapa de tanque",
+          "response": "Abrir",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Tipo y cantidad de combustible",
+          "response": "Verificar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Tapa de tanque",
+          "response": "Cerrar y trabar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Venteo de tanque",
+          "response": "Verificar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Tanque de combustible",
+          "response": "Drenar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Tubo Pitot",
+          "response": "Quitar funda y verificar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Tren de aterrizaje y cubierta",
+          "response": "Verificar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Block de freno",
+          "response": "Verificar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Calzas y cuerdas de amarre",
+          "response": "Quitar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "subtitle",
+          "text": "NARIZ DE LA AERONAVE",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Filtro de combustible",
+          "response": "Drenar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Compartimiento de motor",
+          "response": "Verificar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Compartimiento de motor",
+          "response": "Cerrar y trabar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Hélice",
+          "response": "Libre de melladuras",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Cono de hélice",
+          "response": "Fijación y estado",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Tomas de aire",
+          "response": "Libres",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Filtro de aire",
+          "response": "Verificar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Correa de alternador",
+          "response": "Verificar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Compartimiento de motor",
+          "response": "Verificar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Aceite",
+          "response": "No menos de 4,5 QTZ",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Tapa de aceite",
+          "response": "Colocada",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Correa de alternador",
+          "response": "Verificar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Cowling",
+          "response": "Cerrado y trabado",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Compartimiento de motor",
+          "response": "Cerrar y trabar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Rueda de nariz",
+          "response": "Verificar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Amortiguador",
+          "response": "Extensión (3”)",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Parabrisas",
+          "response": "Limpiar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "subtitle",
+          "text": "ALA DERECHA",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Ídem ala izquierda",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "subtitle",
+          "text": "FUSELAJE LADO DERECHO",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Estado general",
+          "response": "Verificar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Antenas",
+          "response": "Verificar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Ventanillas y lunetas",
+          "response": "Limpiar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Tomas estáticas",
+          "response": "Sin obstrucciones",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "subtitle",
+          "text": "EMPENAJE",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Estado general",
+          "response": "Verificar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Charnelas y tomas",
+          "response": "Verificar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Amarra",
+          "response": "Quitar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Patín de cola",
+          "response": "Verificar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "subtitle",
+          "text": "FUSELAJE LADO IZQUIERDO",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Ídem lado derecho",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "before_start",
+      "title": "Previo a la Puesta en Marcha",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Puertas",
+          "response": "Cerradas y trabadas",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Traba de techo",
+          "response": "Colocar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Asientos",
+          "response": "Ajustados y trabados",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Cinturones",
+          "response": "Colocados",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Freno de estacionamiento",
+          "response": "Colocar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Calefacción al carburador",
+          "response": "Off",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Selector de tanque",
+          "response": "Más lleno",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Fusibles",
+          "response": "Todos adentro",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "engine_start",
+      "title": "Puesta en Marcha (Motor Frío)",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Primer",
+          "response": "5 veces, luego trabar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Acelerador",
+          "response": "Abierto 1/2 Inch",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Batería",
+          "response": "On",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Bomba de combustible",
+          "response": "Conectar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Mezcla",
+          "response": "Toda rica",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Hélice",
+          "response": "Verificar libre",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Arrancador",
+          "response": "Acoplar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Presión de aceite",
+          "response": "Verificar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Alternador",
+          "response": "Acoplar-Verificar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Bomba de combustible",
+          "response": "Off",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Presión de combustible",
+          "response": "Verificar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Calentar el motor",
+          "response": "800/1200 RPM",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "engine_start",
+      "title": "Puesta en Marcha (Motor Caliente)",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Acelerador",
+          "response": "Cerrado",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Batería",
+          "response": "On",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Bomba de combustible",
+          "response": "Conectar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Mezcla",
+          "response": "Toda rica",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Hélice",
+          "response": "Verificar libre",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Arrancador",
+          "response": "Acoplar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Presión de aceite",
+          "response": "Verificar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Alternador",
+          "response": "Acoplar-Verificar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Bomba de combustible",
+          "response": "Off",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Presión de combustible",
+          "response": "Verificar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Calentar el motor",
+          "response": "800/1200 RPM",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "engine_start",
+      "title": "Puesta en Marcha (Motor Ahogado)",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Acelerador",
+          "response": "Todo abierto",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Batería",
+          "response": "On",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Bomba de combustible",
+          "response": "Off",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Mezcla",
+          "response": "Pobre cortada",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Hélice",
+          "response": "Verificar libre",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Arrancador",
+          "response": "Acoplar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Mezcla",
+          "response": "Avanzar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Acelerador",
+          "response": "Reducir",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Presión de aceite",
+          "response": "Verificar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Alternador",
+          "response": "Acoplar-Verificar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Presión de combustible",
+          "response": "Verificar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Calentar el motor",
+          "response": "800/1200 RPM",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "engine_start",
+      "title": "Puesta en Marcha con Fuente Externa",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Master switch",
+          "response": "Off (BAT y ALT)",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Equipos eléctricos",
+          "response": "Off",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Terminales",
+          "response": "Conectar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "External power plug",
+          "response": "Conectar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Continúe con arranque normal",
+          "response": "Continuar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Acelerador",
+          "response": "Bajas RPM",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "External power plug",
+          "response": "Desconectar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Master switch",
+          "response": "On (BAT y ALT)",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Presión de aceite",
+          "response": "Verificar",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "taxi",
+      "title": "Taxi",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Intercom",
+          "response": "On",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Equipos radioeléctricos",
+          "response": "On",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Flaps",
+          "response": "Arriba",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Mezcla",
+          "response": "Empobrecer",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Taxi area",
+          "response": "Libre",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Freno de estacionamiento",
+          "response": "Quitar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Frenos",
+          "response": "Verificar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Steering",
+          "response": "Verificar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Avanzar el acelerador hasta 1500 RPM aprox. romper inercia y comprobar suavemente el funcionamiento de los frenos, luego iniciar el giro sin accionar los mismos. Con la aeronave ya en movimiento reducir potencia a 800/100 RPM para rodar, de acuerdo a la condición de la superficie.",
+          "tickable": false,
+          "source_confidence": 0.5
+        }
+      ]
+    },
+    {
+      "phase": "before_takeoff",
+      "title": "Previo al Despegue",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Freno de estacionamiento",
+          "response": "Colocado",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Acelerador",
+          "response": "1800 RPM",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Magnetos",
+          "response": "175 Max/50 Diff",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Succión",
+          "response": "5,0\" Hg ± ,1",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Temperatura de aceite",
+          "response": "Verificar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Presión de aceite",
+          "response": "Verificar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Calefacción al carburador",
+          "response": "Verificar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Acelerador",
+          "response": "Reducir",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Magnetos",
+          "response": "Off - luego Both",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Master switch",
+          "response": "Verificar On (BAT y ALT)",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Instrumentos de vuelo",
+          "response": "Verificar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Equipos radioeléctricos",
+          "response": "Verificar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Selector de tanque",
+          "response": "Mismo de la puesta en marcha",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Mezcla",
+          "response": "Toda rica",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Bomba de combustible",
+          "response": "Conectar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Anticolisión",
+          "response": "Encender",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Faro de aterrizaje",
+          "response": "A discreción",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Calefacción al carburador",
+          "response": "Cerrado",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Asientos",
+          "response": "Trabados",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Respaldos",
+          "response": "Verticales",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Cinturones y arneses",
+          "response": "Ajustados",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Asiento libre",
+          "response": "Asegurado",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Flaps",
+          "response": "Ajustar para el despegue",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Compensador",
+          "response": "Ajustar para el despegue",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Comandos",
+          "response": "Libres y correctos",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Puertas y stormwindow",
+          "response": "Cerradas",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Traba de techo",
+          "response": "Colocar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Briefing de despegue",
+          "response": "Realizar",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "takeoff",
+      "title": "Despegue Normal",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Flaps",
+          "response": "Primer punto (21°)",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Acelerador",
+          "response": "A pleno (2200/2350 RPM)",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Rotación",
+          "response": "55 KIAS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Acelerar hasta",
+          "response": "70 KIAS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Retraer flaps",
+          "response": "200 ft",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Acelerador",
+          "response": "Reducir a 2350 RPM",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Salida de circuito",
+          "response": "500 ft",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Faro de aterrizaje",
+          "response": "Off",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "takeoff",
+      "title": "Despegue Salvando un Obstáculo",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Flaps",
+          "response": "Primer punto (21°)",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Frenos",
+          "response": "Aplicar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Acelerador",
+          "response": "A pleno (2200/2350 RPM)",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Frenos",
+          "response": "Soltar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Rotación",
+          "response": "55 KIAS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Acelerar hasta",
+          "response": "61 KIAS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Superado el obstáculo",
+          "response": "Acelerar a 70 KIAS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Con 70 KIAS",
+          "response": "Retraer flaps",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Acelerador",
+          "response": "Reducir a 2350 RPM",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Salida de circuito",
+          "response": "500 ft",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Faro de aterrizaje",
+          "response": "Off",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "cruise",
+      "title": "Nivelado/Crucero",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Acelerador",
+          "response": "2300 RPM",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Bomba de combustible",
+          "response": "Off",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Mezcla",
+          "response": "Corregir por encima de 6000 ft",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Compensador",
+          "response": "Ajustar para VRN",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "descent",
+      "title": "Descenso y Aproximación",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Selector de tanque",
+          "response": "Más lleno",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Asientos",
+          "response": "Trabados",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Respaldos",
+          "response": "Verticales",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Cinturones y arneses",
+          "response": "Ajustados",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Bomba de combustible",
+          "response": "Conectar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Mezcla",
+          "response": "Toda rica",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Calefacción al carburador",
+          "response": "A discreción",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Flaps",
+          "response": "Extender por debajo de 89 KIAS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Compensador",
+          "response": "Ajustar para 75 KIAS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Borde de campo",
+          "response": "70 KIAS",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "shutdown",
+      "title": "Detención del Motor",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Freno de estacionamiento",
+          "response": "Colocar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Flaps",
+          "response": "Retraer",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Bomba de combustible",
+          "response": "Off",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Luces",
+          "response": "Off",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Acelerador",
+          "response": "Todo reducido",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Mezcla",
+          "response": "Pobre cortada",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Llave de ignición",
+          "response": "Off",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Master switch",
+          "response": "Off (BAT y ALT)",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Intercom",
+          "response": "Off",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "No dejar los auriculares al sol. Trabar comandos de vuelo si el viento se encuentra fuera de norma. (Ráfagas superiores a 15 Kts.)",
+          "tickable": false,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "reference",
+      "title": "Tabla de Referencia para Cálculo de Peso y Balanceo",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "subtitle",
+          "text": "Tabla de Referencia para Cálculo de Peso y Balanceo",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Piloto y pasajero - brazo",
+          "response": "85,5 in",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Combustible (Máx. Util. 30 US gal) - brazo",
+          "response": "75,4 in",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Equipaje (Máx. 100 lb) - brazo",
+          "response": "115 in",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Peso vacío autorizado",
+          "response": "Verificar",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Totales del avión cargado",
+          "response": "Calcular",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "weight_and_balance",
+      "title": "Límites de Variación de la Ubicación del Centro de Gravedad",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "subtitle",
+          "text": "Límites de Variación de la Ubicación del Centro de Gravedad",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Categoría Normal - Peso máximo",
+          "response": "757,5 kg / 1670 lb",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Categoría Normal - Posición extrema delantera",
+          "response": "186,69 cm / 73,5 in",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Categoría Normal - Posición extrema trasera",
+          "response": "199,39 cm / 78,5 in",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Categoría Utilitaria - Peso máximo",
+          "response": "579,2 kg / 1277 lb",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Categoría Utilitaria - Posición extrema delantera",
+          "response": "183,90 cm / 72,4 in",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Categoría Utilitaria - Posición extrema trasera",
+          "response": "199,39 cm / 78,5 in",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "performance",
+      "title": "Performance",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "subtitle",
+          "text": "Velocidad de Pérdida en Función del Ángulo de Alabeo",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Condiciones: Peso total = 759 Kgs (1670 Lbs)",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Gráfico de velocidad de pérdida en función del ángulo de alabeo",
+          "tickable": false,
+          "source_confidence": 0.3
+        },
+        {
+          "type": "subtitle",
+          "text": "Performance de Despegue - Flaps Retraídos",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Condiciones: Flaps retraídos. Velocidad de despegue 53 KIAS. Potencia a pleno antes de liberar frenos. Pista pavimentada, seca y nivelada. Peso total 759 Kgs (1670 Lbs).",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Gráfico de distancia de despegue",
+          "tickable": false,
+          "source_confidence": 0.3
+        },
+        {
+          "type": "subtitle",
+          "text": "Performance de Despegue Salvando un Obstáculo de 15 Mts (50 Ft) - Flaps Retraídos",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Condiciones: Flaps retraídos. Velocidad de despegue 53 KIAS. Velocidad sobre el obstáculo 62 KIAS. Potencia a pleno antes de liberar frenos. Pista pavimentada, seca y nivelada. Peso total 759 Kgs (1670 Lbs).",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Gráfico de distancia de despegue salvando obstáculo",
+          "tickable": false,
+          "source_confidence": 0.3
+        },
+        {
+          "type": "subtitle",
+          "text": "Performance de Despegue - Flaps Primer Punto (21°)",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Condiciones: Flaps primer punto (21°). Velocidad de despegue 53 KIAS. Potencia a pleno antes de liberar frenos. Pista pavimentada, seca y nivelada. Peso total 759 Kgs (1670 Lbs).",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Gráfico de distancia de despegue",
+          "tickable": false,
+          "source_confidence": 0.3
+        },
+        {
+          "type": "subtitle",
+          "text": "Performance de Despegue Salvando un Obstáculo de 15 Mts (50 Ft) - Flaps Primer Punto (21°)",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Condiciones: Flaps primer punto (21°). Velocidad de despegue 53 KIAS. Velocidad sobre el obstáculo 62 KIAS. Potencia a pleno antes de liberar frenos. Pista pavimentada, seca y nivelada. Peso total 759 Kgs (1670 Lbs).",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Gráfico de distancia de despegue salvando obstáculo",
+          "tickable": false,
+          "source_confidence": 0.3
+        },
+        {
+          "type": "subtitle",
+          "text": "Performance de Ascenso",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Condiciones: Mezcla para potencia óptima por encima de 2100 Mts (7000 Ft). Velocidad de ascenso 70 KIAS. Flaps retraídos. Peso total 759 Kgs (1670 Lbs).",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Gráfico de performance de ascenso",
+          "tickable": false,
+          "source_confidence": 0.3
+        },
+        {
+          "type": "subtitle",
+          "text": "Performance del Motor",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Condiciones: Peso total 759 Kgs (1670 Lbs).",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Gráfico de performance del motor",
+          "tickable": false,
+          "source_confidence": 0.3
+        },
+        {
+          "type": "subtitle",
+          "text": "Combustible, Tiempo y Distancia para el Ascenso",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Condiciones: Velocidad de ascenso 70 KIAS. Acelerador a pleno. Mezcla para potencia óptima encima de los 2100 Mts (7000 Ft). Peso total 759 Kgs (1670 Lbs).",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Tabla de combustible, tiempo y distancia para el ascenso",
+          "tickable": false,
+          "source_confidence": 0.3
+        },
+        {
+          "type": "subtitle",
+          "text": "Velocidad en Función de la Potencia - Mezcla para Potencia Óptima",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Condiciones: Mezcla para potencia óptima por debajo del 75% de la potencia. Peso total 759 Kgs (1670 Lbs).",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Tabla de velocidad en función de la potencia",
+          "tickable": false,
+          "source_confidence": 0.3
+        },
+        {
+          "type": "subtitle",
+          "text": "Velocidad en Función de la Potencia - Mezcla para Máxima Economía",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Condiciones: Mezcla para máxima economía. Peso total 759 Kgs (1670 Lbs).",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Tabla de velocidad en función de la potencia",
+          "tickable": false,
+          "source_confidence": 0.3
+        },
+        {
+          "type": "subtitle",
+          "text": "Alcance con Potencia Óptima",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Condiciones: Mezcla 125°F por debajo del pico de EGT. Viento nulo. Peso total 759 Kgs (1670 Lbs). Combustible utilizable 113 Lts (30 USgal).",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Nota: El alcance incluye distancias de ascenso y descenso con las reservas necesarias para puesta en marcha, rodaje, despegue y descenso.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Tabla de alcance",
+          "tickable": false,
+          "source_confidence": 0.3
+        },
+        {
+          "type": "subtitle",
+          "text": "Alcance con Mezcla para Máxima Economía",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Condiciones: Mezcla empobrecida para el pico de EGT. Viento nulo. Peso total 759 Kgs (1670 Lbs). Combustible utilizable 113 Lts (30 USgal).",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Nota: El alcance incluye distancias de ascenso y descenso con las reservas necesarias para puesta en marcha, rodaje, despegue y descenso.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Tabla de alcance",
+          "tickable": false,
+          "source_confidence": 0.3
+        },
+        {
+          "type": "subtitle",
+          "text": "Autonomía para Potencia Óptima",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Condiciones: Mezcla 125°F por debajo del pico de EGT. Peso total 759 Kgs (1670 Lbs). Combustible utilizable 113 Lts (30 USgal).",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Nota: Están incluidas las reservas necesarias para puesta en marcha, rodaje, despegue, ascenso y descenso.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Tabla de autonomía",
+          "tickable": false,
+          "source_confidence": 0.3
+        },
+        {
+          "type": "subtitle",
+          "text": "Autonomía para Mezcla de Máxima Economía",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Condiciones: Mezcla empobrecida para el pico de EGT. Peso total 759 Kgs (1670 Lbs). Combustible utilizable 113 Lts (30 USgal).",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Nota: Están incluidas las reservas necesarias para puesta en marcha, rodaje, despegue, ascenso y descenso.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Tabla de autonomía",
+          "tickable": false,
+          "source_confidence": 0.3
+        },
+        {
+          "type": "subtitle",
+          "text": "Combustible, Tiempo y Distancia para el Descenso",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Condiciones: Velocidad de descenso 110 KIAS. Régimen de descenso 750 Ft/Min. Potencia según se requiera. Mezcla rica. Peso total 759 Kgs (1670 Lbs).",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Tabla de combustible, tiempo y distancia para el descenso",
+          "tickable": false,
+          "source_confidence": 0.3
+        },
+        {
+          "type": "subtitle",
+          "text": "Performance de Planeo",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Condiciones: Velocidad de planeo 70 KIAS. Flaps retraídos. Peso total 759 Kgs (1670 Lbs).",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Tabla de performance de planeo",
+          "tickable": false,
+          "source_confidence": 0.3
+        },
+        {
+          "type": "subtitle",
+          "text": "Distancia de Aterrizaje en Tierra",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Condiciones: Flaps full (34°). Aproximación sin potencia con 62 KIAS. Pérdida total en el momento de toque. Máxima aplicación de frenos. Pista pavimentada, seca y nivelada. Peso total 759 Kgs (1670 Lbs).",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Tabla de distancia de aterrizaje en tierra",
+          "tickable": false,
+          "source_confidence": 0.3
+        },
+        {
+          "type": "subtitle",
+          "text": "Distancia de Aterrizaje en Tierra Salvando un Obstáculo de 15 Mts (50 Ft)",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Condiciones: Flaps full (34°). Aproximación sin potencia con 62 KIAS. Pérdida total en el momento de toque. Máxima aplicación de frenos. Pista pavimentada, seca y nivelada. Peso total 759 Kgs (1670 Lbs).",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Tabla de distancia de aterrizaje salvando obstáculo",
+          "tickable": false,
+          "source_confidence": 0.3
+        },
+        {
+          "type": "subtitle",
+          "text": "Calibración del Velocímetro",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Condiciones: Peso total 759 Kgs (1670 Lbs). Error de instrumento nulo.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Tabla de calibración del velocímetro",
+          "tickable": false,
+          "source_confidence": 0.3
+        }
+      ]
+    }
+  ]
+}

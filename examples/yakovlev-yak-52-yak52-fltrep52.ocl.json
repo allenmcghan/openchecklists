@@ -1,0 +1,512 @@
+{
+  "open_checklist_version": "1.0",
+  "id": "yakovlev-yak-52-yak52-fltrep52",
+  "title": "Yakovlev Yak 52 — yak52_fltrep52",
+  "aircraft": {
+    "make": "Yakovlev",
+    "model": "Yak 52",
+    "category": "standard_normal"
+  },
+  "provenance": {
+    "source": {
+      "kind": "third_party_checklist",
+      "title": "Yakovlev/Yak 52/yak52_fltrep52.txt"
+    },
+    "transcription": {
+      "method": "format_conversion",
+      "date": "2026-08-14",
+      "converted_from": "doc"
+    },
+    "contributors": [
+      {
+        "name": "Open Checklists project",
+        "role": [
+          "transcriber"
+        ]
+      }
+    ],
+    "revision": {
+      "file_revision": "0.1.0",
+      "updated": "2026-08-14"
+    }
+  },
+  "verification": {
+    "source_fidelity": "unreviewed",
+    "operational_review": "none",
+    "completeness": "full",
+    "known_issues": [
+      {
+        "severity": "content_gap",
+        "description": "Section \"Circuit and Approach\" item count differs between passes (5 vs 4); verify nothing was dropped.",
+        "location": "Circuit and Approach"
+      },
+      {
+        "severity": "content_gap",
+        "description": "Section \"Engine Start\" item count differs between passes (3 vs 4); verify nothing was dropped.",
+        "location": "Engine Start"
+      },
+      {
+        "severity": "content_gap",
+        "description": "Section \"Landing\" item count differs between passes (4 vs 3); verify nothing was dropped.",
+        "location": "Landing"
+      }
+    ],
+    "reviews": [
+      {
+        "type": "source_comparison",
+        "reviewer": "ai-dual-pass-review",
+        "date": "2026-08-14",
+        "notes": "Automated AI review: two independent transcription passes + numeric/item-count disagreement resolution. Not human-verified; baseline for community correction."
+      }
+    ]
+  },
+  "rights": {
+    "status": "licensed",
+    "upstream_holder": "freechecklists.net",
+    "upstream_license": "content-reuse permission granted by the site author for this replacement project",
+    "notes": "Transcribed from the freechecklists.net archive under the author's reuse grant. Individual checklist wording may be substantially the source's; per-file contributor authorship is unknown."
+  },
+  "units": {
+    "airspeed": "kt",
+    "altitude": "ft",
+    "pressure": "inhg"
+  },
+  "speeds": {
+    "stall_clean_power_off": 57,
+    "stall_gear_flaps_down": 52,
+    "stall_clean_power_on": 54,
+    "stall_dirty_power_on": 49,
+    "rotation": 65,
+    "climb": 65,
+    "gear_retract_max": 108,
+    "gear_extend_max": 108,
+    "flap_extend_max": 92,
+    "approach": 92,
+    "threshold": 65,
+    "max_level_flight": 70,
+    "max_inverted": 92
+  },
+  "sections": [
+    {
+      "phase": "preflight_inspection",
+      "title": "Cockpit Entry",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "Climb onto wing using knee, then other leg, while holding canopy rail",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "Walk only on anti-skid strip adjacent to fuselage",
+          "tickable": true,
+          "source_confidence": 0.9
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "before_start",
+      "title": "Before Start",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "Check front cockpit wall chart for priming duration",
+          "tickable": true,
+          "source_confidence": 0.8
+        },
+        {
+          "type": "challenge",
+          "text": "Check air reservoir pressure",
+          "tickable": true,
+          "source_confidence": 0.8
+        },
+        {
+          "type": "note",
+          "text": "Air reservoir is good for 12 start attempts before re-charging.",
+          "tickable": false,
+          "source_confidence": 0.95
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "engine_start",
+      "title": "Engine Start",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "Start using pneumatic system",
+          "tickable": true,
+          "source_confidence": 0.8
+        },
+        {
+          "type": "note",
+          "text": "Starting procedure varies with outside air temperature, time since last run, and oil dilution.",
+          "tickable": false,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "note",
+          "text": "When warm, the Ivchenko starts with the simplicity of a typical Continental or Lycoming.",
+          "tickable": false,
+          "source_confidence": 0.5
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "after_start",
+      "title": "After Start",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "Check compressor re-charges air bottle after start",
+          "tickable": true,
+          "source_confidence": 0.7
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "taxi",
+      "title": "Taxi",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "Use rudder bars for gentle turns",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "challenge",
+          "text": "Use burst of power to energize rudder when needed",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "challenge",
+          "text": "For tighter turns, use full rudder plus stick-mounted brake lever for differential braking",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "note",
+          "text": "With rudders neutral, braking is equal to both main wheels.",
+          "tickable": false,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "caution",
+          "text": "Take care not to reach excessive taxi speed; allow engine temperature to stabilize.",
+          "tickable": false,
+          "source_confidence": 0.85
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "before_takeoff",
+      "title": "Engine Run-Up and Vital Actions",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "Magnetos check",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "challenge",
+          "text": "Exercise RPM control to verify propeller governor operation",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "challenge",
+          "text": "Complete pre-takeoff vital actions using checklist",
+          "tickable": true,
+          "source_confidence": 0.8
+        },
+        {
+          "type": "note",
+          "text": "Max power (ceaseless engine function duration) is 5 minutes.",
+          "tickable": false,
+          "source_confidence": 0.75
+        },
+        {
+          "type": "note",
+          "text": "Throttle-engine lag (racing capacity) is 3 seconds max.",
+          "tickable": false,
+          "source_confidence": 0.75
+        },
+        {
+          "type": "note",
+          "text": "Max overspeed when operating throttle rapidly is 109 per cent.",
+          "tickable": false,
+          "source_confidence": 0.75
+        },
+        {
+          "type": "note",
+          "text": "Maximum allowed airspeed in level flight is conditioned by avoidance of sudden spin: 130 km/h normal flight, 170 km/h inverted. Author suspects max/min are reversed.",
+          "tickable": false,
+          "source_confidence": 0.6
+        },
+        {
+          "type": "caution",
+          "text": "Aerobatics forbidden with less than 4.5 gallons of fuel remaining.",
+          "tickable": false,
+          "source_confidence": 0.85
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "takeoff",
+      "title": "Takeoff",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "Apply full throttle",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "Expect to push on the 'wrong' foot due to engine rotation direction",
+          "tickable": true,
+          "source_confidence": 0.8
+        },
+        {
+          "type": "action",
+          "text": "Rotate",
+          "response": "120 km/h (65 kt)",
+          "tickable": true,
+          "source_confidence": 0.95,
+          "value": {
+            "quantity": "airspeed",
+            "unit": "kt",
+            "target": 65
+          }
+        },
+        {
+          "type": "note",
+          "text": "Take-off roll in ISA conditions is 590 ft at maximum weight.",
+          "tickable": false,
+          "source_confidence": 0.8
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "after_takeoff",
+      "title": "After Takeoff",
+      "items": [
+        {
+          "type": "action",
+          "text": "Raise gear",
+          "response": "BELOW 200 km/h (108 kt)",
+          "tickable": true,
+          "source_confidence": 0.9,
+          "value": {
+            "quantity": "airspeed",
+            "unit": "kt",
+            "target": 108
+          }
+        },
+        {
+          "type": "challenge",
+          "text": "After selecting gear up, hold lever until 'three reds', then return lever to neutral",
+          "tickable": true,
+          "source_confidence": 0.8
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "approach",
+      "title": "Circuit and Approach",
+      "items": [
+        {
+          "type": "action",
+          "text": "Lower gear",
+          "response": "AT 200 km/h (108 kt)",
+          "tickable": true,
+          "source_confidence": 0.9,
+          "value": {
+            "quantity": "airspeed",
+            "unit": "kt",
+            "target": 108
+          }
+        },
+        {
+          "type": "challenge",
+          "text": "After selecting gear down, hold lever until 'three greens', then return lever to neutral",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Extend flaps",
+          "response": "AT/OR BELOW 170 km/h (92 kt)",
+          "tickable": true,
+          "source_confidence": 0.5,
+          "value": {
+            "quantity": "airspeed",
+            "unit": "kt",
+            "target": 92
+          }
+        },
+        {
+          "type": "action",
+          "text": "Fly approach",
+          "response": "170 km/h (92 kt) slowing to 120 km/h (65 kt) at threshold",
+          "tickable": true,
+          "source_confidence": 0.9,
+          "value": {
+            "quantity": "airspeed",
+            "unit": "kt",
+            "min": 65,
+            "max": 92
+          }
+        },
+        {
+          "type": "note",
+          "text": "Without flaps, forward view from rear seat is virtually nil; a curved approach is needed.",
+          "tickable": false,
+          "source_confidence": 0.85
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "landing",
+      "title": "Landing",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "Keep the canopy lock pin in place in the rail hole",
+          "tickable": true,
+          "source_confidence": 0.8
+        },
+        {
+          "type": "challenge",
+          "text": "Lower nose after touchdown",
+          "tickable": true,
+          "source_confidence": 0.8
+        },
+        {
+          "type": "note",
+          "text": "High wing-loading means no tendency to float.",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "note",
+          "text": "With practice, landing roll can be as short as 300 m (985 ft).",
+          "tickable": false,
+          "source_confidence": 0.8
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "forced_landing",
+      "title": "Forced Landing",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "Leave gear retracted for dead-stick landing",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "note",
+          "text": "Standard drill is to leave gear retracted to flatten the descent profile.",
+          "tickable": false,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "note",
+          "text": "Brakes remain usable with gear up.",
+          "tickable": false,
+          "source_confidence": 0.8
+        },
+        {
+          "type": "note",
+          "text": "With gear up, the undercarriage remains partially exposed to minimize damage in a wheels-up landing.",
+          "tickable": false,
+          "source_confidence": 0.8
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "reference",
+      "title": "Reference",
+      "items": [
+        {
+          "type": "note",
+          "text": "Performance: climb to 3,000 ft in 98 seconds; cruise 140-145 kt at 75 per cent power; fuel burn just over 13 US gal/hr at 140 kt cruise.",
+          "tickable": false,
+          "source_confidence": 0.7
+        },
+        {
+          "type": "note",
+          "text": "Endurance in excess of 2 hours with 45 minutes reserve; maximum range 275 nm at slightly reduced cruise speed.",
+          "tickable": false,
+          "source_confidence": 0.7
+        },
+        {
+          "type": "note",
+          "text": "G limits: unlimited aerobatics certified at max takeoff weight 1,305 kg.",
+          "tickable": false,
+          "source_confidence": 0.7
+        },
+        {
+          "type": "note",
+          "text": "Engine: Ivchenko M-14P 9-cylinder radial, 360 hp.",
+          "tickable": false,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "note",
+          "text": "Pneumatic system used for engine starting, flaps, gear, and brakes.",
+          "tickable": false,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "note",
+          "text": "RPM gauge is calibrated in percent of maximum rather than RPM.",
+          "tickable": false,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "note",
+          "text": "Artificial horizon is inverted in presentation: top half of ball is brown, bottom half is blue.",
+          "tickable": false,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "note",
+          "text": "Rear cockpit has controls to deliberately fail certain systems in the front cockpit.",
+          "tickable": false,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "note",
+          "text": "Gear lever is pneumatic and returns to central neutral position when not required.",
+          "tickable": false,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "note",
+          "text": "Brakes are operated by a stick-mounted lever; pneumatic brake noise resembles a bus/lorry stopping.",
+          "tickable": false,
+          "source_confidence": 0.85
+        }
+      ],
+      "criticality": "normal"
+    }
+  ]
+}

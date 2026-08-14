@@ -1,0 +1,741 @@
+{
+  "open_checklist_version": "1.0",
+  "id": "cessna-401-louis-janos-401-normal-checklist",
+  "title": "Cessna 401 — Louis_Janos_401_Normal_checklist",
+  "aircraft": {
+    "make": "Cessna",
+    "model": "401",
+    "category": "standard_normal"
+  },
+  "provenance": {
+    "source": {
+      "kind": "third_party_checklist",
+      "title": "Cessna/401/Louis_Janos_401_Normal_checklist.txt"
+    },
+    "transcription": {
+      "method": "format_conversion",
+      "date": "2026-08-13",
+      "converted_from": "doc"
+    },
+    "contributors": [
+      {
+        "name": "Open Checklists project",
+        "role": [
+          "transcriber"
+        ]
+      }
+    ],
+    "revision": {
+      "file_revision": "0.1.0",
+      "updated": "2026-08-13"
+    }
+  },
+  "verification": {
+    "source_fidelity": "unreviewed",
+    "operational_review": "none",
+    "completeness": "full",
+    "known_issues": [
+      {
+        "severity": "content_gap",
+        "description": "Section \"AFTER TAKEOFF\" item count differs between passes (5 vs 6); verify nothing was dropped.",
+        "location": "AFTER TAKEOFF"
+      },
+      {
+        "severity": "content_gap",
+        "description": "Section \"BEFORE TAKEOFF\" item count differs between passes (9 vs 8); verify nothing was dropped.",
+        "location": "BEFORE TAKEOFF"
+      },
+      {
+        "severity": "content_gap",
+        "description": "Section \"CRUISE\" item count differs between passes (5 vs 7); verify nothing was dropped.",
+        "location": "CRUISE"
+      },
+      {
+        "severity": "content_gap",
+        "description": "Section \"TAKEOFF\" item count differs between passes (4 vs 5); verify nothing was dropped.",
+        "location": "TAKEOFF"
+      }
+    ],
+    "reviews": [
+      {
+        "type": "source_comparison",
+        "reviewer": "ai-dual-pass-review",
+        "date": "2026-08-14",
+        "notes": "Automated AI review: two independent transcription passes + numeric/item-count disagreement resolution. Not human-verified; baseline for community correction."
+      }
+    ]
+  },
+  "rights": {
+    "status": "licensed",
+    "upstream_holder": "freechecklists.net",
+    "upstream_license": "content-reuse permission granted by the site author for this replacement project",
+    "notes": "Transcribed from the freechecklists.net archive under the author's reuse grant. Individual checklist wording may be substantially the source's; per-file contributor authorship is unknown."
+  },
+  "units": {
+    "airspeed": "mph",
+    "altitude": "ft",
+    "pressure": "inhg",
+    "fuel": "usgal",
+    "temperature": "f"
+  },
+  "speeds": {},
+  "sections": [
+    {
+      "phase": "before_start",
+      "title": "BEFORE START",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Preflight Inspection",
+          "response": "COMPLETE",
+          "tickable": true,
+          "source_confidence": 0.97
+        },
+        {
+          "type": "action",
+          "text": "Cabin Door",
+          "response": "LATCHED",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "Gear Switch",
+          "response": "DOWN",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "Alternate Air Controls",
+          "response": "FULL IN",
+          "tickable": true,
+          "source_confidence": 0.97
+        },
+        {
+          "type": "action",
+          "text": "Alternators and Battery",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "Control Lock",
+          "response": "REMOVED",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "Flight Controls",
+          "response": "FREE AND CORRECT",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "Cowl Flaps",
+          "response": "OPEN",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "Throttles",
+          "response": "OPEN ONE INCH",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "Props",
+          "response": "FORWARD",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "Mixtures",
+          "response": "RICH",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "Fuel Selectors",
+          "response": "MAIN/TIP TANKS",
+          "tickable": true,
+          "source_confidence": 0.97
+        }
+      ]
+    },
+    {
+      "phase": "engine_start",
+      "title": "ENGINE START",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Magnetos",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "Left Starter",
+          "response": "PRESS",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "Prime Switch",
+          "response": "APPROPRIATE ENGINE",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "Auxiliary Fuel Pump",
+          "response": "LOW",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "1000 - 1200 RPM",
+          "tickable": true,
+          "source_confidence": 0.5,
+          "value": {
+            "quantity": "rpm",
+            "unit": "rpm",
+            "min": 1000,
+            "max": 1200,
+            "comparison": "between"
+          }
+        },
+        {
+          "type": "action",
+          "text": "Vacuum System",
+          "response": "CHECK",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "Right Engine",
+          "response": "REPEAT 1 THROUGH 6",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Lights",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "Radios",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 0.98
+        }
+      ]
+    },
+    {
+      "phase": "before_takeoff",
+      "title": "BEFORE TAKEOFF",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Trim Tabs",
+          "response": "CHECK MOVEMENT, SET FOR TAKEOFF",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "Controls",
+          "response": "FREE AND CORRECT",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "Cowl Flaps",
+          "response": "OPEN",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "Wing Flaps",
+          "response": "UP",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "Engine Instruments",
+          "response": "NORMAL",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "Instruments and Radios",
+          "response": "CHECK/SET",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "Engine Runup",
+          "response": "CHECK",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "challenge",
+          "text": "Voltammeter, Vacuum System, Magnetos",
+          "tickable": true,
+          "source_confidence": 0.95,
+          "indent": 1
+        },
+        {
+          "type": "challenge",
+          "text": "Feather",
+          "tickable": true,
+          "source_confidence": 0.95,
+          "indent": 1
+        }
+      ]
+    },
+    {
+      "phase": "takeoff",
+      "title": "TAKEOFF",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Auxiliary Fuel Pumps",
+          "response": "LOW",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "Landing Lights",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "Transponder",
+          "response": "ALT",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "Engine Power",
+          "response": "34.5\" MP/2700 RPM, CHECK FUEL FLOW IN WHITE ARC",
+          "tickable": true,
+          "source_confidence": 0.5,
+          "value": {
+            "quantity": "pressure",
+            "unit": "inhg",
+            "target": 34.5,
+            "comparison": "equal"
+          }
+        }
+      ]
+    },
+    {
+      "phase": "after_takeoff",
+      "title": "AFTER TAKEOFF",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Landing Gear",
+          "response": "UP",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "Engine Power",
+          "response": "29.5\" MP/2450 RPM (1000 FT AGL CHECK FUEL FLOW ON BLUE 75% MARK)",
+          "tickable": true,
+          "source_confidence": 0.5,
+          "value": {
+            "quantity": "pressure",
+            "unit": "inhg",
+            "target": 29.5,
+            "comparison": "equal"
+          }
+        },
+        {
+          "type": "action",
+          "text": "Auxiliary Fuel Pumps",
+          "response": "OFF OR AS REQUIRED",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "Fuel selector",
+          "tickable": true,
+          "source_confidence": 0.97
+        },
+        {
+          "type": "challenge",
+          "text": "Voltammeter",
+          "tickable": true,
+          "source_confidence": 0.97
+        }
+      ]
+    },
+    {
+      "phase": "cruise",
+      "title": "CRUISE",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Engine Power",
+          "response": "27.0\" MP/2300 RPM",
+          "tickable": true,
+          "source_confidence": 0.5,
+          "value": {
+            "quantity": "pressure",
+            "unit": "inhg",
+            "target": 27.0,
+            "comparison": "equal"
+          }
+        },
+        {
+          "type": "action",
+          "text": "Mixtures",
+          "response": "LEAN, USE EGT BELOW 75% POWER, SET 100º ROP",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Cowl Flaps",
+          "response": "CLOSED",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "Fuel Selectors",
+          "response": "AUXILIARY - ONE AT A TIME (AFTER THERE IS ROOM IN THE TIP TANK)",
+          "tickable": true,
+          "source_confidence": 0.97
+        },
+        {
+          "type": "action",
+          "text": "Landing Lights",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.98
+        }
+      ]
+    },
+    {
+      "phase": "descent",
+      "title": "DESCENT",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "ATIS",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "Altimeter",
+          "response": "SET",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "Reduce M.P. 1\" per minute",
+          "response": "CHECK",
+          "tickable": true,
+          "source_confidence": 0.96
+        }
+      ]
+    },
+    {
+      "phase": "approach",
+      "title": "APPROACH",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Fuel Selectors",
+          "response": "MAINS/OUTBOARD TANKS",
+          "tickable": true,
+          "source_confidence": 0.96
+        },
+        {
+          "type": "action",
+          "text": "Alternate Air",
+          "response": "CHECK IN",
+          "tickable": true,
+          "source_confidence": 0.97
+        },
+        {
+          "type": "action",
+          "text": "Mixtures",
+          "response": "RICH OR AS REQUIRED",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "Auxiliary Fuel Pumps",
+          "response": "LOW",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "Heater",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "Landing Lights",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "Cowl Flaps",
+          "response": "CLOSED",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "Flaps",
+          "response": "DOWN 15º BELOW 180 MPH",
+          "tickable": true,
+          "source_confidence": 0.5,
+          "value": {
+            "quantity": "angle",
+            "unit": "deg",
+            "target": 15,
+            "comparison": "equal"
+          }
+        },
+        {
+          "type": "action",
+          "text": "Gear",
+          "response": "DOWN",
+          "tickable": true,
+          "source_confidence": 0.98
+        }
+      ]
+    },
+    {
+      "phase": "before_landing",
+      "title": "BEFORE LANDING",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Flaps",
+          "response": "DOWN 45º BELOW 160 MPH",
+          "tickable": true,
+          "source_confidence": 0.5,
+          "value": {
+            "quantity": "angle",
+            "unit": "deg",
+            "target": 45,
+            "comparison": "equal"
+          }
+        },
+        {
+          "type": "action",
+          "text": "Gear",
+          "response": "CHECK DOWN",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "Props",
+          "response": "FORWARD",
+          "tickable": true,
+          "source_confidence": 0.98
+        }
+      ]
+    },
+    {
+      "phase": "after_landing",
+      "title": "AFTER LANDING",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Auxiliary Fuel Pumps",
+          "response": "LOW",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "Cowl Flaps",
+          "response": "OPEN",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "Flaps",
+          "response": "UP",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "Transponder",
+          "response": "STBY",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "Trim",
+          "response": "SET FOR TAKEOFF",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "Heater",
+          "response": "CHECK OFF",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "Landing Lights",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.98
+        }
+      ]
+    },
+    {
+      "phase": "shutdown",
+      "title": "SHUTDOWN",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Auxiliary Fuel Pumps",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "Radios",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "Throttles",
+          "response": "IDLE",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "note",
+          "text": "Engine cool 3 min. before shutdown",
+          "tickable": false,
+          "source_confidence": 0.95,
+          "indent": 1
+        },
+        {
+          "type": "action",
+          "text": "Props",
+          "response": "FORWARD",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "Left Mixture",
+          "response": "IDLE CUTOFF",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "Vacuum System",
+          "response": "CHECK",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "Right Mixture",
+          "response": "IDLE CUTOFF",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "Magnetos",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "Battery and Alternators",
+          "response": "SET",
+          "tickable": true,
+          "source_confidence": 0.97
+        },
+        {
+          "type": "action",
+          "text": "Parking Brake",
+          "response": "SET",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "action",
+          "text": "Control Lock",
+          "response": "INSTALL",
+          "tickable": true,
+          "source_confidence": 0.98
+        }
+      ]
+    }
+  ]
+}

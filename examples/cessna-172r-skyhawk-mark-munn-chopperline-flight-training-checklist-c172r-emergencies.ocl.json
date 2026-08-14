@@ -1,0 +1,415 @@
+{
+  "open_checklist_version": "1.0",
+  "id": "cessna-172r-skyhawk-mark-munn-chopperline-flight-training-checklist-c172r-emergencies",
+  "title": "Cessna 172R Skyhawk — Mark_Munn_Chopperline_Flight_Training_Checklist_C172R_Emergencies",
+  "aircraft": {
+    "make": "Cessna",
+    "model": "172R Skyhawk",
+    "category": "standard_normal"
+  },
+  "provenance": {
+    "source": {
+      "kind": "third_party_checklist",
+      "title": "Cessna/172R Skyhawk/Mark_Munn_Chopperline_Flight_Training_Checklist_C172R_Emergencies.txt"
+    },
+    "transcription": {
+      "method": "format_conversion",
+      "date": "2026-08-13",
+      "converted_from": "doc"
+    },
+    "contributors": [
+      {
+        "name": "Open Checklists project",
+        "role": [
+          "transcriber"
+        ]
+      }
+    ],
+    "revision": {
+      "file_revision": "0.1.0",
+      "updated": "2026-08-13"
+    }
+  },
+  "verification": {
+    "source_fidelity": "unreviewed",
+    "operational_review": "none",
+    "completeness": "full",
+    "known_issues": [
+      {
+        "severity": "content_gap",
+        "description": "Section \"Vacuum System Failure\" item count differs between passes (3 vs 2); verify nothing was dropped.",
+        "location": "Vacuum System Failure"
+      }
+    ],
+    "reviews": [
+      {
+        "type": "source_comparison",
+        "reviewer": "ai-dual-pass-review",
+        "date": "2026-08-14",
+        "notes": "Automated AI review: two independent transcription passes + numeric/item-count disagreement resolution. Not human-verified; baseline for community correction."
+      }
+    ]
+  },
+  "rights": {
+    "status": "licensed",
+    "upstream_holder": "freechecklists.net",
+    "upstream_license": "content-reuse permission granted by the site author for this replacement project",
+    "notes": "Transcribed from the freechecklists.net archive under the author's reuse grant. Individual checklist wording may be substantially the source's; per-file contributor authorship is unknown."
+  },
+  "sections": [
+    {
+      "phase": "emergency_descent",
+      "phase_label": "Emergency Procedures",
+      "title": "Emergency Procedures Checklist",
+      "criticality": "abnormal",
+      "items": [
+        {
+          "type": "note",
+          "text": "Procedures in the Emergency Procedures Checklist portion of this section shown in bold faced type are immediate action items which should be committed to memory.",
+          "tickable": false,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "icing",
+      "phase_label": "Inadvertent Icing Encounter",
+      "title": "Inadvertent Icing Encounter",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "Turn Pitot heat Switch",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Turn back or change altitude to obtain an outside air temperature that is less conducive to icing.",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Pull cabin heat control full out & open defroster outlets to obtain maximum windshield defroster airflow. Adjust cabin air control to get maximum defroster heat & airflow.",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Watch for signs of engine-related icing conditions. An unexplained loss in engine speed could be caused by ice blocking the air intake filter or, in extremely rare instances, ice completely blocking the fuel injection air reference tubes. Change the throttle position to obtain maximum RPM. This may require either advancing or retarding the throttle, dependent on where ice has accumulated in the system. Adjust mixture, as required, for maximum RPM.",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Plan a landing at the nearest airport. With an extremely rapid ice build up, select a suitable “off airport” landing site.",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "With an ice accumulation of ¼ inch or more on the wing leading edges, be prepared for significantly higher stall speed and a longer landing roll.",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Leave wing flaps retracted. With a severe ice build up on the horizontal tail, the change in wing wake airflow direction caused by wing flap extension could result in a loss of elevator effectiveness.",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Open left window and, if practical, scrape ice from the portion of the windshield for visibility in the landing approach.",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Perform a landing approach using a forward slip, if necessary, for improved visibility.",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Approach at 65 to 75 KIAS depending upon the amount of the accumulation.",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "Perform a landing in level attitude.",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "pitot_static_failure",
+      "phase_label": "Static Source Blockage",
+      "title": "Static Source Blockage",
+      "criticality": "emergency",
+      "condition": "Erroneous Instrument Reading Suspected",
+      "items": [
+        {
+          "type": "action",
+          "text": "Static Pressure Alternate Source Valve",
+          "response": "PULL ON",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Airspeed",
+          "response": "CONSULT APPROPRIATE CALIBRATED TABLES IN SECTION 5 POH",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "landing_gear_malfunction",
+      "phase_label": "Landing with a flat main tyre",
+      "title": "Landing with a flat main tyre",
+      "criticality": "abnormal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Approach",
+          "response": "NORMAL",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Wing Flaps",
+          "response": "30",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "value": {
+            "quantity": "angle",
+            "unit": "degree",
+            "target": 30
+          }
+        },
+        {
+          "type": "action",
+          "text": "Touchdown",
+          "response": "GOOD MAIN TYRE FIRST",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Hold airplane off flat as long as possible, with aileron control",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Directional Control",
+          "response": "MAINTAIN",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "using brake on good wheel as required",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "landing_gear_malfunction",
+      "phase_label": "Landing with a flat nose tyre",
+      "title": "Landing with a flat nose tyre",
+      "criticality": "abnormal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Approach",
+          "response": "NORMAL",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Wing Flaps",
+          "response": "AS REQUIRED",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Touchdown",
+          "response": "ON MAINS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Hold nose wheel off the ground as long as possible",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "When nose wheel touches down, maintain full up elevator as aircraft slows to stop.",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "electrical_failure",
+      "phase_label": "Electrical Power Supply System Malfunctions",
+      "title": "Ammeter shows EXCESSIVE RATE OF CHARGE (Full Scale Deflection)",
+      "criticality": "emergency",
+      "condition": "Ammeter shows excessive rate of charge (full scale deflection)",
+      "items": [
+        {
+          "type": "action",
+          "text": "Alternator",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "caution",
+          "text": "With the alternator side of the master switch off, Compass deviations of as much as 25 may occur.",
+          "tickable": false,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Non essential Electrical Equipment",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Flight",
+          "response": "TERMINATE AS SOON AS PRACTICAL",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "electrical_failure",
+      "phase_label": "Low Voltage Annunciator (volts) ILLUMINATES DURING FLIGHT (Ammeter Indicates Discharge)",
+      "title": "Low Voltage Annunciator (volts) ILLUMINATES DURING FLIGHT",
+      "criticality": "emergency",
+      "condition": "Ammeter indicates discharge",
+      "items": [
+        {
+          "type": "note",
+          "text": "Illumination of “VOLTS” on the annunciator panel may occur during low RPM conditions with an electrical load on the system such as during a low RPM taxi. Under theses conditions, the annunciator will go out at higher RPM. The master switch need not be recycled since an overvoltage condition has not occurred to deactivate the alternator system.",
+          "tickable": false,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Avionics Master Switch",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Alternator Circuit Breaker (ALT FLD)",
+          "response": "CHECKED IN",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Master Switch",
+          "response": "OFF (BOTH SIDES)",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Master Switch",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Low Voltage Annunciator (VOLTS)",
+          "response": "CHECK OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Avionics Master Switch",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "If low voltage annunciator (VOLTS) illuminates again:",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Alternator",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Non essential Radio & Electrical Equipment",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Flight",
+          "response": "TERMINATE AS SOON AS PRACTICAL",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "vacuum_failure",
+      "phase_label": "Vacuum System Failure",
+      "title": "Vacuum System Failure",
+      "criticality": "emergency",
+      "condition": "Left Vacuum (L VAC) Annunciator illuminates or Right Vacuum (R VAC) Annunciator illuminates",
+      "items": [
+        {
+          "type": "caution",
+          "text": "If Vacuum is not within normal operating limits, a failure has occurred in the vacuum system and partial panel procedures may be required for continued flight.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Vacuum Gauge",
+          "response": "CHECK",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "to ensure vacuum within normal operating limits",
+          "tickable": false,
+          "source_confidence": 1.0
+        }
+      ]
+    }
+  ]
+}

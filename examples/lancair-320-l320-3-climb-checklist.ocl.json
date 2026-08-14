@@ -1,0 +1,228 @@
+{
+  "open_checklist_version": "1.0",
+  "id": "lancair-320-l320-3-climb-checklist",
+  "title": "Lancair 320 — L320-3 - Climb Checklist",
+  "aircraft": {
+    "make": "Lancair",
+    "model": "320",
+    "category": "standard_normal"
+  },
+  "provenance": {
+    "source": {
+      "kind": "third_party_checklist",
+      "title": "Lancair/320/L320-3 - Climb Checklist.txt"
+    },
+    "transcription": {
+      "method": "format_conversion",
+      "date": "2026-08-13",
+      "converted_from": "doc"
+    },
+    "contributors": [
+      {
+        "name": "Open Checklists project",
+        "role": [
+          "transcriber"
+        ]
+      }
+    ],
+    "revision": {
+      "file_revision": "0.1.0",
+      "updated": "2026-08-13"
+    }
+  },
+  "verification": {
+    "source_fidelity": "unreviewed",
+    "operational_review": "none",
+    "completeness": "full",
+    "known_issues": [],
+    "reviews": [
+      {
+        "type": "source_comparison",
+        "reviewer": "ai-dual-pass-review",
+        "date": "2026-08-14",
+        "notes": "Automated AI review: two independent transcription passes + numeric/item-count disagreement resolution. Not human-verified; baseline for community correction."
+      }
+    ]
+  },
+  "rights": {
+    "status": "licensed",
+    "upstream_holder": "freechecklists.net",
+    "upstream_license": "content-reuse permission granted by the site author for this replacement project",
+    "notes": "Transcribed from the freechecklists.net archive under the author's reuse grant. Individual checklist wording may be substantially the source's; per-file contributor authorship is unknown."
+  },
+  "units": {
+    "airspeed": "kt",
+    "altitude": "ft",
+    "fuel": "usgal",
+    "pressure": "inhg",
+    "temperature": "f"
+  },
+  "speeds": {
+    "cruise_climb": 125,
+    "gear_extension": 120,
+    "flap_extension": 100,
+    "approach_full_flaps_min": 75,
+    "approach_full_flaps_max": 80,
+    "mfa_additive_max": 90
+  },
+  "sections": [
+    {
+      "phase": "climb",
+      "title": "Climb Checklist",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Power",
+          "response": "25\"Hg, 2,500 RPM",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "value": {
+            "quantity": "pressure",
+            "unit": "inhg",
+            "target": 25
+          }
+        },
+        {
+          "type": "action",
+          "text": "Flaps & Gear",
+          "response": "CHECK",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Cruise Climb 125 KIAS. Check power in climb, adjust Mixture for 10.0 GPH hot days, 9.5 GPH cool days. Max 1400( EGT.",
+          "tickable": false,
+          "source_confidence": 0.9
+        }
+      ]
+    },
+    {
+      "phase": "cruise",
+      "title": "Cruise Checklist",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Power",
+          "response": "22\"Hg, 2,400 RPM",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "value": {
+            "quantity": "pressure",
+            "unit": "inhg",
+            "target": 22
+          }
+        },
+        {
+          "type": "action",
+          "text": "Mixture",
+          "response": "ADJUST",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Fuel",
+          "response": "TIME & MANAGE",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "At 8,500 MSL, normal EGT = 1400(, FF = 7.6 GPH.",
+          "tickable": false,
+          "source_confidence": 0.9
+        }
+      ]
+    },
+    {
+      "phase": "descent",
+      "title": "Descent Checklist",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Power",
+          "response": "14\"Hg, 2,300 RPM",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "value": {
+            "quantity": "pressure",
+            "unit": "inhg",
+            "target": 14
+          }
+        },
+        {
+          "type": "action",
+          "text": "Mixture",
+          "response": "INCR. AS REQUIRED",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Approach Briefing",
+          "response": "COMPLETE",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Descent Planning: 4 to 1, + 5 Miles to decelerate.",
+          "tickable": false,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "before_landing",
+      "title": "Before Landing Checklist",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Mixture",
+          "response": "FULL RICH",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Prop",
+          "response": "HIGH RPM",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Gear [120 KIAS]",
+          "response": "DOWN, 3 GREEN",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Flaps [100 KIAS]",
+          "response": "AS REQUIRED",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Landing Clearance",
+          "response": "RECEIVED",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Approach Speed 75 - 80 KIAS Full Flaps. MFA Additive:  ½ Headwind + All Gusts Up To 90 KIAS.",
+          "tickable": false,
+          "source_confidence": 1.0
+        }
+      ]
+    }
+  ]
+}

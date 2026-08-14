@@ -1,0 +1,259 @@
+{
+  "open_checklist_version": "1.0",
+  "id": "lancair-columbia-350-marcuswilliams-lancair-columbia350-vfrdeparturebrief",
+  "title": "Lancair Columbia 350 — MarcusWilliams_Lancair_Columbia350_VFRDepartureBrief",
+  "aircraft": {
+    "make": "Lancair",
+    "model": "Columbia 350",
+    "category": "standard_normal"
+  },
+  "provenance": {
+    "source": {
+      "kind": "third_party_checklist",
+      "title": "Lancair/Columbia 350/MarcusWilliams_Lancair_Columbia350_VFRDepartureBrief.txt"
+    },
+    "transcription": {
+      "method": "format_conversion",
+      "date": "2026-08-13",
+      "converted_from": "doc"
+    },
+    "contributors": [
+      {
+        "name": "Open Checklists project",
+        "role": [
+          "transcriber"
+        ]
+      }
+    ],
+    "revision": {
+      "file_revision": "0.1.0",
+      "updated": "2026-08-13"
+    }
+  },
+  "verification": {
+    "source_fidelity": "unreviewed",
+    "operational_review": "none",
+    "completeness": "full",
+    "known_issues": [
+      {
+        "severity": "content_gap",
+        "description": "Section \"VFR Departure Brief\" item count differs between passes (27 vs 29); verify nothing was dropped.",
+        "location": "VFR Departure Brief"
+      }
+    ],
+    "reviews": [
+      {
+        "type": "source_comparison",
+        "reviewer": "ai-dual-pass-review",
+        "date": "2026-08-14",
+        "notes": "Automated AI review: two independent transcription passes + numeric/item-count disagreement resolution. Not human-verified; baseline for community correction."
+      }
+    ]
+  },
+  "rights": {
+    "status": "licensed",
+    "upstream_holder": "freechecklists.net",
+    "upstream_license": "content-reuse permission granted by the site author for this replacement project",
+    "notes": "Transcribed from the freechecklists.net archive under the author's reuse grant. Individual checklist wording may be substantially the source's; per-file contributor authorship is unknown."
+  },
+  "units": {
+    "airspeed": "kt",
+    "altitude": "ft"
+  },
+  "speeds": {
+    "v_rotate": 75,
+    "vx": 86,
+    "vy": 106,
+    "best_glide_flaps_up": 106,
+    "best_glide_flaps_down": 96,
+    "flap_retract": 95,
+    "climb_out": {
+      "min": 125,
+      "max": 130
+    }
+  },
+  "sections": [
+    {
+      "phase": "before_takeoff",
+      "title": "VFR Departure Brief",
+      "items": [
+        {
+          "type": "note",
+          "text": "This will be a Visual departure from Runway ___. This runway is ____ feet long [NOTE ANY INTERSECTION TAKEOFF and DISTANCE REMAINING and ANY DEPARTURE OBSTACLES].",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "The runway heading of ___ deg. is bugged on the heading indicator.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "After departure we will climb to ___ feet MSL, which is ___ feet AGL, before making a [Left/Right] turn to ____ deg. and continuing to climb to _______ MSL.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "The GPS course is pointing to [Location] and the VOR receiver is enabled and slaved to NAV-1. [Brief all heading, altitude and airspace restrictions.]",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Our takeoff power should read ___% and our takeoff fuel flow should read ____ GPH.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Our rotation speed will be 75 KIAS, best angle of climb speed is 86 KIAS and best rate of climb will be 106 KIAS.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Engine-out glide speed with the flaps up is 106 KIAS and with the flaps down is 96 KIAS.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "On the takeoff roll the airspeed calls are off-the-peg, 40 KIAS (with power check and a check of the MFD instruments), 60 KIAS (with a check of the analog instruments) and 70 KIAS (with a check of the annunciator panel).",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "subtitle",
+          "text": "Below 60 KIAS we will abort for:",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "any annunciator light",
+          "indent": 1,
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "any unusual noise, vibration or movement",
+          "indent": 1,
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "a power indication below 85%",
+          "indent": 1,
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "any redlined instrument other than a momentary prop overspeed or a momentary abnormal indication on one EGT or CHT tape",
+          "indent": 1,
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "subtitle",
+          "text": "At or above 60 KIAS we will abort for:",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "drop or loss in oil pressure or fuel flow",
+          "indent": 1,
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "a significant drop in manifold pressure or RPM",
+          "indent": 1,
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "multiple red EGT or CHT tapes",
+          "indent": 1,
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "any aural warning or red annunciator light other than a single BUS OFF indication",
+          "indent": 1,
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Above 70 KIAS we will take any problem flying other than a complete loss of power or the airplane fails to rotate.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Once we’re flying we will raise the flaps at 95 KIAS, reduce climb RPM to 2500 (unless above 3000 MSL density altitude), select “NORMALIZE” on the engine computer, and select the map page. We’ll climb out at an airspeed of 125-130 KIAS.",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "note",
+          "text": "If we lose the engine below ____ MSL on the barometric altimeter (which equates to 1000 AGL) we’ll establish our best glide speed of 106 KIAS, which may require that I drop the nose, center the ball, and turn no more than 30 degrees left or right toward the best possible landing site. I’ll pull the mixture, prop and throttle levers full aft, turn the fuel selector to the center (off) position, put the flaps full down as appropriate, make a radio call if there’s time, and then turn off both master switches.",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "note",
+          "text": "If we lose the engine above ______ MSL on the barometric altimeter (which equates to 1000 AGL), we’ll establish a best-glide speed of 106 KIAS, turn toward a suitable landing site, and then attempt a restart by:",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "select the other fuel tank",
+          "indent": 1,
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "set the mixture to full rich",
+          "indent": 1,
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "set the throttle to 50%",
+          "indent": 1,
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "set the boost pump switch to ARM",
+          "indent": 1,
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Checks are complete down to the line. Are the passengers ready to go?",
+          "response": "CONFIRM",
+          "tickable": true,
+          "source_confidence": 0.5
+        }
+      ],
+      "criticality": "normal"
+    }
+  ]
+}

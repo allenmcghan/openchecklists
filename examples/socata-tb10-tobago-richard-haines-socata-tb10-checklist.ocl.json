@@ -1,0 +1,1451 @@
+{
+  "open_checklist_version": "1.0",
+  "id": "socata-tb10-tobago-richard-haines-socata-tb10-checklist",
+  "title": "Socata TB10 Tobago — Richard_Haines_Socata_tb10_checklist",
+  "aircraft": {
+    "make": "Socata",
+    "model": "TB10 Tobago",
+    "category": "standard_normal"
+  },
+  "provenance": {
+    "source": {
+      "kind": "third_party_checklist",
+      "title": "Socata/TB10 Tobago/Richard_Haines_Socata_tb10_checklist.txt"
+    },
+    "transcription": {
+      "method": "format_conversion",
+      "date": "2026-08-14",
+      "converted_from": "doc"
+    },
+    "contributors": [
+      {
+        "name": "Open Checklists project",
+        "role": [
+          "transcriber"
+        ]
+      }
+    ],
+    "revision": {
+      "file_revision": "0.1.0",
+      "updated": "2026-08-14"
+    }
+  },
+  "verification": {
+    "source_fidelity": "unreviewed",
+    "operational_review": "none",
+    "completeness": "full",
+    "known_issues": [
+      {
+        "severity": "content_gap",
+        "description": "Section \"11. Top of Descent Checks\" item count differs between passes (8 vs 9); verify nothing was dropped.",
+        "location": "11. Top of Descent Checks"
+      },
+      {
+        "severity": "content_gap",
+        "description": "Section \"12. D/wind Chk (BUMFFICHIW)\" item count differs between passes (11 vs 12); verify nothing was dropped.",
+        "location": "12. D/wind Chk (BUMFFICHIW)"
+      },
+      {
+        "severity": "content_gap",
+        "description": "Section \"2. Before Start Checklist\" item count differs between passes (3 vs 8); verify nothing was dropped.",
+        "location": "2. Before Start Checklist"
+      },
+      {
+        "severity": "content_gap",
+        "description": "Section \"6. Power/Run up Checklist\" item count differs between passes (13 vs 14); verify nothing was dropped.",
+        "location": "6. Power/Run up Checklist"
+      },
+      {
+        "severity": "content_gap",
+        "description": "Section \"8. Take Off Checks\" item count differs between passes (9 vs 10); verify nothing was dropped.",
+        "location": "8. Take Off Checks"
+      }
+    ],
+    "reviews": [
+      {
+        "type": "source_comparison",
+        "reviewer": "ai-dual-pass-review",
+        "date": "2026-08-14",
+        "notes": "Automated AI review: two independent transcription passes + numeric/item-count disagreement resolution. Not human-verified; baseline for community correction."
+      }
+    ]
+  },
+  "rights": {
+    "status": "licensed",
+    "upstream_holder": "freechecklists.net",
+    "upstream_license": "content-reuse permission granted by the site author for this replacement project",
+    "notes": "Transcribed from the freechecklists.net archive under the author's reuse grant. Individual checklist wording may be substantially the source's; per-file contributor authorship is unknown."
+  },
+  "units": {
+    "airspeed": "kt",
+    "altitude": "ft",
+    "fuel": "usgal",
+    "weight": "lb",
+    "pressure": "inhg",
+    "temperature": "c"
+  },
+  "speeds": {
+    "rotation": {
+      "min": 65,
+      "max": 75
+    },
+    "best_rate_of_climb": 73,
+    "best_rate_of_climb_4_up": 80,
+    "best_angle_of_climb": 67,
+    "max_flaps_extended": 95,
+    "maneuvering": {
+      "min": 115,
+      "max": 122
+    },
+    "max_structural_cruise": 128,
+    "never_exceed": 165,
+    "landing_normal": {
+      "min": 72,
+      "max": 81
+    },
+    "landing_soft_short": 70,
+    "best_glide": 86
+  },
+  "sections": [
+    {
+      "phase": "preflight_inspection",
+      "title": "1. Cockpit checklist",
+      "items": [
+        {
+          "type": "action",
+          "text": "A/C documents",
+          "response": "ON-BOARD/CHKD",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Preflight /Logbook",
+          "response": "COMPLETED",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Ice/Weather",
+          "response": "REMOVED/CHECKED",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Control Lock/Tie dwn",
+          "response": "REMOVED",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Passenger Breifing",
+          "response": "GIVEN",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Doors/Seats/Belts",
+          "response": "LOCKED/CHKD",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "All Switches/Radio",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Brakes(park/foot)",
+          "response": "SET/ON",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Cockpit Checks Completed",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "before_start",
+      "title": "2. Before Start Checklist",
+      "items": [
+        {
+          "type": "action",
+          "text": "Controls",
+          "response": "CHKD FULL & FREE",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Master Switch",
+          "response": "ON/CHECK HOBS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Fuses",
+          "response": "CHKD IN",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "before_start",
+      "title": "2a. Start up Clearance only",
+      "items": [
+        {
+          "type": "action",
+          "text": "Radio/Tower Freq",
+          "response": "ON/SET/CONTACT",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Start up Clearance",
+          "response": "RECEIVED",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Radio Master",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Before Start Checks Complete",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "engine_start",
+      "title": "3. Starting Engine(master on)(COLD)",
+      "items": [
+        {
+          "type": "action",
+          "text": "Carb Heat",
+          "response": "COLD",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Propeller(blue)",
+          "response": "FWD",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Mixture",
+          "response": "RICH",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Fuel Tank(front panel)",
+          "response": "LOWEST TANK",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Fuel Pump(butt 1)",
+          "response": "ON/CHK PRESS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Throttle Friction",
+          "response": "SET",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "2 PUMPS 1/4 OPEN",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Before Start",
+          "response": "CLEAR ALL ROUND",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Magnetos/Starter",
+          "response": "BOTH/ENGAGE",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "1000RPM(warm)",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Oil Pressure",
+          "response": "CHKD",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Engine Temp",
+          "response": "RISING",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Fuel Pump(butt 1)",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Flaps",
+          "response": "UP",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "engine_start",
+      "title": "3a. Starting Engine (HOT)",
+      "items": [
+        {
+          "type": "action",
+          "text": "As above but",
+          "response": "NO Throttle pump",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Starting Engine Complete",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "after_start",
+      "title": "4. After Start Checklist",
+      "items": [
+        {
+          "type": "action",
+          "text": "Generator(G)",
+          "response": "ON/CHKD",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Turn coordin(butt 3)",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Beacon/Nav lights",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Magnetos",
+          "response": "CHECK QUICKLY",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Ammeter/Suction",
+          "response": "CHGING/REGIST",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Compass/DI",
+          "response": "SET X-CHKD",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Radio nav/Autopilot",
+          "response": "SET/TEST/CHKD",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Radios/Tower",
+          "response": "ON/SET/CONTACT",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Altimeters",
+          "response": "SET QFE/QNH",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Transponder",
+          "response": "7000 ON SBY",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "CHECK TIME BRAKES OFF & NOTE",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "FLIGHT PLAN OPENED ????",
+          "tickable": true,
+          "source_confidence": 0.7
+        },
+        {
+          "type": "challenge",
+          "text": "After Start Checks complete",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "taxi",
+      "title": "5. Taxi Checklist",
+      "items": [
+        {
+          "type": "action",
+          "text": "Control Column",
+          "response": "FULL BACK",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Brakes/rudder",
+          "response": "CHKD",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Turn indic/bal ball",
+          "response": "CHKD",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "DI/Compass/AI",
+          "response": "CHKD",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Taxi check complete",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "before_takeoff",
+      "title": "6. Power/Run up Checklist",
+      "items": [
+        {
+          "type": "action",
+          "text": "Wheels/Action",
+          "response": "STRAIGHT/ LOOKOUT",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Brakes(foot/pking)",
+          "response": "FULL/HOLDING",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Engine Temp/Press",
+          "response": "GREEN ARC",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Fuel",
+          "response": "PUMP ON / FULLEST TANK",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "2000RPM",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Carb Heat",
+          "response": "CHECK",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Magnetos",
+          "response": "CHECK(175/50)",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Prop(Blue)",
+          "response": "BACK ONCE OIL",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Prop recycle",
+          "response": "BACK AGAIN CHECK",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Prop(controlling)",
+          "response": "CHECK WITH THROTTLE",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Suction/Ammeter",
+          "response": "CHECK",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "IDLE CUT OUT CHECK THEN 1000RPM",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Power/Run up Check Completed",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "before_takeoff",
+      "title": "7. Before T/Off Checklist Vital Actions",
+      "items": [
+        {
+          "type": "action",
+          "text": "Trimmers",
+          "response": "SET FOR TAKE OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Throttle Friction",
+          "response": "SET",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Mixture/Engine T&Ps",
+          "response": "RICH / WITHIN LIMITS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Master/Magnetos",
+          "response": "MASTER ON/MAGS ON BOTH",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Pitot Heater",
+          "response": "AS REQUIRED",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Propeller",
+          "response": "FWD/FINE",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Fuel Pump",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Fuel",
+          "response": "FULLEST TANK",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Flaps",
+          "response": "T/O 10DEGS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Instruments",
+          "response": "CHKD SET INC GPS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Hatches/Harnesses",
+          "response": "CHKD SECURE",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Carb Heat",
+          "response": "RECHECK / COLD",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Controls",
+          "response": "FULL & FREE MOVEMENT",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Lights",
+          "response": "ALL ON",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Transponder",
+          "response": "7000 ON ACS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Radio Nav",
+          "response": "CHKD",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "ATC Clearance",
+          "response": "RECEIVED",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Before T/Off Checks Complete",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "takeoff",
+      "title": "8. Take Off Checks",
+      "items": [
+        {
+          "type": "action",
+          "text": "Line up",
+          "response": "RWAY CLEAR / LOOKOUT",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Compass/DI",
+          "response": "X-CHKD RWAY HDING",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Brakes",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "HALF POWER",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Engine Temp/Press",
+          "response": "STEADY WITHIN LIMITS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "FULL POWER IF ABOVE OK",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Airspeed",
+          "response": "INCREASING",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Rotate",
+          "response": "FRONT WHEEL LIFT 50KNTS THEN MIN 65KNTS ROTATE",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Take Off Checks Complete",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "after_takeoff",
+      "title": "9. After T/Off Checklist(FLEETPI)>300'",
+      "items": [
+        {
+          "type": "action",
+          "text": "Flaps/Landing light",
+          "response": "UP / LANDING LIGHT OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Engine Temp/Press",
+          "response": "STEADY WITHIN LIMITS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Throttle/Prop",
+          "response": "25\"/2500RPM THROTTLE 1ST",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Attitude",
+          "response": "FOR BEST CLIMB 78KNTS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Trimmer",
+          "response": "AS REQUIRED",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Altimeters",
+          "response": "CHKD SET QNH/QFE",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Fuel Pump",
+          "response": "OFF AT 1000' MIN CHK PRESS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Icing",
+          "response": "CHECK SURFACES",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "After T/Off Checks Complete",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "cruise",
+      "title": "10. Top of Climb /Cruise Check",
+      "items": [
+        {
+          "type": "action",
+          "text": "Altitude",
+          "response": "SET / MAINTAIN",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Power/Prop",
+          "response": "ADJUST AS BELOW",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Trimmer",
+          "response": "AS REQUIRED",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Fuel",
+          "response": "CHANGE 15MINS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Fuel Pump",
+          "response": "ON AS CHANGING",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Mixture",
+          "response": "ADJUST (EGTT)",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "MAX 75% >1000'",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Engine",
+          "response": "T&Ps WITHIN LIMITS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Instruments",
+          "response": "SET AS REQUIRED",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Compass/DI",
+          "response": "CHECK REGULARLY",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Icing",
+          "response": "CHECK SURFACES",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Weather",
+          "response": "CHECK WITH ATC",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Top of climb checks complete",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "descent",
+      "title": "11. Top of Descent Checks",
+      "items": [
+        {
+          "type": "action",
+          "text": "Radio / ATC",
+          "response": "FREQS / CONTACT",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Engine",
+          "response": "T&Ps WITHIN LIMITS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Altimeter",
+          "response": "SET",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Radionav",
+          "response": "CHKD / CONFIRM",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Instrument Plates",
+          "response": "CHKD / CONFIRM",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Carb Heat",
+          "response": "HOT IF DESCENDG",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Power",
+          "response": "REDUCE THROTTLE TO APPROX 20\"",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "Top of Descent checks complete",
+          "tickable": true,
+          "source_confidence": 0.5
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "approach",
+      "title": "12. D/wind Chk (BUMFFICHIW)",
+      "items": [
+        {
+          "type": "action",
+          "text": "ATC / Brakes",
+          "response": "CONTACT / OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "U/carriage / Speed",
+          "response": "FIXED / 100knots",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Master / Mags",
+          "response": "ON / BOTH",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Fuel pump",
+          "response": "ON/CHK PRESS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Fuel Tanks",
+          "response": "FULLEST TANK",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Instruments",
+          "response": "QFE/NAV/T&Ps",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Carb heat",
+          "response": "CHKD",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Harnesses/Hatches",
+          "response": "SECURE/CLOSED",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Icing",
+          "response": "CHECK SURFACES",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Weather",
+          "response": "CHKD DIVERT IF REQUIRED",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Downwind Chk complete",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "approach",
+      "title": "13. Baseleg Checklist",
+      "items": [
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "APPROX 15\" MP",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Carb Heat",
+          "response": "HOT",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Flaps",
+          "response": "10DEGS ONCE VFE(<95KNTS)",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Altitude",
+          "response": "IMC MINIMA",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Approach speed",
+          "response": "MIN 70 KNOTS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Baseleg check complete",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "before_landing",
+      "title": "14. Finals Checks",
+      "items": [
+        {
+          "type": "action",
+          "text": "Landing Clearance",
+          "response": "RECEIVED",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Ldg Lights(whites)",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Mixture(red)",
+          "response": "RICH",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Propeller(Blues)",
+          "response": "FULLY FWD / FINE",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Throttle (black)",
+          "response": "SET FOR APPROACH SPEED",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Undercarriage(green)",
+          "response": "FIXED",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Fuel",
+          "response": "PUMP ON FULLEST TANK",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Carb Heat",
+          "response": "COLD @ 300FT",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Flaps",
+          "response": "FULL OVER THRESHOLD",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Finals Check Complete",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "after_landing",
+      "title": "15. After Landing Chks(once clear r/way)",
+      "items": [
+        {
+          "type": "action",
+          "text": "Carb Heat",
+          "response": "COLD",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Transponder",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Fuel Pump/Pitot Ht",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Landing Light",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Flaps/Fuel Tanks",
+          "response": "UP/REFILL TO TABS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "After landing checks complete",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "securing",
+      "title": "16. Parking Checklist",
+      "items": [
+        {
+          "type": "action",
+          "text": "Brakes",
+          "response": "SET/Parking Brake ON",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "CHECK TIME BRAKES ON & NOTE",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Radio Master",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "SET 1000 FOR 30 SECS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Magnetos",
+          "response": "CHECK QUICKLY",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "CLOSED",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Mixture",
+          "response": "CUT OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "All Switches/Fuel",
+          "response": "OFF / FUEL OFF SET CENTRE",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Master Switch",
+          "response": "OFF / CHECK HOBS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Magnetos/Logbook",
+          "response": "OFF KEY OUT / COMPLETED",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Control Lock/Covers",
+          "response": "APPLIED / FIXED & SECURED",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Parking Checks completed",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "reference",
+      "title": "Notes and Performance Data",
+      "items": [
+        {
+          "type": "note",
+          "text": "NOTE:- CHECK TIME BRAKES OFF & ON & NOTE ON LOGSHEETS NOT HOBBS",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "FLIGHT PLAN CLOSED ???",
+          "tickable": false,
+          "source_confidence": 0.7
+        },
+        {
+          "type": "note",
+          "text": "FUEL (approx. 53US gallons usble. OIL-QTY-6-8Litres)",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "CRUISE POWER SETTINGS — 2000ft 11oC MP IN 25/ 11.1 25/ 11.5 23.6/ 11 23.6/ 11.7 22.1/ 11.4; in.Hg/ 23.6/ 10.1 23.6/ 10.5 22.1/ 10 22.1/ 10.6 20.7/ 10.4; FUEL/HR 22.1/ 9.2 22.1/ 9.6 20.7/ 9.1 20.7/ 9.6 19.2/ 9.4; 20.7/ 8.4 20.7/ 8.7 19.2/ 8.4 19.2/ 8.8",
+          "tickable": false,
+          "source_confidence": 0.8
+        },
+        {
+          "type": "note",
+          "text": "CRUISE POWER SETTINGS — 4000ft 7oC MP IN 23.6/ 10.4 23.6/ 10.9 23.6/ 11.4 23.6/ 12.1 22.1/ 11.8; in.Hg/ 22.1/ 9.6 22.1/ 9.9 22.1/ 10.3 22.1/ 11 20.7/ 10.7; FUEL/HR 20.7/ 8.7 20.7/ 9 20.7/ 9.7 20.7/ 9.9 19.2/ 9.7; 19.2/ 8.3 19.2/ 8.5 19.2/ 9.1",
+          "tickable": false,
+          "source_confidence": 0.8
+        },
+        {
+          "type": "note",
+          "text": "CRUISE POWER SETTINGS — 6000ft 3oC MP IN 22.1/ 9.9 22.1/ 10.7 22.1/ 10.7 22.1/ 11.3 22.1/ 12.2; in.Hg/ 20.7/ 8.9 20.7/ 9.3 20.7/ 9.7 20.7/ 10.3 20.7/ 11.1; FUEL/HR 19.2/ 8.2 19.2/ 8.5 19.2/ 8.9 19.2/ 9.3 19.2/ 9.9",
+          "tickable": false,
+          "source_confidence": 0.8
+        },
+        {
+          "type": "note",
+          "text": "CRUISE POWER SETTINGS — 8000ft -1oC MP IN 20.7/ 9.2 20.7/ 9.6 20.7/ 10 20.7/ 10.6 20.7/ 11.4; in.Hg/ 19.2/ 8.5 19.2/ 8.7 19.2/ 9.1 19.2/ 9.6 19.2/ 10.2; FUEL/HR 17.7/ 8.7 17.7/ 9.3",
+          "tickable": false,
+          "source_confidence": 0.8
+        },
+        {
+          "type": "note",
+          "text": "CRUISE POWER SETTINGS — 10000ft -5oC MP IN 19.2/ 8.7 19.2/ 9 19.2/ 9.4 19.2/ 9.9 19.2/ 10.6; in.Hg/FB 17.7/ 9.5",
+          "tickable": false,
+          "source_confidence": 0.8
+        },
+        {
+          "type": "note",
+          "text": "BOLD recommend figures head wind; BOLD recommend figures tail wind",
+          "tickable": false,
+          "source_confidence": 0.8
+        },
+        {
+          "type": "note",
+          "text": "WEIGHTS — GROSS 2535Lbs, EMPTY 1500Lbs",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "SPEEDS — KIAS / MPH: Vr rotation 65-75 / 75-90; Vy Best ROC 73 / 84; Vy 4up Best ROC 80 / 92; Vx Best AOC 67 / 78; Vfe Max Flaps 95 / 109; Va Cruise 115-122 / 140; Vno Struc CR 128 / 147; Vne Never exc 165 / 190; Ldng Normal 72-81 / 83-93; Ldng Soft/short 70 / 80; Glide BEST 86 / 99",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Add/decrease MP by 0.5 as temp varies 10°C above/below standard temp in table above",
+          "tickable": false,
+          "source_confidence": 1.0
+        }
+      ],
+      "criticality": "normal"
+    }
+  ]
+}

@@ -1,0 +1,1384 @@
+{
+  "open_checklist_version": "1.0",
+  "id": "diamond-da40-star-jacob-esparza-diamond-star-da40-abnormal-operating-checklist",
+  "title": "Diamond DA40 Star — Jacob_Esparza_Diamond_Star_DA40_Abnormal_Operating_Checklist",
+  "aircraft": {
+    "make": "Diamond",
+    "model": "DA40 Star",
+    "category": "standard_normal"
+  },
+  "provenance": {
+    "source": {
+      "kind": "third_party_checklist",
+      "title": "Diamond/DA40 Star/Jacob_Esparza_Diamond_Star_DA40_Abnormal_Operating_Checklist.txt"
+    },
+    "transcription": {
+      "method": "format_conversion",
+      "date": "2026-08-13",
+      "converted_from": "doc"
+    },
+    "contributors": [
+      {
+        "name": "Open Checklists project",
+        "role": [
+          "transcriber"
+        ]
+      }
+    ],
+    "revision": {
+      "file_revision": "0.1.0",
+      "updated": "2026-08-13"
+    }
+  },
+  "verification": {
+    "source_fidelity": "unreviewed",
+    "operational_review": "none",
+    "completeness": "full",
+    "known_issues": [
+      {
+        "severity": "content_gap",
+        "description": "Section \"High R.P.M\" item count differs between passes (11 vs 10); verify nothing was dropped.",
+        "location": "High R.P.M"
+      }
+    ],
+    "reviews": [
+      {
+        "type": "source_comparison",
+        "reviewer": "ai-dual-pass-review",
+        "date": "2026-08-14",
+        "notes": "Automated AI review: two independent transcription passes + numeric/item-count disagreement resolution. Not human-verified; baseline for community correction."
+      }
+    ]
+  },
+  "rights": {
+    "status": "licensed",
+    "upstream_holder": "freechecklists.net",
+    "upstream_license": "content-reuse permission granted by the site author for this replacement project",
+    "notes": "Transcribed from the freechecklists.net archive under the author's reuse grant. Individual checklist wording may be substantially the source's; per-file contributor authorship is unknown."
+  },
+  "units": {
+    "airspeed": "kt",
+    "altitude": "ft",
+    "pressure": "inhg",
+    "temperature": "f",
+    "fuel": "usgal",
+    "weight": "lb"
+  },
+  "sections": [
+    {
+      "phase": "engine_failure_in_flight",
+      "criticality": "abnormal",
+      "title": "High R.P.M",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "Friction Lock",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Friction Lock",
+          "response": "Check",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Oil Pressure",
+          "response": "Check",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "subtitle",
+          "text": "If Oil Pressure Low",
+          "tickable": false,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "Regulate Prop with Throttle Lever",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "Proceed To Loss in Oil Pressure in Emergency Checklist",
+          "tickable": true,
+          "source_confidence": 0.75
+        },
+        {
+          "type": "challenge",
+          "text": "Prop Governor Set High RPM in loss of oil pressure",
+          "tickable": true,
+          "source_confidence": 0.8
+        },
+        {
+          "type": "subtitle",
+          "text": "If Oil Pressure Normal",
+          "tickable": false,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "RPM Lever",
+          "response": "Retard",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "If a drop in RPM is heard, bad indicator — service as soon as possible",
+          "tickable": true,
+          "source_confidence": 0.6
+        },
+        {
+          "type": "challenge",
+          "text": "If no audible drop is heard, governor system defective, regulate prop using throttle",
+          "tickable": true,
+          "source_confidence": 0.6
+        }
+      ]
+    },
+    {
+      "phase": "engine_failure_in_flight",
+      "criticality": "abnormal",
+      "title": "Loss of R.P.M",
+      "items": [
+        {
+          "type": "action",
+          "text": "Fuel Pump",
+          "response": "Verify On",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Fuel Tank Selector",
+          "response": "Check Fullest Tank",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Friction Lock",
+          "response": "Check",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Prop",
+          "response": "Full Forward",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "If No Audible Increase is Heard, Defective Governor System Regulate Using Throttle. Prepare for Emergency Landing",
+          "tickable": true,
+          "source_confidence": 0.75
+        },
+        {
+          "type": "challenge",
+          "text": "If RPM Increase is Heard, Defective Indicator Service As Soon As Possible",
+          "tickable": true,
+          "source_confidence": 0.75
+        }
+      ]
+    },
+    {
+      "phase": "fuel_system_malfunction",
+      "criticality": "abnormal",
+      "title": "High Fuel Flow",
+      "items": [
+        {
+          "type": "action",
+          "text": "Fuel Pressure",
+          "response": "Check",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Fuel Quantity",
+          "response": "Check",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "If Fuel Pressure Low, possible fuel leak exists",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "If No Loss Of Fuel Pressure, Defective Fuel Flow Indicator",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "phase": "engine_start",
+      "criticality": "abnormal",
+      "title": "Starter Malfunction",
+      "items": [
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "Idle",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Mixture",
+          "response": "Full Lean",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Ignition Switch",
+          "response": "Off",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Master Switch",
+          "response": "Off",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "phase": "electrical_failure",
+      "criticality": "abnormal",
+      "title": "Over Voltage",
+      "items": [
+        {
+          "type": "action",
+          "text": "Essential Bus",
+          "response": "On",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Master Switch (ALT)",
+          "response": "Off",
+          "tickable": true,
+          "source_confidence": 0.8
+        },
+        {
+          "type": "action",
+          "text": "Master Switch (BAT)",
+          "response": "On",
+          "tickable": true,
+          "source_confidence": 0.8
+        },
+        {
+          "type": "action",
+          "text": "Un-needed Equipment",
+          "response": "Off",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Pitot Heat",
+          "response": "Off (if not needed)",
+          "tickable": true,
+          "source_confidence": 0.8
+        },
+        {
+          "type": "challenge",
+          "text": "Land As Soon As Possible",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "phase": "forced_landing",
+      "criticality": "abnormal",
+      "title": "Precautionary Landing",
+      "items": [
+        {
+          "type": "note",
+          "text": "Use as a last resort due to low fuel, bad weather or when continuing the flight can be fatal",
+          "tickable": false,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Landing Spot",
+          "response": "Acquire",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "challenge",
+          "text": "If no flat spot available, land on up sloping terrain",
+          "tickable": true,
+          "source_confidence": 0.8
+        },
+        {
+          "type": "action",
+          "text": "Wind",
+          "response": "Consider",
+          "tickable": true,
+          "source_confidence": 0.8
+        },
+        {
+          "type": "action",
+          "text": "Obstacles",
+          "response": "Check/Consider",
+          "tickable": true,
+          "source_confidence": 0.8
+        },
+        {
+          "type": "action",
+          "text": "Airspeed",
+          "response": "70 kts",
+          "tickable": true,
+          "source_confidence": 0.85,
+          "value": {
+            "quantity": "airspeed",
+            "unit": "kt",
+            "target": 70
+          }
+        },
+        {
+          "type": "action",
+          "text": "ATC",
+          "response": "Advise",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "subtitle",
+          "text": "On Final",
+          "tickable": false,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Flaps",
+          "response": "LDG",
+          "tickable": true,
+          "source_confidence": 0.8
+        },
+        {
+          "type": "action",
+          "text": "Seatbelts",
+          "response": "Tighten",
+          "tickable": true,
+          "source_confidence": 0.8
+        },
+        {
+          "type": "action",
+          "text": "Touchdown",
+          "response": "Slowest Speed w/o Stalling",
+          "tickable": true,
+          "source_confidence": 0.85
+        }
+      ]
+    },
+    {
+      "phase": "forced_landing",
+      "criticality": "abnormal",
+      "title": "Precautionary Landing (cont)",
+      "items": [
+        {
+          "type": "subtitle",
+          "text": "If Time Allows",
+          "tickable": false,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Fuel Tank Selector",
+          "response": "Off",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Ignition Switch",
+          "response": "Off",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Master Switch",
+          "response": "Off",
+          "tickable": true,
+          "source_confidence": 0.9
+        }
+      ]
+    },
+    {
+      "phase": "oil_system_malfunction",
+      "criticality": "abnormal",
+      "title": "High Oil psi When Starting in Cold Temps",
+      "items": [
+        {
+          "type": "action",
+          "text": "Prop",
+          "response": "Reduce",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Oil Pressure",
+          "response": "Re-Check at higher oil temp",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "challenge",
+          "text": "If indication does not change after RPM reduction, terminate flight bad oil pressure indicator",
+          "tickable": true,
+          "source_confidence": 0.65
+        }
+      ]
+    },
+    {
+      "phase": "other",
+      "phase_label": "High Manifold Pressure",
+      "criticality": "abnormal",
+      "title": "High Manifold Pressure",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "If indicator clearly above green range, the reading is faulty, use levers to control performance",
+          "tickable": true,
+          "source_confidence": 0.85
+        }
+      ]
+    },
+    {
+      "phase": "other",
+      "phase_label": "Very Low EGT and/or CHT",
+      "criticality": "abnormal",
+      "title": "Very Low EGT and/or CHT",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "If low on one cylinder, may be loose sensor for that cylinder, service aircraft as soon as possible",
+          "tickable": true,
+          "source_confidence": 0.8
+        }
+      ]
+    },
+    {
+      "phase": "electrical_failure",
+      "criticality": "abnormal",
+      "title": "Low Voltage on Ground",
+      "items": [
+        {
+          "type": "action",
+          "text": "Engine Speed",
+          "response": "1200 R.P.M",
+          "tickable": true,
+          "source_confidence": 0.85,
+          "value": {
+            "quantity": "rpm",
+            "unit": "rpm",
+            "target": 1200
+          }
+        },
+        {
+          "type": "action",
+          "text": "Electrical Equipment",
+          "response": "Off",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Ammeter",
+          "response": "Check",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "If caution does not terminate, terminate flight",
+          "tickable": true,
+          "source_confidence": 0.85
+        }
+      ]
+    },
+    {
+      "phase": "electrical_failure",
+      "criticality": "abnormal",
+      "title": "Low Voltage in Flight",
+      "items": [
+        {
+          "type": "action",
+          "text": "Un-Needed Electrical Equipment",
+          "response": "Off",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Ammeter",
+          "response": "Check",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "If caution does not terminate refer to alternator failure in emergency checklist",
+          "tickable": true,
+          "source_confidence": 0.9
+        }
+      ]
+    },
+    {
+      "phase": "flap_malfunction",
+      "criticality": "abnormal",
+      "title": "Flap Failure",
+      "items": [
+        {
+          "type": "action",
+          "text": "Flaps",
+          "response": "Check Visually",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Airspeed",
+          "response": "At or Below Vfe",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Flap Position Switch",
+          "response": "Re-Check",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "subtitle",
+          "text": "Modified Approach for Flap Failure",
+          "tickable": false,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "subtitle",
+          "text": "Only Up Available",
+          "tickable": false,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Airspeed",
+          "response": "70 kts",
+          "tickable": true,
+          "source_confidence": 0.85,
+          "value": {
+            "quantity": "airspeed",
+            "unit": "kt",
+            "target": 70
+          }
+        },
+        {
+          "type": "challenge",
+          "text": "Land at flat approach angle use throttle to control speed and decent",
+          "tickable": true,
+          "source_confidence": 0.7
+        },
+        {
+          "type": "subtitle",
+          "text": "Only T/O Available",
+          "tickable": false,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Airspeed",
+          "response": "70 kts",
+          "tickable": true,
+          "source_confidence": 0.85,
+          "value": {
+            "quantity": "airspeed",
+            "unit": "kt",
+            "target": 70
+          }
+        },
+        {
+          "type": "challenge",
+          "text": "Land at flat approach angle, use throttle to control speed and decent",
+          "tickable": true,
+          "source_confidence": 0.7
+        },
+        {
+          "type": "subtitle",
+          "text": "Only LDG Available",
+          "tickable": false,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Landing",
+          "response": "Normal",
+          "tickable": true,
+          "source_confidence": 0.8
+        }
+      ]
+    },
+    {
+      "phase": "before_landing",
+      "criticality": "abnormal",
+      "title": "Overweight Landing",
+      "items": [
+        {
+          "type": "action",
+          "text": "Airspeed",
+          "response": "70 kts",
+          "tickable": true,
+          "source_confidence": 0.85,
+          "value": {
+            "quantity": "airspeed",
+            "unit": "kt",
+            "target": 70
+          }
+        },
+        {
+          "type": "challenge",
+          "text": "Follow Normal Landing Procedures",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "Increase Airspeed on Approach",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "caution",
+          "text": "A hard landing can damage the gear when overweight",
+          "tickable": false,
+          "source_confidence": 0.85
+        }
+      ]
+    },
+    {
+      "phase": "other",
+      "phase_label": "Pre-Maneuver",
+      "criticality": "abnormal",
+      "title": "Pre-Maneuver Checklist",
+      "items": [
+        {
+          "type": "action",
+          "text": "Seat Belts",
+          "response": "Secured",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Fuel Selector",
+          "response": "Fullest Tank",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Fuel Pump",
+          "response": "On",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Fuel Shut Off Valve",
+          "response": "On",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Mixture",
+          "response": "As Needed",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Prop",
+          "response": "As Needed",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Lights",
+          "response": "As Needed",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Clearing Turns",
+          "response": "Completed",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Airspeed/Attitude/Entry",
+          "response": "Established",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Emergency Field",
+          "response": "Acquired",
+          "tickable": true,
+          "source_confidence": 0.9
+        }
+      ]
+    },
+    {
+      "phase": "other",
+      "phase_label": "Maneuver",
+      "criticality": "abnormal",
+      "title": "Maneuver Checklist",
+      "items": [
+        {
+          "type": "subtitle",
+          "text": "Slow Flight",
+          "tickable": false,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Pre-Maneuver Check",
+          "response": "Completed",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Prop",
+          "response": "Full Forward",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "As Needed",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Flaps",
+          "response": "T/O then LDG",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "challenge",
+          "text": "Pitch For Speed, Throttle for Altitude",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "subtitle",
+          "text": "Recovery",
+          "tickable": false,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "Full Forward",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Positive Climb",
+          "response": "Flaps T/O",
+          "tickable": true,
+          "source_confidence": 0.75
+        },
+        {
+          "type": "action",
+          "text": "Airspeed",
+          "response": "70 kts Flaps Up",
+          "tickable": true,
+          "source_confidence": 0.85,
+          "value": {
+            "quantity": "airspeed",
+            "unit": "kt",
+            "target": 70
+          }
+        },
+        {
+          "type": "subtitle",
+          "text": "Power Off Stall",
+          "tickable": false,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Pre-Maneuver Check",
+          "response": "Completed",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Prop",
+          "response": "Full Forward",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "13\" MP",
+          "tickable": true,
+          "source_confidence": 0.8,
+          "value": {
+            "quantity": "pressure",
+            "unit": "inhg",
+            "target": 13
+          }
+        },
+        {
+          "type": "action",
+          "text": "Flaps",
+          "response": "T/O then LDG",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Pitch for",
+          "response": "60 kts",
+          "tickable": true,
+          "source_confidence": 0.85,
+          "value": {
+            "quantity": "airspeed",
+            "unit": "kt",
+            "target": 60
+          }
+        },
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "Idle",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "subtitle",
+          "text": "Recovery",
+          "tickable": false,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Angle of Attack",
+          "response": "Reduce",
+          "tickable": true,
+          "source_confidence": 0.8
+        },
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "Full Forward",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Pitch for",
+          "response": "60 kts",
+          "tickable": true,
+          "source_confidence": 0.85,
+          "value": {
+            "quantity": "airspeed",
+            "unit": "kt",
+            "target": 60
+          }
+        },
+        {
+          "type": "action",
+          "text": "Positive Rate",
+          "response": "Flaps T/O",
+          "tickable": true,
+          "source_confidence": 0.75
+        },
+        {
+          "type": "action",
+          "text": "Airspeed",
+          "response": "70 kts Flaps Up",
+          "tickable": true,
+          "source_confidence": 0.85,
+          "value": {
+            "quantity": "airspeed",
+            "unit": "kt",
+            "target": 70
+          }
+        },
+        {
+          "type": "subtitle",
+          "text": "Spin Recovery",
+          "tickable": false,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Power",
+          "response": "Idle",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Aileron",
+          "response": "Neutral",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Elevator",
+          "response": "Full Forward",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Rudder",
+          "response": "Opposite Spin",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "subtitle",
+          "text": "Power On Stall",
+          "tickable": false,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Pre-Maneuver Check",
+          "response": "Complete",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Prop",
+          "response": "Full Forward",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "13\" MP",
+          "tickable": true,
+          "source_confidence": 0.8,
+          "value": {
+            "quantity": "pressure",
+            "unit": "inhg",
+            "target": 13
+          }
+        },
+        {
+          "type": "action",
+          "text": "Pitch for",
+          "response": "60 kts",
+          "tickable": true,
+          "source_confidence": 0.85,
+          "value": {
+            "quantity": "airspeed",
+            "unit": "kt",
+            "target": 60
+          }
+        },
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "Full Forward",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "subtitle",
+          "text": "Recovery",
+          "tickable": false,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "Verify Full Forward",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Airspeed",
+          "response": "70 kts",
+          "tickable": true,
+          "source_confidence": 0.85,
+          "value": {
+            "quantity": "airspeed",
+            "unit": "kt",
+            "target": 70
+          }
+        },
+        {
+          "type": "subtitle",
+          "text": "Steep Turns",
+          "tickable": false,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Pre-Maneuver Check",
+          "response": "Complete",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "18-23\" MP",
+          "tickable": true,
+          "source_confidence": 0.85,
+          "value": {
+            "quantity": "pressure",
+            "unit": "inhg",
+            "min": 18,
+            "max": 23,
+            "comparison": "between"
+          }
+        },
+        {
+          "type": "action",
+          "text": "Prop",
+          "response": "1800-2300 RPM",
+          "tickable": true,
+          "source_confidence": 0.85,
+          "value": {
+            "quantity": "rpm",
+            "unit": "rpm",
+            "min": 1800,
+            "max": 2300,
+            "comparison": "between"
+          }
+        },
+        {
+          "type": "action",
+          "text": "Airspeed",
+          "response": "Maintain Va",
+          "tickable": true,
+          "source_confidence": 0.8
+        },
+        {
+          "type": "action",
+          "text": "Bank",
+          "response": "45° Private 55°Commercial",
+          "tickable": true,
+          "source_confidence": 0.7
+        },
+        {
+          "type": "challenge",
+          "text": "Use throttle to maintain altitude",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "subtitle",
+          "text": "Turns Around A Point",
+          "tickable": false,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Pre Maneuver Check",
+          "response": "Complete",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "18-23\" mp",
+          "tickable": true,
+          "source_confidence": 0.8,
+          "value": {
+            "quantity": "pressure",
+            "unit": "inhg",
+            "min": 18,
+            "max": 23,
+            "comparison": "between"
+          }
+        },
+        {
+          "type": "action",
+          "text": "Prop",
+          "response": "1800-2300 RPM",
+          "tickable": true,
+          "source_confidence": 0.85,
+          "value": {
+            "quantity": "rpm",
+            "unit": "rpm",
+            "min": 1800,
+            "max": 2300,
+            "comparison": "between"
+          }
+        },
+        {
+          "type": "challenge",
+          "text": "Enter on maneuver on downwind",
+          "tickable": true,
+          "source_confidence": 0.7
+        },
+        {
+          "type": "subtitle",
+          "text": "\"S\" Turns",
+          "tickable": false,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Pre-Maneuver Check",
+          "response": "Complete",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Prop",
+          "response": "2400 RPM",
+          "tickable": true,
+          "source_confidence": 0.85,
+          "value": {
+            "quantity": "rpm",
+            "unit": "rpm",
+            "target": 2400
+          }
+        },
+        {
+          "type": "action",
+          "text": "Bank",
+          "response": "30°",
+          "tickable": true,
+          "source_confidence": 0.8
+        },
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "Slowly Max PWR",
+          "tickable": true,
+          "source_confidence": 0.8
+        },
+        {
+          "type": "subtitle",
+          "text": "Lazy Eights",
+          "tickable": false,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Pre Maneuver Check",
+          "response": "Complete",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "18-23\" MP",
+          "tickable": true,
+          "source_confidence": 0.85,
+          "value": {
+            "quantity": "pressure",
+            "unit": "inhg",
+            "min": 18,
+            "max": 23,
+            "comparison": "between"
+          }
+        },
+        {
+          "type": "action",
+          "text": "Prop",
+          "response": "1800-2300 RPM",
+          "tickable": true,
+          "source_confidence": 0.85,
+          "value": {
+            "quantity": "rpm",
+            "unit": "rpm",
+            "min": 1800,
+            "max": 2300,
+            "comparison": "between"
+          }
+        },
+        {
+          "type": "subtitle",
+          "text": "8's on Pylons",
+          "tickable": false,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Pre Maneuver Check",
+          "response": "Complete",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Pivotal Altitude",
+          "response": "Compute",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "18-23\" MP",
+          "tickable": true,
+          "source_confidence": 0.85,
+          "value": {
+            "quantity": "pressure",
+            "unit": "inhg",
+            "min": 18,
+            "max": 23,
+            "comparison": "between"
+          }
+        },
+        {
+          "type": "action",
+          "text": "Prop",
+          "response": "1800-2300 RPM",
+          "tickable": true,
+          "source_confidence": 0.85,
+          "value": {
+            "quantity": "rpm",
+            "unit": "rpm",
+            "min": 1800,
+            "max": 2300,
+            "comparison": "between"
+          }
+        },
+        {
+          "type": "note",
+          "text": "Pivotal Altitude AGL = Ground Speed (kts) ² / 11.3",
+          "tickable": false,
+          "source_confidence": 0.75
+        },
+        {
+          "type": "subtitle",
+          "text": "Emergency Decent",
+          "tickable": false,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Pre Maneuver Check",
+          "response": "Complete",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Prop",
+          "response": "Full Forward",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "Idle",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Flaps",
+          "response": "Full at or below Vfe",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Bank",
+          "response": "45º",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Airspeed",
+          "response": "Vfe",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "subtitle",
+          "text": "Flight Formulas",
+          "tickable": false,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "note",
+          "text": "A. Freezing Level AGL = (Temp C / 2) * 1000 (example: 5º C / 2 = 2.5 * 1000, freezing level is 2500' AGL)",
+          "tickable": false,
+          "source_confidence": 0.8
+        },
+        {
+          "type": "note",
+          "text": "B. When to Descend = Current Altitude – Desired Altitude * 3 (example: I'm cruising at 150 I need to get to 050 that is a 10,000 foot decent. Multiply 10,000 by 3 which = 30,000. Common sense tells me to knock off 3 zeros to start my decent 30 miles from the fix/airport)",
+          "tickable": false,
+          "source_confidence": 0.8
+        },
+        {
+          "type": "note",
+          "text": "C. Rate of Decent for Above = Ground Speed / 2 * 10 (example: to meet that 30 mile decent plan I need to divide my groundspeed by two. so in this case lets say its 180 kts dived that by two and that is 90 then multiply by 10 to get 900 FPM)",
+          "tickable": false,
+          "source_confidence": 0.75
+        },
+        {
+          "type": "note",
+          "text": "D. Time To Station = 60*Time between Bearings/Bearing Change (example: It took me 6 mins to move across 10º of bearings. so 60*6/10 is 36 mins to the station)",
+          "tickable": false,
+          "source_confidence": 0.8
+        },
+        {
+          "type": "note",
+          "text": "E. Distance To Station = TAS*Min Flown/ Degree of Bearing Change (example: My TAS is 160 it took me 6 mins to fly across 10º of bearings so 160*6/10 is 96. So I am 96 miles away from the station)",
+          "tickable": false,
+          "source_confidence": 0.8
+        }
+      ]
+    }
+  ]
+}

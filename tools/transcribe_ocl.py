@@ -284,6 +284,14 @@ ITEM_TYPES = {"action", "challenge", "subtitle", "note", "caution", "warning", "
 TYPE_TYPO_FIX = {"subtitile": "subtitle", "subtitl": "subtitle", "warnng": "warning", "cution": "caution"}
 VALID_QUANTITIES = {"airspeed", "altitude", "rpm", "pressure", "temperature", "fuel",
                     "weight", "time", "distance", "percent", "voltage", "current", "angle"}
+UNITS_ENUMS = {
+    "airspeed": {"kt", "mph", "km/h"},
+    "altitude": {"ft", "m"},
+    "fuel": {"usgal", "impgal", "l", "lb", "kg"},
+    "weight": {"lb", "kg"},
+    "pressure": {"inhg", "hpa", "psi"},
+    "temperature": {"f", "c"},
+}
 
 
 def _sanitize_id(s: str) -> str:
@@ -300,6 +308,33 @@ def repair_schema(doc: dict) -> dict:
     These are structural corrections derived directly from item type — they do
     not change content or numbers, so they are safe to apply before validation.
     """
+    # Units: drop fields whose value isn't in the controlled enum.
+    units = doc.get("units")
+    if isinstance(units, dict):
+        for k in list(units):
+            if k in UNITS_ENUMS and units[k] not in UNITS_ENUMS[k]:
+                units.pop(k)
+
+    # Speeds: keys must be lowercase slugs (pattern ^[a-z][a-z0-9_]*$).
+    speeds = doc.get("speeds")
+    if isinstance(speeds, dict):
+        fixed = {}
+        for k, v in speeds.items():
+            nk = re.sub(r"[^a-z0-9_]", "", k.lower())
+            nk = re.sub(r"^[0-9]+", "", nk) or "v"
+            fixed[nk] = v
+        doc["speeds"] = fixed
+
+    # Drop empty sections and items that are really mis-nested sections.
+    sections = []
+    for section in doc.get("sections", []):
+        if not section.get("items"):
+            continue
+        section["items"] = [it for it in section["items"] if not (isinstance(it, dict) and "items" in it)]
+        if section["items"]:
+            sections.append(section)
+    doc["sections"] = sections
+
     # Pass 1: fix section-level fields and sanitize ids.
     for si, section in enumerate(doc.get("sections", [])):
         if section.get("criticality") not in VALID_CRITICALITY:
@@ -315,6 +350,7 @@ def repair_schema(doc: dict) -> dict:
 
     # Pass 2: fix item-level fields.
     for si, section in enumerate(doc.get("sections", [])):
+        seen_ids = set()
         for ii, item in enumerate(section.get("items", [])):
             t = item.get("type")
             if t not in ITEM_TYPES:
@@ -333,6 +369,18 @@ def repair_schema(doc: dict) -> dict:
                 item["id"] = (slugify(item.get("text", "")) or f"item-{si}-{ii}")[:60]
             if item.get("id"):
                 item["id"] = _sanitize_id(item["id"])
+            if item.get("id"):
+                base = item["id"]
+                n = 2
+                while item["id"] in seen_ids:
+                    item["id"] = f"{base}-{n}"
+                    n += 1
+                seen_ids.add(item["id"])
+            sc = item.get("source_confidence")
+            if isinstance(sc, (int, float)):
+                if sc > 1:
+                    sc = sc / 10 if sc <= 10 else 1.0
+                item["source_confidence"] = round(max(0.0, min(1.0, sc)), 2)
             for field, maxlen in (("text", 2000), ("response", 500), ("detail", 4000), ("condition", 300)):
                 if isinstance(item.get(field), str):
                     item[field] = _clip(item[field], maxlen)

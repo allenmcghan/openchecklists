@@ -114,17 +114,26 @@ padding:.4rem .65rem;border-radius:999px;text-decoration:none}
     </a>
     <nav class="ocl-nav" id="site-nav" aria-label="Site">
       <a href="/catalogue.html">Checklists</a>
-      <a href="/airports.html">Airports</a>
+      <a href="/airports.html">Airports &amp; weather</a>
       <a href="/training.html">Training</a>
       <a href="/search.html">Troubleshooting</a>
     </nav>
   </div>
 </header>
+<div style="position:relative;overflow:hidden;max-height:200px;background:#1a5ba3;margin-bottom:0">
+  <img src="/planner-hero.jpg" alt="Cockpit view of a Cessna 172 in flight"
+       style="width:100%;height:200px;object-fit:cover;object-position:center 55%;display:block;opacity:.85">
+  <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(10,30,60,.6) 0%,transparent 60%);display:flex;align-items:center;padding:0 2rem">
+    <div>
+      <h1 style="margin:0;color:#fff;font-size:clamp(1.6rem,4vw,2.4rem);font-weight:800;letter-spacing:-.03em;text-shadow:0 2px 8px rgba(0,0,0,.4)">Plan a Flight</h1>
+      <p style="margin:.3rem 0 0;color:rgba(255,255,255,.85);font-size:.95rem;text-shadow:0 1px 4px rgba(0,0,0,.4)">VFR preflight briefing — weather, NOTAMs, frequencies, fuel.</p>
+    </div>
+  </div>
+</div>
 <div class="page">
-  <h1><a href="/index.html" style="color:inherit;text-decoration:none">Plan a Flight</a></h1>
-  <p class="sub">VFR preflight briefing — weather, NOTAMs, frequencies, fuel. Print or email when done.</p>
+  <div id="guest-notice-placeholder" style="margin-top:1rem"></div>
 
-  <div id="guest-notice" class="guest-notice" style="display:none">
+  <div id="guest-notice" class="guest-notice" style="display:none;margin-top:1rem">
     Planning as a guest. Enter your email when you generate — we'll send the briefing and create your free account.
   </div>
 
@@ -432,6 +441,7 @@ function submitGuestAircraft() {
   };
 
   selectAC(guestAircraft);
+  nextStep(); // advance straight to Route step
 }
 
 function selectAC(a) {

@@ -1,0 +1,650 @@
+{
+  "open_checklist_version": "1.0",
+  "id": "yakovlev-yak-12m-yak-12m-checklist",
+  "title": "Yakovlev Yak-12M — YAK_12M_checklist",
+  "aircraft": {
+    "make": "Yakovlev",
+    "model": "Yak-12M",
+    "category": "standard_normal"
+  },
+  "provenance": {
+    "source": {
+      "kind": "third_party_checklist",
+      "title": "Yakovlev/Yak-12M/YAK_12M_checklist.txt"
+    },
+    "transcription": {
+      "method": "format_conversion",
+      "date": "2026-08-14",
+      "converted_from": "doc"
+    },
+    "contributors": [
+      {
+        "name": "Open Checklists project",
+        "role": [
+          "transcriber"
+        ]
+      }
+    ],
+    "revision": {
+      "file_revision": "0.1.0",
+      "updated": "2026-08-14"
+    }
+  },
+  "verification": {
+    "source_fidelity": "unreviewed",
+    "operational_review": "none",
+    "completeness": "full",
+    "known_issues": [],
+    "reviews": [
+      {
+        "type": "source_comparison",
+        "reviewer": "ai-dual-pass-review",
+        "date": "2026-08-14",
+        "notes": "Automated AI review: two independent transcription passes + numeric/item-count disagreement resolution. Not human-verified; baseline for community correction."
+      }
+    ]
+  },
+  "rights": {
+    "status": "licensed",
+    "upstream_holder": "freechecklists.net",
+    "upstream_license": "content-reuse permission granted by the site author for this replacement project",
+    "notes": "Transcribed from the freechecklists.net archive under the author's reuse grant. Individual checklist wording may be substantially the source's; per-file contributor authorship is unknown."
+  },
+  "sections": [
+    {
+      "phase": "preflight_inspection",
+      "title": "External",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "Kick the tyres, nothing about to fall off etc.",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "challenge",
+          "text": "Oil level > 8 litres.",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "challenge",
+          "text": "Fuel levels OK.",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "challenge",
+          "text": "Turn engine 9 blades; watch for the oil.",
+          "tickable": true,
+          "source_confidence": 0.99
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "before_start",
+      "title": "Internal / starting",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "All switches off, mags off etc.",
+          "tickable": true,
+          "source_confidence": 0.99
+        },
+        {
+          "type": "challenge",
+          "text": "Fuel OK.",
+          "tickable": true,
+          "source_confidence": 0.99
+        },
+        {
+          "type": "challenge",
+          "text": "Air on.",
+          "tickable": true,
+          "source_confidence": 0.99
+        },
+        {
+          "type": "challenge",
+          "text": "Brakes on.",
+          "tickable": true,
+          "source_confidence": 0.99
+        },
+        {
+          "type": "action",
+          "text": "Fuel on.",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 0.99
+        },
+        {
+          "type": "action",
+          "text": "Mixture rich.",
+          "response": "RICH",
+          "tickable": true,
+          "source_confidence": 0.99
+        },
+        {
+          "type": "challenge",
+          "text": "Close oil cooler.",
+          "tickable": true,
+          "source_confidence": 0.99
+        },
+        {
+          "type": "challenge",
+          "text": "Close carb heat.",
+          "tickable": true,
+          "source_confidence": 0.99
+        },
+        {
+          "type": "challenge",
+          "text": "Open Gills.",
+          "tickable": true,
+          "source_confidence": 0.99
+        },
+        {
+          "type": "challenge",
+          "text": "Flaps up.",
+          "tickable": true,
+          "source_confidence": 0.99
+        },
+        {
+          "type": "subtitle",
+          "text": "For cold start;",
+          "tickable": false,
+          "source_confidence": 0.99
+        },
+        {
+          "type": "challenge",
+          "text": "If you have an assistant, 9 blades, 1 prime each.",
+          "tickable": true,
+          "source_confidence": 0.97
+        },
+        {
+          "type": "challenge",
+          "text": "Otherwise, 8 primes, suck in, then 2 more.",
+          "tickable": true,
+          "source_confidence": 0.97
+        },
+        {
+          "type": "subtitle",
+          "text": "For warm start,",
+          "tickable": false,
+          "source_confidence": 0.94
+        },
+        {
+          "type": "challenge",
+          "text": "1 prime per 10° below 100 cylinder head temp.",
+          "tickable": true,
+          "source_confidence": 0.94
+        },
+        {
+          "type": "challenge",
+          "text": "Master switch on.",
+          "tickable": true,
+          "source_confidence": 0.99
+        },
+        {
+          "type": "challenge",
+          "text": "Generator on.",
+          "tickable": true,
+          "source_confidence": 0.99
+        },
+        {
+          "type": "challenge",
+          "text": "DC converter.",
+          "tickable": true,
+          "source_confidence": 0.99
+        },
+        {
+          "type": "challenge",
+          "text": "Starter on.",
+          "tickable": true,
+          "source_confidence": 0.99
+        },
+        {
+          "type": "challenge",
+          "text": "Set throttle.",
+          "tickable": true,
+          "source_confidence": 0.99
+        },
+        {
+          "type": "challenge",
+          "text": "Press starter, when engine turns correct way, mags on both.",
+          "tickable": true,
+          "source_confidence": 0.99
+        },
+        {
+          "type": "challenge",
+          "text": "When engine fires, set throttle and prime as necessary.",
+          "tickable": true,
+          "source_confidence": 0.99
+        },
+        {
+          "type": "action",
+          "text": "Set 1000 RPM.",
+          "response": "1000 RPM",
+          "tickable": true,
+          "source_confidence": 0.99
+        },
+        {
+          "type": "challenge",
+          "text": "Close Gills until cylinder head temp rises, then open as necessary.",
+          "tickable": true,
+          "source_confidence": 0.99
+        },
+        {
+          "type": "challenge",
+          "text": "Open oil cooler as necessary.",
+          "tickable": true,
+          "source_confidence": 0.99
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "before_taxi",
+      "title": "Before Taxi",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "Switches on as necessay.",
+          "tickable": true,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "challenge",
+          "text": "Radio on and set.",
+          "tickable": true,
+          "source_confidence": 0.99
+        },
+        {
+          "type": "challenge",
+          "text": "Set DI to compass",
+          "tickable": true,
+          "source_confidence": 0.99
+        },
+        {
+          "type": "challenge",
+          "text": "Set altimeter.",
+          "tickable": true,
+          "source_confidence": 0.99
+        },
+        {
+          "type": "challenge",
+          "text": "Uncage artificial horizon.",
+          "tickable": true,
+          "source_confidence": 0.99
+        },
+        {
+          "type": "challenge",
+          "text": "Do not taxi until oil temp in green.",
+          "tickable": true,
+          "source_confidence": 0.99
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "taxi",
+      "title": "Taxi",
+      "items": [
+        {
+          "type": "note",
+          "text": "Note; tail wheel unlocked when stick forward.",
+          "tickable": false,
+          "source_confidence": 0.99
+        },
+        {
+          "type": "challenge",
+          "text": "Check brakes and steering.",
+          "tickable": true,
+          "source_confidence": 0.99
+        },
+        {
+          "type": "challenge",
+          "text": "Check pneumatic pressure maintained.",
+          "tickable": true,
+          "source_confidence": 0.99
+        },
+        {
+          "type": "challenge",
+          "text": "Check turn and slip move correctly.",
+          "tickable": true,
+          "source_confidence": 0.99
+        },
+        {
+          "type": "challenge",
+          "text": "Check DI moves correctly.",
+          "tickable": true,
+          "source_confidence": 0.99
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "before_takeoff",
+      "title": "Engine checks",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "Oil temp in green.",
+          "tickable": true,
+          "source_confidence": 0.99
+        },
+        {
+          "type": "challenge",
+          "text": "Cylinder head temp in green.",
+          "tickable": true,
+          "source_confidence": 0.99
+        },
+        {
+          "type": "action",
+          "text": "Set 2000 RPM",
+          "response": "2000 RPM",
+          "tickable": true,
+          "source_confidence": 0.99
+        },
+        {
+          "type": "challenge",
+          "text": "Check mags.",
+          "tickable": true,
+          "source_confidence": 0.99
+        },
+        {
+          "type": "challenge",
+          "text": "Exercise prop.",
+          "tickable": true,
+          "source_confidence": 0.99
+        },
+        {
+          "type": "challenge",
+          "text": "Check carb heat.",
+          "tickable": true,
+          "source_confidence": 0.99
+        },
+        {
+          "type": "challenge",
+          "text": "Set idle; engine continues to run.",
+          "tickable": true,
+          "source_confidence": 0.99
+        },
+        {
+          "type": "action",
+          "text": "Set 1000 RPM.",
+          "response": "1000 RPM",
+          "tickable": true,
+          "source_confidence": 0.99
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "before_takeoff",
+      "title": "Pre take off vital checks",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "Mags on both.",
+          "tickable": true,
+          "source_confidence": 0.99
+        },
+        {
+          "type": "challenge",
+          "text": "Trim set.",
+          "tickable": true,
+          "source_confidence": 0.99
+        },
+        {
+          "type": "action",
+          "text": "Flaps to 15°",
+          "response": "15°",
+          "tickable": true,
+          "source_confidence": 0.99
+        },
+        {
+          "type": "challenge",
+          "text": "Fuel on and sufficient.",
+          "tickable": true,
+          "source_confidence": 0.99
+        },
+        {
+          "type": "challenge",
+          "text": "Mixture fully rich.",
+          "tickable": true,
+          "source_confidence": 0.99
+        },
+        {
+          "type": "challenge",
+          "text": "Starter covered.",
+          "tickable": true,
+          "source_confidence": 0.99
+        },
+        {
+          "type": "challenge",
+          "text": "Primer locked.",
+          "tickable": true,
+          "source_confidence": 0.99
+        },
+        {
+          "type": "challenge",
+          "text": "Prop fully fine.",
+          "tickable": true,
+          "source_confidence": 0.99
+        },
+        {
+          "type": "challenge",
+          "text": "Oil temp green.",
+          "tickable": true,
+          "source_confidence": 0.99
+        },
+        {
+          "type": "challenge",
+          "text": "Cylinder head temp green.",
+          "tickable": true,
+          "source_confidence": 0.99
+        },
+        {
+          "type": "challenge",
+          "text": "Set DI to compass.",
+          "tickable": true,
+          "source_confidence": 0.99
+        },
+        {
+          "type": "challenge",
+          "text": "Switches on as necessary.",
+          "tickable": true,
+          "source_confidence": 0.99
+        },
+        {
+          "type": "challenge",
+          "text": "Controls full and free.",
+          "tickable": true,
+          "source_confidence": 0.99
+        },
+        {
+          "type": "challenge",
+          "text": "Hatches and harness’ secure.",
+          "tickable": true,
+          "source_confidence": 0.91
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "takeoff",
+      "title": "Take off",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "Set full power, then back to 7.5 boost.",
+          "tickable": true,
+          "source_confidence": 0.99
+        },
+        {
+          "type": "action",
+          "text": "Set prop to 2000 RPM.",
+          "response": "2000 RPM",
+          "tickable": true,
+          "source_confidence": 0.99
+        },
+        {
+          "type": "challenge",
+          "text": "Take off with tail up or 3 point.",
+          "tickable": true,
+          "source_confidence": 0.99
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "climb",
+      "title": "Climb",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "boost, 2000 RPM.",
+          "tickable": true,
+          "source_confidence": 0.99
+        },
+        {
+          "type": "challenge",
+          "text": "Flaps up above 300 feet.",
+          "tickable": true,
+          "source_confidence": 0.99
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "cruise",
+      "title": "Cruise",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "boost, 1860 RPM, no flaps.",
+          "tickable": true,
+          "source_confidence": 0.99
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "descent",
+      "title": "Descent",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "Reduce throttle.",
+          "tickable": true,
+          "source_confidence": 0.99
+        },
+        {
+          "type": "challenge",
+          "text": "Flaps extend below 140kmh",
+          "tickable": true,
+          "source_confidence": 0.99
+        },
+        {
+          "type": "challenge",
+          "text": "Final approach 110kmh, Prop to fine",
+          "tickable": true,
+          "source_confidence": 0.99
+        },
+        {
+          "type": "note",
+          "text": "Note land with stick back to ensure tail wheel locked - risk of ground loops.",
+          "tickable": false,
+          "source_confidence": 0.99
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "shutdown",
+      "title": "Close down",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "Brakes on.",
+          "tickable": true,
+          "source_confidence": 0.99
+        },
+        {
+          "type": "action",
+          "text": "Set 1000 RPM",
+          "response": "1000 RPM",
+          "tickable": true,
+          "source_confidence": 0.99
+        },
+        {
+          "type": "challenge",
+          "text": "Check mags.",
+          "tickable": true,
+          "source_confidence": 0.99
+        },
+        {
+          "type": "challenge",
+          "text": "Flaps up.",
+          "tickable": true,
+          "source_confidence": 0.99
+        },
+        {
+          "type": "challenge",
+          "text": "Close carb heat.",
+          "tickable": true,
+          "source_confidence": 0.99
+        },
+        {
+          "type": "challenge",
+          "text": "Unnecessary electrics off.",
+          "tickable": true,
+          "source_confidence": 0.99
+        },
+        {
+          "type": "challenge",
+          "text": "Set idle.",
+          "tickable": true,
+          "source_confidence": 0.99
+        },
+        {
+          "type": "challenge",
+          "text": "Mags off.",
+          "tickable": true,
+          "source_confidence": 0.99
+        },
+        {
+          "type": "challenge",
+          "text": "Open gill flaps.",
+          "tickable": true,
+          "source_confidence": 0.99
+        },
+        {
+          "type": "challenge",
+          "text": "Electrics off.",
+          "tickable": true,
+          "source_confidence": 0.99
+        },
+        {
+          "type": "challenge",
+          "text": "Close pneumatic valve.",
+          "tickable": true,
+          "source_confidence": 0.99
+        },
+        {
+          "type": "challenge",
+          "text": "Stick free and brakes off for manoeuvring.",
+          "tickable": true,
+          "source_confidence": 0.99
+        },
+        {
+          "type": "challenge",
+          "text": "Drain water trap",
+          "tickable": true,
+          "source_confidence": 0.99
+        }
+      ],
+      "criticality": "normal"
+    }
+  ]
+}

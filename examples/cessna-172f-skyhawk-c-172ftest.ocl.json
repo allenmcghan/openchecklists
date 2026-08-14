@@ -1,0 +1,612 @@
+{
+  "open_checklist_version": "1.0",
+  "id": "cessna-172f-skyhawk-c-172ftest",
+  "title": "Cessna 172F Skyhawk — C-172Ftest",
+  "aircraft": {
+    "make": "Cessna",
+    "model": "172F Skyhawk",
+    "category": "standard_normal"
+  },
+  "provenance": {
+    "source": {
+      "kind": "third_party_checklist",
+      "title": "Cessna/172F Skyhawk/C-172Ftest.txt"
+    },
+    "transcription": {
+      "method": "format_conversion",
+      "date": "2026-08-13",
+      "converted_from": "doc"
+    },
+    "contributors": [
+      {
+        "name": "Open Checklists project",
+        "role": [
+          "transcriber"
+        ]
+      }
+    ],
+    "revision": {
+      "file_revision": "0.1.0",
+      "updated": "2026-08-13"
+    }
+  },
+  "verification": {
+    "source_fidelity": "unreviewed",
+    "operational_review": "none",
+    "completeness": "full",
+    "known_issues": [
+      {
+        "severity": "content_gap",
+        "description": "Section \"Before Takeoff\" item count differs between passes (1 vs 2); verify nothing was dropped.",
+        "location": "Before Takeoff"
+      },
+      {
+        "severity": "content_gap",
+        "description": "Section \"Climb\" item count differs between passes (4 vs 9); verify nothing was dropped.",
+        "location": "Climb"
+      },
+      {
+        "severity": "content_gap",
+        "description": "Section \"Closed Book Questions\" item count differs between passes (1 vs 16); verify nothing was dropped.",
+        "location": "Closed Book Questions"
+      },
+      {
+        "severity": "content_gap",
+        "description": "Section \"Cruise\" item count differs between passes (7 vs 9); verify nothing was dropped.",
+        "location": "Cruise"
+      },
+      {
+        "severity": "content_gap",
+        "description": "Section \"Engine\" item count differs between passes (4 vs 7); verify nothing was dropped.",
+        "location": "Engine"
+      },
+      {
+        "severity": "content_gap",
+        "description": "Section \"Fuel\" item count differs between passes (4 vs 6); verify nothing was dropped.",
+        "location": "Fuel"
+      },
+      {
+        "severity": "content_gap",
+        "description": "Section \"Landing\" item count differs between passes (2 vs 7); verify nothing was dropped.",
+        "location": "Landing"
+      },
+      {
+        "severity": "content_gap",
+        "description": "Section \"Starting\" item count differs between passes (1 vs 2); verify nothing was dropped.",
+        "location": "Starting"
+      },
+      {
+        "severity": "content_gap",
+        "description": "Section \"Takeoff\" item count differs between passes (2 vs 3); verify nothing was dropped.",
+        "location": "Takeoff"
+      },
+      {
+        "severity": "content_gap",
+        "description": "Section \"Weight and Balance\" item count differs between passes (4 vs 9); verify nothing was dropped.",
+        "location": "Weight and Balance"
+      }
+    ],
+    "reviews": [
+      {
+        "type": "source_comparison",
+        "reviewer": "ai-dual-pass-review",
+        "date": "2026-08-14",
+        "notes": "Automated AI review: two independent transcription passes + numeric/item-count disagreement resolution. Not human-verified; baseline for community correction."
+      }
+    ]
+  },
+  "rights": {
+    "status": "licensed",
+    "upstream_holder": "freechecklists.net",
+    "upstream_license": "content-reuse permission granted by the site author for this replacement project",
+    "notes": "Transcribed from the freechecklists.net archive under the author's reuse grant. Individual checklist wording may be substantially the source's; per-file contributor authorship is unknown."
+  },
+  "sections": [
+    {
+      "phase": "reference",
+      "title": "Cessna 172F Skyhawk Test",
+      "items": [
+        {
+          "type": "note",
+          "text": "Name________________________________",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Date_____________________",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Instructor_____________________________   Grade_____________________",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "The official manual for this airplane is the Cessna manual: 1965, C172F Skyhawk. However, the information in that manual does not provide all of the information necessary to safely fly the airplane. Therefore, this test will include questions from the Cessna manual as well as the the club's \"Conditions of Flight\" (COF) statement and \"Normal/Abnormal/Emergency Procedures Statement\". These statements are downloadable from the website and are in binder located in the flight planning room.",
+          "tickable": false,
+          "source_confidence": 1.0
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "reference",
+      "title": "V Speeds",
+      "items": [
+        {
+          "type": "subtitle",
+          "text": "1. Fill in the following V speeds and define (use COF):",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Vs",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "VS1",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "VR",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Vx",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Vy",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "VMAX GLIDE",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "VFE",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "VA",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "VNO",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "VNE",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "reference",
+      "title": "Engine",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "Model number (Skyhawk)________ Horsepower______ At________ RPM",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "Oil requirement: Min________",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Min for normal for flight less than 3 hours _________",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "For flights extended flight fill to ___________",
+          "tickable": true,
+          "source_confidence": 0.5
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "reference",
+      "title": "Fuel",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "Minimum Octane__________",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "Maximum fuel capacity_____, Total usable in all flight conditions ______.",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "For the first flight of the day and after refueling, the fuel strainer knob should be pulled out for ________ sec.",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "If you encounter a problem with power irregularity, you should:",
+          "tickable": true,
+          "source_confidence": 0.5
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "reference",
+      "title": "Electrical",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "If the ammeter indicates a discharge, this is an indication of what?",
+          "tickable": true,
+          "source_confidence": 0.5
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "weight_and_balance",
+      "title": "Weight and Balance",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "Calculate the weight and balance for the following set of conditions: Basic aircraft Wt 1464.0 LBS, ARM 38.15; Pilot and front pax 380.0 LBS, ARM 35.80; Fuel: 36 Gal, ARM 47.80; Baggage 50.0 LBS, ARM 95.40.",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "Total Moment= _______(__________lbs  = __________inches =  CG",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "This aircraft is / is not within the Max Gross wt and CG limits.",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "This aircraft is / is not in the utility category.",
+          "tickable": true,
+          "source_confidence": 0.5
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "engine_start",
+      "title": "Starting",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "After starting, if the oil gauge does not show a pressure by _________ sec, you should __________________.",
+          "tickable": true,
+          "source_confidence": 0.5
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "before_takeoff",
+      "title": "Before Takeoff",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "The magneto check should be made at ___________RPM, max drop is__________ (in COF) and max differential is _____________.",
+          "tickable": true,
+          "source_confidence": 0.5
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "takeoff",
+      "title": "Takeoff",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "At airfields above__________' (elevation) you should lean before takeoff.",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "What is the takeoff distance over a 50 obstacle at an airfield with a PA of 2500', temperature 75, and at max gross weight zero wind. __________",
+          "tickable": true,
+          "source_confidence": 0.5
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "climb",
+      "title": "Climb",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "Determine the time, distance and fuel used to climb in this situation: (use the \"Maximum Rate-Of-Climb Data\" chart) Max gross weight, Starting at Sea level, Climbing to 5000', Temp on surface 59F, No Wind. Time__________________ Distance_______________ Fuel used______________",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "IAW modified fuel management procedures: a. Takeoff and climb with the fuel selector in the__________position",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "b. On reaching cruise above ____________ switch to left or right tank.",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "c. Land with the fuel selector in the__________position.",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "cruise",
+      "title": "Cruise",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "Normal cruise is done between _____% and ______% power.",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "If I will cruise at 7500' at 65% power, standard day, zero wind, what is my: a. TAS ___________",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "b. Indicated A/S ___________ (use your E-6B to figure this one)",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "c. RPM ___________",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "d. Fuel Gal/hour ___________",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "e. Endurance ___________",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "f. Range ___________",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "other",
+      "phase_label": "Maneuvering",
+      "title": "Maneuvering",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "In zero winds, engine out, propeller windmilling, If I have an engine failure at 6,000', how far can I glide_________ which means that for every one thousand feet of altitude, I can glide approximately __________miles.",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "landing",
+      "title": "Landing",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "What is the total landing distance: ground roll_________ and to clear a 50' obstacle__________ in the following situation? 1. 2300lbs 2. PA 2500' 3. 50F 4. 10kts headwind",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "Normal approach and landing is done at ______MPH and _______flaps. (Use COF)",
+          "tickable": true,
+          "source_confidence": 0.5
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "reference",
+      "title": "Closed Book Questions",
+      "items": [
+        {
+          "type": "note",
+          "text": "Questions 20-25 are closed book questions and come from the \"Conditions of Flight\" (COF) statement and \"Normal/Abnormal/Emergency Procedures Statement\". You should practice these questions, but they must be proctored without reference to any material.",
+          "tickable": false,
+          "source_confidence": 0.5
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "engine_fire_ground",
+      "title": "Engine Fire on the Ground",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "For engine fire on the ground:",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "1. ___________________________________________________",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "2. ___________________________________________________",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "3. ___________________________________________________",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "4. ___________________________________________________",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "reference",
+      "title": "Optimal Engine Out Glide Speeds",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "Optimal engine out glide speeds: 1. Flaps up ______________________________________",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "2. Flaps Down ______________________________________",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "engine_fire_in_flight",
+      "title": "Engine Fire During Flight",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "Engine fire during flight: 1. ___________________________________________________",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "2. ___________________________________________________",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "3. ___________________________________________________ then refer to checklist",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "electrical_fire",
+      "title": "Electrical Fire During Flight",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "Electrical Fire during flight: 1. ___________________________________________________ then refer to checklist",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "smoke_removal",
+      "title": "Smoke and Fume In Cockpit",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "Smoke and Fume In Cockpit: 1. ___________________________________________________",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "2. ___________________________________________________",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "3. ___________________________________________________",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "4. ___________________________________________________",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ],
+      "criticality": "normal"
+    }
+  ]
+}

@@ -1,0 +1,388 @@
+{
+  "open_checklist_version": "1.0",
+  "id": "yakovlev-yak-11-yak11-fltrep11",
+  "title": "Yakovlev Yak-11 — yak11_fltrep11",
+  "aircraft": {
+    "make": "Yakovlev",
+    "model": "Yak-11",
+    "category": "standard_normal"
+  },
+  "provenance": {
+    "source": {
+      "kind": "third_party_checklist",
+      "title": "Yakovlev/Yak-11/yak11_fltrep11.txt"
+    },
+    "transcription": {
+      "method": "format_conversion",
+      "date": "2026-08-14",
+      "converted_from": "doc"
+    },
+    "contributors": [
+      {
+        "name": "Open Checklists project",
+        "role": [
+          "transcriber"
+        ]
+      }
+    ],
+    "revision": {
+      "file_revision": "0.1.0",
+      "updated": "2026-08-14"
+    }
+  },
+  "verification": {
+    "source_fidelity": "unreviewed",
+    "operational_review": "none",
+    "completeness": "full",
+    "known_issues": [
+      {
+        "severity": "content_gap",
+        "description": "Section \"Cruise Performance\" item count differs between passes (3 vs 4); verify nothing was dropped.",
+        "location": "Cruise Performance"
+      }
+    ],
+    "reviews": [
+      {
+        "type": "source_comparison",
+        "reviewer": "ai-dual-pass-review",
+        "date": "2026-08-14",
+        "notes": "Automated AI review: two independent transcription passes + numeric/item-count disagreement resolution. Not human-verified; baseline for community correction."
+      }
+    ]
+  },
+  "rights": {
+    "status": "licensed",
+    "upstream_holder": "freechecklists.net",
+    "upstream_license": "content-reuse permission granted by the site author for this replacement project",
+    "notes": "Transcribed from the freechecklists.net archive under the author's reuse grant. Individual checklist wording may be substantially the source's; per-file contributor authorship is unknown."
+  },
+  "units": {
+    "airspeed": "kt",
+    "altitude": "ft",
+    "fuel": "usgal",
+    "weight": "kg",
+    "pressure": "inhg",
+    "temperature": "c"
+  },
+  "speeds": {
+    "vne": 323,
+    "cruise_70_percent": 195,
+    "stall": 83
+  },
+  "sections": [
+    {
+      "phase": "preflight_inspection",
+      "title": "Preflight and Cockpit",
+      "items": [
+        {
+          "type": "subtitle",
+          "text": "Canopy",
+          "tickable": false,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "note",
+          "text": "Do not use the overhead toggle to close the canopy; that releases the canopy securing pins and allows the whole canopy to fall off the rear of the fuselage.",
+          "tickable": false,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "Use the little knob at the forward corner to close the canopy",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "Make sure the canopy is fully home before takeoff",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "note",
+          "text": "The canopies are allowed to be opened in flight.",
+          "tickable": false,
+          "source_confidence": 0.95
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "engine_start",
+      "title": "Engine Start",
+      "items": [
+        {
+          "type": "subtitle",
+          "text": "Radial engine priming and start",
+          "tickable": false,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "note",
+          "text": "Engine is turned over pneumatically.",
+          "tickable": false,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "note",
+          "text": "Pull-through to clear the bottom cylinders of oil still has to be done if the aeroplane has been left standing for a few hours.",
+          "tickable": false,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "Charge the internal priming cylinder with fuel using the lever on the lower right of the cockpit",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "Press the firing button on the left of the instrument panel",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "taxi",
+      "title": "Taxi and Power Checks",
+      "items": [
+        {
+          "type": "note",
+          "text": "Taxying the Yak C11 is straightforward; the aeroplane feels heavy on the ground. Toe brakes on this example make steering easier.",
+          "tickable": false,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "Make sure cowl flaps are open",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "warning",
+          "text": "Do not take off with cowl flaps closed. There are two types of Yak pilots — the ones who have taken off with the cowl flaps closed, and the ones who haven't yet but will.",
+          "tickable": false,
+          "source_confidence": 0.95
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "takeoff",
+      "title": "Takeoff",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "Line up and allow the aircraft to run forward a few feet to make sure the automatic tailwheel lock engages with aft stick before applying full power",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "Check Ts and Ps before rotation",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Rotate at 90 knots",
+          "response": "90 KT",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "Once airborne, raise the gear",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "Bring power back to 75% with the throttle and rpm lever",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Climb at 135 knots",
+          "response": "135 KT",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "At max weight and max power, VSI will show 1,600 fpm",
+          "response": "1600 FPM",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "cruise",
+      "title": "Cruise Performance",
+      "items": [
+        {
+          "type": "action",
+          "text": "At full throttle at 1,000 feet, speed is 225 knots TAS and fuel burn is 50 gallons per hour",
+          "response": "225 KT / 50 GPH",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "At 75% power, speed is 200 knots and fuel burn is 33 gallons per hour",
+          "response": "200 KT / 33 GPH",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "At 140 knots, fuel burn is 16 gallons per hour",
+          "response": "140 KT / 16 GPH",
+          "tickable": true,
+          "source_confidence": 0.5
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "descent",
+      "title": "Descent and Slowing Down",
+      "items": [
+        {
+          "type": "note",
+          "text": "The Yak C11 is typically difficult to slow down and takes a while to get the airspeed low enough to meet the gear and flap limits, even with the throttle fully closed.",
+          "tickable": false,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Gear limit is 163 knots",
+          "response": "163 KT",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Flap limit is 135 knots",
+          "response": "135 KT",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "approach",
+      "title": "Approach and Landing",
+      "items": [
+        {
+          "type": "note",
+          "text": "The best approach is a curved one; visibility over the nose is poor, and non-existent from the rear seat.",
+          "tickable": false,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "Make a positive landing flare",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "After touchdown, bring the stick back before applying large brake pressure to prevent a noseover",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "other",
+      "title": "Stall and Spin",
+      "items": [
+        {
+          "type": "note",
+          "text": "The aeroplane exhibits a pronounced starboard wing drop in all configurations and power settings; severity depends on applied power. There is little warning buffet.",
+          "tickable": false,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "note",
+          "text": "The aeroplane can flick into a steep, mind-numbing spin. Spin recovery is predictable and it comes out cleanly within 90 degrees of rotation.",
+          "tickable": false,
+          "source_confidence": 0.95
+        }
+      ],
+      "criticality": "normal",
+      "phase_label": "Stall and Spin"
+    },
+    {
+      "phase": "reference",
+      "title": "Specifications",
+      "items": [
+        {
+          "type": "action",
+          "text": "Vne",
+          "response": "323 KT",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Length",
+          "response": "8.56 M",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "70% cruise",
+          "response": "195 KT",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Max takeoff weight",
+          "response": "2,150 KG",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Stall speed",
+          "response": "83 KT",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Takeoff run",
+          "response": "575 M",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Wingspan",
+          "response": "9.53 M",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Engine",
+          "response": "ASH 21, 700 HP",
+          "tickable": true,
+          "source_confidence": 0.5
+        }
+      ],
+      "criticality": "normal"
+    }
+  ]
+}

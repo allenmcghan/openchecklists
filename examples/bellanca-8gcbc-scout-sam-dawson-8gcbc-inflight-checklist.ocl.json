@@ -1,0 +1,534 @@
+{
+  "open_checklist_version": "1.0",
+  "id": "bellanca-8gcbc-scout-sam-dawson-8gcbc-inflight-checklist",
+  "title": "Bellanca 8GCBC Scout — Sam_Dawson_8gcbc_inflight_checklist",
+  "aircraft": {
+    "make": "Bellanca",
+    "model": "8GCBC Scout",
+    "category": "standard_normal"
+  },
+  "provenance": {
+    "source": {
+      "kind": "third_party_checklist",
+      "title": "Bellanca/8GCBC Scout/Sam_Dawson_8gcbc_inflight_checklist.txt"
+    },
+    "transcription": {
+      "method": "format_conversion",
+      "date": "2026-08-13",
+      "converted_from": "doc"
+    },
+    "contributors": [
+      {
+        "name": "Open Checklists project",
+        "role": [
+          "transcriber"
+        ]
+      }
+    ],
+    "revision": {
+      "file_revision": "0.1.0",
+      "updated": "2026-08-13"
+    }
+  },
+  "verification": {
+    "source_fidelity": "unreviewed",
+    "operational_review": "none",
+    "completeness": "full",
+    "known_issues": [
+      {
+        "severity": "content_gap",
+        "description": "Section \"Turn- Time-Twist-Tap-Throttle-Talk\" item count differs between passes (4 vs 1); verify nothing was dropped.",
+        "location": "Turn- Time-Twist-Tap-Throttle-Talk"
+      },
+      {
+        "severity": "content_gap",
+        "description": "Section \"Turn-Time-Twist-Throttle-Talk\" item count differs between passes (4 vs 1); verify nothing was dropped.",
+        "location": "Turn-Time-Twist-Throttle-Talk"
+      }
+    ],
+    "reviews": [
+      {
+        "type": "source_comparison",
+        "reviewer": "ai-dual-pass-review",
+        "date": "2026-08-14",
+        "notes": "Automated AI review: two independent transcription passes + numeric/item-count disagreement resolution. Not human-verified; baseline for community correction."
+      }
+    ]
+  },
+  "rights": {
+    "status": "licensed",
+    "upstream_holder": "freechecklists.net",
+    "upstream_license": "content-reuse permission granted by the site author for this replacement project",
+    "notes": "Transcribed from the freechecklists.net archive under the author's reuse grant. Individual checklist wording may be substantially the source's; per-file contributor authorship is unknown."
+  },
+  "units": {
+    "airspeed": "mph"
+  },
+  "speeds": {
+    "vx": 58,
+    "vy": 80,
+    "cruise_climb": {
+      "min": 75,
+      "max": 80
+    },
+    "va": 118,
+    "vref": {
+      "min": 70,
+      "max": 75
+    },
+    "vref_short": 60,
+    "vfe": 101,
+    "vfret": 60
+  },
+  "sections": [
+    {
+      "id": "final-before-takeoff-check",
+      "phase": "before_takeoff",
+      "title": "Final Before Take Off Check",
+      "items": [
+        {
+          "type": "action",
+          "text": "1. Heading",
+          "response": "Check aligned w/ runway",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "2. Altimeter",
+          "response": "Field elevation",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "3. Transponder",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "4. Time",
+          "response": "Noted",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "5. Strobes, lights",
+          "response": "All on",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "6. Landing & TO lights",
+          "response": "On when cleared for Takeoff",
+          "tickable": true,
+          "source_confidence": 0.5
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "id": "climb-check",
+      "phase": "climb",
+      "title": "Climb Check",
+      "items": [
+        {
+          "type": "action",
+          "text": "1. Throttle",
+          "response": "FULL OPEN",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "2. Mixture",
+          "response": "Lean",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "3. Airspeed",
+          "response": "70-85 MPH",
+          "tickable": true,
+          "source_confidence": 0.5
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "id": "cruise",
+      "phase": "cruise",
+      "title": "Cruise",
+      "items": [
+        {
+          "type": "action",
+          "text": "1. Level Off",
+          "response": "TRIM",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "2. Airspeed",
+          "response": "ACCELERATE",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "3. Power",
+          "response": "SET to cruise",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "4. Mixture",
+          "response": "LEAN when below 75%",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "5. Taxi/Landing Lights",
+          "response": "Off",
+          "tickable": true,
+          "source_confidence": 0.5
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "id": "in-range-descent",
+      "phase": "descent",
+      "title": "In Range-Descent",
+      "items": [
+        {
+          "type": "action",
+          "text": "1. ATIS/AWOS/ASOS",
+          "response": "Received",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "2. Altimeter",
+          "response": "Set",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "4. Seat Belts",
+          "response": "secured",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "6. Mixture",
+          "response": "SET",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "7. Landing Light/Taxi Light",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "8. Avionics",
+          "response": "SET",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "9. Approach Briefing",
+          "response": "Complete",
+          "tickable": true,
+          "source_confidence": 0.5
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "id": "turn-time-twist-throttle-talk-page-1",
+      "phase": "reference",
+      "title": "Turn-Time-Twist-Throttle-Talk",
+      "items": [
+        {
+          "type": "note",
+          "text": "Vx-58, Vy-80, Cruise Climb- 75-80, Va-118",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "note",
+          "text": "Vref-70-75, Vref short- 60, Vfe- 101,",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Vfret- 60 (all speeds MPH)",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "14 July 2007 Blackhawk Aviation, El Paso, TX",
+          "tickable": false,
+          "source_confidence": 1.0
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "id": "approach-brief",
+      "phase": "approach",
+      "title": "Approach Brief",
+      "items": [
+        {
+          "type": "action",
+          "text": "Approach",
+          "response": "Type, Runway",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Frequency",
+          "response": "Set, ID",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Final Approach Course",
+          "response": "CDI Set",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "FAF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "DH/MDA",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Approach Lights/PAPI/VASI",
+          "response": "Pilot activated?",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "TDZE, HAT/HAA",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "MAP",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Missed Approach",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Notes",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Runway exit/taxi plan",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Terrain",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Min. Alt., MAP & Climb Out",
+          "response": "Complete",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "id": "before-landing",
+      "phase": "before_landing",
+      "title": "Before Landing",
+      "items": [
+        {
+          "type": "action",
+          "text": "1. Seat Belts",
+          "response": "Fastened",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "2. Mixture",
+          "response": "RICH",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "3. Breaks",
+          "response": "CHECK FIRM",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "4. Approach Speed",
+          "response": "70-75 MPH",
+          "tickable": true,
+          "source_confidence": 0.5
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "id": "go-around",
+      "phase": "go_around",
+      "title": "GO AROUND",
+      "items": [
+        {
+          "type": "action",
+          "text": "1. Throttle",
+          "response": "Full",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "2. Carburetor Heat",
+          "response": "Cold",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "3. Wing Flaps",
+          "response": "20° Immediately",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "4. Climb Speed",
+          "response": "62 KIAS",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "5. Wing Flaps",
+          "response": "10° (until obstacles clear), RETRACT (safe altitude & 60 KIAS)",
+          "tickable": true,
+          "source_confidence": 0.5
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "id": "after-landing",
+      "phase": "after_landing",
+      "title": "After Landing",
+      "items": [
+        {
+          "type": "action",
+          "text": "1. Transponder",
+          "response": "Stby",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "3. Strobes/lights",
+          "response": "Off as necessary",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "4. Electric Fuel Pump",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "5. Taxi Clearance",
+          "response": "Obtain",
+          "tickable": true,
+          "source_confidence": 0.5
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "id": "turn-time-twist-tap-throttle-talk-page-2",
+      "phase": "reference",
+      "title": "Turn- Time-Twist-Tap-Throttle-Talk",
+      "items": [
+        {
+          "type": "note",
+          "text": "Vx-58, Vy-80, Cruise Climb- 75-80, Va- 118,",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "note",
+          "text": "Vref-70-75, Vref short- 60, Vfe-101, Vfret-",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "60 (all speeds MPH)",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "14 July 2007  Blackhawk Aviation, El Paso, Texas",
+          "tickable": false,
+          "source_confidence": 1.0
+        }
+      ],
+      "criticality": "normal"
+    }
+  ]
+}

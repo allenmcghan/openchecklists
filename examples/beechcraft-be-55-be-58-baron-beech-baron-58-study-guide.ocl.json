@@ -1,0 +1,641 @@
+{
+  "open_checklist_version": "1.0",
+  "id": "beechcraft-be-55-be-58-baron-beech-baron-58-study-guide",
+  "title": "Beechcraft BE-55 _ BE-58 Baron — Beech_Baron_58_Study_Guide",
+  "aircraft": {
+    "make": "Beechcraft",
+    "model": "BE-55 _ BE-58 Baron",
+    "category": "standard_normal"
+  },
+  "provenance": {
+    "source": {
+      "kind": "third_party_checklist",
+      "title": "Beechcraft/BE-55 _ BE-58 Baron/Beech_Baron_58_Study_Guide.txt"
+    },
+    "transcription": {
+      "method": "format_conversion",
+      "date": "2026-08-13",
+      "converted_from": "doc"
+    },
+    "contributors": [
+      {
+        "name": "Open Checklists project",
+        "role": [
+          "transcriber"
+        ]
+      }
+    ],
+    "revision": {
+      "file_revision": "0.1.0",
+      "updated": "2026-08-13"
+    }
+  },
+  "verification": {
+    "source_fidelity": "unreviewed",
+    "operational_review": "none",
+    "completeness": "full",
+    "known_issues": [
+      {
+        "severity": "content_gap",
+        "description": "Section \"Instruments\" item count differs between passes (13 vs 11); verify nothing was dropped.",
+        "location": "Instruments"
+      },
+      {
+        "severity": "content_gap",
+        "description": "Section \"V-Speeds\" item count differs between passes (25 vs 21); verify nothing was dropped.",
+        "location": "V-Speeds"
+      },
+      {
+        "severity": "content_gap",
+        "description": "Section \"Weight/Balance\" item count differs between passes (9 vs 8); verify nothing was dropped.",
+        "location": "Weight/Balance"
+      }
+    ],
+    "reviews": [
+      {
+        "type": "source_comparison",
+        "reviewer": "ai-dual-pass-review",
+        "date": "2026-08-14",
+        "notes": "Automated AI review: two independent transcription passes + numeric/item-count disagreement resolution. Not human-verified; baseline for community correction."
+      }
+    ]
+  },
+  "rights": {
+    "status": "licensed",
+    "upstream_holder": "freechecklists.net",
+    "upstream_license": "content-reuse permission granted by the site author for this replacement project",
+    "notes": "Transcribed from the freechecklists.net archive under the author's reuse grant. Individual checklist wording may be substantially the source's; per-file contributor authorship is unknown."
+  },
+  "units": {
+    "airspeed": "kt",
+    "fuel": "usgal",
+    "weight": "lb",
+    "pressure": "psi",
+    "temperature": "f"
+  },
+  "speeds": {
+    "va": 156,
+    "vle": 152,
+    "vlo": 152,
+    "vmca": 81,
+    "vne": 223,
+    "vno": 195,
+    "vsse": 86,
+    "vy": 120,
+    "vyse": 100,
+    "vxse": 96,
+    "emer_descent": 152
+  },
+  "sections": [
+    {
+      "phase": "reference",
+      "title": "Engines",
+      "items": [
+        {
+          "type": "note",
+          "text": "IO-520-CB (285 HP @ 2700 RPM)",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "(I) Fuel-injected (O) Horizontally Opposed (520) displacement (CB) specific model #",
+          "indent": 1,
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Starter: 24V direct gear drive",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Wet sump, pressure type oil system with capacity of 12 quarts (SAE 50)",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Ger driven oil pump  powered by accessory drive with output of 30-60 PSI",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Magnetos: no drop more than 150 RPM or more than 50 RPM between both magnetos",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Filtered ram air from top air scoops, if clogged door opens providing alternate air from nacelle",
+          "tickable": false,
+          "source_confidence": 1.0
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "reference",
+      "title": "Electrical System",
+      "items": [
+        {
+          "type": "note",
+          "text": "28V System with 5.5 amps, 24V lead acid battery (or 2 25 amp 12V batteries)",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "28V Alternators (2) of 50-60 amps, separate from system, except tied Main Batt Bus",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Two voltage regulators, only one functioning at a time (controlled through switch on subpanel)",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "ALT OUT light on if voltage drops 1.5-2.0V below bus voltage or if over-voltage relay actuated",
+          "tickable": false,
+          "source_confidence": 1.0
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "reference",
+      "title": "Fuel System",
+      "items": [
+        {
+          "type": "note",
+          "text": "Wet wing tip with 200 gal total, 194 usable (drained at 8 locations)",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Aux Pumps between fuel selector & eng-driven pump, fed from inboard leading-edge tanks",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Three bladder-type fuel cells in each wing",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Fuel pump driven off accessory drive of engine, fuel enters pump at 28-31 PSI",
+          "tickable": false,
+          "source_confidence": 1.0
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "reference",
+      "title": "Landing Gear/Brakes",
+      "items": [
+        {
+          "type": "note",
+          "text": "28V DC split-field, series wound motor; Drives worm gear",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Left Gear strut houses auto safety switch and gear warning horn switch (squat switch?)",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Gear up and throttle below 15” MAP",
+          "indent": 1,
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Gear handle in UP position while on ground",
+          "indent": 1,
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "note",
+          "text": "Gear up with more than 15° Flaps used",
+          "indent": 1,
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "note",
+          "text": "Air-oil struts on landing gear",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Main tires: 70 PSI; Nosewheel tire: 50 PSI",
+          "tickable": false,
+          "source_confidence": 1.0
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "reference",
+      "title": "Flight Controls",
+      "items": [
+        {
+          "type": "note",
+          "text": "Flaps: electrically driven by motor under cabin floor; trailing edge fowler flaps (single-slotted)",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Flap position transmitter on flap actuator in left wing, forward of rear spar.",
+          "indent": 1,
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Ailerons: cables routed through bellcranks and pulleys",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Aileron Trim: on left aileron; push-pull rod attached to jackscrew-type actuator",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Elevator: connected to cables to a torque tube which is connected to a bellcrank in tail",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Elevator Trim: located on left and right elevators; push-pull rods attached to jackscrew actuators",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Rudder: bellcrank attached to bottom of rudder and cables",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Rudder Trim: actuated by push-pull rods attached to a jackscrew-type actuator",
+          "tickable": false,
+          "source_confidence": 1.0
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "reference",
+      "title": "Instruments",
+      "items": [
+        {
+          "type": "note",
+          "text": "Manifold Pressure:     green = 15”-29.6”     red line @ 29.6”",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Tachometer:      green = 2000-2650 RPM red line @ 2700 RPM",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Fuel Flow: green = 6.9-24.3 GPH        white arc = 17.8-24.3 GPH red line @ 24.3 GPH",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Oil Temperature: yellow @ 75°          green  = 75-240°F      red line @ 240°F",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Oil Pressure:    min. red line @ 30 PSI      green = 30-100 PSI max red line @ 100",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "CHT:  Indicates hottest cylinder in engine         green  = 200-460°F red line @ 460°F",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "EGT:  Less than 75% power cruise displays relative scale value, not actual temps",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "blank",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "No static system drain due to location of plumbing and components",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "note",
+          "text": "Instrument air and DEICE BOOTS provided by 2 eng-driven dry pressure pumps",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Automatic check valves close if one pump fails, 2 air filters per engine",
+          "indent": 1,
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "blank",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Pitot System                      Static System\nElectrical  Pressure\n\n      Airspeed Indicator\n                                   Altimeter\n                                   VSI\n                                                         Turn Coord\n                                                                    Attitude Gyro\n                                                                    DG",
+          "tickable": false,
+          "source_confidence": 1.0
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "weight_and_balance",
+      "title": "Weight/Balance",
+      "items": [
+        {
+          "type": "note",
+          "text": "Max Ramp: 5424",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "MGTOW: 5400",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Max Landing: 5400",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "5400 lb CG limit:           78.0 – 86.0 (datum line is 83.1 forward of front jack point)",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "4200 or less CG limits:     74.0 – 86.0",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "blank",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "note",
+          "text": "Nose Compartment:      300 lbs MAX",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "note",
+          "text": "Aft Cabin:       400 lbs MAX",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "note",
+          "text": "Rear Compartment:      120 lbs MAX",
+          "tickable": false,
+          "source_confidence": 1.0
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "other",
+      "phase_label": "Emergencies",
+      "title": "Emergencies",
+      "items": [
+        {
+          "type": "blank",
+          "tickable": false,
+          "source_confidence": 1.0
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "limitations",
+      "title": "Other Limitations",
+      "items": [
+        {
+          "type": "note",
+          "text": "Load Factors:    Flaps up (0°) = 4.2G",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Flaps down (30°) = 2.0G",
+          "indent": 1,
+          "tickable": false,
+          "source_confidence": 1.0
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "limitations",
+      "title": "V-Speeds",
+      "items": [
+        {
+          "type": "note",
+          "text": "Va:        156",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Vfe:       152/122",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Vle/Vlo:   152",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Vmca:      81",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Vne:       223",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "blank",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "note",
+          "text": "Vno:       195",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "blank",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Vs:",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "note",
+          "text": "Vso:",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "note",
+          "text": "Vsse:      86",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "note",
+          "text": "Vy:        120",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "note",
+          "text": "Vx:",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "note",
+          "text": "Vyse:       100 (also min single-engine landing speed)",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "note",
+          "text": "Vxse:      96",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "blank",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "note",
+          "text": "Emer Descent:    152",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "blank",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "note",
+          "text": "Red Radial:            223",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "note",
+          "text": "White Arc:       74 – 122",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "note",
+          "text": "Green Arc:       84 – 195",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "note",
+          "text": "Blue Radial:           120",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Yellow Arc:            195 – 223",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Red Radial:            81",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "White Triangle:  152",
+          "tickable": false,
+          "source_confidence": 1.0
+        }
+      ],
+      "criticality": "normal"
+    }
+  ]
+}

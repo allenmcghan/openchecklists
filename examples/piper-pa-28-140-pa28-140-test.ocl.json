@@ -1,0 +1,539 @@
+{
+  "open_checklist_version": "1.0",
+  "id": "piper-pa-28-140-pa28-140-test",
+  "title": "Piper PA-28-140 — PA28-140 test",
+  "aircraft": {
+    "make": "Piper",
+    "model": "PA-28-140",
+    "category": "standard_normal"
+  },
+  "provenance": {
+    "source": {
+      "kind": "third_party_checklist",
+      "title": "Piper/PA-28-140/PA28-140 test.txt"
+    },
+    "transcription": {
+      "method": "format_conversion",
+      "date": "2026-08-14",
+      "converted_from": "doc"
+    },
+    "contributors": [
+      {
+        "name": "Open Checklists project",
+        "role": [
+          "transcriber"
+        ]
+      }
+    ],
+    "revision": {
+      "file_revision": "0.1.0",
+      "updated": "2026-08-14"
+    }
+  },
+  "verification": {
+    "source_fidelity": "unreviewed",
+    "operational_review": "none",
+    "completeness": "full",
+    "known_issues": [
+      {
+        "severity": "content_gap",
+        "description": "Section \"Performance\" item count differs between passes (9 vs 8); verify nothing was dropped.",
+        "location": "Performance"
+      }
+    ],
+    "reviews": [
+      {
+        "type": "source_comparison",
+        "reviewer": "ai-dual-pass-review",
+        "date": "2026-08-14",
+        "notes": "Automated AI review: two independent transcription passes + numeric/item-count disagreement resolution. Not human-verified; baseline for community correction."
+      }
+    ]
+  },
+  "rights": {
+    "status": "licensed",
+    "upstream_holder": "freechecklists.net",
+    "upstream_license": "content-reuse permission granted by the site author for this replacement project",
+    "notes": "Transcribed from the freechecklists.net archive under the author's reuse grant. Individual checklist wording may be substantially the source's; per-file contributor authorship is unknown."
+  },
+  "units": {
+    "airspeed": "kt",
+    "altitude": "ft",
+    "fuel": "usgal",
+    "weight": "lb"
+  },
+  "sections": [
+    {
+      "phase": "reference",
+      "title": "Student and Instructor Information",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "Name: _________________________",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Date: ________________",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Instructor: ______________________   Grade: ____________________",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Use Piper Cherokee 140B manual. However, the information in that manual does not provide all of the information necessary to safely fly the airplane. Therefore, this test will include questions from the Piper manual as well as the club's \"Conditions of Flight\" (COF) statement and the Club checklist which includes: \"Normal/Abnormal/Emergency Procedures\". These statements are downloadable from the website and are in binder located in the flight planning room.",
+          "tickable": false,
+          "source_confidence": 1.0
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "reference",
+      "title": "1. V Speeds",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "Vs  __________  ______________________________",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "VS1  __________  ______________________________",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "VR  __________  ______________________________",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Vx  __________  ______________________________",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Vy  __________  ______________________________",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "VMAX GLIDE  __________  ______________________________",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "VFE  __________  ______________________________",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "VA  __________  ______________________________",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "VNO  __________  ______________________________",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "VNE  __________  ______________________________",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "reference",
+      "title": "Engine",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "2. Engine Model Number is: __   HP ____   Max RPM ____",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "3. Engine Oil Capacity is: ______",
+          "tickable": true,
+          "source_confidence": 0.5
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "reference",
+      "title": "Landing Gear",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "4. Normal strut extension is ______ for nose gear and _____ for the main gear.",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "5. The toe brakes and the hand brake use their own ________ but have a common _________.",
+          "tickable": true,
+          "source_confidence": 0.5
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "reference",
+      "title": "Fuel",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "6. Fuel capacity standard _________________ Reserve _________________",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "7. To obtain the standard fuel quantity, the pilot should fill the tanks to: __________________________________________________________",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "8. Minimum Fuel Octane is: ______________________________________",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "9. The electric fuel pump should be on when: ________________________",
+          "tickable": true,
+          "source_confidence": 0.5
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "reference",
+      "title": "Control System",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "10. The flap may be used as a step only when _______________________________",
+          "tickable": true,
+          "source_confidence": 0.5
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "reference",
+      "title": "Electrical",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "11. The electrical system includes a  ________ volt _______ ampere alternator.",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "12. The ammeter displays the ______________________________________.",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "13. The maximum continuous load for night flight is with radios is _____________.",
+          "tickable": true,
+          "source_confidence": 0.5
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "before_start",
+      "title": "Engine Start",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "14. As soon as the engine is started, checked oil pressure, if there is no rise within _______ sec shut down.",
+          "tickable": true,
+          "source_confidence": 0.5
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "weight_and_balance",
+      "title": "Weight and Balance",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "15. What is maximum gross weight? ________________ Empty weight? _______________________",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "16. Arithmetically Compute the weight and balance for the following conditions:",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "Basic Aircraft Weight: WEIGHT 1464.0 lbs., Arm 87.8 in., Moment ____________ in./Lbs.",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Pilot and Front Pax: WEIGHT 360.0 lbs., Arm 85.5 in., Moment ____________ in./Lbs.",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Fuel 50 gal @ 6 lbs./gal: WEIGHT 300.0 lbs., Arm 95.0 in., Moment __________ in./Lbs.",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Baggage: WEIGHT 25.0 lbs., Arm 117.0 in., Moment ____________ in./Lbs.",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Totals: ________ lbs., Moment __________ in./Lbs.",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "CG = _____________ in./Lbs. = ______ in.     Aircraft is within/not within both limitations.   __________ Lbs.",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "performance",
+      "title": "Performance",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "17. What is the Density altitude at a pressure altitude of 8000 feet with a temperature of 15 C? __________________________________",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "18. At a DA of 4000', what is our rate of climb? __________________________________",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "19. What is our takeoff distance over a 50' obstacle at a density altitude of 4,000' (2150 lbs)? __________________",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "note",
+          "text": "20. For a cross-country flight, you plan to cruise at 5500'. The temperature at 5500 feet is 24C and you plan to use 70% power. Winds at 5500' are 360 at 20 kts and your course is 075. (use the charts in your book and an E6-B \"Whiz wheel\").",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "What will be your true airspeed? __________",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "What is your groundspeed? ______________",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Heading? _______________________",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Indicated airspeed? _______________",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Questions 20-25 are closed book questions and come from \"Normal/Abnormal/Emergency Procedures Statement\". You should practice these questions, but they must be proctored without reference to any material.",
+          "tickable": false,
+          "source_confidence": 1.0
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "other",
+      "title": "21. Engine Failure Immediately After Takeoff",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "1. ___________________",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "2. ___________________",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "3. ___________________",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "4. ___________________",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "5. ___________________",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ],
+      "phase_label": "21. Engine Failure Immediately After Takeoff"
+    },
+    {
+      "phase": "fuel_system_malfunction",
+      "title": "22. Loss of Fuel Pressure",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "1. ___________________",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "2. ___________________",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "engine_fire_ground",
+      "title": "23. Engine Fire on Ground",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "1. ____________________",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "2. ____________________",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "3. ____________________",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "4. ____________________",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "5. ____________________",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "engine_fire_in_flight",
+      "title": "24. Engine Fire in Flight",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "1. ___________________",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "2. ___________________",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "3. ___________________",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "4. ___________________",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "electrical_fire",
+      "title": "25. Electrical Fire",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "1. ___________________",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    }
+  ]
+}

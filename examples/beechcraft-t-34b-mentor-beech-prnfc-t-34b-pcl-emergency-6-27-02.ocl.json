@@ -1,0 +1,1897 @@
+{
+  "open_checklist_version": "1.0",
+  "id": "beechcraft-t-34b-mentor-beech-prnfc-t-34b-pcl-emergency-6-27-02",
+  "title": "Beechcraft T-34B Mentor — Beech PRNFC T-34B PCL - Emergency 6-27-02",
+  "aircraft": {
+    "make": "Beechcraft",
+    "model": "T-34B Mentor",
+    "category": "standard_normal"
+  },
+  "provenance": {
+    "source": {
+      "kind": "third_party_checklist",
+      "title": "Beechcraft/T-34B Mentor/Beech PRNFC T-34B PCL - Emergency 6-27-02.txt"
+    },
+    "transcription": {
+      "method": "format_conversion",
+      "date": "2026-08-13",
+      "converted_from": "doc"
+    },
+    "contributors": [
+      {
+        "name": "Open Checklists project",
+        "role": [
+          "transcriber"
+        ]
+      }
+    ],
+    "revision": {
+      "file_revision": "0.1.0",
+      "updated": "2026-08-13"
+    }
+  },
+  "verification": {
+    "source_fidelity": "unreviewed",
+    "operational_review": "none",
+    "completeness": "full",
+    "known_issues": [
+      {
+        "severity": "content_gap",
+        "description": "Section \"AC POWER (INVERTER) FAILURE\" item count differs between passes (1 vs 2); verify nothing was dropped.",
+        "location": "AC POWER (INVERTER) FAILURE"
+      },
+      {
+        "severity": "content_gap",
+        "description": "Section \"CARBON MONOXIDE FUMES\" item count differs between passes (2 vs 4); verify nothing was dropped.",
+        "location": "CARBON MONOXIDE FUMES"
+      },
+      {
+        "severity": "content_gap",
+        "description": "Section \"DC POWER (GENERATOR) FAILURE\" item count differs between passes (5 vs 7); verify nothing was dropped.",
+        "location": "DC POWER (GENERATOR) FAILURE"
+      },
+      {
+        "severity": "content_gap",
+        "description": "Section \"ELECTRICAL FIRE IN FLIGHT\" item count differs between passes (12 vs 13); verify nothing was dropped.",
+        "location": "ELECTRICAL FIRE IN FLIGHT"
+      },
+      {
+        "severity": "content_gap",
+        "description": "Section \"ELIMINATION OF SMOKE\" item count differs between passes (4 vs 6); verify nothing was dropped.",
+        "location": "ELIMINATION OF SMOKE"
+      },
+      {
+        "severity": "content_gap",
+        "description": "Section \"EMERGENCY LANDING GEAR EXTENSION\" item count differs between passes (6 vs 7); verify nothing was dropped.",
+        "location": "EMERGENCY LANDING GEAR EXTENSION"
+      },
+      {
+        "severity": "content_gap",
+        "description": "Section \"EMERGENCY LANDING PATTERN\" item count differs between passes (20 vs 25); verify nothing was dropped.",
+        "location": "EMERGENCY LANDING PATTERN"
+      },
+      {
+        "severity": "content_gap",
+        "description": "Section \"FUEL LEAK / FUEL FUMES\" item count differs between passes (7 vs 9); verify nothing was dropped.",
+        "location": "FUEL LEAK / FUEL FUMES"
+      },
+      {
+        "severity": "content_gap",
+        "description": "Section \"FUSELAGE FIRE IN FLIGHT\" item count differs between passes (5 vs 6); verify nothing was dropped.",
+        "location": "FUSELAGE FIRE IN FLIGHT"
+      },
+      {
+        "severity": "content_gap",
+        "description": "Section \"HIGH ALTITUDE / PARTIAL ENGINE FAILURE\" item count differs between passes (21 vs 22); verify nothing was dropped.",
+        "location": "HIGH ALTITUDE / PARTIAL ENGINE FAILURE"
+      },
+      {
+        "severity": "content_gap",
+        "description": "Section \"LANDING GEAR EMERGENCIES\" item count differs between passes (2 vs 37); verify nothing was dropped.",
+        "location": "LANDING GEAR EMERGENCIES"
+      }
+    ],
+    "reviews": [
+      {
+        "type": "source_comparison",
+        "reviewer": "ai-dual-pass-review",
+        "date": "2026-08-14",
+        "notes": "Automated AI review: two independent transcription passes + numeric/item-count disagreement resolution. Not human-verified; baseline for community correction."
+      }
+    ]
+  },
+  "rights": {
+    "status": "licensed",
+    "upstream_holder": "freechecklists.net",
+    "upstream_license": "content-reuse permission granted by the site author for this replacement project",
+    "notes": "Transcribed from the freechecklists.net archive under the author's reuse grant. Individual checklist wording may be substantially the source's; per-file contributor authorship is unknown."
+  },
+  "units": {
+    "airspeed": "kt"
+  },
+  "speeds": {
+    "best_glide_high_altitude": 90,
+    "low_alt_flaps_down": 75,
+    "low_alt_flaps_up": 80,
+    "emergency_descent": 110
+  },
+  "sections": [
+    {
+      "phase": "other",
+      "phase_label": "Overview",
+      "title": "EMERGENCY PROCEDURES",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "note",
+          "text": "Items marked with an asterisk (*) are memory items.",
+          "tickable": false,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "engine_fire_ground",
+      "title": "ENGINE FIRE DURING START",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "Mixture",
+          "response": "IDLE CUTOFF",
+          "tickable": true,
+          "memory_item": true,
+          "id": "engine-fire-during-start-1",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Fuel shutoff valve handle",
+          "response": "OFF",
+          "tickable": true,
+          "memory_item": true,
+          "id": "engine-fire-during-start-2",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "FULL FWD",
+          "tickable": true,
+          "memory_item": true,
+          "id": "engine-fire-during-start-3",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Continue cranking to clear engine, attempting a start.",
+          "tickable": true,
+          "memory_item": true,
+          "id": "engine-fire-during-start-4",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "subtitle",
+          "text": "If no start:",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Ignition",
+          "response": "OFF",
+          "tickable": true,
+          "memory_item": true,
+          "id": "engine-fire-during-start-5",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Battery",
+          "response": "OFF",
+          "tickable": true,
+          "memory_item": true,
+          "id": "engine-fire-during-start-6",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "ABANDON AIRCRAFT",
+          "tickable": true,
+          "memory_item": true,
+          "id": "engine-fire-during-start-7",
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "engine_fire_ground",
+      "title": "ENGINE FIRE AFTER START ON GROUND",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "Mixture",
+          "response": "IDLE CUTOFF",
+          "tickable": true,
+          "memory_item": true,
+          "id": "engine-fire-after-start-on-ground-1",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Fuel shutoff valve handle",
+          "response": "OFF",
+          "tickable": true,
+          "memory_item": true,
+          "id": "engine-fire-after-start-on-ground-2",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "FULL FWD",
+          "tickable": true,
+          "memory_item": true,
+          "id": "engine-fire-after-start-on-ground-3",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Ignition",
+          "response": "OFF",
+          "tickable": true,
+          "memory_item": true,
+          "id": "engine-fire-after-start-on-ground-4",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Battery",
+          "response": "OFF",
+          "tickable": true,
+          "memory_item": true,
+          "id": "engine-fire-after-start-on-ground-5",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "ABANDON AIRCRAFT",
+          "tickable": true,
+          "memory_item": true,
+          "id": "engine-fire-after-start-on-ground-6",
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "takeoff",
+      "title": "ABORTED TAKEOFF",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "CLOSED",
+          "tickable": true,
+          "memory_item": true,
+          "id": "aborted-takeoff-1",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Brakes",
+          "response": "APPLY",
+          "tickable": true,
+          "memory_item": true,
+          "id": "aborted-takeoff-2",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "subtitle",
+          "text": "If unable to stop on runway:",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Canopy",
+          "response": "OPEN",
+          "tickable": true,
+          "memory_item": true,
+          "id": "aborted-takeoff-3",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Mixture",
+          "response": "IDLE CUTOFF",
+          "tickable": true,
+          "memory_item": true,
+          "id": "aborted-takeoff-4",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Fuel shutoff valve handle",
+          "response": "OFF",
+          "tickable": true,
+          "memory_item": true,
+          "id": "aborted-takeoff-5",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Ignition",
+          "response": "OFF",
+          "tickable": true,
+          "memory_item": true,
+          "id": "aborted-takeoff-6",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Battery",
+          "response": "OFF",
+          "tickable": true,
+          "memory_item": true,
+          "id": "aborted-takeoff-7",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "ABANDON AIRCRAFT after it stops",
+          "tickable": true,
+          "memory_item": true,
+          "id": "aborted-takeoff-8",
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "forced_landing",
+      "title": "EMERGENCY LANDING PATTERN",
+      "criticality": "emergency",
+      "condition": "TO BE USED FOR: -- ENGINE FAILURE OR MALFUNCTION -- PRECAUTIONARY EMERGENCY LANDING -- SIMULATED ENGINE FAILURE",
+      "items": [
+        {
+          "type": "subtitle",
+          "text": "1 DESCENT",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "A/S",
+          "response": "90 KIAS",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Gear",
+          "response": "UP",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Flaps",
+          "response": "UP",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Canopy",
+          "response": "CLOSED",
+          "tickable": true,
+          "indent": 1,
+          "detail": "(open prior to high key)",
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Prop",
+          "response": "HIGH PITCH ++",
+          "tickable": true,
+          "indent": 1,
+          "condition": "++ Only for actual engine failure.",
+          "source_confidence": 0.5
+        },
+        {
+          "type": "subtitle",
+          "text": "2  HIGH KEY (1,500 FEET AGL)",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "90 KIAS over intended point of landing. Turn to Low Key.",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Gear",
+          "response": "DOWN",
+          "tickable": true,
+          "indent": 1,
+          "detail": "prepared surfaces. Transition to 85 KIAS.",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Gear",
+          "response": "UP",
+          "tickable": true,
+          "indent": 1,
+          "detail": "unprepared surfaces or water. Maintain 90 KIAS.",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "subtitle",
+          "text": "3  LOW KEY (1,000 FEET AGL)",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "85 KIAS (gear down), 90 KIAS (gear up), wingtip distance abeam intended point of landing.",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "subtitle",
+          "text": "4  90-DEGREE (500-600 FEET AGL)",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "Complete Landing Checklist.",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Flaps",
+          "response": "AS DESIRED",
+          "tickable": true,
+          "indent": 1,
+          "detail": "Adjust to 75 KIAS with flaps down.",
+          "source_confidence": 0.5
+        },
+        {
+          "type": "subtitle",
+          "text": "5  FINAL",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "800 feet straightaway.",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "200 feet AGL",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Canopy",
+          "response": "OPEN",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "++ Only for actual engine failure.",
+          "tickable": false,
+          "source_confidence": 0.5
+        }
+      ]
+    },
+    {
+      "phase": "engine_failure_in_flight",
+      "title": "LOW ALTITUDE ENGINE FAILURE",
+      "criticality": "emergency",
+      "condition": "If engine fails at or below 1000 feet AGL:",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "Assume safe gliding attitude. 75 KIAS  FLAPS DOWN\n                             80 KIAS   FLAPS UP",
+          "tickable": true,
+          "memory_item": true,
+          "id": "low-altitude-engine-failure-1",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Select best available landing area and turn to intercept the emergency landing pattern at the maximum altitude practicable.",
+          "tickable": true,
+          "memory_item": true,
+          "id": "low-altitude-engine-failure-2",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Gear",
+          "response": "AS DESIRED",
+          "tickable": true,
+          "memory_item": true,
+          "id": "low-altitude-engine-failure-3",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Flaps",
+          "response": "AS DESIRED",
+          "tickable": true,
+          "memory_item": true,
+          "id": "low-altitude-engine-failure-4",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Fuel shutoff valve handle",
+          "response": "OFF",
+          "tickable": true,
+          "memory_item": true,
+          "id": "low-altitude-engine-failure-5",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Battery",
+          "response": "OFF",
+          "tickable": true,
+          "memory_item": true,
+          "id": "low-altitude-engine-failure-6",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Canopy",
+          "response": "OPEN",
+          "tickable": true,
+          "memory_item": true,
+          "id": "low-altitude-engine-failure-7",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Harness",
+          "response": "LOCKED",
+          "tickable": true,
+          "memory_item": true,
+          "id": "low-altitude-engine-failure-8",
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "engine_failure_in_flight",
+      "title": "HIGH ALTITUDE / PARTIAL ENGINE FAILURE",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "Assume safe gliding attitude. Best glide is 90 KIAS",
+          "tickable": true,
+          "memory_item": true,
+          "id": "high-altitude-partial-engine-failure-1",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Select best available landing area and turn to intercept the emergency landing pattern at the maximum altitude practicable. If power is available, climb to an altitude from which the aircraft can glide to a high key position.",
+          "tickable": true,
+          "memory_item": true,
+          "id": "high-altitude-partial-engine-failure-2",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Gear",
+          "response": "AS DESIRED",
+          "tickable": true,
+          "memory_item": true,
+          "id": "high-altitude-partial-engine-failure-3",
+          "detail": "(aircraft clean will extend glide)",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Fuel boost pump",
+          "response": "ON",
+          "tickable": true,
+          "memory_item": true,
+          "id": "high-altitude-partial-engine-failure-4",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Fuel shutoff valve handle",
+          "response": "ON",
+          "tickable": true,
+          "memory_item": true,
+          "id": "high-altitude-partial-engine-failure-5",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Mixture",
+          "response": "FULL RICH",
+          "tickable": true,
+          "memory_item": true,
+          "id": "high-altitude-partial-engine-failure-6",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Propeller",
+          "response": "FULL INCREASE",
+          "tickable": true,
+          "memory_item": true,
+          "id": "high-altitude-partial-engine-failure-7",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "FULL FWD",
+          "tickable": true,
+          "memory_item": true,
+          "id": "high-altitude-partial-engine-failure-8",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Ignition",
+          "response": "ON, BOTH",
+          "tickable": true,
+          "memory_item": true,
+          "id": "high-altitude-partial-engine-failure-9",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "subtitle",
+          "text": "If engine still not running:",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Mixture",
+          "response": "IDLE CUTOFF",
+          "tickable": true,
+          "memory_item": true,
+          "id": "high-altitude-partial-engine-failure-10",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Fuel shutoff valve handle",
+          "response": "OFF",
+          "tickable": true,
+          "memory_item": true,
+          "id": "high-altitude-partial-engine-failure-11",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Propeller",
+          "response": "AS REQD",
+          "tickable": true,
+          "memory_item": true,
+          "id": "high-altitude-partial-engine-failure-12",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Ignition",
+          "response": "OFF",
+          "tickable": true,
+          "memory_item": true,
+          "id": "high-altitude-partial-engine-failure-13",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Gear",
+          "response": "AS REQ’D",
+          "tickable": true,
+          "memory_item": true,
+          "id": "high-altitude-partial-engine-failure-14",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Flaps",
+          "response": "AS DESIRED",
+          "tickable": true,
+          "memory_item": true,
+          "id": "high-altitude-partial-engine-failure-15",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Transmit appropriate radio call.",
+          "tickable": true,
+          "memory_item": true,
+          "id": "high-altitude-partial-engine-failure-16",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Battery",
+          "response": "OFF",
+          "tickable": true,
+          "memory_item": true,
+          "id": "high-altitude-partial-engine-failure-17",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Generator",
+          "response": "OFF",
+          "tickable": true,
+          "memory_item": true,
+          "id": "high-altitude-partial-engine-failure-18",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Canopy",
+          "response": "OPEN",
+          "tickable": true,
+          "memory_item": true,
+          "id": "high-altitude-partial-engine-failure-19",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Harness",
+          "response": "LOCKED",
+          "tickable": true,
+          "memory_item": true,
+          "id": "high-altitude-partial-engine-failure-20",
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "engine_fire_in_flight",
+      "title": "ENGINE FIRE IN FLIGHT",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "Mixture",
+          "response": "IDLE CUTOFF",
+          "tickable": true,
+          "memory_item": true,
+          "id": "engine-fire-in-flight-1",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Fuel shutoff valve handle",
+          "response": "OFF",
+          "tickable": true,
+          "memory_item": true,
+          "id": "engine-fire-in-flight-2",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "CLOSED",
+          "tickable": true,
+          "memory_item": true,
+          "id": "engine-fire-in-flight-3",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Ignition",
+          "response": "OFF",
+          "tickable": true,
+          "memory_item": true,
+          "id": "engine-fire-in-flight-4",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Battery",
+          "response": "OFF",
+          "tickable": true,
+          "memory_item": true,
+          "id": "engine-fire-in-flight-5",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Generator",
+          "response": "OFF",
+          "tickable": true,
+          "memory_item": true,
+          "id": "engine-fire-in-flight-6",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Do not attempt restart",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Execute emergency landing",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "engine_fire_in_flight",
+      "title": "WING FIRE IN FLIGHT",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "note",
+          "text": "A fire in the wing could be caused by fuel leakage and / or defective electrical wiring. Perform the following procedure:",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Battery and generator switches",
+          "response": "OFF",
+          "tickable": true,
+          "memory_item": true,
+          "id": "wing-fire-in-flight-1",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Attempt to extinguish the fire by slipping aircraft away from fire.",
+          "tickable": true,
+          "memory_item": true,
+          "id": "wing-fire-in-flight-2",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "If fire does not extinguish or is obviously fed by fuel",
+          "response": "LAND ASAP",
+          "tickable": true,
+          "memory_item": true,
+          "id": "wing-fire-in-flight-3",
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "cabin_fire",
+      "title": "FUSELAGE FIRE IN FLIGHT",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "Airspeed",
+          "response": "REDUCE",
+          "tickable": true,
+          "memory_item": true,
+          "id": "fuselage-fire-in-flight-1",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Canopy",
+          "response": "CLOSED",
+          "tickable": true,
+          "memory_item": true,
+          "id": "fuselage-fire-in-flight-2",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Cockpit air handles",
+          "response": "FULL OUT",
+          "tickable": true,
+          "memory_item": true,
+          "id": "fuselage-fire-in-flight-3",
+          "detail": "(air shut off)",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Battery and generator switches",
+          "response": "OFF",
+          "tickable": true,
+          "memory_item": true,
+          "id": "fuselage-fire-in-flight-4",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "If fire persists",
+          "response": "LAND ASAP",
+          "tickable": true,
+          "memory_item": true,
+          "id": "fuselage-fire-in-flight-5",
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "smoke_removal",
+      "title": "ELIMINATION OF SMOKE",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "Airspeed",
+          "response": "REDUCE",
+          "tickable": true,
+          "memory_item": true,
+          "id": "elimination-of-smoke-1",
+          "detail": "(to minimize spreading of possible fire)",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Canopy",
+          "response": "OPEN",
+          "tickable": true,
+          "memory_item": true,
+          "id": "elimination-of-smoke-2",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Cockpit air handles",
+          "response": "FULL OUT",
+          "tickable": true,
+          "memory_item": true,
+          "id": "elimination-of-smoke-3",
+          "detail": "(air shut off)",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Determine source of smoke and execute appropriate emergency procedures.",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "smoke_removal",
+      "title": "CARBON MONOXIDE FUMES",
+      "criticality": "emergency",
+      "condition": "If carbon monoxide contamination is suspected:",
+      "items": [
+        {
+          "type": "action",
+          "text": "Canopy",
+          "response": "OPEN",
+          "tickable": true,
+          "memory_item": true,
+          "id": "carbon-monoxide-fumes-1",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Cockpit air handles",
+          "response": "FULL OUT",
+          "tickable": true,
+          "memory_item": true,
+          "id": "carbon-monoxide-fumes-2",
+          "detail": "(air shut off)",
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "fuel_system_malfunction",
+      "title": "FUEL LEAK / FUEL FUMES",
+      "criticality": "emergency",
+      "condition": "Check fuel system for secondary indications and proceed as follows:",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "Maintain present airspeed",
+          "tickable": true,
+          "memory_item": true,
+          "id": "fuel-leak-fuel-fumes-1",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Land as soon as practical",
+          "tickable": true,
+          "memory_item": true,
+          "id": "fuel-leak-fuel-fumes-2",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Canopy",
+          "response": "OPEN",
+          "tickable": true,
+          "memory_item": true,
+          "id": "fuel-leak-fuel-fumes-3",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Cockpit air handles",
+          "response": "FULL OUT",
+          "tickable": true,
+          "memory_item": true,
+          "id": "fuel-leak-fuel-fumes-4",
+          "detail": "(air shut off)",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Battery and generator switches",
+          "response": "OFF",
+          "tickable": true,
+          "memory_item": true,
+          "id": "fuel-leak-fuel-fumes-5",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Utilize landing gear emergency extension system.",
+          "tickable": true,
+          "memory_item": true,
+          "id": "fuel-leak-fuel-fumes-6",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Accomplish landing, clear runway, secure engine, and ABANDON AIRCRAFT.",
+          "tickable": true,
+          "memory_item": true,
+          "id": "fuel-leak-fuel-fumes-7",
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "electrical_fire",
+      "title": "ELECTRICAL FIRE IN FLIGHT",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "Battery",
+          "response": "OFF",
+          "tickable": true,
+          "memory_item": true,
+          "id": "electrical-fire-in-flight-1",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Generator",
+          "response": "OFF",
+          "tickable": true,
+          "memory_item": true,
+          "id": "electrical-fire-in-flight-2",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "All circuit breakers",
+          "response": "PULL",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "All radio / electrical equipment",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "subtitle",
+          "text": "If fire persists:",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Make emergency landing",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "subtitle",
+          "text": "To isolate faulty circuit:",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Generator circuit breaker",
+          "response": "IN",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Generator",
+          "response": "ON",
+          "tickable": true,
+          "detail": "(if faulty) (OFF)",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Battery",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Check each necessary circuit one at a time by pushing IN circuit breaker and turning ON radio / electrical equipment it services.",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Secure unnecessary radio / electrical equipment to conserve battery if generator is secured.",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "other",
+      "phase_label": "Propeller Failure",
+      "title": "PROPELLER FAILURE",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "Adjust throttle to maintain safe flight while minimizing overspeed.",
+          "tickable": true,
+          "memory_item": true,
+          "id": "propeller-failure-1",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Climb to put load on propeller.",
+          "tickable": true,
+          "memory_item": true,
+          "id": "propeller-failure-2",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Manipulate propeller control in an attempt to restore governing.",
+          "tickable": true,
+          "memory_item": true,
+          "id": "propeller-failure-3",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Land as soon as practicable.",
+          "tickable": true,
+          "memory_item": true,
+          "id": "propeller-failure-4",
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "other",
+      "phase_label": "Cockpit Circuit Breakers",
+      "title": "COCKPIT CIRCUIT BREAKERS",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "subtitle",
+          "text": "FORWARD COCKPIT ONLY",
+          "tickable": false,
+          "source_confidence": 0.8
+        },
+        {
+          "type": "subtitle",
+          "text": "AFT RIGHT HAND CONSOLE",
+          "tickable": false,
+          "source_confidence": 0.8
+        }
+      ]
+    },
+    {
+      "phase": "electrical_failure",
+      "title": "DC POWER (GENERATOR) FAILURE",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "Generator",
+          "response": "OFF",
+          "tickable": true,
+          "detail": "(if warning light is on or voltage exceeds 30 volts)",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Nonessential electrical equipment",
+          "response": "OFF",
+          "tickable": true,
+          "detail": "(to conserve battery)",
+          "source_confidence": 0.5
+        },
+        {
+          "type": "subtitle",
+          "text": "If complete electrical system failure:",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Generator",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Battery",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "electrical_failure",
+      "title": "AC POWER (INVERTER) FAILURE",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "Inverter switch",
+          "response": "SPARE",
+          "tickable": true,
+          "detail": "(if inverter out light is on)",
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "other",
+      "phase_label": "Lost Plane",
+      "title": "LOST PLANE",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "Confess",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Communicate",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Climb",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Conserve",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Comply with enroute procedures",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Know any peculiar local area procedures",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "structural_damage",
+      "title": "DAMAGED AIRCRAFT AIRBORNE",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "If aircraft is controllable, climb to at least 5000 feet.",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Communicate – state difficulty, request visual inspection.",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Check flight characteristics:",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Gear and flaps down",
+          "response": "85 KIAS",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Gear down, flaps up",
+          "response": "90 KIAS",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Fly wide approach, maintaining 10 knots above minimums obtained during flight tests.",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "landing_gear_malfunction",
+      "title": "EMERGENCY LANDING GEAR EXTENSION",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "Landing gear circuit breaker",
+          "response": "PULL OUT",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Landing gear handle",
+          "response": "DOWN",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Clutch knob",
+          "response": "UNLOCK",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Push clutch knob DOWN to engage crank.",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Crank gear",
+          "response": "DOWN",
+          "tickable": true,
+          "detail": "(crank until handle will not move any further)",
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Check gear indicators",
+          "response": "DOWN AND LOCKED",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "ditching",
+      "title": "DITCHING",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "Plan to touch down before all fuel is exhausted to have power for controlled approach.",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Make radio distress call.",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Squawk",
+          "response": "7700",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Radio cords",
+          "response": "DISCONNECT",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Harness",
+          "response": "LOCK",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Canopy",
+          "response": "OPEN",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Landing gear",
+          "response": "UP",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Flaps",
+          "response": "DOWN",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Battery",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Make normal approach with power, if possible.\nApproach stall attitude at a speed under which full control of aircraft can be maintained. Plan landing direction as follows:\nCalm sea – Into wind\nModerate swells – Parallel to swells\nHigh swells (25 knots of wind or more) – Into wind, attempting to land on upwind side of swell.",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Release safety belt ONLY after aircraft has come to a full stop.",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "ABANDON AIRCRAFT",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "landing_gear_malfunction",
+      "title": "LANDING GEAR EMERGENCIES",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "note",
+          "text": "If the gear cannot be lowered successfully, proceed with the following emergency procedures for the appropriate gear malfunction.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "caution",
+          "text": "If an unsafe gear indication existed and the gear have been successfully lowered, do not attempt to raise the gear. Raising the gear after a malfunction could cause further damage.",
+          "tickable": false,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "landing_gear_malfunction",
+      "title": "GEAR UP LANDING",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "Make normal approach",
+          "response": "FULL FLAPS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Canopy",
+          "response": "OPEN",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Harness",
+          "response": "LOCKED",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "subtitle",
+          "text": "After touchdown:",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Mixture",
+          "response": "IDLE CUTOFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Fuel shutoff valve handle",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Battery",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "ABANDON AIRCRAFT as soon as it stops.",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "landing_gear_malfunction",
+      "title": "NOSE GEAR MALFUNCTION",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "Reduce airspeed: lower gear and flaps.",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Assume slow flight",
+          "response": "70 KIAS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Make gentle pitching oscillations (use centrifugal force to swing nose gear into down position).",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "When landing, lower nosewheel to runway gently.",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Use forward stick to keep nosewheel firmly on runway. Avoid wheel barrowing.",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "landing_gear_malfunction",
+      "title": "NOSE GEAR RETRACTED",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "Make a normal approach",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Canopy",
+          "response": "OPEN",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "After touching main wheels down, hold nose up as long as possible with full nose down elevator trim and full backstick.",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "subtitle",
+          "text": "Before nose settles onto ground:",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Mixture",
+          "response": "IDLE CUTOFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Fuel shutoff valve handle",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Battery",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "ABANDON AIRCRAFT as soon as it stops.",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "landing_gear_malfunction",
+      "title": "ONE MAIN GEAR RETRACTED",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "Have gear position checked visually by another pilot or by the tower on a flyby, if possible.",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "If verified that one gear is not fully extended and an attempt to retract it is unsuccessful, execute normal approach with full flaps and power on to reduce landing speed, carrying the wing slightly lower on the down and locked side.",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Canopy",
+          "response": "OPEN (Blow)",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Touch down smoothly on the down and locked gear. Hold opposite wing up with aileron as long as possible after nosewheel touches down.",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "When wingtip strikes the ground, apply maximum opposite brake pressure.",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "subtitle",
+          "text": "As soon as aircraft stops:",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Mixture",
+          "response": "IDLE CUTOFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Fuel shutoff valve handle",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Battery",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "ABANDON AIRCRAFT",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "landing_gear_malfunction",
+      "title": "FLAT TIRE",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "Touch down well over opposite side of runway to allow room for a swerve and hold directional control with opposite brake.",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Avoid hard applications of brake.",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "After landing with a flat tire, perform the Secure Checklist when the aircraft comes to a complete stop and have the aircraft towed clear of the landing area.",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Do not taxi in with a flat tire.",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "brake_failure",
+      "title": "BRAKE FAILURE",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "If no brake pressure was evident during landing pattern brake check, land aircraft as short as possible using full flaps to shorten landing roll. After touchdown, secure the engine. When the aircraft comes to a complete stop, complete the remaining items on the Secure Checklist and have the aircraft towed clear of the landing area.",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "structural_damage",
+      "title": "HARD LANDINGS",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "subtitle",
+          "text": "If on the runway:",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Runway permitting, execute a full stop.",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Do not attempt to taxi the aircraft.",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "subtitle",
+          "text": "If airborne:",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Have landing gear checked visually by another pilot or by tower on a flyby, if possible.",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "If the check reveals no visible damage, execute a normal full flap landing and proceed as in steps 1 and 2.",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "If visual damage is confirmed, execute appropriate emergency procedure.",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "emergency_descent",
+      "title": "EMERGENCY DESCENT",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "IDLE",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Propeller",
+          "response": "FULL INCREASE",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Landing gear",
+          "response": "DOWN",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Flaps",
+          "response": "DOWN",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Airspeed",
+          "response": "110 KIAS",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1882 @@
+{
+  "open_checklist_version": "1.0",
+  "id": "cessna-172p-skyhawk-c172p-checklist-selkirk-college",
+  "title": "Cessna 172P Skyhawk — C172p-checklist_selkirk_college",
+  "aircraft": {
+    "make": "Cessna",
+    "model": "172P Skyhawk",
+    "category": "standard_normal"
+  },
+  "provenance": {
+    "source": {
+      "kind": "third_party_checklist",
+      "title": "Cessna/172P Skyhawk/C172p-checklist_selkirk_college.txt"
+    },
+    "transcription": {
+      "method": "format_conversion",
+      "date": "2026-08-13",
+      "converted_from": "doc"
+    },
+    "contributors": [
+      {
+        "name": "Open Checklists project",
+        "role": [
+          "transcriber"
+        ]
+      }
+    ],
+    "revision": {
+      "file_revision": "0.1.0",
+      "updated": "2026-08-13"
+    }
+  },
+  "verification": {
+    "source_fidelity": "unreviewed",
+    "operational_review": "none",
+    "completeness": "full",
+    "known_issues": [
+      {
+        "severity": "content_gap",
+        "description": "Section \"ELECTRICAL FIRE IN FLIGHT\" item count differs between passes (13 vs 12); verify nothing was dropped.",
+        "location": "ELECTRICAL FIRE IN FLIGHT"
+      },
+      {
+        "severity": "content_gap",
+        "description": "Section \"ELECTRICAL MALFUNCTION\" item count differs between passes (5 vs 4); verify nothing was dropped.",
+        "location": "ELECTRICAL MALFUNCTION"
+      },
+      {
+        "severity": "content_gap",
+        "description": "Section \"ENGINE START\" item count differs between passes (8 vs 7); verify nothing was dropped.",
+        "location": "ENGINE START"
+      },
+      {
+        "severity": "content_gap",
+        "description": "Section \"PRECAUTIONARY LANDING WITH POWER\" item count differs between passes (18 vs 16); verify nothing was dropped.",
+        "location": "PRECAUTIONARY LANDING WITH POWER"
+      }
+    ],
+    "reviews": [
+      {
+        "type": "source_comparison",
+        "reviewer": "ai-dual-pass-review",
+        "date": "2026-08-14",
+        "notes": "Automated AI review: two independent transcription passes + numeric/item-count disagreement resolution. Not human-verified; baseline for community correction."
+      }
+    ]
+  },
+  "rights": {
+    "status": "licensed",
+    "upstream_holder": "freechecklists.net",
+    "upstream_license": "content-reuse permission granted by the site author for this replacement project",
+    "notes": "Transcribed from the freechecklists.net archive under the author's reuse grant. Individual checklist wording may be substantially the source's; per-file contributor authorship is unknown."
+  },
+  "units": {
+    "airspeed": "kt",
+    "altitude": "ft"
+  },
+  "speeds": {
+    "best_glide_flaps_up": 65,
+    "best_glide_flaps_down": 60,
+    "engine_fire_airspeed": 100,
+    "no_power_approach_flaps_up": 65,
+    "no_power_approach_flaps_10": 60
+  },
+  "sections": [
+    {
+      "phase": "before_start",
+      "title": "PRE-START",
+      "items": [
+        {
+          "type": "action",
+          "text": "HOBBS",
+          "response": "NOTED",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "PASSENGER BRIEFING",
+          "response": "COMPLETED (IF REQUIRED)",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "DISPATCH LOG",
+          "response": "COMPLETED",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "LOGS & DOCUMENTS",
+          "response": "ON BOARD & VALID",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "SEATS & BELTS",
+          "response": "LOCKED & SECURE*",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "CONTROLS",
+          "response": "FREE & CORRECT",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "PARKING BRAKE",
+          "response": "SET",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "CIRCUIT BREAKERS",
+          "response": "ALL IN",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "ELECTRICS",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "RADIO MASTER",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "MASTER",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "RADIO FAN",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "BEACON",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "LOW VOLTAGE LIGHT",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "AMMETER",
+          "response": "CHECKED",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FUEL",
+          "response": "QUANTITY CHECKED, ON LEFT",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FLAPS",
+          "response": "UP",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "engine_start",
+      "title": "ENGINE START",
+      "items": [
+        {
+          "type": "action",
+          "text": "MIXTURE",
+          "response": "FULL RICH",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "PRIMER",
+          "response": "PRIMED & LOCKED",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "THROTTLE",
+          "response": "SET",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "ENGINE (START)",
+          "response": "STARTED",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "OIL PRESSURE",
+          "response": "NORMAL",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "AMMETER",
+          "response": "CHECKED",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "SUCTION",
+          "response": "CHECKED",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "note",
+          "text": "*BOTH PILOTS RESPOND",
+          "tickable": false,
+          "source_confidence": 0.9
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "after_start",
+      "title": "POST - START",
+      "items": [
+        {
+          "type": "action",
+          "text": "RADIO MASTER",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "ELECTRICS",
+          "response": "ON (AS REQUIRED)",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "ELT",
+          "response": "CHECKED",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "INSTRUMENT PANEL",
+          "response": "PANEL CHECKED",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "RADIOS",
+          "response": "RADIOS CHECKED",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FUEL SELECTOR",
+          "response": "QUANTITY CHECKED, ON RIGHT",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "taxi",
+      "title": "TAXI",
+      "items": [
+        {
+          "type": "action",
+          "text": "BRAKES",
+          "response": "CHECKED",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "INSTRUMENTS",
+          "response": "CHECKED",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "before_takeoff",
+      "title": "RUN - UP",
+      "items": [
+        {
+          "type": "action",
+          "text": "PARKING BRAKE",
+          "response": "SET",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "THROTTLE",
+          "response": "1000",
+          "tickable": true,
+          "source_confidence": 0.95,
+          "value": {
+            "quantity": "rpm",
+            "unit": "rpm",
+            "target": 1000
+          }
+        },
+        {
+          "type": "action",
+          "text": "FUEL SELECTOR",
+          "response": "QUANTITY CHECKED, ON BOTH",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "ENGINE GAUGES",
+          "response": "NORMAL",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "THROTTLE",
+          "response": "1700",
+          "tickable": true,
+          "source_confidence": 0.95,
+          "value": {
+            "quantity": "rpm",
+            "unit": "rpm",
+            "target": 1700
+          }
+        },
+        {
+          "type": "action",
+          "text": "ENGINE GAUGES",
+          "response": "NORMAL",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "SUCTION",
+          "response": "NORMAL",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "MIXTURE",
+          "response": "CHECKED",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "CARB HEAT",
+          "response": "CHECKED",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "MAGNETOS",
+          "response": "CHECKED",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "THROTTLE",
+          "response": "IDLE CHECKED, 1000, CARB HEAT COLD",
+          "tickable": true,
+          "source_confidence": 0.9
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "before_takeoff",
+      "title": "PRE - TAKEOFF",
+      "items": [
+        {
+          "type": "action",
+          "text": "SEAT & BELTS",
+          "response": "LOCKED & SECURE*",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "CONTROLS",
+          "response": "FREE",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "TRIMS",
+          "response": "____SET",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "FUEL SELECTOR",
+          "response": "QUANTITY CHECKED, ON BOTH",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FLAPS",
+          "response": "SET FOR TAKEOFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "ALTERNATE STATIC",
+          "response": "CHECKED & OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "MIXTURE",
+          "response": "FULL RICH",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "THROTTLE TENSION",
+          "response": "SET",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "CARB HEAT",
+          "response": "COLD",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "CIRCUIT BREAKERS",
+          "response": "ALL IN",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "PRIMER",
+          "response": "LOCKED",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "ENGINE GAUGES",
+          "response": "NORMAL",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "ALTIMETER",
+          "response": "____SET",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "CLOCK",
+          "response": "______CHECKED",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "HEADING INDICATOR",
+          "response": "CHECKED & SET",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "IFR CLEARANCE",
+          "response": "CLEARANCE REVIEWED",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "CREW BRIEFING",
+          "response": "BRIEFING COMPLETED",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "DOORS & WINDOWS",
+          "response": "CLOSED & LOCKED*",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "PITOT HEAT",
+          "response": "ON (IF REQUIRED)",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "LANDING LIGHT",
+          "response": "ON (IF REQUIRED)",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "STROBES",
+          "response": "ON (IF EQUIPPED)",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "PULSE LIGHT",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "TRANSPONDER",
+          "response": "ON ALT_______",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "TIME",
+          "response": "NOTED",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "HEADING INDICATOR",
+          "response": "CHECKED ON RUNWAY",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "after_takeoff",
+      "title": "POST - TAKEOFF",
+      "items": [
+        {
+          "type": "action",
+          "text": "FLAPS",
+          "response": "UP",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "ENGINE GAUGES",
+          "response": "NORMAL",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "LANDING LIGHT",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "before_landing",
+      "title": "PRE - LANDING",
+      "items": [
+        {
+          "type": "action",
+          "text": "SEATS & BELTS",
+          "response": "LOCKED & SECURE*",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "BRAKES",
+          "response": "CHECKED & OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FUEL SELECTOR",
+          "response": "QUANTITY CHECKED, ON BOTH",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "MIXTURE",
+          "response": "FULL RICH",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "CARB HEAT",
+          "response": "HOT",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "ELECTRICS",
+          "response": "ON (AS REQUIRED)",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "MAGNETOS",
+          "response": "ON BOTH",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "LANDING LIGHT",
+          "response": "ON (IF REQUIRED)",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "after_landing",
+      "title": "POST - LANDING",
+      "items": [
+        {
+          "type": "action",
+          "text": "FLAPS",
+          "response": "UP",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "CARB HEAT",
+          "response": "COLD",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "TRANSPONDER",
+          "response": "STANDBY",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "MINIMUM ELECTRICS",
+          "response": "SET",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "shutdown",
+      "title": "SHUT - DOWN",
+      "items": [
+        {
+          "type": "action",
+          "text": "PARKING BRAKE",
+          "response": "SET",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "THROTTLE",
+          "response": "1000",
+          "tickable": true,
+          "source_confidence": 0.95,
+          "value": {
+            "quantity": "rpm",
+            "unit": "rpm",
+            "target": 1000
+          }
+        },
+        {
+          "type": "action",
+          "text": "ELT",
+          "response": "CHECKED",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "ELECTRICS",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "MASTER",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "THROTTLE",
+          "response": "IDLE",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "LIVE MAG",
+          "response": "CHECKED",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "MIXTURE",
+          "response": "IDLE CUT OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "MAGNETOS",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FUEL SELECTOR",
+          "response": "ON LEFT",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "other",
+      "title": "EMERGENCY PROCEDURES",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "note",
+          "text": "* ITEMS MUST BE PERFORMED BY MEMORY",
+          "tickable": false,
+          "source_confidence": 0.95
+        }
+      ],
+      "phase_label": "EMERGENCY PROCEDURES"
+    },
+    {
+      "phase": "engine_failure_before_rotation",
+      "title": "ENGINE FAILURE DURING TAKEOFF RUN",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "THROTTLE",
+          "response": "IDLE",
+          "tickable": true,
+          "memory_item": true,
+          "source_confidence": 0.95,
+          "id": "eng-fail-takeoff-throttle"
+        },
+        {
+          "type": "action",
+          "text": "BRAKES",
+          "response": "APPLY",
+          "tickable": true,
+          "memory_item": true,
+          "source_confidence": 0.95,
+          "id": "eng-fail-takeoff-brakes"
+        },
+        {
+          "type": "action",
+          "text": "WING FLAPS",
+          "response": "RETRACT",
+          "tickable": true,
+          "memory_item": true,
+          "source_confidence": 0.95,
+          "id": "eng-fail-takeoff-flaps"
+        },
+        {
+          "type": "action",
+          "text": "MIXTURE",
+          "response": "IDLE CUT OFF",
+          "tickable": true,
+          "memory_item": true,
+          "source_confidence": 0.95,
+          "id": "eng-fail-takeoff-mixture"
+        },
+        {
+          "type": "action",
+          "text": "IGNITION SWITCH",
+          "response": "OFF",
+          "tickable": true,
+          "memory_item": true,
+          "source_confidence": 0.95,
+          "id": "eng-fail-takeoff-ignition"
+        },
+        {
+          "type": "action",
+          "text": "MASTER SWITCH",
+          "response": "OFF",
+          "tickable": true,
+          "memory_item": true,
+          "source_confidence": 0.95,
+          "id": "eng-fail-takeoff-master"
+        }
+      ]
+    },
+    {
+      "phase": "engine_failure_after_takeoff",
+      "title": "ENGINE FAILURE IMMEDIATELY AFTER TAKEOFF",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "AIRSPEED",
+          "response": "65K (FLAPS UP) 60K (FLAPS DOWN)",
+          "tickable": true,
+          "memory_item": true,
+          "source_confidence": 0.5,
+          "id": "eng-fail-after-takeoff-airspeed",
+          "value": {
+            "quantity": "airspeed",
+            "unit": "kt",
+            "target": 65
+          }
+        },
+        {
+          "type": "action",
+          "text": "MIXTURE",
+          "response": "IDLE CUT OFF",
+          "tickable": true,
+          "memory_item": true,
+          "source_confidence": 0.95,
+          "id": "eng-fail-after-takeoff-mixture"
+        },
+        {
+          "type": "action",
+          "text": "FUEL SELECTOR VALVE",
+          "response": "OFF",
+          "tickable": true,
+          "memory_item": true,
+          "source_confidence": 0.95,
+          "id": "eng-fail-after-takeoff-fuel"
+        },
+        {
+          "type": "action",
+          "text": "IGNITION SWITCH",
+          "response": "OFF",
+          "tickable": true,
+          "memory_item": true,
+          "source_confidence": 0.95,
+          "id": "eng-fail-after-takeoff-ignition"
+        },
+        {
+          "type": "action",
+          "text": "WING FLAPS",
+          "response": "AS REQUIRED",
+          "tickable": true,
+          "memory_item": true,
+          "source_confidence": 0.95,
+          "id": "eng-fail-after-takeoff-flaps"
+        },
+        {
+          "type": "action",
+          "text": "MASTER SWITCH",
+          "response": "OFF",
+          "tickable": true,
+          "memory_item": true,
+          "source_confidence": 0.95,
+          "id": "eng-fail-after-takeoff-master"
+        }
+      ]
+    },
+    {
+      "phase": "engine_failure_in_flight",
+      "title": "ENGINE FAILURE IN FLIGHT",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "AIRSPEED",
+          "response": "65KTS",
+          "tickable": true,
+          "memory_item": true,
+          "source_confidence": 0.95,
+          "id": "eng-fail-inflight-airspeed"
+        },
+        {
+          "type": "action",
+          "text": "CARBURETOR HEAT",
+          "response": "HOT",
+          "tickable": true,
+          "memory_item": true,
+          "source_confidence": 0.95,
+          "id": "eng-fail-inflight-carbheat"
+        },
+        {
+          "type": "action",
+          "text": "FUEL SELECTOR",
+          "response": "BOTH",
+          "tickable": true,
+          "memory_item": true,
+          "source_confidence": 0.95,
+          "id": "eng-fail-inflight-fuel"
+        },
+        {
+          "type": "action",
+          "text": "MIXTURE",
+          "response": "RICH",
+          "tickable": true,
+          "memory_item": true,
+          "source_confidence": 0.95,
+          "id": "eng-fail-inflight-mixture"
+        },
+        {
+          "type": "action",
+          "text": "IGNITION SWITCH",
+          "response": "BOTH (OR START)",
+          "tickable": true,
+          "memory_item": true,
+          "source_confidence": 0.95,
+          "id": "eng-fail-inflight-ignition"
+        },
+        {
+          "type": "action",
+          "text": "PRIMER",
+          "response": "IN AND LOCKED",
+          "tickable": true,
+          "memory_item": true,
+          "source_confidence": 0.95,
+          "id": "eng-fail-inflight-primer"
+        },
+        {
+          "type": "action",
+          "text": "GLIDE AIRSPEED",
+          "response": "65K FLAPS UP 60K FLAPS DOWN",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "RADIO",
+          "response": "MAYDAY CALLED",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "PASSENGERS",
+          "response": "BRIEFED FOR ROUGH LANDING",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "EVACUATION NOTICE",
+          "response": "ISSUED",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "CABIN",
+          "response": "SECURED",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "RESTART",
+          "response": "UNSUCCESSFUL",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "note",
+          "text": "IF RESTART IS UNSUCCESSFUL CONTINUE WITH CHECKLIST BELOW",
+          "tickable": false,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "MIXTURE",
+          "response": "IDLE CUT OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FUEL SELECTOR VALVE",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "IGNITION SWITCH",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "WING FLAPS",
+          "response": "AS REQUIRED",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "MASTER SWITCH",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "DOORS",
+          "response": "UNLATCH BEFORE LANDING",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "BRAKES",
+          "response": "APPLY HEAVILY",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "phase": "forced_landing",
+      "title": "PRECAUTIONARY LANDING WITH POWER",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "note",
+          "text": "*ITEMS MUST BE PERFORMED BY MEMORY",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "subtitle",
+          "text": "LANDING OFF AERODROME",
+          "tickable": false,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "WING FLAPS",
+          "response": "20 DEGREES",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "AIRSPEED",
+          "response": "60K OR HIGHER IF REQUIRED",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "RADIO CALL",
+          "response": "CONTACT FSS, ATC OR OTHER AIRCRAFT. REPORT POSITION, CONDITIONS AND INTENTIONS.",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "PASSENGERS",
+          "response": "BRIEF FOR LANDING",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "CABIN",
+          "response": "SECURE FOR LANDING",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "SELECTED FIELD",
+          "response": "FLY OVER NOTING TERRAIN AND OBSTRUCTIONS",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "OVERSHOOT",
+          "response": "RETRACT FLAPS UPON REACHING SAFE ALTITUDE AND AIRSPEED",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "RADIO MASTER",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "ELECTRICS",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "FLAPS",
+          "response": "30 ON FINAL",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "AIRSPEED",
+          "response": "60 KIAS",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "MASTER SWITCH",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "DOORS",
+          "response": "UNLATCH PRIOR TO LANDING",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "TOUCHDOWN",
+          "response": "SLIGHTLY TAIL LOW",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "IGNITION SWITCH",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "BRAKES",
+          "response": "APPLY AS REQUIRED",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "phase": "electrical_fire",
+      "title": "ELECTRICAL FIRE IN FLIGHT",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "note",
+          "text": "* ITEMS MUST BE PERFORMED BY MEMORY",
+          "tickable": false,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "MASTER",
+          "response": "OFF",
+          "tickable": true,
+          "memory_item": true,
+          "source_confidence": 0.95,
+          "id": "elect-fire-master"
+        },
+        {
+          "type": "action",
+          "text": "RADIO MASTER",
+          "response": "OFF",
+          "tickable": true,
+          "memory_item": true,
+          "source_confidence": 0.95,
+          "id": "elect-fire-radio-master"
+        },
+        {
+          "type": "action",
+          "text": "ELECTRICAL SWITCHES",
+          "response": "OFF",
+          "tickable": true,
+          "memory_item": true,
+          "source_confidence": 0.95,
+          "id": "elect-fire-switches"
+        },
+        {
+          "type": "action",
+          "text": "VENTS/CABIN AIR/HEAT",
+          "response": "CLOSED",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FIRE EXTINGUISHER",
+          "response": "ACTIVATE IF REQUIRED",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "warning",
+          "text": "AFTER DISCHARGING A FIRE EXTINGUISHER VENTILATE THE CABIN",
+          "tickable": false,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "note",
+          "text": "IF ELECTRIC POWER IS NOT REQUIRED - LEAVE MASTER OFF AND LAND AT A SUITABLE AERODROME.",
+          "tickable": false,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "MASTER",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "CIRCUIT BREAKERS",
+          "response": "CHECK-DO NOT RESET",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "RADIO SWITCHES",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "RADIO MASTER",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "RADIO AND ELECTRICAL SWITCHES",
+          "response": "ON ONE AT A TIME, WITH DELAY UNTIL SHORT IS LOCALIZED",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "phase": "cabin_fire",
+      "title": "CABIN FIRE",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "MASTER",
+          "response": "OFF",
+          "tickable": true,
+          "memory_item": true,
+          "source_confidence": 0.95,
+          "id": "cabin-fire-master"
+        },
+        {
+          "type": "action",
+          "text": "VENTS/CABIN AIR/HEAT",
+          "response": "CLOSED",
+          "tickable": true,
+          "memory_item": true,
+          "source_confidence": 0.95,
+          "id": "cabin-fire-vents"
+        },
+        {
+          "type": "action",
+          "text": "FIRE EXTINGUISHER",
+          "response": "ACTIVATE, IF REQUIRED",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "warning",
+          "text": "AFTER DISCHARGING A FIRE EXTINGUISHER VENTILATE THE CABIN",
+          "tickable": false,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "LAND ASAP",
+          "response": "INSPECT FOR DAMAGE",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "phase": "other",
+      "phase_label": "Wing Fire",
+      "title": "WING FIRE",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "NAVIGATION LIGHTS",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "PITOT HEAT",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "STROBES",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "note",
+          "text": "PERFORM A SIDESLIP TO KEEP FLAMES AWAY FROM THE FUEL TANK",
+          "tickable": false,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "LAND",
+          "response": "AS SOON AS POSSIBLE",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "warning",
+          "text": "USE FLAPS ONLY AS REQUIRED FOR LANDING",
+          "tickable": false,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "phase": "electrical_failure",
+      "title": "ELECTRICAL MALFUNCTION",
+      "criticality": "abnormal",
+      "items": [
+        {
+          "type": "note",
+          "text": "* ITEMS MUST BE PERFORMED BY MEMORY",
+          "tickable": false,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "ALTERNATOR",
+          "response": "OFF",
+          "tickable": true,
+          "memory_item": true,
+          "source_confidence": 0.95,
+          "id": "elect-mal-alternator"
+        },
+        {
+          "type": "action",
+          "text": "ALTERNATOR CIRCUIT BREAKER",
+          "response": "PULL",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "NONESSENTIAL ELECTRIC EQUIPMENT",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FLIGHT",
+          "response": "END AS SOON AS PRACTICAL",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "phase": "electrical_failure",
+      "title": "LOW VOLTAGE LIGHT ILLUMINATES DURING FLIGHT",
+      "criticality": "abnormal",
+      "items": [
+        {
+          "type": "action",
+          "text": "RADIO MASTER",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "ALTERNATOR CIRCUIT BREAKER",
+          "response": "CHECK IN",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "MASTER",
+          "response": "OFF-BOTH SIDES",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "MASTER",
+          "response": "ON-AFTER 3 SECONDS",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "LOW VOLTAGE LIGHT",
+          "response": "CHECK OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "RADIO MASTER",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "note",
+          "text": "IF LOW-VOLTAGE LIGHT ILLUMINATES AGAIN",
+          "tickable": false,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "ALTERNATOR",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "NONESSENTIAL ELECTRICS",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FLIGHT",
+          "response": "END AS SOON AS PRACTICAL",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "phase": "other",
+      "phase_label": "Fires",
+      "title": "FIRES",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "note",
+          "text": "*ITEMS MUST BE PERFORMED BY MEMORY",
+          "tickable": false,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "phase": "engine_fire_ground",
+      "title": "FIRE DURING START ON GROUND",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "CRANKING",
+          "response": "CONTINUE",
+          "tickable": true,
+          "memory_item": true,
+          "source_confidence": 0.95,
+          "id": "fire-start-cranking"
+        },
+        {
+          "type": "subtitle",
+          "text": "IF ENGINE STARTS:",
+          "tickable": false,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "POWER",
+          "response": "1700 RPM",
+          "tickable": true,
+          "memory_item": true,
+          "source_confidence": 0.95,
+          "id": "fire-start-power"
+        },
+        {
+          "type": "action",
+          "text": "ENGINE",
+          "response": "SHUTDOWN AND INSPECT",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "subtitle",
+          "text": "IF ENGINE FAILS TO START:",
+          "tickable": false,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "THROTTLE",
+          "response": "FULL OPEN",
+          "tickable": true,
+          "memory_item": true,
+          "source_confidence": 0.95,
+          "id": "fire-no-start-throttle"
+        },
+        {
+          "type": "action",
+          "text": "MIXTURE",
+          "response": "IDLE CUT-OFF",
+          "tickable": true,
+          "memory_item": true,
+          "source_confidence": 0.95,
+          "id": "fire-no-start-mixture"
+        },
+        {
+          "type": "action",
+          "text": "CRANKING",
+          "response": "CONTINUE",
+          "tickable": true,
+          "memory_item": true,
+          "source_confidence": 0.95,
+          "id": "fire-no-start-cranking"
+        },
+        {
+          "type": "action",
+          "text": "FIRE EXTINGUISHER",
+          "response": "OBTAIN",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "MASTER",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "MAGNETOS",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FUEL SELECTOR",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "PASSENGERS",
+          "response": "EVACUATE",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FIRE",
+          "response": "EXTINGUISH, IF SAFE",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FIRE DAMAGE",
+          "response": "INSPECT",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "phase": "engine_fire_in_flight",
+      "title": "ENGINE FIRE IN FLIGHT",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "MIXTURE",
+          "response": "IDLE CUT OFF",
+          "tickable": true,
+          "memory_item": true,
+          "source_confidence": 0.95,
+          "id": "eng-fire-inflight-mixture"
+        },
+        {
+          "type": "action",
+          "text": "FUEL SELECTOR VALVE",
+          "response": "OFF",
+          "tickable": true,
+          "memory_item": true,
+          "source_confidence": 0.95,
+          "id": "eng-fire-inflight-fuel"
+        },
+        {
+          "type": "action",
+          "text": "MASTER",
+          "response": "OFF",
+          "tickable": true,
+          "memory_item": true,
+          "source_confidence": 0.95,
+          "id": "eng-fire-inflight-master"
+        },
+        {
+          "type": "action",
+          "text": "CABIN HEAT AND AIR",
+          "response": "OFF",
+          "tickable": true,
+          "memory_item": true,
+          "source_confidence": 0.95,
+          "id": "eng-fire-inflight-cabin"
+        },
+        {
+          "type": "action",
+          "text": "AIRSPEED",
+          "response": "100 KIAS SEE NOTE",
+          "tickable": true,
+          "memory_item": true,
+          "source_confidence": 0.95,
+          "id": "eng-fire-inflight-airspeed"
+        },
+        {
+          "type": "note",
+          "text": "IF FIRE NOT EXTINGUISHED INCREASE GLIDE TO FIND AN INCOMBUSTIBLE MIXTURE",
+          "tickable": false,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FORCED LANDING",
+          "response": "EXECUTE",
+          "tickable": true,
+          "memory_item": true,
+          "source_confidence": 0.95,
+          "id": "eng-fire-inflight-landing"
+        },
+        {
+          "type": "note",
+          "text": "REFER TO ENGINE FAILURE IN FLIGHT ITEMS 7 - 19",
+          "tickable": false,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "phase": "ditching",
+      "title": "DITCHING",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "RADIO",
+          "response": "TRANSMIT MAYDAY",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "TRANSPONDER",
+          "response": "SQUAWK 7700",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "CABIN",
+          "response": "SECURE FOR ROUGH LANDING - JETTISON HEAVY OBJECTS",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "PASSENGERS",
+          "response": "BRIEF FOR ROUGH LANDING",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "PASSENGERS",
+          "response": "BRIEF ESCAPE PROCEDURE",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "note",
+          "text": "EVACUATE THROUGH CABIN DOORS- IF NECESSARY OPEN WINDOW AND FLOOD CABIN TO EQUALIZE PRESSURE SO DOORS CAN BE OPENED.",
+          "tickable": false,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "APPROACH",
+          "response": "HIGH WINDS HEAVY SWELLS: INTO WIND; LIGHT WINDS HEAVY SWELLS: PARALLEL",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "FLAPS",
+          "response": "20 TO 30 DEGREES",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "note",
+          "text": "IF NO POWER IS AVAILABLE, APPROACH AT 65KIAS WITH FLAPS UP OR 60 KIAS WITH FLAPS 10 DEGREES",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "CABIN DOOR",
+          "response": "UNLATCH",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "TOUCHDOWN",
+          "response": "LEVEL ATTITUDE AT ESTABLISHED RATE OF DESCENT",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FACE",
+          "response": "CUSHION BEFORE TOUCHDOWN WITH FOLDED COAT",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "AIRPLANE",
+          "response": "EVACUATE",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "LIFE VESTS AND RAFT",
+          "response": "INFLATE",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    }
+  ]
+}

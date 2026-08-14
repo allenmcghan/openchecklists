@@ -1,0 +1,485 @@
+{
+  "open_checklist_version": "1.0",
+  "id": "aero-vodochody-l-29-delfin-l-29shortchecklist",
+  "title": "Aero Vodochody L-29 Delfin — l-29shortchecklist",
+  "aircraft": {
+    "make": "Aero Vodochody",
+    "model": "L-29 Delfin",
+    "category": "standard_normal"
+  },
+  "provenance": {
+    "source": {
+      "kind": "third_party_checklist",
+      "title": "Aero Vodochody/L-29 Delfin/l-29shortchecklist.txt"
+    },
+    "transcription": {
+      "method": "format_conversion",
+      "date": "2026-08-13",
+      "converted_from": "doc"
+    },
+    "contributors": [
+      {
+        "name": "Open Checklists project",
+        "role": [
+          "transcriber"
+        ]
+      }
+    ],
+    "revision": {
+      "file_revision": "0.1.0",
+      "updated": "2026-08-13"
+    }
+  },
+  "verification": {
+    "source_fidelity": "unreviewed",
+    "operational_review": "none",
+    "completeness": "full",
+    "known_issues": [],
+    "reviews": [
+      {
+        "type": "source_comparison",
+        "reviewer": "ai-dual-pass-review",
+        "date": "2026-08-14",
+        "notes": "Automated AI review: two independent transcription passes + numeric/item-count disagreement resolution. Not human-verified; baseline for community correction."
+      }
+    ]
+  },
+  "rights": {
+    "status": "licensed",
+    "upstream_holder": "freechecklists.net",
+    "upstream_license": "content-reuse permission granted by the site author for this replacement project",
+    "notes": "Transcribed from the freechecklists.net archive under the author's reuse grant. Individual checklist wording may be substantially the source's; per-file contributor authorship is unknown."
+  },
+  "units": {
+    "airspeed": "kt",
+    "altitude": "ft"
+  },
+  "speeds": {},
+  "sections": [
+    {
+      "phase": "engine_failure_in_flight",
+      "title": "PARTIAL POWER FAILURE < 500 Ft.:-",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "1. Isolation Switch",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "2. Throttle to RPM",
+          "response": "SLOW",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "engine_failure_in_flight",
+      "title": "PARTIAL POWER FAILURE 500 - 12,000 Ft.:-",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "1. Throttle",
+          "response": "IDLE",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "2. Isolation Switch",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "3. Power",
+          "response": "SET",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "engine_failure_in_flight",
+      "title": "PARTIAL POWER FAILURE >12,000 Ft.:-",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "1. Throttle",
+          "response": "IDLE",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "2. Isolation Switch",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "3. INCREASE Power IMMEDIATELY To:-",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "(a) 60% 12,000 - 18,000 Ft.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "(b) 80% > 18,000 Ft",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "N.B. WITH AFRCU ISOLATED, MAKE ALL CHANGES VERY SLOWLY (NO RPM LIMITER).",
+          "tickable": false,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "fuel_system_malfunction",
+      "title": "LOW PRESSURE FUEL or OIL:-",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "1. Engine Switch & C.Bs",
+          "response": "CHECK",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "2. SEC ‘B’ switch",
+          "response": "Cycle",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "3. Power",
+          "response": "85% (Max Oil) 94% (Max Fuel)",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "4. Once Set AVOID Throttle Movement & RTB..",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "N.B. Oil Pressure BELOW 1.2kg/cm for 2 Mins., RTB as Above.",
+          "tickable": false,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "landing_gear_malfunction",
+      "title": "EMERGENCY UNDERCARRIAGE LOWERING:-",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "subtitle",
+          "text": "(a)",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "1. Hydraulic Circuit",
+          "response": "BLEED (Cock on LEFT)",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "2. Gear & Flaps Normally",
+          "response": "LOWER",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "IF This FAILs Then do (b).",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "subtitle",
+          "text": "(b)",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "1. BELOW 250 K., 100 bar",
+          "response": "CHECK",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "2. SEC ‘B’ switch Cycle & C.Bs.",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "3. Emg. Hand Valve",
+          "response": "OPEN",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "4. LEAVE U/C DOWN",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "flap_malfunction",
+      "title": "EMERGENCY FLAP LOWERING:-",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "1. C.Bs. & SEC. ‘B’",
+          "response": "CHECK",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "2. 250 K, Hand Valve",
+          "response": "OPEN",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "engine_restart_in_flight",
+      "title": "RELIGHT - HOT START:-",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "1. Throttle",
+          "response": "CLOSE",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "2. Air Start",
+          "response": "PRESS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "subtitle",
+          "text": "IF NO GO:-",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "3. HP Cock - OFF, Air Start",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "4. 30 - 40 Seconds",
+          "response": "WAIT",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "5. N.E. Electrics",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "engine_restart_in_flight",
+      "title": "RELIGHT - COLD START:-",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "1. Throttle",
+          "response": "CLOSED",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "2. 250 K - NE Electrics",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "3. C.Bs - LIVE - 10-15% WINDMILL.",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "4. AirStart",
+          "response": "PUSH",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "5. HP Cock - ON - AirStart",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "N.B. IF Windmilling BELOW 10% USE Ground Start.",
+          "tickable": false,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "engine_fire_in_flight",
+      "title": "ENGINE FIRE:-",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "1. Throttle",
+          "response": "CLOSED",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "2. HP Cock",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "3. SPEED to HEIGHT.",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "4. BELOW 240 K - Fire Button",
+          "response": "PRESS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "5. NO RELIGHT.",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "electrical_failure",
+      "title": "GENERATOR FAILURE:-",
+      "criticality": "abnormal",
+      "items": [
+        {
+          "type": "action",
+          "text": "1. Switches & C.Bs",
+          "response": "CHECK",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "2. Load",
+          "response": "REDUCE & RTB",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "N.B. After 20 Minutes EXPECT EMG. U/C & FLAPS",
+          "tickable": false,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "reference",
+      "title": "Warning lights panel",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "subtitle",
+          "text": "Warning lights panel",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "FIRE- -----LOW FUEL------",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "GENERATOR",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "U/C----FUEL PUMP (LP PUMP) ---",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "RELIGHT",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "EXT. TANKs -- ISOL V. ---LOW CAB.PR.",
+          "tickable": false,
+          "source_confidence": 1.0
+        }
+      ]
+    }
+  ]
+}

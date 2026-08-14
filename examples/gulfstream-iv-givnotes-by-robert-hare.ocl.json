@@ -1,0 +1,677 @@
+{
+  "open_checklist_version": "1.0",
+  "id": "gulfstream-iv-givnotes-by-robert-hare",
+  "title": "Gulfstream IV — GIVNotes_by_robert_hare",
+  "aircraft": {
+    "make": "Gulfstream",
+    "model": "IV",
+    "category": "standard_normal"
+  },
+  "provenance": {
+    "source": {
+      "kind": "third_party_checklist",
+      "title": "Gulfstream/IV/GIVNotes_by_robert_hare/GIVNotes_by_robert_hare.txt"
+    },
+    "transcription": {
+      "method": "format_conversion",
+      "date": "2026-08-13",
+      "converted_from": "doc"
+    },
+    "contributors": [
+      {
+        "name": "Open Checklists project",
+        "role": [
+          "transcriber"
+        ]
+      }
+    ],
+    "revision": {
+      "file_revision": "0.1.0",
+      "updated": "2026-08-13"
+    }
+  },
+  "verification": {
+    "source_fidelity": "unreviewed",
+    "operational_review": "none",
+    "completeness": "full",
+    "known_issues": [],
+    "reviews": [
+      {
+        "type": "source_comparison",
+        "reviewer": "ai-dual-pass-review",
+        "date": "2026-08-14",
+        "notes": "Automated AI review: two independent transcription passes + numeric/item-count disagreement resolution. Not human-verified; baseline for community correction."
+      }
+    ]
+  },
+  "rights": {
+    "status": "licensed",
+    "upstream_holder": "freechecklists.net",
+    "upstream_license": "content-reuse permission granted by the site author for this replacement project",
+    "notes": "Transcribed from the freechecklists.net archive under the author's reuse grant. Individual checklist wording may be substantially the source's; per-file contributor authorship is unknown."
+  },
+  "units": {
+    "airspeed": "kt",
+    "altitude": "ft",
+    "fuel": "lb",
+    "weight": "lb"
+  },
+  "speeds": {
+    "vmo": 340,
+    "va": 170,
+    "vle": 250,
+    "vlo": 225,
+    "vmca": 104,
+    "vmcg": 111
+  },
+  "sections": [
+    {
+      "phase": "reference",
+      "phase_label": "Disclaimer and Introduction",
+      "title": "DISCLAIMER",
+      "items": [
+        {
+          "type": "note",
+          "text": "These notes represent information gathered from attending class at Flight Safety International, from other sources and through operating experience. The contents of these notes have neither been reviewed nor endorsed by Gulfstream Aerospace Corporation, Flight Safety, Inc., my employer: Jet Aviation Business Jets or any other organization or individual. They are my personal notes, compiled for my benefit, and representing my understanding of the GIV. I believe this information to be accurate, but offer no warrantee that this is so. These notes are updated regularly as I become aware of new information and procedures, but may not contain the latest information. Use of this information is at your own risk. All information should be independently confirmed through approved sources. I assume no responsibility for any results that may occur as a result of others using this information.",
+          "tickable": false,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "note",
+          "text": "These notes may be copied and distributed freely without charge and without consulting me, provided that they are distributed intact and this disclaimer accompanies all copies.",
+          "tickable": false,
+          "source_confidence": 0.98
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "reference",
+      "phase_label": "Introduction",
+      "title": "INTRODUCTION",
+      "items": [
+        {
+          "type": "note",
+          "text": "This is revision 2-98 of GIVNotes. This revision includes new material culled from the Gulfstream Customer Appreciation Breakfast Newsletters, Honeywell FMS Technical Newsletters and contributions from several GIV pilots. My thanks to Larry Gilbert for his assistance and contributions in improving the content. The most significant addition to this revision was provided by Jean-Guy Boivin. Guy sent me a comprehensive set of Honeywell FMS operating notes that I reproduced in Chapter 16. My thanks to Guy for his contribution.",
+          "tickable": false,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "note",
+          "text": "These notes are on Microsoft Word for Windows 95 (fully compatible with MS Word for Windows version 6.0). These notes are available to all and can distributed on floppy disks or via electronic means such as email attachments via the Internet free of charge and kept on your computer or printed out in your office saving significant reproduction and postage charges. File copies on floppy diskettes and unbound hard copies are available for the cost of copying and postage.",
+          "tickable": false,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "note",
+          "text": "As in the past, the basic chapter organization follows that of Flight Safety International's GIV Pilot Training Manual. Chapter 1, Gulfstream IV Operating Information, has been changed to add operating limitations culled from the AFM and other sources. Chapter 19, Miscellaneous Information, was added as a catch-all area for items that do not logically fit elsewhere. Chapter 20, Aircraft Service Change (ASC) List, is a summary of Aircraft Service Changes that may be of interest to pilots. It is not a comprehensive listing of available ASCs.",
+          "tickable": false,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "note",
+          "text": "The objective of these notes is not to duplicate the FSI GIV Pilot Training Manual, the GIV AFM or any other existing publication. What started out as a very modest effort to consolidate notes from Flight Safety classes has evolved into a fairly elaborate effort to collect GIV facts, limitations, operating tips, problems and suggestions of interest to pilots into one source. Sources used include the Gulfstream Customer Appreciation Breakfast Minutes, the quarterly Gulfstream Service News, and Honeywell publications such as the FMS Technical Newsletter, published semi-annually. In many cases I have directly quoted portions of these and other documents that might be of interest. The quoted material is often edited and bolding and/or italics is added for emphasis. I have tried to state the source directly below the quote for credit where credit is due and to allow the reader to check source material independently.",
+          "tickable": false,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "note",
+          "text": "In addition to collecting a wide variety of information into a single publication, I have tried to organize and index the material so that it is quickly accessible.",
+          "tickable": false,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "note",
+          "text": "The best way to get in touch is by means of email. It is fast, I check it daily and you won't have to play phone tag. You can also try to reach me by phone or by mail at the addresses that follow. Let me hear from you.",
+          "tickable": false,
+          "source_confidence": 0.98
+        },
+        {
+          "type": "note",
+          "text": "Home Phone: 717-476-0484     C/O Jet Aviation\nInternet Email: bobhare@enter.net Teterboro Airport\n118 Billy Diehl Road\nTeterboro, NJ 07608",
+          "tickable": false,
+          "source_confidence": 0.98
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "reference",
+      "phase_label": "Operating Information",
+      "title": "2 OPERATING INFORMATION",
+      "items": [
+        {
+          "type": "subtitle",
+          "text": "1 DIMENSIONS",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Wingspan",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Wingspan",
+          "response": "(78'",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "Turn Radius (Wheels):",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Turn Radius (Wheels):",
+          "response": "(55'",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "subtitle",
+          "text": "2 WEIGHT AND BALANCE",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "subtitle",
+          "text": "1 WEIGHT LIMITATIONS -- BASELINE GIV:",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Max Ramp:",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Max Ramp:",
+          "response": "73,600 (33,385)",
+          "tickable": true,
+          "source_confidence": 0.6
+        },
+        {
+          "type": "challenge",
+          "text": "Max T/O",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Max T/O",
+          "response": "73,200 (33,204)",
+          "tickable": true,
+          "source_confidence": 0.6
+        },
+        {
+          "type": "challenge",
+          "text": "Zero Fuel",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Zero Fuel",
+          "response": "46,500 (21,092) (49,000 W/ ASC 61)",
+          "tickable": true,
+          "source_confidence": 0.6
+        },
+        {
+          "type": "challenge",
+          "text": "Max Landing",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Max Landing",
+          "response": "58,500 (26,536)",
+          "tickable": true,
+          "source_confidence": 0.6
+        },
+        {
+          "type": "note",
+          "text": "(AFM 1-1 -- 4 FEB 94)",
+          "tickable": false,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "note",
+          "text": "Max fuel -- max fuel restriction of 29,500 lbs deleted in AFM 4 Feb 94",
+          "tickable": false,
+          "source_confidence": 0.7
+        },
+        {
+          "type": "subtitle",
+          "text": "2 WEIGHT LIMITATIONS -- SP'S AND ASC 190:",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Max Ramp:",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Max Ramp:",
+          "response": "75,000 (34,020)",
+          "tickable": true,
+          "source_confidence": 0.6
+        },
+        {
+          "type": "challenge",
+          "text": "Max T/O:",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Max T/O:",
+          "response": "74,600 (33,838)",
+          "tickable": true,
+          "source_confidence": 0.6
+        },
+        {
+          "type": "challenge",
+          "text": "Zero Fuel:",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Zero Fuel:",
+          "response": "49,000 (22,226)",
+          "tickable": true,
+          "source_confidence": 0.6
+        },
+        {
+          "type": "challenge",
+          "text": "Max Landing:",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Max Landing:",
+          "response": "66,000 (29,937)",
+          "tickable": true,
+          "source_confidence": 0.6
+        },
+        {
+          "type": "challenge",
+          "text": "Max Fuel:",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Max Fuel:",
+          "response": "Same as above",
+          "tickable": true,
+          "source_confidence": 0.6
+        },
+        {
+          "type": "note",
+          "text": "(AFM 1-1 -- 4 FEB 94)",
+          "tickable": false,
+          "source_confidence": 0.9
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "reference",
+      "phase_label": "Powerplant",
+      "title": "3 POWERPLANT",
+      "items": [
+        {
+          "type": "subtitle",
+          "text": "1 TGT",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Max Ground Start TGT:",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Max Ground Start TGT:",
+          "response": "700o C Momentary (2 sec.)",
+          "tickable": true,
+          "source_confidence": 0.6
+        },
+        {
+          "type": "challenge",
+          "text": "Max Airstart",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Max Airstart",
+          "response": "780o C Momentary 715o C -- Amber Arc (5 Min Limit)",
+          "tickable": true,
+          "source_confidence": 0.4
+        },
+        {
+          "type": "challenge",
+          "text": "Max Takeoff",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Max Takeoff",
+          "response": "800o C 5 Min 800o C -- Red Arc",
+          "tickable": true,
+          "source_confidence": 0.6
+        },
+        {
+          "type": "challenge",
+          "text": "Max Go-Around",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Max Go-Around",
+          "response": "800o C 5 Min (Do not exceed)",
+          "tickable": true,
+          "source_confidence": 0.6
+        },
+        {
+          "type": "challenge",
+          "text": "Max Continuous",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Max Continuous",
+          "response": "715o C Unrestricted*",
+          "tickable": true,
+          "source_confidence": 0.6
+        },
+        {
+          "type": "challenge",
+          "text": "Max Reverse Thrust",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Max Reverse Thrust",
+          "response": "695o C 1 Minute/30 Minutes",
+          "tickable": true,
+          "source_confidence": 0.6
+        },
+        {
+          "type": "challenge",
+          "text": "Max Overtemp",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Max Overtemp",
+          "response": "820o C 20 Seconds",
+          "tickable": true,
+          "source_confidence": 0.6
+        },
+        {
+          "type": "note",
+          "text": "(AFM 1-6 -- 4 FEB 94)",
+          "tickable": false,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "subtitle",
+          "text": "2 LP RPM",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Max Takeoff",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Max Takeoff",
+          "response": "95.5% LP 5 Min 95.5% LP -- Red Arc",
+          "tickable": true,
+          "source_confidence": 0.6
+        },
+        {
+          "type": "challenge",
+          "text": "Max Go-Around",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Max Go-Around",
+          "response": "95.5% LP 5 Min",
+          "tickable": true,
+          "source_confidence": 0.6
+        },
+        {
+          "type": "challenge",
+          "text": "Max Continuous",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Max Continuous",
+          "response": "95.5% LP Unrestricted*",
+          "tickable": true,
+          "source_confidence": 0.6
+        },
+        {
+          "type": "challenge",
+          "text": "Max Overspeed",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Max Overspeed",
+          "response": "98.3% LP 20 Seconds",
+          "tickable": true,
+          "source_confidence": 0.6
+        },
+        {
+          "type": "note",
+          "text": "(AFM 1-6 -- 4 FEB 94)",
+          "tickable": false,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "subtitle",
+          "text": "HP RPM",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Max Takeoff",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Max Takeoff",
+          "response": "99.7% HP 5 Min 99.7% HP -- Red Digits",
+          "tickable": true,
+          "source_confidence": 0.6
+        },
+        {
+          "type": "challenge",
+          "text": "Max GO-AROUND",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Max GO-AROUND",
+          "response": "99.7% HP 5 Min",
+          "tickable": true,
+          "source_confidence": 0.6
+        },
+        {
+          "type": "challenge",
+          "text": "Max Continuous",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Max Continuous",
+          "response": "97.5% HP Unrestricted* 97.5% HP -- Amber Digits",
+          "tickable": true,
+          "source_confidence": 0.6
+        },
+        {
+          "type": "challenge",
+          "text": "Min Idle Approach",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Min Idle Approach",
+          "response": "67.0% HP Unrestricted",
+          "tickable": true,
+          "source_confidence": 0.6
+        },
+        {
+          "type": "challenge",
+          "text": "Min Ground Idle",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Min Ground Idle",
+          "response": "46.6% HP Unrestricted 46.6-% HP -- Red Digits",
+          "tickable": true,
+          "source_confidence": 0.6
+        },
+        {
+          "type": "challenge",
+          "text": "Max Reverse",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Max Reverse",
+          "response": "88.0% HP 1 Min w/o ASC 166 Unrestricted W/ ASC 166",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "Max Overspeed",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Max Overspeed",
+          "response": "102.6% HP 20 Seconds 110.0% HP -- Top Red Arc",
+          "tickable": true,
+          "source_confidence": 0.6
+        },
+        {
+          "type": "note",
+          "text": "(AFM 1-6 -- 4 FEB 94)",
+          "tickable": false,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "note",
+          "text": "* Excessive engine wear will occur if these settings are used continuously.",
+          "tickable": false,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "subtitle",
+          "text": "3 AIRSTART IGNITION",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Airplanes SN 1000 thru 1249 without ASC 304:",
+          "tickable": false,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "Duty Cycle:",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Duty Cycle:",
+          "response": "30 sec on and 30 sec off -OR- On for 5 minutes and off for 30 minutes",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "note",
+          "text": "Airplanes SN 1250 and subs and airplanes SN 1000 thru 1249 with ASC 304:",
+          "tickable": false,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "There is no duty cycle time limitation for continuous airstart ignition with ASC 304 installed.",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "note",
+          "text": "(AFM 1-7 -- 5 JAN 96)",
+          "tickable": false,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "Normally off for takeoff and landing.",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "Use when there is standing water, slush or snow",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "note",
+          "text": "(AFM 2-18 30 SEP 94)",
+          "tickable": false,
+          "source_confidence": 0.9
+        }
+      ],
+      "criticality": "normal"
+    }
+  ]
+}

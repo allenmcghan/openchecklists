@@ -1,0 +1,2005 @@
+{
+  "open_checklist_version": "1.0",
+  "id": "beechcraft-be-95-travel-air-beech95-checklist-selkirk-college",
+  "title": "Beechcraft BE-95 Travel Air — Beech95-checklist_selkirk_college",
+  "aircraft": {
+    "make": "Beechcraft",
+    "model": "BE-95 Travel Air",
+    "category": "standard_normal"
+  },
+  "provenance": {
+    "source": {
+      "kind": "third_party_checklist",
+      "title": "Beechcraft/BE-95 Travel Air/Beech95-checklist_selkirk_college.txt"
+    },
+    "transcription": {
+      "method": "format_conversion",
+      "date": "2026-08-13",
+      "converted_from": "doc"
+    },
+    "contributors": [
+      {
+        "name": "Open Checklists project",
+        "role": [
+          "transcriber"
+        ]
+      }
+    ],
+    "revision": {
+      "file_revision": "0.1.0",
+      "updated": "2026-08-13"
+    }
+  },
+  "verification": {
+    "source_fidelity": "unreviewed",
+    "operational_review": "none",
+    "completeness": "full",
+    "known_issues": [
+      {
+        "severity": "content_gap",
+        "description": "Section \"Hot or Flooded Start\" item count differs between passes (16 vs 15); verify nothing was dropped.",
+        "location": "Hot or Flooded Start"
+      },
+      {
+        "severity": "content_gap",
+        "description": "Section \"Pre-Takeoff\" item count differs between passes (28 vs 27); verify nothing was dropped.",
+        "location": "Pre-Takeoff"
+      }
+    ],
+    "reviews": [
+      {
+        "type": "source_comparison",
+        "reviewer": "ai-dual-pass-review",
+        "date": "2026-08-14",
+        "notes": "Automated AI review: two independent transcription passes + numeric/item-count disagreement resolution. Not human-verified; baseline for community correction."
+      }
+    ]
+  },
+  "rights": {
+    "status": "licensed",
+    "upstream_holder": "freechecklists.net",
+    "upstream_license": "content-reuse permission granted by the site author for this replacement project",
+    "notes": "Transcribed from the freechecklists.net archive under the author's reuse grant. Individual checklist wording may be substantially the source's; per-file contributor authorship is unknown."
+  },
+  "units": {
+    "airspeed": "kt"
+  },
+  "speeds": {},
+  "sections": [
+    {
+      "id": "pre-start",
+      "phase": "before_start",
+      "title": "Pre Start",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Hobbs",
+          "response": "Checked",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Dispatch log",
+          "response": "Completed",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Logs and documents",
+          "response": "On board & valid",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Passenger briefing",
+          "response": "Completed",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Seats and belts",
+          "response": "Locked and secure *",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Controls",
+          "response": "Free and correct",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Parking brake",
+          "response": "Set",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Circuit breakers",
+          "response": "All in",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Electrics",
+          "response": "Off",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Alternators",
+          "response": "Off",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Avionics emergency",
+          "response": "Off",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Avionics master",
+          "response": "Off",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Gear selector",
+          "response": "Down",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Battery",
+          "response": "On, Gear locked",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Fuel Quantities",
+          "response": "Checked",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Fuel selectors",
+          "response": "On Aux.",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Flaps",
+          "response": "Up",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Cowl flaps",
+          "response": "Open",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Beacon",
+          "response": "On",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "id": "cold-engine-start",
+      "phase": "engine_start",
+      "title": "Cold Engine Start",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Mixtures",
+          "response": "Full rich",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Propellers",
+          "response": "Full fine",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Throttles",
+          "response": "Set",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Boost pumps",
+          "response": "Checked & primed",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Left engine (start)",
+          "response": "Started",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Oil Pressure",
+          "response": "Normal",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Left Suction",
+          "response": "Normal",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Left Alternator",
+          "response": "On",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Right engine (start)",
+          "response": "Started",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Oil pressure",
+          "response": "Normal",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Right Suction",
+          "response": "Normal",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Right alternator",
+          "response": "On, Load split",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Engine gauges",
+          "response": "Normal",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "id": "hot-or-flooded-start",
+      "phase": "engine_start",
+      "title": "Hot or Flooded Start",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Mixtures",
+          "response": "Full rich",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Propellers",
+          "response": "Full fine",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Throttles",
+          "response": "Full forward",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Boost Pumps",
+          "response": "Checked & primed",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Mixtures",
+          "response": "Idle cut off",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Throttles",
+          "response": "Set",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Left engine (start)",
+          "response": "Started",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Oil pressure",
+          "response": "Normal",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Left Suction",
+          "response": "Normal",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Left Alternator",
+          "response": "On",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Right engine (start)",
+          "response": "Started",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Oil Pressure",
+          "response": "Normal",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Right Suction",
+          "response": "Normal",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Right alternator",
+          "response": "On, Load split",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Engine gauges",
+          "response": "Normal",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "blank",
+          "tickable": false,
+          "source_confidence": 0.9
+        }
+      ]
+    },
+    {
+      "id": "post-start",
+      "phase": "after_start",
+      "title": "Post Start",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Avionics master",
+          "response": "On",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "PN-101",
+          "response": "On and slave set",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Electrics",
+          "response": "On (as req=d)",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "ELT",
+          "response": "Checked",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Instrument panel",
+          "response": "Panel checked",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Radios",
+          "response": "Radios checked",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Left fuel selector",
+          "response": "On crossfeed",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "id": "taxi",
+      "phase": "taxi",
+      "title": "Taxi",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Brakes",
+          "response": "Checked *",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Fuel crossfeed",
+          "response": "Checked",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Instruments",
+          "response": "Checked",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "id": "runup",
+      "phase": "before_takeoff",
+      "title": "Runup",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Parking brake",
+          "response": "Set",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Fuel selectors",
+          "response": "Quantity checked, on mains",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Mixtures",
+          "response": "Full rich",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Propellers",
+          "response": "Full fine",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Engine gauges",
+          "response": "Normal",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Throttles",
+          "response": "2200",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Engine gauges",
+          "response": "Normal",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Suction",
+          "response": "Normal",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Propellers",
+          "response": "Exercised",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Throttles",
+          "response": "2000",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Magnetos",
+          "response": "Checked",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Mixtures",
+          "response": "Checked",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Alternators",
+          "response": "Checked",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Alternate airs",
+          "response": "Checked",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Throttles",
+          "response": "1500",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Feather",
+          "response": "Checked",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Throttles",
+          "response": "Idle checked, 1300 Set",
+          "tickable": true,
+          "source_confidence": 0.9
+        }
+      ]
+    },
+    {
+      "id": "pre-takeoff",
+      "phase": "before_takeoff",
+      "title": "Pre-Takeoff",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Seats & belts",
+          "response": "Locked & secure *",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Controls",
+          "response": "Free",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Trims",
+          "response": "Three set",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Fuel selectors",
+          "response": "Quantity checked, on Mains",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Alternate airs",
+          "response": "Off",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Flaps",
+          "response": "Set for takeoff",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Cowl flaps",
+          "response": "Open",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Circuit breakers",
+          "response": "All in",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Alternate static",
+          "response": "Checked and off",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Magnetos",
+          "response": "Both on both",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Alternators",
+          "response": "On",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Mixtures",
+          "response": "Full rich",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Propellers",
+          "response": "Full fine",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Altimeters",
+          "response": "_____ set",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Clock",
+          "response": "______checked",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Heading indicators",
+          "response": "Checked & set",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Rear windows",
+          "response": "Closed & locked",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "IFR clearance",
+          "response": "Clearance reviewed",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Crew briefing",
+          "response": "Briefing completed",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Cabin door & window",
+          "response": "Closed & locked *",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Boost pumps",
+          "response": "On",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Landing light",
+          "response": "On (if req=d)",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Pulse light",
+          "response": "On",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Pitot heat",
+          "response": "On (if req=d)",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Transponder",
+          "response": "On Alt ______",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Takeoff time",
+          "response": "Noted",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Heading indicator",
+          "response": "Checked on runway",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "blank",
+          "tickable": false,
+          "source_confidence": 0.9
+        }
+      ]
+    },
+    {
+      "id": "post-takeoff",
+      "phase": "after_takeoff",
+      "title": "Post Takeoff",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Gear",
+          "response": "Up",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Flaps",
+          "response": "Up",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Power",
+          "response": "Set",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Fuel selectors",
+          "response": "Quantity checked, on Aux",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Boost pumps",
+          "response": "Off",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Cowl flaps",
+          "response": "Set",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Landing light",
+          "response": "Off",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "id": "pre-landing",
+      "phase": "before_landing",
+      "title": "Pre-Landing",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Seats & belts",
+          "response": "Locked & secure",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Parking brake",
+          "response": "Off",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Mixtures",
+          "response": "Full rich",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Propellers",
+          "response": "2500",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Magnetos",
+          "response": "Both on both",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Electrics",
+          "response": "On (as req=d)",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Boost pumps",
+          "response": "On",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Fuel selectors",
+          "response": "Quantity checked, on mains",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Landing light",
+          "response": "On (if req=d)",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Gear",
+          "response": "Down & locked",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "id": "post-landing",
+      "phase": "after_landing",
+      "title": "Post Landing",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Flaps",
+          "response": "Up",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Cowl flaps",
+          "response": "Open",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Boost pumps",
+          "response": "Off",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Minimum electrics",
+          "response": "Set",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Transponder",
+          "response": "Standby",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "id": "shut-down",
+      "phase": "shutdown",
+      "title": "Shut Down",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Parking brake",
+          "response": "Set",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Throttles",
+          "response": "1100",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "ELT",
+          "response": "Checked",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Electrics",
+          "response": "Off",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Avionics master",
+          "response": "Off",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Battery",
+          "response": "Off",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Alternators",
+          "response": "Off",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Throttles",
+          "response": "Idle",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Live/dead mag",
+          "response": "Checked",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Mixtures",
+          "response": "Idle cut off",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Magnetos",
+          "response": "off",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "id": "rejected-takeoff-before-lift-off",
+      "phase": "takeoff",
+      "title": "Rejected Takeoff Before Lift-off",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "Throttles",
+          "response": "closed",
+          "tickable": true,
+          "memory_item": true,
+          "id": "rtbo1",
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Braking",
+          "response": "maximum",
+          "tickable": true,
+          "memory_item": true,
+          "id": "rtbo2",
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Stop",
+          "response": "on remaining runway",
+          "tickable": true,
+          "memory_item": true,
+          "id": "rtbo3",
+          "source_confidence": 0.95
+        },
+        {
+          "type": "subtitle",
+          "text": "If there is insufficient runway to stop:",
+          "tickable": false,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Switches (master and alternators)",
+          "response": "off",
+          "tickable": true,
+          "memory_item": true,
+          "id": "rtbo4",
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Fuel Selectors",
+          "response": "off",
+          "tickable": true,
+          "memory_item": true,
+          "id": "rtbo5",
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "id": "rejected-takeoff-airborne",
+      "phase": "takeoff",
+      "title": "Rejected Takeoff - Airborne",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "Throttles",
+          "response": "as required, then off",
+          "tickable": true,
+          "memory_item": true,
+          "id": "rta1",
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Braking",
+          "response": "maximum",
+          "tickable": true,
+          "memory_item": true,
+          "id": "rta2",
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Stop",
+          "response": "on remaining runway",
+          "tickable": true,
+          "memory_item": true,
+          "id": "rta3",
+          "source_confidence": 0.95
+        },
+        {
+          "type": "subtitle",
+          "text": "If there is insufficient runway to land and stop:",
+          "tickable": false,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Switches (master and alternators)",
+          "response": "off",
+          "tickable": true,
+          "memory_item": true,
+          "id": "rta5",
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Fuel Selectors",
+          "response": "off",
+          "tickable": true,
+          "memory_item": true,
+          "id": "rta6",
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "id": "engine-failure-continuing-takeoff",
+      "phase": "engine_failure_after_takeoff",
+      "title": "Engine Failure - Continuing Takeoff",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "Control",
+          "response": "Yaw and roll.",
+          "tickable": true,
+          "memory_item": true,
+          "id": "efct1",
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Attitude",
+          "response": "to control airspeed",
+          "tickable": true,
+          "memory_item": true,
+          "id": "efct2",
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Power",
+          "response": "full",
+          "tickable": true,
+          "memory_item": true,
+          "id": "efct3",
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Drag",
+          "response": "retract flaps and gear",
+          "tickable": true,
+          "memory_item": true,
+          "id": "efct4",
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Identify",
+          "response": "retard throttle on suspected engine",
+          "tickable": true,
+          "memory_item": true,
+          "id": "efct5",
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Feather",
+          "response": "propeller on failed engine",
+          "tickable": true,
+          "memory_item": true,
+          "id": "efct6",
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Mixture",
+          "response": "ico on failed engine",
+          "tickable": true,
+          "memory_item": true,
+          "id": "efct7",
+          "source_confidence": 0.7
+        },
+        {
+          "type": "action",
+          "text": "Climb",
+          "response": "at best S/E climb speed",
+          "tickable": true,
+          "memory_item": true,
+          "id": "efct8",
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Trim",
+          "response": "rudder, elevator, ailerons",
+          "tickable": true,
+          "memory_item": true,
+          "id": "efct9",
+          "source_confidence": 0.95
+        },
+        {
+          "type": "reference",
+          "text": "Complete Failed Engine Shutdown Checklist",
+          "tickable": false,
+          "reference": {
+            "section_id": "failed-engine-shutdown-checklist"
+          },
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "id": "engine-failure-cruise",
+      "phase": "engine_failure_in_flight",
+      "title": "Engine Failure ..Cruise",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "Control",
+          "response": "Adverse yaw and roll",
+          "tickable": true,
+          "memory_item": true,
+          "id": "efc1",
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Attitude",
+          "response": "altitude... (airspeed above Vyse)",
+          "tickable": true,
+          "memory_item": true,
+          "id": "efc2",
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Power",
+          "response": "to climb power",
+          "tickable": true,
+          "memory_item": true,
+          "id": "efc3",
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Drag",
+          "response": "confirm flaps and gear retracted",
+          "tickable": true,
+          "memory_item": true,
+          "id": "efc4",
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Identify",
+          "response": "retard throttle on suspected engine",
+          "tickable": true,
+          "memory_item": true,
+          "id": "efc5",
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Check for Fire",
+          "response": "if no fire",
+          "tickable": true,
+          "memory_item": true,
+          "id": "efc6",
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Cause",
+          "response": "check fuel pressure",
+          "tickable": true,
+          "memory_item": true,
+          "id": "efc7",
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Boost pumps",
+          "response": "on",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "Check fuel quantity",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Switch fuel tank",
+          "response": "as req=d",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Alternate air",
+          "response": "both on",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Magnetos",
+          "response": "on",
+          "tickable": true,
+          "indent": 1,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Test",
+          "response": "advance throttle on affected engine.",
+          "tickable": true,
+          "memory_item": true,
+          "id": "efc8",
+          "source_confidence": 0.95
+        },
+        {
+          "type": "subtitle",
+          "text": "If engine does not re-start --- 9 to 10",
+          "tickable": false,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Feather",
+          "response": "prop control to feather detent",
+          "tickable": true,
+          "memory_item": true,
+          "id": "efc9",
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Mixture",
+          "response": "Idle cut-off",
+          "tickable": true,
+          "memory_item": true,
+          "id": "efc10",
+          "source_confidence": 0.95
+        },
+        {
+          "type": "reference",
+          "text": "Complete Failed Engine Shutdown Checklist",
+          "tickable": false,
+          "reference": {
+            "section_id": "failed-engine-shutdown-checklist"
+          },
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "id": "failed-engine-shutdown-checklist",
+      "phase": "engine_failure_in_flight",
+      "title": "Failed Engine Shutdown Checklist",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "closed on failed engine",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Prop control",
+          "response": "feather detent",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Mixture control",
+          "response": "idle cut-off",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Drag",
+          "response": "confirm flaps and gear as req=d",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Cowl flap",
+          "response": "closed",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Boost pump",
+          "response": "off",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Magnetos",
+          "response": "off (one at a time)",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Alternator",
+          "response": "off",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Fuel selector",
+          "response": "off",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "Reduce electrical load",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "Monitor condition of remaining engine",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "Declare an emergency",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "Land at nearest suitable aerodrome",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "id": "precautionary-engine-shutdown",
+      "phase": "engine_failure_in_flight",
+      "title": "Precautionary Engine Shutdown",
+      "criticality": "abnormal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "closed on failed engine",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Prop control",
+          "response": "feather detent",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Mixture control",
+          "response": "idle cut-off",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Drag",
+          "response": "confirm flaps and gear as req=d",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Cowl flap",
+          "response": "closed",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Boost pump",
+          "response": "off",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Magnetos",
+          "response": "off (one at a time)",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Alternator",
+          "response": "off",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Fuel selector",
+          "response": "off",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "Reduce electrical load",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "Monitor condition of remaining engine",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "Declare an emergency",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "Land at the nearest suitable aerodrome",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "id": "engine-restart-in-flight",
+      "phase": "engine_restart_in_flight",
+      "title": "Engine Restart In Flight",
+      "criticality": "abnormal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Fuel Selector",
+          "response": "on main or aux.",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Magnetos",
+          "response": "on",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Boost pump",
+          "response": "on",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Mixture control",
+          "response": "idle cut-off",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "open 2 inch",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Propeller control",
+          "response": "move into governing range",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "Once engine is wind-milling, advance mixture to the full rich position.",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Warm up engine",
+          "response": "at 2000 RPM and 15\" MAP",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Alternator",
+          "response": "on",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "All cockpit switches and controls",
+          "response": "normal.",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "id": "engine-fire-on-start-up",
+      "phase": "engine_fire_ground",
+      "title": "Engine Fire on Start-up",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "Mixture",
+          "response": "idle cut-off",
+          "tickable": true,
+          "memory_item": true,
+          "id": "efs1",
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "full open",
+          "tickable": true,
+          "memory_item": true,
+          "id": "efs2",
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Cranking",
+          "response": "continue",
+          "tickable": true,
+          "memory_item": true,
+          "id": "efs3",
+          "source_confidence": 0.95
+        },
+        {
+          "type": "subtitle",
+          "text": "If fire continues longer than a few seconds",
+          "tickable": false,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Fuel selectors",
+          "response": "both off",
+          "tickable": true,
+          "memory_item": true,
+          "id": "efs4",
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Mixture controls",
+          "response": "both idle cut-off",
+          "tickable": true,
+          "memory_item": true,
+          "id": "efs5",
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Switches",
+          "response": "off",
+          "tickable": true,
+          "memory_item": true,
+          "id": "efs6",
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "Evacuate the aircraft",
+          "tickable": true,
+          "memory_item": true,
+          "id": "efs7",
+          "source_confidence": 0.95
+        },
+        {
+          "type": "note",
+          "text": "Extinguish the fire with ground equipment if practical.",
+          "tickable": false,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "id": "engine-fire-in-flight",
+      "phase": "engine_fire_in_flight",
+      "title": "Engine Fire in Flight",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "Fuel selector",
+          "response": "off",
+          "tickable": true,
+          "memory_item": true,
+          "id": "efif1",
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Mixture",
+          "response": "idle cut-off",
+          "tickable": true,
+          "memory_item": true,
+          "id": "efif2",
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Propeller",
+          "response": "feather",
+          "tickable": true,
+          "memory_item": true,
+          "id": "efif3",
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Boost pump",
+          "response": "off",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Magneto switch",
+          "response": "off",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Alternator",
+          "response": "off",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "note",
+          "text": "If fire continues, consider increasing airspeed in an attempt to extinguish it.",
+          "tickable": false,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "Declare an emergency and indicate intentions.",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "Expedite your approach to the nearest suitable landing area.",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "id": "cabin-fire",
+      "phase": "cabin_fire",
+      "title": "Cabin Fire",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "Vents",
+          "response": "close",
+          "tickable": true,
+          "memory_item": true,
+          "id": "cf1",
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Extinguisher",
+          "response": "activate if necessary.",
+          "tickable": true,
+          "memory_item": true,
+          "id": "cf2",
+          "source_confidence": 0.95
+        },
+        {
+          "type": "note",
+          "text": "(Get assistance from passengers if needed).",
+          "tickable": false,
+          "indent": 1,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Ventilate",
+          "response": "the cabin",
+          "tickable": true,
+          "memory_item": true,
+          "id": "cf3",
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Land",
+          "response": "as soon as practicable.",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "Inspect for damage.",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "id": "landing-gear-manual-extension",
+      "phase": "landing_gear_malfunction",
+      "title": "Landing Gear Manual Extension",
+      "criticality": "abnormal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Reduce speed",
+          "response": "to 120 KIAS or less",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Landing gear motor circuit breaker",
+          "response": "pulled",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Landing gear selector",
+          "response": "down",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "Engage the hand- crank and turn counter-clockwise as far as possible (approx. 50 turns).",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "Check mechanical indicator to ascertain that the gear is down.",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "If electrical system is operative, check gear position light and warning horn.",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "Disengage hand-crank.",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    }
+  ]
+}

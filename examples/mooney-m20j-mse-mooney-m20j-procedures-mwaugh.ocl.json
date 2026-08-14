@@ -1,0 +1,816 @@
+{
+  "open_checklist_version": "1.0",
+  "id": "mooney-m20j-mse-mooney-m20j-procedures-mwaugh",
+  "title": "Mooney M20J_MSE — mooney_m20j_procedures_mwaugh",
+  "aircraft": {
+    "make": "Mooney",
+    "model": "M20J_MSE",
+    "category": "standard_normal"
+  },
+  "provenance": {
+    "source": {
+      "kind": "third_party_checklist",
+      "title": "Mooney/M20J_MSE/mooney_m20j_procedures_mwaugh.txt"
+    },
+    "transcription": {
+      "method": "format_conversion",
+      "date": "2026-08-13",
+      "converted_from": "doc"
+    },
+    "contributors": [
+      {
+        "name": "Open Checklists project",
+        "role": [
+          "transcriber"
+        ]
+      }
+    ],
+    "revision": {
+      "file_revision": "0.1.0",
+      "updated": "2026-08-13"
+    }
+  },
+  "verification": {
+    "source_fidelity": "unreviewed",
+    "operational_review": "none",
+    "completeness": "full",
+    "known_issues": [],
+    "reviews": [
+      {
+        "type": "source_comparison",
+        "reviewer": "ai-dual-pass-review",
+        "date": "2026-08-14",
+        "notes": "Automated AI review: two independent transcription passes + numeric/item-count disagreement resolution. Not human-verified; baseline for community correction."
+      }
+    ]
+  },
+  "rights": {
+    "status": "licensed",
+    "upstream_holder": "freechecklists.net",
+    "upstream_license": "content-reuse permission granted by the site author for this replacement project",
+    "notes": "Transcribed from the freechecklists.net archive under the author's reuse grant. Individual checklist wording may be substantially the source's; per-file contributor authorship is unknown."
+  },
+  "units": {
+    "airspeed": "kt",
+    "altitude": "ft",
+    "pressure": "inhg"
+  },
+  "speeds": {
+    "vr": 62,
+    "vlof": 70,
+    "vx": 66,
+    "vy": 85
+  },
+  "sections": [
+    {
+      "phase": "takeoff",
+      "title": "TAKEOFF",
+      "items": [
+        {
+          "type": "subtitle",
+          "text": "Normal Takeoff – FLAPS 15°",
+          "tickable": false,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Full Power",
+          "response": "SET",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Rotate VR 62K – Takeoff VLOF 70K",
+          "response": "ROTATE",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Climb VY 85K",
+          "response": "CLIMB",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "No Runway – Positive Rate – GEAR UP",
+          "response": "GEAR UP",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "500' AGL – 105K",
+          "response": "105K",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "500' AGL – 25\" / 2500 RPM – Takeoff Checklist",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "1000' AGL – Takeoff/Climb Checklist",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "subtitle",
+          "text": "Maximum Performace Takeoff – FLAPS 15°",
+          "tickable": false,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Hold Brakes",
+          "response": "HOLD",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Full Power",
+          "response": "SET",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Release Brakes",
+          "response": "RELEASE",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Rotate VR 62K – VLOF 66K",
+          "response": "ROTATE",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Climb VX 66K to 50'",
+          "response": "CLIMB",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Climb VY 85K",
+          "response": "CLIMB",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "No Runway – Positive Rate – GEAR UP",
+          "response": "GEAR UP",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "500' AGL – 105K",
+          "response": "105K",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "500' AGL – 25\" / 2500 RPM – Takeoff Checklist",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "1000' AGL – Takeoff/Climb Checklist",
+          "tickable": true,
+          "source_confidence": 0.9
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "approach",
+      "title": "APPROACH",
+      "items": [
+        {
+          "type": "subtitle",
+          "text": "Normal Approach",
+          "tickable": false,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "Approach Checklist",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Downwind 105K (15\")",
+          "response": "105K (15\")",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "GEAR DOWN / FLAPS 30°",
+          "response": "GEAR DOWN / FLAPS 30°",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Descend – 80K – 2000 RPM",
+          "response": "80K – 2000 RPM",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "“GEAR DOWN – CHECKLIST”",
+          "response": "CALLED",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Base – “GUMPFF”",
+          "response": "CALLED",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "400' AGL – “GEAR DOWN STABILIZED”",
+          "response": "CALLED",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Short Final – Power to IDLE – 71K",
+          "response": "POWER IDLE – 71K",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Touchdown 71K",
+          "response": "71K",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "subtitle",
+          "text": "Maximum Performance Approach",
+          "tickable": false,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "As Normal Approach",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "approach",
+      "title": "INSTRUMENT APPROACHES",
+      "items": [
+        {
+          "type": "subtitle",
+          "text": "ILS Approach",
+          "tickable": false,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "Approach Checklist",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "105K to Intercept (15\")",
+          "response": "105K (15\")",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "G/S Int. – GEAR DOWN",
+          "response": "GEAR DOWN",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "G/S Intercept – “NO FLAGS”",
+          "response": "CALLED",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "G/S Descent - 90K (15\")",
+          "response": "90K (15\")",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "“GEAR DOWN – CHECKLIST”",
+          "response": "CALLED",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "1000' AGL “GUMPFF”",
+          "response": "CALLED",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "400' AGL “GEAR DOWN – STABILIZED”",
+          "response": "CALLED",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "100' ABOVE MINS “100 TO GO”",
+          "response": "CALLED",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "“LANDING” – FLAPS 30°",
+          "response": "FLAPS 30°",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Short Final – POWER IDLE – 71K",
+          "response": "POWER IDLE – 71K",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Touchdown 71K",
+          "response": "71K",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "subtitle",
+          "text": "Non-Precision Approach",
+          "tickable": false,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "Approach Checklist",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "105K Procedure Turn (15\")",
+          "response": "105K (15\")",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "2E – 2Miles FAF GEAR DOWN",
+          "response": "GEAR DOWN",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "FAF – “NO FLAGS”",
+          "response": "CALLED",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "FAF Descent – 90K (15\")",
+          "response": "90K (15\")",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "“GEAR DOWN – CHECKLIST”",
+          "response": "CALLED",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "1000' AGL “GUMPFF”",
+          "response": "CALLED",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "100' ABOVE MINS “100 TO GO”",
+          "response": "CALLED",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "MDA – Level (18\")",
+          "response": "LEVEL (18\")",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Leaving MDA – FLAPS 30°",
+          "response": "FLAPS 30°",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "400' AGL “GEAR DOWN – STABILIZED”",
+          "response": "CALLED",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Short Final – POWER IDLE – 71K",
+          "response": "POWER IDLE – 71K",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Touchdown 71K",
+          "response": "71K",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "subtitle",
+          "text": "Circle to Land",
+          "tickable": false,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Turning Final, Leaving MDA – FLAPS 25°",
+          "response": "FLAPS 25°",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Short Final – POWER IDLE – 71K",
+          "response": "POWER IDLE – 71K",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Touchdown 71K",
+          "response": "71K",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "go_around",
+      "title": "MISSED APPROACH",
+      "items": [
+        {
+          "type": "action",
+          "text": "Full Power – PITCH 85K",
+          "response": "FULL POWER – 85K",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FLAPS 15°",
+          "response": "FLAPS 15°",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Positive Rate – GEAR UP",
+          "response": "GEAR UP",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FLAPS 0°",
+          "response": "FLAPS 0°",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "500' AGL – 100K",
+          "response": "100K",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "500' AGL - 25\" / 2500 RPM",
+          "response": "25\" / 2500 RPM",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "1000' AGL - Takeoff/Cruise Checklist",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "HOLDING SPEED 90K",
+          "response": "90K",
+          "tickable": true,
+          "source_confidence": 0.9
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "cruise",
+      "title": "STEEP TURNS",
+      "items": [
+        {
+          "type": "action",
+          "text": "SPEED 120K - 20\" / 2300 RPM",
+          "response": "120K - 20\" / 2300 RPM",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "50° BANK – POWER 23\" - TRIM",
+          "response": "POWER 23\" - TRIM",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "cruise",
+      "title": "STALLS and SLOW FLIGHT",
+      "items": [
+        {
+          "type": "subtitle",
+          "text": "Slow Flight",
+          "tickable": false,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Clearing Turns – 105K (15\")",
+          "response": "105K (15\")",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "GEAR DOWN / FLAPS 30°",
+          "response": "GEAR DOWN / FLAPS 30°",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "GEAR DOWN Checklist",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "LEVEL FLIGHT – 65K",
+          "response": "65K",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "CRUISE POWER",
+          "response": "SET",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "FLAPS 0° / SPEED 85K",
+          "response": "FLAPS 0° / 85K",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Positive Rate – GEAR UP",
+          "response": "GEAR UP",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "SPEED 85K",
+          "response": "85K",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "subtitle",
+          "text": "Stall – Power Off",
+          "tickable": false,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Clearing Turns – 105K (15\")",
+          "response": "105K (15\")",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "GEAR DOWN / FLAPS 30°",
+          "response": "GEAR DOWN / FLAPS 30°",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "GEAR DOWN Checklist",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "DESCENT – 80K",
+          "response": "80K",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "POWER to IDLE – Pitch to BUFFET",
+          "response": "POWER IDLE – BUFFET",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "PITCH DOWN – FULL POWER",
+          "response": "PITCH DOWN – FULL POWER",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Positive Rate – GEAR UP – SPEED 85K",
+          "response": "GEAR UP – 85K",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "FLAPS 0° / SPEED 85K",
+          "response": "FLAPS 0° / 85K",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "SPEED 85K",
+          "response": "85K",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "subtitle",
+          "text": "Stall – Power On",
+          "tickable": false,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Clearing Turns – 105K (15\")",
+          "response": "105K (15\")",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "POWER 13\" / SPEED 70K",
+          "response": "POWER 13\" / 70K",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "POWER 21\" / Pitch to BUFFET",
+          "response": "POWER 21\" / BUFFET",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "PITCH DOWN – FULL POWER",
+          "response": "PITCH DOWN – FULL POWER",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "SPEED 85K",
+          "response": "85K",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "SPEED 85K",
+          "response": "85K",
+          "tickable": true,
+          "source_confidence": 0.9
+        }
+      ],
+      "criticality": "normal"
+    },
+    {
+      "phase": "other",
+      "phase_label": "Configuration Checklist",
+      "title": "CONFIGURATION CHECKLIST",
+      "items": [
+        {
+          "type": "action",
+          "text": "Fuel Selectors – ON",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Cowl Flaps – OPEN",
+          "response": "OPEN",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Mixtures – RICH",
+          "response": "RICH",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Prop – HIGH",
+          "response": "HIGH",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "action",
+          "text": "Fuel Pumps - ON",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ],
+      "criticality": "normal"
+    }
+  ]
+}

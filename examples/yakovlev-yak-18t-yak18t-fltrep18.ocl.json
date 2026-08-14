@@ -1,0 +1,970 @@
+{
+  "open_checklist_version": "1.0",
+  "id": "yakovlev-yak-18t-yak18t-fltrep18",
+  "title": "Yakovlev Yak 18T — yak18t_fltrep18",
+  "aircraft": {
+    "make": "Yakovlev",
+    "model": "Yak 18T",
+    "category": "standard_normal"
+  },
+  "provenance": {
+    "source": {
+      "kind": "third_party_checklist",
+      "title": "Yakovlev/Yak 18T/yak18t_fltrep18.txt"
+    },
+    "transcription": {
+      "method": "format_conversion",
+      "date": "2026-08-14",
+      "converted_from": "doc"
+    },
+    "contributors": [
+      {
+        "name": "Open Checklists project",
+        "role": [
+          "transcriber"
+        ]
+      }
+    ],
+    "revision": {
+      "file_revision": "0.1.0",
+      "updated": "2026-08-14"
+    }
+  },
+  "verification": {
+    "source_fidelity": "unreviewed",
+    "operational_review": "none",
+    "completeness": "full",
+    "known_issues": [
+      {
+        "severity": "content_gap",
+        "description": "Section \"Cruise\" item count differs between passes (5 vs 3); verify nothing was dropped.",
+        "location": "Cruise"
+      },
+      {
+        "severity": "content_gap",
+        "description": "Section \"Landing\" item count differs between passes (2 vs 3); verify nothing was dropped.",
+        "location": "Landing"
+      },
+      {
+        "severity": "content_gap",
+        "description": "Section \"Starting\" item count differs between passes (10 vs 7); verify nothing was dropped.",
+        "location": "Starting"
+      },
+      {
+        "severity": "content_gap",
+        "description": "Section \"Take-off\" item count differs between passes (2 vs 3); verify nothing was dropped.",
+        "location": "Take-off"
+      }
+    ],
+    "reviews": [
+      {
+        "type": "source_comparison",
+        "reviewer": "ai-dual-pass-review",
+        "date": "2026-08-14",
+        "notes": "Automated AI review: two independent transcription passes + numeric/item-count disagreement resolution. Not human-verified; baseline for community correction."
+      }
+    ]
+  },
+  "rights": {
+    "status": "licensed",
+    "upstream_holder": "freechecklists.net",
+    "upstream_license": "content-reuse permission granted by the site author for this replacement project",
+    "notes": "Transcribed from the freechecklists.net archive under the author's reuse grant. Individual checklist wording may be substantially the source's; per-file contributor authorship is unknown."
+  },
+  "units": {
+    "airspeed": "kt",
+    "altitude": "ft",
+    "fuel": "impgal",
+    "weight": "lb"
+  },
+  "speeds": {
+    "vne": 161,
+    "vstall_clean": 64,
+    "vstall_flaps_gear": 55,
+    "vx": 170,
+    "va": 123,
+    "vbg": 110,
+    "vref": 140,
+    "vapp": 150,
+    "vtouchdown": 115,
+    "vclimb": 170,
+    "vliftoff": 130,
+    "vfe": 200
+  },
+  "sections": [
+    {
+      "phase": "reference",
+      "title": "Yak 18T Flight Report — General Description",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "subtitle",
+          "text": "General",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "A four-seat tourer-cum-aerobatic trainer, the 18T was designed by Yuri Yankyevich and first flew in 1967.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "More than a thousand have been produced and delivered, mainly to Eastern Bloc countries. The manufacturing licence was subsequently bought by TechnoAvia in Moscow.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Nine-cylinder supercharged Vedeneyev 360hp M-14P radial engine.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "At 27 1/2 feet long and 36 1/2 feet span, the Yak is nearly four feet longer and a foot wider than a Piper Warrior.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "subtitle",
+          "text": "Construction",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Riveted alloy panels form the main structure. The rudder, double-braced tailplane and elevator are fabric covered.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "The split elevator has an adjustable trim-tab on each side, while the rudder carries only a fixed tab.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "The wing centre-section carries an oil radiator in the starboard wing-root and a large metal single-position plain flap-cum airbrake across its span, plus the inward-retracting main gear legs.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "The battery is mounted on a hinged tray in the port wing-root, released by three Camlock fasteners, and may be dropped down for service.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "External power connector behind a small access door near the port wing-root.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "subtitle",
+          "text": "Wings and Fuel",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "The wing dihedral starts at the break point just outboard of the main undercarriage. The outer wing panels are fabric-covered and can be removed.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "The port wing carries a long barber's-pole-striped pitot tube, the stall warning vane, and a large-diameter landing light. The Frieze ailerons are also fabric-covered, while tie-down rings are provided near each wingtip.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Each wing contains a 95 litre (21 imperial gallon) fuel tank, of which four litres are unusable.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "subtitle",
+          "text": "Undercarriage",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "On each of the three gear legs is a small, forward-facing white light for the benefit of the flight dispatcher to confirm undercarriage down at night.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Three small mechanical plungers protrude — one from the top surface of each wing and one just in front of the windscreen — to act as a belt-and-braces method of checking the undercarriage position.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Main wheels are 5.00 x 500. Long anti-static wicks trail from each main wheel assembly.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "subtitle",
+          "text": "Cockpit and Equipment",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Each door is individually jettisonable via a prominent red handle below the panel. The aircraft can be flown with both doors removed.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "The front seats are fore-and-aft adjustable. Four-point harness is fitted; no central fifth g-strap nor second aerobatic security strap is provided.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "The hinged rudder pedals have leather stirrups but no brake pedals. The pedal assemblies are adjustable.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Rear passengers have a wide bench seat behind which sits a large yellow-painted auxiliary fuel tank holding 95 litres, which drains automatically into the wing-tanks.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "The cockpit trim and rear seat materials are reminiscent of an early 1960s aeroplane.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "The rear side windows boast sliding curtains, also fitted above the two front seats. Two smoked plastic sun visors hinge down from the top of the screens.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "A pull-cord arrangement unrolls a miniature window-blind in front of the pilot's screen to facilitate IMC training.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "A two-speed, self-parking windscreen wiper is fitted, but no washers.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "The panel is dominated centre-stage by a huge electrically-driven and non-toppling artificial horizon.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "A gyro-magnetic compass is adjustable for north or south hemispheres and individual latitudes.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "subtitle",
+          "text": "Fuel System",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "A single fuel gauge with a selector switch shows total litres in both tanks on the outer scale, and the contents of the selected tank on the inner scale.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "The fuel is controlled by a prominent red T-handle on the panel left of the quadrant. Push for On, pull for Off.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "subtitle",
+          "text": "Electrical System",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "A combined single ammeter/voltmeter is fitted; press its switch for amps, release for volts.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "subtitle",
+          "text": "Controls",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Each yoke sports two PTT buttons; the left-hand one opens the air-ground transmission circuit, the right-hand one activates the cockpit intercom.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "The pneumatically-operated brakes work through a pull-handle on the back of each yoke. The P2 position has an override button to allow the instructor to release the brakes.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "The park brake is a small button under the yoke; pull the lever and press the button.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "No nose-wheel steering: to turn on the ground, press the appropriate rudder pedal and squeeze the brake lever.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "The pitch trimmer is a small handle on the left-hand cockpit wall, low-geared taking five turns from full aft to full nose-down trim. A light indicates neutral trim.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "subtitle",
+          "text": "Annunciation and Warning Lights",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Annunciation lights show Fuel low and Gen. fail. Two red lights flash Slow and Stall as the aircraft approaches stalling speed.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "subtitle",
+          "text": "Undercarriage and Flap Controls",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "The undercarriage lever is set low down on the left-hand end of the panel, pressed firmly before operation, with a slide-across safety bar.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "The two-position (Up and Down) flap lever is on the central quadrant with the cowl gills control, carb heat, oil cooler selector and throttle friction lever.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "The prop lever actuates a microswitch which, at anything less than full throttle in fully fine setting, illuminates the landing gear warning light.",
+          "tickable": false,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "engine_start",
+      "title": "Starting",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "note",
+          "text": "The big radial requires to be thoroughly warm before flight.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "For really cold climates the engine oil can be diluted by a button next to the starter, feeding neat petrol into the sump, up to twelve per cent dilution.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Primer",
+          "response": "SEVERAL PUMPS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Primer selection",
+          "response": "LINE OR CYLINDER",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Starter button outer ring",
+          "response": "UNLOCK — TURN UNTIL TWO RED DOTS ALIGNED",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Master switch and almost all the double row of switches",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Starter",
+          "response": "PRESS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "After two or three blades have passed the vertical, magneto switch",
+          "response": "TURN ANTICLOCKWISE TO 1+2",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Throttle (to get all nine cylinders on line)",
+          "response": "JUDICIOUSLY PUMP",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Engine idle",
+          "response": "AROUND 30 PER CENT",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "taxi",
+      "title": "Taxying",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "note",
+          "text": "Taxying requires a degree of initial concentration, at least until the braking system is mastered for turning.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "No nose-wheel steering: to initiate a turn requires differential braking by pressing the appropriate rudder pedal, then squeezing the brake lever.",
+          "tickable": false,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "before_takeoff",
+      "title": "Pre-flight Run-up",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "note",
+          "text": "The pre-flight run-up only differs slightly from that of a Lycoming or Continental.",
+          "tickable": false,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "takeoff",
+      "title": "Take-off",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Initial pitch-up overcome by",
+          "response": "FIRM PUSH FORWARD IMMEDIATELY AFTER LIFT-OFF",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Lift-off speed",
+          "response": "130 kph",
+          "tickable": true,
+          "source_confidence": 0.5
+        }
+      ]
+    },
+    {
+      "phase": "climb",
+      "title": "Climb",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Best climb speed",
+          "response": "170 kph",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Rudder",
+          "response": "CONSIDERABLE BOOT REQUIRED AGAINST TORQUE AND P-FACTOR",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "cruise",
+      "title": "Cruise",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Cruise setting",
+          "response": "59 PER CENT CRANKSHAFT SPEED",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Manifold pressure",
+          "response": "6 ON DIAL (600mm OF MERCURY)",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "note",
+          "text": "Fly at almost equal settings on the two gauges, e.g. 80/80, 60/6. Throttle and prop levers are well-matched and can be treated almost as one.",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "note",
+          "text": "At 6,000 feet the 59 per cent setting produces 150hp and fuel consumption of eleven gallons an hour at 205kph (110 knots).",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "The M14 radial has a rather irritating harmonic in cruise; both prop and throttle levers vibrate sufficiently to blur their handles.",
+          "tickable": false,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "reference",
+      "title": "Aerobatics and Handling",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "note",
+          "text": "Ailerons and elevator are light and responsive, though the rudder is heavier. Full aileron requires only about forty degrees deflection either way.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "The test aircraft had no inverted oil system, so no negative manoeuvres were permitted. An inverted oil system is an option.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "G limits are +6.4/-3.2g.",
+          "tickable": false,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "reference",
+      "title": "Stall and Spin",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Stall speed (depending on all-up weight and power settings)",
+          "response": "100 kph (54 kt) TO 123 kph (65 kt)",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "The stall is signalled by a horn, flashing lights and a pre-stall buffet. Roll authority remains present throughout.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "The Yak is cleared for spinning; a three-turn spin and recovery consumes about 2,300 feet loss of height.",
+          "tickable": false,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "approach",
+      "title": "Circuit and Approach",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Gear and flap extension",
+          "response": "BELOW 200 kph",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Approach speed",
+          "response": "150 kph",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Trim (with two occupants)",
+          "response": "FULL AFT",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Threshold speed",
+          "response": "140 kph",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Touch-down speed",
+          "response": "AROUND 115 kph",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "In the last stages of final approach and flare, the airfield disappears under the nose; look peripherally to judge height and keep directionally straight.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "There is little float; touchdown occurs about six inches before one expects it. Unless the yoke is right back at contact, the nose-wheel drops with a thump.",
+          "tickable": false,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "go_around",
+      "title": "Touch-and-go / Balked Landing",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Aft trim",
+          "response": "UNWIND RAPIDLY TO NEUTRAL",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Prop and throttle",
+          "response": "PUSH FIRMLY FORWARD",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Flaps",
+          "response": "UP",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Undercarriage",
+          "response": "RETRACT",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Shoulder harness (before going round)",
+          "response": "UNLOCK",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Pitch-up is accentuated if flaps are still down or trim hasn't reached neutral by lift-off.",
+          "tickable": false,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "landing",
+      "title": "Landing",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Brakes",
+          "response": "MUST NOT BE USED OVER 110 kph",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "note",
+          "text": "Deceleration after landing is noticeable, even without brakes.",
+          "tickable": false,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "reference",
+      "title": "Dimensions",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Length",
+          "response": "27 ft 6 in",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Height",
+          "response": "11 ft 2 in",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Wing span",
+          "response": "36 ft 7 in",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Wing area",
+          "response": "202.36 sq ft",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "weight_and_balance",
+      "title": "Weights and Loadings",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Max AUW (utility)",
+          "response": "3,637 lb",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Max AUW (aerobatic)",
+          "response": "3,307 lb",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Empty weight",
+          "response": "2,683 lb",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Useful load (utility)",
+          "response": "954 lb",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Useful load (aerobatic)",
+          "response": "624 lb",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Fuel capacity (as tested)",
+          "response": "62.7 imp gall",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "Wing loading (utility)",
+          "response": "17.97 lb/sq ft",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Wing loading (aerobatic)",
+          "response": "16.34 lb/sq ft",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Power loading (utility)",
+          "response": "10.10 lb/hp",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Power loading (aerobatic)",
+          "response": "9.18 lb/hp",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "performance",
+      "title": "Performance",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Cruise at 59% crank speed",
+          "response": "110 kt",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Max speed in level flight",
+          "response": "156 kt",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Vne",
+          "response": "161 kt",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Stall (clean)",
+          "response": "64 kt",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Stall (with flaps and gear)",
+          "response": "55 kt",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Take-off roll (firm grass)",
+          "response": "370 m",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Landing roll (firm grass)",
+          "response": "390 m",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Take-off (firm grass, to 50 ft)",
+          "response": "690 m",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Landing (firm grass, from 50 ft)",
+          "response": "790 m",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Range (as tested, with reserves)",
+          "response": "485 nm",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Rate of climb at s/l",
+          "response": "1,082 ft/min",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Service ceiling",
+          "response": "18,000 ft",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "reference",
+      "title": "Engine and Propeller",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Engine",
+          "response": "Vedeneyev M-14P supercharged single-row air-cooled nine-cylinder radial, 360 hp at 99 per cent crankshaft speed (2,900 rpm)",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Propeller",
+          "response": "B530TA-A35 constant speed, two-bladed, wood, 94.5 inches diameter",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    }
+  ]
+}

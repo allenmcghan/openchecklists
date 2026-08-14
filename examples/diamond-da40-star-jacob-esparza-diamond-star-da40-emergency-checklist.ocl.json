@@ -1,0 +1,1825 @@
+{
+  "open_checklist_version": "1.0",
+  "id": "diamond-da40-star-jacob-esparza-diamond-star-da40-emergency-checklist",
+  "title": "Diamond DA40 Star — Jacob_Esparza_Diamond_Star_DA40_Emergency_Checklist",
+  "aircraft": {
+    "make": "Diamond",
+    "model": "DA40 Star",
+    "category": "standard_normal"
+  },
+  "provenance": {
+    "source": {
+      "kind": "third_party_checklist",
+      "title": "Diamond/DA40 Star/Jacob_Esparza_Diamond_Star_DA40_Emergency_Checklist.txt"
+    },
+    "transcription": {
+      "method": "format_conversion",
+      "date": "2026-08-13",
+      "converted_from": "doc"
+    },
+    "contributors": [
+      {
+        "name": "Open Checklists project",
+        "role": [
+          "transcriber"
+        ]
+      }
+    ],
+    "revision": {
+      "file_revision": "0.1.0",
+      "updated": "2026-08-13"
+    }
+  },
+  "verification": {
+    "source_fidelity": "unreviewed",
+    "operational_review": "none",
+    "completeness": "full",
+    "known_issues": [
+      {
+        "severity": "content_gap",
+        "description": "Section \"Engine Problems in Flight\" item count differs between passes (5 vs 14); verify nothing was dropped.",
+        "location": "Engine Problems in Flight"
+      },
+      {
+        "severity": "content_gap",
+        "description": "Section \"Landing with Blown Tire\" item count differs between passes (5 vs 6); verify nothing was dropped.",
+        "location": "Landing with Blown Tire"
+      },
+      {
+        "severity": "content_gap",
+        "description": "Section \"Loss In Oil Pressure\" item count differs between passes (11 vs 16); verify nothing was dropped.",
+        "location": "Loss In Oil Pressure"
+      },
+      {
+        "severity": "content_gap",
+        "description": "Section \"Stationary Prop Restart\" item count differs between passes (15 vs 16); verify nothing was dropped.",
+        "location": "Stationary Prop Restart"
+      }
+    ],
+    "reviews": [
+      {
+        "type": "source_comparison",
+        "reviewer": "ai-dual-pass-review",
+        "date": "2026-08-14",
+        "notes": "Automated AI review: two independent transcription passes + numeric/item-count disagreement resolution. Not human-verified; baseline for community correction."
+      }
+    ]
+  },
+  "rights": {
+    "status": "licensed",
+    "upstream_holder": "freechecklists.net",
+    "upstream_license": "content-reuse permission granted by the site author for this replacement project",
+    "notes": "Transcribed from the freechecklists.net archive under the author's reuse grant. Individual checklist wording may be substantially the source's; per-file contributor authorship is unknown."
+  },
+  "units": {
+    "airspeed": "kt",
+    "altitude": "ft"
+  },
+  "speeds": {
+    "vglide": 70
+  },
+  "sections": [
+    {
+      "phase": "other",
+      "phase_label": "Emergency",
+      "title": "Engine Problems on Ground",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "Throttle",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "Brakes",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "Engine",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "note",
+          "text": "If oil pressure below green sector, turn engine off",
+          "tickable": false,
+          "source_confidence": 0.9
+        }
+      ]
+    },
+    {
+      "phase": "other",
+      "phase_label": "Emergency",
+      "title": "Engine Problems on Take Off (T/O CAN be aborted)",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "Throttle",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "Brakes",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "subtitle",
+          "text": "If Time Allows",
+          "tickable": false,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "Fuel Tank Selector",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "Mixture",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "Ignition",
+          "tickable": true,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "challenge",
+          "text": "Master Switch",
+          "tickable": true,
+          "source_confidence": 0.95
+        }
+      ]
+    },
+    {
+      "phase": "other",
+      "phase_label": "Emergency",
+      "title": "Engine Problems on Take Off (T/O Cannot be aborted)",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "1. Land Straight Ahead",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "2. Airspeed",
+          "response": "70 kts",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "subtitle",
+          "text": "If Time Allows",
+          "tickable": false,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "3. Fuel Tank Selector",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "4. Fuel Pump",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "5. Ignition",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "6. Throttle",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "7. Prop",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "8. Mixture",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "9. Alternate Engine Air",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "subtitle",
+          "text": "If No Engine Re-start",
+          "tickable": false,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "10. Emergency Landing",
+          "tickable": true,
+          "source_confidence": 0.5
+        }
+      ]
+    },
+    {
+      "phase": "other",
+      "phase_label": "Emergency",
+      "title": "Engine Problems in Flight",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "1. Landing Spot",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "2. Airspeed",
+          "response": "Vglide",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "3. Fuel Pump",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "4. Fuel Tank Selector",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "5. Engine Instruments",
+          "tickable": true,
+          "source_confidence": 0.5
+        }
+      ]
+    },
+    {
+      "phase": "other",
+      "phase_label": "Emergency",
+      "title": "Engine Problems in Flight (cont)",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "6. Throttle",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "7. Prop",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "8. Mixture",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "9. Alternate Engine Air",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "10. Ignition",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "11. Throttle/RPM/Mixture",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "subtitle",
+          "text": "If No Engine Re-Start",
+          "tickable": false,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "12. Emergency Landing",
+          "tickable": true,
+          "source_confidence": 0.9
+        }
+      ]
+    },
+    {
+      "phase": "other",
+      "phase_label": "Emergency",
+      "title": "Windmilling Prop Restart",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "1. Airspeed",
+          "response": "80 kts",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "2. Fuel Tank Selector",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "3. Ignition",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "4. Mixture",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "5. Fuel Pump",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "6. Alternate Engine Air",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "subtitle",
+          "text": "If No Engine Re-Start",
+          "tickable": false,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "7. Mixture",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "8. Mixture",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "subtitle",
+          "text": "If Engine Still Fails to Start",
+          "tickable": false,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "9. Airspeed",
+          "response": "Vglide",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "10. Landing Spot",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "11. Emergency Landing",
+          "tickable": true,
+          "source_confidence": 0.5
+        }
+      ]
+    },
+    {
+      "phase": "other",
+      "phase_label": "Emergency",
+      "title": "Stationary Prop Restart",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "1. Airspeed",
+          "response": "80 kts",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "2. Electrical Equipment",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "3. Avionics Master",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "4. Master Switch (BAT)",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "5. Mixture",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "6. Fuel Tanks Selector",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "7. Fuel Pump",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "8. Alternate Engine Air",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "9. Ignition",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "note",
+          "text": "10. Airspeed increase to 130 kts or more causes prop to rotate and engine can be started when ignition set to BOTH.",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "note",
+          "text": "11. If above method used, expect altitude loss of at least 1,000 ft",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "subtitle",
+          "text": "If No Engine Re-Start",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "12. Airspeed",
+          "response": "Vglide",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "13. Landing Spot",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "14. Emergency Landing",
+          "tickable": true,
+          "source_confidence": 0.5
+        }
+      ]
+    },
+    {
+      "phase": "other",
+      "phase_label": "Emergency",
+      "title": "Defective Mixture Cable/Lever",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "1. Maintain Altitude",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "2. Test Engine at various settings during decent",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "note",
+          "text": "3. Go-around may become impossible with remaining power",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "subtitle",
+          "text": "Engine Shut Down",
+          "tickable": false,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "4. Parking Brake",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "5. Engine Instruments",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "6. Avionics Master",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "7. Electrical Equipment",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "8. Throttle Idle",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "9. Ignition",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "10. Master",
+          "tickable": true,
+          "source_confidence": 0.5
+        }
+      ]
+    },
+    {
+      "phase": "other",
+      "phase_label": "Emergency",
+      "title": "Defective Throttle Cable/Lever",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "subtitle",
+          "text": "If Sufficient Power Available",
+          "tickable": false,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "1. Approach nearest airfield or suitable spot",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "2. Control Power with Prop Lever",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "3. Perform Landing with engine shut off",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "subtitle",
+          "text": "No Sufficient Engine Power",
+          "tickable": false,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "4. Emergency Landing",
+          "tickable": true,
+          "source_confidence": 0.5
+        }
+      ]
+    },
+    {
+      "phase": "other",
+      "phase_label": "Emergency",
+      "title": "Defective RPM Cable/Lever",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "subtitle",
+          "text": "If Sufficient Power Available",
+          "tickable": false,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "1. Approach nearest airfield or suitable spot",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "2. Perform Normal Landing",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "note",
+          "text": "3. Go around may become impossible with remaining power",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "subtitle",
+          "text": "No sufficient Power Available",
+          "tickable": false,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "challenge",
+          "text": "1. Emergency Landing",
+          "tickable": true,
+          "source_confidence": 0.5
+        }
+      ]
+    },
+    {
+      "phase": "other",
+      "phase_label": "Emergency",
+      "title": "Gliding",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "1. Flaps",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "2. Airspeed",
+          "response": "Vglide (70 kts)",
+          "tickable": true,
+          "source_confidence": 0.5
+        }
+      ]
+    },
+    {
+      "phase": "other",
+      "phase_label": "Emergency",
+      "title": "Emergency Landing",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "1. Landing Spot",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "note",
+          "text": "If No Flat Spot Available, land on upward slope",
+          "tickable": false,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "challenge",
+          "text": "2. Wind",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "3. Approach",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "4. Airspeed",
+          "response": "Vglide",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "5. ATC",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "6. Fuel Tanks Selector",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "subtitle",
+          "text": "When Landing is Assured",
+          "tickable": false,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "7. Flaps",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "8. Seat Belts",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "9. Touchdown",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "10. Ignition and Master Switch",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "note",
+          "text": "(If Time Allows)",
+          "tickable": false,
+          "source_confidence": 0.7
+        }
+      ]
+    },
+    {
+      "phase": "other",
+      "phase_label": "Emergency",
+      "title": "Icing",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "1. Leave Icing Area find area with higher temps",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "2. Pitot Heat",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "3. Cabin Heat",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "4. Air Distributor Lever",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "5. Prop/RPM",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "note",
+          "text": "RPM May be operated at 2700RPM w/o limit",
+          "tickable": false,
+          "source_confidence": 0.8
+        },
+        {
+          "type": "challenge",
+          "text": "6. Alternate Engine Air",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "7. Emergency Windows",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "8. ATC",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "subtitle",
+          "text": "If Pitot Heat Fails",
+          "tickable": false,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "challenge",
+          "text": "9. Alternate Static Air",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "10. Windows and Vents",
+          "tickable": true,
+          "source_confidence": 0.5
+        }
+      ]
+    },
+    {
+      "phase": "other",
+      "phase_label": "Emergency",
+      "title": "Complete Electrical System Failure",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "1. Circuit Breakers",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "2. Use Flood Light to Illuminate Cockpit",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "3. Set Power Based on Engine Noise",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "4. Prepare landing with flaps where they are",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "5. Land On Nearest Suitable field/airport",
+          "tickable": true,
+          "source_confidence": 0.5
+        }
+      ]
+    },
+    {
+      "phase": "other",
+      "phase_label": "Emergency",
+      "title": "Alternator Failure",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "note",
+          "text": "1. Indicated by Annunciator panel and VM1000",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "2. Circuit Breakers",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "subtitle",
+          "text": "If Circuit Breakers Ok",
+          "tickable": false,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "3. Essential Bus",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "4. Voltmeter",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "5. Battery Power Available",
+          "tickable": true,
+          "source_confidence": 0.5
+        }
+      ]
+    },
+    {
+      "phase": "other",
+      "phase_label": "Emergency",
+      "title": "Functional Items with Essential Bus On",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "1. Nav/Com 1",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "2. Transponder",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "3. Flood Light",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "4. Artificial Horizon",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "5. VM 1000 Engine Monitoring",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "6. Annunciator Panel",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "7. GPS",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "8. Landing Light",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "9. Pitot Heat",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "10. Flaps",
+          "tickable": true,
+          "source_confidence": 0.5
+        }
+      ]
+    },
+    {
+      "phase": "other",
+      "phase_label": "Emergency",
+      "title": "Squawk Codes and Freqs",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "action",
+          "text": "1. General Emergency",
+          "response": "7700",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "2. Radio Failure",
+          "response": "7600",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "3. Hijacking",
+          "response": "7500",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "4. On guard freq",
+          "response": "121.50",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "5. Flight Watch",
+          "response": "122.00",
+          "tickable": true,
+          "source_confidence": 0.5
+        }
+      ]
+    },
+    {
+      "phase": "other",
+      "phase_label": "Emergency",
+      "title": "Smoke and Fire on the Ground / Engine Fire When Starting on the Ground",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "1. Fuel Tank Selector",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "2. Cabin Heat",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "3. Brakes",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "subtitle",
+          "text": "After Standstill",
+          "tickable": false,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "4. Throttle",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "5. Master Switch (BAT)",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "subtitle",
+          "text": "When Engine has Stopped",
+          "tickable": false,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "6. Ignition",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "7. Canopy",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "8. Aircraft",
+          "tickable": true,
+          "source_confidence": 0.5
+        }
+      ]
+    },
+    {
+      "phase": "other",
+      "phase_label": "Emergency",
+      "title": "Electrical Fire With Smoke On Ground",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "1. Master Switch (BAT)",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "subtitle",
+          "text": "If Engine Running",
+          "tickable": false,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "2. Throttle",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "3. Mixture",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "subtitle",
+          "text": "When Engine has Stopped",
+          "tickable": false,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "4. Ignition",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "5. Canopy",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "6. Aircraft",
+          "tickable": true,
+          "source_confidence": 0.5
+        }
+      ]
+    },
+    {
+      "phase": "other",
+      "phase_label": "Emergency",
+      "title": "Smoke and Fire During Takeoff / Takeoff CAN Be Abandoned",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "1. Throttle",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "2. Cabin Heat",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "3. Brakes",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "4. After Stop",
+          "tickable": true,
+          "source_confidence": 0.85
+        }
+      ]
+    },
+    {
+      "phase": "other",
+      "phase_label": "Emergency",
+      "title": "Takeoff CAN NOT Be Abandoned",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "1. Cabin Heat",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "2. Airspeed",
+          "response": "Vglide (70 kts)",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "3. If insufficient altitude",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "challenge",
+          "text": "4. Canopy",
+          "tickable": true,
+          "source_confidence": 0.85
+        }
+      ]
+    },
+    {
+      "phase": "other",
+      "phase_label": "Emergency",
+      "title": "Takeoff CAN NOT Be Abandoned (cont)",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "subtitle",
+          "text": "At a Safe Altitude",
+          "tickable": false,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "5. Fuel Tank Selector",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "6. Fuel Pump",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "7. Cabin Heat",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "8. Master Switch (BAT)",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "9. Windows",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "challenge",
+          "text": "10. Landing",
+          "tickable": true,
+          "source_confidence": 0.85
+        }
+      ]
+    },
+    {
+      "phase": "other",
+      "phase_label": "Emergency",
+      "title": "Smoke and Fire In Flight / Engine Fire In Flight",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "1. Cabin Heat",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "2. Landing Spot",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "subtitle",
+          "text": "When Landing is Assured",
+          "tickable": false,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "3. Fuel Tank Selector",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "4. Throttle",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "5. Fuel Pump",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "6. Master Switch (BAT)",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "7. Windows",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "8. Landing",
+          "tickable": true,
+          "source_confidence": 0.5
+        }
+      ]
+    },
+    {
+      "phase": "other",
+      "phase_label": "Emergency",
+      "title": "Electrical Fire with Smoke In Flight",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "1. Master Switch (BAT)",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "2. Cabin Heat",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "3. Windows",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "4. Land As Soon as Possible",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "caution",
+          "text": "When BAT master off all electrical and gyro instruments won’t work",
+          "tickable": false,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "note",
+          "text": "If smoke is extreme, canopy can be unlatched to vent cockpit",
+          "tickable": false,
+          "source_confidence": 0.85
+        }
+      ]
+    },
+    {
+      "phase": "other",
+      "phase_label": "Emergency",
+      "title": "Landing with Blown Tire",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "1. ATC",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "note",
+          "text": "2. Land on the side of runway where good tire is located (i.e. Blown right tire, land on left side of runway",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "note",
+          "text": "3. Land with wing low (wing where good tire is)",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "4. Control",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "5. Brakes",
+          "tickable": true,
+          "source_confidence": 0.5
+        }
+      ]
+    },
+    {
+      "phase": "other",
+      "phase_label": "Emergency",
+      "title": "Landing with Defective Brakes",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "1. Fuel Tank Selector",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "2. Mixture",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "3. Ignition",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "4. Master Switch",
+          "tickable": true,
+          "source_confidence": 0.5
+        }
+      ]
+    },
+    {
+      "phase": "other",
+      "phase_label": "Emergency",
+      "title": "Suspicion of Carbon Monoxide",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "1. Cabin Heat",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "2. Ventilation",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "3. Windows",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "4. Canopy",
+          "tickable": true,
+          "source_confidence": 0.5
+        }
+      ]
+    },
+    {
+      "phase": "other",
+      "phase_label": "Emergency",
+      "title": "Overvoltage",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "note",
+          "text": "1. Voltage meter must be at or above 32 volts for overvoltage",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "2. Essential Bus",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "3. Master Switch (ALT)",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "4. Master Switch (BAT)",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "5. Pitot Heat",
+          "tickable": true,
+          "source_confidence": 0.5
+        }
+      ]
+    },
+    {
+      "phase": "other",
+      "phase_label": "Emergency",
+      "title": "Starter Malfunction",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "1. Throttle",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "2. Mixture",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "3. Ignition Switch",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "4. Master Switch",
+          "tickable": true,
+          "source_confidence": 0.5
+        }
+      ]
+    },
+    {
+      "phase": "other",
+      "phase_label": "Emergency",
+      "title": "Loss In Oil Pressure",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "1. Annunciator Panel",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "2. Oil Pressure Gauge",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "3. Oil Temperature",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "note",
+          "text": "If oil pressure below green sector and oil temperature is normal",
+          "tickable": false,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "challenge",
+          "text": "4. Annunciator Panel",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "5. Oil temperature",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "6. CHT temperature",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "note",
+          "text": "If oil pressure below green sector and CHT as well as Oil Temp Rises",
+          "tickable": false,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "challenge",
+          "text": "7. Engine Power",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "8. Land as soon as possible",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "9. Prepare for emergency landing",
+          "tickable": true,
+          "source_confidence": 0.5
+        }
+      ]
+    },
+    {
+      "phase": "other",
+      "phase_label": "Emergency",
+      "title": "Loss In Oil Pressure (cont)",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "note",
+          "text": "Oil pressure tending to zero, vibration, loss of oil, unusual noise and smoke",
+          "tickable": false,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "challenge",
+          "text": "10. Engine has mechanical failure",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "challenge",
+          "text": "11. Engine",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "challenge",
+          "text": "12. Landing",
+          "tickable": true,
+          "source_confidence": 0.85
+        }
+      ]
+    },
+    {
+      "phase": "other",
+      "phase_label": "Emergency",
+      "title": "High Oil Temperature",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "1. CHT and EGT",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "subtitle",
+          "text": "If Neither CHT or EGT is high",
+          "tickable": false,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "note",
+          "text": "2. Fault in oil temperature sensor, proceed normally and service ASAP.",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "subtitle",
+          "text": "If CHT and EGT is High",
+          "tickable": false,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "challenge",
+          "text": "3. Oil Pressure",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "note",
+          "text": "4. If Oil Pressure Low Refer to Loss in oil pressure checklist",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "subtitle",
+          "text": "If Oil Pressure Normal",
+          "tickable": false,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "challenge",
+          "text": "5. Mixture",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "6. Power",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "note",
+          "text": "7. If no results, land at nearest suitable airport and service",
+          "tickable": false,
+          "source_confidence": 0.5
+        }
+      ]
+    },
+    {
+      "phase": "other",
+      "phase_label": "Emergency",
+      "title": "High CHT",
+      "criticality": "emergency",
+      "items": [
+        {
+          "type": "challenge",
+          "text": "1. Mixture",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "2. Oil Temperature",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "subtitle",
+          "text": "If oil temperature high",
+          "tickable": false,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "challenge",
+          "text": "3. Oil Pressure",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "note",
+          "text": "4. If Oil Pressure Low refer to loss in oil pressure checklist",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "subtitle",
+          "text": "If oil temperature normal",
+          "tickable": false,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "challenge",
+          "text": "5. Power/RPM",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "6. Pitch",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "note",
+          "text": "7. If no improvement land ASAP. Prepare for emergency landing",
+          "tickable": false,
+          "source_confidence": 0.5
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1139 @@
+{
+  "open_checklist_version": "1.0",
+  "id": "liberty-aerospace-xl2-libertyxl2-checklist-version2-dogsaviation",
+  "title": "Liberty Aerospace XL2 — LibertyXL2_Checklist_Version2_dogsaviation",
+  "aircraft": {
+    "make": "Liberty Aerospace",
+    "model": "XL2",
+    "category": "standard_normal"
+  },
+  "provenance": {
+    "source": {
+      "kind": "third_party_checklist",
+      "title": "Liberty Aerospace/XL2/LibertyXL2_Checklist_Version2_dogsaviation.txt"
+    },
+    "transcription": {
+      "method": "format_conversion",
+      "date": "2026-08-13",
+      "converted_from": "doc"
+    },
+    "contributors": [
+      {
+        "name": "Open Checklists project",
+        "role": [
+          "transcriber"
+        ]
+      }
+    ],
+    "revision": {
+      "file_revision": "0.1.0",
+      "updated": "2026-08-13"
+    }
+  },
+  "verification": {
+    "source_fidelity": "unreviewed",
+    "operational_review": "none",
+    "completeness": "full",
+    "known_issues": [],
+    "reviews": [
+      {
+        "type": "source_comparison",
+        "reviewer": "ai-dual-pass-review",
+        "date": "2026-08-14",
+        "notes": "Automated AI review: two independent transcription passes + numeric/item-count disagreement resolution. Not human-verified; baseline for community correction."
+      }
+    ]
+  },
+  "rights": {
+    "status": "licensed",
+    "upstream_holder": "freechecklists.net",
+    "upstream_license": "content-reuse permission granted by the site author for this replacement project",
+    "notes": "Transcribed from the freechecklists.net archive under the author's reuse grant. Individual checklist wording may be substantially the source's; per-file contributor authorship is unknown."
+  },
+  "units": {
+    "airspeed": "kt",
+    "pressure": "inhg"
+  },
+  "speeds": {
+    "vr": 55,
+    "vx": 70,
+    "vy": 80,
+    "best_glide": 80,
+    "va_1653": 100,
+    "va_1450": 94
+  },
+  "sections": [
+    {
+      "phase": "engine_start",
+      "title": "START",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Fuel Selector",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Parking Brake",
+          "response": "SET",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Alternate Air",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Fuel Boost Pump",
+          "response": ".AUTO",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Master Switch (BAT & ALT)",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Annunciator Lights",
+          "response": "TEST/HIGH",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "VM1000",
+          "response": "VOLTS > 11.4v",
+          "tickable": true,
+          "source_confidence": 0.5,
+          "value": {
+            "quantity": "voltage",
+            "unit": "V",
+            "min": 11.4,
+            "comparison": "at_least"
+          }
+        },
+        {
+          "type": "action",
+          "text": "FADEC A & B",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Ignition Key",
+          "response": "(L), boost pump on",
+          "tickable": true,
+          "source_confidence": 0.7
+        },
+        {
+          "type": "action",
+          "text": "HSA",
+          "response": ".TEST/HIGH",
+          "tickable": true,
+          "source_confidence": 0.8
+        },
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "CHECK WOT, ¼”",
+          "tickable": true,
+          "source_confidence": 0.8
+        },
+        {
+          "type": "action",
+          "text": "Ignition Key",
+          "response": "START",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "engine_fire_ground",
+      "title": "ENGINE FIRE DURING START",
+      "criticality": "emergency",
+      "condition": "Engine fire during start",
+      "items": [
+        {
+          "type": "action",
+          "text": "1. Ignition Switch",
+          "response": "START",
+          "tickable": true,
+          "memory_item": true,
+          "id": "engine-fire-start-ignition",
+          "source_confidence": 0.5
+        },
+        {
+          "type": "note",
+          "text": "Continue turning the engine over.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "If Engine Starts:",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "2. Power",
+          "response": ".1700 RPM (2 min.)",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "3. Engine",
+          "response": "SHUT DOWN",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "note",
+          "text": "If Engine does NOT Start:",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "4. Ignition Switch",
+          "response": "START",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "5. Throttle",
+          "response": ".FULL FORWARD",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "6. FADEC A and B PWR Switches",
+          "response": ".OFF",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "7. Fuel Selector Valve",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "8. Cranking",
+          "response": "TERMINATE",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "9. Ignition Switch",
+          "response": ".OFF",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "10. Master Switch",
+          "response": ".OFF",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "11. Airplane",
+          "response": ".EVACUATE",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "12. Fire",
+          "response": ".EXTINGUISH",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "13. Fire Damage",
+          "response": ".INSPECT",
+          "tickable": true,
+          "source_confidence": 0.5
+        }
+      ]
+    },
+    {
+      "phase": "after_start",
+      "title": "AFTER START",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "800-1000RPM",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "VM 1000",
+          "response": ".IN LIMITS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Cockpit Rheostat switches",
+          "response": "SET",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Lights",
+          "response": "AS REQUIRED",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Avionics Master",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Flaps",
+          "response": "0◦",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Transponder",
+          "response": "STBY",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Flight Instruments",
+          "response": ".CHECK/SET",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Comm/Nav Aids",
+          "response": "CHECK/SET",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Fuel Boost Pump",
+          "response": "AS REQUIRED",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "before_takeoff",
+      "title": "RUN-UP",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Fuel Boost Pump",
+          "response": "AUTO",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Fuel Selector",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Parking Brake",
+          "response": "SET",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Canopy Doors",
+          "response": "CLOSED/SECURE",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "1700RPM",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Alternate Air",
+          "response": "CHECK",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Fuel Boost Pump",
+          "response": "ON/OFF/AUTO",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Annunciator Lights",
+          "response": "TEST/HIGH",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "HSA",
+          "response": "TEST/HIGH",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "VM1000",
+          "response": "IN LIMITS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "FADEC Power B",
+          "response": "CHECK",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "FADEC Power A",
+          "response": "CHECK",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Ignition L/R",
+          "response": "DROP 10-150 RPM",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "caution",
+          "text": "FADEC CAUTION",
+          "tickable": false,
+          "source_confidence": 0.7
+        },
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "IDLE",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "before_takeoff",
+      "title": "BEFORE TAKEOFF",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Seatbelts/Harnesses",
+          "response": "FASTENED",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Fuel Quantity",
+          "response": ".VERIFY",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Flight Controls",
+          "response": "FREE /CORRECT",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Flight Instruments",
+          "response": "CHECK/SET",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Nav/Comm",
+          "response": "CHECK/SET",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Flaps",
+          "response": "20°",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Trim",
+          "response": "SET for TAKEOFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Transponder",
+          "response": "ALT",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Parking Brake",
+          "response": "RELEASE",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "after_landing",
+      "title": "AFTER LANDING",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Flaps",
+          "response": "RETRACT",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Transponder",
+          "response": "STANDBY",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Lights",
+          "response": ".AS REQUIRED",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "shutdown",
+      "title": "SHUTDOWN",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Avionics Master",
+          "response": ".OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Ignition Key",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "FADEC A & B",
+          "response": ".OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "All Light Switches",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "All Electrical Switches",
+          "response": ".OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Master Switch",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Parking Brake",
+          "response": ".AS REQUIRED",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "reference",
+      "title": "SPEEDS AND APPROACH",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "note",
+          "text": "Vr :55; Vx: 70 ; Vy: 80; Best Glide: 80",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Approach: Flaps 30: 65-70;",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "      Flaps 20: 70-75; Flaps Up: 80-85",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Va 100 KIAS (1653 lbs) / 94 (1450 lbs)",
+          "tickable": false,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "engine_failure_after_takeoff",
+      "title": "ENGINE FAILURE AFTER TAKEOFF",
+      "criticality": "emergency",
+      "condition": "Engine failure after takeoff",
+      "items": [
+        {
+          "type": "action",
+          "text": "1. Best Glide or Landing Speed (as appropriate)",
+          "response": "ESTABLISH",
+          "tickable": true,
+          "memory_item": true,
+          "id": "engine-fail-after-takeoff-speed",
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "2. Flaps",
+          "response": "AS REQUIRED",
+          "tickable": true,
+          "memory_item": true,
+          "id": "engine-fail-after-takeoff-flaps",
+          "source_confidence": 0.5
+        },
+        {
+          "type": "note",
+          "text": "If time permits:",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "3. Ignition Switch",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "4. FADEC A and B PWR Switches",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "5. Master Switch",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "6. Throttle",
+          "response": "IDLE",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "7. Fuel Selector Valve",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "8. Seat Belts/Shoulder Harness",
+          "response": ".SECURE",
+          "tickable": true,
+          "source_confidence": 0.5
+        }
+      ]
+    },
+    {
+      "phase": "forced_landing",
+      "title": "FORCED LANDING",
+      "criticality": "emergency",
+      "condition": "Forced landing",
+      "items": [
+        {
+          "type": "action",
+          "text": "1. Establish Best Glide Attitude",
+          "response": "80 KIAS",
+          "tickable": true,
+          "memory_item": true,
+          "id": "forced-landing-best-glide",
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "2. Radio",
+          "response": "MAYDAY 121.5 MHz)",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "3. Transponder",
+          "response": ".SQUAWK 7700",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "4. ELT (if off airport)",
+          "response": "ACTIVATE",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "5. Ignition Switch",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "6. FADEC A and B PWR Switches",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "7. Fuel Boost Pump Mode Switch",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "8. Throttle",
+          "response": "IDLE",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "9. Fuel Selector Valve",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "10. Flaps (when field is made)",
+          "response": ". AS REQUIRED or 30°",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "11. Master Switch",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "12. Belts/ Harness",
+          "response": "SECURE",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "warning",
+          "text": "WARNING: Flaps will not operate when Master Switch is off.",
+          "tickable": false,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "engine_failure_in_flight",
+      "title": "ENGINE FAILURE IN FLIGHT",
+      "criticality": "emergency",
+      "condition": "Engine failure in flight",
+      "items": [
+        {
+          "type": "action",
+          "text": "1. Best Glide Attitude",
+          "response": "80 KIAS",
+          "tickable": true,
+          "memory_item": true,
+          "id": "engine-fail-in-flight-glide",
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "2. Fuel Selector Valve",
+          "response": "CHECK ON",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "3. Throttle",
+          "response": "OPEN ¾ INCH",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "4. Fuel Boost Pump",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "5. FADEC A and B PWR Switches",
+          "response": ". RECYCLE SIMULTANIOUSLY",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "6. Ignition Switch",
+          "response": "CHECK BOTH",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "7. Ignition Switch (NOT Windmilling)",
+          "response": "START",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "8. Throttle",
+          "response": "BEST OPERATION",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "9. Repeat steps 2 – 6 prop windmilling.",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "10. No Start",
+          "response": "Forced Landing checklist.",
+          "tickable": true,
+          "source_confidence": 0.5
+        }
+      ]
+    },
+    {
+      "phase": "engine_failure_in_flight",
+      "title": "ENGINE PARTIAL POWER LOSS",
+      "criticality": "abnormal",
+      "condition": "Engine partial power loss",
+      "items": [
+        {
+          "type": "action",
+          "text": "1. Fuel Boost Pump Mode Switch",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "2. Fuel Selector Valve",
+          "response": "CHECK ON",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "3. Alternate Induction Air",
+          "response": "PULL ON",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "4. Ignition Switch",
+          "response": ".CHECK R, L, BOTH",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "5. LAND",
+          "response": "AS SOON AS PRACTICAL",
+          "tickable": true,
+          "source_confidence": 0.5
+        }
+      ]
+    },
+    {
+      "phase": "engine_fire_in_flight",
+      "title": "ENGINE FIRE IN FLIGHT",
+      "criticality": "emergency",
+      "condition": "Engine fire in flight",
+      "items": [
+        {
+          "type": "action",
+          "text": "1. Fuel Selector Valve",
+          "response": ".OFF (lift knob to turn off)",
+          "tickable": true,
+          "memory_item": true,
+          "id": "engine-fire-in-flight-fuel-valve",
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "2. Throttle",
+          "response": "IDLE",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "3. Cabin Heat",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "4. Fuel Boost Pump Mode Switch",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "5. FADEC A & B PWR Switches",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "6. Ignition Switch",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "7. Perform Forced Landing checklist",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "warning",
+          "text": "WARNING : No restart.",
+          "tickable": false,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "cabin_fire",
+      "title": "CABIN FIRE IN FLIGHT",
+      "criticality": "emergency",
+      "condition": "Cabin fire in flight",
+      "items": [
+        {
+          "type": "action",
+          "text": "1. Master Switch",
+          "response": ".OFF",
+          "tickable": true,
+          "memory_item": true,
+          "id": "cabin-fire-master-switch",
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "2. FADEC PWR A Switch",
+          "response": ".OFF",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "3. Avionics Master Switch",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "4. All Electrical Switches",
+          "response": "OFF (Except FADEC PWR B Switch)",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "warning",
+          "text": "WARNING: Turning off FADEC PWR B switch when Master Switch is OFF will cause immediate loss of engine power.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "5. Cabin Heat",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "6. Fire Extinguisher",
+          "response": "ACTIVATE",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "7. Air Vents",
+          "response": "OPEN TO VENT CABIN",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "8. LAND",
+          "response": "AS SOON AS PRACTICAL",
+          "tickable": true,
+          "source_confidence": 0.5
+        }
+      ]
+    },
+    {
+      "phase": "spin_recovery",
+      "title": "SPIN RECOVERY",
+      "criticality": "emergency",
+      "condition": "Spin",
+      "items": [
+        {
+          "type": "action",
+          "text": "1. Throttle",
+          "response": "IDLE",
+          "tickable": true,
+          "memory_item": true,
+          "id": "spin-recovery-throttle",
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "2. Ailerons",
+          "response": "NEUTRAL",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "3. Rudder",
+          "response": "FULL OPPOSITE DIRECTION OF SPIN",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "4. Control Stick",
+          "response": "FORWARD",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "5. Rudder",
+          "response": "Neutralize",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "challenge",
+          "text": "6. Recover from dive",
+          "tickable": true,
+          "source_confidence": 0.5
+        }
+      ]
+    }
+  ]
+}

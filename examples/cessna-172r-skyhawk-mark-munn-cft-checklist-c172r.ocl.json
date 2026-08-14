@@ -1,0 +1,1327 @@
+{
+  "open_checklist_version": "1.0",
+  "id": "cessna-172r-skyhawk-mark-munn-cft-checklist-c172r",
+  "title": "Cessna 172R Skyhawk — Mark_Munn_CFT_Checklist_C172R",
+  "aircraft": {
+    "make": "Cessna",
+    "model": "172R Skyhawk",
+    "category": "standard_normal"
+  },
+  "provenance": {
+    "source": {
+      "kind": "third_party_checklist",
+      "title": "Cessna/172R Skyhawk/Mark_Munn_CFT_Checklist_C172R.txt"
+    },
+    "transcription": {
+      "method": "format_conversion",
+      "date": "2026-08-13",
+      "converted_from": "doc"
+    },
+    "contributors": [
+      {
+        "name": "Open Checklists project",
+        "role": [
+          "transcriber"
+        ]
+      }
+    ],
+    "revision": {
+      "file_revision": "0.1.0",
+      "updated": "2026-08-13"
+    }
+  },
+  "verification": {
+    "source_fidelity": "unreviewed",
+    "operational_review": "none",
+    "completeness": "full",
+    "known_issues": [
+      {
+        "severity": "content_gap",
+        "description": "Section \"Quick Reference Data\" item count differs between passes (19 vs 75); verify nothing was dropped.",
+        "location": "Quick Reference Data"
+      },
+      {
+        "severity": "content_gap",
+        "description": "Section \"Run Up\" item count differs between passes (11 vs 12); verify nothing was dropped.",
+        "location": "Run Up"
+      }
+    ],
+    "reviews": [
+      {
+        "type": "source_comparison",
+        "reviewer": "ai-dual-pass-review",
+        "date": "2026-08-14",
+        "notes": "Automated AI review: two independent transcription passes + numeric/item-count disagreement resolution. Not human-verified; baseline for community correction."
+      }
+    ]
+  },
+  "rights": {
+    "status": "licensed",
+    "upstream_holder": "freechecklists.net",
+    "upstream_license": "content-reuse permission granted by the site author for this replacement project",
+    "notes": "Transcribed from the freechecklists.net archive under the author's reuse grant. Individual checklist wording may be substantially the source's; per-file contributor authorship is unknown."
+  },
+  "units": {
+    "airspeed": "kt",
+    "altitude": "ft",
+    "fuel": "usgal",
+    "weight": "lb",
+    "pressure": "inhg",
+    "temperature": "f"
+  },
+  "speeds": {
+    "vne": 163,
+    "vno": 129,
+    "va": 99,
+    "vfe": 110,
+    "vr": 55,
+    "vs1": 44,
+    "vs0": 33,
+    "vx": 60,
+    "vy": 79
+  },
+  "sections": [
+    {
+      "phase": "other",
+      "phase_label": "Checklist Use",
+      "title": "Checklist Use",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "note",
+          "text": "The Pilot Operating Handbook is the primary reference and if any discrepancies exist between the Pilot Operating Handbook and this checklist, the Pilot Operating Handbook information takes precedence. The Chief Flight Instructor is to be notified immediately if any discrepancy is found so that the appropriate amendment(s) to the checklist can be made.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "There are two methods for checklist use... DO & CHECK, READ & DO",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "This detailed checklist is primarily to be used as a READ & DO checklist.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "***** Indicates particular checks are complete",
+          "tickable": false,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "before_start",
+      "title": "At All Times / Hand Over Procedures",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "caution",
+          "text": "CAUTION: DUE TO VIS RESTRICTIONS FM THR RWY 12 & 23, PILOTS ARE TO ENSURE NO CONFLICT EXISTS PRIOR TO TKOF.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Pilot Recency Checks/Personal Minimums - Complete",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "before_takeoff",
+      "title": "Run Up",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Park Brake",
+          "response": "SET/ON",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Clear Behind",
+          "response": "CHECK",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Engine Instruments (T's & P's)",
+          "response": "CHECKED",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "SET 1800RPM",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "value": {
+            "quantity": "rpm",
+            "unit": "RPM",
+            "target": 1800,
+            "comparison": "equal"
+          }
+        },
+        {
+          "type": "action",
+          "text": "Magnetos - Right Actual ___ / Left Actual ___ / Differential ___",
+          "response": "CHECK",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Vacuum/Suction",
+          "response": "CHECKED",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Ammeter",
+          "response": "CHECKED",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Annunciator Panel - Test - Checked, Not Illuminated",
+          "response": "CHECKED",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Throttle - Check Idle - Actual ___",
+          "response": "CHECK IDLE",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "SET 1000RPM",
+          "tickable": true,
+          "source_confidence": 0.5,
+          "value": {
+            "quantity": "rpm",
+            "unit": "RPM",
+            "target": 1000,
+            "comparison": "equal"
+          }
+        },
+        {
+          "type": "action",
+          "text": "Throttle Friction Lock",
+          "response": "ADJUST/SET",
+          "tickable": true,
+          "source_confidence": 0.5
+        }
+      ]
+    },
+    {
+      "phase": "before_takeoff",
+      "title": "Pre Take Off",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Passenger Seat Backs",
+          "response": "MOST UPRIGHT",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Seats & Seat Belts",
+          "response": "CHECK SECURE",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Cabin Doors",
+          "response": "CLOSED & LOCKED",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Fuel Quantity (Gauges)",
+          "response": "CHECKED",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Flight Controls",
+          "response": "FREE & CORRECT",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Flight Instruments",
+          "response": "SET & CHECKED",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Heading Bug",
+          "response": "RUNWAY HEADING SET",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Nav/GNSS(GPS) Switch (NAV or GPS)",
+          "response": "SET",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "GNSS(GPS) (Verify ON - ENTER + Validate)",
+          "response": "SET",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Radios",
+          "response": "TUNED & SET",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "NavAids",
+          "response": "TUNED & SET",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Auto Pilot - Checked then OFF",
+          "response": "CHECKED THEN OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Mixture",
+          "response": "RICH",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Wing Flaps",
+          "response": "SET (ZERO/10 DEGREES)",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Trim",
+          "response": "CHECKED",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Trim (Take-Off position)",
+          "response": "SET FOR TAKE-OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Fuel Selector",
+          "response": "BOTH",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Clearance",
+          "response": "RECEIVED/NOT REQUIRED",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Course Bar/Track Bar (HSI) (if fitted)",
+          "response": "SET",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Brakes",
+          "response": "RELEASE/OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "shutdown",
+      "title": "Shut Down",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Throttle",
+          "response": "1000RPM",
+          "tickable": true,
+          "source_confidence": 1.0,
+          "value": {
+            "quantity": "rpm",
+            "unit": "RPM",
+            "target": 1000,
+            "comparison": "equal"
+          }
+        },
+        {
+          "type": "action",
+          "text": "Park Brake",
+          "response": "SET/ON",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Magnetos",
+          "response": "CHECK RIGHT/LEFT",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Electrical Switches (Taxi Light)",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Avionics Master",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Mixture (Pull FULL OUT)",
+          "response": "ICO - IDLE CUT OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Nav Lights",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Beacon Light",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Ignition Switch (Key)/Magnetos",
+          "response": "OFF/KEYS OUT",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Fuel",
+          "response": "GAUGES/CHECK QUANTITY",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Master Switch",
+          "response": "OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Fuel Tanks",
+          "response": "SELECT RIGHT TANK",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "securing",
+      "title": "Vacating Aircraft",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Flight Log",
+          "response": "COMPLETE",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Control Lock",
+          "response": "SET/IN",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Throttle/Mixture",
+          "response": "LOCKED",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Seat Belts",
+          "response": "DRESSED",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Fuel Tanks",
+          "response": "DIP",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Doors (Cabin & Baggage)",
+          "response": "LOCKED",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Air Inlet Bungs",
+          "response": "FITTED",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Propeller",
+          "response": "DRESSED & SECURED",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Pitot Cover",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Tie downs",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Post (After) Flight Inspection/External",
+          "response": "CHECKED",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "securing",
+      "title": "Please Note - Last Flight of the Day",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "note",
+          "text": "If you are the Last flight of the day the following applies:",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Aircraft",
+          "response": "HOSED OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Aircraft",
+          "response": "CHAMOIS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Leading Edges",
+          "response": "WIPED CLEAN/NO BUGS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Windscreen",
+          "response": "CHAMOIS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Throttle/Mixture Lock",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Aircraft Cover",
+          "response": "ON",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Gust Locks",
+          "response": "FITTED",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "reference",
+      "title": "Quick Reference Data",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "note",
+          "text": "Information Page Only",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Vne",
+          "response": "163KIAS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Vno",
+          "response": "129KIAS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Va",
+          "response": "99KIAS (1111kg) / 92KIAS (907kg) / 82KIAS (725kg)",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Vfe - Flaps 10",
+          "response": "UNDER 110",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Vfe - Flaps 20,30",
+          "response": "UNDER 85",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Vr",
+          "response": "55KIAS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Vs1",
+          "response": "44KIAS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Vs0",
+          "response": "33KIAS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Vx",
+          "response": "60KIAS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Vy",
+          "response": "79KIAS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Normal Climb (Take off)",
+          "response": "70-80KIAS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Short Field (Take off Flaps 10)",
+          "response": "57KIAS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Cruise Climb",
+          "response": "75-85KIAS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Landing Approach/Normal (Flaps up)",
+          "response": "65-75KIAS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Landing Approach/Normal (Flaps 30)",
+          "response": "60-70KIAS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Short Field (flaps 30)",
+          "response": "62KIAS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Best Glide (Clean)",
+          "response": "65KIAS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Best Glide (Flaps Extended)",
+          "response": "60KIAS",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "reference",
+      "title": "Engine",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Textron Lycoming",
+          "response": "IO-360-L2A",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Rated Power",
+          "response": "160 BHP RATING",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Maximum Engine RPM",
+          "response": "2400RPM",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Oil (sump)",
+          "response": "MIN 5 MAX 8 USQ",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Oil Pressure",
+          "response": "MAX 115 PSI/IDLE MIN 20 PSI",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Oil Temperature",
+          "response": "MAX 245F (118C)",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Propeller",
+          "response": "MACCAULEY 1C235/LFA7570, 75\" DIAMETER",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Static RPM at Full Throttle",
+          "response": "MIN 2065-2165RPM",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "reference",
+      "title": "Fuel",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Fuel Grade",
+          "response": "100LL GRADE AVIATION FUEL (BLUE) / 100 GRADE AVIATION FUEL (GREEN)",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Total (2 Tanks)",
+          "response": "(56USG) 212 LITRES",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Useable total (2 Tanks)",
+          "response": "(53USG) 200 LITRES",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Planned Burn Rate (OM ref: B1-G)",
+          "response": "(9 USGPH) 34 LPH",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Endurance",
+          "response": "200 LITRES AT 34 LPH - (5HR : 50 MINS) 350 MINS",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "reference",
+      "title": "Weights",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "MRW",
+          "response": "1114KG (2457LB)",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "MTOW",
+          "response": "1111KG (2450LB)",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "MLW",
+          "response": "1111KG (2450LB)",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "BEW (see POH for each aircraft)",
+          "response": "744KG (1639LB)",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Maximum Baggage Area 1",
+          "response": "54KG (120LB)",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Maximum Baggage Area 2",
+          "response": "22KG (50LB)",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Combined Baggage (Area 1 + Area 2)",
+          "response": "54KG (120LB)",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "reference",
+      "title": "Airframe",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Length",
+          "response": "8.28M",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Height (Top of Fin)",
+          "response": "2.71M",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Height (Propeller tip)",
+          "response": "XX",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Propeller Clearance",
+          "response": "28.5CM",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Wing Span",
+          "response": "11.0M",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Wing Area",
+          "response": "16.17M2",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Wing Loading",
+          "response": "68.71KG/M2",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Tailplane Span",
+          "response": "3.45M",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Min Turning Radius",
+          "response": "8.37M",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Power Loading",
+          "response": "6.94KG/HP",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "G limits (load factor) - normal",
+          "response": "+3.8G/-1.52G",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "G limits @ MTOW 2450lbs (flaps down)",
+          "response": "+3.0G/-0.0G",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "reference",
+      "title": "Systems",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Stall Warning Horn",
+          "response": "5~10KTS BEFORE STALL",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Landing Gear - Nose",
+          "response": "5 IN, 34PSI",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Landing Gear - Main",
+          "response": "6 IN, 28PSI",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Nose Wheel Steering",
+          "response": "XX LEFT & RIGHT",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Alternator",
+          "response": "28V/60A",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Battery",
+          "response": "24V/XX AMP HR",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Vacuum",
+          "response": "4.5'~5.5' HG",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Starter Duty Cycle",
+          "response": "30 SEC ON/ 2 MIN OFF",
+          "tickable": true,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "reference",
+      "title": "Circuit",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Take Off",
+          "response": "FULL POWER",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Upwind",
+          "response": "FULL POWER 70-80KIAS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Crosswind",
+          "response": "FULL POWER 70-80KIAS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Downwind",
+          "response": "2000-2200RPM/ 90-110KIAS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Base",
+          "response": "1500RPM/ 75KIAS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Landing Approach/Normal (flaps up)",
+          "response": "1500RPM/ 65-75KIAS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Landing Approach/Normal (flaps 30)",
+          "response": "1500RPM/ 60-70KIAS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Maximum Crosswind Component",
+          "response": "15KNOTS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "SLOW & LOW FLIGHT",
+          "response": "2200RPM - FLAP 20 DEG - 80 KIAS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "caution",
+          "text": "SLOW & LOW FLIGHT: CAUTION: Max 85 KIAS",
+          "tickable": false,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "reference",
+      "title": "PAX Brief",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "note",
+          "text": "CAO 20.11, paragraph 14 - OM Reference: A4.10",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Smoking",
+          "response": "H. DANGEROUS GOODS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Seatbelts",
+          "response": "I. OPERATION OF DOORS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Emergency Exits",
+          "response": "J. PAX IN CONTROL SEAT",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Oxygen",
+          "response": "K. AIRCRAFT FIRE ON GROUND",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Flotation Devices",
+          "response": "L. FIRE EXTINGUISHER",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Stowage of Hand Luggage",
+          "response": "M. FIRST AID KITS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Special Survival Equipment",
+          "response": "N. PAX SAFETY BRIEFING CARD",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "O. Climate Control",
+          "response": "O. CLIMATE CONTROL",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "P. Headset use",
+          "response": "P. HEADSET USE",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "Q. Comfort (Sick) bags",
+          "response": "Q. COMFORT (SICK) BAGS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "action",
+          "text": "R. Venues - Destinations",
+          "response": "R. VENUES - DESTINATIONS",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "subtitle",
+          "text": "Example Brief",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Welcome Aboard, Just like airlines I am obliged to give you an emergency briefing so please pay attention. This is a C172 Aircraft. In the event of an emergency follow my instructions. There is a PAX Safety Briefing Card in the back pocket in each seat, please take time to review it. The emergency exits are the doors that we enter the aircraft through. They lock and unlock like this (demonstrate). There is a baggage door however that is locked during flight. The windows can be opened on the ground and they can be open as we taxi for airflow comfort, however we would close them and secure latches before take off. There is no smoking at any stage on this flight. Please wear seatbelts during takeoff and landing, or as I direct. I would advise you to keep them on at all times. They operate like this (demonstrate). Any hand luggage should be in the baggage compartment or secure on the floor. This aircraft has dual controls (demonstrate control column & rudder). Please be sure NOT to touch the controls at any time. Fire Extinguisher is located between the front seats and a first-aid kit is located in the baggage compartment. Oxygen (if not fitted - do NOT mention) Life jackets, floatation devices and Special Survival Equipment (if not carried do NOT mention) A portion of the flight will be over water. Life jackets are located behind the seats (or demonstrate how they are put on & worn, around the waist or over the head) Any questions please don't hesitate to ask. Thank you & enjoy your flight.",
+          "tickable": false,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "reference",
+      "title": "ALA / Departure Gradient / PNR / CP / ISA / Morse Code",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "note",
+          "text": "1 knot = 0.5 metres per second",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "ALA strip length - Example: 80KIAS for 20 seconds : Strip length = 800 metres / 100KIAS for 15 seconds : Strip length = 750 metres",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Departure Gradient ALA's (Estimation method) - GRADIENT 5% = 1:20 (1 in 20). Place 1 metre high stick at end of strip and pace back 20 metres sight from ground level over the top of stick to ensure obstacle clearance",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Time to PNR (min) = Safe End(min) X GS home / (GS home + GS out)",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Dist to PNR = Time to PNR X GS out / 60",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Dist to CP (ETP) = Total dist X GS home / (GS home + GS on from CP)",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "PH = AD ELEV + 30x(1013 - QNH)",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "ISA = 15 - (2 X PH/1000)",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "DH = PH + ((OAT - ISA) X 120)",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "subtitle",
+          "text": "International Morse Code",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "A .- / B -... / C -.-. / D -.. / E . / F ..-. / G --. / H .... / I .. / J .--- / K -.- / L .-.. / M -- / N -. / O --- / P .--. / Q --.- / R .-. / S ... / T - / U ..- / V ...- / W .-- / X -..- / Y -.-- / Z --..",
+          "tickable": false,
+          "source_confidence": 1.0
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1217 @@
+{
+  "open_checklist_version": "1.0",
+  "id": "piper-pa-28-181-archer-ii-iii-peter-pa28-simulator-flight-planner",
+  "title": "Piper PA-28-181 Archer II_III — peter_pa28-simulator-flight-planner",
+  "aircraft": {
+    "make": "Piper",
+    "model": "PA-28-181 Archer II_III",
+    "category": "standard_normal"
+  },
+  "provenance": {
+    "source": {
+      "kind": "third_party_checklist",
+      "title": "Piper/PA-28-181 Archer II_III/peter_pa28-simulator-flight-planner.txt"
+    },
+    "transcription": {
+      "method": "format_conversion",
+      "date": "2026-08-14",
+      "converted_from": "doc"
+    },
+    "contributors": [
+      {
+        "name": "Open Checklists project",
+        "role": [
+          "transcriber"
+        ]
+      }
+    ],
+    "revision": {
+      "file_revision": "0.1.0",
+      "updated": "2026-08-14"
+    }
+  },
+  "verification": {
+    "source_fidelity": "unreviewed",
+    "operational_review": "none",
+    "completeness": "full",
+    "known_issues": [
+      {
+        "severity": "content_gap",
+        "description": "Section \"Flight Planning Sheet\" item count differs between passes (123 vs 120); verify nothing was dropped.",
+        "location": "Flight Planning Sheet"
+      },
+      {
+        "severity": "content_gap",
+        "description": "Section \"General Specifications\" item count differs between passes (35 vs 42); verify nothing was dropped.",
+        "location": "General Specifications"
+      }
+    ],
+    "reviews": [
+      {
+        "type": "source_comparison",
+        "reviewer": "ai-dual-pass-review",
+        "date": "2026-08-14",
+        "notes": "Automated AI review: two independent transcription passes + numeric/item-count disagreement resolution. Not human-verified; baseline for community correction."
+      }
+    ]
+  },
+  "rights": {
+    "status": "licensed",
+    "upstream_holder": "freechecklists.net",
+    "upstream_license": "content-reuse permission granted by the site author for this replacement project",
+    "notes": "Transcribed from the freechecklists.net archive under the author's reuse grant. Individual checklist wording may be substantially the source's; per-file contributor authorship is unknown."
+  },
+  "units": {
+    "weight": "lb",
+    "airspeed": "kt"
+  },
+  "speeds": {
+    "va_max": 113,
+    "va_min": 89,
+    "vfe": 102,
+    "vne": 154,
+    "vno": 125,
+    "vx": 64,
+    "vy": 76,
+    "vapp": 66,
+    "vcrosswind": 17
+  },
+  "sections": [
+    {
+      "phase": "other",
+      "phase_label": "General Specifications",
+      "title": "General Specifications",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "subtitle",
+          "text": "1. WEIGHT",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "subtitle",
+          "text": "SYMBOL | DESCRIPTION | VALUE [lbs]",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "MTOW maximum takeoff",
+          "response": "2550 (normal); 2130 (utility)",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "MLW maximum landing",
+          "response": "2550 (normal); 2130 (utility)",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Mbc maximum baggage compartment",
+          "response": "200 (normal); 0 (utility)",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Wb (unusable fuel + fluids) basic empty",
+          "response": "1604",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "MUW (MTOW - Ws) maximum useful",
+          "response": "946 (normal); 526 (utility)",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "note",
+          "text": "utility = no rear passengers; no (baggage + cargo)",
+          "tickable": false,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "note",
+          "text": "useful load normal = usable fuel + front passengers + rear passengers + (baggage + cargo)",
+          "tickable": false,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "note",
+          "text": "useful load utility = usable fuel + front passengers",
+          "tickable": false,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "subtitle",
+          "text": "2. SPEED",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "subtitle",
+          "text": "SYMBOL | DESCRIPTION | SPEED VALUES [kias]",
+          "tickable": false,
+          "source_confidence": 0.7
+        },
+        {
+          "type": "action",
+          "text": "Va maneuvering",
+          "response": "113 (2550 GW); 89 (1634 GW)",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Vfe max flap extended",
+          "response": "102",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Vne never exceed",
+          "response": "154",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Vno structural cruising (> in smooth air)",
+          "response": "125",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Vs stalling speed",
+          "response": "fig. 5-3",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Vso Vs/Vs in landing config.",
+          "response": "n/a",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Vx best angle of climb",
+          "response": "64",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Vy best rate of climb",
+          "response": "76",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Vapp (full flaps) final approach speed",
+          "response": "66",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Vcrosswind max crosswind",
+          "response": "17",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Green arc operational range",
+          "response": "55-125",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "White arc flaps range",
+          "response": "49-102",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "subtitle",
+          "text": "3. CENTER OF GRAVITY",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "note",
+          "text": "datum @ WLE + 78.4\"",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "NORMAL 2550 lbs",
+          "response": "88.6\" aft / 82\" aft",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "NORMAL < 2050 lbs",
+          "response": "93\" aft / 93\" aft",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "UTILITY 2130 lbs",
+          "response": "82\" aft / 83\" aft",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "UTILITY < 2050 lbs",
+          "response": "93\" aft / 93\" aft",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "subtitle",
+          "text": "4. FUEL",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "subtitle",
+          "text": "CONDITION | VALUE [US gal]",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "max",
+          "response": "50",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "unusable",
+          "response": "2",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "usable",
+          "response": "48",
+          "tickable": true,
+          "source_confidence": 0.5
+        }
+      ]
+    },
+    {
+      "phase": "other",
+      "phase_label": "Flight Planning Sheet",
+      "title": "Flight Planning Sheet",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "subtitle",
+          "text": "STEP | VALUES",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "subtitle",
+          "text": "0. LOAD CONFIGURATION",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "subtitle",
+          "text": "1. CONFIG-O-MATIC",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "subtitle",
+          "text": "ITEM | WEIGHT [lbs]",
+          "tickable": false,
+          "source_confidence": 0.8
+        },
+        {
+          "type": "action",
+          "text": "standard empty",
+          "response": "—",
+          "tickable": true,
+          "source_confidence": 0.6
+        },
+        {
+          "type": "action",
+          "text": "operational equipment",
+          "response": "—",
+          "tickable": true,
+          "source_confidence": 0.6
+        },
+        {
+          "type": "action",
+          "text": "basic empty",
+          "response": "—",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "pilot",
+          "response": "—",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "passenger 1 (co-pilot)",
+          "response": "—",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "passenger 2 (rear)",
+          "response": "—",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "passenger 3 (rear)",
+          "response": "—",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "baggage + cargo",
+          "response": "—",
+          "tickable": true,
+          "source_confidence": 0.7
+        },
+        {
+          "type": "action",
+          "text": "MAXIMUM USABLE FUEL",
+          "response": "—",
+          "tickable": true,
+          "source_confidence": 0.7
+        },
+        {
+          "type": "action",
+          "text": "MAXIMUM GROSS",
+          "response": "—",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "DRY",
+          "response": "—",
+          "tickable": true,
+          "source_confidence": 0.7
+        },
+        {
+          "type": "subtitle",
+          "text": "2. CLIMB",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "subtitle",
+          "text": "a. Climb Performance",
+          "tickable": false,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "subtitle",
+          "text": "STATE | ITEM | VALUE",
+          "tickable": false,
+          "source_confidence": 0.7
+        },
+        {
+          "type": "action",
+          "text": "INPUT OAT [°C]",
+          "response": "—",
+          "tickable": true,
+          "source_confidence": 0.6
+        },
+        {
+          "type": "action",
+          "text": "Hp [ft]",
+          "response": "—",
+          "tickable": true,
+          "source_confidence": 0.6
+        },
+        {
+          "type": "action",
+          "text": "OUTPUT V/S [ft/min]",
+          "response": "—",
+          "tickable": true,
+          "source_confidence": 0.7
+        },
+        {
+          "type": "subtitle",
+          "text": "b. Climb time, distance, fuel",
+          "tickable": false,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "subtitle",
+          "text": "STATE | ITEM | VALUE",
+          "tickable": false,
+          "source_confidence": 0.7
+        },
+        {
+          "type": "action",
+          "text": "INPUT OAT [°C] departure",
+          "response": "—",
+          "tickable": true,
+          "source_confidence": 0.7
+        },
+        {
+          "type": "action",
+          "text": "Hp [ft] departure",
+          "response": "—",
+          "tickable": true,
+          "source_confidence": 0.7
+        },
+        {
+          "type": "action",
+          "text": "OAT [°C] cruise",
+          "response": "—",
+          "tickable": true,
+          "source_confidence": 0.7
+        },
+        {
+          "type": "action",
+          "text": "Hp [ft] cruise",
+          "response": "—",
+          "tickable": true,
+          "source_confidence": 0.7
+        },
+        {
+          "type": "action",
+          "text": "OUTPUT CORRECTIONS climb time departure [min]",
+          "response": "—",
+          "tickable": true,
+          "source_confidence": 0.7
+        },
+        {
+          "type": "action",
+          "text": "climb distance departure [mi]",
+          "response": "—",
+          "tickable": true,
+          "source_confidence": 0.7
+        },
+        {
+          "type": "action",
+          "text": "climb fuel departure [gal]",
+          "response": "—",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "climb time cruise [min]",
+          "response": "—",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "climb distance cruise [mi]",
+          "response": "—",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "climb fuel cruise [gal]",
+          "response": "—",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "OUTPUT climb time [min]",
+          "response": "0",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "climb distance [mi]",
+          "response": "0",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "climb fuel [gal]",
+          "response": "0",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "subtitle",
+          "text": "3. DESCENT",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "subtitle",
+          "text": "STATE | ITEM | VALUE",
+          "tickable": false,
+          "source_confidence": 0.7
+        },
+        {
+          "type": "action",
+          "text": "INPUT OAT [°C] arrival",
+          "response": "—",
+          "tickable": true,
+          "source_confidence": 0.7
+        },
+        {
+          "type": "action",
+          "text": "Hp [ft] arrival",
+          "response": "—",
+          "tickable": true,
+          "source_confidence": 0.7
+        },
+        {
+          "type": "action",
+          "text": "OAT [°C] cruise",
+          "response": "0",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Hp [ft] cruise",
+          "response": "0",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "OUTPUT CORRECTIONS descent time arrival [min]",
+          "response": "—",
+          "tickable": true,
+          "source_confidence": 0.7
+        },
+        {
+          "type": "action",
+          "text": "descent distance arrival [mi]",
+          "response": "—",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "descent fuel arrival [gal]",
+          "response": "—",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "descent time cruise [min]",
+          "response": "—",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "descent distance cruise [mi]",
+          "response": "—",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "descent fuel cruise [gal]",
+          "response": "—",
+          "tickable": true,
+          "source_confidence": 0.7
+        },
+        {
+          "type": "action",
+          "text": "OUTPUT descent time [min]",
+          "response": "0",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "descent distance [mi]",
+          "response": "0",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "descent fuel [gal]",
+          "response": "0",
+          "tickable": true,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "subtitle",
+          "text": "4. CRUISE",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "subtitle",
+          "text": "a. Distance [mi]",
+          "tickable": false,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "subtitle",
+          "text": "TRIP DISTANCE [mi] | CLIMB DISTANCE [mi] | DESCENT DISTANCE [mi] | CRUISE DISTANCE [mi]",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "TRIP DISTANCE [mi]",
+          "response": "0",
+          "tickable": true,
+          "source_confidence": 0.6
+        },
+        {
+          "type": "action",
+          "text": "CLIMB DISTANCE [mi]",
+          "response": "0",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "DESCENT DISTANCE [mi]",
+          "response": "0",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "CRUISE DISTANCE [mi]",
+          "response": "0",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "subtitle",
+          "text": "b. TAS [kts]",
+          "tickable": false,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "subtitle",
+          "text": "STATE | ITEM | VALUE | CRUISE TYPE [P/E]",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "INPUT OAT [°C] cruise",
+          "response": "0",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Hp [ft] cruise",
+          "response": "0",
+          "tickable": true,
+          "source_confidence": 0.85
+        },
+        {
+          "type": "action",
+          "text": "Cruise Power [65 %, 70 %, 75 %]",
+          "response": "—",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "OUTPUT TAS [kts]",
+          "response": "—",
+          "tickable": true,
+          "source_confidence": 0.7
+        },
+        {
+          "type": "subtitle",
+          "text": "c. Time [hr]",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "subtitle",
+          "text": "CRUISE DISTANCE [mi] | TAS [kts] | TAS [mi/hr] | CRUISE TIME [hr]",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "CRUISE DISTANCE [mi]",
+          "response": "0",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "TAS [kts]",
+          "response": "0",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "TAS [mi/hr]",
+          "response": "0",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "CRUISE TIME [hr]",
+          "response": "7",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "subtitle",
+          "text": "d. Fuel [gal]",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "subtitle",
+          "text": "CRUISE POWER [%] | CRUISE TYPE [P/E] | FUEL FLOW [gph] | CRUISE FUEL [gal]",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "CRUISE POWER [%]",
+          "response": "0",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "CRUISE TYPE [P/E]",
+          "response": "0",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "FUEL FLOW [gph]",
+          "response": "—",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "CRUISE FUEL [gal]",
+          "response": "7",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "subtitle",
+          "text": "e. Mixture range [nm]",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "subtitle",
+          "text": "CRUISE OAT [°C] | CRUISE Hp [ft] | CRUISE POWER [%] | CRUISE P/E RANGE [nm]",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "CRUISE OAT [°C]",
+          "response": "0",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "CRUISE Hp [ft]",
+          "response": "0",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "CRUISE POWER [%]",
+          "response": "0",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "CRUISE P/E RANGE [nm]",
+          "response": "—",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "subtitle",
+          "text": "5. TOTAL FLIGHT TIME",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "TOTAL FLIGHT TIME [hr]",
+          "response": "7",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "subtitle",
+          "text": "6. TOTAL FLIGHT FUEL",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "TOTAL FLIGHT FUEL [gal]",
+          "response": "7",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "subtitle",
+          "text": "7. FLIGHT SIM FUEL",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "subtitle",
+          "text": "CAPACITY [lbs] | LEFT WING FUEL [lbs] | RIGHT WING FUEL [lbs]",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "CAPACITY [lbs]",
+          "response": "288",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "LEFT WING FUEL [lbs]",
+          "response": "7",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "RIGHT WING FUEL [lbs]",
+          "response": "7",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "subtitle",
+          "text": "8. LOADING CONSTRAINTS",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "subtitle",
+          "text": "ITEM | WEIGHT [lbs] | ARM AFT DATUM [in] | MOMENT [lb*in]",
+          "tickable": false,
+          "source_confidence": 0.6
+        },
+        {
+          "type": "action",
+          "text": "basic empty",
+          "response": "0 / 87.6 / —",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "pilot + passenger 1 (front)",
+          "response": "0 / 80.5 / —",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "passenger 2 + passenger 3 (rear)",
+          "response": "0 / 118.1 / —",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "baggage + cargo",
+          "response": "0 / 142.8 / —",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "total flight fuel",
+          "response": "7 / 95 / —",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "ACTUAL GROSS",
+          "response": "7 / — / 0",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "subtitle",
+          "text": "a. Weight constraint",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "note",
+          "text": "The actual gross weight must be < 2550 lbs (normal) and < 2130 lbs (utility).",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "subtitle",
+          "text": "a. CG constraint",
+          "tickable": false,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "action",
+          "text": "CG POSITION THEO. [in]",
+          "response": "—",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "CG POSITION GRAPH [in]",
+          "response": "7",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "note",
+          "text": "The CG position must adhere to the value range from the \"General Specifications\" data sheet with operational maxima and minima shown on the graph.",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "subtitle",
+          "text": "9. TAKEOFF",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "subtitle",
+          "text": "STATE | ITEM | VALUE",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "INPUT OAT [°C] departure",
+          "response": "0",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Hp [ft] departure",
+          "response": "0",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Headwind (H) / Tailwind (T) [kts]",
+          "response": "—",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Actual Gross Weight [lbs]",
+          "response": "7",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Flaps 0/25 [°]",
+          "response": "—",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Performance (P) / Ground Roll (G)",
+          "response": "—",
+          "tickable": true,
+          "source_confidence": 0.7
+        },
+        {
+          "type": "action",
+          "text": "OUTPUT minimum takeoff distance [ft]",
+          "response": "—",
+          "tickable": true,
+          "source_confidence": 0.7
+        },
+        {
+          "type": "subtitle",
+          "text": "10. LANDING",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "subtitle",
+          "text": "STATE | ITEM | VALUE",
+          "tickable": false,
+          "source_confidence": 0.7
+        },
+        {
+          "type": "action",
+          "text": "INPUT OAT [°C] arrival",
+          "response": "0",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Hp [ft] arrival",
+          "response": "0",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Headwind (H) / Tailwind (T) [kts]",
+          "response": "—",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Landing Gross Weight [lbs]",
+          "response": "7",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "action",
+          "text": "Performance (P) / Ground Roll (G)",
+          "response": "—",
+          "tickable": true,
+          "source_confidence": 0.7
+        },
+        {
+          "type": "action",
+          "text": "OUTPUT minimum landing distance [ft]",
+          "response": "—",
+          "tickable": true,
+          "source_confidence": 0.7
+        },
+        {
+          "type": "subtitle",
+          "text": "11. EXTRA",
+          "tickable": false,
+          "source_confidence": 0.9
+        }
+      ]
+    },
+    {
+      "phase": "other",
+      "phase_label": "Credits and version number",
+      "title": "Credits and version number",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "note",
+          "text": "All information in this worbook was based on the Piper Archer II manuals by Dreamfleet.",
+          "tickable": false,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "warning",
+          "text": "All information contained herein is only to be used for flight simulation entertainment purposes and NOT real world flying!",
+          "tickable": false,
+          "source_confidence": 0.95
+        },
+        {
+          "type": "note",
+          "text": "The coding and layout of the document was made by me, Peter.",
+          "tickable": false,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "note",
+          "text": "I am in no way responsible for the manner in which you use this document and am not responsible for any damages it may incurr with your software or hardware.",
+          "tickable": false,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "note",
+          "text": "You are free to modify certain things (but wouldn't recomment it due to the programming and cell detail) but cannot distribute this document for financial gain.",
+          "tickable": false,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "note",
+          "text": "If you choose to upload the document with your modifications to a flight simulator enthusiasts website, I require credit for my work cause this took some time.",
+          "tickable": false,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "note",
+          "text": "Enjoy! Peter",
+          "tickable": false,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "note",
+          "text": "VERSION : 1.0",
+          "tickable": false,
+          "source_confidence": 0.9
+        },
+        {
+          "type": "note",
+          "text": "37377",
+          "tickable": false,
+          "source_confidence": 0.5
+        }
+      ]
+    }
+  ]
+}

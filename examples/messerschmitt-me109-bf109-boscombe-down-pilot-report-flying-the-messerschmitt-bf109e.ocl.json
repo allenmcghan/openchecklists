@@ -1,0 +1,721 @@
+{
+  "open_checklist_version": "1.0",
+  "id": "messerschmitt-me109-bf109-boscombe-down-pilot-report-flying-the-messerschmitt-bf109e",
+  "title": "Messerschmitt ME109_BF109 — Boscombe_Down_Pilot_Report_Flying the Messerschmitt Bf109E",
+  "aircraft": {
+    "make": "Messerschmitt",
+    "model": "ME109_BF109",
+    "category": "standard_normal"
+  },
+  "provenance": {
+    "source": {
+      "kind": "third_party_checklist",
+      "title": "Messerschmitt/ME109_BF109/Boscombe_Down_Pilot_Report_Flying the Messerschmitt Bf109E.txt"
+    },
+    "transcription": {
+      "method": "format_conversion",
+      "date": "2026-08-13",
+      "converted_from": "doc"
+    },
+    "contributors": [
+      {
+        "name": "Open Checklists project",
+        "role": [
+          "transcriber"
+        ]
+      }
+    ],
+    "revision": {
+      "file_revision": "0.1.0",
+      "updated": "2026-08-13"
+    }
+  },
+  "verification": {
+    "source_fidelity": "unreviewed",
+    "operational_review": "none",
+    "completeness": "full",
+    "known_issues": [
+      {
+        "severity": "content_gap",
+        "description": "Section \"Ailerons\" item count differs between passes (10 vs 9); verify nothing was dropped.",
+        "location": "Ailerons"
+      },
+      {
+        "severity": "content_gap",
+        "description": "Section \"Directional Trim\" item count differs between passes (2 vs 3); verify nothing was dropped.",
+        "location": "Directional Trim"
+      },
+      {
+        "severity": "content_gap",
+        "description": "Section \"Elevator\" item count differs between passes (2 vs 3); verify nothing was dropped.",
+        "location": "Elevator"
+      },
+      {
+        "severity": "content_gap",
+        "description": "Section \"Further Comments\" item count differs between passes (7 vs 9); verify nothing was dropped.",
+        "location": "Further Comments"
+      },
+      {
+        "severity": "content_gap",
+        "description": "Section \"Harmony\" item count differs between passes (1 vs 2); verify nothing was dropped.",
+        "location": "Harmony"
+      },
+      {
+        "severity": "content_gap",
+        "description": "Section \"Longitudinal Trim\" item count differs between passes (2 vs 3); verify nothing was dropped.",
+        "location": "Longitudinal Trim"
+      },
+      {
+        "severity": "content_gap",
+        "description": "Section \"Safety in the Dive\" item count differs between passes (2 vs 3); verify nothing was dropped.",
+        "location": "Safety in the Dive"
+      },
+      {
+        "severity": "content_gap",
+        "description": "Section \"Stalling Test\" item count differs between passes (4 vs 8); verify nothing was dropped.",
+        "location": "Stalling Test"
+      },
+      {
+        "severity": "content_gap",
+        "description": "Section \"Take-off\" item count differs between passes (4 vs 6); verify nothing was dropped.",
+        "location": "Take-off"
+      }
+    ],
+    "reviews": [
+      {
+        "type": "source_comparison",
+        "reviewer": "ai-dual-pass-review",
+        "date": "2026-08-14",
+        "notes": "Automated AI review: two independent transcription passes + numeric/item-count disagreement resolution. Not human-verified; baseline for community correction."
+      }
+    ]
+  },
+  "rights": {
+    "status": "licensed",
+    "upstream_holder": "freechecklists.net",
+    "upstream_license": "content-reuse permission granted by the site author for this replacement project",
+    "notes": "Transcribed from the freechecklists.net archive under the author's reuse grant. Individual checklist wording may be substantially the source's; per-file contributor authorship is unknown."
+  },
+  "units": {
+    "airspeed": "mph",
+    "altitude": "ft",
+    "pressure": "inhg",
+    "temperature": "c"
+  },
+  "speeds": {
+    "stall_flaps_up": 75,
+    "stall_flaps_down": 61,
+    "normal_approach": 90
+  },
+  "sections": [
+    {
+      "phase": "takeoff",
+      "title": "Take-off",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Flaps",
+          "response": "20 DEGREES",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Open throttle quickly; no fear of choking the engine",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Hold stick hard forward to get the tail up",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Let the airplane fly itself off; if pulled off too soon, the left wing will not lift. Acceleration is good; little tendency to swing or bucket.",
+          "tickable": false,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "approach",
+      "title": "Approach",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "action",
+          "text": "Normal approach speed",
+          "response": "90 MPH",
+          "tickable": true,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "note",
+          "text": "Stalling speeds on the glide: 75 mph flaps up, 61 mph flaps down.",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "note",
+          "text": "Lowering flaps makes ailerons feel heavier and slightly less effective, and causes a marked nose-down pitching moment, readily corrected owing to the juxtaposition of trim and flap operating wheels.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "If engine is opened up to simulate a baulked landing with flaps and undercarriage down, the airplane becomes tail-heavy; hold with one hand while trim is adjusted.",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "note",
+          "text": "Above 100 mph the pilot has the impression of diving; below 80 mph one of sinking. At 90 mph the glide path is reasonably steep and the view fairly good.",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "note",
+          "text": "Longitudinally the airplane is markedly stable, and the elevator is heavier and more responsive than usual in single-seater fighters. Aileron effectiveness is adequate; rudder is sluggish for small movements.",
+          "tickable": false,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "landing",
+      "title": "Landing",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "note",
+          "text": "More difficult than on the Hurricane I or Spitfire I. Owing to the high ground attitude, the airplane must be rotated through a large angle before touchdown.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "If a wheel landing is done the left wing tends to drop just before touchdown; if ailerons are used to lift it, they snatch, causing over-correction.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "challenge",
+          "text": "Apply brakes immediately after touchdown without fear of lifting the tail",
+          "tickable": true,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Ground run is short, with no tendency to swing. View during hold-off and ground run is very poor; landing at night would not be easy.",
+          "tickable": false,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "taxi",
+      "title": "Taxing",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "note",
+          "text": "The aircraft can be taxied fast without danger of bucketing, but is difficult to turn quickly; an unusually large amount of throttle is needed, in conjunction with harsh braking, when maneuvering in a confined space.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Brakes are foot-operated; pilots expressed a strong preference for the hand operation system.",
+          "tickable": false,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "cruise",
+      "title": "Lateral Trim",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "note",
+          "text": "There is no pronounced change of lateral trim with speed or throttle setting provided that care is taken to fly with no sideslip.",
+          "tickable": false,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "cruise",
+      "title": "Directional Trim",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "note",
+          "text": "Absence of rudder trimmer is a bad feature, although at low speeds the practical consequences are not so alarming. At high speeds above 300 mph about 2 1/2 degrees of port (left) rudder are needed for flight with no sideslip, requiring a very heavy foot load.",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "note",
+          "text": "At high speeds the Bf.109E turns far more readily to the right than to the left.",
+          "tickable": false,
+          "source_confidence": 0.5
+        }
+      ]
+    },
+    {
+      "phase": "cruise",
+      "title": "Longitudinal Trim",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "note",
+          "text": "Five three-quarter turns of a 11.7 in diameter wheel on the pilot's left are needed to move the adjustable tailplane through its full 12-degrees range. Wheel rotation is in the natural sense.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "The airplane is statically stable both stick fixed and stick free.",
+          "tickable": false,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "cruise",
+      "title": "'One Control' Tests, Flat Turns, Sideslips",
+      "criticality": "normal",
+      "condition": "Airplane trimmed to fly straight and level at 230 mph at 10,000 feet; not in trim directionally; slight pressure needed on left rudder pedal to prevent sideslip.",
+      "items": [
+        {
+          "type": "subtitle",
+          "text": "Ailerons fixed central",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "On suddenly applying half-rudder the nose swings through about eight degrees and the airplane banks about five degrees with the nose pitching down a little. On releasing the rudder it returns to central; the airplane does a slowly damped oscillation in yaw and roll; the right wing then slowly falls.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Good banked turns can be done in either direction on rudder alone, with little sideslip if the rudder is used gently. Release of the rudder in a steady 30-degree banked turn in either direction results in the left wing slowly rising.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "subtitle",
+          "text": "Rudder fixed central",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Abrupt displacement of the ailerons gives bank with no appreciable opposite yaw. On releasing the stick it returns smartly to central with no oscillation.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Because whether the wing slowly comes up or goes down depends critically on precise rudder position, spiral stability cannot be assessed from this test. Excellent banked turns can be done in either direction on ailerons alone; very little sideslip on entry or recovery.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "subtitle",
+          "text": "Steady flat turns",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Only half-rudder was used during this test. Full rudder can be applied with a very heavy foot load, but the nose-down pitching movement due to sideslip requires a quite excessive pull on the stick to keep the nose up.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "When flat turning steadily with half-rudder, wings level, about half opposite aileron is needed. Speed falls from 230 mph to 175 mph; rate of flat turn is about 110.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "subtitle",
+          "text": "Steady sideslip when gliding",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Gliding at 100 mph with flaps and undercarriage up, the maximum angle of bank in a straight sideslip is about five degrees. About 1/4 opposite aileron is needed in conjunction with full rudder. The airplane is fairly nose-heavy, vibrates and is a little unsteady. On release of all three controls the wing comes up quickly and the airplane glides steadily at the trimmed speed.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "With flaps and undercarriage down, gliding at 90 mph, maximum angle of bank is again five degrees, 1/5 opposite aileron being needed with full rudder. Nose-down pitching movement is less pronounced; vibration is still present. Behaviour on release is similar to that with flaps up.",
+          "tickable": false,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "reference",
+      "title": "Stalling Test",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "note",
+          "text": "The airplane was equipped with a 60 foot trailing static head and a swiveling pitot head. Lowering the ailerons and flaps increases CL max by 0.5.",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "note",
+          "text": "Behaviour at the stall: stalling behaviour, flaps up and down, is excellent. Both rudder and ailerons are effective right down to the stall, which is very gentle; the wing only falls about 10 degrees and the nose falls with it. There is no tendency to spin.",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "note",
+          "text": "With flaps up the ailerons snatch while the slots are opening, and there is a buffeting on the ailerons as the stall is approached. With flaps down there is no aileron snatch as the slots open, and no pre-stall aileron buffeting.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "warning",
+          "text": "There is no warning of the stall, flaps down. From the safety viewpoint this is the only adverse stalling feature; it is largely off-set by the innocuous behaviour at the stall and by the very high degree of fore and aft stability on the approach glide.",
+          "tickable": false,
+          "source_confidence": 0.5
+        }
+      ]
+    },
+    {
+      "phase": "reference",
+      "title": "Safety in the Dive",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "note",
+          "text": "During a dive at 400 mph all three controls were in turn displaced slightly and released. No vibration, flutter or snaking developed.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "warning",
+          "text": "If the elevator is trimmed for level flight at full throttle, a large push is needed to hold in the dive, and there is a temptation to trim in. If the airplane is trimmed into the dive, recovery is difficult unless the trimmer is wound back owing to the excessive heaviness of the elevator.",
+          "tickable": false,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "reference",
+      "title": "Ailerons",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "note",
+          "text": "At low speeds the aileron control is very good. As speed is increased, the ailerons become heavier, but response remains excellent. Best between 150 mph and 200 mph. Above 200 mph they start becoming unpleasantly heavy; between 300 mph and 400 mph they are termed 'solid'.",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "note",
+          "text": "A pilot exerting all his strength cannot apply more than one-fifth aileron at 400 mph.",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "subtitle",
+          "text": "Measured results at 400 mph",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "note",
+          "text": "Max sideways force a pilot can apply conveniently to the Bf.109 stick: 40 lbs.",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "note",
+          "text": "Corresponding stick displacement: 1/5th.",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "note",
+          "text": "Time to 45-degree bank: 4 seconds.",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "note",
+          "text": "Deduced balance factor Kb2: 0.145.",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "note",
+          "text": "Owing to the cramped cockpit, a pilot can only apply about 40 lb sideways force on the stick, as against 60 lb or more possible if he had more room.",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "note",
+          "text": "The unusually small stick-top travel of four inches gives a poor mechanical advantage between pilot and aileron.",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "note",
+          "text": "The time to 45-degree bank of four seconds at 400 mph is quite excessive for a fighter; the airplane is very unmanoeuvrable in roll at high speeds.",
+          "tickable": false,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "reference",
+      "title": "Elevator",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "note",
+          "text": "Exceptionally good control at low air speeds, being fairly heavy and not over-sensitive. Above 250 mph it becomes too heavy, so that manoeuvrability is seriously restricted.",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "note",
+          "text": "When diving at 400 mph a pilot, pulling very hard, cannot put on enough 'g' to black himself out; stick force per 'g' probably exceeds 20 lb/g in the dive.",
+          "tickable": false,
+          "source_confidence": 0.5
+        }
+      ]
+    },
+    {
+      "phase": "reference",
+      "title": "Rudder",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "note",
+          "text": "The rudder is light, but rather sluggish at low speeds. At 200 mph the sluggishness has disappeared. Between 200 mph and 300 mph the rudder is the lightest of the three controls for movement.",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "note",
+          "text": "At 300 mph and above, absence of a rudder trimmer is severely felt; the force to prevent sideslip at 400 mph is excessive.",
+          "tickable": false,
+          "source_confidence": 0.5
+        }
+      ]
+    },
+    {
+      "phase": "reference",
+      "title": "Harmony",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "note",
+          "text": "The controls are well harmonised between 150 mph and 250 mph. At lower speeds harmony is spoiled by sluggishness of the rudder. At higher speeds elevator and ailerons are so heavy that the word 'harmony' is inappropriate.",
+          "tickable": false,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "reference",
+      "title": "Aerobatics",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "note",
+          "text": "Loops must be started from about 280 mph, when the elevator is unduly heavy; there is a tendency for the slots to open at the top of the loop, resulting in aileron snatching and loss of direction.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "At speeds below 250 mph the airplane can be rolled quite quickly, but in the final stages of the roll there is a strong tendency for the nose to fall; the stick must be moved well back to keep the nose up.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Upward rolls are difficult. Owing to elevator heaviness only a gentle pull-out from the dive is possible, and considerable speed is lost before the upward roll can be started.",
+          "tickable": false,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "reference",
+      "title": "Fighting Qualities",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "subtitle",
+          "text": "Good points",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "High top speed and excellent rate of climb.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Engine does not cut immediately under negative 'g'.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Good control at low speeds.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Gentle stall, even under 'g'.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "subtitle",
+          "text": "Bad points",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Ailerons and elevator far too heavy at high speeds.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Owing to high wing loading the airplane stalls readily under 'g' and has a relatively poor turning circle.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Absence of a rudder trimmer, curtailing ability to bank left in the dive.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Cockpit too cramped for comfort.",
+          "tickable": false,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "reference",
+      "title": "Further Comments",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "note",
+          "text": "At full throttle at 12,000 feet the minimum radius of steady turn without height loss is about 890 feet for the Bf.109E, with wing loading of 32 lb/sq ft. The corresponding figure for a comparable fighter with wing loading of 25 lb/sq ft, such as the Spitfire I or Hurricane I, is about 690 feet.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "The Bf.109E scores by its excellent control near the stall and innocuous behaviour at the stall, giving the pilot confidence to get the last ounce out of the airplane's turning performance.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "The extremely bad manoeuvrability at high speeds quickly became known to RAF pilots. On several occasions a Bf.109E was coaxed to self-destruction when on the tail of a Hurricane or Spitfire at moderate altitude: the RAF pilot would do a half-roll and quick pull-out from the subsequent steep dive, and the Bf.109E pilot would follow, only to find that he had insufficient height for recovery owing to his heavy elevator.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "The DB 601 engine was favourably commented on for response to throttle and insusceptibility to sudden negative 'g'. The throttle arrangement was described as 'marvellously simple, there being just one lever with no gate or over-ride to worry about'.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Manual operation of flaps and tail setting were also liked: 'they are easy to operate, and being manual are not likely to go wrong'; juxtaposition of the flap and tail actuating wheels is an excellent feature.",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "Performance by 1940 standards was good. In a full throttle climb at low air speeds, the airplane climbed at a very steep angle. This steep climb at low air speed was one of the standard evasion manoeuvres used by German pilots.",
+          "tickable": false,
+          "source_confidence": 0.5
+        },
+        {
+          "type": "note",
+          "text": "Another evasion manoeuvre was to push the stick forward abruptly and bunt into a dive with considerable negative 'g'. Speed is picked up quickly in a dive, and if being attacked by an airplane of slightly inferior level performance, this feature can be used with advantage to get out of range.",
+          "tickable": false,
+          "source_confidence": 1.0
+        }
+      ]
+    },
+    {
+      "phase": "reference",
+      "title": "Selected Pilot Comments",
+      "criticality": "normal",
+      "items": [
+        {
+          "type": "subtitle",
+          "text": "Hauptmann Gunther Schack, 174 victories",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "'In March 1941, as a Gefreiter, I joined Jagdgeschwader Molders, JG 51, stationed at St. Omer, France. By then I had only taken off with the 109 straight into wind, and never from a concrete runway. On April 4th, during a cross-wind take-off on the concrete runway, the 109 swung so much to the left that I feared it would crash into some other machines parked along the edge of the field. I closed the throttle and my first crash began. The machine swung left even more, the left undercarriage leg broke, and the 109 dropped on its left wing. This happened to me twice - the second time on April 10th - and my future as a fighter pilot seemed sealed.... In all, I was shot down 15 times....'",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "subtitle",
+          "text": "Major Gunther Rall, 275 victories",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "'The 109? That was a dream, the non plus ultra. Just like the F-14 of today. Of course, everyone wanted to fly it as soon as possible. I was very proud when I converted to it.'",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "subtitle",
+          "text": "Generalleutnant Werner Funck, Inspector of Fighters, 1939",
+          "tickable": false,
+          "source_confidence": 1.0
+        },
+        {
+          "type": "note",
+          "text": "'The 109 had a big drawback, which I didn't like from the start. It was that rackety - I always said rackety - undercarriage; that negative, against-the-rules-of-statics undercarriage that allowed the machine to swing away.'",
+          "tickable": false,
+          "source_confidence": 1.0
+        }
+      ]
+    }
+  ]
+}
