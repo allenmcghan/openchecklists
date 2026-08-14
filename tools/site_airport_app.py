@@ -47,6 +47,19 @@ AIRPORT_APP_CSS = """
 .ext-links a{display:inline-flex;align-items:center;gap:.3rem;padding:.38rem .8rem;border:1px solid var(--line);border-radius:var(--pill);font-size:.84rem;color:var(--muted);text-decoration:none}
 .ext-links a:hover{border-color:var(--accent-2);color:var(--accent)}
 .ap-notfound{padding:3rem 0;text-align:center;color:var(--muted)}
+.brief-cta{display:flex;flex-wrap:wrap;align-items:center;gap:.6rem 1rem;justify-content:space-between;
+background:var(--caut-weak);border:1px solid var(--caut);border-radius:var(--radius);padding:.85rem 1.1rem;margin:.4rem 0 1rem;font-size:.9rem}
+.brief-cta strong{color:var(--caut)}
+.brief-cta-btn{background:var(--caut);color:#fff;border-radius:var(--pill);padding:.5rem 1rem;font-weight:700;white-space:nowrap;font-size:.85rem}
+.brief-cta-btn:hover{text-decoration:none;filter:brightness(1.08)}
+.wx-obs{font-weight:400;font-size:.72rem;color:var(--muted);margin-left:.4rem}
+.wx-notbrief{font-size:.78rem;color:var(--caut);margin:.5rem 0 .1rem;font-weight:600}
+.wx-src{font-size:.74rem;color:var(--muted);margin:.5rem 0 .1rem}
+.wx-glossary{background:var(--card);border:1px solid var(--line);border-radius:var(--radius-sm);padding:.7rem 1rem;margin:.6rem 0;font-size:.88rem}
+.wx-glossary summary{cursor:pointer;font-weight:600;color:var(--accent)}
+.wx-glossary dl{margin:.6rem 0 0}
+.wx-glossary dt{font-weight:700;margin:.5rem 0 .1rem;font-family:var(--mono);font-size:.82rem}
+.wx-glossary dd{margin:0 0 .1rem;color:var(--muted)}
 """
 
 AIRPORT_APP_BODY = """
@@ -210,11 +223,24 @@ AIRPORT_APP_JS = r"""
         'frameborder="0" loading="lazy" title="Windy weather map"></iframe></div>';
     }
     h += '<h2>Live Data</h2>' +
+      // FAR 91.103: this is a pre-check, not a legal briefing. Point pilots at
+      // the official source before anything else.
+      '<div class="brief-cta"><div><strong>This is a pre-check, not an official weather briefing.</strong>' +
+      ' Federal regulations (14 CFR 91.103) require an official briefing before flight.</div>' +
+      '<a class="brief-cta-btn" href="https://www.1800wxbrief.com/" target="_blank" rel="noopener">Get your official briefing →</a></div>' +
       '<div id="weather" class="live-card"><span class="spinner-sm"></span> Loading weather...</div>' + windy +
       '<div id="notams" class="live-card"><span class="spinner-sm"></span> Loading NOTAMs...</div>' +
-      '<div id="fuel" class="live-card"><span class="spinner-sm"></span> Loading fuel &amp; FBO...</div>' +
       '<div id="winds-aloft" class="live-card"><span class="spinner-sm"></span> Loading winds aloft...</div>' +
-      '<div id="pireps" class="live-card"><span class="spinner-sm"></span> Loading PIREPs...</div>';
+      '<div id="pireps" class="live-card"><span class="spinner-sm"></span> Loading PIREPs...</div>' +
+      // Plain-language glossary — the Outsider on the review council couldn't
+      // decode METAR / 925hPa / PIREP, so spell them out.
+      '<details class="wx-glossary"><summary>What do these terms mean?</summary>' +
+      '<dl><dt>METAR</dt><dd>A coded report of current observed weather at the airport.</dd>' +
+      '<dt>TAF</dt><dd>Terminal Aerodrome Forecast — the forecast for the airport over the next ~24–30 hours.</dd>' +
+      '<dt>VFR / MVFR / IFR / LIFR</dt><dd>Flight-rules category from ceiling and visibility: VFR = good visual conditions, IFR = instrument conditions, LIFR = worst. MVFR is marginal.</dd>' +
+      '<dt>Winds aloft</dt><dd>Wind (and temperature) at altitude. 925/850/700&nbsp;hPa are pressure levels ≈ 3,000 / 5,000 / 10,000&nbsp;ft.</dd>' +
+      '<dt>PIREP</dt><dd>Pilot report — turbulence, icing, or cloud tops reported by pilots actually flying nearby.</dd>' +
+      '<dt>NOTAM</dt><dd>Notice to Air Missions — temporary hazards or changes (closed runways, unlit towers, TFRs).</dd></dl></details>';
 
     // External links
     var elat = (lat != null) ? lat : '0', elon = (lon != null) ? lon : '0';
@@ -333,14 +359,28 @@ AIRPORT_APP_JS = r"""
       var cls = cat === 'VFR' ? 'wx-vfr' : cat === 'MVFR' ? 'wx-mvfr' : 'wx-ifr';
       return '<span class="wx-badge ' + cls + '">' + cat + '</span> ';
     }
+    // Pull the HH:MMZ observation time out of a raw METAR (group is DDHHMMZ).
+    function obsFromMetar(m){
+      if (!m) return '';
+      var mm = String(m).match(/\b\d{2}(\d{2})(\d{2})Z\b/);
+      return mm ? (mm[1] + ':' + mm[2] + 'Z') : '';
+    }
+    // Every live-weather card carries this: the category badge is not a briefing.
+    var NOT_BRIEF = '<p class="wx-notbrief">⚠ Unverified — not an official weather briefing. ' +
+      '<a href="https://www.1800wxbrief.com/" target="_blank" rel="noopener">Get a legal briefing →</a></p>';
+    var NOTAM_SRC = '<p class="wx-src">Source: FAA via aviationweather.gov · a snapshot, not guaranteed current. ' +
+      'Confirm active NOTAMs at <a href="https://notams.faa.gov/notamSearch/search" target="_blank" rel="noopener">the official FAA NOTAM search</a> before flight.</p>';
     function windyBtn(){
       return '<p style="margin:.6rem 0 0"><button onclick="oclShowWindy()" style="background:none;border:1px solid var(--line);border-radius:999px;padding:.28rem .75rem;font:inherit;font-size:.8rem;cursor:pointer;color:var(--muted)">🌐 Show weather map</button></p>';
     }
     function renderOCLWeather(el, d){
       var metar = d.metar || null, taf = d.taf || null;
-      el.innerHTML = '<h3>Weather ' + wxBadge(d.flight_category) + '</h3>' +
+      var obs = obsFromMetar(metar);
+      el.innerHTML = '<h3>Weather ' + wxBadge(d.flight_category) +
+        '<small class="wx-obs">' + (obs ? 'observed ' + obs : 'snapshot') + '</small></h3>' +
         (metar ? '<p><strong>METAR:</strong> <code>' + esc(metar) + '</code></p>' : '') +
         (taf ? '<details style="margin:.3rem 0"><summary style="cursor:pointer;font-size:.88rem;font-weight:600">TAF</summary><p style="margin:.3rem 0"><code style="font-size:.8rem;white-space:pre-wrap">' + esc(taf) + '</code></p></details>' : '') +
+        NOT_BRIEF +
         windyBtn();
     }
     var WMO = {0:'Clear sky',1:'Mainly clear',2:'Partly cloudy',3:'Overcast',45:'Fog',48:'Freezing fog',
@@ -360,6 +400,7 @@ AIRPORT_APP_JS = r"""
       el.innerHTML = '<h3>Conditions <small style="font-weight:400;font-size:.72rem;color:var(--muted)"> Open-Meteo · no METAR at this airport</small></h3>' +
         '<div class="fact-grid" style="margin:.4rem 0 .5rem">' + cards + '</div>' +
         '<p class="muted" style="font-size:.75rem;margin:.1rem 0">Forecast model only — not a certified METAR. <a href="https://aviationweather.gov/metar?ids=' + encodeURIComponent(ident) + '" target="_blank" rel="noopener">Check nearest METAR ↗</a></p>' +
+        NOT_BRIEF +
         windyBtn();
     }
     async function loadWeather(){
@@ -393,28 +434,12 @@ AIRPORT_APP_JS = r"""
         el2.innerHTML = '<h3>NOTAMs</h3><p class="muted">NOTAMs unavailable for this airport. <a href="https://notams.faa.gov/notamSearch/search" target="_blank" rel="noopener">Check FAA NOTAM search</a></p>';
       } else if (d2.notams && d2.notams.length > 0){
         var items = d2.notams.map(function(n){ return '<li style="margin:.35rem 0;font-size:.88rem">' + esc(n.text || n) + '</li>'; }).join('');
-        el2.innerHTML = '<h3>NOTAMs (' + d2.notams.length + ')</h3><ul style="padding-left:1.2rem;margin:.4rem 0">' + items + '</ul>';
+        el2.innerHTML = '<h3>NOTAMs (' + d2.notams.length + ')</h3><ul style="padding-left:1.2rem;margin:.4rem 0">' + items + '</ul>' + NOTAM_SRC;
       } else {
-        el2.innerHTML = '<h3>NOTAMs</h3><p style="color:var(--ok)">✓ No active NOTAMs.</p>';
+        el2.innerHTML = '<h3>NOTAMs</h3><p style="color:var(--ok)">✓ No active NOTAMs.</p>' + NOTAM_SRC;
       }
     } catch(e){
       document.getElementById('notams').innerHTML = '<h3>NOTAMs</h3><p>Unable to load. <a href="https://notams.faa.gov/notamSearch/search" target="_blank">Check FAA NOTAM search</a></p>';
-    }
-
-    // Fuel
-    try {
-      var r3 = await fetchLive(base + ident + '/fuel');
-      var d3 = await r3.json();
-      var el3 = document.getElementById('fuel');
-      if (d3.error){
-        el3.innerHTML = '<h3>Fuel &amp; FBO</h3><p class="muted">No fuel data on record for this airport.</p>';
-      } else {
-        var fuels = (d3.fuel_types || []).join(', ') || 'None listed';
-        var fbo = d3.fbo_name ? '<br><strong>FBO:</strong> ' + esc(d3.fbo_name) : '';
-        el3.innerHTML = '<h3>Fuel &amp; FBO</h3><p><strong>Available:</strong> ' + esc(fuels) + fbo + '</p>';
-      }
-    } catch(e){
-      document.getElementById('fuel').innerHTML = '<h3>Fuel &amp; FBO</h3><p>Unable to load fuel data.</p>';
     }
 
     // Winds aloft (Open-Meteo pressure levels)

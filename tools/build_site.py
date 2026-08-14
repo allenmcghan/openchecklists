@@ -1717,8 +1717,19 @@ def main() -> int:
         + [f"c/{e['id']}/" for e in entries]
         + [f"api/checklists/{e['id']}.json" for e in entries]
     )
+    # Cache name is a content hash of the precache list + the shell pages, so a
+    # new deploy always gets a fresh cache and never serves a stale shell.
+    # (Live weather is cross-origin and never SW-cached; this covers the app HTML.)
+    import hashlib as _hashlib
+    _cache_src = json.dumps(precache, sort_keys=True).encode() + SW_BODY.encode()
+    for _shell in ("index.html", "catalogue.html", "airports.html", "training.html",
+                   "planner.html", "airport/index.html"):
+        _sp = args.out / _shell
+        if _sp.exists():
+            _cache_src += _sp.read_bytes()
+    _cache_ver = _hashlib.sha256(_cache_src).hexdigest()[:12]
     (args.out / "sw.js").write_text(
-        SW_HEADER + f"const CACHE = 'ocl-v1-{len(entries)}';\n"
+        SW_HEADER + f"const CACHE = 'ocl-{_cache_ver}';\n"
         + "const ASSETS = " + json.dumps(precache) + ";\n"
         + SW_BODY,
         encoding="utf-8",

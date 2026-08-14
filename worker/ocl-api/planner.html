@@ -535,7 +535,7 @@ function renderWeatherStep() {
     return `<div class="wx-card"><div class="wx-apt">${apt} <span style="font-weight:400;color:#888;font-size:.75rem">${role}</span></div>${body}</div>`;
   }).join('');
   return `<div class="card">
-    <div class="card-hdr"><h2>Step 3 &mdash; Weather Preview</h2><p>Live conditions at your airports. Review before continuing.</p></div>
+    <div class="card-hdr"><h2>Step 3 &mdash; Weather Preview</h2><p>An unverified snapshot to review before continuing &mdash; not an official briefing. Always confirm at <a href="https://www.1800wxbrief.com/" target="_blank" rel="noopener">1800wxbrief.com</a>.</p></div>
     <div class="card-body">${cards || '<p style="color:#888">No airports selected.</p>'}</div>
     <div class="card-foot">
       <button class="btn btn-ghost" onclick="prevStep()">&larr; Back</button>

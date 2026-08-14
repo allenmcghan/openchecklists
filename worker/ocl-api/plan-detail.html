@@ -84,6 +84,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;backgrou
 /* Footer */
 .brief-foot{background:#1f4e79;color:rgba(255,255,255,.65);font-size:.7rem;padding:.7rem 1.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.4rem}
 .brief-foot strong{color:#fff}.brief-foot a{color:rgba(255,255,255,.75)}
+.brief-legal{background:#fbf3e0;border-bottom:1px solid #e6d9b0;color:#6b4e00;font-size:.8rem;line-height:1.5;padding:.8rem 1.5rem}
+.brief-legal strong{color:#8a5a00}
+.brief-legal a{color:#8a5a00;font-weight:700}
 /* Email modal */
 .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;align-items:center;justify-content:center}
 .modal-overlay.open{display:flex}
@@ -281,7 +284,7 @@ function renderAptSection(aptIdent, role, snap) {
         <span class="apt-role ${roleCls}">${role}</span>
       </div>
       <div style="flex:1">
-        <div class="apt-name">See <a href="/airport/${aptIdent.toLowerCase()}" style="color:#1f4e79">${aptIdent} airport page</a> for full details</div>
+        <div class="apt-name">See <a href="/airport/?id=${aptIdent}" style="color:#1f4e79">${aptIdent} airport page</a> for full details</div>
         <div class="apt-sub">Frequencies, runway diagrams, and navigation aids on the airport page.</div>
       </div>
     </div>
@@ -298,7 +301,7 @@ function renderAptSection(aptIdent, role, snap) {
       <div class="db">
         <div class="dl">Frequencies</div>
         ${formatFreqs(aptIdent, snap)}
-        <div style="margin-top:6px"><a href="/airport/${aptIdent.toLowerCase()}" style="font-size:.7rem;color:#1f4e79">Full frequency list &rarr;</a></div>
+        <div style="margin-top:6px"><a href="/airport/?id=${aptIdent}" style="font-size:.7rem;color:#1f4e79">Full frequency list &rarr;</a></div>
       </div>
     </div>
   </div>`;
@@ -343,6 +346,12 @@ function render(plan) {
         <div class="mi"><strong>${depAt}</strong>Departure</div>
         <div class="mi"><strong>${fuelOnboard} gal onboard</strong>Fuel</div>
       </div>
+    </div>
+    <div class="brief-legal">
+      <strong>This is a pre-flight research aid, not an official briefing.</strong>
+      Weather and NOTAMs below are an unverified snapshot from when this plan was generated${genAt ? ' (' + new Date(genAt).toLocaleString() + ')' : ''}.
+      14 CFR 91.103 requires you to obtain an official briefing before flight —
+      <a href="https://www.1800wxbrief.com/" target="_blank" rel="noopener">1800wxbrief.com</a> or call 1-800-WX-BRIEF.
     </div>
     ${renderAptSection(dep, 'Departure', snap)}
     ${renderAptSection(dest, 'Destination', snap)}

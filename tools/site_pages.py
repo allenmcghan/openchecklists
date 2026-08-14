@@ -39,20 +39,22 @@ def landing_body() -> str:
          class="hero-img" width="1408" height="768" loading="eager">
   </div>
   <div class="hero-text">
-    <h1 class="hero-h">Everything you need<br>before you fly.</h1>
-    <p class="hero-p">Live weather, NOTAMs, frequencies, fuel, runway data, and flight planning
-    for every public airport in the United States — all in one place, free, no account required.</p>
+    <h1 class="hero-h">Your 90-second<br>pre-flight check.</h1>
+    <p class="hero-p">Weather, NOTAMs, frequencies, runways and flight planning for every US airport,
+    in one place — free, no account. A fast first look before you pull an official briefing,
+    not a replacement for one.</p>
     <p class="hero-cta">
       <a class="cta" href="planner.html">Plan a Flight</a>
       <a class="cta ghost" href="airports.html">Look Up an Airport</a>
       <a class="cta ghost" href="catalogue.html">Browse Checklists</a>
     </p>
-    <p class="tag">19,426 airports &middot; Live METAR &amp; TAF &middot; NOTAMs &middot; Works offline &middot; Free forever</p>
+    <p class="tag">19,426 airports &middot; Live METAR &amp; TAF &middot; NOTAMs &middot; Always verify with an <a href="https://www.1800wxbrief.com/" target="_blank" rel="noopener">official briefing</a></p>
   </div>
 </div>
 
-<h2>Your complete pre-flight kit</h2>
-<p class="lede">Every airport page gives you what you'd otherwise have to hunt across four different apps.</p>
+<h2>One page instead of four apps</h2>
+<p class="lede">Every airport page pulls together the research you'd otherwise hunt across several sites —
+so you can decide in seconds whether it's worth opening ForeFlight and calling for a briefing.</p>
 
 <div class="grid3">
   <div class="feat">
@@ -66,9 +68,9 @@ def landing_body() -> str:
     Active NOTAMs loaded live. Runway data with surface, lighting, and ILS approach info.</p>
   </div>
   <div class="feat">
-    <h3>⛽ Fuel, FBO &amp; phone numbers</h3>
-    <p>Fuel grades available, FBO name, and the airport manager's phone number for every
-    entry in the FAA NASR database. One tap to call from your phone in the cockpit.</p>
+    <h3>📞 Airport phone &amp; field data</h3>
+    <p>The airport manager's phone number — one tap to call from your phone — plus ownership,
+    field elevation, pattern altitude and sectional, straight from the FAA NASR database.</p>
   </div>
   <div class="feat">
     <h3>🗺 Satellite &amp; terrain maps</h3>
