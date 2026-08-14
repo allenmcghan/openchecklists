@@ -501,7 +501,7 @@ async function fetchWeather() {
   for (const apt of apts) {
     if (!wxCache[apt]) {
       wxCache[apt] = 'loading';
-      fetch(`https://openchecklists.net/api/airport/${apt}/weather`)
+      fetch(`${API}/api/airport/${apt}/weather`)
         .then(r => r.json()).then(d => { wxCache[apt] = d; renderStep(); })
         .catch(() => { wxCache[apt] = null; renderStep(); });
     }
@@ -700,7 +700,7 @@ async function submitPlan(mode) {
     });
     if (!resp.ok) throw new Error('Server error ' + resp.status);
     const data = await resp.json();
-    window.location.href = '/plan/' + data.id;
+    window.location.href = '/plan/?id=' + data.id;
   } catch (e) {
     alert('Failed to generate plan: ' + e.message);
     if (btn) { btn.disabled = false; btn.textContent = 'Generate Briefing →'; }

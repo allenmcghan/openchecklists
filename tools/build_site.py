@@ -1695,14 +1695,14 @@ def main() -> int:
             shutil.copy(src, args.out / png)
             artifacts.append(args.out / png)
 
-    # SPA routing so path segments resolve to their single-page template:
-    #   /plan/*    → the shared plan-detail briefing SPA
-    #   /airport/* → the one client-rendered airport page (reads the id from the
-    #                URL and fetches NASR shards in the browser). The exclusion
-    #                for the template file itself keeps the rewrite from looping.
+    # Path-segment rewrites (best effort). NOTE: this Pages project has SPA
+    # not-found handling that serves the root index.html for unmatched paths,
+    # and it currently wins over these rewrites — so airport links use the
+    # query form /airport/?id=<IDENT> (a real directory index that needs no
+    # rewrite). These lines are kept so pretty URLs work if the project's
+    # not-found handling is ever changed.
     (args.out / "_redirects").write_text(
         "/plan/* /plan/index.html 200\n"
-        "/airport/index.html /airport/index.html 200\n"
         "/airport/* /airport/index.html 200\n",
         encoding="utf-8",
     )

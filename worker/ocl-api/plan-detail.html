@@ -163,7 +163,12 @@ padding:.4rem .65rem;border-radius:999px;text-decoration:none}
 
 <script>
 const API = 'https://app.openchecklists.net';
-var planId = window.location.pathname.split('/').filter(Boolean).pop();
+// Prefer the ?id= query form: the Pages project's SPA fallback serves the
+// homepage for /plan/<id> path URLs, so path routing can't be relied on.
+// Keep the path fallback for any legacy links that still resolve here.
+var planId = new URLSearchParams(location.search).get('id')
+  || window.location.pathname.split('/').filter(Boolean).pop();
+if (planId === 'plan' || planId === 'index.html') planId = '';
 var planData = null;
 
 async function load(refresh) {
@@ -355,7 +360,7 @@ function render(plan) {
     </div>
     <div class="brief-foot">
       <div><strong>OpenChecklists.net</strong> &middot; Plan #${plan.id} &middot; Generated ${genAt ? new Date(genAt).toLocaleString() : 'now'}</div>
-      <div>Live refresh: <a href="https://openchecklists.net/plan/${plan.id}">openchecklists.net/plan/${plan.id}</a></div>
+      <div>Live refresh: <a href="https://openchecklists.net/plan/?id=${plan.id}">openchecklists.net/plan/?id=${plan.id}</a></div>
     </div>
   `;
   document.getElementById('briefing').innerHTML = html;
