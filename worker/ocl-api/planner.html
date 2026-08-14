@@ -61,6 +61,8 @@ input:focus,select:focus{outline:none;border-color:#1f4e79;background:#fff}
 .legtbl th,.legtbl td{padding:5px 8px;border-bottom:1px solid #e0e6f0;text-align:left}
 .legtbl th{font-size:.68rem;text-transform:uppercase;letter-spacing:.04em;color:#8a97a6}
 .legtbl td.n{font-family:ui-monospace,Menlo,monospace;text-align:right}
+.wz-wp-rm{flex:0 0 auto;width:34px;height:38px;margin-bottom:1px;border:1px solid #e0e6f0;background:#f8fafd;color:#8a97a6;border-radius:6px;font-size:1.1rem;line-height:1;cursor:pointer}
+.wz-wp-rm:hover{background:#fdecec;border-color:#e6b7b7;color:#c0392b}
 .chip:hover{background:#1f4e79;color:#fff}
 .hint{font-size:.68rem;color:#aaa;margin-top:3px}
 /* Buttons */
@@ -234,7 +236,7 @@ const API = 'https://app.openchecklists.net';
 let tok = null;
 let aircraft = [];
 let airports = [];
-let wz = { step: 1, ac: null, dep: '', dest: '', alt: '', depart_at: '', fuel: null, reserve: 30 };
+let wz = { step: 1, ac: null, route: ['', ''], round_trip: false, dep: '', dest: '', alt: '', depart_at: '', fuel: null, reserve: 30 };
 let wxCache = {};
 let guestAircraft = null; // populated by the guest inline form in Step 1
 
@@ -343,7 +345,7 @@ async function init() {
   // Pre-fill departure from URL param (set by airport pages)
   const urlParams = new URLSearchParams(window.location.search);
   const depParam = urlParams.get('dep');
-  if (depParam) wz.dep = depParam.toUpperCase();
+  if (depParam) { wz.dep = depParam.toUpperCase(); wz.route[0] = wz.dep; }
 
   // Set default datetime (now, no past)
   const now = new Date();
@@ -546,23 +548,47 @@ function selectAC(a) {
   renderStep();
 }
 
+const WZ_MAX_WP = 8;
+
+// Read the current waypoint inputs into wz.route (without normalizing/dropping
+// blanks — used to preserve typed values across add/remove re-renders).
+function wzReadWaypoints() {
+  const inputs = document.querySelectorAll('#wz-waypoints input.wz-apt');
+  if (!inputs.length) return;
+  wz.route = Array.from(inputs).map(el => (el.value || '').toUpperCase().trim());
+}
+
+function wzWaypointLabel(i, n) {
+  if (i === 0) return 'Departure';
+  if (i === n - 1) return 'Destination';
+  return 'Stop ' + (i + 1);
+}
+
 function renderRouteStep() {
-  const favChips = (field) => airports.map(ap =>
-    `<div class="chip" data-field="${field}">${ap.ident}</div>`).join('');
+  const route = (wz.route && wz.route.length >= 2) ? wz.route : ['', ''];
+  const n = route.length;
+  const rows = route.map((ident, i) => {
+    const isEnd = (i === 0 || i === n - 1);
+    const removeBtn = isEnd ? '' :
+      `<button type="button" class="wz-wp-rm" title="Remove stop" onclick="removeWaypoint(${i})">&times;</button>`;
+    return `<div class="field wz-wp-row" style="display:flex;align-items:flex-end;gap:8px">
+      <div style="flex:1">
+        <label>${wzWaypointLabel(i, n)}</label>
+        <div class="wz-ac-wrap"><input class="wz-apt" autocomplete="off" type="text" value="${ident}" maxlength="8" style="text-transform:uppercase" placeholder="Type an identifier, city or name"></div>
+      </div>
+      ${removeBtn}
+    </div>`;
+  }).join('');
+  const canAdd = n < WZ_MAX_WP;
   return `<div class="card">
-    <div class="card-hdr"><h2>Step 2 &mdash; Where are you flying?</h2><p>Enter ICAO identifiers. Click a saved airport chip to fill the field.</p></div>
+    <div class="card-hdr"><h2>Step 2 &mdash; Where are you flying?</h2><p>Enter your route as an ordered list of airports. Add stops for multi-leg trips.</p></div>
     <div class="card-body">
-      <div class="grid2">
-        <div class="field">
-          <label>Departure airport</label>
-          <div class="wz-ac-wrap"><input id="wz-dep" class="wz-apt" autocomplete="off" type="text" value="${wz.dep}" maxlength="8" style="text-transform:uppercase" placeholder="Type an identifier, city or name"></div>
-          <div class="chips">${favChips('wz-dep')}</div>
-        </div>
-        <div class="field">
-          <label>Destination airport</label>
-          <div class="wz-ac-wrap"><input id="wz-dest" class="wz-apt" autocomplete="off" type="text" value="${wz.dest}" maxlength="8" style="text-transform:uppercase" placeholder="Type an identifier, city or name"></div>
-          <div class="chips">${favChips('wz-dest')}</div>
-        </div>
+      <div id="wz-waypoints">${rows}</div>
+      <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:.2rem 0 .6rem">
+        <button type="button" class="btn btn-ghost" onclick="addWaypoint()" ${canAdd?'':'disabled'}>+ Add stop</button>
+        <label style="display:flex;align-items:center;gap:6px;font-size:.85rem;color:#444;font-weight:400;margin:0">
+          <input type="checkbox" id="wz-roundtrip" ${wz.round_trip?'checked':''} style="width:auto;margin:0"> Round trip (return to departure)
+        </label>
       </div>
       <div class="field">
         <label>Alternate airport <span style="font-weight:400;color:#aaa">(optional)</span></label>
@@ -582,18 +608,40 @@ function renderRouteStep() {
   ${wz.ac ? `<div class="summary-strip">&#10003; <strong>${wz.ac.n_number}</strong> &middot; ${wz.ac.make} ${wz.ac.model}<span class="change" onclick="wz.step=1;renderStep()">Change aircraft</span></div>` : ''}`;
 }
 
+function addWaypoint() {
+  wzReadWaypoints();
+  if (wz.route.length >= WZ_MAX_WP) return;
+  // Insert before the destination so it becomes an intermediate stop.
+  wz.route.splice(wz.route.length - 1, 0, '');
+  if (document.getElementById('wz-roundtrip')) wz.round_trip = document.getElementById('wz-roundtrip').checked;
+  renderStep();
+}
+
+function removeWaypoint(i) {
+  wzReadWaypoints();
+  if (wz.route.length <= 2) return;
+  wz.route.splice(i, 1);
+  if (document.getElementById('wz-roundtrip')) wz.round_trip = document.getElementById('wz-roundtrip').checked;
+  renderStep();
+}
+
 function saveRoute() {
-  wz.dep = (document.getElementById('wz-dep').value||'').toUpperCase().trim();
-  wz.dest = (document.getElementById('wz-dest').value||'').toUpperCase().trim();
+  wzReadWaypoints();
+  wz.round_trip = !!(document.getElementById('wz-roundtrip') && document.getElementById('wz-roundtrip').checked);
   wz.alt = (document.getElementById('wz-alt').value||'').toUpperCase().trim();
   wz.depart_at = document.getElementById('wz-depart').value || '';
-  if (!wz.dep || !wz.dest) { alert('Enter departure and destination airports.'); return; }
+  let route = (wz.route || []).map(s => (s||'').toUpperCase().trim()).filter(Boolean);
+  if (route.length < 2) { alert('Enter at least a departure and a destination airport.'); return; }
+  if (wz.round_trip && route[route.length - 1] !== route[0]) route.push(route[0]);
+  wz.route = route;
+  wz.dep = route[0];
+  wz.dest = route[route.length - 1];
   nextStep();
   fetchWeather();
 }
 
 async function fetchWeather() {
-  const apts = [wz.dep, wz.dest, wz.alt].filter(Boolean);
+  const apts = [...(wz.route || []), wz.alt].filter(Boolean);
   for (const apt of apts) {
     if (!wxCache[apt]) {
       wxCache[apt] = 'loading';
@@ -618,10 +666,11 @@ function wxBadge(metar) {
 }
 
 function renderWeatherStep() {
-  const apts = [wz.dep, wz.dest, wz.alt].filter(Boolean);
-  const cards = apts.map(apt => {
+  const route = (wz.route || []).filter(Boolean);
+  const stops = route.map((apt, i) => ({ apt, role: wzWaypointLabel(i, route.length) }));
+  if (wz.alt) stops.push({ apt: wz.alt, role: 'Alternate' });
+  const cards = stops.map(({ apt, role }) => {
     const wx = wxCache[apt];
-    const role = apt===wz.dep?'Departure':apt===wz.dest?'Destination':'Alternate';
     let body = '<p class="wx-loading">Loading&hellip;</p>';
     if (wx === null) body = '<p style="color:#c0392b;font-size:.8rem">Unable to load weather. Check aviationweather.gov.</p>';
     else if (wx && wx !== 'loading') {
@@ -704,23 +753,53 @@ function saveFuel() {
 
 function renderReviewStep() {
   const ac = wz.ac || {};
+  const route = (wz.route || []).filter(Boolean);
+  const routeStr = route.join(' &rarr; ');
+  renderLegsPreview(); // async fill of #wz-legs
   return `<div class="card">
     <div class="card-hdr"><h2>Step 5 &mdash; Review &amp; Generate</h2><p>Confirm your plan details, then generate your briefing.</p></div>
     <div class="card-body">
       <table style="width:100%;font-size:.85rem;border-collapse:collapse">
         <tr><td style="padding:5px 8px;color:#666;width:140px">Aircraft</td><td style="padding:5px 8px;font-weight:700">${ac.n_number||'Guest'} &middot; ${ac.make||''} ${ac.model||''}</td></tr>
-        <tr style="background:#f8fafd"><td style="padding:5px 8px;color:#666">Departure</td><td style="padding:5px 8px;font-weight:700">${wz.dep}</td></tr>
-        <tr><td style="padding:5px 8px;color:#666">Destination</td><td style="padding:5px 8px;font-weight:700">${wz.dest}</td></tr>
-        ${wz.alt?`<tr style="background:#f8fafd"><td style="padding:5px 8px;color:#666">Alternate</td><td style="padding:5px 8px;font-weight:700">${wz.alt}</td></tr>`:''}
-        <tr${wz.alt?'':' style="background:#f8fafd"'}><td style="padding:5px 8px;color:#666">Depart at</td><td style="padding:5px 8px">${wz.depart_at||'Not specified'}</td></tr>
-        <tr style="background:#f8fafd"><td style="padding:5px 8px;color:#666">Fuel onboard</td><td style="padding:5px 8px">${wz.fuel||'&mdash;'} gal &middot; ${wz.reserve}-min reserve</td></tr>
+        <tr style="background:#f8fafd"><td style="padding:5px 8px;color:#666">Route</td><td style="padding:5px 8px;font-weight:700">${routeStr}${wz.round_trip?' <span style="font-weight:400;color:#888;font-size:.78rem">(round trip)</span>':''}</td></tr>
+        ${wz.alt?`<tr><td style="padding:5px 8px;color:#666">Alternate</td><td style="padding:5px 8px;font-weight:700">${wz.alt}</td></tr>`:''}
+        <tr${wz.alt?' style="background:#f8fafd"':''}><td style="padding:5px 8px;color:#666">Depart at</td><td style="padding:5px 8px">${wz.depart_at||'Not specified'}</td></tr>
+        <tr${wz.alt?'':' style="background:#f8fafd"'}><td style="padding:5px 8px;color:#666">Fuel onboard</td><td style="padding:5px 8px">${wz.fuel||'&mdash;'} gal &middot; ${wz.reserve}-min reserve</td></tr>
       </table>
+      <div id="wz-legs"><p class="hint" style="margin-top:.6rem">Calculating legs&hellip;</p></div>
     </div>
     <div class="card-foot">
       <button class="btn btn-ghost" onclick="prevStep()">&larr; Back</button>
       <button class="btn btn-generate" id="wz-generate" onclick="submitPlan('wizard')">Generate Briefing &rarr;</button>
     </div>
   </div>`;
+}
+
+// Async: compute per-leg course/distance + total using airport coords.
+async function renderLegsPreview() {
+  const route = (wz.route || []).filter(Boolean);
+  const el = () => document.getElementById('wz-legs');
+  if (route.length < 2) { if (el()) el().innerHTML = ''; return; }
+  await apIndex();
+  const pts = await Promise.all(route.map(id => apGet(id)));
+  let total = 0;
+  const rows = [];
+  for (let i = 0; i < route.length - 1; i++) {
+    const a = pts[i], b = pts[i + 1];
+    if (a && b && isFinite(a.lat) && isFinite(b.lat)) {
+      const d = apDistNm(a, b), crs = apBearing(a, b);
+      total += d;
+      rows.push(`<tr><td>${route[i]} &rarr; ${route[i + 1]}</td><td class="n">${Math.round(crs)}&deg;</td><td class="n">${d.toFixed(1)} nm</td></tr>`);
+    } else {
+      rows.push(`<tr><td>${route[i]} &rarr; ${route[i + 1]}</td><td class="n">&mdash;</td><td class="n">&mdash;</td></tr>`);
+    }
+  }
+  const html = `<table class="legtbl">
+    <thead><tr><th>Leg</th><th style="text-align:right">Course</th><th style="text-align:right">Distance</th></tr></thead>
+    <tbody>${rows.join('')}</tbody>
+    <tfoot><tr><td style="font-weight:700">Total</td><td class="n"></td><td class="n" style="font-weight:700">${total.toFixed(1)} nm</td></tr></tfoot>
+  </table>`;
+  if (el()) el().innerHTML = html;
 }
 
 function nextStep() { wz.step = Math.min(5, wz.step + 1); renderStep(); }
@@ -769,10 +848,11 @@ async function submitPlan(mode) {
   const btn = document.getElementById(mode === 'wizard' ? 'wz-generate' : 'qp-generate');
   if (btn) { btn.disabled = true; btn.textContent = 'Generating…'; }
 
-  let ac, dep, dest, alt, depart_at, fuel_onboard, reserve_min;
+  let ac, dep, dest, alt, depart_at, fuel_onboard, reserve_min, route = null;
   if (mode === 'wizard') {
     ac = wz.ac; dep = wz.dep; dest = wz.dest; alt = wz.alt;
     depart_at = wz.depart_at; fuel_onboard = wz.fuel; reserve_min = wz.reserve;
+    route = (wz.route || []).filter(Boolean);
   } else {
     ac = qpAC;
     dep = (document.getElementById('qp-dep').value||'').toUpperCase().trim();
@@ -788,11 +868,14 @@ async function submitPlan(mode) {
   const headers = { 'Content-Type': 'application/json' };
   if (tok) headers['Authorization'] = 'Bearer ' + tok;
 
+  const payload = { aircraft: ac, departure: dep, destination: dest, alternate: alt||null, depart_at, fuel_onboard, reserve_min };
+  if (route && route.length >= 2) payload.route = route;
+
   try {
     const resp = await fetch(API + '/api/me/plans', {
       method: 'POST',
       headers,
-      body: JSON.stringify({ aircraft: ac, departure: dep, destination: dest, alternate: alt||null, depart_at, fuel_onboard, reserve_min })
+      body: JSON.stringify(payload)
     });
     if (!resp.ok) throw new Error('Server error ' + resp.status);
     const data = await resp.json();

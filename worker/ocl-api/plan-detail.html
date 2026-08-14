@@ -39,7 +39,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;backgrou
 .apt-hdr{display:flex;gap:1rem;margin-bottom:.9rem;align-items:flex-start}
 .apt-ident{font-size:1.8rem;font-weight:900;color:#1f4e79;line-height:1;letter-spacing:-.02em}
 .apt-role{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#fff;padding:2px 8px;border-radius:8px;margin-top:3px;display:inline-block}
-.dep{background:#1f4e79}.dest{background:#27ae60}.alt-role{background:#8e44ad}
+.dep{background:#1f4e79}.dest{background:#27ae60}.alt-role{background:#8e44ad}.wpt-role{background:#2980b9}
 .apt-name{font-size:1rem;font-weight:700}
 .apt-sub{font-size:.78rem;color:#666;margin-top:2px;line-height:1.4}
 .apt-phone{font-size:.78rem;color:#1f4e79;font-weight:600;margin-top:2px}
@@ -129,6 +129,7 @@ padding:.4rem .65rem;border-radius:999px;text-decoration:none}
 </style>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
 </head>
 <body>
 <header class="ocl-site">
@@ -166,7 +167,8 @@ padding:.4rem .65rem;border-radius:999px;text-decoration:none}
 <!-- Action bar -->
 <div class="action-bar no-print">
   <div class="ab-id"><strong id="ab-route">Loading&hellip;</strong> &middot; <span id="ab-id"></span></div>
-  <button class="ab-btn ab-pdf" onclick="window.print()">Download PDF</button>
+  <button class="ab-btn ab-pdf" onclick="savePlanPdf()">Save PDF</button>
+  <button class="ab-btn ab-email" onclick="emailPlanPdf()">Email PDF</button>
   <button class="ab-btn ab-email" onclick="openEmail()">Email to Me</button>
   <button class="ab-btn ab-print" onclick="window.print()">Print</button>
   <button class="ab-btn ab-refresh" id="refresh-btn" onclick="refreshData()">Refresh <span id="data-age"></span></button>
@@ -208,23 +210,38 @@ function apCoordStr(a) {
   return dm(a.lat, 'N', 'S') + ' ' + dm(a.lon, 'E', 'W');
 }
 
+// Cache of resolved airport points + the computed legs, so the PDF builder can
+// reuse the exact same numbers the on-screen route section shows.
+window.OCL_ROUTE = null;
+
 // Build the route section (map + legs + coords + freqs) once the plan is known.
-async function renderRoute(dep, dest, alt) {
+// `waypoints` is an ordered array of idents [A,B,C,...] (≥2). `alt` is the
+// optional alternate, drawn as a dashed spur off the LAST waypoint.
+async function renderRoute(waypoints, alt) {
   var host = document.getElementById('route-card');
   if (!host) return;
-  var idents = [dep, dest].concat(alt ? [alt] : []);
+  waypoints = (waypoints || []).filter(Boolean);
+  var last = waypoints[waypoints.length - 1];
+  // idents: every waypoint in order, then the alternate (deduped) at the end.
+  var idents = waypoints.slice();
+  if (alt && idents.indexOf(alt) < 0) idents.push(alt);
   var pts = {};
   for (var i = 0; i < idents.length; i++) { pts[idents[i]] = await apGet(idents[i]); }
-  if (!pts[dep] || !pts[dest] || isNaN(pts[dep].lat) || isNaN(pts[dest].lat)) { host.style.display = 'none'; return; }
+  var haveEnds = pts[waypoints[0]] && pts[last] && !isNaN(pts[waypoints[0]].lat) && !isNaN(pts[last].lat);
+  if (waypoints.length < 2 || !haveEnds) { host.style.display = 'none'; return; }
 
-  // Legs table: departure -> destination (+ destination -> alternate)
-  var legs = [[dep, dest]];
-  if (alt && pts[alt] && !isNaN(pts[alt].lat)) legs.push([dest, alt]);
+  // Legs table: one row per consecutive pair (A→B, B→C, …), then dest→alternate.
+  var legs = [];
+  for (var j = 0; j < waypoints.length - 1; j++) legs.push([waypoints[j], waypoints[j + 1]]);
+  if (alt && pts[alt] && !isNaN(pts[alt].lat)) legs.push([last, alt]);
   var total = 0, rows = '';
+  var legData = [];
   legs.forEach(function (lg) {
     var A = pts[lg[0]], B = pts[lg[1]];
+    if (!A || !B || isNaN(A.lat) || isNaN(B.lat)) return;
     var d = apDistNm(A, B), brg = apBearing(A, B); total += d;
     var eta = (window.OCL_KTAS && window.OCL_KTAS > 0) ? Math.round(d / window.OCL_KTAS * 60) : null;
+    legData.push({ from: lg[0], to: lg[1], course: Math.round(brg), dist: d, eta: eta });
     rows += '<tr><td><b>' + lg[0] + '</b> → <b>' + lg[1] + '</b></td><td class="n">' + Math.round(brg) + '°T</td><td class="n">' + d.toFixed(0) + ' nm</td><td class="n">' + (eta != null ? eta + ' min' : '—') + '</td></tr>';
   });
   var coords = idents.map(function (id) { var p = pts[id]; return p && !isNaN(p.lat) ? '<div class="freq-mini"><b>' + id + '</b> ' + apCoordStr(p) + (p.elevation_ft != null ? ' · ' + p.elevation_ft + ' ft' : '') + '</div>' : ''; }).join('');
@@ -235,6 +252,9 @@ async function renderRoute(dep, dest, alt) {
     return '<div class="freq-mini"><b>' + id + '</b> ' + top.map(function (f) { return (f.use || '') + ' ' + f.frequency; }).join(' · ') + '</div>';
   }).join('');
 
+  // Stash resolved data for the PDF builder.
+  window.OCL_ROUTE = { idents: idents, waypoints: waypoints, alt: alt, pts: pts, legs: legData, total: total };
+
   host.style.display = '';
   host.innerHTML = '<h3>Route</h3>' +
     '<div id="route-map"></div>' +
@@ -244,14 +264,15 @@ async function renderRoute(dep, dest, alt) {
     '<div><div style="font-size:.66rem;text-transform:uppercase;letter-spacing:.04em;color:#8a97a6">Coordinates</div>' + coords + '</div>' +
     '<div><div style="font-size:.66rem;text-transform:uppercase;letter-spacing:.04em;color:#8a97a6">Key frequencies</div>' + (freqs || '<div class="freq-mini" style="color:#8a97a6">None on record</div>') + '</div></div>';
 
-  // Map: sectional base + markers + route line
+  // Map: sectional base + markers + polyline through ALL waypoints + dashed alt spur
   if (typeof L !== 'undefined') {
     var latlngs = idents.filter(function (id) { return pts[id] && !isNaN(pts[id].lat); }).map(function (id) { return [pts[id].lat, pts[id].lon]; });
     var map = L.map('route-map', { zoomControl: true, minZoom: 6 });
     L.tileLayer('https://tiles.arcgis.com/tiles/ssFJjBXIUyZDrSYZ/arcgis/rest/services/VFR_Sectional/MapServer/tile/{z}/{y}/{x}', { minNativeZoom: 9, maxNativeZoom: 11, maxZoom: 14, attribution: 'VFR Sectional © FAA' }).addTo(map);
     idents.forEach(function (id) { var p = pts[id]; if (p && !isNaN(p.lat)) L.marker([p.lat, p.lon]).addTo(map).bindPopup('<b>' + id + '</b><br>' + (p.name || '')); });
-    L.polyline([[pts[dep].lat, pts[dep].lon], [pts[dest].lat, pts[dest].lon]], { color: '#1f4e79', weight: 3 }).addTo(map);
-    if (alt && pts[alt] && !isNaN(pts[alt].lat)) L.polyline([[pts[dest].lat, pts[dest].lon], [pts[alt].lat, pts[alt].lon]], { color: '#8a5a00', weight: 2, dashArray: '6 5' }).addTo(map);
+    var routeLine = waypoints.filter(function (id) { return pts[id] && !isNaN(pts[id].lat); }).map(function (id) { return [pts[id].lat, pts[id].lon]; });
+    L.polyline(routeLine, { color: '#1f4e79', weight: 3 }).addTo(map);
+    if (alt && pts[alt] && !isNaN(pts[alt].lat)) L.polyline([[pts[last].lat, pts[last].lon], [pts[alt].lat, pts[alt].lon]], { color: '#8a5a00', weight: 2, dashArray: '6 5' }).addTo(map);
     map.fitBounds(latlngs, { padding: [40, 40], maxZoom: 11 });
   }
 }
@@ -364,7 +385,7 @@ function renderAptSection(aptIdent, role, snap) {
   var notams = snap.notams ? snap.notams[aptIdent] : null;
   var metar = wx ? wx.metar || null : null;
   var taf = wx ? wx.taf || null : null;
-  var roleCls = role === 'Departure' ? 'dep' : role === 'Destination' ? 'dest' : 'alt-role';
+  var roleCls = role === 'Departure' ? 'dep' : role === 'Destination' ? 'dest' : role === 'Waypoint' ? 'wpt-role' : 'alt-role';
   var isAlt = role === 'Alternate';
 
   return `<div class="apt-sec">
@@ -401,6 +422,8 @@ function render(plan) {
   var snap = plan.snapshot || {};
   var ac = plan.aircraft || {};
   var dep = plan.departure, dest = plan.destination, alt = plan.alternate;
+  // Multi-leg plans carry snapshot.route = ordered array of idents [A,B,C,...].
+  var waypoints = (snap.route && snap.route.length >= 2) ? snap.route.slice() : null;
   var route = dep + ' → ' + dest + (alt ? ' (alt: ' + alt + ')' : '');
 
   document.title = 'PreFlight — ' + dep + ' → ' + dest + ' — OpenChecklists';
@@ -445,8 +468,13 @@ function render(plan) {
       <a href="https://www.1800wxbrief.com/" target="_blank" rel="noopener">1800wxbrief.com</a> or call 1-800-WX-BRIEF.
     </div>
     <div class="route-card" id="route-card" style="display:none"></div>
-    ${renderAptSection(dep, 'Departure', snap)}
-    ${renderAptSection(dest, 'Destination', snap)}
+    ${aircraftChecklistLink(ac)}
+    ${waypoints
+      ? waypoints.map(function(id, i) {
+          var role = i === 0 ? 'Departure' : (i === waypoints.length - 1 ? 'Destination' : 'Waypoint');
+          return renderAptSection(id, role, snap);
+        }).join('')
+      : renderAptSection(dep, 'Departure', snap) + renderAptSection(dest, 'Destination', snap)}
     ${alt ? renderAptSection(alt, 'Alternate', snap) : ''}
     <div class="fuel-card">
       <h3>Fuel Planning &mdash; ${ac.n_number || ''} ${ac.make || ''} ${ac.model || ''}</h3>
@@ -465,7 +493,153 @@ function render(plan) {
     </div>
   `;
   document.getElementById('briefing').innerHTML = html;
-  renderRoute(dep, dest, alt);
+  renderRoute(waypoints || [dep, dest], alt);
+}
+
+// "Printable checklist for this aircraft" — links to the catalogue pre-filtered
+// by make/model. Only shown when both are present.
+function aircraftChecklistLink(ac) {
+  var make = (ac.make || '').trim(), model = (ac.model || '').trim();
+  if (!make || !model) return '';
+  var q = encodeURIComponent(make + ' ' + model);
+  return '<div class="ac-checklist" style="padding:.7rem 1.5rem;border-bottom:2px solid #e8edf4">' +
+    '<a href="/catalogue.html?q=' + q + '" style="display:inline-flex;align-items:center;gap:6px;font-size:.85rem;font-weight:700;color:#1f4e79;text-decoration:none">' +
+    '&#128203; Printable checklist for this aircraft (' + make + ' ' + model + ') &rarr;</a></div>';
+}
+
+// ---- Plan PDF (built from DATA, not a screenshot) ----
+// Returns key frequencies for an ident from the snapshot, as "USE FREQ" strings.
+function pdfFreqStrings(ident, snap) {
+  var freqs = (snap && snap.frequencies && snap.frequencies[ident]) ? snap.frequencies[ident] : [];
+  if (!freqs.length) return [];
+  var order = ['CTAF', 'UNICOM', 'TOWER', 'GND', 'GROUND', 'ATIS', 'AWOS', 'ASOS'];
+  return freqs.slice().sort(function (a, b) {
+    var ai = order.findIndex(function (p) { return (a.use || '').toUpperCase().includes(p); });
+    var bi = order.findIndex(function (p) { return (b.use || '').toUpperCase().includes(p); });
+    return (ai < 0 ? 99 : ai) - (bi < 0 ? 99 : bi);
+  }).slice(0, 4).map(function (f) { return (f.use || '') + ' ' + (f.frequency || ''); });
+}
+
+// Build a structured multi-page jsPDF document from the plan data.
+function buildPlanPdf() {
+  if (!window.jspdf || !window.jspdf.jsPDF) return null;
+  var plan = planData; if (!plan) return null;
+  var snap = plan.snapshot || {};
+  var ac = plan.aircraft || {};
+  var dep = plan.departure, dest = plan.destination, alt = plan.alternate;
+  var doc = new window.jspdf.jsPDF({ unit: 'pt', format: 'letter' });
+  var M = 48, W = doc.internal.pageSize.getWidth(), y = M;
+
+  function ensure(h) { if (y + h > doc.internal.pageSize.getHeight() - 60) { doc.addPage(); y = M; } }
+  function line(txt, opts) {
+    opts = opts || {};
+    doc.setFont('helvetica', opts.bold ? 'bold' : 'normal');
+    doc.setFontSize(opts.size || 10);
+    doc.setTextColor(opts.color || '#1a1a2e');
+    var wrapped = doc.splitTextToSize(txt, opts.width || (W - 2 * M));
+    for (var i = 0; i < wrapped.length; i++) { ensure(opts.lh || 14); doc.text(wrapped[i], opts.x || M, y); y += (opts.lh || 14); }
+  }
+  function gap(h) { y += (h || 8); }
+
+  // Header
+  doc.setFillColor('#1f4e79'); doc.rect(0, 0, W, 8, 'F');
+  line('PreFlight Briefing', { bold: true, size: 20 }); y -= 2;
+  line(dep + ' → ' + dest + (alt ? '   (alt: ' + alt + ')' : ''), { bold: true, size: 13, color: '#1f4e79' });
+  var genAt = snap.generated_at || plan.created_at;
+  line('Plan #' + plan.id + '   ·   ' + (ac.n_number ? ac.n_number + '  ' : '') + (ac.make || '') + ' ' + (ac.model || '') + '   ·   Generated ' + (genAt ? new Date(genAt).toLocaleString() : 'now'), { size: 9, color: '#666' });
+  gap(10);
+
+  // Route + legs (from the resolved on-screen route data when available)
+  var R = window.OCL_ROUTE;
+  line('ROUTE', { bold: true, size: 11, color: '#1f4e79' }); gap(2);
+  if (R && R.legs && R.legs.length) {
+    line(R.waypoints.concat(R.alt && R.waypoints.indexOf(R.alt) < 0 ? ['(alt) ' + R.alt] : []).join('  →  '), { size: 9, color: '#444' });
+    gap(2);
+    R.legs.forEach(function (lg) {
+      line(lg.from + ' → ' + lg.to + ':  ' + lg.course + '°T  ·  ' + lg.dist.toFixed(0) + ' nm' + (lg.eta != null ? '  ·  ~' + lg.eta + ' min' : ''), { size: 10 });
+    });
+    line('Total: ' + R.total.toFixed(0) + ' nm', { bold: true, size: 10 });
+  } else {
+    line(dep + ' → ' + dest + (alt ? '   (alt: ' + alt + ')' : ''), { size: 10 });
+  }
+  gap(12);
+
+  // Per-airport: METAR + key frequencies + coords
+  var order = R ? R.idents.slice() : [dep, dest].concat(alt ? [alt] : []);
+  order.forEach(function (id) {
+    var wx = snap.weather ? snap.weather[id] : null;
+    var metar = wx ? (wx.metar || null) : null;
+    var p = R && R.pts ? R.pts[id] : null;
+    ensure(40);
+    line(id, { bold: true, size: 12, color: '#1f4e79' });
+    if (p && !isNaN(p.lat)) line(apCoordStr(p) + (p.elevation_ft != null ? '  ·  ' + p.elevation_ft + ' ft' : ''), { size: 9, color: '#666' });
+    line('METAR: ' + (metar || 'none on record'), { size: 9, color: '#333' });
+    var fs = pdfFreqStrings(id, snap);
+    if (fs.length) line('Freqs: ' + fs.join('   ·   '), { size: 9, color: '#333' });
+    gap(8);
+  });
+
+  // Fuel summary
+  var fuelOnboard = plan.fuel_onboard || ac.fuel_capacity_gal || 0;
+  var burnGph = ac.burn_rate_gph || 8.5;
+  var reserveMin = plan.reserve_min || 30;
+  var reserveGal = (reserveMin / 60) * burnGph;
+  var margin = fuelOnboard - reserveGal;
+  var enduranceMin = (fuelOnboard / burnGph) * 60;
+  ensure(80);
+  gap(4);
+  line('FUEL SUMMARY', { bold: true, size: 11, color: '#1f4e79' }); gap(2);
+  line('Fuel onboard: ' + fuelOnboard + ' gal', { size: 10 });
+  line('Burn rate: ' + burnGph + ' GPH', { size: 10 });
+  line('Reserve required (' + reserveMin + ' min): ' + reserveGal.toFixed(1) + ' gal', { size: 10 });
+  line('Margin above reserve: ' + margin.toFixed(1) + ' gal' + (margin > burnGph ? '  (OK)' : '  (LOW)'), { bold: true, size: 10 });
+  line('Total endurance: ' + Math.floor(enduranceMin / 60) + ' hr ' + Math.round(enduranceMin % 60) + ' min', { size: 10 });
+  gap(16);
+
+  // Legal footer on every page
+  var pages = doc.internal.getNumberOfPages();
+  for (var pg = 1; pg <= pages; pg++) {
+    doc.setPage(pg);
+    var fy = doc.internal.pageSize.getHeight() - 42;
+    doc.setDrawColor('#e6d9b0'); doc.line(M, fy - 10, W - M, fy - 10);
+    doc.setFont('helvetica', 'normal'); doc.setFontSize(7.5); doc.setTextColor('#8a5a00');
+    var foot = doc.splitTextToSize('UNVERIFIED SNAPSHOT — NOT AN OFFICIAL BRIEFING. Weather and NOTAMs are from when this plan was generated. 14 CFR 91.103 requires an official briefing before flight: 1800wxbrief.com or 1-800-WX-BRIEF.', W - 2 * M);
+    doc.text(foot, M, fy);
+  }
+  return doc;
+}
+
+function planPdfTitle() {
+  var plan = planData || {};
+  return 'PreFlight ' + (plan.departure || '?') + ' to ' + (plan.destination || '?');
+}
+
+function savePlanPdf() {
+  var doc = buildPlanPdf();
+  if (!doc) { alert('PDF library still loading — try again in a moment.'); return; }
+  doc.save(planPdfTitle().replace(/[^\w -]/g, '') + '.pdf');
+}
+
+async function emailPlanPdf() {
+  var doc = buildPlanPdf();
+  if (!doc) { alert('PDF library still loading — try again in a moment.'); return; }
+  var email = prompt('Email the plan PDF to:', '');
+  if (!email) return;
+  email = email.trim();
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { alert('Enter a valid email address.'); return; }
+  var dataUri = doc.output('datauristring');
+  var b64 = dataUri.indexOf(',') >= 0 ? dataUri.slice(dataUri.indexOf(',') + 1) : dataUri;
+  try {
+    var resp = await fetch('https://app.openchecklists.net/api/log/email-pdf', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: email, title: planPdfTitle(), pdf_base64: b64 })
+    });
+    if (!resp.ok) throw new Error('send failed');
+    alert('PDF sent to ' + email);
+  } catch (e) {
+    alert('Failed to email the PDF. Please try again.');
+  }
 }
 
 // Email
