@@ -50,6 +50,17 @@ input:focus,select:focus{outline:none;border-color:#1f4e79;background:#fff}
 .field{margin-bottom:10px}
 .chips{display:flex;gap:5px;flex-wrap:wrap;margin-top:5px}
 .chip{background:#eef4fb;border:1px solid #c5d8ee;color:#1f4e79;font-size:.68rem;font-weight:700;padding:2px 8px;border-radius:10px;cursor:pointer;letter-spacing:.04em}
+.wz-ac-wrap{position:relative}
+.wz-ac-menu{position:absolute;top:100%;left:0;right:0;z-index:40;background:#fff;border:1px solid #c5d8ee;border-radius:8px;box-shadow:0 8px 24px rgba(15,24,38,.14);max-height:280px;overflow-y:auto;margin-top:2px}
+.wz-ac-item{padding:.5rem .7rem;font-size:.85rem;cursor:pointer;border-bottom:1px solid #eef2f7;text-transform:none}
+.wz-ac-item:last-child{border-bottom:0}
+.wz-ac-item:hover{background:#eef4fb}
+.wz-ac-item b{font-family:ui-monospace,Menlo,monospace;color:#1f4e79}
+.wz-ac-item .muted{color:#8a97a6}
+.legtbl{width:100%;border-collapse:collapse;font-size:.82rem;margin:.4rem 0}
+.legtbl th,.legtbl td{padding:5px 8px;border-bottom:1px solid #e0e6f0;text-align:left}
+.legtbl th{font-size:.68rem;text-transform:uppercase;letter-spacing:.04em;color:#8a97a6}
+.legtbl td.n{font-family:ui-monospace,Menlo,monospace;text-align:right}
 .chip:hover{background:#1f4e79;color:#fff}
 .hint{font-size:.68rem;color:#aaa;margin-top:3px}
 /* Buttons */
@@ -227,6 +238,90 @@ let wz = { step: 1, ac: null, dep: '', dest: '', alt: '', depart_at: '', fuel: n
 let wxCache = {};
 let guestAircraft = null; // populated by the guest inline form in Step 1
 
+// ---- Airport data: shared index + detail shards for type-ahead, GPS coords,
+// headings, distances and frequencies. All client-side from the static data. ----
+let APIDX = null, APICAO = null, APSHARD = {};
+async function apIndex() {
+  if (APIDX) return APIDX;
+  try { APIDX = await (await fetch('/data/airports/index.json')).json(); } catch (e) { APIDX = []; }
+  try { APICAO = await (await fetch('/data/airports/icao.json')).json(); } catch (e) { APICAO = {}; }
+  return APIDX;
+}
+function apSearch(q) {
+  q = (q || '').trim().toLowerCase();
+  if (!APIDX || q.length < 2) return [];
+  var scored = [];
+  for (var i = 0; i < APIDX.length; i++) {
+    var a = APIDX[i];
+    var id = (a.i || '').toLowerCase(), ic = (a.k || '').toLowerCase();
+    var hay = (id + ' ' + ic + ' ' + a.n + ' ' + a.c + ' ' + a.s).toLowerCase();
+    if (hay.indexOf(q) === -1) continue;
+    var sc = 0;
+    if (id === q || ic === q) sc += 100;            // exact identifier
+    else if (id.indexOf(q) === 0 || ic.indexOf(q) === 0) sc += 60; // identifier prefix
+    else if ((a.n || '').toLowerCase().indexOf(q) === 0) sc += 30; // name prefix
+    if (a.t === 'a') sc += 8;                        // real airport (not heliport/etc)
+    if (a.u === 'pu') sc += 6;                       // public use
+    if (a.k) sc += 2;                                // has ICAO (towered/bigger)
+    if (a.r) sc += Math.min(4, a.r / 3000);          // longer runway ~ bigger field
+    scored.push([sc, a]);
+    if (scored.length > 400) break;
+  }
+  scored.sort(function (x, y) { return y[0] - x[0]; });
+  return scored.slice(0, 8).map(function (p) { return p[1]; });
+}
+async function apGet(ident) {
+  ident = (ident || '').toUpperCase(); if (!ident) return null;
+  var res = (APICAO && APICAO[ident]) || ident;
+  var k = res[0]; if (!/[A-Z0-9]/.test(k)) k = '_';
+  if (!APSHARD[k]) { try { APSHARD[k] = await (await fetch('/data/airports/detail/' + k + '.json')).json(); } catch (e) { APSHARD[k] = {}; } }
+  var a = APSHARD[k][res] || APSHARD[k][ident];
+  if (a) { a = Object.assign({}, a); a.lat = parseFloat(a.lat); a.lon = parseFloat(a.lon); }
+  return a;
+}
+function apDistNm(a, b) {
+  var R = 3440.065, d2r = Math.PI / 180;
+  var dLat = (b.lat - a.lat) * d2r, dLon = (b.lon - a.lon) * d2r;
+  var la1 = a.lat * d2r, la2 = b.lat * d2r;
+  var h = Math.sin(dLat / 2) ** 2 + Math.cos(la1) * Math.cos(la2) * Math.sin(dLon / 2) ** 2;
+  return 2 * R * Math.asin(Math.sqrt(h));
+}
+function apBearing(a, b) {
+  var d2r = Math.PI / 180, r2d = 180 / Math.PI;
+  var la1 = a.lat * d2r, la2 = b.lat * d2r, dLon = (b.lon - a.lon) * d2r;
+  var y = Math.sin(dLon) * Math.cos(la2);
+  var x = Math.cos(la1) * Math.sin(la2) - Math.sin(la1) * Math.cos(la2) * Math.cos(dLon);
+  return (Math.atan2(y, x) * r2d + 360) % 360;
+}
+function dms(v, pos, neg) {
+  var h = v >= 0 ? pos : neg; v = Math.abs(v);
+  var d = Math.floor(v), m = (v - d) * 60;
+  return d + '°' + m.toFixed(1) + '′' + h;
+}
+// Type-ahead dropdown (delegated so it survives step re-renders).
+function apCloseMenus() { document.querySelectorAll('.wz-ac-menu').forEach(function (m) { m.remove(); }); }
+function apTypeahead(input) {
+  var wrap = input.closest('.wz-ac-wrap'); if (!wrap) return;
+  var old = wrap.querySelector('.wz-ac-menu'); if (old) old.remove();
+  var matches = apSearch(input.value);
+  if (!matches.length) return;
+  var menu = document.createElement('div'); menu.className = 'wz-ac-menu';
+  matches.forEach(function (a) {
+    var row = document.createElement('div'); row.className = 'wz-ac-item';
+    row.innerHTML = '<b>' + a.i + '</b>' + (a.k ? ' <span class="muted">' + a.k + '</span>' : '') +
+      ' ' + a.n + '<div class="muted" style="font-size:.72rem">' + a.c + ', ' + a.s + '</div>';
+    row.addEventListener('mousedown', function (e) {
+      e.preventDefault();
+      input.value = a.i;
+      apCloseMenus();
+    });
+    menu.appendChild(row);
+  });
+  wrap.appendChild(menu);
+}
+document.addEventListener('input', function (e) { if (e.target.classList && e.target.classList.contains('wz-apt')) apTypeahead(e.target); });
+document.addEventListener('click', function (e) { if (!e.target.closest || !e.target.closest('.wz-ac-wrap')) apCloseMenus(); });
+
 // Auth
 function getToken() { return sessionStorage.getItem('ocl:token'); }
 tok = getToken();
@@ -271,6 +366,7 @@ async function init() {
   }
   renderStep();
   renderQuickPlan();
+  apIndex(); // preload airport index for type-ahead
 }
 
 // Sidebar
@@ -459,18 +555,18 @@ function renderRouteStep() {
       <div class="grid2">
         <div class="field">
           <label>Departure airport</label>
-          <input id="wz-dep" type="text" value="${wz.dep}" maxlength="4" style="text-transform:uppercase" placeholder="e.g. KBTL">
+          <div class="wz-ac-wrap"><input id="wz-dep" class="wz-apt" autocomplete="off" type="text" value="${wz.dep}" maxlength="8" style="text-transform:uppercase" placeholder="Type an identifier, city or name"></div>
           <div class="chips">${favChips('wz-dep')}</div>
         </div>
         <div class="field">
           <label>Destination airport</label>
-          <input id="wz-dest" type="text" value="${wz.dest}" maxlength="4" style="text-transform:uppercase" placeholder="e.g. KGRR">
+          <div class="wz-ac-wrap"><input id="wz-dest" class="wz-apt" autocomplete="off" type="text" value="${wz.dest}" maxlength="8" style="text-transform:uppercase" placeholder="Type an identifier, city or name"></div>
           <div class="chips">${favChips('wz-dest')}</div>
         </div>
       </div>
       <div class="field">
         <label>Alternate airport <span style="font-weight:400;color:#aaa">(optional)</span></label>
-        <input id="wz-alt" type="text" value="${wz.alt}" maxlength="4" style="text-transform:uppercase;max-width:160px" placeholder="e.g. KAZO">
+        <div class="wz-ac-wrap" style="max-width:260px"><input id="wz-alt" class="wz-apt" autocomplete="off" type="text" value="${wz.alt}" maxlength="8" style="text-transform:uppercase" placeholder="e.g. KAZO"></div>
         <div class="hint">Recommended when ceiling &lt; 2,000 ft or vis &lt; 3 SM</div>
       </div>
       <div class="field" style="max-width:220px">

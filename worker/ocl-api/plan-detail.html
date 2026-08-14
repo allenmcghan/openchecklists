@@ -116,7 +116,19 @@ font-weight:800;font-size:1rem;text-decoration:none;letter-spacing:-.02em;flex:n
 padding:.4rem .65rem;border-radius:999px;text-decoration:none}
 .ocl-nav a:hover{color:#1f4e79;background:#eaf1fb;text-decoration:none}
 .ocl-nav .auth-pill{margin-left:.3rem;font-weight:700;color:#1f4e79}
+#route-map{height:340px;border-radius:8px;overflow:hidden;border:1px solid #e0e6f0;margin:.4rem 0}
+@media print{#route-map{height:260px}}
+.legtbl{width:100%;border-collapse:collapse;font-size:.8rem;margin:.4rem 0}
+.legtbl th,.legtbl td{padding:5px 8px;border-bottom:1px solid #e0e6f0;text-align:left}
+.legtbl th{font-size:.66rem;text-transform:uppercase;letter-spacing:.04em;color:#8a97a6}
+.legtbl td.n{font-family:ui-monospace,Menlo,monospace;text-align:right}
+.route-card{background:#fff;border:1px solid #e0e6f0;border-radius:10px;padding:1rem 1.2rem;margin:1rem auto;max-width:780px}
+.route-card h3{font-size:1rem;margin-bottom:.4rem}
+.freq-mini{font-size:.78rem;color:#444;margin:.2rem 0}
+.freq-mini b{font-family:ui-monospace,Menlo,monospace;color:#1f4e79}
 </style>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 </head>
 <body>
 <header class="ocl-site">
@@ -166,6 +178,84 @@ padding:.4rem .65rem;border-radius:999px;text-decoration:none}
 
 <script>
 const API = 'https://app.openchecklists.net';
+
+// ---- Airport shards (client-side) for GPS coords, headings, distances, freqs ----
+var APICAO = null, APSHARD = {};
+async function apGet(ident) {
+  ident = (ident || '').toUpperCase(); if (!ident) return null;
+  if (!APICAO) { try { APICAO = await (await fetch('/data/airports/icao.json')).json(); } catch (e) { APICAO = {}; } }
+  var res = (APICAO && APICAO[ident]) || ident;
+  var k = res[0]; if (!/[A-Z0-9]/.test(k)) k = '_';
+  if (!APSHARD[k]) { try { APSHARD[k] = await (await fetch('/data/airports/detail/' + k + '.json')).json(); } catch (e) { APSHARD[k] = {}; } }
+  var a = APSHARD[k][res] || APSHARD[k][ident];
+  if (a) { a = Object.assign({}, a); a.lat = parseFloat(a.lat); a.lon = parseFloat(a.lon); }
+  return a;
+}
+function apDistNm(a, b) {
+  var R = 3440.065, d2r = Math.PI / 180;
+  var dLat = (b.lat - a.lat) * d2r, dLon = (b.lon - a.lon) * d2r, la1 = a.lat * d2r, la2 = b.lat * d2r;
+  var h = Math.sin(dLat / 2) ** 2 + Math.cos(la1) * Math.cos(la2) * Math.sin(dLon / 2) ** 2;
+  return 2 * R * Math.asin(Math.sqrt(h));
+}
+function apBearing(a, b) {
+  var d2r = Math.PI / 180, r2d = 180 / Math.PI;
+  var la1 = a.lat * d2r, la2 = b.lat * d2r, dLon = (b.lon - a.lon) * d2r;
+  var y = Math.sin(dLon) * Math.cos(la2), x = Math.cos(la1) * Math.sin(la2) - Math.sin(la1) * Math.cos(la2) * Math.cos(dLon);
+  return (Math.atan2(y, x) * r2d + 360) % 360;
+}
+function apCoordStr(a) {
+  function dm(v, p, n) { var h = v >= 0 ? p : n; v = Math.abs(v); var d = Math.floor(v); return d + '°' + ((v - d) * 60).toFixed(1) + '′' + h; }
+  return dm(a.lat, 'N', 'S') + ' ' + dm(a.lon, 'E', 'W');
+}
+
+// Build the route section (map + legs + coords + freqs) once the plan is known.
+async function renderRoute(dep, dest, alt) {
+  var host = document.getElementById('route-card');
+  if (!host) return;
+  var idents = [dep, dest].concat(alt ? [alt] : []);
+  var pts = {};
+  for (var i = 0; i < idents.length; i++) { pts[idents[i]] = await apGet(idents[i]); }
+  if (!pts[dep] || !pts[dest] || isNaN(pts[dep].lat) || isNaN(pts[dest].lat)) { host.style.display = 'none'; return; }
+
+  // Legs table: departure -> destination (+ destination -> alternate)
+  var legs = [[dep, dest]];
+  if (alt && pts[alt] && !isNaN(pts[alt].lat)) legs.push([dest, alt]);
+  var total = 0, rows = '';
+  legs.forEach(function (lg) {
+    var A = pts[lg[0]], B = pts[lg[1]];
+    var d = apDistNm(A, B), brg = apBearing(A, B); total += d;
+    var eta = (window.OCL_KTAS && window.OCL_KTAS > 0) ? Math.round(d / window.OCL_KTAS * 60) : null;
+    rows += '<tr><td><b>' + lg[0] + '</b> → <b>' + lg[1] + '</b></td><td class="n">' + Math.round(brg) + '°T</td><td class="n">' + d.toFixed(0) + ' nm</td><td class="n">' + (eta != null ? eta + ' min' : '—') + '</td></tr>';
+  });
+  var coords = idents.map(function (id) { var p = pts[id]; return p && !isNaN(p.lat) ? '<div class="freq-mini"><b>' + id + '</b> ' + apCoordStr(p) + (p.elevation_ft != null ? ' · ' + p.elevation_ft + ' ft' : '') + '</div>' : ''; }).join('');
+  var freqs = idents.map(function (id) {
+    var p = pts[id]; if (!p || !p.frequencies || !p.frequencies.length) return '';
+    var order = ['CTAF', 'UNICOM', 'TOWER', 'GROUND', 'ATIS', 'AWOS', 'ASOS'];
+    var top = p.frequencies.slice().sort(function (x, y) { var ix = order.indexOf((x.use || '').toUpperCase()); if (ix < 0) ix = 9; var iy = order.indexOf((y.use || '').toUpperCase()); if (iy < 0) iy = 9; return ix - iy; }).slice(0, 4);
+    return '<div class="freq-mini"><b>' + id + '</b> ' + top.map(function (f) { return (f.use || '') + ' ' + f.frequency; }).join(' · ') + '</div>';
+  }).join('');
+
+  host.style.display = '';
+  host.innerHTML = '<h3>Route</h3>' +
+    '<div id="route-map"></div>' +
+    '<table class="legtbl"><thead><tr><th>Leg</th><th>Course</th><th>Distance</th><th>Est. time</th></tr></thead><tbody>' + rows +
+    '<tr><td style="font-weight:700">Total</td><td></td><td class="n" style="font-weight:700">' + total.toFixed(0) + ' nm</td><td></td></tr></tbody></table>' +
+    '<div style="display:grid;grid-template-columns:1fr 1fr;gap:.4rem 1rem;margin-top:.4rem">' +
+    '<div><div style="font-size:.66rem;text-transform:uppercase;letter-spacing:.04em;color:#8a97a6">Coordinates</div>' + coords + '</div>' +
+    '<div><div style="font-size:.66rem;text-transform:uppercase;letter-spacing:.04em;color:#8a97a6">Key frequencies</div>' + (freqs || '<div class="freq-mini" style="color:#8a97a6">None on record</div>') + '</div></div>';
+
+  // Map: sectional base + markers + route line
+  if (typeof L !== 'undefined') {
+    var latlngs = idents.filter(function (id) { return pts[id] && !isNaN(pts[id].lat); }).map(function (id) { return [pts[id].lat, pts[id].lon]; });
+    var map = L.map('route-map', { zoomControl: true, minZoom: 6 });
+    L.tileLayer('https://tiles.arcgis.com/tiles/ssFJjBXIUyZDrSYZ/arcgis/rest/services/VFR_Sectional/MapServer/tile/{z}/{y}/{x}', { minNativeZoom: 9, maxNativeZoom: 11, maxZoom: 14, attribution: 'VFR Sectional © FAA' }).addTo(map);
+    idents.forEach(function (id) { var p = pts[id]; if (p && !isNaN(p.lat)) L.marker([p.lat, p.lon]).addTo(map).bindPopup('<b>' + id + '</b><br>' + (p.name || '')); });
+    L.polyline([[pts[dep].lat, pts[dep].lon], [pts[dest].lat, pts[dest].lon]], { color: '#1f4e79', weight: 3 }).addTo(map);
+    if (alt && pts[alt] && !isNaN(pts[alt].lat)) L.polyline([[pts[dest].lat, pts[dest].lon], [pts[alt].lat, pts[alt].lon]], { color: '#8a5a00', weight: 2, dashArray: '6 5' }).addTo(map);
+    map.fitBounds(latlngs, { padding: [40, 40], maxZoom: 11 });
+  }
+}
+
 // Prefer the ?id= query form: the Pages project's SPA fallback serves the
 // homepage for /plan/<id> path URLs, so path routing can't be relied on.
 // Keep the path fallback for any legacy links that still resolve here.
@@ -336,6 +426,7 @@ function render(plan) {
   var marginOk = margin > (60 / 60 * burnGph);
 
   var depAt = plan.depart_at ? new Date(plan.depart_at).toLocaleString() : 'Today';
+  window.OCL_KTAS = parseFloat(ac.cruise_speed_ktas) || 0;
 
   var html = `
     <div class="banner">
@@ -353,6 +444,7 @@ function render(plan) {
       14 CFR 91.103 requires you to obtain an official briefing before flight —
       <a href="https://www.1800wxbrief.com/" target="_blank" rel="noopener">1800wxbrief.com</a> or call 1-800-WX-BRIEF.
     </div>
+    <div class="route-card" id="route-card" style="display:none"></div>
     ${renderAptSection(dep, 'Departure', snap)}
     ${renderAptSection(dest, 'Destination', snap)}
     ${alt ? renderAptSection(alt, 'Alternate', snap) : ''}
@@ -373,6 +465,7 @@ function render(plan) {
     </div>
   `;
   document.getElementById('briefing').innerHTML = html;
+  renderRoute(dep, dest, alt);
 }
 
 // Email
