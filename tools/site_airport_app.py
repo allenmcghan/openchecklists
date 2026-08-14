@@ -23,7 +23,21 @@ from __future__ import annotations
 # CSS — carried over verbatim from the old static renderer so the page looks
 # identical to what was already reviewed and approved.
 AIRPORT_APP_CSS = """
-#map{height:300px;border-radius:var(--radius);margin:1.5rem 0;border:1px solid var(--line);overflow:hidden}
+#map{height:460px;border-radius:var(--radius);margin:.8rem 0 1.5rem;border:1px solid var(--line);overflow:hidden}
+@media(min-width:800px){#map{height:560px}}
+.ap-controls{display:flex;flex-wrap:wrap;gap:.6rem 1rem;align-items:flex-end;margin:.4rem 0 .2rem}
+.ap-controls .ctl{display:flex;flex-direction:column;gap:.2rem}
+.ap-controls label{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+.ap-controls select,.ap-controls input[type=date]{font:inherit;padding:.45rem .6rem;border:1px solid var(--line);border-radius:var(--radius-sm);background:#fff;min-height:2.5rem}
+.ap-actions{display:flex;flex-wrap:wrap;gap:.5rem;margin-left:auto}
+.ap-btn{display:inline-flex;align-items:center;gap:.35rem;padding:.5rem .85rem;border:1px solid var(--line);border-radius:var(--pill);background:#fff;font-size:.85rem;font-weight:600;cursor:pointer;color:var(--accent)}
+.ap-btn:hover{border-color:var(--accent-2);background:var(--accent-weak)}
+.ap-btn[disabled]{opacity:.5;cursor:wait}
+.fc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:.5rem;margin:.5rem 0}
+.fc-day{border:1px solid var(--line);border-radius:var(--radius-sm);padding:.6rem;background:var(--card);text-align:center}
+.fc-day .d{font-size:.72rem;font-weight:700;color:var(--muted)}
+.fc-day .t{font-size:1.05rem;font-weight:700;margin:.2rem 0}
+.leaflet-container{font:inherit}
 .fact-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:.65rem;margin:1rem 0 1.5rem}
 .fact-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius-sm);padding:.8rem .9rem}
 .fact-card .lbl{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:.2rem}
@@ -156,8 +170,25 @@ AIRPORT_APP_JS = r"""
       (phone ? '<div class="fact-card"><div class="lbl">Phone</div><div class="val"><a href="tel:' + esc(phone) + '">' + esc(phone) + '</a></div></div>' : '') +
       '</div>';
 
-    h += '<div style="margin:0 0 1.8rem">' +
+    h += '<div style="margin:0 0 1rem">' +
       '<a class="cta" href="/planner.html?dep=' + encodeURIComponent(ident) + '" style="font-size:.88rem;min-height:2.4rem;padding:.5rem 1.1rem">✈ Plan a flight from ' + esc(ident) + '</a></div>';
+
+    // Controls: aircraft type tailors what's shown; date drives forecast; PDF export.
+    h += '<div class="ap-controls">' +
+      '<div class="ctl"><label for="ap-actype">Aircraft type</label>' +
+      '<select id="ap-actype">' +
+      '<option value="ga">Airplane (GA)</option>' +
+      '<option value="glider">Glider / Sailplane</option>' +
+      '<option value="ultralight">Ultralight (Part 103)</option>' +
+      '<option value="drone">Drone (Part 107)</option>' +
+      '<option value="helicopter">Helicopter</option>' +
+      '<option value="electric">Electric aircraft</option>' +
+      '</select></div>' +
+      '<div class="ctl"><label for="ap-date">Date</label><input type="date" id="ap-date"></div>' +
+      '<div class="ap-actions">' +
+      '<button class="ap-btn" id="ap-pdf" type="button">⬇ Save as PDF</button>' +
+      '</div></div>' +
+      '<div id="ap-typenote" class="wx-src" style="margin:.1rem 0 0"></div>';
 
     // Map placeholder
     if (lat != null && lon != null) h += '<section id="map"></section>';
@@ -214,12 +245,14 @@ AIRPORT_APP_JS = r"""
         '<div><span class="lbl">Day Length</span><br><strong id="sun-daylen">—</strong></div></div></div>';
     }
 
-    // Live data
+    // Live data. The Windy map is always shown (its own interactive weather map);
+    // the airport map above also has a live precip-radar overlay you can toggle.
     var windy = '';
     if (lat != null && lon != null){
-      windy = '<div id="windy-wrap" style="display:none;margin:.6rem 0;border-radius:var(--radius);overflow:hidden;border:1px solid var(--line)">' +
-        '<iframe width="100%" height="360" src="https://embed.windy.com/embed2.html?lat=' + lat + '&lon=' + lon +
-        '&zoom=10&level=surface&overlay=wind&product=ecmwf&menu=&message=true&marker=true&metricWind=kt&metricTemp=%C2%B0F" ' +
+      windy = '<h3 style="margin:1rem 0 .3rem;font-size:1rem">Interactive weather map (Windy)</h3>' +
+        '<div id="windy-wrap" style="margin:.3rem 0 1rem;border-radius:var(--radius);overflow:hidden;border:1px solid var(--line)">' +
+        '<iframe width="100%" height="420" src="https://embed.windy.com/embed2.html?lat=' + lat + '&lon=' + lon +
+        '&zoom=9&level=surface&overlay=wind&product=ecmwf&menu=&message=true&marker=true&calendar=now&metricWind=kt&metricTemp=%C2%B0F" ' +
         'frameborder="0" loading="lazy" title="Windy weather map"></iframe></div>';
     }
     h += '<h2>Live Data</h2>' +
@@ -273,19 +306,138 @@ AIRPORT_APP_JS = r"""
       renderSunTimes(lat, lon);
     }
     setTimeout(loadLiveData, 300);
+    setupControls(a);
+  }
+
+  // Aircraft type tailors which data matters. Stored per-browser.
+  var ACTYPES = {
+    ga:         { hide: [],                       note: '' },
+    glider:     { hide: [],                       note: 'Soaring: winds aloft and thermals matter; VFR daylight operations only.' },
+    ultralight: { hide: ['winds-aloft','pireps'], note: 'Part 103: daylight only, uncontrolled airspace, stay clear of clouds — surface wind and visibility are what matter.' },
+    drone:      { hide: ['winds-aloft','pireps'], note: 'Part 107: max 400 ft AGL, check TFRs and controlled-airspace (LAANC) authorization in NOTAMs; daylight or with anti-collision lighting.' },
+    helicopter: { hide: [],                       note: '' },
+    electric:   { hide: [],                       note: 'Electric: winds and temperature drive range and endurance — plan conservative reserves.' }
+  };
+  function applyAircraftType(type){
+    var cfg = ACTYPES[type] || ACTYPES.ga;
+    ['winds-aloft','pireps'].forEach(function(id){
+      var el = document.getElementById(id);
+      if (el) el.style.display = (cfg.hide.indexOf(id) !== -1) ? 'none' : '';
+    });
+    var note = document.getElementById('ap-typenote');
+    if (note) note.textContent = cfg.note;
+    try { localStorage.setItem('ocl:actype', type); } catch(e){}
+  }
+
+  function setupControls(a){
+    // Aircraft type
+    var sel = document.getElementById('ap-actype');
+    if (sel){
+      var saved = null; try { saved = localStorage.getItem('ocl:actype'); } catch(e){}
+      if (saved && ACTYPES[saved]) sel.value = saved;
+      // apply after live-data cards exist
+      setTimeout(function(){ applyAircraftType(sel.value); }, 500);
+      sel.addEventListener('change', function(){ applyAircraftType(sel.value); });
+    }
+    // Date → forecast
+    var dt = document.getElementById('ap-date');
+    if (dt){
+      var today = new Date().toISOString().slice(0,10);
+      var max = new Date(Date.now() + 15*86400000).toISOString().slice(0,10);
+      dt.min = today; dt.max = max; dt.value = today;
+      dt.addEventListener('change', function(){
+        window.OCL_WXDATE = dt.value || today;
+        if (window.__reloadWx) window.__reloadWx();
+      });
+    }
+    // PDF button (download). Email-a-PDF-attachment comes in a follow-up.
+    var pdfBtn = document.getElementById('ap-pdf');
+    if (pdfBtn) pdfBtn.addEventListener('click', function(){ oclAirportPdf(a); });
+  }
+
+  // Build a clean, structured PDF of the airport from its data + whatever
+  // weather is currently shown. Built from data (not a screenshot) so map tiles
+  // and the Windy iframe don't need to render into a canvas.
+  function oclAirportPdf(a){
+    if (!(window.jspdf && window.jspdf.jsPDF)){ alert('PDF library still loading — try again in a second.'); return; }
+    var doc = new window.jspdf.jsPDF({unit:'pt', format:'letter'});
+    var M = 48, y = 56, W = 612;
+    function line(txt, opts){
+      opts = opts || {};
+      doc.setFont('helvetica', opts.bold ? 'bold' : 'normal');
+      doc.setFontSize(opts.size || 10);
+      if (opts.color) doc.setTextColor.apply(doc, opts.color); else doc.setTextColor(20,32,46);
+      var lines = doc.splitTextToSize(String(txt), W - 2*M);
+      for (var i=0;i<lines.length;i++){ if (y > 720){ doc.addPage(); y = 56; } doc.text(lines[i], M, y); y += (opts.size||10) + 4; }
+    }
+    function gap(n){ y += (n||8); }
+    var ident = a.ident || '', name = a.name || ident;
+    line(ident + ' — ' + name, {bold:true, size:20, color:[31,78,121]});
+    line((a.city||'') + (a.state_name||a.state ? ', ' + (a.state_name||a.state) : ''), {size:11, color:[90,107,123]});
+    gap(6);
+    var facts = [];
+    if (a.elevation_ft != null) facts.push('Elevation: ' + a.elevation_ft + ' ft MSL');
+    if (a.pattern_altitude_ft) facts.push('Pattern: ' + a.pattern_altitude_ft + ' ft');
+    if (a.sectional) facts.push('Sectional: ' + a.sectional);
+    if (a.owner) facts.push('Ownership: ' + a.owner);
+    if (a.lat != null && a.lon != null) facts.push('GPS: ' + Number(a.lat).toFixed(4) + ', ' + Number(a.lon).toFixed(4));
+    if ((a.manager_phone||'').trim()) facts.push('Phone: ' + a.manager_phone.trim());
+    line(facts.join('   ·   '), {size:10});
+    gap(10);
+    // Current weather (whatever card is showing)
+    var wxEl = document.getElementById('weather');
+    if (wxEl){ line('WEATHER', {bold:true, size:12, color:[31,78,121]});
+      line(wxEl.innerText.replace(/\s*🌐.*$/,'').replace(/\n{2,}/g,'\n').trim(), {size:9}); gap(8); }
+    var sunEl = document.getElementById('sun-times');
+    if (sunEl && sunEl.innerText.trim()){ line('SUN TIMES', {bold:true, size:12, color:[31,78,121]});
+      line(sunEl.innerText.replace(/\n{2,}/g,'  ').trim(), {size:9}); gap(8); }
+    // Runways
+    if (a.runways && a.runways.length){
+      line('RUNWAYS', {bold:true, size:12, color:[31,78,121]});
+      a.runways.forEach(function(r){ if(!r.id) return;
+        line(r.id + ':  ' + (r.length_ft||'?') + ' × ' + (r.width_ft||'?') + ' ft · ' + (r.surface||'') + (r.lighting? ' · ' + r.lighting : ''), {size:9}); });
+      gap(8);
+    }
+    // Frequencies
+    if (a.frequencies && a.frequencies.length){
+      line('FREQUENCIES', {bold:true, size:12, color:[31,78,121]});
+      var order = ['CTAF','UNICOM','TOWER','GROUND','CLEARANCE DELIVERY','ATIS','AWOS','ASOS'];
+      a.frequencies.slice().sort(function(x,y){var ix=order.indexOf((x.use||'').toUpperCase());if(ix<0)ix=99;var iy=order.indexOf((y.use||'').toUpperCase());if(iy<0)iy=99;return ix-iy;})
+        .forEach(function(f){ line((f.frequency||'') + '   ' + (f.use||'') + (f.callsign? '  (' + f.callsign + ')':'') + (f.hours? '  ' + f.hours:''), {size:9}); });
+      gap(8);
+    }
+    gap(6);
+    line('Generated ' + new Date().toLocaleString() + ' from openchecklists.net. Unverified snapshot — NOT an official weather briefing. 14 CFR 91.103 requires an official briefing (1800wxbrief.com) before flight.', {size:8, color:[138,90,0]});
+    doc.save(ident + '-airport.pdf');
   }
 
   function initMap(lat, lon, ident, name, city, state, elevation){
     if (typeof L === 'undefined') return;
-    var map = L.map('map', {zoomControl:true}).setView([lat, lon], 15);
+    var map = L.map('map', {zoomControl:true, minZoom:8}).setView([lat, lon], 10);
+    window.OCL_MAP = map;
     var streets = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution:'© OpenStreetMap', maxZoom:19});
     var satellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {attribution:'ESRI World Imagery', maxZoom:19});
     var topo = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {attribution:'ESRI World Topo', maxZoom:18});
-    satellite.addTo(map);
-    L.control.layers({'Satellite':satellite, 'Terrain':topo, 'Street':streets}, {}, {position:'topright', collapsed:false}).addTo(map);
+    // FAA VFR sectional chart tiles (Esri-hosted FAA VFR_Sectional; real chart
+    // raster at z9–11, upscaled beyond). Reliable on the Esri CDN.
+    var sectional = L.tileLayer('https://tiles.arcgis.com/tiles/ssFJjBXIUyZDrSYZ/arcgis/rest/services/VFR_Sectional/MapServer/tile/{z}/{y}/{x}', {attribution:'VFR Sectional © FAA', minNativeZoom:9, maxNativeZoom:11, maxZoom:15});
+    sectional.addTo(map);
+    var bases = {'Sectional (VFR)':sectional, 'Satellite':satellite, 'Terrain':topo, 'Street':streets};
+    var overlays = {};
+    var layerCtl = L.control.layers(bases, overlays, {position:'topright', collapsed:false}).addTo(map);
     L.marker([lat, lon]).addTo(map)
       .bindPopup('<strong>' + esc(ident) + '</strong><br>' + esc(name) + '<br>' + esc(city) + ', ' + esc(state) +
         '<br>Elev: ' + (elevation !== '' ? esc(elevation) : 'N/A') + ' ft').openPopup();
+    // Live precipitation radar as a toggleable overlay (RainViewer — free, no key).
+    fetch('https://api.rainviewer.com/public/weather-maps.json')
+      .then(function(r){ return r.json(); })
+      .then(function(d){
+        var frames = (d.radar && (d.radar.past || [])).concat((d.radar && d.radar.nowcast) || []);
+        if (!frames.length || !d.host) return;
+        var latest = frames[frames.length-1];
+        var radar = L.tileLayer(d.host + latest.path + '/256/{z}/{x}/{y}/4/1_1.png', {opacity:.6, attribution:'Radar © RainViewer'});
+        layerCtl.addOverlay(radar, 'Precip radar (live)');
+      }).catch(function(){});
   }
 
   // Runway detail toggle — exposed globally for inline onclick.
@@ -371,7 +523,7 @@ AIRPORT_APP_JS = r"""
     var NOTAM_SRC = '<p class="wx-src">Source: FAA via aviationweather.gov · a snapshot, not guaranteed current. ' +
       'Confirm active NOTAMs at <a href="https://notams.faa.gov/notamSearch/search" target="_blank" rel="noopener">the official FAA NOTAM search</a> before flight.</p>';
     function windyBtn(){
-      return '<p style="margin:.6rem 0 0"><button onclick="oclShowWindy()" style="background:none;border:1px solid var(--line);border-radius:999px;padding:.28rem .75rem;font:inherit;font-size:.8rem;cursor:pointer;color:var(--muted)">🌐 Show weather map</button></p>';
+      return '';  // Windy map is always shown in its own section now.
     }
     function renderOCLWeather(el, d){
       var metar = d.metar || null, taf = d.taf || null;
@@ -403,9 +555,39 @@ AIRPORT_APP_JS = r"""
         NOT_BRIEF +
         windyBtn();
     }
+    function fToday(){ return new Date().toISOString().slice(0,10); }
+    function renderForecast(el, d, dateStr){
+      var day = (d.daily && d.daily.time) ? d.daily.time.indexOf(dateStr) : -1;
+      if (!d.daily || day < 0){ el.innerHTML = '<h3>Forecast</h3><p class="muted">No forecast for ' + esc(dateStr) + '.</p>'; return; }
+      var dl = d.daily;
+      var wmoTxt = WMO[dl.weather_code ? dl.weather_code[day] : 0] || '';
+      var cards = [
+        ['Conditions', wmoTxt],
+        ['High / Low', Math.round(dl.temperature_2m_max[day]) + '° / ' + Math.round(dl.temperature_2m_min[day]) + '°F'],
+        ['Max wind', Math.round(dl.wind_speed_10m_max[day]) + (dl.wind_gusts_10m_max ? ' g' + Math.round(dl.wind_gusts_10m_max[day]) : '') + ' kt ' + (dl.wind_direction_10m_dominant ? Math.round(dl.wind_direction_10m_dominant[day]) + '°' : '')],
+        ['Precip chance', (dl.precipitation_probability_max ? dl.precipitation_probability_max[day] : 0) + '%'],
+        ['Sunrise', (dl.sunrise ? dl.sunrise[day].slice(11,16) : '—')],
+        ['Sunset', (dl.sunset ? dl.sunset[day].slice(11,16) : '—')]
+      ].map(function(p){ return '<div class="fact-card"><div class="lbl">' + p[0] + '</div><div class="val" style="font-size:.9rem">' + esc(p[1]) + '</div></div>'; }).join('');
+      el.innerHTML = '<h3>Forecast — ' + esc(dateStr) + ' <small style="font-weight:400;font-size:.72rem;color:var(--muted)">Open-Meteo model</small></h3>' +
+        '<div class="fact-grid" style="margin:.4rem 0 .5rem">' + cards + '</div>' + NOT_BRIEF;
+    }
     async function loadWeather(){
       var el = document.getElementById('weather');
       var LAT = window.OCL_LAT, LON = window.OCL_LON;
+      // Future date selected → daily forecast (Open-Meteo, up to 16 days out).
+      var wxDate = window.OCL_WXDATE;
+      if (wxDate && wxDate !== fToday() && LAT && LON){
+        el.innerHTML = '<h3>Forecast</h3><p class="muted"><span class="spinner-sm"></span> Loading forecast for ' + esc(wxDate) + '…</p>';
+        try {
+          var fUrl = 'https://api.open-meteo.com/v1/forecast?latitude=' + LAT + '&longitude=' + LON +
+            '&daily=weather_code,temperature_2m_max,temperature_2m_min,wind_speed_10m_max,wind_gusts_10m_max,wind_direction_10m_dominant,precipitation_probability_max,sunrise,sunset' +
+            '&wind_speed_unit=kn&temperature_unit=fahrenheit&timezone=auto&start_date=' + wxDate + '&end_date=' + wxDate;
+          var rf = await fetchLive(fUrl, 9000);
+          var df = await rf.json();
+          renderForecast(el, df, wxDate); return;
+        } catch(e){ el.innerHTML = '<h3>Forecast</h3><p class="muted">Forecast unavailable for ' + esc(wxDate) + '.</p>'; return; }
+      }
       try {
         var r1 = await fetchLive(base + ident + '/weather', 5000);
         var d1 = await r1.json();
@@ -423,6 +605,7 @@ AIRPORT_APP_JS = r"""
       }
       el.innerHTML = '<h3>Weather</h3><p class="muted">Weather unavailable. <a href="https://aviationweather.gov" target="_blank" rel="noopener">Check aviationweather.gov →</a></p>' + windyBtn();
     }
+    window.__reloadWx = loadWeather;   // let the date picker re-run just the weather card
     loadWeather();
 
     // NOTAMs
@@ -534,6 +717,7 @@ def airport_app_page(head_fn, effective_date: str = "current cycle") -> str:
         + f"<style>{AIRPORT_APP_CSS}</style>"
         + AIRPORT_APP_BODY
         + '<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>'
+        + '<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>'
         + f"<script>{js}</script>"
         + """</main>
 <footer class="site"><div class="wrap">
