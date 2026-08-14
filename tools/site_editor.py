@@ -51,6 +51,13 @@ background:var(--bg);color:var(--fg);cursor:pointer;white-space:nowrap}
 .problems{border:2px solid var(--warn);color:var(--warn);border-radius:.4rem;padding:.6rem .8rem;font-size:.85rem}
 .problems ul{margin:.3rem 0 0;padding-left:1.2rem}
 .okmsg{border:2px solid var(--ok);color:var(--ok);border-radius:.4rem;padding:.6rem .8rem;font-size:.85rem}
+.pubmsg{border-radius:.4rem;padding:.6rem .8rem;font-size:.85rem;margin-top:.5rem}
+.pubmsg.ok{border:2px solid var(--ok);color:var(--ok)}
+.pubmsg.bad{border:2px solid var(--warn);color:var(--warn)}
+.pubmsg.info{border:1px solid var(--line);color:var(--muted)}
+.pubmsg a{color:inherit;font-weight:600}
+.pubmsg ul{margin:.3rem 0 0;padding-left:1.2rem}
+.pubmsg code{word-break:break-all}
 .hint{font-size:.78rem;color:var(--muted)}
 .lib{display:grid;gap:.3rem;margin:.4rem 0}
 .lib .li{display:flex;gap:.5rem;align-items:center;justify-content:space-between;
@@ -74,11 +81,17 @@ or contribute back.</p>
   <div id="library" class="lib"></div>
   <div class="row">
     <button class="btn p" id="save">Save to my checklists</button>
+    <button class="btn p" id="publish">Publish for other pilots</button>
     <button class="btn" id="exportall">Export all as JSON</button>
     <button class="btn" id="importlib">Import</button>
     <input type="file" id="importfile" accept=".json" hidden>
     <span class="hint" id="saved"></span>
   </div>
+  <p class="hint">Publishing shares your checklist with every pilot on the site. It needs
+  a free sign-in so your work is credited to you, and each submission goes through an
+  automated safety review before it appears. Your aircraft registration is never
+  published.</p>
+  <div id="publishstatus"></div>
 </fieldset>
 
 <div class="row">
@@ -768,6 +781,82 @@ EDITOR_JS = r"""
     if (!w) location.href = 'contribute.html';
     el('saved').textContent = 'Downloaded and saved. Follow the steps on the ' +
       'contribute page to open a pull request.';
+  });
+
+  // ---- publish to the site ----
+  // Unlike download/contribute, publishing writes into the shared corpus, so it
+  // requires a signed-in identity: the whole point is a self-sustaining community
+  // where pilots credit and stand behind what they share. oclToken()/oclReq() are
+  // injected globally by build_site.py (AUTH_PILL_JS).
+  function pubMsg(cls, html){
+    el('publishstatus').innerHTML = '<div class="pubmsg ' + cls + '">' + html + '</div>';
+  }
+
+  el('publish').addEventListener('click', async function(){
+    // Not signed in: publishing is impossible, so say why and send them to sign in.
+    if (typeof oclToken !== 'function' || !oclToken()){
+      try { sessionStorage['ocl:return'] = location.href; } catch (e) {}
+      pubMsg('info', '<strong>Sign in to publish.</strong> Publishing shares your ' +
+        'checklist with other pilots and credits it to you, so it needs a free ' +
+        'account. <a href="/profile.html">Sign in or create an account</a>, then ' +
+        'come back and press Publish again — your work is kept here in the meantime.');
+      return;
+    }
+
+    var doc = build();
+    if (!show(doc)) return;  // same validation the download button runs
+
+    // The registration ties a checklist to a specific airframe; it must not travel
+    // into the public corpus. Strip it, and drop airframe_specific if that empties it.
+    if (doc.aircraft && doc.aircraft.airframe_specific){
+      delete doc.aircraft.airframe_specific.registration;
+      if (!Object.keys(doc.aircraft.airframe_specific).length)
+        delete doc.aircraft.airframe_specific;
+    }
+
+    // Author credit + timestamp travel with the file. The server tags the username
+    // if we cannot supply a display name.
+    doc.provenance = doc.provenance || {};
+    var author = (el('author').value || '').trim();
+    var contribs = doc.provenance.contributors = doc.provenance.contributors || [];
+    var authorEntry = contribs.filter(function(c){
+      return (Array.isArray(c.role) ? c.role.indexOf('author') >= 0 : c.role === 'author');
+    })[0];
+    if (!authorEntry){ authorEntry = { role: ['author'] }; contribs.push(authorEntry); }
+    authorEntry.name = author;
+    doc.provenance.transcription = doc.provenance.transcription || { method: 'authored' };
+    doc.provenance.revision = doc.provenance.revision || {};
+    doc.provenance.revision.updated = new Date().toISOString().slice(0,10);
+
+    el('publish').disabled = true;
+    pubMsg('info', 'Publishing and running the automated safety review…');
+    try {
+      var r = await oclReq('POST', '/checklists/submit', { checklist: doc });
+      if (r && r.status === 'approved'){
+        var link = '/checklist/?id=' + encodeURIComponent(r.id);
+        pubMsg('ok', '<strong>Published.</strong> Your checklist is live and other ' +
+          'pilots can find it. Shareable link: <a href="' + esc(link) + '">' +
+          esc(location.origin + link) + '</a>' +
+          (r.notes ? '<br><small>' + esc(r.notes) + '</small>' : ''));
+      } else if (r && r.status === 'rejected'){
+        var issues = (r.safety_issues || []).map(function(s){
+          return '<li>' + esc(typeof s === 'string' ? s : (s.description || JSON.stringify(s))) + '</li>';
+        }).join('');
+        pubMsg('bad', '<strong>Not published — the safety review flagged it.</strong> ' +
+          'Fix the points below and press Publish again.' +
+          (r.notes ? '<br>' + esc(r.notes) : '') +
+          (issues ? '<ul>' + issues + '</ul>' : ''));
+      } else {
+        pubMsg('bad', 'The server responded but not in a way this page understood. ' +
+          'Nothing was published — try again in a moment.' +
+          (r && r.notes ? '<br><small>' + esc(r.notes) + '</small>' : ''));
+      }
+    } catch (err) {
+      pubMsg('bad', '<strong>Could not reach the publishing service.</strong> Nothing ' +
+        'was published. Check your connection and try again. (' + esc(err.message || err) + ')');
+    } finally {
+      el('publish').disabled = false;
+    }
   });
 
   // ---- deep link: editor.html?fork=<id> ----

@@ -211,6 +211,39 @@ li.caution{border-color:var(--caut);color:var(--caut);background:color-mix(in sr
 li.note,li.reference{border-color:var(--note);color:var(--note);background:color-mix(in srgb,var(--note) 7%,#fff)}
 .detail{margin:.3rem 0 0;font-size:.8rem;color:var(--muted)}
 li.blank{height:.6rem}
+/* Review summary chip in the top bar */
+.rvchip{display:inline-flex;align-items:center;gap:.35rem;font-size:.85rem;font-weight:600;
+color:var(--note);background:var(--accent-weak);border:1px solid var(--line);border-radius:var(--pill);
+padding:.5rem .8rem;min-height:2.6rem;cursor:pointer;white-space:nowrap}
+.rvchip:hover{border-color:var(--note)}
+.rvchip[hidden]{display:none}
+/* Ratings & reviews section */
+.reviews{margin:1.4rem 0;border:1px solid var(--line);border-radius:14px;padding:1.1rem 1.2rem;background:#fff}
+.reviews h2{font-size:1.12rem;margin:0 0 .6rem;letter-spacing:-.01em}
+.rv-summary{display:flex;flex-wrap:wrap;gap:1.2rem;align-items:baseline;margin-bottom:.6rem}
+.rv-big{font-size:1.6rem;font-weight:800;letter-spacing:-.02em}
+.rv-stars{color:#e0a800;letter-spacing:.06em}
+.rv-meta{color:var(--muted);font-size:.85rem}
+.rv-list{list-style:none;margin:.4rem 0 0;padding:0}
+.rv-list li{border-top:1px solid var(--line);padding:.6rem 0;margin:0}
+.rv-list .rv-head{display:flex;justify-content:space-between;gap:.5rem;font-size:.82rem;color:var(--muted)}
+.rv-list .rv-author{font-weight:700;color:var(--fg)}
+.rv-list .rv-body{margin:.25rem 0 0;font-size:.92rem}
+.rv-form{margin-top:.9rem;border-top:1px solid var(--line);padding-top:.9rem}
+.rv-picker{font-size:1.35rem;color:#ccc;cursor:pointer;user-select:none;letter-spacing:.08em}
+.rv-picker .on{color:#e0a800}
+.rv-form textarea{width:100%;font:inherit;padding:.6rem .75rem;border:1px solid var(--line);
+border-radius:var(--radius-sm);background:#fff;color:var(--fg);margin:.5rem 0;min-height:4rem;resize:vertical}
+.rv-signin{font-size:.9rem;color:var(--muted);margin-top:.6rem}
+.rv-signin a{color:var(--note);font-weight:600}
+/* Bottom export-format button row */
+.dl-row{display:flex;gap:.4rem;flex-wrap:wrap;justify-content:center;margin:0 auto 1.1rem;max-width:40rem}
+.dl-row a{font-size:.82rem;text-transform:uppercase;letter-spacing:.03em;font-weight:700;
+padding:.45rem .75rem;min-height:2.4rem;display:inline-flex;align-items:center;
+border:1px solid var(--line);border-radius:var(--pill);text-decoration:none;color:var(--note);
+background:#fff;box-shadow:var(--shadow-sm)}
+.dl-row a:hover{border-color:var(--note);background:var(--accent-weak)}
+.pdfopt{display:inline-flex;align-items:center;gap:.35rem;font-size:.85rem;color:var(--muted)}
 .foot{margin:2rem 0 3rem;font-size:.75rem;color:var(--muted);border-top:1px solid var(--line);
 padding-top:.6rem}
 .pagehdr{display:none}
@@ -255,7 +288,8 @@ JS = r"""
     });
   });
 
-  document.getElementById('reset').addEventListener('click', function(){
+  var resetBtn = document.getElementById('reset');
+  if (resetBtn) resetBtn.addEventListener('click', function(){
     if (!confirm('Clear all ticks and start over?')) return;
     boxes.forEach(function(b){ b.checked = false; });
     ticks.clear(); refresh();
@@ -288,7 +322,8 @@ JS = r"""
 
   // There is deliberately no "check all". See the module docstring.
 
-  document.getElementById('log').addEventListener('click', function(){
+  var logBtn = document.getElementById('log');
+  if (logBtn) logBtn.addEventListener('click', function(){
     var entries = [];
     boxes.forEach(function(b){
       var k = key(b);
@@ -443,14 +478,237 @@ JS = r"""
     }
   }
 
-  // Bottom email CTA
+  // Build a jsPDF document of the checklist and its current tick state.
+  function buildLogPdf(){
+    var ns = window.jspdf || window.jsPDF;
+    var Ctor = ns && (ns.jsPDF || ns);
+    if (!Ctor) return null;
+    var pdf = new Ctor({ unit: 'pt', format: 'letter' });
+    var W = pdf.internal.pageSize.getWidth();
+    var margin = 40, y = margin, line = 15;
+    function nl(step){ y += (step || line); if (y > pdf.internal.pageSize.getHeight() - margin){ pdf.addPage(); y = margin; } }
+    pdf.setFont('helvetica', 'bold'); pdf.setFontSize(15);
+    pdf.text((meta.title || document.title).slice(0, 90), margin, y); nl(20);
+    pdf.setFont('helvetica', 'normal'); pdf.setFontSize(9);
+    var reg = document.getElementById('reg'), who = document.getElementById('who');
+    var sub = [reg && reg.value, who && who.value].filter(Boolean).join(' / ');
+    pdf.text((ticks.size + ' / ' + boxes.length + ' checked' + (sub ? '  ·  ' + sub : '')), margin, y); nl();
+    pdf.text('Generated ' + new Date().toISOString(), margin, y); nl(18);
+    pdf.setFontSize(10);
+    boxes.forEach(function(b){
+      var k = key(b), ts = ticks.get(k) || '';
+      var label = b.closest('li') && b.closest('li').querySelector('.itext');
+      var text  = label ? label.textContent.trim() : String(b.dataset.index);
+      var mark  = b.checked ? '[x]' : '[ ]';
+      var resp  = b.closest('li') && b.closest('li').querySelector('.resp');
+      var row = mark + ' ' + text + (resp && resp.textContent.trim() ? '  — ' + resp.textContent.trim() : '');
+      pdf.splitTextToSize(row, W - margin * 2).forEach(function(ln){ pdf.text(ln, margin, y); nl(); });
+      if (ts){ pdf.setTextColor(120); pdf.setFontSize(8); pdf.text('    ' + ts, margin, y); pdf.setFontSize(10); pdf.setTextColor(0); nl(11); }
+    });
+    return pdf;
+  }
+
+  // Bottom email CTA: plain proof, or a PDF-attached copy through the relay.
   var emailSend2 = document.getElementById('emailsend2');
   var emailAddr2 = document.getElementById('emailaddr2');
   var emailMsg2  = document.getElementById('emailmsg2');
+  var emailPdf2  = document.getElementById('emailpdf2');
   if (emailSend2 && emailAddr2) {
     emailSend2.addEventListener('click', function(){
-      sendPreflightProof((emailAddr2.value || '').trim(), emailMsg2, emailSend2);
+      var addr = (emailAddr2.value || '').trim();
+      if (!(emailPdf2 && emailPdf2.checked)) {
+        // Unchanged behaviour: send the completed log via the existing mailer.
+        sendPreflightProof(addr, emailMsg2, emailSend2);
+        return;
+      }
+      if (!addr || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(addr)) {
+        emailMsg2.textContent = 'Please enter a valid email address.';
+        emailMsg2.style.color = 'var(--warn)';
+        return;
+      }
+      var pdf = buildLogPdf();
+      if (!pdf) {
+        emailMsg2.textContent = 'PDF library not ready — try again in a moment.';
+        emailMsg2.style.color = 'var(--warn)';
+        return;
+      }
+      emailSend2.disabled = true;
+      emailMsg2.textContent = 'Sending…';
+      emailMsg2.style.color = 'var(--muted)';
+      var b64 = pdf.output('datauristring').split(',')[1] || '';
+      fetch('https://app.openchecklists.net/api/log/email-pdf', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          email: addr,
+          title: meta.title || document.title,
+          pdf_base64: b64
+        })
+      })
+      .then(function(r){ return r.json().catch(function(){ return {}; }); })
+      .then(function(d){
+        if (d && d.ok !== false) {
+          emailMsg2.textContent = '✓ PDF sent to ' + addr;
+          emailMsg2.style.color = 'var(--ok)';
+        } else {
+          emailMsg2.textContent = 'Failed: ' + (d.error || 'unknown error');
+          emailMsg2.style.color = 'var(--warn)';
+        }
+        emailSend2.disabled = false;
+      })
+      .catch(function(){
+        emailMsg2.textContent = 'Could not connect — check your internet connection.';
+        emailMsg2.style.color = 'var(--warn)';
+        emailSend2.disabled = false;
+      });
     });
+  }
+
+  // ---- Ratings, reviews & usage ----
+  var API = 'https://app.openchecklists.net/api';
+  var ID  = meta.id || '';
+
+  function starStr(avg){
+    var full = Math.round(avg || 0);
+    var s = '';
+    for (var i = 1; i <= 5; i++) s += (i <= full ? '★' : '☆');
+    return s;
+  }
+  function fmtDate(iso){
+    if (!iso) return '';
+    var d = new Date(iso);
+    return isNaN(d) ? '' : d.toLocaleDateString();
+  }
+
+  var rvAvg   = document.getElementById('rv-avg');
+  var rvStars = document.getElementById('rv-stars');
+  var rvCount = document.getElementById('rv-count');
+  var rvUses  = document.getElementById('rv-uses');
+  var rvList  = document.getElementById('rv-list');
+  var rvWrite = document.getElementById('rv-write');
+  var chip    = document.getElementById('rvchip');
+  var chipAvg = document.getElementById('rvchip-avg');
+  var chipN   = document.getElementById('rvchip-n');
+
+  if (chip) chip.addEventListener('click', function(){
+    var sec = document.getElementById('reviews');
+    if (sec) sec.scrollIntoView({behavior: 'smooth', block: 'start'});
+  });
+
+  function renderReviews(data){
+    var avg = data && data.avg_stars ? Number(data.avg_stars) : 0;
+    var n   = data && data.review_count ? data.review_count : 0;
+    if (rvAvg)   rvAvg.textContent   = avg ? avg.toFixed(1) : '–';
+    if (rvStars) rvStars.textContent = starStr(avg);
+    if (rvCount) rvCount.textContent = n;
+    if (chip){
+      chipAvg.textContent = avg ? avg.toFixed(1) : '–';
+      chipN.textContent   = n;
+      chip.hidden = false;
+    }
+    if (rvList){
+      rvList.innerHTML = '';
+      (data && data.reviews || []).forEach(function(r){
+        var li = document.createElement('li');
+        var head = document.createElement('div');
+        head.className = 'rv-head';
+        var who = document.createElement('span');
+        who.className = 'rv-author';
+        who.textContent = r.author || 'Anonymous';
+        var meta2 = document.createElement('span');
+        meta2.textContent = starStr(r.stars) + '  ' + fmtDate(r.created_at);
+        head.appendChild(who); head.appendChild(meta2);
+        li.appendChild(head);
+        if (r.comment){
+          var body = document.createElement('p');
+          body.className = 'rv-body';
+          body.textContent = r.comment;
+          li.appendChild(body);
+        }
+        rvList.appendChild(li);
+      });
+    }
+  }
+
+  function loadReviews(){
+    fetch(API + '/checklists/' + encodeURIComponent(ID) + '/reviews')
+      .then(function(r){ return r.json(); })
+      .then(renderReviews)
+      .catch(function(){});
+  }
+
+  function loadStats(){
+    fetch(API + '/checklists/' + encodeURIComponent(ID) + '/stats')
+      .then(function(r){ return r.json(); })
+      .then(function(d){ if (rvUses) rvUses.textContent = (d && d.uses) || 0; })
+      .catch(function(){});
+  }
+
+  function buildWriteBox(){
+    if (!rvWrite) return;
+    rvWrite.innerHTML = '';
+    if (typeof oclToken === 'function' && oclToken()){
+      var form = document.createElement('div');
+      form.className = 'rv-form';
+      var picker = document.createElement('div');
+      picker.className = 'rv-picker';
+      picker.setAttribute('role', 'radiogroup');
+      picker.setAttribute('aria-label', 'Your rating');
+      var chosen = 0;
+      function paint(n){
+        Array.prototype.forEach.call(picker.children, function(st, i){
+          st.className = (i < n) ? 'on' : '';
+        });
+      }
+      for (var s = 1; s <= 5; s++){
+        (function(val){
+          var st = document.createElement('span');
+          st.textContent = '★';
+          st.style.cursor = 'pointer';
+          st.addEventListener('click', function(){ chosen = val; paint(val); });
+          picker.appendChild(st);
+        })(s);
+      }
+      var ta = document.createElement('textarea');
+      ta.placeholder = 'Share how this checklist worked for you (optional)';
+      var btn = document.createElement('button');
+      btn.textContent = 'Submit review';
+      btn.style.cssText = 'background:var(--note);color:#fff;border:none;border-radius:999px;padding:.5rem 1.1rem;font:inherit;font-weight:600;cursor:pointer;min-height:2.6rem';
+      var msg = document.createElement('p');
+      msg.style.cssText = 'font-size:.85rem;color:var(--muted);margin:.5rem 0 0';
+      btn.addEventListener('click', function(){
+        if (!chosen){ msg.textContent = 'Pick a star rating first.'; msg.style.color = 'var(--warn)'; return; }
+        btn.disabled = true; msg.textContent = 'Submitting…'; msg.style.color = 'var(--muted)';
+        oclReq('POST', '/checklists/' + ID + '/review', { stars: chosen, comment: (ta.value || '').trim() })
+          .then(function(){
+            msg.textContent = '✓ Thanks for your review.'; msg.style.color = 'var(--ok)';
+            loadReviews();
+            buildWriteBox();
+          })
+          .catch(function(){
+            btn.disabled = false;
+            msg.textContent = 'Could not submit — please try again.'; msg.style.color = 'var(--warn)';
+          });
+      });
+      form.appendChild(picker);
+      form.appendChild(ta);
+      form.appendChild(btn);
+      form.appendChild(msg);
+      rvWrite.appendChild(form);
+    } else {
+      var p = document.createElement('p');
+      p.className = 'rv-signin';
+      p.innerHTML = '<a href="/profile.html">Sign in to review</a>';
+      rvWrite.appendChild(p);
+    }
+  }
+
+  if (ID){
+    // Fire-and-forget usage count.
+    fetch(API + '/checklists/' + encodeURIComponent(ID) + '/used', { method: 'POST' }).catch(function(){});
+    loadReviews();
+    loadStats();
+    buildWriteBox();
   }
 
 })();
@@ -488,6 +746,20 @@ def render(doc: dict, paper: str, site_rel: str | None = None) -> str:
         if fam:
             site_links += f'<a class="sitelink" href="{site_rel}f/{esc(fam)}/">Other variations</a>'
         site_links += f'<a class="sitelink" href="{site_rel}catalogue.html">All checklists</a>'
+
+    # Per-format download links, relative to this page (which lives at c/<id>/index.html).
+    # The build writes files as c/<id>/<stem>.<ext>; state travels in the filename, so a
+    # quarantined file gets a .UNREVIEWED infix. Quarantine here matches export.is_quarantined
+    # exactly: unreviewed source fidelity, or any safety_defect known issue (== the banner's
+    # `quarantine` class computed above). EXT == format name for every format, so <ext> == fmt.
+    _cid = doc.get("id") or ""
+    _stem = f"{_cid}.UNREVIEWED" if cls == "quarantine" else _cid
+    # "html" is intentionally omitted: the build does not emit a separate <stem>.html
+    # (this very page, index.html, is the HTML artifact), so that link would 404.
+    _dl_formats = ["json", "csv", "tsv", "md", "txt", "xml", "docx"]
+    dl_row = "".join(
+        f'<a href="{esc(_stem)}.{fmt}" download>{fmt}</a>' for fmt in _dl_formats
+    )
 
     w, h, m = PAPER[paper]
     options = "\n".join(
@@ -556,6 +828,7 @@ padding:.4rem .65rem;border-radius:999px;text-decoration:none}
 <style>{CSS}</style>
 <style id="pagesize">@page{{size:{w} {h};margin:{m}}}</style>
 <style>{_nav_css}</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
 </head>
 <body>
 {_auth_script}
@@ -579,7 +852,9 @@ padding:.4rem .65rem;border-radius:999px;text-decoration:none}
 <div class="wrap">
 
 <div class="bar noprint">
-  <button id="reset">Reset</button>
+  <a class="sitelink" id="customize" href="{_rel}editor.html?fork={esc(doc.get('id'))}"
+    style="background:var(--note);color:#fff;border-color:transparent">Customize this Checklist</a>
+  <button class="rvchip" id="rvchip" hidden>★ <span id="rvchip-avg">–</span> · <span id="rvchip-n">0</span> reviews</button>
   <label>Paper <select id="paper">{options}</select></label>
   <span id="customwrap" hidden>
     <input id="cw" size="6" placeholder="width" aria-label="Custom page width">
@@ -592,21 +867,7 @@ padding:.4rem .65rem;border-radius:999px;text-decoration:none}
     <option value="1.35">largest</option>
   </select></label>
   <button onclick="window.print()">Print</button>
-  <button id="log">Export log</button>
-  <button id="emailbtn" style="background:var(--note);color:#fff;border-color:transparent">Email me this log</button>
-  {site_links}
   <span class="count" id="count"></span>
-</div>
-<div id="emailbar" style="display:none;padding:.6rem 0;border-bottom:1px solid var(--line);
-  display:none;align-items:center;gap:.5rem;flex-wrap:wrap" class="noprint">
-  <input type="email" id="emailaddr" placeholder="your@email.com"
-    style="flex:1;min-width:14rem;font:inherit;padding:.5rem .75rem;min-height:2.6rem;
-    border:1px solid var(--line);border-radius:999px;background:#fff;color:var(--fg)">
-  <button id="emailsend" style="background:var(--note);color:#fff;border:none;border-radius:999px;
-    padding:.5rem 1.1rem;font:inherit;font-weight:600;cursor:pointer;min-height:2.6rem">
-    Send preflight proof ✓
-  </button>
-  <span id="emailmsg" style="font-size:.88rem;color:var(--muted)"></span>
 </div>
 
 <h1>{esc(doc.get('title'))}</h1>
@@ -617,6 +878,17 @@ padding:.4rem .65rem;border-radius:999px;text-decoration:none}
   {esc(text)}
 </div>
 {issue_html}
+
+<section class="reviews noprint" id="reviews">
+  <h2>Ratings &amp; reviews</h2>
+  <div class="rv-summary">
+    <span class="rv-big"><span id="rv-avg">–</span><span style="font-size:.9rem;color:var(--muted)"> / 5</span></span>
+    <span class="rv-stars" id="rv-stars" aria-hidden="true">☆☆☆☆☆</span>
+    <span class="rv-meta"><span id="rv-count">0</span> reviews · <span id="rv-uses">0</span> times used</span>
+  </div>
+  <ul class="rv-list" id="rv-list"></ul>
+  <div id="rv-write"></div>
+</section>
 
 <p class="noprint sub">
   <label>Aircraft <input id="reg" placeholder="N-number" size="10"></label>
@@ -635,8 +907,14 @@ padding:.4rem .65rem;border-radius:999px;text-decoration:none}
   reference renderer. Verify against the aircraft's own approved documentation before use.</p>
 </div>
 
-<div class="noprint" style="margin:2rem 0 3rem;padding:1.6rem 1.4rem;border:1px solid var(--line);border-radius:var(--radius);background:#fff;text-align:center">
-  <h3 style="margin:0 0 .4rem;font-size:1.1rem">Send yourself a preflight proof</h3>
+<div class="noprint" style="margin:2rem 0 3rem;padding:1.6rem 1.4rem;border:1px solid var(--line);border-radius:14px;background:#fff;text-align:center">
+  <h3 style="margin:0 0 .4rem;font-size:1.1rem">Download this checklist</h3>
+  <p style="color:var(--muted);font-size:.9rem;margin:0 0 1.1rem;max-width:38rem;margin-left:auto;margin-right:auto">
+    Grab it in whatever format your tools want.
+  </p>
+  <div class="dl-row">{dl_row}</div>
+
+  <h3 style="margin:1.4rem 0 .4rem;font-size:1.1rem">Send yourself a preflight proof</h3>
   <p style="color:var(--muted);font-size:.9rem;margin:0 0 1.1rem;max-width:38rem;margin-left:auto;margin-right:auto">
     Enter your email to receive a timestamped record of every item you checked — your personal log of this preflight.
   </p>
@@ -645,12 +923,15 @@ padding:.4rem .65rem;border-radius:999px;text-decoration:none}
       style="flex:1;min-width:14rem;font:inherit;padding:.6rem .85rem;min-height:2.75rem;
       border:1px solid var(--line);border-radius:999px;background:#fff;color:var(--fg)">
     <button id="emailsend2"
-      style="background:var(--accent);color:#fff;border:none;border-radius:999px;
+      style="background:var(--note);color:#fff;border:none;border-radius:999px;
       padding:.6rem 1.3rem;font:inherit;font-weight:650;cursor:pointer;min-height:2.75rem;
       white-space:nowrap">
-      Send proof ✓
+      Email me this log ✓
     </button>
   </div>
+  <label class="pdfopt" style="margin-top:.7rem">
+    <input type="checkbox" id="emailpdf2"> Attach a PDF copy
+  </label>
   <p id="emailmsg2" style="font-size:.88rem;color:var(--muted);margin:.6rem 0 0"></p>
 </div>
 </div>

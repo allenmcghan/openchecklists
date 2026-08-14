@@ -161,9 +161,10 @@ border-radius:var(--pill);padding:.2rem .55rem;margin-right:.35rem;background:va
 .badge.quar{color:#7c1c16;background:var(--warn-weak)}
 .badge.ok{color:var(--ok);background:var(--ok-weak)}
 .badge.part{color:var(--caut);background:var(--caut-weak)}
-.dl{margin-top:.6rem;font-size:.8rem;display:flex;flex-wrap:wrap;gap:.35rem}
-.dl a{padding:.25rem .6rem;border:1px solid var(--line);border-radius:var(--pill);color:var(--muted);white-space:nowrap}
-.dl a:hover{border-color:var(--accent-2);color:var(--accent);text-decoration:none}
+.badge.community{color:#1f4e79;background:var(--accent-weak)}
+.stats{margin-top:.5rem;font-size:.82rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.stats .star{color:#b8860b}
+.stats .none{color:var(--muted);opacity:.8}
 
 /* Tables */
 .scroll{overflow-x:auto}
@@ -342,7 +343,7 @@ Optional account for saving aircraft profiles and plan history &mdash; see <a hr
 </div></footer>
 <script>
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('sw.js').catch(function(){ /* offline is a bonus */ });
+  navigator.serviceWorker.register('/sw.js').catch(function(){ /* offline is a bonus */ });
 }
 </script>
 </body>
@@ -448,51 +449,161 @@ INDEX_JS = r"""
       bits.map(function(b){ return '<span>' + b + '</span>'; }).join('') + '</div>' : '';
   }
 
+  // Ratings/usage stats, keyed by checklist id. Filled in by loadStats() after
+  // the cards are already on the page; cards render a placeholder first.
+  var STATS = {};
+
+  function esc(s){
+    return String(s == null ? '' : s)
+      .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+      .replace(/"/g,'&quot;');
+  }
+
+  // The stats line for one entry. Rendered as its own node (id keyed off the
+  // checklist id) so loadStats() can refresh just this line in place.
+  function statsHtml(e){
+    var st = STATS[e.id];
+    if (!st) return '<span class="none">Loading ratings…</span>';
+    var stars = +st.avg_stars || 0, revs = +st.review_count || 0, uses = +st.uses || 0;
+    if (!revs && !uses) return '<span class="none">No ratings yet</span>';
+    var bits = [];
+    if (revs) {
+      bits.push('<span class="star">★</span> ' + stars.toFixed(1) +
+        ' · ' + revs + ' review' + (revs === 1 ? '' : 's'));
+    } else {
+      bits.push('<span class="none">No ratings yet</span>');
+    }
+    if (uses) bits.push(uses + ' used');
+    return bits.join(' · ');
+  }
+
+  function statsId(e){ return 'st-' + String(e.id).replace(/[^a-zA-Z0-9_-]/g, '_'); }
+
   function card(e){
-    var dl = Object.keys(e.downloads).map(function(f){
-      return '<a href="' + e.downloads[f] + '">' + f + '</a>';
-    }).join('');
-    var badge = e.verification.quarantined
-      ? '<span class="badge quar">NOT REVIEWED</span>'
-      : '<span class="badge ok">REVIEWED</span>';
-    if (e.verification.completeness && e.verification.completeness !== 'full') {
+    var badge = '';
+    if (e.community) {
+      badge += '<span class="badge community">COMMUNITY</span>';
+    } else if (e.verification && e.verification.quarantined) {
+      badge += '<span class="badge quar">NOT REVIEWED</span>';
+    } else if (e.verification) {
+      badge += '<span class="badge ok">REVIEWED</span>';
+    }
+    if (e.verification && e.verification.completeness && e.verification.completeness !== 'full') {
       badge += '<span class="badge part">' +
         e.verification.completeness.replace(/_/g,' ').toUpperCase() + '</span>';
     }
-    var ac = [e.aircraft.make, e.aircraft.model, e.aircraft.variant].filter(Boolean).join(' ');
-    return '<li class="card"><h2><a href="' + e.page + '">' + e.title + '</a></h2>' +
-      '<div class="meta">' + badge +
-      '<span>' + ac + '</span>' +
-      '<span>' + (e.aircraft.category||'').replace(/_/g,' ') + '</span>' +
-      '<span>' + e.tickable_items + ' items</span>' +
-      (e.memory_items ? '<span>' + e.memory_items + ' memory</span>' : '') +
-      '<span>' + (e.rights.license || e.rights.status) + '</span>' +
-      (e.registration ? '<span>' + e.registration + '</span>' : '') +
-      '</div>' + fam(e) + '<div class="dl">' + dl + '</div></li>';
+    var ac = e.aircraft
+      ? [e.aircraft.make, e.aircraft.model, e.aircraft.variant].filter(Boolean).join(' ')
+      : (e.author ? 'by ' + esc(e.author) : '');
+    var meta = '<div class="meta">' + badge + (ac ? '<span>' + esc(ac) + '</span>' : '');
+    if (e.aircraft) {
+      meta += '<span>' + (e.aircraft.category||'').replace(/_/g,' ') + '</span>' +
+        '<span>' + e.tickable_items + ' items</span>' +
+        (e.memory_items ? '<span>' + e.memory_items + ' memory</span>' : '') +
+        '<span>' + esc((e.rights ? (e.rights.license || e.rights.status) : '') || '') + '</span>' +
+        (e.registration ? '<span>' + esc(e.registration) + '</span>' : '');
+    }
+    meta += '</div>';
+    return '<li class="card"><h2><a href="' + e.page + '">' + esc(e.title) + '</a></h2>' +
+      meta + (e.community ? '' : fam(e)) +
+      '<div class="stats" id="' + statsId(e) + '">' + statsHtml(e) + '</div></li>';
+  }
+
+  // Rank so highest-rated and most-used rise to the top. Score is
+  // avg_stars * review_count (a well-reviewed 5-star beats a single review),
+  // then raw uses; unrated items keep their original order but sink below rated.
+  function score(e){
+    var st = STATS[e.id] || {};
+    return (+st.avg_stars || 0) * (+st.review_count || 0);
+  }
+  function rank(a, b){
+    var sa = score(a), sb = score(b);
+    if (sb !== sa) return sb - sa;
+    var ua = +(STATS[a.id]||{}).uses || 0, ub = +(STATS[b.id]||{}).uses || 0;
+    if (ub !== ua) return ub - ua;
+    return 0;
   }
 
   function apply(){
     var s = q.value.toLowerCase().trim();
     var c = cat.value, vf = ver.value;
-    var out = data.checklists.filter(function(e){
-      if (c && e.aircraft.category !== c) return false;
-      if (vf === 'reviewed' && e.verification.quarantined) return false;
-      if (vf === 'unreviewed' && !e.verification.quarantined) return false;
+    var out = ALL.filter(function(e){
+      if (c && (!e.aircraft || e.aircraft.category !== c)) return false;
+      if (vf === 'reviewed' && (e.community || (e.verification && e.verification.quarantined))) return false;
+      if (vf === 'unreviewed' && !(e.community || (e.verification && e.verification.quarantined))) return false;
       if (!s) return true;
-      var hay = [e.title, e.aircraft.make, e.aircraft.model, e.aircraft.variant,
-                 e.aircraft.icao_type, e.aircraft.category, e.source.title,
+      var ac = e.aircraft || {};
+      var hay = [e.title, e.author, ac.make, ac.model, ac.variant,
+                 ac.icao_type, ac.category, (e.source||{}).title,
                  e.engine_type, e.airframe_family, e.registration,
                  (e.modifications||[]).map(function(m){ return m.kind + ' ' + m.description; }).join(' ')
                 ].join(' ').toLowerCase();
       return hay.indexOf(s) !== -1;
     });
+    out.sort(rank);
     list.innerHTML = out.map(card).join('') ||
       '<li class="card">Nothing matches. Try a make, a model, or a category.</li>';
-    count.textContent = out.length + ' of ' + data.checklists.length;
+    count.textContent = out.length + ' of ' + ALL.length;
+  }
+
+  // Working list = static example checklists + any community-published ones.
+  var ALL = (data.checklists || []).slice();
+
+  // Bulk-fetch ratings/usage for the currently visible ids, then refresh each
+  // card's stats line in place and re-sort by the new ranking. Static example
+  // slugs and community ids are both valid ids for the stats endpoint.
+  function loadStats(){
+    var ids = ALL.map(function(e){ return e.id; }).filter(Boolean);
+    if (!ids.length) return;
+    var chunks = [];
+    for (var i = 0; i < ids.length; i += 300) chunks.push(ids.slice(i, i + 300));
+    Promise.all(chunks.map(function(chunk){
+      return fetch(OCL_API + '/checklists/stats?ids=' + encodeURIComponent(chunk.join(',')))
+        .then(function(r){ return r.ok ? r.json() : null; })
+        .then(function(j){ if (j && j.stats) Object.assign(STATS, j.stats); })
+        .catch(function(){});
+    })).then(function(){
+      // Fill in each existing stats node, then re-sort so top-rated rise up.
+      ALL.forEach(function(e){
+        var node = document.getElementById(statsId(e));
+        if (node) node.innerHTML = statsHtml(e);
+      });
+      apply();
+    });
+  }
+
+  // Merge community-published checklists in, then load stats for everything.
+  // A community entry links to /checklist/?id=<id> (path URLs don't work on
+  // this host) and carries a distinct Community badge. If the API is
+  // unreachable we just show the static examples.
+  function loadCommunity(){
+    fetch(OCL_API + '/checklists')
+      .then(function(r){ return r.ok ? r.json() : null; })
+      .then(function(j){
+        if (j && j.checklists && j.checklists.length) {
+          var seen = {};
+          ALL.forEach(function(e){ seen[e.id] = true; });
+          j.checklists.forEach(function(c){
+            if (!c || !c.id || seen[c.id]) return;
+            seen[c.id] = true;
+            ALL.push({
+              id: c.id,
+              title: c.title || 'Untitled checklist',
+              author: c.author || '',
+              community: true,
+              page: '/checklist/?id=' + encodeURIComponent(c.id)
+            });
+          });
+          apply();
+        }
+      })
+      .catch(function(){ /* offline / API down — static examples still show */ })
+      .then(function(){ loadStats(); });
   }
 
   [q, cat, ver].forEach(function(el){ el.addEventListener('input', apply); });
   apply();
+  loadCommunity();
 })();
 """
 
@@ -1660,6 +1771,18 @@ def main() -> int:
         plan_dir.mkdir(exist_ok=True)
         shutil.copy2(plan_src, plan_dir / "index.html")
         artifacts.append(plan_dir / "index.html")
+    # Community-checklist viewer. One client-rendered template serves every
+    # /checklist/?id=<id> URL — it reads the checklist from the ocl-api Worker in
+    # the browser, so community-published checklists (which the catalogue links to
+    # here) have a real page without pre-rendering anything at build time.
+    from site_checklist_view import checklist_view_page  # noqa: E402
+
+    (args.out / "checklist").mkdir(parents=True, exist_ok=True)
+    (args.out / "checklist" / "index.html").write_text(
+        checklist_view_page(head, FOOT), encoding="utf-8"
+    )
+    static_pages.append(args.out / "checklist" / "index.html")
+
     (args.out / "editor.html").write_text(editor_page(head, FOOT, catalogue), encoding="utf-8")
     artifacts += static_pages + [args.out / "editor.html"]
 

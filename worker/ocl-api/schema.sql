@@ -94,3 +94,20 @@ CREATE TABLE IF NOT EXISTS flight_plans (
 
 CREATE INDEX IF NOT EXISTS idx_flight_plans_user ON flight_plans(user_id);
 CREATE INDEX IF NOT EXISTS idx_flight_plans_created ON flight_plans(created_at DESC);
+
+CREATE TABLE IF NOT EXISTS checklist_reviews (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  checklist_id TEXT NOT NULL,
+  user_id TEXT NOT NULL,
+  stars INTEGER NOT NULL,
+  comment TEXT,
+  created_at TEXT,
+  UNIQUE(checklist_id, user_id)
+);
+CREATE INDEX IF NOT EXISTS idx_reviews_cl ON checklist_reviews(checklist_id);
+
+CREATE TABLE IF NOT EXISTS checklist_usage (
+  checklist_id TEXT PRIMARY KEY,
+  uses INTEGER NOT NULL DEFAULT 0,
+  updated_at TEXT
+);

@@ -16,6 +16,13 @@
  *   PUT  /api/me/training/:cert   Update training progress
  *   GET  /api/leaderboard         Top 100 (opted-in users only)
  *   POST /api/checklists/submit   Submit checklist for AI review + publish
+ *   GET  /api/checklists          List public community checklists (with stats)
+ *   GET  /api/checklists/stats    Bulk stats for ?ids=a,b,c (static slugs too)
+ *   GET  /api/checklists/:id      Full JSON of a public community checklist
+ *   GET  /api/checklists/:id/reviews  Reviews + aggregate for a checklist
+ *   GET  /api/checklists/:id/stats    avg_stars/review_count/uses for a checklist
+ *   POST /api/checklists/:id/review   Upsert a star rating + comment (auth)
+ *   POST /api/checklists/:id/used     Increment anonymous usage counter (public)
  *   GET  /api/share/:logId        Public share snapshot for a log
  */
 
@@ -274,12 +281,27 @@ async function savePlan(req, env) {
   let body;
   try { body = await req.json(); } catch { return new Response('Bad JSON', { status: 400 }); }
 
-  const { aircraft, departure, destination, alternate, depart_at, fuel_onboard, reserve_min } = body;
+  let { aircraft, departure, destination, alternate, depart_at, fuel_onboard, reserve_min, route } = body;
+
+  // Multi-leg: if a route of ordered waypoints (length >= 2) is supplied, it
+  // drives departure/destination and the weather/notam fetch covers every leg.
+  const hasRoute = Array.isArray(route) && route.filter(Boolean).length >= 2;
+  if (hasRoute) {
+    route = route.filter(Boolean);
+    departure = route[0];
+    destination = route[route.length - 1];
+  } else {
+    route = null;
+  }
+
   if (!departure || !destination) {
     return new Response(JSON.stringify({ error: 'departure and destination required' }), { status: 422, headers: { 'Content-Type': 'application/json' } });
   }
 
-  const airports = [departure, destination, alternate].filter(Boolean);
+  // De-duplicate the idents we actually fetch — a route may repeat an airport
+  // and the alternate may already be a waypoint.
+  const baseAirports = hasRoute ? [...route, alternate] : [departure, destination, alternate];
+  const airports = [...new Set(baseAirports.filter(Boolean))];
   const [wxResults, notamResults] = await Promise.all([
     Promise.all(airports.map(fetchAirportWeather)),
     Promise.all(airports.map(fetchAirportNotams)),
@@ -288,6 +310,7 @@ async function savePlan(req, env) {
 
   const snapshot = {
     departure, destination, alternate: alternate || null,
+    route: hasRoute ? route : null,
     weather: Object.fromEntries(airports.map((id, i) => [id, wxResults[i]])),
     notams: Object.fromEntries(airports.map((id, i) => [id, notamResults[i]])),
     fuel: fuelResult,
@@ -671,6 +694,158 @@ const routes = {
     });
   },
 
+  // GET /api/checklists — community list, per-id reviews/stats, bulk stats, full JSON.
+  // checklist_id is a free-form string: static example slugs and community IDs both work.
+  'GET /api/checklists': async (req, env, _claims, params) => {
+    const parts = (params.id || '').split('/').filter(Boolean);
+
+    // GET /api/checklists — list public community checklists
+    if (!parts.length) {
+      const { results } = await env.DB.prepare(
+        `SELECT sc.id, sc.title, sc.saved_at, u.username, u.display_name
+         FROM saved_checklists sc LEFT JOIN users u ON sc.user_id=u.id
+         WHERE sc.is_public=1 ORDER BY sc.saved_at DESC`
+      ).all();
+      const list = [];
+      for (const c of (results || [])) {
+        const agg = await env.DB.prepare(
+          'SELECT ROUND(AVG(stars),1) AS avg_stars, COUNT(*) AS review_count FROM checklist_reviews WHERE checklist_id=?'
+        ).bind(c.id).first();
+        const uses = await env.DB.prepare(
+          'SELECT uses FROM checklist_usage WHERE checklist_id=?'
+        ).bind(c.id).first('uses');
+        list.push({
+          id: c.id,
+          title: c.title,
+          author: c.display_name || c.username || 'A pilot',
+          saved_at: c.saved_at,
+          avg_stars: agg?.avg_stars || 0,
+          review_count: agg?.review_count || 0,
+          uses: uses || 0,
+        });
+      }
+      return json({ checklists: list });
+    }
+
+    // GET /api/checklists/stats?ids=a,b,c — bulk stats (static slugs included)
+    if (parts.length === 1 && parts[0] === 'stats') {
+      const url = new URL(req.url);
+      const ids = (url.searchParams.get('ids') || '')
+        .split(',').map(s => s.trim()).filter(Boolean).slice(0, 300);
+      const stats = {};
+      for (const cid of ids) {
+        const agg = await env.DB.prepare(
+          'SELECT ROUND(AVG(stars),1) AS avg_stars, COUNT(*) AS review_count FROM checklist_reviews WHERE checklist_id=?'
+        ).bind(cid).first();
+        const uses = await env.DB.prepare(
+          'SELECT uses FROM checklist_usage WHERE checklist_id=?'
+        ).bind(cid).first('uses');
+        stats[cid] = {
+          avg_stars: agg?.avg_stars || 0,
+          review_count: agg?.review_count || 0,
+          uses: uses || 0,
+        };
+      }
+      return json({ stats });
+    }
+
+    // GET /api/checklists/:id/reviews — review list + aggregate
+    if (parts.length === 2 && parts[1] === 'reviews') {
+      const cid = parts[0];
+      const agg = await env.DB.prepare(
+        'SELECT ROUND(AVG(stars),1) AS avg_stars, COUNT(*) AS review_count FROM checklist_reviews WHERE checklist_id=?'
+      ).bind(cid).first();
+      const { results } = await env.DB.prepare(
+        `SELECT r.stars, r.comment, r.created_at, u.username, u.display_name
+         FROM checklist_reviews r LEFT JOIN users u ON r.user_id=u.id
+         WHERE r.checklist_id=? ORDER BY r.created_at DESC LIMIT 100`
+      ).bind(cid).all();
+      return json({
+        avg_stars: agg?.avg_stars || 0,
+        review_count: agg?.review_count || 0,
+        reviews: (results || []).map(r => ({
+          stars: r.stars,
+          comment: r.comment || '',
+          author: r.display_name || r.username || 'A pilot',
+          created_at: r.created_at,
+        })),
+      });
+    }
+
+    // GET /api/checklists/:id/stats — single-checklist stats
+    if (parts.length === 2 && parts[1] === 'stats') {
+      const cid = parts[0];
+      const agg = await env.DB.prepare(
+        'SELECT ROUND(AVG(stars),1) AS avg_stars, COUNT(*) AS review_count FROM checklist_reviews WHERE checklist_id=?'
+      ).bind(cid).first();
+      const uses = await env.DB.prepare(
+        'SELECT uses FROM checklist_usage WHERE checklist_id=?'
+      ).bind(cid).first('uses');
+      return json({
+        avg_stars: agg?.avg_stars || 0,
+        review_count: agg?.review_count || 0,
+        uses: uses || 0,
+      });
+    }
+
+    // GET /api/checklists/:id — full JSON of a public community checklist
+    if (parts.length === 1) {
+      const row = await env.DB.prepare(
+        'SELECT checklist_json FROM saved_checklists WHERE id=? AND is_public=1'
+      ).bind(parts[0]).first();
+      if (!row) return err('Not found', 404);
+      try {
+        return json(JSON.parse(row.checklist_json));
+      } catch {
+        return err('Not found', 404);
+      }
+    }
+
+    return err('Not found', 404);
+  },
+
+  // POST /api/checklists/:id/review (auth) | /api/checklists/:id/used (public)
+  'POST /api/checklists': async (req, env, claims, params) => {
+    const parts = (params.id || '').split('/').filter(Boolean);
+
+    // POST /api/checklists/:id/review — upsert a star rating + comment (auth required)
+    if (parts.length === 2 && parts[1] === 'review') {
+      if (!claims) return err('Sign in to review', 401);
+      const user = await ensureUser(env.DB, claims);
+      const cid = parts[0];
+      const b = await req.json().catch(() => ({}));
+      const stars = parseInt(b.stars, 10);
+      if (!(stars >= 1 && stars <= 5)) return err('stars must be 1-5', 422);
+      const comment = (b.comment || '').toString().trim().substring(0, 2000);
+      const now = new Date().toISOString();
+      await env.DB.prepare(
+        `INSERT INTO checklist_reviews (checklist_id,user_id,stars,comment,created_at)
+         VALUES (?,?,?,?,?)
+         ON CONFLICT(checklist_id,user_id) DO UPDATE SET stars=excluded.stars,comment=excluded.comment,created_at=excluded.created_at`
+      ).bind(cid, user.id, stars, comment, now).run();
+      const agg = await env.DB.prepare(
+        'SELECT ROUND(AVG(stars),1) AS avg_stars, COUNT(*) AS review_count FROM checklist_reviews WHERE checklist_id=?'
+      ).bind(cid).first();
+      return json({ ok: true, avg_stars: agg?.avg_stars || 0, review_count: agg?.review_count || 0 });
+    }
+
+    // POST /api/checklists/:id/used — anonymous usage counter (public)
+    if (parts.length === 2 && parts[1] === 'used') {
+      const cid = parts[0];
+      const now = new Date().toISOString();
+      await env.DB.prepare(
+        `INSERT INTO checklist_usage (checklist_id,uses,updated_at) VALUES (?,1,?)
+         ON CONFLICT(checklist_id) DO UPDATE SET uses=uses+1, updated_at=?`
+      ).bind(cid, now, now).run();
+      const uses = await env.DB.prepare(
+        'SELECT uses FROM checklist_usage WHERE checklist_id=?'
+      ).bind(cid).first('uses');
+      return json({ uses: uses || 0 });
+    }
+
+    return err('Unknown checklists action', 404);
+  },
+
   // GET /api/me/plans — list saved flight plans (auth required)
   'GET /api/me/plans': listPlans,
 
@@ -699,6 +874,35 @@ const routes = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'X-OCL-Secret': env.OCL_PDF_SECRET || '' },
         body: JSON.stringify({ email: b.email, ident: b.ident || '', name: b.name || '', pdf_base64: b.pdf_base64 }),
+        signal: AbortSignal.timeout(15000),
+      });
+      const data = await r.json().catch(() => ({ error: 'relay error' }));
+      return json(data, r.ok ? 200 : 502);
+    } catch (e) {
+      return json({ error: 'mail relay unavailable' }, 502);
+    }
+  },
+
+  // POST /api/log/email-pdf — email a client-generated checklist-log PDF to the
+  // user (relayed to the kw3 mailer with the shared secret, like the airport one).
+  // Body: { email, title, pdf_base64 }.
+  'POST /api/log': async (req, env, _claims, params) => {
+    const parts = (params.id || '').split('/');
+    if ((parts[0] || '') !== 'email-pdf') return err('Unknown log action', 404);
+    const b = await req.json().catch(() => ({}));
+    if (!b.email || !b.pdf_base64) return err('email and pdf_base64 required', 422);
+    const title = (b.title || 'Checklist').slice(0, 100);
+    try {
+      const r = await fetch('https://api.openchecklists.net/mail-pdf.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'X-OCL-Secret': env.OCL_PDF_SECRET || '' },
+        body: JSON.stringify({
+          email: b.email,
+          subject: 'Your checklist log: ' + title,
+          filename: title.replace(/[^A-Za-z0-9]+/g, '-').slice(0, 60) + '-log.pdf',
+          text: 'Your completed checklist log for "' + title + '" is attached.',
+          pdf_base64: b.pdf_base64,
+        }),
         signal: AbortSignal.timeout(15000),
       });
       const data = await r.json().catch(() => ({ error: 'relay error' }));
@@ -840,7 +1044,7 @@ export default {
     const claims = await auth(req, env);
 
     // Routes that don't require auth
-    const publicRoutes = ['GET /api/leaderboard', 'GET /api/share', 'GET /api/plan', 'POST /api/me/plans', 'POST /api/plan', 'GET /api/airport', 'POST /api/airport', 'GET /api/proxy'];
+    const publicRoutes = ['GET /api/leaderboard', 'GET /api/share', 'GET /api/plan', 'POST /api/me/plans', 'POST /api/plan', 'GET /api/airport', 'POST /api/airport', 'POST /api/log', 'GET /api/proxy', 'GET /api/checklists', 'POST /api/checklists'];
 
     // Match most-specific (longest path) routes first so that e.g.
     // `GET /api/me/aircraft` is not swallowed by the `GET /api/me` prefix.
