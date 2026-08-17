@@ -562,6 +562,80 @@ const routes = {
   },
 
   // GET /api/me/logs — last 6 months only
+  // ── Flight logbook (the real logbook; distinct from preflight_logs) ──────────
+  // GET /api/me/logbook — list entries + running totals
+  'GET /api/me/logbook': async (req, env, claims) => {
+    const user = await ensureUser(env.DB, claims);
+    const { results } = await env.DB.prepare(
+      `SELECT id,flight_date,dep,arr,route,aircraft,total_time,pic_time,landings,remarks,source
+       FROM logbook_entries WHERE user_id=? ORDER BY flight_date DESC, created_at DESC LIMIT 1000`
+    ).bind(user.id).all();
+    const t = await env.DB.prepare(
+      `SELECT COUNT(*) AS flights, COALESCE(SUM(total_time),0) AS total_time,
+              COALESCE(SUM(pic_time),0) AS pic_time, COALESCE(SUM(landings),0) AS landings
+       FROM logbook_entries WHERE user_id=?`
+    ).bind(user.id).first();
+    return json({ entries: results, totals: t });
+  },
+
+  // POST /api/me/logbook — add/update one entry; or /import to pull from plans+preflights
+  'POST /api/me/logbook': async (req, env, claims, params) => {
+    const user = await ensureUser(env.DB, claims);
+    const parts = ((params && params.id) || '').split('/');
+    const now = new Date().toISOString();
+
+    if (parts[0] === 'import') {
+      // Pull saved plans + recent preflight completions the user hasn't logged yet.
+      let imported = 0;
+      const plans = await env.DB.prepare(
+        `SELECT id,departure,destination,alternate,depart_at,created_at,aircraft_snapshot,snapshot
+         FROM flight_plans WHERE user_id=? ORDER BY created_at DESC LIMIT 200`
+      ).bind(user.id).all();
+      for (const p of (plans.results || [])) {
+        let ac = {}; let route = null;
+        try { ac = JSON.parse(p.aircraft_snapshot || '{}'); } catch (e) {}
+        try { route = (JSON.parse(p.snapshot || '{}').route) || null; } catch (e) {}
+        const acStr = [ac.n_number || ac.registration, ac.make, ac.model].filter(Boolean).join(' ');
+        const routeStr = Array.isArray(route) ? route.join(' ') : [p.departure, p.destination].filter(Boolean).join(' ');
+        const date = (p.depart_at || p.created_at || now).slice(0, 10);
+        try {
+          const r = await env.DB.prepare(
+            `INSERT OR IGNORE INTO logbook_entries
+             (id,user_id,flight_date,dep,arr,route,aircraft,total_time,pic_time,landings,remarks,source,source_ref,created_at)
+             VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)`
+          ).bind(crypto.randomUUID(), user.id, date, p.departure || '', p.destination || '', routeStr,
+                 acStr, 0, 0, 0, 'Imported from saved plan', 'plan', 'plan:' + p.id, now).run();
+          if (r.meta.changes) imported++;
+        } catch (e) {}
+      }
+      return json({ ok: true, imported });
+    }
+
+    // Single entry (manual add or edit)
+    const b = await req.json().catch(() => ({}));
+    const id = (b.id && String(b.id)) || crypto.randomUUID();
+    const num = (v) => { const n = parseFloat(v); return isFinite(n) && n >= 0 ? n : 0; };
+    await env.DB.prepare(
+      `INSERT INTO logbook_entries
+       (id,user_id,flight_date,dep,arr,route,aircraft,total_time,pic_time,landings,remarks,source,source_ref,created_at)
+       VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+       ON CONFLICT(id) DO UPDATE SET
+         flight_date=excluded.flight_date, dep=excluded.dep, arr=excluded.arr, route=excluded.route,
+         aircraft=excluded.aircraft, total_time=excluded.total_time, pic_time=excluded.pic_time,
+         landings=excluded.landings, remarks=excluded.remarks`
+    ).bind(id, user.id, (b.flight_date || now.slice(0, 10)), (b.dep || '').toUpperCase(), (b.arr || '').toUpperCase(),
+           b.route || '', b.aircraft || '', num(b.total_time), num(b.pic_time),
+           Math.round(num(b.landings)), (b.remarks || '').slice(0, 500), 'manual', null, now).run();
+    return json({ id, ok: true });
+  },
+
+  // DELETE /api/me/logbook/:id
+  'DELETE /api/me/logbook': async (req, env, claims, params) => {
+    const user = await ensureUser(env.DB, claims);
+    await env.DB.prepare('DELETE FROM logbook_entries WHERE id=? AND user_id=?').bind(params.id, user.id).run();
+    return json({ ok: true });
+  },
+
   'GET /api/me/logs': async (req, env, claims) => {
     const user = await ensureUser(env.DB, claims);
     const cutoff = new Date(Date.now() - 180 * 86400_000).toISOString();

@@ -111,3 +111,25 @@ CREATE TABLE IF NOT EXISTS checklist_usage (
   uses INTEGER NOT NULL DEFAULT 0,
   updated_at TEXT
 );
+
+-- Pilot flight logbook (the real logbook — distinct from preflight_logs, which
+-- are checklist completions). Entries can be manual or imported from saved
+-- flight plans / preflight records; source_ref dedupes imports.
+CREATE TABLE IF NOT EXISTS logbook_entries (
+  id          TEXT PRIMARY KEY,
+  user_id     TEXT NOT NULL,
+  flight_date TEXT,                -- YYYY-MM-DD
+  dep         TEXT,
+  arr         TEXT,
+  route       TEXT,                -- full route string, e.g. "KBNA KHSV KMEM"
+  aircraft    TEXT,                -- display: make/model/registration
+  total_time  REAL NOT NULL DEFAULT 0,
+  pic_time    REAL NOT NULL DEFAULT 0,
+  landings    INTEGER NOT NULL DEFAULT 0,
+  remarks     TEXT,
+  source      TEXT NOT NULL DEFAULT 'manual',   -- manual | plan | preflight
+  source_ref  TEXT,                              -- plan id / preflight log id (import dedupe)
+  created_at  TEXT
+);
+CREATE INDEX IF NOT EXISTS idx_logbook_user ON logbook_entries(user_id, flight_date DESC);
+CREATE UNIQUE INDEX IF NOT EXISTS idx_logbook_srcref ON logbook_entries(user_id, source_ref);

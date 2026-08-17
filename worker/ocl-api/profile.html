@@ -75,6 +75,24 @@ input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px #eaf1fb
 footer{border-top:1px solid var(--line);margin-top:3rem;padding:1.2rem 0;
   font-size:.82rem;color:var(--muted);text-align:center}
 footer a{color:var(--muted)}
+/* Logbook */
+.lb-totals{display:flex;flex-wrap:wrap;gap:.6rem;margin:.4rem 0}
+.lb-stat{background:var(--card,#f5f7fb);border:1px solid var(--line);border-radius:10px;padding:.55rem .9rem;min-width:92px}
+.lb-stat .n{font-size:1.2rem;font-weight:800;color:var(--accent,#1f4e79)}
+.lb-stat .l{font-size:.66rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.lb-table{width:100%;border-collapse:collapse;font-size:.82rem;margin:.3rem 0}
+.lb-table th,.lb-table td{padding:.4rem .5rem;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.lb-table th{font-size:.64rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+.lb-table td.n{text-align:right;font-variant-numeric:tabular-nums}
+.lb-table .rt{font-family:ui-monospace,Menlo,monospace}
+.lb-del{background:none;border:0;color:#b3261e;cursor:pointer;font-size:1rem;line-height:1}
+.lb-form{display:flex;flex-wrap:wrap;gap:.6rem;align-items:flex-end;margin-top:.6rem}
+.lb-add summary{cursor:pointer;font-weight:600;color:var(--accent,#1f4e79)}
+.ins-card{display:flex;flex-wrap:wrap;gap:.6rem 1rem;align-items:center;justify-content:space-between;
+  background:#eef4fb;border:1px solid #c5d8ee;border-radius:12px;padding:.85rem 1.1rem;margin:1.2rem 0}
+.ins-card strong{display:block;font-size:.92rem;color:#1f4e79}
+.ins-card span{font-size:.78rem;color:#48607a}
+.ins-card .btn{white-space:nowrap}
 </style>
 </head>
 <body>
@@ -159,10 +177,44 @@ footer a{color:var(--muted)}
       <button class="btn primary" onclick="addAirport()">Add</button>
     </div>
 
-    <!-- Recent logs -->
-    <h2>Recent preflights <span class="badge-pill" style="font-size:.65rem;vertical-align:middle">6 months</span></h2>
+    <!-- Flight logbook -->
+    <h2>My logbook</h2>
     <p class="meta" style="color:var(--muted);font-size:.82rem;margin-bottom:.6rem">
-      Logs older than 6 months are automatically deleted. Download your log file to keep a permanent copy.</p>
+      Your personal record of flights flown. You are responsible for its accuracy — this is a
+      convenience record, not a substitute for the logbook and endorsements required by 14&nbsp;CFR&nbsp;61.51.</p>
+    <div id="lb-totals" class="lb-totals"></div>
+    <div style="margin:.6rem 0 .3rem">
+      <button class="btn" onclick="importLogbook(this)">↓ Import from my saved plans</button>
+    </div>
+    <div id="logbook-list"></div>
+    <details class="lb-add" style="margin-top:.8rem">
+      <summary>+ Add a flight</summary>
+      <div class="lb-form">
+        <div class="fg" style="flex:0 0 140px"><label>Date</label><input type="date" id="lb-date"></div>
+        <div class="fg" style="flex:0 0 90px"><label>From</label><input type="text" id="lb-dep" placeholder="KBNA" maxlength="8" style="text-transform:uppercase"></div>
+        <div class="fg" style="flex:0 0 90px"><label>To</label><input type="text" id="lb-arr" placeholder="KMEM" maxlength="8" style="text-transform:uppercase"></div>
+        <div class="fg"><label>Aircraft</label><input type="text" id="lb-ac" placeholder="N172SK Cessna 172" maxlength="80"></div>
+        <div class="fg" style="flex:0 0 90px"><label>Total (hr)</label><input type="number" id="lb-total" step="0.1" min="0" placeholder="1.4"></div>
+        <div class="fg" style="flex:0 0 90px"><label>PIC (hr)</label><input type="number" id="lb-pic" step="0.1" min="0" placeholder="1.4"></div>
+        <div class="fg" style="flex:0 0 80px"><label>Ldg</label><input type="number" id="lb-ldg" step="1" min="0" placeholder="1"></div>
+        <div class="fg" style="flex:1 1 100%"><label>Remarks</label><input type="text" id="lb-remarks" placeholder="Pattern work, 3 landings…" maxlength="500"></div>
+        <button class="btn primary" onclick="addLogbookEntry()">Save flight</button>
+      </div>
+    </details>
+
+    <!-- Per-flight insurance leadgen (external, third-party) -->
+    <div class="ins-card">
+      <div>
+        <strong>Renting or flying a non-owned aircraft?</strong>
+        <span>Get a per-flight insurance quote from SkyWatch — an independent third party. Openchecklists does not sell or underwrite insurance, and our weather/airport data is an unverified pre-check, not a basis for coverage.</span>
+      </div>
+      <a class="btn primary" href="https://www.skywatch.ai/" target="_blank" rel="noopener" id="ins-link">Get a quote ↗</a>
+    </div>
+
+    <!-- Recent checklist completions (NOT the legal logbook) -->
+    <h2>Recent checklist completions <span class="badge-pill" style="font-size:.65rem;vertical-align:middle">6 months</span></h2>
+    <p class="meta" style="color:var(--muted);font-size:.82rem;margin-bottom:.6rem">
+      Records of checklists you ran and emailed yourself — <strong>not</strong> your flight logbook. Older than 6 months are auto-deleted; download a log to keep it.</p>
     <div id="logs-list"></div>
 
     <!-- Sign out -->
@@ -299,8 +351,58 @@ async function loadProfile() {
     // Load sub-sections
     loadAircraft();
     loadAirports();
+    loadLogbook();
     loadLogs();
   } catch(e) { console.error(e); }
+}
+
+// ---- Flight logbook ----
+function fmtHr(v){ return (Math.round((v||0)*10)/10).toFixed(1); }
+function escLb(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+async function loadLogbook() {
+  var d = await apiReq('/me/logbook');
+  var entries = (d && d.entries) || [], t = (d && d.totals) || {};
+  document.getElementById('lb-totals').innerHTML =
+    '<div class="lb-stat"><div class="n">'+(t.flights||0)+'</div><div class="l">Flights</div></div>'+
+    '<div class="lb-stat"><div class="n">'+fmtHr(t.total_time)+'</div><div class="l">Total hrs</div></div>'+
+    '<div class="lb-stat"><div class="n">'+fmtHr(t.pic_time)+'</div><div class="l">PIC hrs</div></div>'+
+    '<div class="lb-stat"><div class="n">'+(t.landings||0)+'</div><div class="l">Landings</div></div>';
+  var el = document.getElementById('logbook-list');
+  if (!entries.length) { el.innerHTML='<p class="empty">No flights logged yet. Import from your saved plans, or add one below.</p>'; return; }
+  el.innerHTML = '<div style="overflow-x:auto"><table class="lb-table"><thead><tr>'+
+    '<th>Date</th><th>Route</th><th>Aircraft</th><th>Total</th><th>PIC</th><th>Ldg</th><th>Remarks</th><th></th></tr></thead><tbody>'+
+    entries.map(function(e){
+      var route = e.route ? e.route : [e.dep,e.arr].filter(Boolean).join(' → ');
+      return '<tr><td>'+escLb(e.flight_date||'')+'</td>'+
+        '<td class="rt">'+escLb(route)+'</td>'+
+        '<td>'+escLb(e.aircraft||'')+'</td>'+
+        '<td class="n">'+fmtHr(e.total_time)+'</td>'+
+        '<td class="n">'+fmtHr(e.pic_time)+'</td>'+
+        '<td class="n">'+(e.landings||0)+'</td>'+
+        '<td>'+escLb(e.remarks||'')+'</td>'+
+        '<td><button class="lb-del" title="Delete" onclick="deleteLogbookEntry(\''+escLb(e.id)+'\')">✕</button></td></tr>';
+    }).join('')+'</tbody></table></div>';
+}
+async function importLogbook(btn) {
+  if (btn){ btn.disabled=true; btn.textContent='Importing…'; }
+  try {
+    var r = await apiReq('/me/logbook/import', {method:'POST'});
+    toast(r && r.imported ? ('Imported '+r.imported+' flight'+(r.imported===1?'':'s')) : 'Nothing new to import');
+    await loadLogbook();
+  } catch(e){ toast('Import failed'); }
+  if (btn){ btn.disabled=false; btn.textContent='↓ Import from my saved plans'; }
+}
+async function addLogbookEntry() {
+  var g = function(id){ return document.getElementById(id).value; };
+  var body = { flight_date:g('lb-date'), dep:g('lb-dep'), arr:g('lb-arr'), aircraft:g('lb-ac'),
+    total_time:g('lb-total'), pic_time:g('lb-pic'), landings:g('lb-ldg'), remarks:g('lb-remarks') };
+  if (!body.flight_date) { toast('Pick a date'); return; }
+  await apiReq('/me/logbook', {method:'POST', body:JSON.stringify(body)});
+  ['lb-dep','lb-arr','lb-ac','lb-total','lb-pic','lb-ldg','lb-remarks'].forEach(function(id){ document.getElementById(id).value=''; });
+  toast('Flight logged'); loadLogbook();
+}
+async function deleteLogbookEntry(id) {
+  await apiReq('/me/logbook/'+encodeURIComponent(id), {method:'DELETE'}); loadLogbook();
 }
 
 // ---- Aircraft ----
