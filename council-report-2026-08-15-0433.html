@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LLM Council — student→private, learn + plan, logbook, insurance</title>
+<style>
+  :root{--fg:#12202e;--muted:#5a6b7b;--line:#e4e9f0;--accent:#1f4e79;--bg:#f7f9fc;
+    --warn:#b3261e;--warn-bg:#fdeceb;--ok:#186a2b;--ok-bg:#e9f6ec;--caut:#8a5a00;--caut-bg:#fbf3e0}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--fg);font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.6;font-size:16px}
+  .wrap{max-width:54rem;margin:0 auto;padding:2rem 1.15rem 4rem}
+  h1{font-size:1.5rem;letter-spacing:-.02em;margin:.2rem 0 .3rem}
+  h2{font-size:1.15rem;margin:2rem 0 .6rem}
+  .sub{color:var(--muted);font-size:.9rem}
+  .q{background:#fff;border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:10px;padding:1rem 1.15rem;margin:1.2rem 0;font-size:.95rem}
+  .verdict{background:#fff;border:1px solid var(--line);border-radius:14px;padding:1.2rem 1.35rem;margin:1rem 0;box-shadow:0 1px 3px rgba(15,24,38,.05)}
+  .verdict h3{margin:1.2rem 0 .4rem;font-size:1.02rem;color:var(--accent)}
+  .verdict h3:first-child{margin-top:0}
+  .tag{display:inline-block;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:.18rem .5rem;border-radius:999px;margin-right:.3rem}
+  .t-warn{background:var(--warn-bg);color:var(--warn)}.t-ok{background:var(--ok-bg);color:var(--ok)}.t-caut{background:var(--caut-bg);color:var(--caut)}
+  table.pos{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.88rem;background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+  table.pos th,table.pos td{text-align:left;padding:.55rem .7rem;border-bottom:1px solid var(--line);vertical-align:top}
+  table.pos th{background:#eef3f9;font-size:.72rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+  table.pos tr:last-child td{border-bottom:0}
+  details{background:#fff;border:1px solid var(--line);border-radius:10px;padding:.7rem 1rem;margin:.6rem 0}
+  details summary{cursor:pointer;font-weight:650}
+  details p{color:#2a3a49;font-size:.92rem}
+  code{background:#eef3f9;padding:.1em .35em;border-radius:5px;font-size:.85em}
+  .rec{background:var(--ok-bg);border:1px solid #b6e0c1;border-radius:12px;padding:1rem 1.2rem;margin:1rem 0}
+  .first{background:var(--accent);color:#fff;border-radius:12px;padding:1rem 1.2rem;margin:1rem 0;font-weight:600}
+  .foot{margin-top:2.5rem;color:var(--muted);font-size:.82rem;border-top:1px solid var(--line);padding-top:1rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>LLM Council — “student→private, learn + plan, logbook, insurance”</h1>
+  <p class="sub">5 advisors → anonymized peer review → chairman synthesis · 2026-08-15</p>
+
+  <div class="q"><strong>Question:</strong> Does openchecklists.net give pilots from <em>student</em> through <em>private-pilot</em> level everything they need to (a) LEARN and (b) PLAN a trip from start to finish? And evaluate two roadmap items — a flight <strong>logbook</strong> in the profile, and eventually selling <strong>per-flight insurance</strong>.</div>
+
+  <h2>Advisor positions at a glance</h2>
+  <table class="pos">
+    <tr><th>Advisor</th><th>Headline stance</th></tr>
+    <tr><td>Contrarian</td><td>“Start to finish” over-promises: W&amp;B (91.9) and takeoff/landing performance (91.103) are <em>legal</em> and missing. Insurance is the fatal flaw — it makes you a party to go/no-go and destroys the “not an official briefing” disclaimer. Rename “preflight logs” (they’re not 61.51 hours).</td></tr>
+    <tr><td>First Principles</td><td>Three jobs bolted together. The real unit of value is the <strong>flight event</strong>: plan→fly→log→review→insure. Learning isn’t in that loop — make it real instruction or cut it. Own “plan→fly→log” for VFR pilots.</td></tr>
+    <tr><td>Expansionist</td><td>The logbook is the <strong>moat</strong>: verified flight history makes per-flight insurance underwritable. Students = highest-leverage entry, flight schools = GTM, MOSAIC/LSA = wedge. In 3 years, the OS for 600k US pilots.</td></tr>
+    <tr><td>Outsider</td><td>“Takes you to private pilot” + “doesn’t give instruction” is contradictory. “Everything to plan” + “not an official briefing” reads as optional. UNREVIEWED safety checklists + selling insurance on “unverified” data <em>erodes</em> trust. No obvious start.</td></tr>
+    <tr><td>Executor</td><td>Logbook is cheap — ship this week (schema 80% there). ROI: logbook &gt; W&amp;B &gt; TFRs &gt; ignore insurance now (needs verified hours + user base + legal entity/E&amp;O). Monday: deploy the <code>logbook_entries</code> migration.</td></tr>
+  </table>
+
+  <h2>Chairman’s Verdict</h2>
+  <div class="verdict">
+    <h3>Where the council agrees</h3>
+    <ul>
+      <li><strong>The “student→private, learn + plan, start to finish” claim is not honestly supportable today.</strong> Planning is missing <em>legally required</em> pieces — weight &amp; balance (14 CFR 91.9) and takeoff/landing performance (91.103) — plus TFR/airspace depiction and go/no-go logic. And “learning” is the weakest leg.</li>
+      <li><strong>The flight is the real unit of value:</strong> plan → fly → <strong>log</strong> → review (→ insure). The logbook closes that loop and is the correct next feature.</li>
+      <li><strong>The logbook is cheap</strong> — the schema is ~80% there (<code>flight_plans</code> + <code>preflight_logs</code> + saved aircraft). Ship a minimal one now.</li>
+      <li><strong>Insurance is not a near-term move</strong> and pairing it with self-labeled “unverified” weather is a real liability/trust trap.</li>
+      <li><strong>Naming/trust must be fixed:</strong> “preflight logs” (checklist completions) must not be confused with a legal 61.51 logbook; the “student→private / not instruction / not a briefing / UNREVIEWED” stack confuses newcomers.</li>
+    </ul>
+    <h3>Where the council clashes</h3>
+    <p><strong>Learning — cut or keep?</strong> First-Principles says cut it (it’s worst-of-both; link King Schools; own the flight loop). The Expansionist/Executor view is that students are the highest-leverage top-of-funnel worth keeping — but only if honestly framed as a <em>study companion</em>, not “we’ll make you a private pilot.”</p>
+    <p><strong>Insurance — fatal flaw or the moat?</strong> Contrarian: never, on unverified data. Expansionist: the eventual revenue engine. Resolution: not now; only behind verified logbook data + legal scaffolding + a hard wall from any “pre-check” weather — and even then the edge is unproven (see blind spots).</p>
+    <h3>Blind spots the peer review caught</h3>
+    <ul>
+      <li><strong>The CFI is the actual customer</strong> — the trust anchor <em>and</em> the distribution channel. No advisor engaged the instructor workflow (endorsements, stage checks, reviewing a student’s plans/logs). Adoption stalls exactly where it matters without it.</li>
+      <li><strong>Single-flight insurance already exists</strong> (Avemco, SkyWatch, Flock) on self-reported hours. The barrier isn’t data — it’s surplus-lines licensing / an MGA or carrier / E&amp;O, i.e. a multi-year capital raise. The “verified logbook = underwriting edge” thesis is theoretical.</li>
+      <li><strong>Cold-start:</strong> a student with zero flights has nothing to log — the flywheel/moat only exists after retention you haven’t earned yet.</li>
+    </ul>
+    <div class="rec"><strong>Recommendation:</strong> <span class="tag t-caut">Honest answer: not yet — and that’s fixable.</span>
+    The site is an excellent <em>free VFR pre-check + reference + community-checklist</em> platform, but “takes a student to a checkride-ready private pilot” and “plan a trip start to finish” over-promise. In order: <strong>(1)</strong> reposition the copy — own “plan → fly → log: the free VFR flight companion,” and frame learning as a “study companion (official FAA handbooks),” not instruction; <strong>(2)</strong> build the <strong>logbook</strong> (loop-closer, regulatory hour-tracking, stickiest feature) and rename “preflight logs”; <strong>(3)</strong> close the <em>legal</em> planning gaps — W&amp;B and takeoff/landing performance — before claiming “plan a trip”; <strong>(4)</strong> add a <strong>CFI view</strong> (distribution + trust); <strong>(5)</strong> park insurance behind verified data + a legal entity, walled off from unverified weather.</div>
+    <div class="first">The one thing to do first: ship the flight <strong>logbook</strong> — the D1 <code>logbook_entries</code> migration + a <code>/api/logbook</code> endpoint + a profile UI with “import from saved plans,” and rename “preflight logs” so it’s clearly not the legal logbook. It closes the plan→fly→log loop, is cheap given the existing schema, and is the prerequisite asset for the CFI view and (much later) insurance.</div>
+  </div>
+
+  <h2>Full advisor responses</h2>
+  <details><summary>The Contrarian</summary><p>“Start to finish” is marketing, not reality. A student’s first solo cross-country <em>must</em> compute weight &amp; balance and takeoff/landing distances — Part 91 legal requirements (91.9, 91.103), not nice-to-haves. The planner skips both; the disclaimer won’t save you when a family’s attorney reads “plan a trip start to finish.” Insurance is the fatal flaw: the moment you sell per-flight insurance you become a party to the go/no-go decision; “they sold me insurance, so I thought the data was verified” writes itself, and cached/polled NOTAMs/METARs put you in the chain. The FAA-briefing disclaimer keeps you at arm’s length; insurance obliterates that distance. The logbook is fine but “preflight logs” are checklist completions, not flight hours — a student building a false record, or presenting these as currency, is a legal problem under 61.51. Fix W&amp;B/performance before calling this a planning tool, never sell insurance on unverified weather, and rename “preflight logs.”</p></details>
+  <details><summary>The First Principles Thinker</summary><p>The real question: what is one person trying to do, and does the product serve that one thing? It currently serves three jobs — learn to fly, plan a flight, track progress — and conflating them makes it mediocre at each. The logbook and insurance reveal the true product: the unit of value is the <strong>flight event</strong> — plan it, execute it, log it, review it, insure it — one coherent loop. Learning is not in that loop, and “cite handbooks, don’t instruct” is the worst version of it: neither a real learning product nor a real reference. Make it real instruction (CFI, curriculum, liability) or cut it and link King Schools. The checklist is the correct center of gravity — aircraft (W&amp;B), plan (go/no-go), execution (preflight log), record (logbook) all orbit it. Drop “student→private learning”; own “plan→fly→log” for VFR pilots. The logbook isn’t a feature — it closes the loop that makes everything sticky. Insurance isn’t a feature — it’s proof a completed, logged flight can be underwritten.</p></details>
+  <details><summary>The Expansionist</summary><p>The logbook is the platform’s structural advantage. Every other GA app is a nav tool (ForeFlight, Garmin) <em>or</em> a logbook (LogTen) <em>or</em> insurance (Avemco, Starr). Nobody built the closed loop plan→fly→log→insure on one data model, starting at student pilot — that loop is the moat. The flywheel: a pilot’s first hours seed the logbook; by hour 250 they’re rated with documented currency, type experience, route history, preflight-completion rates — dramatically more underwritable than legacy actuarial guesswork on annual policies. You can price a single-flight renter policy on real risk signal. The student cohort is the highest-leverage entry in aviation (zero switching cost, 30–50 year horizon); flight schools are the primary GTM (a CFI dashboard schools push on day one); MOSAIC expands the LSA/non-owned per-flight market — your early PPC/LSA base. In three years, if logbook + insurance land, this is the operating system for 600,000 US pilots and the first serious attempt at dynamic aviation insurance.</p></details>
+  <details><summary>The Outsider</summary><p>“Takes you from student to private pilot” and “doesn’t give instruction” are flatly contradictory — I read it twice and still don’t know what the site does. If it isn’t instructing me, what am I tracking progress toward? “Everything you need to plan a flight” immediately followed by “NOT an official briefing, get an official briefing” reads as: this tool is optional, maybe useless. The community checklists stamped UNREVIEWED concern me most — a checklist is the thing you go through before you don’t die, and the site lets strangers write them unvetted and asks me to rate them like a restaurant. “Five stars for the preflight checklist. Great ambiance, would not crash again.” The insurance angle does the opposite of building trust: if your own platform labels its data unverified, why buy coverage through it? Either it’s priced expensive for bad data, or the left hand doesn’t know the right. And there’s no obvious starting point or who it’s for — “student to private” could be day one or month eighteen.</p></details>
+  <details><summary>The Executor</summary><p>Logbook is cheap — ship this week; the schema is 80% there. <code>flight_plans</code> has route + aircraft + date; <code>preflight_logs</code> has completion timestamps. Add one table <code>logbook_entries</code> (date, from/to, aircraft, hobbs out/in, total/PIC time, remarks, source), one endpoint <code>/api/logbook</code>, a dead-simple UI (table + add-entry + “import from saved plans”). ROI: (1) logbook — highest; regulatory hour-tracking, stickiest, flight schools sell on it; (2) W&amp;B — real gap but needs per-aircraft envelope data, not a weekend; (3) TFRs — nice-to-have; (4) insurance — ignore now; insurers want verified hours, hundreds of active pilots, a legal entity with E&amp;O — a 12-month conversation, not a 12-week one. Monday: write and deploy the <code>logbook_entries</code> D1 migration; endpoint returns an empty array; everything else blocks on that.</p></details>
+
+  <details><summary>Peer-review highlights (anonymized round)</summary>
+    <p><strong>Consensus:</strong> all three reviewers rated the <em>Executor</em> strongest (only one that converts insight into a Monday action grounded in the actual schema, with honest sequencing of insurance as multi-year). All three flagged the <em>Expansionist</em> as the biggest blind spot — “pitch-deck thinking” that assumes the moat/flywheel without engaging regulatory, cold-start, and switching-cost reality.</p>
+    <p><strong>What the whole council missed:</strong> (a) <strong>the CFI</strong> is the real customer, trust anchor, and distribution channel — no advisor engaged the instructor workflow; (b) single-flight insurance <strong>already exists</strong> on self-reported hours (Avemco/SkyWatch/Flock) — the barrier is surplus-lines licensing / MGA / E&amp;O, a multi-year raise, so the “verified data edge” is theoretical; (c) <strong>cold-start</strong> — a zero-hour student has nothing to log, so the flywheel depends on retention not yet earned.</p>
+  </details>
+
+  <p class="foot">Counciled 2026-08-15 · 5 advisors (Contrarian, First-Principles, Expansionist, Outsider, Executor) → 3-reviewer anonymized peer review → chairman synthesis. Subject: whether openchecklists.net honestly serves student→private pilots for learning + end-to-end planning, plus the logbook and per-flight-insurance roadmap.</p>
+</div>
+</body>
+</html>

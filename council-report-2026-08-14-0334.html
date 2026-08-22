@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LLM Council — openchecklists.net validation</title>
+<style>
+  :root{--fg:#12202e;--muted:#5a6b7b;--line:#e4e9f0;--accent:#1f4e79;--bg:#f7f9fc;
+    --warn:#b3261e;--warn-bg:#fdeceb;--ok:#186a2b;--ok-bg:#e9f6ec;--caut:#8a5a00;--caut-bg:#fbf3e0}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--fg);
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.6;font-size:16px}
+  .wrap{max-width:52rem;margin:0 auto;padding:2rem 1.15rem 4rem}
+  h1{font-size:1.5rem;letter-spacing:-.02em;margin:.2rem 0 .3rem}
+  h2{font-size:1.15rem;margin:2rem 0 .6rem;letter-spacing:-.01em}
+  .sub{color:var(--muted);font-size:.9rem}
+  .q{background:#fff;border:1px solid var(--line);border-left:4px solid var(--accent);
+    border-radius:10px;padding:1rem 1.15rem;margin:1.2rem 0;font-size:.95rem}
+  .verdict{background:#fff;border:1px solid var(--line);border-radius:14px;
+    padding:1.2rem 1.35rem;margin:1rem 0;box-shadow:0 1px 3px rgba(15,24,38,.05)}
+  .verdict h3{margin:1.2rem 0 .4rem;font-size:1.02rem;color:var(--accent)}
+  .verdict h3:first-child{margin-top:0}
+  .tag{display:inline-block;font-size:.7rem;font-weight:700;text-transform:uppercase;
+    letter-spacing:.04em;padding:.18rem .5rem;border-radius:999px;margin-right:.3rem}
+  .t-warn{background:var(--warn-bg);color:var(--warn)}
+  .t-ok{background:var(--ok-bg);color:var(--ok)}
+  .t-caut{background:var(--caut-bg);color:var(--caut)}
+  table.pos{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.88rem;background:#fff;
+    border:1px solid var(--line);border-radius:10px;overflow:hidden}
+  table.pos th,table.pos td{text-align:left;padding:.55rem .7rem;border-bottom:1px solid var(--line);vertical-align:top}
+  table.pos th{background:#eef3f9;font-size:.72rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+  table.pos tr:last-child td{border-bottom:0}
+  details{background:#fff;border:1px solid var(--line);border-radius:10px;padding:.7rem 1rem;margin:.6rem 0}
+  details summary{cursor:pointer;font-weight:650}
+  details p{color:#2a3a49;font-size:.92rem}
+  code{background:#eef3f9;padding:.1em .35em;border-radius:5px;font-size:.85em}
+  .foot{margin-top:2.5rem;color:var(--muted);font-size:.82rem;border-top:1px solid var(--line);padding-top:1rem}
+  .rec{background:var(--ok-bg);border:1px solid #b6e0c1;border-radius:12px;padding:1rem 1.2rem;margin:1rem 0}
+  .first{background:var(--accent);color:#fff;border-radius:12px;padding:1rem 1.2rem;margin:1rem 0;font-weight:600}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>LLM Council — Validation of openchecklists.net</h1>
+  <p class="sub">Five independent advisors + anonymized peer review + chairman synthesis · 2026-08-14</p>
+
+  <div class="q"><strong>Question:</strong> Is openchecklists.net — a free all-in-one VFR pre-flight
+  resource (live weather, NOTAMs, frequencies, runways, winds aloft, PIREPs, sun times, maps for
+  ~19,400 US airports; an end-to-end flight planner producing a printable/emailable briefing; a
+  library of unreviewed checklists) — ready for real pilots to rely on as a research aid, and what
+  are the highest-priority issues?</div>
+
+  <h2>Advisor positions at a glance</h2>
+  <table class="pos">
+    <tr><th>Advisor</th><th>Headline stance</th><th>Verdict</th></tr>
+    <tr><td>Contrarian</td><td>Stale-weather cache + unreviewed checklists are safety defects; SEO collapse makes it invisible; the VFR badge under a buried disclaimer creates false confidence.</td><td><span class="tag t-warn">Not ready</span></td></tr>
+    <tr><td>First Principles</td><td>Wrong frame — it's a 90-second <em>pre-check</em>, not an authoritative briefing. As that, it's basically ready. Put "unverified" IN the badge.</td><td><span class="tag t-caut">Ready as pre-check</span></td></tr>
+    <tr><td>Expansionist</td><td>The checklist library + ultralight/PPG niche + flight-school distribution + EFB export is the real upside; fuel-price layer is a moat.</td><td><span class="tag t-ok">Grow it</span></td></tr>
+    <tr><td>Outsider</td><td>"Everything you need" contradicts "No fuel data / PIREPs unavailable / UNREVIEWED." Jargon wall. Trust contradiction unresolved.</td><td><span class="tag t-warn">Confusing</span></td></tr>
+    <tr><td>Executor</td><td>Fix routing via a Cloudflare Pages dashboard toggle (5 min), commit + CI, cache-bust the SW; accept fuel/PIREPs/checklists as labeled. Then launch.</td><td><span class="tag t-caut">Ready after fixes</span></td></tr>
+  </table>
+
+  <h2>Chairman's Verdict</h2>
+  <div class="verdict">
+    <h3>Where the council agrees</h3>
+    <ul>
+      <li><strong>Framing/trust is the core problem, not features.</strong> "Everything you need before you fly" over sections that read "No fuel data" and "PIREPs unavailable," plus a green <em>VFR</em> badge sitting above a buried "nothing here is approved data," trains pilots to trust the badge and skip the caveat. Contrarian, First-Principles and Outsider all landed here independently.</li>
+      <li><strong>The disclaimer belongs IN the badge.</strong> Show <code>VFR (unverified)</code> / <code>snapshot · not a briefing</code> at the point of the claim, not in the footer.</li>
+      <li><strong>The empty fuel step actively hurts credibility.</strong> Better to hide it than to show "No data" on every airport.</li>
+      <li><strong>Quarantining the checklists is the right call</strong> — but their mere presence still carries risk.</li>
+    </ul>
+    <h3>Where the council clashes</h3>
+    <p><strong>Is it "ready"?</strong> The Executor says yes-after-a-few-fixes and treats fuel/PIREPs/checklists as accurately-labeled non-blockers. The Contrarian says no — cached weather that can show stale VFR, and unreviewed emergency checklists, are safety defects that make "rely on it" the wrong verb. They're both right about different verbs: <em>ready to publish as a research aid</em> (Executor) vs. <em>ready for a pilot to rely on</em> (Contrarian). The honest answer is the middle: ship it as an explicit pre-check, not as something to rely on.</p>
+    <p><strong>SEO priority.</strong> Contrarian calls the 19k→1-page collapse a structural failure to fix now; Executor says don't touch it until routing + CI are done; First-Principles doesn't rate it. Resolution: it's real but downstream of routing.</p>
+    <p><strong>Grow vs. fix.</strong> Expansionist wants community/EFB/fuel-layer expansion; every other advisor (and all three peer reviewers) say safety/trust first. Growth is the right map, wrong month.</p>
+    <h3>Blind spots the peer review caught</h3>
+    <ul>
+      <li><strong>Regulatory duty (14 CFR 91.103).</strong> The PIC is legally required to obtain a "proper" weather briefing from an official source. The site should <em>route users to</em> 1800wxbrief/ForeFlight as the authoritative step, not position them as competitors.</li>
+      <li><strong>Checklist legal exposure.</strong> "UNREVIEWED" is notice of known unreliability (can worsen a negligence posture, not shield it), and checklists reproduced from POH/AFM may carry copyright issues. Get the disclaimer/licensing reviewed.</li>
+      <li><strong>NOTAM currency &amp; sourcing.</strong> A stale or unsourced NOTAM (TFR, runway closure) is arguably more safety-critical than fuel or PIREPs — and no advisor asked where NOTAMs come from or how old they are.</li>
+    </ul>
+    <div class="rec"><strong>Recommendation:</strong> <span class="tag t-caut">Ship as an explicit pre-check aid — not "rely on."</span>
+    The build is genuinely functional (validated end-to-end today), so don't retreat. But close the trust gap before promoting it: (1) qualify every live-data badge as unverified with a visible timestamp, (2) hide the empty fuel step, (3) make "get your official briefing at 1800wxbrief" a first-class call-to-action on airport and briefing pages, and (4) guarantee weather is never served stale (timestamp + no-cache on live data). Then pursue the Expansionist's real upside: the checklist library and the ultralight/PPG niche.</div>
+    <div class="first">The one thing to do first: change the homepage promise and the weather badges from a claim of completeness to a claim of currency — replace "Everything you need before you fly" with a pre-check framing, and render every METAR/VFR badge as <code>VFR · observed HH:MMZ · unverified — get an official briefing</code>. It's the cheapest change that removes the single biggest liability (false confidence) and is honest about what the tool is.</div>
+  </div>
+
+  <h2>Full advisor responses</h2>
+  <details><summary>The Contrarian</summary><p>SEO collapse is a structural failure: 19k indexable pages → one client-rendered template means the site is invisible on Google to the people it serves. The disclaimer is inverted — "nothing here is approved data" increases liability because pilots anchor on the green VFR badge and skip the caveat. The stale service worker is a safety defect, not a bug — cached weather can send a pilot into IMC. The fuel calculator is theater if fuel-on-board is partly fictional. Unreviewed checklists are still THERE; "UNREVIEWED" gets ignored and a wrong C172 emergency item could kill someone. None of this is fatal to the project existing; all of it is fatal to calling it ready for pilots.</p></details>
+  <details><summary>The First Principles Thinker</summary><p>The real question is "what problem, for whom?" The problem it solves is friction for the casual/student VFR pilot who wants a single URL, no login, no paywall, to answer "can I fly today?" As a ForeFlight replacement: not ready. As a 90-second sanity check before calling 1800wxbrief: ready now. The right frame is pre-check vs. authoritative check. Disclaimers are correct in content but wrong in placement — put it in the badge: "VFR (unverified)". Priorities: (1) badge language, (2) NOTAM source/lag transparency, (3) the empty fuel section destroys planner credibility — omit the step rather than show "No data." The checklist quarantine is the right call.</p></details>
+  <details><summary>The Expansionist</summary><p>The checklist library is the undervalued moat — a community-curated, versioned, rated, structured library for every aircraft type is genuinely rare. The powered-parachute/ultralight angle is blue ocean: GA apps target certified pilots; the owner's background gives authentic credibility in an underserved, growing segment — build an ultralight/grass-strip airport filter and own it. Flight schools are the distribution unlock. EFB integration (export the briefing as ForeFlight .fpl / Garmin) gets it into cockpits alongside paid tools instead of competing. A community fuel-price layer would be something even ForeFlight charges for. This is a community platform in a tool's clothing.</p></details>
+  <details><summary>The Outsider</summary><p>"Everything you need before you fly" contradicts landing on "No fuel data" and "PIREPs unavailable" — gaps presented as completeness. "UNREVIEWED" on every checklist is alarming — if I can't trust it, why is it here? The jargon wall (METAR, TAF, VFR, 925hPa) is dense and unexplained. "Verify against the current Chart Supplement" — what is that, where do I get it? The headline plus "nothing here is approved data" is an unresolvable trust contradiction. A newcomer bounces, an expert has better tools, and the newly-licensed middle audience is the one most likely to be confused by incomplete data under an authoritative headline.</p></details>
+  <details><summary>The Executor</summary><p>The SW is network-first, so the stale cache is a one-off, not structural. Ruthless priority: (1) Fix path-segment URLs via a Cloudflare Pages dashboard toggle — switch "Not found behavior" from SPA to standard 404 and the existing _redirects rules work; also fixes plan deep-links; 30 min, no code. (2) Commit the dirty working tree and wire wrangler into CI. (3) SW cache-busting: tie the cache name to a content hash. (4) Investigate the plan "Refresh → not found" before dismissing. Accept fuel/PIREPs/unreviewed checklists as accurately-labeled non-blockers. Don't touch SEO until routing + CI are done. Monday's first move: toggle the Pages SPA setting and test /airport/kbna/.</p></details>
+
+  <details><summary>Peer-review highlights (anonymized round)</summary>
+    <p><strong>Consensus:</strong> All three reviewers rated the Contrarian strongest (it names the issues with real-world harm potential — stale-weather cache, disclaimer inversion, SEO invisibility) and the Expansionist the biggest blind spot (a growth-strategy answer to a safety-validation question; no risk model).</p>
+    <p><strong>What the whole council missed (each reviewer surfaced one):</strong> (a) FAR 91.103 places a legal duty on the PIC to obtain an official briefing — the site should direct users there, not compete; (b) checklist copyright/negligence exposure — "UNREVIEWED" is notice of unreliability and POH/AFM reproductions may be unlicensed; (c) NOTAM currency and sourcing — potentially the most safety-critical data on the site and no one asked where it comes from or how old it is.</p>
+  </details>
+
+  <p class="foot">Counciled 2026-08-14 · 5 advisors (Contrarian, First-Principles, Expansionist, Outsider, Executor) → 3-reviewer anonymized peer review → chairman synthesis. Subject: readiness &amp; quality of openchecklists.net as a pilot pre-flight research aid.</p>
+</div>
+</body>
+</html>
