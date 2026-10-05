@@ -1,6 +1,9 @@
 name = "ocl-api"
 main = "index.js"
 compatibility_date = "2025-01-01"
+# Served only on app.openchecklists.net; the account workers.dev subdomain exists
+# just so cron triggers can be registered.
+workers_dev = false
 
 # Account: 978dcaac35dcbe8c7c7c9b200c3db416 (Openchecklists@keylinkit.net) — same
 # account as the openchecklists.net zone, so the openchecklists.net/api/* route works.
