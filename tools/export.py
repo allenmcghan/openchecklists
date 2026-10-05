@@ -416,10 +416,18 @@ def verify_export(doc: dict, fmt: str, blob: bytes) -> list[str]:
             hay = z.read("word/document.xml").decode("utf-8")
         esc = xml_escape
     else:
-        hay = blob.decode("utf-8")
+        hay = raw = blob.decode("utf-8")
         # Each format escapes differently, and comparing raw text against escaped
         # output produces false drops -- an apostrophe alone is enough to do it.
         esc = {"xml": xml_escape, "html": html_escape}.get(fmt, lambda x: x)
+        # JSON and CSV/TSV quote with backslashes or doubled quotes, so search the
+        # decoded values instead of the raw bytes.
+        if fmt == "json":
+            hay = json.dumps(json.loads(hay), ensure_ascii=False, indent=None)
+            esc = lambda x: json.dumps(x, ensure_ascii=False)[1:-1]  # noqa: E731
+        elif fmt in ("csv", "tsv"):
+            rows = csv.reader(io.StringIO(hay), delimiter="," if fmt == "csv" else "\t")
+            hay = "\n".join("\t".join(r) for r in rows)
 
     for t in texts:
         needle = esc(t)
@@ -432,7 +440,7 @@ def verify_export(doc: dict, fmt: str, blob: bytes) -> list[str]:
             delim = "," if fmt == "csv" else "\t"
             found = sum(
                 1
-                for row in csv.reader(io.StringIO(hay), delimiter=delim)
+                for row in csv.reader(io.StringIO(raw), delimiter=delim)
                 if len(row) > 8 and row[8] == "yes"
             )
         else:

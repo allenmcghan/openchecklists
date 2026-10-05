@@ -28,8 +28,6 @@ margin:1.4rem 0 2rem;overflow:hidden}
 font-size:.85rem;padding:.5rem 1rem;border-radius:8px;white-space:nowrap;
 text-decoration:none}
 .skyace-btn:hover{background:#0088cc;text-decoration:none}
-.skyace-frame{display:block;width:100%;height:520px;border:none;background:#0a1628}
-@media(max-width:600px){.skyace-frame{height:340px}}
 
 .certtabs{display:flex;gap:.4rem;flex-wrap:wrap;margin:1rem 0 .6rem}
 .certtab{font-size:.82rem;padding:.4rem .7rem;border:1px solid var(--line);border-radius:.35rem;
@@ -182,16 +180,9 @@ hours against the actual CFR requirements.</p>
       Click inside to capture keyboard focus.</p>
     </div>
     <a href="https://skyace.gamercomp.com" class="skyace-btn" target="_blank" rel="noopener">
-      Full screen ↗
+      Play SkyAce ↗
     </a>
   </div>
-  <iframe
-    src="https://skyace.gamercomp.com"
-    class="skyace-frame"
-    allow="fullscreen"
-    loading="lazy"
-    title="SkyAce flight training game"
-  ></iframe>
 </div>
 
 <h2 id="progress">Progress toward a certificate</h2>
@@ -705,7 +696,8 @@ window.showCertSec=function(certKey){
 """
 
 
-def training_page(head_fn, foot: str) -> str:
+def training_page(head_fn, foot: str, aff_html: str = "") -> str:
+    """aff_html: the test-prep affiliate box, empty when the build has no Amazon tag."""
     return (
         head_fn(
             "Flight training — Open Checklists",
@@ -714,6 +706,7 @@ def training_page(head_fn, foot: str) -> str:
         )
         + f"<style>{TRAINING_CSS}</style>"
         + TRAINING_BODY
+        + aff_html
         + f"<script>{TRAINING_JS}</script>"
         + foot
     )

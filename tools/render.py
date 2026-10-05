@@ -272,6 +272,28 @@ JS = r"""
 
   function key(b){ return b.dataset.section + '|' + b.dataset.index; }
 
+  // Phones discard background tabs, which would wipe a half-done checklist.
+  // Keep ticks in this browser, per checklist version, for 12 hours.
+  var STORE = 'ocl:ticks:' + (meta.id || location.pathname) + ':' + (meta.content_hash || '');
+  var TTL_MS = 12 * 3600 * 1000;
+  function save(){
+    try {
+      if (!ticks.size) { localStorage.removeItem(STORE); return; }
+      localStorage.setItem(STORE, JSON.stringify({ at: Date.now(), ticks: Array.from(ticks.entries()) }));
+    } catch (e) { /* storage full or disabled: ticking still works */ }
+  }
+  function restore(){
+    try {
+      var saved = JSON.parse(localStorage.getItem(STORE) || 'null');
+      if (!saved || Date.now() - saved.at > TTL_MS) { localStorage.removeItem(STORE); return; }
+      var byKey = new Map(saved.ticks);
+      boxes.forEach(function(b){
+        var k = key(b);
+        if (byKey.has(k)) { b.checked = true; ticks.set(k, byKey.get(k)); }
+      });
+    } catch (e) {}
+  }
+
   function refresh(){
     countEl.textContent = ticks.size + ' / ' + boxes.length + ' done';
   }
@@ -284,15 +306,16 @@ JS = r"""
       // something the pilot took back.
       if (b.checked) { ticks.set(k, new Date().toISOString()); }
       else { ticks.delete(k); }
-      refresh();
+      refresh(); save();
     });
   });
+  restore(); refresh();
 
   var resetBtn = document.getElementById('reset');
   if (resetBtn) resetBtn.addEventListener('click', function(){
     if (!confirm('Clear all ticks and start over?')) return;
     boxes.forEach(function(b){ b.checked = false; });
-    ticks.clear(); refresh();
+    ticks.clear(); refresh(); save();
   });
 
   var pageStyle = document.getElementById('pagesize');
@@ -389,12 +412,9 @@ JS = r"""
   refresh();
 
   // ---- Email-me-this-log ----
+  // Mail always goes to the verified address on the signed-in account; the
+  // server ignores any address typed here.
   function sendPreflightProof(addr, msgEl, sendBtn) {
-    if (!addr || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(addr)) {
-      msgEl.textContent = 'Please enter a valid email address.';
-      msgEl.style.color = 'var(--warn)';
-      return;
-    }
     sendBtn.disabled = true;
     msgEl.textContent = 'Sending…';
     msgEl.style.color = 'var(--muted)';
@@ -437,15 +457,22 @@ JS = r"""
       }).catch(function(){});
     }
 
-    fetch('https://api.openchecklists.net/log.php', {
+    var tok = sessionStorage.getItem('ocl:token');
+    if (!tok) {
+      msgEl.innerHTML = 'Emailing a log needs a free account &mdash; <a href="/profile.html">sign in</a>. You can still print or download it.';
+      msgEl.style.color = 'var(--warn)';
+      sendBtn.disabled = false;
+      return;
+    }
+    fetch('https://app.openchecklists.net/api/log/email', {
       method: 'POST',
-      headers: {'Content-Type': 'application/json'},
+      headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + tok},
       body: JSON.stringify(payload)
     })
-    .then(function(r){ return r.json(); })
+    .then(function(r){ return r.json().catch(function(){ return {error: 'HTTP ' + r.status}; }); })
     .then(function(d){
       if (d.ok) {
-        msgEl.textContent = '✓ Log sent to ' + addr;
+        msgEl.textContent = '✓ Log sent to ' + (d.to || 'your account email');
         msgEl.style.color = 'var(--ok)';
       } else {
         msgEl.textContent = 'Failed: ' + (d.error || 'unknown error');
@@ -521,11 +548,6 @@ JS = r"""
         sendPreflightProof(addr, emailMsg2, emailSend2);
         return;
       }
-      if (!addr || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(addr)) {
-        emailMsg2.textContent = 'Please enter a valid email address.';
-        emailMsg2.style.color = 'var(--warn)';
-        return;
-      }
       var pdf = buildLogPdf();
       if (!pdf) {
         emailMsg2.textContent = 'PDF library not ready — try again in a moment.';
@@ -536,19 +558,26 @@ JS = r"""
       emailMsg2.textContent = 'Sending…';
       emailMsg2.style.color = 'var(--muted)';
       var b64 = pdf.output('datauristring').split(',')[1] || '';
+      var tok2 = sessionStorage.getItem('ocl:token');
+      if (!tok2) {
+        emailMsg2.innerHTML = 'Emailing a PDF needs a free account &mdash; <a href="/profile.html">sign in</a>. You can still download it.';
+        emailMsg2.style.color = 'var(--warn)';
+        emailSend2.disabled = false;
+        return;
+      }
       fetch('https://app.openchecklists.net/api/log/email-pdf', {
         method: 'POST',
-        headers: {'Content-Type': 'application/json'},
+        headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + tok2},
         body: JSON.stringify({
           email: addr,
           title: meta.title || document.title,
           pdf_base64: b64
         })
       })
-      .then(function(r){ return r.json().catch(function(){ return {}; }); })
+      .then(function(r){ return r.json().catch(function(){ return {error: 'HTTP ' + r.status}; }); })
       .then(function(d){
-        if (d && d.ok !== false) {
-          emailMsg2.textContent = '✓ PDF sent to ' + addr;
+        if (d && d.ok) {
+          emailMsg2.textContent = '✓ PDF sent to ' + (d.to || 'your account email');
           emailMsg2.style.color = 'var(--ok)';
         } else {
           emailMsg2.textContent = 'Failed: ' + (d.error || 'unknown error');
@@ -715,8 +744,11 @@ JS = r"""
 """
 
 
-def render(doc: dict, paper: str, site_rel: str | None = None) -> str:
-    """site_rel is the path back to the site root; None renders a standalone file."""
+def render(doc: dict, paper: str, site_rel: str | None = None, canonical: str | None = None,
+           aff_html: str = "") -> str:
+    """site_rel is the path back to the site root; None renders a standalone file.
+    aff_html is the (already escaped) affiliate box; it goes below the checklist
+    and its downloads, never among the items, and carries its own print-hide CSS."""
     cls, text = state_banner(doc)
     ac = doc.get("aircraft", {})
     ac_line = " ".join(filter(None, [ac.get("make"), ac.get("model"), ac.get("variant")]))
@@ -819,12 +851,26 @@ padding:.4rem .65rem;border-radius:999px;text-decoration:none}
 })();
 </script>"""
 
+    _ac = doc.get("aircraft") or {}
+    _type = " ".join(x for x in (_ac.get("make"), _ac.get("model")) if x)
+    _desc = (f"{doc.get('title')}: a free checklist for the {_type} you can tick off on a phone, "
+             f"print at any size, or download as Word, CSV or JSON." if _type else
+             f"{doc.get('title')}: a free aircraft checklist to tick off on a phone, print or download.")
+    _meta = (f'<meta name="description" content="{esc(_desc)}">\n'
+             f'<meta property="og:type" content="article">\n'
+             f'<meta property="og:site_name" content="Open Checklists">\n'
+             f'<meta property="og:title" content="{esc(doc.get("title"))}">\n'
+             f'<meta property="og:description" content="{esc(_desc)}">')
+    if canonical:
+        _meta += (f'\n<link rel="canonical" href="{esc(canonical)}">'
+                  f'\n<meta property="og:url" content="{esc(canonical)}">')
     return f"""<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{esc(doc.get('title'))}</title>
+{_meta}
 <style>{CSS}</style>
 <style id="pagesize">@page{{size:{w} {h};margin:{m}}}</style>
 <style>{_nav_css}</style>
@@ -916,10 +962,10 @@ padding:.4rem .65rem;border-radius:999px;text-decoration:none}
 
   <h3 style="margin:1.4rem 0 .4rem;font-size:1.1rem">Send yourself a preflight proof</h3>
   <p style="color:var(--muted);font-size:.9rem;margin:0 0 1.1rem;max-width:38rem;margin-left:auto;margin-right:auto">
-    Enter your email to receive a timestamped record of every item you checked — your personal log of this preflight.
+    Sign in and we'll email your account a timestamped record of every item you checked — your personal log of this preflight.
   </p>
   <div style="display:flex;gap:.5rem;flex-wrap:wrap;justify-content:center;max-width:36rem;margin:0 auto">
-    <input type="email" id="emailaddr2" placeholder="your@email.com"
+    <input type="email" id="emailaddr2" placeholder="sent to your account email" readonly
       style="flex:1;min-width:14rem;font:inherit;padding:.6rem .85rem;min-height:2.75rem;
       border:1px solid var(--line);border-radius:999px;background:#fff;color:var(--fg)">
     <button id="emailsend2"
@@ -934,6 +980,7 @@ padding:.4rem .65rem;border-radius:999px;text-decoration:none}
   </label>
   <p id="emailmsg2" style="font-size:.88rem;color:var(--muted);margin:.6rem 0 0"></p>
 </div>
+{aff_html}
 </div>
 
 <script type="application/json" id="oc-meta">{json.dumps(meta)}</script>

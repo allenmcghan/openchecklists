@@ -154,8 +154,8 @@ padding:.4rem .65rem;border-radius:999px;text-decoration:none}
 <div class="modal-overlay" id="email-modal">
   <div class="modal">
     <h3>Email your briefing</h3>
-    <p>We'll send the full briefing to your email. If you're new, this creates your free account.</p>
-    <input type="email" id="email-input" placeholder="your@email.com">
+    <p>We'll send the full briefing to the email address on your account.</p>
+    <input type="email" id="email-input" placeholder="your account email" readonly>
     <div class="error" id="email-error" style="display:none"></div>
     <div class="modal-btns">
       <button class="m-cancel" onclick="closeEmail()">Cancel</button>
@@ -180,6 +180,28 @@ padding:.4rem .65rem;border-radius:999px;text-decoration:none}
 
 <script>
 const API = 'https://app.openchecklists.net';
+
+// Every value interpolated into innerHTML goes through esc(): plan fields are
+// user-supplied and METAR/TAF/NOTAM text comes from upstream services.
+function esc(v) {
+  return String(v == null ? '' : v).replace(/[&<>"']/g, function (c) {
+    return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+  });
+}
+function authHeaders() {
+  var tok = sessionStorage.getItem('ocl:token');
+  var h = { 'Content-Type': 'application/json' };
+  if (tok) h.Authorization = 'Bearer ' + tok;
+  return h;
+}
+function needSignIn() {
+  if (sessionStorage.getItem('ocl:token')) return false;
+  if (confirm('Sign in to email yourself a copy. Go to sign-in now?')) {
+    sessionStorage.setItem('ocl:return', location.pathname + location.search);
+    location.href = '/profile.html';
+  }
+  return true;
+}
 
 // ---- Airport shards (client-side) for GPS coords, headings, distances, freqs ----
 var APICAO = null, APSHARD = {};
@@ -242,14 +264,14 @@ async function renderRoute(waypoints, alt) {
     var d = apDistNm(A, B), brg = apBearing(A, B); total += d;
     var eta = (window.OCL_KTAS && window.OCL_KTAS > 0) ? Math.round(d / window.OCL_KTAS * 60) : null;
     legData.push({ from: lg[0], to: lg[1], course: Math.round(brg), dist: d, eta: eta });
-    rows += '<tr><td><b>' + lg[0] + '</b> → <b>' + lg[1] + '</b></td><td class="n">' + Math.round(brg) + '°T</td><td class="n">' + d.toFixed(0) + ' nm</td><td class="n">' + (eta != null ? eta + ' min' : '—') + '</td></tr>';
+    rows += '<tr><td><b>' + esc(lg[0]) + '</b> → <b>' + esc(lg[1]) + '</b></td><td class="n">' + Math.round(brg) + '°T</td><td class="n">' + d.toFixed(0) + ' nm</td><td class="n">' + (eta != null ? eta + ' min' : '—') + '</td></tr>';
   });
-  var coords = idents.map(function (id) { var p = pts[id]; return p && !isNaN(p.lat) ? '<div class="freq-mini"><b>' + id + '</b> ' + apCoordStr(p) + (p.elevation_ft != null ? ' · ' + p.elevation_ft + ' ft' : '') + '</div>' : ''; }).join('');
+  var coords = idents.map(function (id) { var p = pts[id]; return p && !isNaN(p.lat) ? '<div class="freq-mini"><b>' + esc(id) + '</b> ' + esc(apCoordStr(p)) + (p.elevation_ft != null ? ' · ' + esc(p.elevation_ft) + ' ft' : '') + '</div>' : ''; }).join('');
   var freqs = idents.map(function (id) {
     var p = pts[id]; if (!p || !p.frequencies || !p.frequencies.length) return '';
     var order = ['CTAF', 'UNICOM', 'TOWER', 'GROUND', 'ATIS', 'AWOS', 'ASOS'];
     var top = p.frequencies.slice().sort(function (x, y) { var ix = order.indexOf((x.use || '').toUpperCase()); if (ix < 0) ix = 9; var iy = order.indexOf((y.use || '').toUpperCase()); if (iy < 0) iy = 9; return ix - iy; }).slice(0, 4);
-    return '<div class="freq-mini"><b>' + id + '</b> ' + top.map(function (f) { return (f.use || '') + ' ' + f.frequency; }).join(' · ') + '</div>';
+    return '<div class="freq-mini"><b>' + esc(id) + '</b> ' + top.map(function (f) { return esc((f.use || '') + ' ' + f.frequency); }).join(' · ') + '</div>';
   }).join('');
 
   // Stash resolved data for the PDF builder.
@@ -269,7 +291,7 @@ async function renderRoute(waypoints, alt) {
     var latlngs = idents.filter(function (id) { return pts[id] && !isNaN(pts[id].lat); }).map(function (id) { return [pts[id].lat, pts[id].lon]; });
     var map = L.map('route-map', { zoomControl: true, minZoom: 6 });
     L.tileLayer('https://tiles.arcgis.com/tiles/ssFJjBXIUyZDrSYZ/arcgis/rest/services/VFR_Sectional/MapServer/tile/{z}/{y}/{x}', { minNativeZoom: 9, maxNativeZoom: 11, maxZoom: 14, attribution: 'VFR Sectional © FAA' }).addTo(map);
-    idents.forEach(function (id) { var p = pts[id]; if (p && !isNaN(p.lat)) L.marker([p.lat, p.lon]).addTo(map).bindPopup('<b>' + id + '</b><br>' + (p.name || '')); });
+    idents.forEach(function (id) { var p = pts[id]; if (p && !isNaN(p.lat)) L.marker([p.lat, p.lon]).addTo(map).bindPopup('<b>' + esc(id) + '</b><br>' + esc(p.name || '')); });
     var routeLine = waypoints.filter(function (id) { return pts[id] && !isNaN(pts[id].lat); }).map(function (id) { return [pts[id].lat, pts[id].lon]; });
     L.polyline(routeLine, { color: '#1f4e79', weight: 3 }).addTo(map);
     if (alt && pts[alt] && !isNaN(pts[alt].lat)) L.polyline([[pts[last].lat, pts[last].lon], [pts[alt].lat, pts[alt].lon]], { color: '#8a5a00', weight: 2, dashArray: '6 5' }).addTo(map);
@@ -283,9 +305,11 @@ async function renderRoute(waypoints, alt) {
 var planId = new URLSearchParams(location.search).get('id')
   || window.location.pathname.split('/').filter(Boolean).pop();
 if (planId === 'plan' || planId === 'index.html') planId = '';
+if (!/^ocl-[a-z0-9]+$/i.test(planId || '')) planId = '';
 var planData = null;
 
 async function load(refresh) {
+  if (!planId) { showNotFound(); return; }
   var planUrl = 'https://app.openchecklists.net/api/plan/' + planId + (refresh ? '?refresh=1' : '');
   try {
     var resp = await fetch(planUrl);
@@ -293,11 +317,15 @@ async function load(refresh) {
     planData = await resp.json();
     render(planData);
   } catch (e) {
-    document.getElementById('briefing').innerHTML = `<div style="padding:2rem;text-align:center;color:#c0392b">
-      <h2>Plan not found</h2><p>The plan ID "${planId}" doesn't exist or has expired.</p>
+    showNotFound();
+  }
+}
+
+function showNotFound() {
+  document.getElementById('briefing').innerHTML = `<div style="padding:2rem;text-align:center;color:#c0392b">
+      <h2>Plan not found</h2><p>The plan ID "${esc(planId || '(none)')}" doesn't exist or has expired.</p>
       <a href="/planner" style="color:#1f4e79;margin-top:1rem;display:inline-block">&larr; Plan a new flight</a>
     </div>`;
-  }
 }
 
 function wxBadge(metar) {
@@ -339,8 +367,8 @@ function formatNotams(notams) {
   return '<ul class="notam-list">' + notams.notams.map(function(n) {
     var isWarn = n.text && /RWY|CLSD|UNSERVICEABLE|OBST/i.test(n.text);
     return `<li class="notam-item${isWarn ? ' warn' : ''}">
-      <div class="notam-hdr">${n.effective || ''} &ndash; ${n.expiration || ''}</div>
-      ${n.text || ''}
+      <div class="notam-hdr">${esc(n.effective || '')} &ndash; ${esc(n.expiration || '')}</div>
+      ${esc(n.text || '')}
     </li>`;
   }).join('') + '</ul>';
 }
@@ -358,7 +386,7 @@ function formatFreqs(apt, snap) {
     <thead><tr><th>MHz</th><th>Use</th></tr></thead>
     <tbody>${sorted.slice(0,6).map(function(f) {
       var isCtaf = /CTAF|UNICOM/i.test(f.use || '');
-      return `<tr><td class="freq-mhz${isCtaf ? ' freq-ctaf' : ''}">${f.frequency || ''}</td><td class="${isCtaf ? 'freq-ctaf' : ''}">${f.use || ''}</td></tr>`;
+      return `<tr><td class="freq-mhz${isCtaf ? ' freq-ctaf' : ''}">${esc(f.frequency || '')}</td><td class="${isCtaf ? 'freq-ctaf' : ''}">${esc(f.use || '')}</td></tr>`;
     }).join('')}</tbody>
   </table>`;
 }
@@ -383,6 +411,7 @@ function fuelBar(onboard, burnGph, etMin, reserveMin) {
 function renderAptSection(aptIdent, role, snap) {
   var wx = snap.weather ? snap.weather[aptIdent] : null;
   var notams = snap.notams ? snap.notams[aptIdent] : null;
+  var idEsc = esc(aptIdent), idUrl = encodeURIComponent(aptIdent || '');
   var metar = wx ? wx.metar || null : null;
   var taf = wx ? wx.taf || null : null;
   var roleCls = role === 'Departure' ? 'dep' : role === 'Destination' ? 'dest' : role === 'Waypoint' ? 'wpt-role' : 'alt-role';
@@ -391,19 +420,19 @@ function renderAptSection(aptIdent, role, snap) {
   return `<div class="apt-sec">
     <div class="apt-hdr">
       <div>
-        <div class="apt-ident" style="${isAlt ? 'font-size:1.4rem' : ''}">${aptIdent}</div>
+        <div class="apt-ident" style="${isAlt ? 'font-size:1.4rem' : ''}">${idEsc}</div>
         <span class="apt-role ${roleCls}">${role}</span>
       </div>
       <div style="flex:1">
-        <div class="apt-name">See <a href="/airport/?id=${aptIdent}" style="color:#1f4e79">${aptIdent} airport page</a> for full details</div>
+        <div class="apt-name">See <a href="/airport/?id=${idUrl}" style="color:#1f4e79">${idEsc} airport page</a> for full details</div>
         <div class="apt-sub">Frequencies, runway diagrams, and navigation aids on the airport page.</div>
       </div>
     </div>
     <div class="data-grid">
       <div class="db full">
         <div class="dl">Weather ${wxBadge(metar)}</div>
-        ${metar ? `<div class="metar">${metar}</div><div class="wx-sum">${wxSummary(metar)}</div>` : '<p style="font-size:.78rem;color:#888">No METAR available for this airport.</p>'}
-        ${taf && !isAlt ? `<div class="taf-hdr">TAF</div><div class="taf-raw">${taf.replace(/\n/g, '<br>')}</div>` : ''}
+         ${metar ? `<div class="metar">${esc(metar)}</div><div class="wx-sum">${wxSummary(esc(metar))}</div>` : '<p style="font-size:.78rem;color:#888">No METAR available for this airport.</p>'}
+        ${taf && !isAlt ? `<div class="taf-hdr">TAF</div><div class="taf-raw">${esc(taf).replace(/\n/g, '<br>')}</div>` : ''}
       </div>
       <div class="db">
         <div class="dl">NOTAMs</div>
@@ -412,7 +441,7 @@ function renderAptSection(aptIdent, role, snap) {
       <div class="db">
         <div class="dl">Frequencies</div>
         ${formatFreqs(aptIdent, snap)}
-        <div style="margin-top:6px"><a href="/airport/?id=${aptIdent}" style="font-size:.7rem;color:#1f4e79">Full frequency list &rarr;</a></div>
+        <div style="margin-top:6px"><a href="/airport/?id=${idUrl}" style="font-size:.7rem;color:#1f4e79">Full frequency list &rarr;</a></div>
       </div>
     </div>
   </div>`;
@@ -438,9 +467,9 @@ function render(plan) {
   }
 
   // Fuel math
-  var fuelOnboard = plan.fuel_onboard || ac.fuel_capacity_gal || 0;
-  var burnGph = ac.burn_rate_gph || 8.5;
-  var reserveMin = plan.reserve_min || 30;
+  var fuelOnboard = parseFloat(plan.fuel_onboard || ac.fuel_capacity_gal) || 0;
+  var burnGph = parseFloat(ac.burn_rate_gph) || 8.5;
+  var reserveMin = parseFloat(plan.reserve_min) || 30;
   var reserveGal = (reserveMin / 60) * burnGph;
   var etMin = 0;
   var margin = fuelOnboard - reserveGal;
@@ -450,14 +479,16 @@ function render(plan) {
 
   var depAt = plan.depart_at ? new Date(plan.depart_at).toLocaleString() : 'Today';
   window.OCL_KTAS = parseFloat(ac.cruise_speed_ktas) || 0;
+  var D = esc(dep), DS = esc(dest), AL = esc(alt), TAIL = esc(ac.n_number || ac.registration || '');
+  var TYPE = esc((ac.make || '') + ' ' + (ac.model || '')), PID = esc(plan.id);
 
   var html = `
     <div class="banner">
-      <div class="route">${dep} &rarr; ${dest}${alt ? ` <span style="font-size:1rem;opacity:.75;font-weight:600">(alt: ${alt})</span>` : ''}</div>
+      <div class="route">${D} &rarr; ${DS}${alt ? ` <span style="font-size:1rem;opacity:.75;font-weight:600">(alt: ${AL})</span>` : ''}</div>
       <div class="meta">
-        <div class="mi"><strong>${ac.n_number || 'Guest'}</strong>Aircraft</div>
-        <div class="mi"><strong>${ac.make || ''} ${ac.model || ''}</strong>Type</div>
-        <div class="mi"><strong>${depAt}</strong>Departure</div>
+        <div class="mi"><strong>${TAIL || 'Guest'}</strong>Aircraft</div>
+        <div class="mi"><strong>${TYPE}</strong>Type</div>
+        <div class="mi"><strong>${esc(depAt)}</strong>Departure</div>
         <div class="mi"><strong>${fuelOnboard} gal onboard</strong>Fuel</div>
       </div>
     </div>
@@ -477,7 +508,7 @@ function render(plan) {
       : renderAptSection(dep, 'Departure', snap) + renderAptSection(dest, 'Destination', snap)}
     ${alt ? renderAptSection(alt, 'Alternate', snap) : ''}
     <div class="fuel-card">
-      <h3>Fuel Planning &mdash; ${ac.n_number || ''} ${ac.make || ''} ${ac.model || ''}</h3>
+      <h3>Fuel Planning &mdash; ${TAIL} ${TYPE}</h3>
       <table class="fuel-tbl">
         <tr><td>Fuel onboard</td><td>${fuelOnboard} gal</td></tr>
         <tr><td>Burn rate</td><td>${burnGph} GPH</td></tr>
@@ -488,8 +519,8 @@ function render(plan) {
       ${fuelBar(fuelOnboard, burnGph, etMin, reserveMin)}
     </div>
     <div class="brief-foot">
-      <div><strong>OpenChecklists.net</strong> &middot; Plan #${plan.id} &middot; Generated ${genAt ? new Date(genAt).toLocaleString() : 'now'}</div>
-      <div>Live refresh: <a href="https://openchecklists.net/plan/?id=${plan.id}">openchecklists.net/plan/?id=${plan.id}</a></div>
+      <div><strong>OpenChecklists.net</strong> &middot; Plan #${PID} &middot; Generated ${genAt ? esc(new Date(genAt).toLocaleString()) : 'now'}</div>
+      <div>Live refresh: <a href="https://openchecklists.net/plan/?id=${PID}">openchecklists.net/plan/?id=${PID}</a></div>
     </div>
   `;
   document.getElementById('briefing').innerHTML = html;
@@ -504,7 +535,7 @@ function aircraftChecklistLink(ac) {
   var q = encodeURIComponent(make + ' ' + model);
   return '<div class="ac-checklist" style="padding:.7rem 1.5rem;border-bottom:2px solid #e8edf4">' +
     '<a href="/catalogue.html?q=' + q + '" style="display:inline-flex;align-items:center;gap:6px;font-size:.85rem;font-weight:700;color:#1f4e79;text-decoration:none">' +
-    '&#128203; Printable checklist for this aircraft (' + make + ' ' + model + ') &rarr;</a></div>';
+    '&#128203; Printable checklist for this aircraft (' + esc(make + ' ' + model) + ') &rarr;</a></div>';
 }
 
 // ---- Plan PDF (built from DATA, not a screenshot) ----
@@ -580,9 +611,9 @@ function buildPlanPdf() {
   });
 
   // Fuel summary
-  var fuelOnboard = plan.fuel_onboard || ac.fuel_capacity_gal || 0;
-  var burnGph = ac.burn_rate_gph || 8.5;
-  var reserveMin = plan.reserve_min || 30;
+  var fuelOnboard = parseFloat(plan.fuel_onboard || ac.fuel_capacity_gal) || 0;
+  var burnGph = parseFloat(ac.burn_rate_gph) || 8.5;
+  var reserveMin = parseFloat(plan.reserve_min) || 30;
   var reserveGal = (reserveMin / 60) * burnGph;
   var margin = fuelOnboard - reserveGal;
   var enduranceMin = (fuelOnboard / burnGph) * 60;
@@ -621,22 +652,23 @@ function savePlanPdf() {
 }
 
 async function emailPlanPdf() {
+  if (needSignIn()) return;
   var doc = buildPlanPdf();
   if (!doc) { alert('PDF library still loading — try again in a moment.'); return; }
-  var email = prompt('Email the plan PDF to:', '');
-  if (!email) return;
-  email = email.trim();
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { alert('Enter a valid email address.'); return; }
+  if (!confirm('Email this plan PDF to the address on your account?')) return;
   var dataUri = doc.output('datauristring');
   var b64 = dataUri.indexOf(',') >= 0 ? dataUri.slice(dataUri.indexOf(',') + 1) : dataUri;
   try {
     var resp = await fetch('https://app.openchecklists.net/api/log/email-pdf', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: email, title: planPdfTitle(), pdf_base64: b64 })
+      headers: authHeaders(),
+      body: JSON.stringify({ title: planPdfTitle(), pdf_base64: b64 })
     });
+    if (resp.status === 401) { alert('Your session has expired — sign in again to email PDFs.'); return; }
+    if (resp.status === 429) { alert('Daily email limit reached. Try again tomorrow.'); return; }
     if (!resp.ok) throw new Error('send failed');
-    alert('PDF sent to ' + email);
+    var d = await resp.json().catch(function () { return {}; });
+    alert('PDF sent to ' + (d.to || 'your account email'));
   } catch (e) {
     alert('Failed to email the PDF. Please try again.');
   }
@@ -644,6 +676,7 @@ async function emailPlanPdf() {
 
 // Email
 function openEmail() {
+  if (needSignIn()) return;
   var tok = sessionStorage.getItem('ocl:token');
   if (tok) {
     fetch('https://app.openchecklists.net/api/me', { headers: { Authorization: 'Bearer ' + tok } })
@@ -663,25 +696,22 @@ async function sendEmail() {
   var email = document.getElementById('email-input').value.trim();
   var errEl = document.getElementById('email-error');
   errEl.style.display = 'none';
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    errEl.textContent = 'Enter a valid email address.';
-    errEl.style.display = 'block';
-    return;
-  }
   var btn = document.getElementById('email-send-btn');
   btn.disabled = true;
   btn.textContent = 'Sending…';
   try {
     var resp = await fetch('https://app.openchecklists.net/api/plan/' + planId + '/email', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: email })
+      headers: authHeaders(),
+      body: '{}'
     });
-    if (!resp.ok) throw new Error('Send failed');
+    if (resp.status === 401) throw new Error('Your session has expired — sign in again.');
+    if (resp.status === 429) throw new Error('Daily email limit reached. Try again tomorrow.');
+    if (!resp.ok) throw new Error('Failed to send. Try again.');
     btn.textContent = '✓ Sent!';
     setTimeout(closeEmail, 1500);
   } catch (e) {
-    errEl.textContent = 'Failed to send. Try again.';
+    errEl.textContent = e.message || 'Failed to send. Try again.';
     errEl.style.display = 'block';
     btn.disabled = false;
     btn.textContent = 'Send Briefing';

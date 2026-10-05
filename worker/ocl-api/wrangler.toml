@@ -15,6 +15,11 @@ database_id = "d2ae495d-dfe6-4336-a2c8-7e80c8e950a5"
 ZITADEL_ISSUER = "https://auth.keylinkit.net"
 OCL_ORIGIN = "https://openchecklists.net"
 
+# Hourly: morning weather digests (per-user local hour). Daily housekeeping
+# (expired rate-limit rows, 6-month preflight-log retention) runs on the 09 UTC tick.
+[triggers]
+crons = ["17 * * * *"]
+
 [[routes]]
 pattern = "app.openchecklists.net/*"
 zone_id = "333d9ca7b20f21c3c62d99452ac1d5f0"

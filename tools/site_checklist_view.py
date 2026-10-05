@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
 """Single-file, client-rendered community-checklist viewer.
 
-Served at /checklist/?id=<id> for EVERY community-published checklist. Like the
-airport app (tools/site_airport_app.py) this is ONE template rendered client-
-side from data, not thousands of static files — the host serves the homepage for
-path URLs, so the id ALWAYS arrives as ?id=<id> (never a path segment).
+ONE template for EVERY community-published checklist, rendered client-side
+from data (like the airport app, tools/site_airport_app.py). The canonical URL
+is /checklist/<id>: functions/checklist/[id].js fetches the checklist and
+injects title, meta, canonical, JSON-LD and the item list into this template,
+then this script boots on top. The legacy /checklist/?id=<id> form still works
+and is history.replaceState'd onto the path. The bare template is noindex; the
+Function strips that tag on real checklist pages.
 
 It mirrors what tools/render.py bakes into a static checklist page — sections,
 items, tickable checkboxes, warning/caution callouts, [MEMORY] marks, print CSS —
@@ -129,11 +132,20 @@ CHECKLIST_VIEW_JS = r"""
   function esc(s){ return String(s==null?'':s)
     .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
+  var ID_RE = /^[a-z0-9][a-z0-9-]{0,119}$/;
+
   function getId(){
-    // Path URLs are served the homepage by the host, so the id ALWAYS arrives
-    // as ?id=<id>. Do not rely on path segments.
-    var q = new URLSearchParams(location.search).get('id');
-    return q ? q.trim() : '';
+    // /checklist/<id> is server-rendered by functions/checklist/[id].js; the
+    // legacy /checklist/?id=<id> form is moved onto that canonical path.
+    var m = location.pathname.match(/^\/checklist\/([^\/?#]+)\/?$/);
+    var p = m ? decodeURIComponent(m[1]).toLowerCase() : '';
+    if (ID_RE.test(p)) return p;
+    var q = (new URLSearchParams(location.search).get('id') || '').trim();
+    if (ID_RE.test(q.toLowerCase())){
+      q = q.toLowerCase();
+      try { history.replaceState(null, '', '/checklist/' + encodeURIComponent(q) + location.hash); } catch(e){}
+    }
+    return q;
   }
 
   function stars(n, max){
@@ -221,7 +233,7 @@ CHECKLIST_VIEW_JS = r"""
     var id = getId();
     if (!id){
       root.innerHTML = '<div class="cv-notfound"><h1 style="font-size:1.4rem">No checklist specified</h1>' +
-        '<p>This page needs a checklist id, e.g. <code>/checklist/?id=…</code></p>' +
+        '<p>This page needs a checklist id, e.g. <code>/checklist/&lt;id&gt;</code></p>' +
         '<p><a class="cv-btn" href="/catalogue.html">Browse the catalogue</a></p></div>';
       return;
     }
@@ -230,7 +242,11 @@ CHECKLIST_VIEW_JS = r"""
     try {
       var r = await fetch(API + '/checklists/' + encodeURIComponent(id));
       doc = await r.json();
-    } catch(e){ notFound(root, id, 'Could not reach the checklist service. Check your connection and retry.'); return; }
+    } catch(e){
+      // Offline (e.g. a cached page at the aircraft): keep the server-rendered copy usable.
+      if (root.querySelector('.cv-sec')){ wireTicks(); return; }
+      notFound(root, id, 'Could not reach the checklist service. Check your connection and retry.'); return;
+    }
     if (!doc || doc.error || !doc.title && !doc.sections){ notFound(root, id, doc && doc.error); return; }
 
     render(root, doc, id);
@@ -391,13 +407,16 @@ def checklist_view_page(head_fn, foot) -> str:
 
     foot: the site footer HTML string (closes </main> and the document).
     """
+    top = head_fn(
+        "Checklist — Open Checklists",
+        "Read, tick, print, review and fork any community-published aircraft "
+        "checklist. Unverified community data — always confirm against your POH.",
+        rel="/",
+    )
+    # Only the server-rendered /checklist/<id> pages should be indexed.
+    top = top.replace("</head>", '<meta name="robots" content="noindex">\n</head>', 1)
     return (
-        head_fn(
-            "Checklist — Open Checklists",
-            "Read, tick, print, review and fork any community-published aircraft "
-            "checklist. Unverified community data — always confirm against your POH.",
-            rel="/",
-        )
+        top
         + f"<style>{CHECKLIST_VIEW_CSS}</style>"
         + CHECKLIST_VIEW_BODY
         + f"<script>{CHECKLIST_VIEW_JS}</script>"

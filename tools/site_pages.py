@@ -189,62 +189,114 @@ background:#fff;display:flex;flex-direction:column;gap:.35rem}
 
 PRIVACY = """
 <h2>Privacy</h2>
-<p class="tag">Last updated: 2026-08-10</p>
+<p class="tag">Last updated: 2026-10-04</p>
 
-<p>This site is a collection of static files. There is no server-side application, no
-database, no user accounts and no login.</p>
+<p>Open Checklists is run by Allen McGhan (contact details on the
+<a href="contact.html">contact</a> page). This page says plainly what the site collects,
+why, and who else sees it. If something here is wrong, tell us and we will fix the
+site or the page.</p>
 
-<h3>What we collect</h3>
-<p><strong>Nothing.</strong> No analytics, no tracking pixels, no advertising, no
-cookies, no local or session storage used for identification, no fingerprinting, and
-no third-party scripts of any kind. Every page on this site is self-contained: it
-makes no requests to any other host, so no other company learns that you visited.</p>
-
-<h3>What stays in your browser</h3>
-<p>The checklist editor and the checklist pages save your work using your browser's
-own local storage, on your own device. That includes checklists you write or fork,
-and completion logs you record. This data:</p>
+<h3>Without an account</h3>
+<p>You can use every checklist, airport page, the planner and the training pages
+without signing in. In that case:</p>
 <ul>
-  <li>never leaves your device unless you explicitly download it or choose to
-  contribute it;</li>
-  <li>is not readable by us, because it is never sent anywhere;</li>
-  <li>can be deleted at any time from within the editor, or by clearing site data in
-  your browser.</li>
+  <li><strong>Your browser keeps your work.</strong> Checklists you write or fork in the
+  editor, and the boxes you tick, are saved in your browser's local storage on your own
+  device. They are not sent to us unless you choose to publish, email or save them to an
+  account. Clear your browser's site data to delete them.</li>
+  <li><strong>Flight plans you generate are stored on our server</strong> so the briefing
+  link works. Anyone with a plan's link can open it, so do not put anything private in a
+  plan. Plan ids are long and random and are not listed anywhere.</li>
+  <li><strong>Usage counts.</strong> When you open a checklist we add one to its public
+  "uses" counter. To count each visitor once a day we keep a one-way hash of your IP
+  address; it stops being used after 24 hours and is deleted by a daily clean-up job.
+  The address itself is not stored.</li>
 </ul>
-<p>Because it lives in your browser, it is not backed up and it is not synced between
-devices. Download anything you would be upset to lose.</p>
 
-<h3>Server logs</h3>
-<p>Files are served by a static host. Like any web server, that host may record
-ordinary request information such as IP address, timestamp and requested path, for
-the purpose of serving the site and defending it from abuse. We do not use it for
-analytics or profiling, we do not combine it with anything else, and we do not sell
-or share it. If the host is GitHub Pages, GitHub's own privacy statement applies to
-that layer.</p>
+<h3>With an account</h3>
+<p>Accounts are optional. Sign-in is handled by our identity service at
+<code>auth.keylinkit.net</code> (Zitadel), which holds your email address, name and login
+factors. Our database then stores, against an internal account id:</p>
+<ul>
+  <li>the username, display name and leaderboard preference you choose;</li>
+  <li>aircraft and favorite airports you save;</li>
+  <li>your flight logbook entries, saved flight plans and training progress;</li>
+  <li>checklist completion logs (kept for six months, then deleted automatically);</li>
+  <li>points earned, and checklists and reviews you publish. <strong>Published
+  checklists and reviews are public</strong>, shown with your display name or username.</li>
+</ul>
 
-<h3>If you contribute</h3>
-<p>Contributions are made through a public pull request. Anything in a contribution
-is public and permanent: the file, the name and any contact details you put in it,
-and the commit history. Provenance is the point of this project, so contributor
-attribution is deliberately not anonymous — but put in only what you are content to
-publish. You can use a pseudonym.</p>
+<h3>Email</h3>
+<p>If you ask the site to email you a briefing, a checklist log or a PDF, we send it to
+the verified email address on your account — never to an address typed into the page —
+and keep only that account address. To stop abuse, emailing needs an account and is
+limited per account and per network; the limit counters store a one-way hash of your
+IP address, deleted daily once expired.</p>
+
+<h3>Automated review of published checklists</h3>
+<p>When you publish a checklist, its content is sent to Anthropic's Claude API for an
+automated safety and copyright check before it appears publicly. The aircraft
+registration field is removed automatically when you publish; do not put a registration
+or anything else personal in titles or notes.</p>
+
+<h3>Advertising and cookies</h3>
+<p>The site is free and is paid for by advertising. We use <strong>Google AdSense</strong>
+on some pages (airport, training, search and catalogue pages; never on checklist,
+editor, planner or account pages). Google and its partners may use cookies and similar
+technologies to show ads based on your visits to this and other websites, and to
+measure ad performance.</p>
+<ul>
+  <li>How Google uses this data:
+  <a href="https://policies.google.com/technologies/partner-sites" rel="noopener">policies.google.com/technologies/partner-sites</a>.</li>
+  <li>Turn off personalised ads from Google:
+  <a href="https://adssettings.google.com/" rel="noopener">adssettings.google.com</a>, or
+  for many ad networks at <a href="https://optout.aboutads.info/" rel="noopener">optout.aboutads.info</a>.</li>
+  <li>Visitors in the EEA, the UK and Switzerland are asked for consent through a
+  Google-certified consent message before any personalised ads or ad cookies are used,
+  and can change that choice at any time from the "Privacy and cookie settings" link
+  the message adds to the page.</li>
+</ul>
+<p>We do not use analytics or tracking scripts of our own. Our own pages use your
+browser's session storage only to keep you signed in, and local storage for your work as
+described above.</p>
+
+<h3>Other services your browser contacts</h3>
+<p>Some pages load live data or libraries straight from other providers, who therefore
+see your IP address: aviationweather.gov and the FAA (weather, NOTAMs, charts),
+Open-Meteo and RainViewer (forecast and radar), Esri/ArcGIS and OpenStreetMap (map tiles),
+Windy (embedded wind map), and unpkg.com and cdnjs (Leaflet map and PDF libraries).
+The site is hosted on Cloudflare, which processes ordinary request logs (IP address,
+time, page) to serve the site and protect it from abuse.</p>
+
+<h3>Your choices and rights</h3>
+<ul>
+  <li><strong>See, export or delete your data:</strong> most of it is visible and
+  deletable on your profile page. To delete your account and everything stored with it,
+  email the address on the <a href="contact.html">contact</a> page; we do it within 30
+  days.</li>
+  <li><strong>US state privacy rights (including California):</strong> we do not sell
+  your personal information for money. Personalised advertising may count as "sharing"
+  under California law; you can opt out using the Google settings above, by emailing
+  us, or by enabling Global Privacy Control in your browser — when it is on, our pages
+  ask Google for non-personalised ads only.</li>
+  <li><strong>EEA/UK:</strong> you have rights of access, correction, deletion,
+  objection and portability, and may complain to your data protection authority.</li>
+</ul>
 
 <h3>Children</h3>
-<p>This site is not directed at children and collects nothing from anyone.</p>
+<p>The site is not directed at children under 13 and we do not knowingly collect their
+personal information. If you believe a child has created an account, contact us and we
+will delete it.</p>
 
 <h3>Changes</h3>
-<p>If this policy changes, the date above changes and the previous version stays in
-the site's public git history.</p>
-
-<h3>Contact</h3>
-<p>Privacy questions, corrections and takedown requests: see
-<a href="contact.html">contact</a>.</p>
+<p>If this policy changes, the date above changes and the previous version stays in the
+site's public git history.</p>
 """
 
 
 TERMS = """
 <h2>Terms of use</h2>
-<p class="tag">Last updated: 2026-08-10</p>
+<p class="tag">Last updated: 2026-10-04</p>
 
 <div class="banner quar"><strong>Safety notice, and the most important thing on this
 page.</strong> Nothing on this site is approved aeronautical data. It is not a flight
@@ -299,6 +351,34 @@ declares.</p>
 not present files from here as approved data or as endorsed by any manufacturer or
 authority. Manufacturer names appear only to identify aircraft; no affiliation or
 endorsement is implied.</p>
+
+<h3>Accounts</h3>
+<p>Accounts are optional and free. Keep your sign-in secure; you are responsible for
+what is published from your account. We may remove content or suspend accounts that
+abuse the site, publish content you have no right to publish, or try to game points or
+ratings.</p>
+
+<h3>Advertising and affiliate links</h3>
+<p>The site is supported by advertising served by Google and its partners, and some
+links to products or courses are affiliate links: if you buy through them we may earn a
+commission, at no extra cost to you. Ads and affiliate links are labelled, are never
+placed inside a checklist, and do not influence what a checklist says. An advertiser
+appearing here is not an endorsement of its product, and we are not responsible for
+third-party sites. See <a href="privacy.html">privacy</a> for how ads use cookies.</p>
+
+<h3 id="affiliate-disclosure">Affiliate disclosure</h3>
+<p>Open Checklists is a participant in the Amazon Services LLC Associates Program, an
+affiliate advertising program designed to provide a means for sites to earn advertising
+fees by advertising and linking to Amazon.com. <strong>As an Amazon Associate I earn from
+qualifying purchases.</strong> Gear suggestions are clearly labelled, link to Amazon search
+results rather than specific products, never appear inside a checklist, and never print.
+Buying through them costs you nothing extra; check any item's fit and approval for your
+aircraft before you buy.</p>
+
+<h3>Weather and flight-planning data</h3>
+<p>Weather, NOTAMs, frequencies and flight plans on this site are an unofficial,
+unverified convenience. They are not an official briefing. 14 CFR 91.103 requires an
+official briefing before flight (1800wxbrief.com or 1-800-WX-BRIEF).</p>
 
 <h3>Takedown</h3>
 <p>If you believe something here infringes your rights, see
@@ -441,28 +521,64 @@ A confirmed error automatically strips the file's verification badge.</p>
 CONTACT = """
 <h2>Contact</h2>
 
-<p>This is a small project. There is no support desk, and answers come from people
-doing this in their own time.</p>
+<p>Open Checklists is run by <strong>Allen McGhan</strong>. Email
+<a href="mailto:allen@keylinkit.com">allen@keylinkit.com</a> for anything below; it is
+read by a person.</p>
 
 <table><tbody>
 <tr><td><strong>Errors in a checklist</strong></td>
-    <td>Fastest through the repository as a report or pull request — see
+    <td>Email, or file a report through the repository — see
     <a href="contribute.html">contribute</a>. Include the file id and its content
     hash.</td></tr>
 <tr><td><strong>Rights and takedown</strong></td>
-    <td>See <a href="takedown.html">takedown</a>. Material is unpublished first and
-    assessed afterwards. Acknowledged within 72 hours.</td></tr>
-<tr><td><strong>Privacy</strong></td>
-    <td>See <a href="privacy.html">privacy</a>. Short version: the site collects
-    nothing, so there is usually nothing to request.</td></tr>
+    <td>Email with the subject "Takedown". See <a href="takedown.html">takedown</a>:
+    material is unpublished first and assessed afterwards, acknowledged within 72
+    hours.</td></tr>
+<tr><td><strong>Privacy and account deletion</strong></td>
+    <td>Email from the address on your account. See <a href="privacy.html">privacy</a>.</td></tr>
+<tr><td><strong>Advertising and partnerships</strong></td>
+    <td>Email with the subject "Advertising".</td></tr>
 <tr><td><strong>Manufacturers and type clubs</strong></td>
     <td>Very welcome. See the last section of <a href="takedown.html">takedown</a> for
     what the project can offer you.</td></tr>
-<tr><td><strong>Everything else</strong></td>
-    <td>Open an issue in the repository.</td></tr>
 </tbody></table>
-
-<p class="tag">Replace this page's placeholders with a real address and a named
-responsible person before launch. A takedown process with no reachable human is not a
-process.</p>
 """
+
+
+ABOUT_US = """
+<h2>About Open Checklists</h2>
+
+<p class="lede">Free aircraft checklists, airport information and pre-flight tools for
+pilots of ultralights, light-sport, experimental and certified aircraft.</p>
+
+<p>Open Checklists started with a ParaPlane PM-2 powered parachute and a simple
+problem: the aircraft that most need a good checklist — Part 103 ultralights, kit-built
+experimentals, modified airframes — are the ones least likely to have one. The site
+collects open, machine-readable checklists that anyone can read on a phone, print,
+fork for their own aircraft, and download in any format.</p>
+
+<p>Around the checklists sit the tools a pilot reaches for in the ninety seconds before
+a flight: airport facts, runways and frequencies for every public and private US
+airport from the FAA's 28-day data, live weather and NOTAMs, a multi-leg flight planner,
+a logbook, and the FAA's own training handbooks, searchable.</p>
+
+<h3>Who runs it</h3>
+<p>Open Checklists is built and run by Allen McGhan, an aircraft builder and pilot, as
+the open data layer alongside the <a href="https://github.com/allenmcghan/junco"
+rel="noopener">Junco</a> open-source instrument project. The code and the checklist
+format are open source on <a href="https://github.com/allenmcghan/openchecklists"
+rel="noopener">GitHub</a>.</p>
+
+<h3>How it is paid for</h3>
+<p>The site is free to use and is supported by advertising and affiliate links. Ads are
+kept off checklists, the editor, the planner and your account pages. See
+<a href="privacy.html">privacy</a> and <a href="terms.html">terms</a>.</p>
+
+<h3>What it is not</h3>
+<p>Nothing here is approved aeronautical data or an official weather briefing. Every
+checklist says where it came from and whether anyone has checked it; read
+<a href="about.html">how to read a file</a> before relying on one.</p>
+
+<p>Questions, corrections or partnership ideas: <a href="contact.html">contact</a>.</p>
+"""
+

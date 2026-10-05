@@ -157,7 +157,7 @@ or contribute back.</p>
   <button class="btn" id="addsec">Add a section</button>
 </fieldset>
 
-<div id="status"></div>
+<div id="status" role="status" aria-live="polite"></div>
 <div class="row">
   <button class="btn p" id="download">Check and download .ocl.json</button>
   <button class="btn" id="preview">Preview and print</button>
@@ -370,6 +370,22 @@ EDITOR_JS = r"""
   });
 
   // ---- load / fork ----
+  // Community checklists (published via the API, not in the static catalogue)
+  // that were added to "Start from" by an editor.html?fork=<id> deep link.
+  var COMMUNITY = {};
+  var COMMUNITY_RE = /^[a-z0-9][a-z0-9-]{0,119}$/;
+  var API_BASE = (typeof OCL_API === 'string' && OCL_API) || 'https://app.openchecklists.net/api';
+
+  // A community parent is someone else's untrusted file: never carry over its
+  // aircraft registration or its verification claims into the fork.
+  function stripCommunity(doc, id){
+    var d = JSON.parse(JSON.stringify(doc));
+    d.id = id;
+    if (d.aircraft && d.aircraft.airframe_specific) delete d.aircraft.airframe_specific.registration;
+    delete d.verification;
+    return d;
+  }
+
   function adopt(doc, asFork){
     var ac = doc.aircraft || {};
     el('make').value = ac.make || ''; el('model').value = ac.model || '';
@@ -406,11 +422,21 @@ EDITOR_JS = r"""
       renderMods(); renderSections(); return;
     }
     var doc;
+    var community = !!COMMUNITY[id];
     try {
-      var res = await fetch('api/checklists/' + id + '.json');
+      var res = await fetch(community
+        ? API_BASE + '/checklists/' + encodeURIComponent(id)
+        : 'api/checklists/' + id + '.json');
       if (!res.ok) throw new Error('HTTP ' + res.status);
       doc = await res.json();
+      if (!doc || typeof doc !== 'object' || doc.error || !Array.isArray(doc.sections))
+        throw new Error('not a checklist');
     } catch (err) {
+      if (community){
+        el('lineage').textContent = 'Could not load community checklist "' + id + '" (' +
+          err.message + '). It may have been unpublished, or you are offline.';
+        return;
+      }
       // Opening this page straight off the filesystem blocks fetch, so forking
       // cannot load the parent. Say so plainly instead of failing silently.
       el('lineage').innerHTML = '<strong>Cannot load that checklist from a local ' +
@@ -420,12 +446,19 @@ EDITOR_JS = r"""
         'already have. (' + err.message + ')';
       return;
     }
+    // Hash the parent exactly as published, before anything is stripped.
     var h = await hashOf(doc);
+    if (community) doc = stripCommunity(doc, id);
     state.parent = { checklist_id: doc.id, content_hash: h,
                      file_revision: (doc.provenance||{}).revision &&
                                     doc.provenance.revision.file_revision,
                      relationship: 'variant_of', diverged: false };
+    if (community) state.parent.url = 'https://openchecklists.net/checklist/' + encodeURIComponent(id);
     adopt(doc, true);
+    if (community){
+      var o = el('startfrom').querySelector('option[data-community]');
+      if (o && doc.title) o.textContent = 'Fork (community): ' + String(doc.title).slice(0, 120);
+    }
     el('lineage').textContent = 'Forked from ' + doc.id + ' (parent hash ' +
       h.slice(0,12) + '…). Your file will record that lineage automatically.';
   });
@@ -502,6 +535,7 @@ EDITOR_JS = r"""
       };
       if (state.parent.content_hash) doc.derived_from.content_hash = state.parent.content_hash;
       if (state.parent.file_revision) doc.derived_from.file_revision = state.parent.file_revision;
+      if (state.parent.url) doc.derived_from.url = state.parent.url;
       var cs = (el('changes').value||'').trim();
       if (cs) doc.derived_from.changes_summary = cs;
     }
@@ -584,6 +618,9 @@ EDITOR_JS = r"""
     if (p.length){
       el('status').innerHTML = '<div class="problems"><strong>Not ready yet:</strong><ul>' +
         p.map(function(x){ return '<li>' + esc(x) + '</li>'; }).join('') + '</ul></div>';
+      // On a phone the list can land off-screen above the buttons; bring it into view
+      // so a blocked download (e.g. a fork with no "what you changed") never looks like a dead button.
+      try { el('status').scrollIntoView({block: 'nearest', behavior: 'smooth'}); } catch (e) {}
       return false;
     }
     el('status').innerHTML = '<div class="okmsg">Looks structurally valid. It will be ' +
@@ -833,7 +870,7 @@ EDITOR_JS = r"""
     try {
       var r = await oclReq('POST', '/checklists/submit', { checklist: doc });
       if (r && r.status === 'approved'){
-        var link = '/checklist/?id=' + encodeURIComponent(r.id);
+        var link = '/checklist/' + encodeURIComponent(r.id);
         pubMsg('ok', '<strong>Published.</strong> Your checklist is live and other ' +
           'pilots can find it. Shareable link: <a href="' + esc(link) + '">' +
           esc(location.origin + link) + '</a>' +
@@ -866,6 +903,16 @@ EDITOR_JS = r"""
   renderLibrary();
 
   if (forkId && CAT.checklists.some(function(c){ return c.id === forkId; })){
+    el('startfrom').value = forkId;
+    el('load').click();
+  } else if (forkId && COMMUNITY_RE.test(forkId)){
+    // Not in the static catalogue: treat it as a community checklist.
+    COMMUNITY[forkId] = true;
+    var copt = document.createElement('option');
+    copt.value = forkId;
+    copt.setAttribute('data-community', '1');
+    copt.textContent = 'Fork (community): ' + forkId;
+    el('startfrom').appendChild(copt);
     el('startfrom').value = forkId;
     el('load').click();
   } else {

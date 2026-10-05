@@ -147,7 +147,7 @@ padding:.4rem .65rem;border-radius:999px;text-decoration:none}
   <div id="guest-notice-placeholder" style="margin-top:1rem"></div>
 
   <div id="guest-notice" class="guest-notice" style="display:none;margin-top:1rem">
-    Planning as a guest. Enter your email when you generate — we'll send the briefing and create your free account.
+    Planning as a guest — no account needed. <a href="/profile.html" style="color:inherit;font-weight:700">Sign in</a> to save aircraft and see your plan history.
   </div>
 
   <div class="layout">
@@ -236,6 +236,38 @@ const API = 'https://app.openchecklists.net';
 let tok = null;
 let aircraft = [];
 let airports = [];
+let recentPlans = [];
+
+// Every value interpolated into innerHTML goes through esc(): saved aircraft,
+// plans and airports are user-supplied data from the API.
+function esc(v) {
+  return v == null ? '' : String(v).replace(/[&<>"']/g, function (c) {
+    return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+  });
+}
+
+// The API stores aircraft as {registration, make, model, profile_toml}; the
+// planner works with {n_number, fuel_capacity_gal, cruise_speed_ktas, burn_rate_gph}.
+// Performance numbers come from optional `key = number` lines in the profile.
+function tomlNum(toml, keys) {
+  for (var i = 0; i < keys.length; i++) {
+    var m = String(toml || '').match(new RegExp('^\\s*' + keys[i] + '\\s*=\\s*([0-9.]+)', 'm'));
+    if (m) return parseFloat(m[1]);
+  }
+  return null;
+}
+function normAircraft(r) {
+  return {
+    id: r.id,
+    n_number: r.n_number || r.registration || '',
+    make: r.make || '',
+    model: r.model || '',
+    fuel_capacity_gal: r.fuel_capacity_gal != null ? r.fuel_capacity_gal : tomlNum(r.profile_toml, ['fuel_capacity_gal', 'usable_fuel_gal', 'fuel_capacity']),
+    cruise_speed_ktas: r.cruise_speed_ktas != null ? r.cruise_speed_ktas : tomlNum(r.profile_toml, ['cruise_speed_ktas', 'cruise_ktas', 'cruise_speed']),
+    burn_rate_gph: r.burn_rate_gph != null ? r.burn_rate_gph : tomlNum(r.profile_toml, ['burn_rate_gph', 'fuel_burn_gph', 'burn_rate']),
+  };
+}
+function perf(v, unit) { return v ? esc(v) + ' ' + unit : '&mdash; ' + unit; }
 let wz = { step: 1, ac: null, route: ['', ''], round_trip: false, dep: '', dest: '', alt: '', depart_at: '', fuel: null, reserve: 30 };
 let wxCache = {};
 let guestAircraft = null; // populated by the guest inline form in Step 1
@@ -304,14 +336,17 @@ function dms(v, pos, neg) {
 function apCloseMenus() { document.querySelectorAll('.wz-ac-menu').forEach(function (m) { m.remove(); }); }
 function apTypeahead(input) {
   var wrap = input.closest('.wz-ac-wrap'); if (!wrap) return;
-  var old = wrap.querySelector('.wz-ac-menu'); if (old) old.remove();
+  apCloseMenus(); // only one menu at a time; a stale one can cover the Next button
   var matches = apSearch(input.value);
   if (!matches.length) return;
+  // A complete identifier needs no menu (and an open one would hide the buttons).
+  var typed = (input.value || '').trim().toUpperCase();
+  if (typed.length >= 3 && (matches[0].i === typed || matches[0].k === typed)) return;
   var menu = document.createElement('div'); menu.className = 'wz-ac-menu';
   matches.forEach(function (a) {
     var row = document.createElement('div'); row.className = 'wz-ac-item';
-    row.innerHTML = '<b>' + a.i + '</b>' + (a.k ? ' <span class="muted">' + a.k + '</span>' : '') +
-      ' ' + a.n + '<div class="muted" style="font-size:.72rem">' + a.c + ', ' + a.s + '</div>';
+    row.innerHTML = '<b>' + esc(a.i) + '</b>' + (a.k ? ' <span class="muted">' + esc(a.k) + '</span>' : '') +
+      ' ' + esc(a.n) + '<div class="muted" style="font-size:.72rem">' + esc(a.c) + ', ' + esc(a.s) + '</div>';
     row.addEventListener('mousedown', function (e) {
       e.preventDefault();
       input.value = a.i;
@@ -323,6 +358,12 @@ function apTypeahead(input) {
 }
 document.addEventListener('input', function (e) { if (e.target.classList && e.target.classList.contains('wz-apt')) apTypeahead(e.target); });
 document.addEventListener('click', function (e) { if (!e.target.closest || !e.target.closest('.wz-ac-wrap')) apCloseMenus(); });
+// Close when focus leaves the field (Tab, tapping elsewhere) or on Escape. Items
+// are picked on mousedown, which fires before blur, so selection still works.
+document.addEventListener('focusout', function (e) {
+  if (e.target.classList && e.target.classList.contains('wz-apt')) setTimeout(apCloseMenus, 150);
+});
+document.addEventListener('keydown', function (e) { if (e.key === 'Escape') apCloseMenus(); });
 
 // Auth
 function getToken() { return sessionStorage.getItem('ocl:token'); }
@@ -362,9 +403,13 @@ async function init() {
       fetch(API + '/api/me/airports', { headers: { Authorization: 'Bearer ' + tok } }).then(r => r.json()),
       fetch(API + '/api/me/plans', { headers: { Authorization: 'Bearer ' + tok } }).then(r => r.json())
     ]);
-    aircraft = acResp.status === 'fulfilled' && Array.isArray(acResp.value) ? acResp.value : [];
-    airports = apResp.status === 'fulfilled' && Array.isArray(apResp.value) ? apResp.value : [];
-    renderSidebar(planResp.status === 'fulfilled' ? planResp.value : []);
+    // /api/me/aircraft and /api/me/airports return {aircraft:[…]} / {airports:[…]}.
+    const acList = acResp.status === 'fulfilled' && acResp.value ? (acResp.value.aircraft || acResp.value) : [];
+    const apList = apResp.status === 'fulfilled' && apResp.value ? (apResp.value.airports || apResp.value) : [];
+    aircraft = Array.isArray(acList) ? acList.map(normAircraft) : [];
+    airports = Array.isArray(apList) ? apList.map(a => ({ ident: a.ident || a.airport_ident, name: a.name || a.airport_name || '' })).filter(a => a.ident) : [];
+    const pl = planResp.status === 'fulfilled' ? planResp.value : [];
+    renderSidebar(Array.isArray(pl) ? pl : []);
   }
   renderStep();
   renderQuickPlan();
@@ -375,12 +420,14 @@ async function init() {
 function renderSidebar(plans) {
   const rp = document.getElementById('recent-plans');
   const sa = document.getElementById('sidebar-aircraft');
-  if (plans && plans.length) {
-    rp.innerHTML = plans.slice(0,5).map(p => {
-      const ac = JSON.parse(typeof p.aircraft_snapshot === 'string' ? p.aircraft_snapshot : '{}');
-      return `<div class="plan-row" onclick="reusePlan(${JSON.stringify(p).replace(/"/g,'&quot;')})">
-        <div class="plan-route">${p.departure} &rarr; ${p.destination}</div>
-        <div class="plan-meta">${p.created_at ? p.created_at.slice(0,10) : ''} &middot; ${ac.n_number||''}</div>
+  recentPlans = (plans || []).slice(0, 5);
+  if (recentPlans.length) {
+    rp.innerHTML = recentPlans.map((p, i) => {
+      let ac = {};
+      try { ac = JSON.parse(typeof p.aircraft_snapshot === 'string' ? p.aircraft_snapshot : '{}') || {}; } catch (e) {}
+      return `<div class="plan-row" onclick="reusePlan(recentPlans[${i}])">
+        <div class="plan-route">${esc(p.departure)} &rarr; ${esc(p.destination)}</div>
+        <div class="plan-meta">${p.created_at ? esc(p.created_at.slice(0,10)) : ''} &middot; ${esc(ac.n_number||ac.registration||'')}</div>
         <div class="plan-reuse">&#8634; Reuse this plan</div>
       </div>`;
     }).join('');
@@ -390,8 +437,8 @@ function renderSidebar(plans) {
   if (aircraft.length) {
     sa.innerHTML = aircraft.map(a =>
       `<div style="font-size:.82rem;padding:4px 0;border-bottom:1px solid #f0f4f9">
-        <strong>${a.n_number}</strong> &middot; ${a.make} ${a.model}<br>
-        <span style="color:#888;font-size:.7rem">${a.fuel_capacity_gal} gal &middot; ${a.cruise_speed_ktas} kt &middot; ${a.burn_rate_gph} GPH</span>
+        <strong>${esc(a.n_number)}</strong> &middot; ${esc(a.make)} ${esc(a.model)}<br>
+        <span style="color:#888;font-size:.7rem">${perf(a.fuel_capacity_gal,'gal')} &middot; ${perf(a.cruise_speed_ktas,'kt')} &middot; ${perf(a.burn_rate_gph,'GPH')}</span>
       </div>`
     ).join('') + `<a href="/profile" style="font-size:.72rem;color:#1f4e79;margin-top:6px;display:inline-block">+ Add aircraft</a>`;
   } else {
@@ -445,13 +492,14 @@ function renderStep() {
 }
 
 function renderAircraftStep() {
-  // Signed-in path: show saved aircraft grid
-  if (tok) {
-    const cards = aircraft.map(a =>
-      `<div class="ac-card${wz.ac&&wz.ac.n_number===a.n_number?' sel':''}" onclick='selectAC(${JSON.stringify(a)})'>
-        <div class="ac-reg">${a.n_number}</div>
-        <div class="ac-model">${a.make} ${a.model}</div>
-        <div class="ac-specs">${a.fuel_capacity_gal} gal &middot; ${a.cruise_speed_ktas} kt &middot; ${a.burn_rate_gph} GPH</div>
+  // Signed-in path with saved aircraft: show the grid. Signed-in users with no
+  // saved aircraft get the same quick-entry form as guests instead of a dead end.
+  if (tok && aircraft.length) {
+    const cards = aircraft.map((a, i) =>
+      `<div class="ac-card${wz.ac&&wz.ac.n_number===a.n_number?' sel':''}" onclick="selectAC(aircraft[${i}])">
+        <div class="ac-reg">${esc(a.n_number)}</div>
+        <div class="ac-model">${esc(a.make)} ${esc(a.model)}</div>
+        <div class="ac-specs">${perf(a.fuel_capacity_gal,'gal')} &middot; ${perf(a.cruise_speed_ktas,'kt')} &middot; ${perf(a.burn_rate_gph,'GPH')}</div>
       </div>`
     ).join('');
     const addCard = `<div class="ac-add" onclick="window.location='/profile'">+ Add aircraft in profile</div>`;
@@ -466,7 +514,7 @@ function renderAircraftStep() {
         <button class="btn btn-primary" onclick="nextStep()" ${!wz.ac?'disabled':''}>Next: Route &rarr;</button>
       </div>
     </div>
-    ${wz.ac ? `<div class="summary-strip">&#10003; <strong>${wz.ac.n_number}</strong> &middot; ${wz.ac.make} ${wz.ac.model} &middot; ${wz.ac.fuel_capacity_gal} gal &middot; ${wz.ac.cruise_speed_ktas} kt</div>` : ''}`;
+    ${wz.ac ? `<div class="summary-strip">&#10003; <strong>${esc(wz.ac.n_number)}</strong> &middot; ${esc(wz.ac.make)} ${esc(wz.ac.model)} &middot; ${perf(wz.ac.fuel_capacity_gal,'gal')} &middot; ${perf(wz.ac.cruise_speed_ktas,'kt')}</div>` : ''}`;
   }
 
   // Guest path: inline quick-entry form
@@ -475,15 +523,15 @@ function renderAircraftStep() {
     <div class="card-hdr"><h2>Step 1 &mdash; Your aircraft</h2><p>No account needed — just enter your aircraft details to generate a briefing.</p></div>
     <div class="card-body">
       <div class="guest-ac-form">
-        <p class="guest-ac-note"><strong>Guest planning</strong> — fill in the details below and we'll generate your briefing. <a href="/login" style="color:#1f4e79">Sign in</a> to save aircraft for future flights.</p>
+        <p class="guest-ac-note"><strong>Guest planning</strong> — fill in the details below and we'll generate your briefing. <a href="/profile.html" style="color:#1f4e79">Sign in</a> to save aircraft for future flights.</p>
         <div class="grid2">
           <div class="field">
             <label>N-Number / Registration</label>
-            <input id="g-reg" type="text" value="${g.n_number||''}" placeholder="N12345 or GAABC" style="text-transform:uppercase">
+            <input id="g-reg" type="text" value="${esc(g.n_number||'')}" placeholder="N12345 or GAABC" style="text-transform:uppercase">
           </div>
           <div class="field">
             <label>Make &amp; Model</label>
-            <input id="g-model" type="text" value="${g.make_model||''}" placeholder="Cessna 172">
+            <input id="g-model" type="text" value="${esc(g.make_model||'')}" placeholder="Cessna 172">
           </div>
         </div>
         <div class="grid3">
@@ -507,7 +555,7 @@ function renderAircraftStep() {
       <button class="btn btn-primary" onclick="submitGuestAircraft()">Use this aircraft &rarr;</button>
     </div>
   </div>
-  ${wz.ac ? `<div class="summary-strip">&#10003; <strong>${wz.ac.n_number}</strong> &middot; ${wz.ac.make} ${wz.ac.model} &middot; ${wz.ac.fuel_capacity_gal} gal &middot; ${wz.ac.cruise_speed_ktas} kt</div>` : ''}`;
+  ${wz.ac ? `<div class="summary-strip">&#10003; <strong>${esc(wz.ac.n_number)}</strong> &middot; ${esc(wz.ac.make)} ${esc(wz.ac.model)} &middot; ${perf(wz.ac.fuel_capacity_gal,'gal')} &middot; ${perf(wz.ac.cruise_speed_ktas,'kt')}</div>` : ''}`;
 }
 
 function submitGuestAircraft() {
@@ -574,7 +622,7 @@ function renderRouteStep() {
     return `<div class="field wz-wp-row" style="display:flex;align-items:flex-end;gap:8px">
       <div style="flex:1">
         <label>${wzWaypointLabel(i, n)}</label>
-        <div class="wz-ac-wrap"><input class="wz-apt" autocomplete="off" type="text" value="${ident}" maxlength="8" style="text-transform:uppercase" placeholder="Type an identifier, city or name"></div>
+        <div class="wz-ac-wrap"><input class="wz-apt" autocomplete="off" type="text" value="${esc(ident)}" maxlength="8" style="text-transform:uppercase" placeholder="Type an identifier, city or name"></div>
       </div>
       ${removeBtn}
     </div>`;
@@ -592,12 +640,12 @@ function renderRouteStep() {
       </div>
       <div class="field">
         <label>Alternate airport <span style="font-weight:400;color:#aaa">(optional)</span></label>
-        <div class="wz-ac-wrap" style="max-width:260px"><input id="wz-alt" class="wz-apt" autocomplete="off" type="text" value="${wz.alt}" maxlength="8" style="text-transform:uppercase" placeholder="e.g. KAZO"></div>
+        <div class="wz-ac-wrap" style="max-width:260px"><input id="wz-alt" class="wz-apt" autocomplete="off" type="text" value="${esc(wz.alt)}" maxlength="8" style="text-transform:uppercase" placeholder="e.g. KAZO"></div>
         <div class="hint">Recommended when ceiling &lt; 2,000 ft or vis &lt; 3 SM</div>
       </div>
       <div class="field" style="max-width:220px">
         <label>Departure time (local)</label>
-        <input id="wz-depart" type="datetime-local" value="${wz.depart_at}">
+        <input id="wz-depart" type="datetime-local" value="${esc(wz.depart_at)}">
       </div>
     </div>
     <div class="card-foot">
@@ -605,7 +653,7 @@ function renderRouteStep() {
       <button class="btn btn-primary" onclick="saveRoute()">Next: Weather &rarr;</button>
     </div>
   </div>
-  ${wz.ac ? `<div class="summary-strip">&#10003; <strong>${wz.ac.n_number}</strong> &middot; ${wz.ac.make} ${wz.ac.model}<span class="change" onclick="wz.step=1;renderStep()">Change aircraft</span></div>` : ''}`;
+  ${wz.ac ? `<div class="summary-strip">&#10003; <strong>${esc(wz.ac.n_number)}</strong> &middot; ${esc(wz.ac.make)} ${esc(wz.ac.model)}<span class="change" onclick="wz.step=1;renderStep()">Change aircraft</span></div>` : ''}`;
 }
 
 function addWaypoint() {
@@ -645,7 +693,7 @@ async function fetchWeather() {
   for (const apt of apts) {
     if (!wxCache[apt]) {
       wxCache[apt] = 'loading';
-      fetch(`${API}/api/airport/${apt}/weather`)
+      fetch(`${API}/api/airport/${encodeURIComponent(apt)}/weather`)
         .then(r => r.json()).then(d => { wxCache[apt] = d; renderStep(); })
         .catch(() => { wxCache[apt] = null; renderStep(); });
     }
@@ -674,10 +722,10 @@ function renderWeatherStep() {
     let body = '<p class="wx-loading">Loading&hellip;</p>';
     if (wx === null) body = '<p style="color:#c0392b;font-size:.8rem">Unable to load weather. Check aviationweather.gov.</p>';
     else if (wx && wx !== 'loading') {
-      body = `<div class="wx-metar">${wx.metar || 'No METAR available'}</div>${wxBadge(wx.metar)}`;
-      if (wx.taf) body += `<div class="hint" style="margin-top:6px"><strong>TAF:</strong> ${wx.taf.slice(0,120)}&hellip;</div>`;
+      body = `<div class="wx-metar">${esc(wx.metar || 'No METAR available')}</div>${wxBadge(wx.metar)}`;
+      if (wx.taf) body += `<div class="hint" style="margin-top:6px"><strong>TAF:</strong> ${esc(wx.taf.slice(0,120))}&hellip;</div>`;
     }
-    return `<div class="wx-card"><div class="wx-apt">${apt} <span style="font-weight:400;color:#888;font-size:.75rem">${role}</span></div>${body}</div>`;
+    return `<div class="wx-card"><div class="wx-apt">${esc(apt)} <span style="font-weight:400;color:#888;font-size:.75rem">${esc(role)}</span></div>${body}</div>`;
   }).join('');
   return `<div class="card">
     <div class="card-hdr"><h2>Step 3 &mdash; Weather Preview</h2><p>An unverified snapshot to review before continuing &mdash; not an official briefing. Always confirm at <a href="https://www.1800wxbrief.com/" target="_blank" rel="noopener">1800wxbrief.com</a>.</p></div>
@@ -700,8 +748,8 @@ function renderFuelStep() {
       <div class="grid3">
         <div class="field">
           <label>Fuel onboard (gal)</label>
-          <input id="wz-fuel" type="number" value="${fuel}" min="0" max="${cap||999}" step="0.5" oninput="calcFuel()">
-          ${cap ? `<div class="hint">Full tanks = ${cap} gal</div>` : ''}
+          <input id="wz-fuel" type="number" value="${esc(fuel)}" min="0" max="${esc(cap||999)}" step="0.5" oninput="calcFuel()">
+          ${cap ? `<div class="hint">Full tanks = ${esc(cap)} gal</div>` : ''}
         </div>
         <div class="field">
           <label>Reserve requirement</label>
@@ -713,7 +761,7 @@ function renderFuelStep() {
         </div>
         <div class="field">
           <label>Burn rate (GPH)</label>
-          <input id="wz-burn" type="number" value="${burn}" min="1" step="0.1" oninput="calcFuel()">
+          <input id="wz-burn" type="number" value="${esc(burn)}" min="1" step="0.1" oninput="calcFuel()">
         </div>
       </div>
       <div id="fuel-result" style="margin-top:.5rem;font-size:.85rem;color:#444"></div>
@@ -754,17 +802,17 @@ function saveFuel() {
 function renderReviewStep() {
   const ac = wz.ac || {};
   const route = (wz.route || []).filter(Boolean);
-  const routeStr = route.join(' &rarr; ');
+  const routeStr = route.map(esc).join(' &rarr; ');
   renderLegsPreview(); // async fill of #wz-legs
   return `<div class="card">
     <div class="card-hdr"><h2>Step 5 &mdash; Review &amp; Generate</h2><p>Confirm your plan details, then generate your briefing.</p></div>
     <div class="card-body">
       <table style="width:100%;font-size:.85rem;border-collapse:collapse">
-        <tr><td style="padding:5px 8px;color:#666;width:140px">Aircraft</td><td style="padding:5px 8px;font-weight:700">${ac.n_number||'Guest'} &middot; ${ac.make||''} ${ac.model||''}</td></tr>
+        <tr><td style="padding:5px 8px;color:#666;width:140px">Aircraft</td><td style="padding:5px 8px;font-weight:700">${esc(ac.n_number)||'Guest'} &middot; ${esc(ac.make)} ${esc(ac.model)}</td></tr>
         <tr style="background:#f8fafd"><td style="padding:5px 8px;color:#666">Route</td><td style="padding:5px 8px;font-weight:700">${routeStr}${wz.round_trip?' <span style="font-weight:400;color:#888;font-size:.78rem">(round trip)</span>':''}</td></tr>
-        ${wz.alt?`<tr><td style="padding:5px 8px;color:#666">Alternate</td><td style="padding:5px 8px;font-weight:700">${wz.alt}</td></tr>`:''}
-        <tr${wz.alt?' style="background:#f8fafd"':''}><td style="padding:5px 8px;color:#666">Depart at</td><td style="padding:5px 8px">${wz.depart_at||'Not specified'}</td></tr>
-        <tr${wz.alt?'':' style="background:#f8fafd"'}><td style="padding:5px 8px;color:#666">Fuel onboard</td><td style="padding:5px 8px">${wz.fuel||'&mdash;'} gal &middot; ${wz.reserve}-min reserve</td></tr>
+        ${wz.alt?`<tr><td style="padding:5px 8px;color:#666">Alternate</td><td style="padding:5px 8px;font-weight:700">${esc(wz.alt)}</td></tr>`:''}
+        <tr${wz.alt?' style="background:#f8fafd"':''}><td style="padding:5px 8px;color:#666">Depart at</td><td style="padding:5px 8px">${esc(wz.depart_at)||'Not specified'}</td></tr>
+        <tr${wz.alt?'':' style="background:#f8fafd"'}><td style="padding:5px 8px;color:#666">Fuel onboard</td><td style="padding:5px 8px">${esc(wz.fuel)||'&mdash;'} gal &middot; ${esc(wz.reserve)}-min reserve</td></tr>
       </table>
       <div id="wz-legs"><p class="hint" style="margin-top:.6rem">Calculating legs&hellip;</p></div>
     </div>
@@ -811,36 +859,35 @@ function renderQuickPlan() {
   if (!area) return;
   if (!aircraft.length) {
     area.innerHTML = '<p style="color:#888;font-size:.85rem;margin-bottom:4px">No aircraft saved. <a href="/profile" style="color:#1f4e79">Add in profile</a> &mdash; or continue without (guest).</p>';
-    return;
+  } else {
+    area.innerHTML = `<div style="display:flex;gap:8px;flex-wrap:wrap">` +
+      aircraft.map((a, i) =>
+        `<div class="ac-card" style="flex:0 0 auto;min-width:150px" id="qp-ac-${i}" onclick="qpSelectAC(aircraft[${i}])">
+          <div class="ac-reg">${esc(a.n_number)}</div>
+          <div class="ac-model">${esc(a.make)} ${esc(a.model)}</div>
+        </div>`
+      ).join('') + `</div>`;
+    qpSelectAC(aircraft[0]);
   }
-  var sel = aircraft[0];
-  area.innerHTML = `<div style="display:flex;gap:8px;flex-wrap:wrap">` +
-    aircraft.map(a =>
-      `<div class="ac-card" style="flex:0 0 auto;min-width:150px" id="qp-ac-${a.n_number}" onclick='qpSelectAC(${JSON.stringify(a)})'>
-        <div class="ac-reg">${a.n_number}</div>
-        <div class="ac-model">${a.make} ${a.model}</div>
-      </div>`
-    ).join('') + `</div>`;
-  qpSelectAC(sel);
 
   const depChips = document.getElementById('qp-dep-chips');
   const destChips = document.getElementById('qp-dest-chips');
-  if (depChips) depChips.innerHTML = airports.map(ap =>
-    `<div class="chip" onclick="document.getElementById('qp-dep').value='${ap.ident}'">${ap.ident}</div>`).join('');
-  if (destChips) destChips.innerHTML = airports.map(ap =>
-    `<div class="chip" onclick="document.getElementById('qp-dest').value='${ap.ident}'">${ap.ident}</div>`).join('');
+  if (depChips) depChips.innerHTML = airports.map((ap, i) =>
+    `<div class="chip" onclick="document.getElementById('qp-dep').value=airports[${i}].ident">${esc(ap.ident)}</div>`).join('');
+  if (destChips) destChips.innerHTML = airports.map((ap, i) =>
+    `<div class="chip" onclick="document.getElementById('qp-dest').value=airports[${i}].ident">${esc(ap.ident)}</div>`).join('');
 }
 
 let qpAC = null;
 function qpSelectAC(a) {
   qpAC = a;
   document.querySelectorAll('[id^=qp-ac-]').forEach(el => el.classList.remove('sel'));
-  const el = document.getElementById('qp-ac-' + a.n_number);
+  const el = document.getElementById('qp-ac-' + aircraft.indexOf(a));
   if (el) el.classList.add('sel');
   const fuelInp = document.getElementById('qp-fuel');
-  if (fuelInp) { fuelInp.value = a.fuel_capacity_gal; fuelInp.max = a.fuel_capacity_gal; }
+  if (fuelInp) { fuelInp.value = a.fuel_capacity_gal || ''; if (a.fuel_capacity_gal) fuelInp.max = a.fuel_capacity_gal; else fuelInp.removeAttribute('max'); }
   const hint = document.getElementById('qp-fuel-hint');
-  if (hint) hint.textContent = `Full tanks = ${a.fuel_capacity_gal} gal`;
+  if (hint) hint.textContent = a.fuel_capacity_gal ? `Full tanks = ${a.fuel_capacity_gal} gal` : 'Enter fuel onboard';
 }
 
 // Submit

@@ -34,7 +34,7 @@
   var storedState    = sessionStorage.getItem('ocl:state');
   var codeVerifier   = sessionStorage.getItem('ocl:cv');
 
-  if (state && storedState && state !== storedState) {
+  if (!state || !storedState || state !== storedState) {
     showErr('State mismatch — possible CSRF. Try again.'); return;
   }
 
@@ -60,6 +60,8 @@
     sessionStorage.removeItem('ocl:cv');
     // Redirect to profile or the page they came from
     var returnTo = sessionStorage.getItem('ocl:return') || '/profile.html';
+    // Same-origin only: never bounce a fresh token holder to another site.
+    if (!(returnTo.indexOf(location.origin + '/') === 0 || /^\/(?!\/)/.test(returnTo))) returnTo = '/profile.html';
     sessionStorage.removeItem('ocl:return');
     location.href = returnTo;
   })

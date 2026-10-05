@@ -133,3 +133,71 @@ CREATE TABLE IF NOT EXISTS logbook_entries (
 );
 CREATE INDEX IF NOT EXISTS idx_logbook_user ON logbook_entries(user_id, flight_date DESC);
 CREATE UNIQUE INDEX IF NOT EXISTS idx_logbook_srcref ON logbook_entries(user_id, source_ref);
+
+-- Fixed-window rate-limit / dedupe counters (email relay, submissions, plans,
+-- usage counter, points caps). Rows expire; the worker prunes them lazily.
+CREATE TABLE IF NOT EXISTS rate_limits (
+  key        TEXT PRIMARY KEY,
+  count      INTEGER NOT NULL DEFAULT 0,
+  expires_at INTEGER NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_rate_limits_exp ON rate_limits(expires_at);
+
+-- AI review verdicts keyed by content hash, so resubmitting identical content
+-- never pays for a second review call.
+CREATE TABLE IF NOT EXISTS review_cache (
+  content_hash TEXT PRIMARY KEY,
+  verdict      TEXT NOT NULL,
+  created_at   TEXT NOT NULL
+);
+
+-- Currency fields for logbook entries, kept in a side table so logbook_entries
+-- (and the original POST /api/me/logbook contract) stay unchanged. One row per
+-- entry; rows whose entry was deleted are pruned by the daily housekeeping.
+CREATE TABLE IF NOT EXISTS logbook_entry_extra (
+  entry_id        TEXT PRIMARY KEY,
+  user_id         TEXT NOT NULL,
+  day_landings    INTEGER NOT NULL DEFAULT 0,   -- day full-stop landings
+  night_landings  INTEGER NOT NULL DEFAULT 0,   -- night full-stop landings (61.57(b))
+  night_time      REAL NOT NULL DEFAULT 0,
+  approaches      INTEGER NOT NULL DEFAULT 0,
+  flight_review   INTEGER NOT NULL DEFAULT 0,   -- 61.56 flight review completed on this flight
+  updated_at      TEXT
+);
+CREATE INDEX IF NOT EXISTS idx_lbextra_user ON logbook_entry_extra(user_id);
+
+-- Per-pilot settings: currency inputs (flight review, medical) and the opt-in
+-- morning weather digest (local hour + IANA timezone; last_digest_date is the
+-- pilot's local date of the last digest, so each pilot gets at most one a day).
+CREATE TABLE IF NOT EXISTS pilot_settings (
+  user_id              TEXT PRIMARY KEY,
+  flight_review_date   TEXT,               -- YYYY-MM-DD, manual entry
+  medical_kind         TEXT,               -- first | second | third | basicmed | none
+  medical_exam_date    TEXT,               -- YYYY-MM-DD (BasicMed: CMEC exam date)
+  medical_age_at_exam  INTEGER,
+  medical_privileges   TEXT,               -- atp | commercial | private
+  basicmed_course_date TEXT,               -- YYYY-MM-DD, BasicMed online course
+  digest_enabled       INTEGER NOT NULL DEFAULT 0,
+  digest_hour          INTEGER NOT NULL DEFAULT 6,
+  digest_tz            TEXT NOT NULL DEFAULT 'America/Chicago',
+  last_digest_date     TEXT,
+  updated_at           TEXT
+);
+CREATE INDEX IF NOT EXISTS idx_pilot_digest ON pilot_settings(digest_enabled);
+
+-- The only source of truth for where email may be sent: filled exclusively from
+-- Zitadel userinfo with email_verified=true, re-checked when older than 7 days.
+CREATE TABLE IF NOT EXISTS verified_emails (
+  user_id     TEXT PRIMARY KEY,
+  email       TEXT NOT NULL,
+  verified_at TEXT NOT NULL
+);
+
+-- One quiz credit per question per pilot.
+CREATE TABLE IF NOT EXISTS quiz_credits (
+  user_id    TEXT NOT NULL,
+  test_id    TEXT NOT NULL,
+  question_n INTEGER NOT NULL,
+  earned_at  TEXT NOT NULL,
+  PRIMARY KEY (user_id, test_id, question_n)
+);

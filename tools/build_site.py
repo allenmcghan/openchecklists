@@ -33,6 +33,8 @@ forgotten:
 from __future__ import annotations
 
 import argparse
+import datetime
+import functools
 import hashlib
 import json
 import logging
@@ -48,8 +50,10 @@ from site_editor import editor_page  # noqa: E402
 from site_airports import WEATHER_WORKER, airports_page, airport_detail_page  # noqa: E402
 from site_library import CHARTS, PROJECTS, library_page  # noqa: E402
 from site_training import training_page  # noqa: E402
+from site_quiz import write_quiz  # noqa: E402
+import affiliates  # noqa: E402
 from site_pages import (  # noqa: E402
-    BRAND_NAME, CONTACT, FAVICON_SVG, HERO_CSS, LOGO_SVG, PRIVACY, TAGLINE, TAKEDOWN, TERMS,
+    ABOUT_US, BRAND_NAME, CONTACT, FAVICON_SVG, HERO_CSS, LOGO_SVG, PRIVACY, TAGLINE, TAKEDOWN, TERMS,
     contribute_body, landing_body,
 )
 from diff import diff as semantic_diff, render_markdown as diff_markdown  # noqa: E402
@@ -238,21 +242,53 @@ self.addEventListener('fetch', function(e){
 
 
 
-def head(title: str, desc: str, rel: str = "") -> str:
+# Set from --base-url in main(); canonical/og:url links are only emitted when known.
+SITE_BASE = ""
+# Set from --adsense-pub in main(). Empty means the build contains no ad code at all.
+ADSENSE_CLIENT = ""
+# Set from --amazon-tag in main(). Empty means no affiliate HTML anywhere in the build.
+AMAZON_TAG = ""
+# Ads never print and never sit inside a checklist (those pages don't load the script).
+AD_CSS = "@media print{ins.adsbygoogle,.google-auto-placed,.ad-slot{display:none!important}}"
+
+
+def canonical_path(name: str) -> str:
+    """Pages serves /x.html as /x (308), so canonicals use the extensionless form."""
+    if name in ("index.html", ""):
+        return ""
+    return name[:-5] if name.endswith(".html") else name
+
+
+def head(title: str, desc: str, rel: str = "", path: str | None = None, ads: bool = False) -> str:
     icon = "data:image/svg+xml;utf8," + urllib.parse.quote(FAVICON_SVG)
+    adesc = desc.replace('"', "&quot;")
+    canon = ""
+    if path is not None and SITE_BASE:
+        url = f"{SITE_BASE}/{path}"
+        canon = (f'<link rel="canonical" href="{url}">\n<meta property="og:url" content="{url}">\n'
+                 f'<meta property="og:image" content="{SITE_BASE}/og-image.png">\n')
+    if ads and ADSENSE_CLIENT:
+        # Only ad-eligible pages pass ads=True: never checklists, editor, planner,
+        # plan briefings or account pages, which pilots use in the cockpit.
+        # Global Privacy Control = an opt-out of "sharing": ask for non-personalised ads.
+        canon += ('<script>if(navigator.globalPrivacyControl){(window.adsbygoogle=window.adsbygoogle||[])'
+                  '.requestNonPersonalizedAds=1;}</script>\n')
+        canon += (f'<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'
+                  f'?client={ADSENSE_CLIENT}" crossorigin="anonymous"></script>\n'
+                  f'<style>{AD_CSS}</style>\n')
     return f"""<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{title}</title>
-<meta name="description" content="{desc}">
+<meta name="description" content="{adesc}">
 <meta name="theme-color" content="#1f4e79">
-<meta property="og:type" content="website">
+{canon}<meta property="og:type" content="website">
 <meta property="og:site_name" content="{BRAND_NAME}">
 <meta property="og:title" content="{title}">
-<meta property="og:description" content="{desc}">
-<meta name="twitter:card" content="summary">
+<meta property="og:description" content="{adesc}">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="{icon}">
 <link rel="apple-touch-icon" href="{rel}icon-192.png">
 <link rel="manifest" href="{rel}manifest.webmanifest">
@@ -269,6 +305,7 @@ def head(title: str, desc: str, rel: str = "") -> str:
 <a href="{rel}airports.html">Airports &amp; weather</a>
 <a href="{rel}planner.html">Plan a Flight</a>
 <a href="{rel}training.html">Training</a>
+<a href="/quiz/">Test prep</a>
 <a href="{rel}search.html">Troubleshooting</a>
 </nav>
 </div></header>
@@ -320,26 +357,31 @@ FOOT = """</main>
 <footer class="site"><div class="wrap">
 <p><strong>Nothing here is approved data.</strong> Every file records its source and its
 verification state. Verify against your aircraft's own approved documentation before
-flight. No warranty of any kind &mdash; see <a href="terms.html">terms</a>.</p>
+flight. No warranty of any kind &mdash; see <a href="/terms.html">terms</a>.</p>
 <p class="fnav">
-<a href="index.html">Home</a> &middot;
-<a href="catalogue.html">Catalogue</a> &middot;
-<a href="airports.html">Airports</a> &middot;
-<a href="training.html">Training</a> &middot;
-<a href="search.html">Troubleshooting</a> &middot;
-<a href="charts.html">Charts</a> &middot;
-<a href="projects.html">Projects</a> &middot;
-<a href="editor.html">Editor</a> &middot;
-<a href="contribute.html">Contribute</a> &middot;
-<a href="about.html">Verification states</a> &middot;
-<a href="api/index.json">API</a> &middot;
-<a href="manifest.sha256">Manifest</a> &middot;
-<a href="privacy.html">Privacy</a> &middot;
-<a href="terms.html">Terms</a> &middot;
-<a href="takedown.html">Takedown</a> &middot;
-<a href="contact.html">Contact</a></p>
-<p>Corpus rights are recorded per file. No analytics, no tracking cookies.
-Optional account for saving aircraft profiles and plan history &mdash; see <a href="privacy.html">privacy policy</a>.</p>
+<a href="/index.html">Home</a> &middot;
+<a href="/catalogue.html">Catalogue</a> &middot;
+<a href="/aircraft/">Aircraft types</a> &middot;
+<a href="/us-airports/">Airports by state</a> &middot;
+<a href="/airports.html">Airports</a> &middot;
+<a href="/training.html">Training</a> &middot;
+<a href="/quiz/">Test prep</a> &middot;
+<a href="/search.html">Troubleshooting</a> &middot;
+<a href="/charts.html">Charts</a> &middot;
+<a href="/projects.html">Projects</a> &middot;
+<a href="/editor.html">Editor</a> &middot;
+<a href="/contribute.html">Contribute</a> &middot;
+<a href="/about-us.html">About</a> &middot;
+<a href="/about.html">Verification states</a> &middot;
+<a href="/api/index.json">API</a> &middot;
+<a href="/manifest.sha256">Manifest</a> &middot;
+<a href="/privacy.html">Privacy</a> &middot;
+<a href="/terms.html">Terms</a> &middot;
+<a href="/takedown.html">Takedown</a> &middot;
+<a href="/contact.html">Contact</a></p>
+<p>Corpus rights are recorded per file. Free to use, supported by advertising &mdash;
+never inside a checklist. Optional account for saving aircraft, plans and your logbook
+&mdash; see the <a href="/privacy.html">privacy policy</a>.</p>
 </div></footer>
 <script>
 if ('serviceWorker' in navigator) {
@@ -573,8 +615,8 @@ INDEX_JS = r"""
   }
 
   // Merge community-published checklists in, then load stats for everything.
-  // A community entry links to /checklist/?id=<id> (path URLs don't work on
-  // this host) and carries a distinct Community badge. If the API is
+  // A community entry links to its server-rendered /checklist/<id> page
+  // (functions/checklist/[id].js) and carries a Community badge. If the API is
   // unreachable we just show the static examples.
   function loadCommunity(){
     fetch(OCL_API + '/checklists')
@@ -591,7 +633,7 @@ INDEX_JS = r"""
               title: c.title || 'Untitled checklist',
               author: c.author || '',
               community: true,
-              page: '/checklist/?id=' + encodeURIComponent(c.id)
+              page: '/checklist/' + encodeURIComponent(c.id)
             });
           });
           apply();
@@ -616,6 +658,7 @@ def build_index(entries: list[dict], catalogue: dict) -> str:
             "Open Checklists — free machine-readable aircraft checklists",
             "A free, open library of aircraft checklists in a standard format anyone can "
             "consume, reformat, modify and redistribute.",
+            path="catalogue", ads=True,
         )
         + f"""
 <p class="lede">Every checklist here is a structured data file. Read it on a phone,
@@ -790,21 +833,197 @@ margin:.7rem 0 .2rem;font-weight:700}
 """
 
 
-def family_page(family: str, members: list[dict], docs: dict[str, dict]) -> str:
-    label = family.replace("-", " ")
-    out = [
-        head(f"{label} — variations — Open Checklists", f"Every checklist variation for the {label} airframe.", rel="../../"),
-        f"<style>{FAMILY_CSS}</style>",
-        f"<h2>{esc(label)}: {len(members)} variation(s)</h2>",
-        '<p class="lede">Same airframe, different configurations. Engine swaps, panel '
-        "rebuilds and gross weight changes are the norm in this class, so what one "
-        "builder had to change is often exactly what the next one needs to know.</p>",
+TYPE_CSS = """
+.afsum{display:grid;grid-template-columns:max-content 1fr;gap:.25rem 1rem;margin:.8rem 0 1.2rem;
+padding:.8rem 1rem;background:var(--card);border-radius:10px;font-size:.92rem;max-width:44rem}
+.afsum dt{color:var(--muted);font-weight:600}
+.afsum dd{margin:0}
+.varlist{list-style:none;padding:0;margin:.6rem 0 1.4rem}
+.varlist li{padding:.6rem 0;border-bottom:1px solid var(--line)}
+.varlist .rt{font-size:.82rem;color:var(--muted);margin-left:.4rem}
+.relt{margin:1.4rem 0;font-size:.95rem}
+"""
+
+# Fetches ratings for every checklist listed on the page. Values go in via
+# textContent only; the ids come from data-id attributes written at build time.
+RATINGS_JS = r"""
+<script>
+(function(){
+  var nodes = document.querySelectorAll('.rt[data-id]');
+  if (!nodes.length || typeof OCL_API === 'undefined') return;
+  var ids = Array.prototype.map.call(nodes, function(n){ return n.getAttribute('data-id'); });
+  fetch(OCL_API + '/checklists/stats?ids=' + encodeURIComponent(ids.join(',')))
+    .then(function(r){ return r.ok ? r.json() : null; })
+    .then(function(j){
+      if (!j || !j.stats) return;
+      nodes.forEach(function(n){
+        var st = j.stats[n.getAttribute('data-id')] || {};
+        var revs = +st.review_count || 0, uses = +st.uses || 0, bits = [];
+        if (revs) bits.push('★ ' + (+st.avg_stars || 0).toFixed(1) + ' (' + revs + ' review' + (revs === 1 ? '' : 's') + ')');
+        if (uses) bits.push(uses + ' used');
+        n.textContent = bits.length ? bits.join(' · ') : 'No ratings yet';
+      });
+    })
+    .catch(function(){});
+})();
+</script>
+"""
+
+_CATEGORY_LABEL = {
+    "part103_ultralight": "Part 103 ultralight", "light_sport": "Light-sport",
+    "experimental_amateur_built": "Experimental amateur-built", "experimental_exhibition": "Experimental exhibition",
+    "standard_normal": "Standard (normal)", "standard_utility": "Standard (utility)",
+    "standard_acrobatic": "Standard (acrobatic)", "standard_commuter": "Standard (commuter)",
+    "standard_transport": "Standard (transport)", "powered_parachute": "Powered parachute",
+    "weight_shift_control": "Weight-shift control",
+}
+_ENGINE_TYPE = {"piston_2stroke": "two-stroke piston", "piston_4stroke": "four-stroke piston"}
+
+
+def _foot_at(rel: str) -> str:
+    """FOOT's links are relative to the site root; re-root them for nested pages."""
+    import re as _re
+
+    return _re.sub(r'href="(?![a-z]+:|/|#)', f'href="{rel}', FOOT)
+
+
+def _clean_model(model: str) -> str:
+    # The corpus uses " _ " where the source title had a slash.
+    import re as _re
+
+    return _re.sub(r"\s*_\s*", " / ", model or "").strip()
+
+
+def aircraft_type(ac: dict) -> tuple[str, str]:
+    """(slug, display name) grouping checklists by make + base model, so the
+    172N, 172P and 172RG files all land on one "Cessna 172" page. Only a few
+    makes with regular model numbering are collapsed; everything else groups by
+    the exact model string, which is never wrong, just less merged."""
+    import re as _re
+
+    make = (ac.get("make") or "").strip()
+    model = _clean_model(ac.get("model") or "")
+    mk, base = make.lower(), ""
+    pats = {
+        "piper": r"(PA-\d+)", "cessna": r"[CTA]?(\d{3})(?!\d)", "mooney": r"(M20)",
+        "yakovlev": r"Yak[\s-]?(\d+)", "diamond": r"(DA\d+)", "cirrus": r"(SR\d+)",
+    }
+    if mk in pats:
+        m = _re.match(pats[mk], model, _re.I)
+        if m:
+            base = ("Yak-" + m.group(1)) if mk == "yakovlev" else m.group(1).upper()
+    display = f"{make} {base or model}".strip()
+    slug = _re.sub(r"[^a-z0-9]+", "-", display.lower()).strip("-")
+    return slug, display
+
+
+def _kinds(docs_: list[dict]) -> list[str]:
+    """Which of normal / emergency / preflight the files actually contain."""
+    secs = [s for d in docs_ for s in d.get("sections", [])]
+    out = []
+    if any(s.get("criticality", "normal") == "normal" and s.get("phase") != "preflight_inspection" for s in secs):
+        out.append("normal")
+    if any(s.get("criticality") in ("emergency", "abnormal") for s in secs):
+        out.append("emergency")
+    if any(s.get("phase") == "preflight_inspection" for s in secs):
+        out.append("preflight")
+    return out
+
+
+def _uniq(vals) -> list[str]:
+    out: list[str] = []
+    for v in vals:
+        if v and v not in out:
+            out.append(v)
+    return out
+
+
+def airframe_summary(docs_: list[dict]) -> str:
+    """Only what the files themselves state; nothing looked up or inferred."""
+    acs = [d.get("aircraft") or {} for d in docs_]
+    engines = _uniq(
+        " ".join(filter(None, [
+            f'{e.get("count")}×' if (e.get("count") or 1) > 1 else "",
+            e.get("make") if e.get("make") not in ("Generic", "None") else "",
+            e.get("model") if e.get("make") not in ("Generic", "None") else "",
+            f'({_ENGINE_TYPE.get(e.get("type"), (e.get("type") or "").replace("_", " "))})'
+            if e.get("type") and e.get("type") != "none" else "",
+        ])) or ("unpowered" if e.get("type") == "none" else "")
+        for a in acs for e in (a.get("engine") or [])
+    )
+    rows = [
+        ("Make", _uniq(a.get("make") for a in acs)),
+        ("Model", _uniq(" ".join(filter(None, [_clean_model(a.get("model")), a.get("variant")])) for a in acs)),
+        ("Category", _uniq(_CATEGORY_LABEL.get(a.get("category"), (a.get("category") or "").replace("_", " "))
+                           for a in acs)),
+        ("ICAO type", _uniq(a.get("icao_type") for a in acs)),
+        ("Engine", engines),
+        ("Propeller", _uniq((a.get("propeller") or "").replace("_", " ") for a in acs if a.get("propeller") != "none")),
+        ("Landing gear", _uniq((a.get("gear") or "").replace("_", " ") for a in acs)),
     ]
-    by_id = {m["id"]: m for m in members}
+    body = "".join(f"<dt>{k}</dt><dd>{esc(', '.join(v[:8]))}{' …' if len(v) > 8 else ''}</dd>"
+                   for k, v in rows if v)
+    return f'<dl class="afsum">{body}</dl>' if body else ""
+
+
+def variation_list(members: list[dict], docs: dict[str, dict], rel: str) -> str:
+    lis = []
+    for m in sorted(members, key=lambda x: (x["verification"]["quarantined"], x["title"] or "")):
+        badge = ('<span class="badge quar">NOT REVIEWED</span>' if m["verification"]["quarantined"]
+                 else '<span class="badge ok">REVIEWED</span>')
+        kinds = ", ".join(_kinds([docs[m["id"]]]))
+        lis.append(
+            f'<li>{badge} <a href="{rel}c/{esc(m["id"])}/"><strong>{esc(m["title"])}</strong></a>'
+            f'<span class="rt" data-id="{esc(m["id"])}"></span><br>'
+            f'<span class="tag">{esc(kinds)} &middot; {m["sections"]} sections &middot; '
+            f'{m["tickable_items"]} items</span></li>'
+        )
+    return f'<ul class="varlist">{"".join(lis)}</ul>'
+
+
+def related_training(category: str | None, rel: str) -> str:
+    light = category in ("part103_ultralight", "powered_parachute", "weight_shift_control")
+    what = ("Part 103 and sport-pilot study material" if light
+            else "free FAA handbooks, sample test questions and logbook progress toward a certificate")
+    return (f'<p class="relt"><strong>Related training:</strong> <a href="{rel}training.html">{what}</a> '
+            f'&middot; <a href="{rel}search.html">search the FAA handbooks</a> '
+            f'&middot; <a href="{rel}airports.html">airport frequencies and weather</a></p>')
+
+
+def _type_meta(name: str, docs_: list[dict]) -> tuple[str, str]:
+    kinds = _kinds(docs_)
+    title = f"{name} checklists — {', '.join(kinds) or 'checklists'} | Open Checklists"
+    desc = (f"Free {name} checklists ({', '.join(kinds) or 'all phases'}): {len(docs_)} "
+            "version(s) to tick off on a phone, print at any size or download, with verification "
+            "state and source recorded for each.")
+    return title, desc
+
+
+def family_page(family: str, members: list[dict], docs: dict[str, dict]) -> str:
+    fam_docs = [docs[m["id"]] for m in members]
+    names = [" ".join(filter(None, [d["aircraft"].get("make"), _clean_model(d["aircraft"].get("model"))]))
+             for d in fam_docs]
+    name = max(set(names), key=names.count) if names else family.replace("-", " ")
+    title, desc = _type_meta(name, fam_docs)
+    out = [
+        head(esc(title), esc(desc), rel="../../", path=f"f/{family}/", ads=True),
+        f"<style>{FAMILY_CSS}{TYPE_CSS}</style>",
+        f"<h1>{esc(name)} checklists</h1>",
+        f'<p class="lede">{len(members)} variation(s) of the {esc(name)} airframe. Same airframe, '
+        "different configurations: engine swaps, panel rebuilds and gross weight changes are the "
+        "norm in this class, so what one builder had to change is often exactly what the next one "
+        "needs to know.</p>",
+        "<h2>About this airframe</h2>",
+        airframe_summary(fam_docs),
+        '<p class="tag">As recorded in the checklist files; not a substitute for the aircraft\'s own '
+        "documentation.</p>",
+        "<h2>All variations</h2>",
+        variation_list(members, docs, "../../"),
+        "<h2>What differs between them</h2>",
+    ]
     for m in sorted(members, key=lambda x: (bool(x.get("derived_from")), x["id"])):
         doc = docs[m["id"]]
-        ac = m["aircraft"]
-        eng = doc.get("aircraft", {}).get("engine", [{}])[0]
+        eng = (doc.get("aircraft", {}).get("engine") or [{}])[0]
         engs = " ".join(filter(None, [eng.get("make"), eng.get("model")])) or "no engine"
         reg = f' &middot; {esc(m["registration"])}' if m.get("registration") else ""
         badge = (
@@ -813,7 +1032,7 @@ def family_page(family: str, members: list[dict], docs: dict[str, dict]) -> str:
             else '<span class="badge ok">REVIEWED</span>'
         )
         out.append(
-            f'<div class="varhdr">{badge}<h2><a href="../../c/{m["id"]}/">{esc(m["title"])}</a></h2></div>'
+            f'<div class="varhdr">{badge}<h2><a href="../../c/{esc(m["id"])}/">{esc(m["title"])}</a></h2></div>'
             f'<p class="tag">{esc(engs)}{reg} &middot; {m["tickable_items"]} items'
             f' &middot; {m["memory_items"]} memory</p>'
         )
@@ -834,8 +1053,63 @@ def family_page(family: str, members: list[dict], docs: dict[str, dict]) -> str:
         '<p><a href="../../editor.html">Make your own variation</a> — the editor will fork '
         "any of these and record the lineage for you.</p>"
     )
-    out.append(FOOT)
+    out.append(related_training(fam_docs[0].get("aircraft", {}).get("category") if fam_docs else None, "../../"))
+    out.append(affiliates.aircraft_box(AMAZON_TAG, fam_docs[0].get("aircraft") if fam_docs else None,
+                                       seed=f"f/{family}", heading=f"Gear for the {name}"))
+    out.append(RATINGS_JS)
+    out.append(_foot_at("../../"))
     return "".join(out)
+
+
+def aircraft_page(slug: str, name: str, members: list[dict], docs: dict[str, dict]) -> str:
+    """Landing page for one make + base model (/aircraft/<slug>/)."""
+    type_docs = [docs[m["id"]] for m in members]
+    title, desc = _type_meta(name, type_docs)
+    cats = _uniq(d["aircraft"].get("category") for d in type_docs)
+    fams = _uniq(d["aircraft"].get("airframe_family") for d in type_docs)
+    fam_links = "".join(f' <a href="../../f/{esc(f)}/">Builder variations: {esc(f)}</a>' for f in fams)
+    return "".join([
+        head(esc(title), esc(desc), rel="../../", path=f"aircraft/{slug}/", ads=True),
+        f"<style>{TYPE_CSS}</style>",
+        f'<p class="tag"><a href="../">All aircraft types</a></p>',
+        f"<h1>{esc(name)} checklists</h1>",
+        f'<p class="lede">{len(members)} free {esc(name)} checklists — '
+        f"{esc(', '.join(_kinds(type_docs)))} — from different sources and model years. Each "
+        "records where it came from and whether anyone has checked it against that source, so "
+        "pick the one that matches your aircraft's POH and check it against that.</p>",
+        "<h2>About the aircraft</h2>",
+        airframe_summary(type_docs),
+        '<p class="tag">As recorded in the checklist files; not a substitute for the aircraft\'s own '
+        f"documentation.{fam_links}</p>",
+        f"<h2>{esc(name)} checklists</h2>",
+        variation_list(members, docs, "../../"),
+        '<p><a href="../../editor.html">Customise one for your aircraft</a> — fork any of these in '
+        "the editor; the lineage is recorded for you.</p>",
+        related_training(cats[0] if cats else None, "../../"),
+        affiliates.aircraft_box(AMAZON_TAG, type_docs[0].get("aircraft"), seed=f"aircraft/{slug}",
+                                heading=f"Gear for the {name}"),
+        RATINGS_JS,
+        _foot_at("../../"),
+    ])
+
+
+def aircraft_index_page(groups: dict[str, tuple[str, list[dict]]], min_members: int) -> str:
+    """/aircraft/: every type, linking to its landing page or straight to the checklist."""
+    rows = []
+    for slug, (name, ms) in sorted(groups.items(), key=lambda kv: kv[1][0].lower()):
+        href = f"{slug}/" if len(ms) >= min_members else f"../c/{esc(ms[0]['id'])}/"
+        rows.append(f'<li><a href="{href}">{esc(name)}</a> <span class="tag">({len(ms)})</span></li>')
+    return "".join([
+        head("Aircraft checklists by type — Open Checklists",
+             "Free checklists grouped by aircraft make and model: Cessna, Piper, Beechcraft, Cirrus, "
+             "Mooney, Diamond, ultralights, powered parachutes and more.",
+             rel="../", path="aircraft/", ads=True),
+        "<h1>Checklists by aircraft type</h1>",
+        f'<p class="lede">{len(groups)} makes and models. Pick yours to see every checklist we '
+        "have for it.</p>",
+        f'<ul style="columns:3 14rem">{"".join(rows)}</ul>',
+        _foot_at("../"),
+    ])
 
 
 def build_airport_pages(airport_data: list[dict], effective_date: str, output_dir: Path) -> int:
@@ -1164,7 +1438,7 @@ def render_airport_page(airport: dict, effective_date: str) -> str:
     # Live data sections
     if lat_f is not None and lon_f is not None:
         windy_embed = f"""<div id="windy-wrap" style="display:none;margin:.6rem 0;border-radius:var(--radius);overflow:hidden;border:1px solid var(--line)">
-<iframe width="100%" height="360" src="https://embed.windy.com/embed2.html?lat={lat_f}&lon={lon_f}&zoom=10&level=surface&overlay=wind&product=ecmwf&menu=&message=true&marker=true&metricWind=kt&metricTemp=%C2%B0F" frameborder="0" loading="lazy" title="Windy weather map"></iframe>
+<iframe width="100%" height="360" src="https://embed.windy.com/embed2.html?lat={lat_f}&lon={lon_f}&detailLat={lat_f}&detailLon={lon_f}&zoom=10&level=surface&overlay=wind&product=ecmwf&menu=&message=true&marker=true&metricWind=kt&metricTemp=%C2%B0F" frameborder="0" loading="lazy" title="Windy weather map"></iframe>
 </div>"""
     else:
         windy_embed = ""
@@ -1529,6 +1803,7 @@ setTimeout(loadLiveData, 400);
 <a href="/airports.html">Airports</a> &middot;
 <a href="/planner.html">Plan a Flight</a> &middot;
 <a href="/training.html">Training</a> &middot;
+<a href="/quiz/">Test prep</a> &middot;
 <a href="/catalogue.html">Checklists</a> &middot;
 <a href="/privacy.html">Privacy</a> &middot;
 <a href="/terms.html">Terms</a>
@@ -1546,6 +1821,79 @@ if ('serviceWorker' in navigator) {{
     return html
 
 
+US_STATES = {
+    "AL": "Alabama", "AK": "Alaska", "AZ": "Arizona", "AR": "Arkansas", "CA": "California",
+    "CO": "Colorado", "CT": "Connecticut", "DE": "Delaware", "DC": "District of Columbia",
+    "FL": "Florida", "GA": "Georgia", "HI": "Hawaii", "ID": "Idaho", "IL": "Illinois",
+    "IN": "Indiana", "IA": "Iowa", "KS": "Kansas", "KY": "Kentucky", "LA": "Louisiana",
+    "ME": "Maine", "MD": "Maryland", "MA": "Massachusetts", "MI": "Michigan", "MN": "Minnesota",
+    "MS": "Mississippi", "MO": "Missouri", "MT": "Montana", "NE": "Nebraska", "NV": "Nevada",
+    "NH": "New Hampshire", "NJ": "New Jersey", "NM": "New Mexico", "NY": "New York",
+    "NC": "North Carolina", "ND": "North Dakota", "OH": "Ohio", "OK": "Oklahoma", "OR": "Oregon",
+    "PA": "Pennsylvania", "RI": "Rhode Island", "SC": "South Carolina", "SD": "South Dakota",
+    "TN": "Tennessee", "TX": "Texas", "UT": "Utah", "VT": "Vermont", "VA": "Virginia",
+    "WA": "Washington", "WV": "West Virginia", "WI": "Wisconsin", "WY": "Wyoming",
+    "PR": "Puerto Rico", "VI": "US Virgin Islands", "GU": "Guam", "AS": "American Samoa",
+    "MP": "Northern Mariana Islands", "CQ": "Northern Mariana Islands",
+}
+AIRPORT_TYPES = {"a": "Airport", "h": "Heliport", "s": "Seaplane base", "u": "Ultralight",
+                 "g": "Gliderport", "b": "Balloonport"}
+
+
+def airport_url_id(a: dict) -> str:
+    """The canonical /airport/<id>: ICAO where the airport has one, else the FAA id."""
+    return a.get("k") or a["i"]
+
+
+def write_state_hubs(out: Path, airports: list[dict], cities: dict[str, list] | None = None) -> list[str]:
+    """Static per-state airport lists: plain links so crawlers reach every airport page.
+    `cities` ({state: [(slug, city)]}) adds links to that state's /airports-near/ pages.
+    Returns the hub paths (for the sitemap)."""
+    by_state: dict[str, list[dict]] = {}
+    for a in airports:
+        by_state.setdefault((a.get("s") or "").upper() or "XX", []).append(a)
+    hub = out / "us-airports"
+    paths = []
+    links = []
+    for st in sorted(by_state, key=lambda k: US_STATES.get(k, "~" + k)):
+        rows = sorted(by_state[st], key=lambda a: (a.get("u") != "pu", a.get("c") or "", a.get("n") or ""))
+        name = US_STATES.get(st, "Other locations" if st == "XX" else st)
+        slug = st.lower()
+        pub = sum(1 for a in rows if a.get("u") == "pu")
+        items = "".join(
+            f'<tr><td><a href="/airport/{esc(airport_url_id(a))}">{esc(airport_url_id(a))}</a></td>'
+            f'<td>{esc((a.get("n") or "").title())}</td><td>{esc((a.get("c") or "").title())}</td>'
+            f'<td>{esc(AIRPORT_TYPES.get(a.get("t"), ""))}</td><td>{"Public" if a.get("u") == "pu" else "Private"}</td>'
+            f'<td class="n">{a.get("r") or ""}</td></tr>'
+            for a in rows)
+        body = (f'<h2>Airports in {esc(name)}</h2>'
+                f'<p class="tag">{len(rows):,} landing facilities ({pub:,} public use) from the FAA\'s '
+                f'28-day NASR data. Each page has runways, frequencies, live weather, NOTAMs and winds aloft.</p>'
+                f'<p><a href="/us-airports/">All states</a> &middot; <a href="/airports.html">Search airports</a></p>'
+                + (f'<h3>Airports near cities in {esc(name)}</h3><ul style="columns:3 12rem;padding-left:1.1rem">'
+                   + "".join(f'<li><a href="/airports-near/{esc(cs)}/">{esc(cn)}</a></li>'
+                             for cs, cn in (cities or {}).get(st, [])) + '</ul>'
+                   if (cities or {}).get(st) else '')
+                + f'<div style="overflow-x:auto"><table><thead><tr><th>Id</th><th>Name</th><th>City</th><th>Type</th>'
+                f'<th>Use</th><th>Longest rwy (ft)</th></tr></thead><tbody>{items}</tbody></table></div>')
+        d = hub / slug
+        d.mkdir(parents=True, exist_ok=True)
+        (d / "index.html").write_text(
+            head(f"{name} airports: frequencies, runways and weather — {BRAND_NAME}",
+                 f"All {len(rows):,} airports, heliports and airstrips in {name} with runways, radio "
+                 f"frequencies, live weather and NOTAMs.", rel="/", path=f"us-airports/{slug}/", ads=True)
+            + body + FOOT, encoding="utf-8")
+        paths.append(f"us-airports/{slug}/")
+        links.append(f'<li><a href="/us-airports/{slug}/">{esc(name)}</a> <span class="tag">({len(rows):,})</span></li>')
+    (hub / "index.html").write_text(
+        head(f"US airports by state — {BRAND_NAME}",
+             "Browse every US airport, heliport and airstrip by state: runways, frequencies and live weather.",
+             rel="/", path="us-airports/", ads=True)
+        + '<h2>US airports by state</h2><ul style="columns:3 14rem">' + "".join(links) + "</ul>" + FOOT,
+        encoding="utf-8")
+    return ["us-airports/"] + paths
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--corpus", type=Path, default=REPO / "examples")
@@ -1554,7 +1902,19 @@ def main() -> int:
     ap.add_argument("--wx-proxy", default="", help="URL of the deployed weather Worker")
     ap.add_argument("--data", type=Path, default=REPO / "data",
                     help="ingested datasets (airports); pages degrade if absent")
+    ap.add_argument("--adsense-pub", default="",
+                    help="AdSense publisher id (pub-XXXXXXXXXXXXXXXX); writes ads.txt")
+    ap.add_argument("--amazon-tag", default="",
+                    help="Amazon Associates tag (e.g. openchecklist-20); without it no gear boxes render")
     args = ap.parse_args()
+    global SITE_BASE, ADSENSE_CLIENT, AMAZON_TAG
+    if args.amazon_tag:
+        AMAZON_TAG = affiliates.validate_tag(args.amazon_tag)
+    SITE_BASE = args.base_url.rstrip("/")
+    if args.adsense_pub:
+        if not args.adsense_pub.startswith("pub-"):
+            raise SystemExit("--adsense-pub must look like pub-1234567890123456")
+        ADSENSE_CLIENT = "ca-" + args.adsense_pub
 
     paths = sorted(args.corpus.glob("*.ocl.json"))
     if not paths:
@@ -1597,7 +1957,10 @@ def main() -> int:
             e["downloads"][fmt] = f"c/{cid}/{out.name}"
 
         page = cdir / "index.html"
-        page.write_text(render_html(doc, "letter", site_rel="../../"), encoding="utf-8")
+        page.write_text(render_html(doc, "letter", site_rel="../../",
+                                    canonical=f"{SITE_BASE}/c/{doc['id']}/" if SITE_BASE else None,
+                                    aff_html=affiliates.aircraft_box(AMAZON_TAG, doc.get("aircraft"), seed=cid)),
+                        encoding="utf-8")
         artifacts.append(page)
 
         api = args.out / "api" / "checklists" / f"{cid}.json"
@@ -1626,9 +1989,12 @@ def main() -> int:
     )
     artifacts.append(args.out / "api" / "index.json")
 
+    ad_pages = {"index.html", "charts.html", "projects.html", "about-us.html"}
+
     def page(name: str, title: str, desc: str, body: str) -> Path:
         out = args.out / name
-        out.write_text(head(title, desc) + body + FOOT, encoding="utf-8")
+        out.write_text(head(title, desc, path=canonical_path(name), ads=name in ad_pages) + body + FOOT,
+                       encoding="utf-8")
         return out
 
     (args.out / "catalogue.html").write_text(build_index(entries, catalogue), encoding="utf-8")
@@ -1645,24 +2011,52 @@ def main() -> int:
              "How to add a checklist for your aircraft, and the contributor warranty.",
              contribute_body()),
         page("privacy.html", f"Privacy — {BRAND_NAME}",
-             "This site collects nothing: no analytics, no cookies, no accounts.",
+             "What Open Checklists stores, what advertising partners see, and your choices.",
              PRIVACY),
         page("terms.html", f"Terms of use — {BRAND_NAME}",
-             "Safety notice, no warranty, per-file licensing, acceptable use.",
+             "Safety notice, no warranty, accounts, advertising, per-file licensing, acceptable use.",
              TERMS),
         page("takedown.html", f"Takedown and corrections — {BRAND_NAME}",
              "How rights claims and error reports are handled.",
              TAKEDOWN),
-        page("contact.html", f"Contact — {BRAND_NAME}", "How to reach the project.", CONTACT),
+        page("contact.html", f"Contact — {BRAND_NAME}", "How to reach Open Checklists.", CONTACT),
+        page("about-us.html", f"About — {BRAND_NAME}",
+             "Who runs Open Checklists, what it is for, and how it is paid for.", ABOUT_US),
     ]
 
     # Airports, frequencies and weather. The page is always generated; it explains
     # itself if the NASR ingest has not been run, rather than failing the build.
+    airport_rows: list[dict] = []
+    if (args.data / "airports" / "index.json").exists():
+        airport_rows = json.loads((args.data / "airports" / "index.json").read_text())
+    # Nearest-airport lists (shipped as data/airports/near/ shards below) and the
+    # "Airports near <city>" pages come from one build-time k-nearest pass.
+    near_data = None
+    city_paths: list[str] = []
+    city_links: dict[str, list] = {}
+    if airport_rows and (args.data / "airports" / "detail").is_dir():
+        import site_airport_near  # noqa: E402
+        _details = site_airport_near.load_details(args.data / "airports" / "detail")
+        near_data = site_airport_near.compute(airport_rows, _details)
+        try:
+            _eff = json.loads((args.data / "airports" / "cycle.json").read_text()).get("effective") or "current cycle"
+        except (ValueError, OSError):
+            _eff = "current cycle"
+        city_paths, city_links = site_airport_near.write_city_pages(
+            args.out, near_data, _details, head, FOOT, esc, US_STATES, BRAND_NAME, _eff)
+        del _details
+    hub_paths = (write_state_hubs(args.out, airport_rows, city_links) + city_paths) if airport_rows else []
+    browse = ('<section style="margin:1.5rem 0"><h3>Browse airports by state</h3>'
+              '<p><a href="/us-airports/">All US states and territories &rarr;</a></p></section>'
+              if hub_paths else "")
     (args.out / "airports.html").write_text(
-        airports_page(head, FOOT, args.wx_proxy), encoding="utf-8"
+        airports_page(functools.partial(head, path="airports", ads=True), browse + FOOT, args.wx_proxy),
+        encoding="utf-8"
     )
-    (args.out / "search.html").write_text(library_page(head, FOOT), encoding="utf-8")
-    (args.out / "training.html").write_text(training_page(head, FOOT), encoding="utf-8")
+    (args.out / "search.html").write_text(library_page(functools.partial(head, path="search", ads=True), FOOT), encoding="utf-8")
+    (args.out / "training.html").write_text(training_page(functools.partial(head, path="training", ads=True), FOOT,
+                                                               affiliates.box_html(AMAZON_TAG, affiliates.GEAR["test_prep"][:9], "Study books and test-prep gear")), encoding="utf-8")
+    quiz_paths = write_quiz(args.out, head, FOOT)
     static_pages += [
         args.out / "airports.html",
         args.out / "search.html",
@@ -1696,6 +2090,8 @@ def main() -> int:
     if (airport_data / "index.json").exists():
         dest = args.out / "data" / "airports"
         shutil.copytree(airport_data, dest)
+        if near_data:
+            site_airport_near.write_near_shards(dest, near_data)
         airports_shipped = len(json.loads((airport_data / "index.json").read_text()))
         for f in sorted(dest.rglob("*.json")):
             artifacts.append(f)
@@ -1719,7 +2115,7 @@ def main() -> int:
         out_dir = args.out / "airport"
         out_dir.mkdir(parents=True, exist_ok=True)
         (out_dir / "index.html").write_text(
-            airport_app_page(head, effective_date), encoding="utf-8"
+            airport_app_page(functools.partial(head, ads=True), effective_date), encoding="utf-8"
         )
         artifacts.append(out_dir / "index.html")
         airports_built = 1
@@ -1783,7 +2179,7 @@ def main() -> int:
     )
     static_pages.append(args.out / "checklist" / "index.html")
 
-    (args.out / "editor.html").write_text(editor_page(head, FOOT, catalogue), encoding="utf-8")
+    (args.out / "editor.html").write_text(editor_page(functools.partial(head, path="editor"), FOOT, catalogue), encoding="utf-8")
     artifacts += static_pages + [args.out / "editor.html"]
 
     # PWA: installable on a phone, and cached so it works at the aircraft with no
@@ -1818,21 +2214,17 @@ def main() -> int:
             shutil.copy(src, args.out / png)
             artifacts.append(args.out / png)
 
-    # Path-segment rewrites (best effort). NOTE: this Pages project has SPA
-    # not-found handling that serves the root index.html for unmatched paths,
-    # and it currently wins over these rewrites — so airport links use the
-    # query form /airport/?id=<IDENT> (a real directory index that needs no
-    # rewrite). These lines are kept so pretty URLs work if the project's
-    # not-found handling is ever changed.
+    # Path-segment rewrite for plans (best effort: the Pages SPA fallback wins
+    # over it, so plan links use /plan/?id=). /airport/<IDENT> is served by the
+    # Pages Function in functions/airport/[ident].js, which does take precedence.
     (args.out / "_redirects").write_text(
-        "/plan/* /plan/index.html 200\n"
-        "/airport/* /airport/index.html 200\n",
+        "/plan/* /plan/index.html 200\n",
         encoding="utf-8",
     )
 
     precache = (
         ["index.html", "catalogue.html", "editor.html", "about.html", "contribute.html",
-         "privacy.html", "terms.html", "takedown.html", "contact.html", "airports.html",
+         "privacy.html", "terms.html", "takedown.html", "contact.html", "about-us.html", "airports.html",
          "search.html", "charts.html", "projects.html", "training.html",
          "manifest.webmanifest", "icon.svg", "api/index.json"]
         + (["data/airports/index.json", "data/airports/cycle.json", "data/airports/icao.json"]
@@ -1871,6 +2263,26 @@ def main() -> int:
         fpage = fdir / "index.html"
         fpage.write_text(family_page(fam, members, docs), encoding="utf-8")
         artifacts.append(fpage)
+
+    # Make + model landing pages. airframe_family is set on only a handful of
+    # files, so these are what group the corpus the way pilots search for it
+    # ("Cessna 172 checklist"). Types with a single checklist get no page of
+    # their own (it would just repeat the checklist); the index links straight to it.
+    type_groups: dict[str, tuple[str, list[dict]]] = {}
+    for e in entries:
+        tslug, tname = aircraft_type(docs[e["id"]].get("aircraft") or {})
+        if tslug:
+            type_groups.setdefault(tslug, (tname, []))[1].append(e)
+    type_pages = sorted(t for t, (_, ms) in type_groups.items() if len(ms) >= 2)
+    for tslug in type_pages:
+        tname, ms = type_groups[tslug]
+        tdir = args.out / "aircraft" / tslug
+        tdir.mkdir(parents=True, exist_ok=True)
+        (tdir / "index.html").write_text(aircraft_page(tslug, tname, ms, docs), encoding="utf-8")
+        artifacts.append(tdir / "index.html")
+    (args.out / "aircraft").mkdir(exist_ok=True)
+    (args.out / "aircraft" / "index.html").write_text(aircraft_index_page(type_groups, 2), encoding="utf-8")
+    artifacts.append(args.out / "aircraft" / "index.html")
     catalogue["families"] = {
         fam: {"count": len(ms), "page": f"f/{fam}/", "checklists": [m["id"] for m in ms]}
         for fam, ms in sorted(families.items())
@@ -1892,21 +2304,57 @@ def main() -> int:
         "# Nobody has checked these against a source document. Not for flight.\n"
         + "".join(f"api/checklists/{e['id']}.json\n" for e in unrev)
     )
-    (args.out / "robots.txt").write_text("User-agent: *\nAllow: /\n")
-
     base = args.base_url.rstrip("/")
+    (args.out / "robots.txt").write_text(
+        "User-agent: *\nAllow: /\n" + (f"Sitemap: {base}/sitemap.xml\n" if base else "")
+    )
+    # Without a real ads.txt the Pages SPA fallback answers /ads.txt with the
+    # homepage HTML, which ad networks read as "no authorised sellers".
+    if args.adsense_pub:
+        (args.out / "ads.txt").write_text(
+            f"google.com, {args.adsense_pub}, DIRECT, f08c47fec0942fa0\n"
+        )
+
     urls = [
         "", "catalogue.html", "editor.html", "about.html", "contribute.html",
-        "privacy.html", "terms.html", "takedown.html", "contact.html", "airports.html",
+        "privacy.html", "terms.html", "takedown.html", "contact.html", "about-us.html", "airports.html",
         "search.html", "charts.html", "projects.html", "training.html",
-    ] + [f"f/{fam}/" for fam in sorted(families)] + [f"c/{e['id']}/" for e in entries]
+    ] + [f"f/{fam}/" for fam in sorted(families)] + [f"c/{e['id']}/" for e in entries] \
+      + ["aircraft/"] + [f"aircraft/{t}/" for t in type_pages]
+    today = datetime.date.today().isoformat()
+
+    def urlset(locs: list[str]) -> str:
+        return ('<?xml version="1.0" encoding="UTF-8"?>\n'
+                '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+                + "".join(f"  <url><loc>{base}/{u}</loc><lastmod>{today}</lastmod></url>\n" for u in locs)
+                + "</urlset>\n")
+
+    (args.out / "sitemap-pages.xml").write_text(urlset([canonical_path(u) for u in urls] + hub_paths + quiz_paths))
+    sitemaps = ["sitemap-pages.xml"]
+    if airport_rows:
+        # One sitemap file holds up to 50,000 URLs; ~19.4k airports fit in one.
+        (args.out / "sitemap-airports.xml").write_text(
+            urlset([f"airport/{urllib.parse.quote(airport_url_id(a))}" for a in airport_rows]))
+        sitemaps.append("sitemap-airports.xml")
+    # Community checklists are published at runtime; a Pages Function
+    # (functions/sitemap-community.xml.js) lists them from the API.
+    sitemaps.append("sitemap-community.xml")
     (args.out / "sitemap.xml").write_text(
         '<?xml version="1.0" encoding="UTF-8"?>\n'
-        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
-        + "".join(f"  <url><loc>{base}/{u}</loc></url>\n" for u in urls)
-        + "</urlset>\n"
+        '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+        + "".join(f"  <sitemap><loc>{base}/{m}</loc><lastmod>{today}</lastmod></sitemap>\n" for m in sitemaps)
+        + "</sitemapindex>\n"
     )
     artifacts += [args.out / "reviewed.txt", args.out / "unreviewed.txt", args.out / "sitemap.xml"]
+
+    # Quiz pages carry <div class="aff-slot" data-topic="..."> placeholders; fill
+    # them here, after every page is written and before the manifest is hashed.
+    if AMAZON_TAG and (args.out / "quiz").is_dir():
+        for qp in sorted((args.out / "quiz").rglob("*.html")):
+            txt = qp.read_text(encoding="utf-8")
+            filled = affiliates.fill_slots(txt, AMAZON_TAG)
+            if filled != txt:
+                qp.write_text(filled, encoding="utf-8")
 
     lines = []
     for a in sorted(artifacts):

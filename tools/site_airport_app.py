@@ -23,6 +23,8 @@ from __future__ import annotations
 # CSS — carried over verbatim from the old static renderer so the page looks
 # identical to what was already reviewed and approved.
 AIRPORT_APP_CSS = """
+.ap-ssr h1{font-size:1.5rem;margin:.6rem 0}.ap-ssr h2{font-size:1.05rem;margin:1rem 0 .3rem}
+.ap-ssr table{border-collapse:collapse;font-size:.88rem;margin:.3rem 0}.ap-ssr th,.ap-ssr td{padding:.2rem .6rem;text-align:left;border-bottom:1px solid #e8edf4}
 #map{height:460px;border-radius:var(--radius);margin:.8rem 0 1.5rem;border:1px solid var(--line);overflow:hidden}
 @media(min-width:800px){#map{height:560px}}
 .ap-controls{display:flex;flex-wrap:wrap;gap:.6rem 1rem;align-items:flex-end;margin:.4rem 0 .2rem}
@@ -61,6 +63,16 @@ AIRPORT_APP_CSS = """
 .ext-links a{display:inline-flex;align-items:center;gap:.3rem;padding:.38rem .8rem;border:1px solid var(--line);border-radius:var(--pill);font-size:.84rem;color:var(--muted);text-decoration:none}
 .ext-links a:hover{border-color:var(--accent-2);color:var(--accent)}
 .ap-notfound{padding:3rem 0;text-align:center;color:var(--muted)}
+.near-t,.xw-t{border-collapse:collapse;font-size:.88rem;width:100%;margin:.3rem 0}
+.near-t th,.near-t td,.xw-t th,.xw-t td{padding:.3rem .5rem;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+.near-t small{color:var(--muted)}
+.xw-in{display:flex;flex-wrap:wrap;gap:.5rem .8rem;align-items:flex-end;margin:.3rem 0 .6rem}
+.xw-in label{display:flex;flex-direction:column;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);gap:.15rem}
+.xw-in input,.xw-in select{font:inherit;padding:.35rem .5rem;border:1px solid var(--line);border-radius:var(--radius-sm);background:#fff;width:6.5rem}
+.xw-in select{width:auto}
+.xw-t tr.best td{background:var(--ok-weak);font-weight:700}
+.xw-tail{color:var(--warn);font-weight:700}
+.xw-note{font-size:.78rem;color:var(--muted);margin:.4rem 0 0}
 .brief-cta{display:flex;flex-wrap:wrap;align-items:center;gap:.6rem 1rem;justify-content:space-between;
 background:var(--caut-weak);border:1px solid var(--caut);border-radius:var(--radius);padding:.85rem 1.1rem;margin:.4rem 0 1rem;font-size:.9rem}
 .brief-cta strong{color:var(--caut)}
@@ -87,7 +99,7 @@ AIRPORT_APP_JS = r"""
   var API_BASE = 'https://app.openchecklists.net/api/airport/';
 
   function esc(s){ return String(s==null?'':s)
-    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
 
   // Identifier comes from the path (/airport/kbna/ or /airport/kbna) or ?id=
   function getIdent(){
@@ -98,6 +110,19 @@ AIRPORT_APP_JS = r"""
     if (last && last.toLowerCase() !== 'airport' && last.toLowerCase() !== 'index.html')
       return last.toUpperCase();
     return '';
+  }
+
+  // Same title format as the server-rendered /airport/<ID> page (functions/airport/[ident].js).
+  var ABBR = {RGNL:'Regional', INTL:'International', MUNI:'Municipal', ARPT:'Airport', FLD:'Field',
+              MEML:'Memorial', EXEC:'Executive', CNTY:'County', ARPK:'Airpark'};
+  var KEEP = {AFB:1, NAS:1, ARB:1, LLC:1, II:1, III:1};
+  function niceName(s){
+    return String(s || '').split(/(\s+|-|\/)/).map(function(w){
+      var u = w.toUpperCase();
+      if (ABBR[u]) return ABBR[u];
+      if (KEEP[u]) return u;
+      return w.toLowerCase().replace(/^([a-z])/, function(m){ return m.toUpperCase(); });
+    }).join('');
   }
 
   function shardKey(ident){
@@ -127,6 +152,11 @@ AIRPORT_APP_JS = r"""
     } catch(e){ notFound(root, ident); return; }
 
     var a = shard[resolved] || shard[ident];
+    // One URL per airport: /airport/<ICAO or FAA id>, served pre-rendered by the
+    // Pages Function. Rewrite legacy ?id= links in place so shares use it.
+    if (a && location.search && /[?&]id=/.test(location.search) && history.replaceState){
+      history.replaceState(null, '', '/airport/' + encodeURIComponent(a.icao || a.ident));
+    }
     if (!a){
       // Last resort: try stripping/adding a leading K.
       var alt = ident.charAt(0)==='K' ? ident.slice(1) : 'K'+ident;
@@ -153,7 +183,7 @@ AIRPORT_APP_JS = r"""
     if (isNaN(lat)) lat = null;
     if (isNaN(lon)) lon = null;
 
-    document.title = name + ' (' + ident + ') — ' + city + ', ' + state + ' — Open Checklists';
+    document.title = (a.icao || ident) + ' ' + niceName(name) + ' — ' + niceName(a.city || '') + ', ' + (a.state || '') + ': frequencies, runways, weather';
 
     var h = '';
     h += '<div style="display:flex;align-items:baseline;gap:.8rem;flex-wrap:wrap;margin-bottom:.2rem">' +
@@ -199,7 +229,7 @@ AIRPORT_APP_JS = r"""
     if (a.runways && a.runways.length){
       h += '<div class="rwy-chips">';
       a.runways.forEach(function(r){
-        if (r.id) h += '<button class="rwy-chip" onclick="oclToggleRwy(this,\'' + esc(r.id) + '\')">' + esc(r.id) + '</button>';
+        if (r.id) h += '<button class="rwy-chip" data-rwy="' + esc(r.id) + '" onclick="oclToggleRwy(this, this.dataset.rwy)">' + esc(r.id) + '</button>';
       });
       h += '</div>';
       a.runways.forEach(function(r){
@@ -212,6 +242,28 @@ AIRPORT_APP_JS = r"""
       });
     } else {
       h += '<p class="muted">No runway data on record.</p>';
+    }
+
+    // Crosswind calculator (advisory). Filled by setupXwind() after render.
+    var XW_ENDS = runwayEnds(a);
+    if (XW_ENDS.length){
+      h += '<h2>Crosswind calculator</h2><div class="live-card" id="xw">' +
+        '<p class="wx-notbrief">⚠ Advisory only — check the actual wind (ATIS/AWOS/tower) and your aircraft\'s ' +
+        'demonstrated crosswind component in the POH. Not for runway selection by itself.</p>' +
+        '<div class="xw-in">' +
+        '<label>Wind from (°)<input id="xw-dir" type="text" maxlength="3" inputmode="numeric" placeholder="e.g. 270 or VRB"></label>' +
+        '<label>Speed (kt)<input id="xw-spd" type="number" min="0" max="150" step="1" inputmode="numeric" placeholder="e.g. 12"></label>' +
+        '<label>Gust (kt)<input id="xw-gst" type="number" min="0" max="200" step="1" inputmode="numeric" placeholder="optional"></label>' +
+        '<label>Wind reference<select id="xw-ref"><option value="T">True (METAR / TAF)</option>' +
+        '<option value="M">Magnetic (ATIS / AWOS / tower)</option></select></label>' +
+        '</div><div id="xw-src" class="wx-src">Waiting for live wind… or type a wind above.</div>' +
+        '<div class="scroll"><table class="xw-t"><thead><tr><th>Runway</th><th>Heading true / mag</th>' +
+        '<th>Head / tailwind</th><th>Crosswind</th><th>Gust crosswind</th></tr></thead><tbody id="xw-body"></tbody></table></div>' +
+        '<p class="xw-note">Runway headings: the NASR true heading where the FAA publishes one; otherwise runway number × 10 ' +
+        '(a magnetic heading, ±5°) converted to true with the airport\'s magnetic variation' +
+        (a.magnetic_variation ? ' (' + esc(a.magnetic_variation) + ')' : ' (not on record, so treated as 0°)') +
+        '. METAR and TAF winds are relative to TRUE north; ATIS, AWOS broadcasts and tower winds are MAGNETIC. ' +
+        'Components are computed against true headings.</p></div>';
     }
 
     // Frequencies
@@ -253,7 +305,8 @@ AIRPORT_APP_JS = r"""
       windy = '<h3 style="margin:1rem 0 .3rem;font-size:1rem">Interactive weather map (Windy)</h3>' +
         '<div id="windy-wrap" style="margin:.3rem 0 1rem;border-radius:var(--radius);overflow:hidden;border:1px solid var(--line)">' +
         '<iframe width="100%" height="420" src="https://embed.windy.com/embed2.html?lat=' + lat + '&lon=' + lon +
-        '&zoom=9&level=surface&overlay=wind&product=ecmwf&menu=&message=true&marker=true&calendar=now&metricWind=kt&metricTemp=%C2%B0F" ' +
+        '&detailLat=' + lat + '&detailLon=' + lon +
+        '&zoom=9&level=surface&overlay=wind&product=ecmwf&menu=&message=true&marker=&calendar=now&metricWind=kt&metricTemp=%C2%B0F" ' +
         'frameborder="0" loading="lazy" title="Windy weather map"></iframe></div>';
     }
     h += '<h2>Live Data</h2>' +
@@ -276,17 +329,19 @@ AIRPORT_APP_JS = r"""
       '<dt>PIREP</dt><dd>Pilot report — turbulence, icing, or cloud tops reported by pilots actually flying nearby.</dd>' +
       '<dt>NOTAM</dt><dd>Notice to Air Missions — temporary hazards or changes (closed runways, unlit towers, TFRs).</dd></dl></details>';
 
-    // External links
-    var elat = (lat != null) ? lat : '0', elon = (lon != null) ? lon : '0';
-    h += '<h2>External Links</h2><div class="ext-links">' +
-      '<a href="https://skyvector.com/?ll=' + elat + ',' + elon + '" target="_blank" rel="noopener">📡 SkyVector</a>' +
-      '<a href="https://www.airnav.com/airports/' + encodeURIComponent(ident) + '" target="_blank" rel="noopener">📋 AirNav</a>' +
+    // Charts & external references. FAA search URLs need the current cycle id.
+    h += '<h2>Charts, diagram &amp; references</h2><div class="ext-links">' +
+      chartLinks(a).map(function(l){
+        return '<a href="' + esc(l[1]) + '" target="_blank" rel="noopener">' + esc(l[0]) + '</a>';
+      }).join('') +
       '<a href="https://notams.faa.gov/notamSearch/search" target="_blank" rel="noopener">⚠ FAA NOTAMs</a>' +
-      '<a href="https://aviationweather.gov/metar?ids=' + encodeURIComponent(ident) + '" target="_blank" rel="noopener">🌤 Wx Forecast</a></div>';
+      '<a href="https://aviationweather.gov/data/metar/?ids=' + encodeURIComponent(a.icao || ident) + '&amp;taf=1" target="_blank" rel="noopener">🌤 METAR / TAF</a></div>';
+
+    h += '<div id="ap-near"></div>';
 
     h += '<h2>Live Resources</h2><div class="ext-links">' +
-      '<a href="https://www.liveatc.net/search/?icao=' + encodeURIComponent(ident) + '" target="_blank" rel="noopener">🎧 LiveATC Audio</a>' +
-      '<a href="https://www.flightaware.com/live/airport/' + encodeURIComponent(ident) + '" target="_blank" rel="noopener">✈ FlightAware</a>' +
+      '<a href="https://www.liveatc.net/search/?icao=' + encodeURIComponent(a.icao || ident) + '" target="_blank" rel="noopener">🎧 LiveATC Audio</a>' +
+      '<a href="https://www.flightaware.com/live/airport/' + encodeURIComponent(a.icao || ident) + '" target="_blank" rel="noopener">✈ FlightAware</a>' +
       '<a href="https://weathercams.faa.gov/" target="_blank" rel="noopener">📷 FAA WxCams</a>' +
       '<a href="https://www.1800wxbrief.com/" target="_blank" rel="noopener">📋 1800wxBrief</a></div>';
 
@@ -301,6 +356,7 @@ AIRPORT_APP_JS = r"""
     window.OCL_API_BASE = API_BASE;
     window.OCL_LAT = lat;
     window.OCL_LON = lon;
+    window.OCL_MAGVAR = parseVar(a.magnetic_variation);
 
     if (lat != null && lon != null){
       initMap(lat, lon, ident, name, city, state, elevation);
@@ -308,6 +364,161 @@ AIRPORT_APP_JS = r"""
     }
     setTimeout(loadLiveData, 300);
     setupControls(a);
+    if (XW_ENDS.length) setupXwind(XW_ENDS);
+    loadNear(a);
+  }
+
+  // ---- FAA chart links ----
+  // d-TPP (plates, airport diagram) is on the 28-day AIRAC cycle; the Chart
+  // Supplement on a 56-day cycle named after the AIRAC cycle it starts in.
+  // Must match chartLinks() in functions/airport/[ident].js.
+  var DAY = 86400000;
+  function airacId(t){
+    var ref = Date.UTC(2026, 0, 22);   // AIRAC 2601
+    var start = ref + Math.floor((t - ref) / (28*DAY)) * 28*DAY;
+    var y = new Date(start).getUTCFullYear();
+    var n = Math.floor((start - Date.UTC(y, 0, 1)) / (28*DAY)) + 1;
+    return ('0' + (y % 100)).slice(-2) + ('0' + n).slice(-2);
+  }
+  function supplementCycle(t){
+    var ref = Date.UTC(2026, 8, 3);    // Chart Supplement 2609
+    return airacId(ref + Math.floor((t - ref) / (56*DAY)) * 56*DAY);
+  }
+  function chartLinks(a){
+    var id = encodeURIComponent(a.ident || ''), now = Date.now(), out = [];
+    if (a.use === 'public'){
+      out.push(['📐 Airport diagram & procedures (FAA d-TPP)', 'https://www.faa.gov/air_traffic/flight_info/aeronav/digital_products/dtpp/search/results/?cycle=' + airacId(now) + '&ident=' + id]);
+      out.push(['📖 FAA Chart Supplement', 'https://www.faa.gov/air_traffic/flight_info/aeronav/digital_products/dafd/search/results/?cycle=' + supplementCycle(now) + '&ident=' + id]);
+    }
+    out.push(['📋 AirNav', 'https://www.airnav.com/airport/' + encodeURIComponent(a.icao || a.ident || '')]);
+    out.push(['📡 SkyVector', 'https://skyvector.com/airport/' + id]);
+    return out;
+  }
+
+  // ---- Runway headings & crosswind ----
+  function parseVar(s){
+    var m = String(s || '').match(/^(\d+(?:\.\d+)?)\s*([EW])$/i);
+    return m ? (m[2].toUpperCase() === 'E' ? 1 : -1) * parseFloat(m[1]) : null;
+  }
+  function norm(h){ var x = ((Math.round(h) % 360) + 360) % 360; return x === 0 ? 360 : x; }
+  function hdg3(h){ return ('00' + h).slice(-3); }
+  var COMPASS_END = {N:360, NE:45, E:90, SE:135, S:180, SW:225, W:270, NW:315};
+  // East variation: magnetic = true − var; west: magnetic = true + var.
+  function runwayEnds(a){
+    var v = parseVar(a.magnetic_variation), out = [];
+    (a.runways || []).forEach(function(r){
+      (r.ends || []).forEach(function(e){
+        var t, m, src;
+        if (e.true_heading != null && e.true_heading !== ''){
+          t = norm(+e.true_heading); m = v != null ? norm(t - v) : null; src = 'NASR';
+        } else {
+          var id = String(e.end || '').toUpperCase();
+          var num = id.match(/^(\d{1,2})[LRCW]?$/);
+          m = num ? norm(+num[1] * 10) : (COMPASS_END[id] || null);
+          if (m == null) return;
+          t = v != null ? norm(m + v) : m; src = 'approx';
+        }
+        out.push({end: e.end, t: t, m: m, src: src, len: r.length_ft});
+      });
+    });
+    return out;
+  }
+  function setupXwind(ends){
+    var dirI = document.getElementById('xw-dir'), spdI = document.getElementById('xw-spd'),
+        gstI = document.getElementById('xw-gst'), refI = document.getElementById('xw-ref'),
+        src = document.getElementById('xw-src'), body = document.getElementById('xw-body');
+    var variation = null;
+    function calc(){
+      var raw = dirI.value.trim(), spd = parseFloat(spdI.value), gst = parseFloat(gstI.value);
+      var vrb = /^vrb$/i.test(raw), dir = parseFloat(raw);
+      if (isNaN(spd) || (!vrb && isNaN(dir))){
+        body.innerHTML = ends.map(function(e){
+          return '<tr><td>' + esc(e.end) + '</td><td>' + hdg3(e.t) + '°T / ' + (e.m != null ? hdg3(e.m) + '°M' : '—') +
+            (e.src === 'approx' ? ' <small>(approx)</small>' : '') + '</td><td colspan="3" class="muted">Enter a wind</td></tr>';
+        }).join('');
+        return;
+      }
+      // Manual magnetic wind -> true, using the airport's variation (0 if unknown).
+      var wTrue = refI.value === 'M' ? dir + (window.OCL_MAGVAR || 0) : dir;
+      var rows = ends.map(function(e){
+        if (vrb || spd === 0) return {e: e};
+        var ang = (wTrue - e.t) * Math.PI / 180;
+        return {e: e, head: spd * Math.cos(ang), cross: spd * Math.sin(ang),
+                gcross: isNaN(gst) ? null : gst * Math.sin(ang)};
+      });
+      var best = null;
+      rows.forEach(function(r){
+        if (r.head == null) return;
+        if (!best || r.head > best.head + 0.5 || (Math.abs(r.head - best.head) <= 0.5 && Math.abs(r.cross) < Math.abs(best.cross))) best = r;
+      });
+      function side(x){ return Math.round(Math.abs(x)) + ' kt' + (Math.round(Math.abs(x)) ? (x > 0 ? ' from right' : ' from left') : ''); }
+      body.innerHTML = rows.map(function(r){
+        var e = r.e;
+        var hd = hdg3(e.t) + '°T / ' + (e.m != null ? hdg3(e.m) + '°M' : '—') + (e.src === 'approx' ? ' <small>(approx)</small>' : '');
+        if (r.head == null){
+          return '<tr><td>' + esc(e.end) + '</td><td>' + hd + '</td><td colspan="3">' +
+            (spd === 0 ? 'Calm' : 'Variable — crosswind up to ' + Math.round(Math.max(spd, isNaN(gst) ? 0 : gst)) + ' kt') + '</td></tr>';
+        }
+        var hw = Math.round(r.head);
+        var hwTxt = hw >= 0 ? hw + ' kt headwind' : '<span class="xw-tail">' + (-hw) + ' kt tailwind</span>';
+        return '<tr' + (r === best ? ' class="best"' : '') + '><td>' + esc(e.end) + (r === best ? ' ★ best' : '') + '</td><td>' + hd +
+          '</td><td>' + hwTxt + '</td><td>' + side(r.cross) + '</td><td>' + (r.gcross == null ? '—' : side(r.gcross)) + '</td></tr>';
+      }).join('');
+    }
+    [dirI, spdI, gstI, refI].forEach(function(i){
+      i.addEventListener('input', function(){ if (i !== refI) src.textContent = 'Manual wind entry.'; calc(); });
+      i.addEventListener('change', calc);
+    });
+    function setWind(dir, spd, gust, label){
+      // Don't overwrite what the pilot has typed.
+      if (src.textContent === 'Manual wind entry.') return;
+      dirI.value = dir; spdI.value = spd; gstI.value = gust == null ? '' : gust; refI.value = 'T';
+      src.textContent = label; calc();
+    }
+    // METAR winds are TRUE: dddff(Gfff)KT, VRBff, 00000KT = calm.
+    window.oclXwMetar = function(metar){
+      var m = String(metar || '').match(/\b(\d{3}|VRB)(\d{2,3})(?:G(\d{2,3}))?KT\b/);
+      if (!m) return;
+      var obs = String(metar).match(/\b\d{2}(\d{4})Z\b/);
+      setWind(m[1] === 'VRB' ? 'VRB' : +m[1], +m[2], m[3] ? +m[3] : null,
+        'Wind from the METAR' + (obs ? ' observed ' + obs[1] + 'Z' : '') + ' (true north). Type to override.');
+    };
+    window.oclXwModel = function(dir, spd, gust){
+      setWind(Math.round(dir), Math.round(spd), gust ? Math.round(gust) : null,
+        'No METAR here: wind from the Open-Meteo forecast model (true north) — less reliable. Type to override.');
+    };
+    calc();
+  }
+
+  // ---- Nearest airports (build-time precomputed shard, see site_airport_near.py) ----
+  function nearKey(ident){ return (String(ident || '').toUpperCase().slice(0,2).replace(/[^A-Z0-9]/g,'_') + '__').slice(0,2); }
+  function loadNear(a){
+    var el = document.getElementById('ap-near');
+    if (!el) return;
+    fetch('/data/airports/near/' + nearKey(a.ident) + '.json').then(function(r){ return r.ok ? r.json() : {}; })
+      .then(function(d){
+        var n = d[a.ident];
+        if (!n) return;
+        function link(e){ return '<a href="/airport/' + encodeURIComponent(e[0]) + '">' + esc(e[0]) + '</a>'; }
+        var h = '';
+        if (n.n && n.n.length){
+          h += '<h2>Airports near ' + esc(a.icao || a.ident) + '</h2><div class="scroll"><table class="near-t"><thead><tr>' +
+            '<th>Id</th><th>Name</th><th>Distance / bearing</th><th>Longest rwy</th><th>Fuel</th><th>Use</th></tr></thead><tbody>' +
+            n.n.map(function(e){
+              return '<tr><td>' + link(e) + '</td><td>' + esc(niceName(e[1])) + '<br><small>' + esc(niceName(e[2])) + ', ' + esc(e[3]) +
+                '</small></td><td>' + esc(e[4]) + ' nm ' + hdg3(e[5]) + '°T</td><td>' +
+                (e[9] === 's' ? 'water' : e[6] ? Number(e[6]).toLocaleString('en-US') + ' ft' + (e[10] ? '' : ' (soft)') : '—') + '</td><td>' + esc(e[7] || '—') +
+                '</td><td>' + (e[8] === 'pu' ? 'Public' : 'Private') + '</td></tr>';
+            }).join('') + '</tbody></table></div><p class="xw-note">Great-circle distance and true bearing from ' +
+            esc(a.icao || a.ident) + '. Heliports not listed.</p>';
+        }
+        if (n.f && n.f.length) h += '<p><strong>Nearest public airports with fuel:</strong> ' + n.f.map(function(e){
+          return link(e) + ' ' + esc(e[4]) + ' nm (' + esc(e[7]) + ')'; }).join(', ') + '</p>';
+        if (n.l && n.l.length) h += '<p><strong>Nearest public airports with a runway of 3,000 ft or more:</strong> ' + n.l.map(function(e){
+          return link(e) + ' ' + esc(e[4]) + ' nm (' + Number(e[6]).toLocaleString('en-US') + ' ft)'; }).join(', ') + '</p>';
+        if (n.cp) h += '<p><a href="/airports-near/' + encodeURIComponent(n.cp[0]) + '/">All airports near ' + esc(n.cp[1]) + ' →</a></p>';
+        el.innerHTML = h;
+      }).catch(function(){});
   }
 
   // Aircraft type tailors which data matters. Stored per-browser.
@@ -359,19 +570,26 @@ AIRPORT_APP_JS = r"""
 
   // Generate the PDF (as above) and email it as an attachment via the worker.
   function oclEmailAirportPdf(a, btn){
+    var tok = sessionStorage.getItem('ocl:token');
+    if (!tok){
+      if (confirm('Emailing a PDF needs a free account. Sign in now? (You can still use "Save PDF" without one.)')){
+        sessionStorage.setItem('ocl:return', location.pathname + location.search);
+        location.href = '/profile.html';
+      }
+      return;
+    }
     var doc = buildAirportPdf(a);
     if (!doc) return;
-    var to = prompt('Email the ' + (a.ident||'airport') + ' PDF to:');
-    if (!to) return;
-    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(to)){ alert('That does not look like a valid email address.'); return; }
+    // The API sends only to the signed-in account's verified email; no address is typed.
+    if (!confirm('Email this PDF to the address on your account?')) return;
     var b64 = doc.output('datauristring').split(',')[1];
     var orig = btn.textContent; btn.textContent = 'Sending…'; btn.disabled = true;
     fetch('https://app.openchecklists.net/api/airport/email-pdf', {
-      method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({ email: to, ident: a.ident||'', name: a.name||'', pdf_base64: b64 })
-    }).then(function(r){ return r.json(); }).then(function(d){
+      method:'POST', headers:{'Content-Type':'application/json', 'Authorization':'Bearer ' + tok},
+      body: JSON.stringify({ ident: a.ident||'', name: a.name||'', pdf_base64: b64 })
+    }).then(function(r){ return r.json().catch(function(){ return {error: 'HTTP ' + r.status}; }); }).then(function(d){
       btn.disabled = false;
-      if (d.ok){ btn.textContent = '✓ Sent'; setTimeout(function(){ btn.textContent = orig; }, 3000); }
+      if (d.ok){ btn.textContent = '✓ Sent to ' + (d.to || 'your account email'); setTimeout(function(){ btn.textContent = orig; }, 5000); }
       else { btn.textContent = orig; alert('Could not send: ' + (d.error || 'unknown error')); }
     }).catch(function(){ btn.disabled = false; btn.textContent = orig; alert('Could not reach the mail service.'); });
   }
@@ -559,6 +777,7 @@ AIRPORT_APP_JS = r"""
         (taf ? '<details style="margin:.3rem 0"><summary style="cursor:pointer;font-size:.88rem;font-weight:600">TAF</summary><p style="margin:.3rem 0"><code style="font-size:.8rem;white-space:pre-wrap">' + esc(taf) + '</code></p></details>' : '') +
         NOT_BRIEF +
         windyBtn();
+      if (metar && window.oclXwMetar) window.oclXwMetar(metar);
     }
     var WMO = {0:'Clear sky',1:'Mainly clear',2:'Partly cloudy',3:'Overcast',45:'Fog',48:'Freezing fog',
       51:'Light drizzle',53:'Drizzle',55:'Heavy drizzle',61:'Light rain',63:'Rain',65:'Heavy rain',
@@ -579,6 +798,7 @@ AIRPORT_APP_JS = r"""
         '<p class="muted" style="font-size:.75rem;margin:.1rem 0">Forecast model only — not a certified METAR. <a href="https://aviationweather.gov/metar?ids=' + encodeURIComponent(ident) + '" target="_blank" rel="noopener">Check nearest METAR ↗</a></p>' +
         NOT_BRIEF +
         windyBtn();
+      if (window.oclXwModel && c.wind_speed_10m != null) window.oclXwModel(wdir, c.wind_speed_10m, c.wind_gusts_10m);
     }
     function fToday(){ return new Date().toISOString().slice(0,10); }
     function renderForecast(el, d, dateStr){

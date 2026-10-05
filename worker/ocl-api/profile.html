@@ -87,12 +87,33 @@ footer a{color:var(--muted)}
 .lb-table .rt{font-family:ui-monospace,Menlo,monospace}
 .lb-del{background:none;border:0;color:#b3261e;cursor:pointer;font-size:1rem;line-height:1}
 .lb-form{display:flex;flex-wrap:wrap;gap:.6rem;align-items:flex-end;margin-top:.6rem}
-.lb-add summary{cursor:pointer;font-weight:600;color:var(--accent,#1f4e79)}
+.lb-add summary,.set-add summary{cursor:pointer;font-weight:600;color:var(--accent,#1f4e79)}
 .ins-card{display:flex;flex-wrap:wrap;gap:.6rem 1rem;align-items:center;justify-content:space-between;
   background:#eef4fb;border:1px solid #c5d8ee;border-radius:12px;padding:.85rem 1.1rem;margin:1.2rem 0}
 .ins-card strong{display:block;font-size:.92rem;color:#1f4e79}
 .ins-card span{font-size:.78rem;color:#48607a}
 .ins-card .btn{white-space:nowrap}
+/* Currency tracker */
+.cur-grid{display:grid;gap:.6rem;grid-template-columns:1fr}
+@media(min-width:600px){.cur-grid{grid-template-columns:1fr 1fr}}
+.cur{border:1px solid var(--line);border-left:6px solid #9aa3b2;border-radius:12px;padding:.7rem .9rem;background:#fff}
+.cur.green{border-left-color:#186a2b}.cur.amber{border-left-color:#c77700}.cur.red{border-left-color:#b3261e}
+.cur h3{font-size:.9rem;font-weight:700;display:flex;justify-content:space-between;gap:.5rem;align-items:baseline}
+.cur .st{font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.04em;border-radius:var(--pill);padding:.15rem .55rem;white-space:nowrap;background:#eef0f4;color:#586274}
+.cur.green .st{background:var(--ok-weak);color:var(--ok)}.cur.amber .st{background:#fff3e0;color:#8a5200}.cur.red .st{background:var(--warn-weak);color:var(--warn)}
+.cur .d{font-size:.82rem;color:var(--fg);margin-top:.2rem}
+.cur .c{font-size:.72rem;color:var(--muted);margin-top:.25rem}
+.advisory{background:#fbf3e0;border:1px solid #e6d9b0;color:#6b4e00;border-radius:10px;padding:.55rem .8rem;font-size:.8rem;margin:.4rem 0 .7rem}
+.set-form{display:flex;flex-wrap:wrap;gap:.6rem;align-items:flex-end;margin-top:.6rem}
+.set-form label,.lb-form label,.dg-row label{font-size:.78rem;font-weight:600;color:var(--muted);display:block;margin-bottom:.2rem}
+.set-form select,.dg-row select,.lb-form input,.set-form input{font:inherit;padding:.5rem .6rem;border:1.5px solid var(--line);border-radius:10px;background:#fff;color:var(--fg);width:100%}
+.lb-fr{display:flex;align-items:center;gap:.4rem;font-size:.82rem;padding-bottom:.55rem}
+.lb-export{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;margin:.6rem 0}
+.lb-export select{font:inherit;font-size:.8rem;padding:.35rem .5rem;border:1.5px solid var(--line);border-radius:10px;max-width:100%}
+.dg-row{display:flex;flex-wrap:wrap;gap:.6rem;align-items:flex-end;margin:.6rem 0}
+.dg-row .fg{min-width:150px}
+#dg-preview{width:100%;height:520px;border:1px solid var(--line);border-radius:10px;margin-top:.6rem;display:none;background:#fff}
+@media print{header,footer,.share-bar,.btn,.lb-add,.set-add,.ins-card{display:none!important}}
 </style>
 </head>
 <body>
@@ -177,6 +198,33 @@ footer a{color:var(--muted)}
       <button class="btn primary" onclick="addAirport()">Add</button>
     </div>
 
+    <!-- Currency tracker (advisory) -->
+    <h2>Currency tracker</h2>
+    <div class="advisory"><strong>Advisory only &mdash; verify against your logbook and the regulations.</strong>
+      Computed from the flights and dates you entered here; category/class/type, tailwheel and other requirements are not checked.</div>
+    <div id="cur-list" class="cur-grid"></div>
+    <details class="set-add" style="margin-top:.8rem" id="pilot-set">
+      <summary>Flight review &amp; medical dates</summary>
+      <div class="set-form">
+        <div class="fg" style="flex:0 0 170px"><label for="ps-fr">Last flight review</label><input type="date" id="ps-fr"></div>
+        <div class="fg" style="flex:1 1 220px"><label for="ps-med">Medical</label>
+          <select id="ps-med" onchange="medFormVis()">
+            <option value="">Not tracked</option>
+            <option value="first">First class</option>
+            <option value="second">Second class</option>
+            <option value="third">Third class</option>
+            <option value="basicmed">BasicMed</option>
+            <option value="none">None &mdash; sport pilot / driver&rsquo;s license</option>
+          </select></div>
+        <div class="fg med-f" style="flex:0 0 170px"><label for="ps-exam" id="ps-exam-l">Exam date</label><input type="date" id="ps-exam"></div>
+        <div class="fg med-c" style="flex:0 0 110px"><label for="ps-age">Age at exam</label><input type="number" id="ps-age" min="14" max="110" step="1" placeholder="45"></div>
+        <div class="fg med-c" style="flex:0 0 190px"><label for="ps-priv">Privileges I exercise</label>
+          <select id="ps-priv"><option value="private">Private / recreational / student / CFI</option><option value="commercial">Commercial</option><option value="atp">ATP (PIC)</option></select></div>
+        <div class="fg med-b" style="flex:0 0 190px"><label for="ps-course">BasicMed course completed</label><input type="date" id="ps-course"></div>
+        <button class="btn primary" onclick="savePilotSettings()">Save</button>
+      </div>
+    </details>
+
     <!-- Flight logbook -->
     <h2>My logbook</h2>
     <p class="meta" style="color:var(--muted);font-size:.82rem;margin-bottom:.6rem">
@@ -185,6 +233,25 @@ footer a{color:var(--muted)}
     <div id="lb-totals" class="lb-totals"></div>
     <div style="margin:.6rem 0 .3rem">
       <button class="btn" onclick="importLogbook(this)">↓ Import from my saved plans</button>
+    </div>
+    <div class="lb-export">
+      <span style="font-size:.82rem;font-weight:600;color:var(--muted)">Export:</span>
+      <button class="btn" onclick="exportCsv()">CSV</button>
+      <button class="btn" onclick="exportForeFlight()">ForeFlight CSV</button>
+      <button class="btn" onclick="exportPdf(this)">Printable PDF</button>
+      <label for="ff-cc" style="font-size:.75rem;color:var(--muted)">ForeFlight category/class:</label>
+      <select id="ff-cc" title="Applied to every aircraft in the ForeFlight file">
+        <option value="">(set later in ForeFlight)</option>
+        <option value="airplane_single_engine_land">Airplane SEL</option>
+        <option value="airplane_multi_engine_land">Airplane MEL</option>
+        <option value="airplane_single_engine_sea">Airplane SES</option>
+        <option value="airplane_multi_engine_sea">Airplane MES</option>
+        <option value="rotorcraft_helicopter">Rotorcraft helicopter</option>
+        <option value="rotorcraft_gyroplane">Rotorcraft gyroplane</option>
+        <option value="glider">Glider</option>
+        <option value="powered_parachute_land">Powered parachute land</option>
+        <option value="weight_shift_control_land">Weight-shift-control land</option>
+      </select>
     </div>
     <div id="logbook-list"></div>
     <details class="lb-add" style="margin-top:.8rem">
@@ -197,10 +264,28 @@ footer a{color:var(--muted)}
         <div class="fg" style="flex:0 0 90px"><label>Total (hr)</label><input type="number" id="lb-total" step="0.1" min="0" placeholder="1.4"></div>
         <div class="fg" style="flex:0 0 90px"><label>PIC (hr)</label><input type="number" id="lb-pic" step="0.1" min="0" placeholder="1.4"></div>
         <div class="fg" style="flex:0 0 80px"><label>Ldg</label><input type="number" id="lb-ldg" step="1" min="0" placeholder="1"></div>
+        <div class="fg" style="flex:0 0 110px"><label for="lb-dldg">Day full-stop</label><input type="number" id="lb-dldg" step="1" min="0" placeholder="0"></div>
+        <div class="fg" style="flex:0 0 110px"><label for="lb-nldg">Night full-stop</label><input type="number" id="lb-nldg" step="1" min="0" placeholder="0"></div>
+        <div class="fg" style="flex:0 0 90px"><label for="lb-night">Night (hr)</label><input type="number" id="lb-night" step="0.1" min="0" placeholder="0.0"></div>
+        <div class="fg" style="flex:0 0 90px"><label for="lb-appr">Approaches</label><input type="number" id="lb-appr" step="1" min="0" placeholder="0"></div>
+        <label class="lb-fr"><input type="checkbox" id="lb-fr"> Flight review (61.56)</label>
         <div class="fg" style="flex:1 1 100%"><label>Remarks</label><input type="text" id="lb-remarks" placeholder="Pattern work, 3 landings…" maxlength="500"></div>
         <button class="btn primary" onclick="addLogbookEntry()">Save flight</button>
       </div>
     </details>
+
+    <!-- Morning weather digest (opt-in) -->
+    <h2>Morning weather email</h2>
+    <label class="tag-toggle"><input type="checkbox" id="dg-on" onchange="saveDigest(true)">
+      Email me a morning weather summary for my favorite airports</label>
+    <div class="dg-row">
+      <div class="fg" style="flex:0 0 140px"><label for="dg-hour">Send at (local)</label><select id="dg-hour" onchange="saveDigest()"></select></div>
+      <div class="fg" style="flex:1 1 220px"><label for="dg-tz">Time zone</label><select id="dg-tz" onchange="saveDigest()"></select></div>
+      <button class="btn" onclick="previewDigest(this)">Preview</button>
+    </div>
+    <p class="meta" id="dg-note" style="color:var(--muted);font-size:.8rem">METAR, TAF, flight category and nearby TFRs for up to 5 favorite airports, once a day.
+      Not an official briefing. Every email has a one-click unsubscribe link.</p>
+    <iframe id="dg-preview" sandbox="" title="Digest preview"></iframe>
 
     <!-- Per-flight insurance leadgen (external, third-party) -->
     <div class="ins-card">
@@ -263,7 +348,7 @@ async function signIn() {
   var state = randomStr(24);
   sessionStorage.setItem('ocl:cv', cv);
   sessionStorage.setItem('ocl:state', state);
-  sessionStorage.setItem('ocl:return', location.href);
+  if (!sessionStorage.getItem('ocl:return')) sessionStorage.setItem('ocl:return', location.href);
   var url = ISSUER + '/oauth/v2/authorize?' + new URLSearchParams({
     response_type: 'code', client_id: CLIENT_ID,
     redirect_uri:  location.origin + '/auth/callback.html',
@@ -351,26 +436,34 @@ async function loadProfile() {
     // Load sub-sections
     loadAircraft();
     loadAirports();
-    loadLogbook();
+    loadPilot().then(loadLogbook);
     loadLogs();
   } catch(e) { console.error(e); }
 }
 
 // ---- Flight logbook ----
 function fmtHr(v){ return (Math.round((v||0)*10)/10).toFixed(1); }
-function escLb(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function escLb(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
+// A JS string literal that is safe inside a double-quoted HTML attribute.
+function jsArg(s){ return escLb(JSON.stringify(String(s==null?'':s))); }
+var LB = { entries: [], totals: {} };
+var PILOT = {};
 async function loadLogbook() {
-  var d = await apiReq('/me/logbook');
+  var d = await apiReq('/me/logbook/full');
   var entries = (d && d.entries) || [], t = (d && d.totals) || {};
+  LB = { entries: entries, totals: t };
+  renderCurrency();
   document.getElementById('lb-totals').innerHTML =
-    '<div class="lb-stat"><div class="n">'+(t.flights||0)+'</div><div class="l">Flights</div></div>'+
+    '<div class="lb-stat"><div class="n">'+(+t.flights||0)+'</div><div class="l">Flights</div></div>'+
     '<div class="lb-stat"><div class="n">'+fmtHr(t.total_time)+'</div><div class="l">Total hrs</div></div>'+
     '<div class="lb-stat"><div class="n">'+fmtHr(t.pic_time)+'</div><div class="l">PIC hrs</div></div>'+
-    '<div class="lb-stat"><div class="n">'+(t.landings||0)+'</div><div class="l">Landings</div></div>';
+    '<div class="lb-stat"><div class="n">'+fmtHr(t.night_time)+'</div><div class="l">Night hrs</div></div>'+
+    '<div class="lb-stat"><div class="n">'+(+t.landings||0)+'</div><div class="l">Landings</div></div>'+
+    '<div class="lb-stat"><div class="n">'+(+t.night_landings||0)+'</div><div class="l">Night ldg</div></div>';
   var el = document.getElementById('logbook-list');
   if (!entries.length) { el.innerHTML='<p class="empty">No flights logged yet. Import from your saved plans, or add one below.</p>'; return; }
   el.innerHTML = '<div style="overflow-x:auto"><table class="lb-table"><thead><tr>'+
-    '<th>Date</th><th>Route</th><th>Aircraft</th><th>Total</th><th>PIC</th><th>Ldg</th><th>Remarks</th><th></th></tr></thead><tbody>'+
+    '<th>Date</th><th>Route</th><th>Aircraft</th><th>Total</th><th>PIC</th><th>Night</th><th>Ldg</th><th>Night ldg</th><th>Appr</th><th>Remarks</th><th></th></tr></thead><tbody>'+
     entries.map(function(e){
       var route = e.route ? e.route : [e.dep,e.arr].filter(Boolean).join(' → ');
       return '<tr><td>'+escLb(e.flight_date||'')+'</td>'+
@@ -378,9 +471,12 @@ async function loadLogbook() {
         '<td>'+escLb(e.aircraft||'')+'</td>'+
         '<td class="n">'+fmtHr(e.total_time)+'</td>'+
         '<td class="n">'+fmtHr(e.pic_time)+'</td>'+
-        '<td class="n">'+(e.landings||0)+'</td>'+
-        '<td>'+escLb(e.remarks||'')+'</td>'+
-        '<td><button class="lb-del" title="Delete" onclick="deleteLogbookEntry(\''+escLb(e.id)+'\')">✕</button></td></tr>';
+        '<td class="n">'+fmtHr(e.night_time)+'</td>'+
+        '<td class="n">'+(+e.landings||0)+'</td>'+
+        '<td class="n">'+(+e.night_landings||0)+'</td>'+
+        '<td class="n">'+(+e.approaches||0)+'</td>'+
+        '<td>'+(e.flight_review?'<span class="badge-pill">Flight review</span> ':'')+escLb(e.remarks||'')+'</td>'+
+        '<td><button class="lb-del" title="Delete" onclick="deleteLogbookEntry('+jsArg(e.id)+')">✕</button></td></tr>';
     }).join('')+'</tbody></table></div>';
 }
 async function importLogbook(btn) {
@@ -397,9 +493,335 @@ async function addLogbookEntry() {
   var body = { flight_date:g('lb-date'), dep:g('lb-dep'), arr:g('lb-arr'), aircraft:g('lb-ac'),
     total_time:g('lb-total'), pic_time:g('lb-pic'), landings:g('lb-ldg'), remarks:g('lb-remarks') };
   if (!body.flight_date) { toast('Pick a date'); return; }
-  await apiReq('/me/logbook', {method:'POST', body:JSON.stringify(body)});
-  ['lb-dep','lb-arr','lb-ac','lb-total','lb-pic','lb-ldg','lb-remarks'].forEach(function(id){ document.getElementById(id).value=''; });
+  var extra = { day_landings:g('lb-dldg'), night_landings:g('lb-nldg'), night_time:g('lb-night'),
+    approaches:g('lb-appr'), flight_review:document.getElementById('lb-fr').checked };
+  // Total landings must cover the full-stops entered separately.
+  var fs = (parseInt(extra.day_landings,10)||0) + (parseInt(extra.night_landings,10)||0);
+  if ((parseInt(body.landings,10)||0) < fs) body.landings = fs;
+  try {
+    var r = await apiReq('/me/logbook', {method:'POST', body:JSON.stringify(body)});
+    if (!r || !r.id) throw new Error((r && r.error) || 'save failed');
+    var hasExtra = fs || parseFloat(extra.night_time) || parseInt(extra.approaches,10) || extra.flight_review;
+    if (hasExtra) {
+      var x = await apiReq('/me/logbook/extra/'+encodeURIComponent(r.id), {method:'PUT', body:JSON.stringify(extra)});
+      if (!x || !x.ok) throw new Error((x && x.error) || 'save failed');
+    }
+  } catch(e) { toast('Could not save flight'); return; }
+  ['lb-dep','lb-arr','lb-ac','lb-total','lb-pic','lb-ldg','lb-remarks','lb-dldg','lb-nldg','lb-night','lb-appr'].forEach(function(id){ document.getElementById(id).value=''; });
+  document.getElementById('lb-fr').checked = false;
   toast('Flight logged'); loadLogbook();
+}
+
+// ---- Currency (advisory; 14 CFR 61.56, 61.57, 61.23, 61.113(i)) ----
+var DAY = 864e5;
+function parseD(s){ return (s && /^\d{4}-\d{2}-\d{2}$/.test(s)) ? new Date(s+'T00:00:00Z') : null; }
+function todayD(){ var n=new Date(); return new Date(Date.UTC(n.getFullYear(), n.getMonth(), n.getDate())); }
+function fmtD(d){ return d.toLocaleDateString('en-US',{timeZone:'UTC',year:'numeric',month:'short',day:'numeric'}); }
+// "N calendar months": valid through the last day of the Nth month after the month of d.
+function endCalMonths(d,n){ return new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth()+n+1, 0)); }
+// Same day N months later (clamped to month end), for BasicMed's "48 months".
+function addMonths(d,n){
+  var last = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth()+n+1, 0)).getUTCDate();
+  return new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth()+n, Math.min(d.getUTCDate(), last)));
+}
+function curItem(title, exp, detail, cite, amberDays) {
+  var cls='', st='Not tracked';
+  if (exp) {
+    var left = Math.round((exp - todayD())/DAY);
+    if (left < 0) { cls='red'; st='Expired'; }
+    else { cls = left <= amberDays ? 'amber' : 'green'; st = left+' day'+(left===1?'':'s')+' left'; }
+  }
+  return {cls:cls, st:st, title:title, detail:detail, cite:cite};
+}
+// Expiry of a "3 in the preceding 90 days" requirement: 90 days after the
+// date on which the 3rd-most-recent qualifying landing was made.
+function ninetyDay(countFn) {
+  var es = LB.entries.filter(function(e){ return parseD(e.flight_date) && countFn(e) > 0; })
+    .sort(function(a,b){ return a.flight_date < b.flight_date ? 1 : -1; });
+  var cum = 0, total = 0;
+  es.forEach(function(e){ total += countFn(e); });
+  for (var i=0;i<es.length;i++) {
+    cum += countFn(es[i]);
+    if (cum >= 3) return {exp: new Date(parseD(es[i].flight_date).getTime() + 90*DAY), third: es[i].flight_date, total: total};
+  }
+  return {exp:null, total: total};
+}
+function medicalItem(p) {
+  var kind = p.medical_kind, exam = parseD(p.medical_exam_date), age = p.medical_age_at_exam;
+  var t = 'Medical';
+  if (!kind) return curItem(t, null, 'Add your medical below to track it.', '14 CFR 61.23', 30);
+  if (kind === 'none') return {cls:'', st:'None', title:t, detail:'No medical tracked. Sport pilots may instead use a valid U.S. driver’s license if their most recent medical application was not denied, suspended or revoked.', cite:'14 CFR 61.23(c)'};
+  if (kind === 'basicmed') {
+    var course = parseD(p.basicmed_course_date);
+    if (!exam && !course) return curItem('BasicMed', null, 'Enter your comprehensive medical exam (CMEC) and course dates.', '14 CFR 61.113(i), Part 68', 30);
+    var eExp = exam ? endCalMonths(exam, 48) : null, cExp = course ? endCalMonths(course, 24) : null;
+    var exp = (eExp && cExp) ? (eExp < cExp ? eExp : cExp) : null;
+    var det = [];
+    det.push('Physician exam (every 48 months): ' + (eExp ? 'through '+fmtD(eExp) : 'date not entered'));
+    det.push('Online course (every 24 calendar months): ' + (cExp ? 'through '+fmtD(cExp) : 'date not entered'));
+    var it = curItem('BasicMed', exp, det.join(' · '), '14 CFR 61.113(i), Part 68', 30);
+    if (!exp) { it.cls='red'; it.st='Incomplete'; }
+    return it;
+  }
+  var names = {first:'First class', second:'Second class', third:'Third class'};
+  if (!exam || age == null) return curItem(names[kind]+' medical', null, 'Enter exam date and your age at the exam.', '14 CFR 61.23(d)', 30);
+  var u40 = age < 40;   // "has not reached age 40 on or before the date of the examination"
+  var third = endCalMonths(exam, u40 ? 60 : 24);
+  var rows = [], byPriv = {private: third, commercial: null, atp: null};
+  if (kind === 'first') {
+    byPriv.atp = endCalMonths(exam, u40 ? 12 : 6);
+    byPriv.commercial = endCalMonths(exam, 12);
+    rows.push('1st-class (ATP) privileges through '+fmtD(byPriv.atp));
+  }
+  if (kind === 'first' || kind === 'second') {
+    byPriv.commercial = endCalMonths(exam, 12);
+    rows.push('2nd-class (commercial) privileges through '+fmtD(byPriv.commercial));
+  }
+  rows.push('3rd-class (private) privileges through '+fmtD(third));
+  var priv = p.medical_privileges || 'private';
+  var it2 = curItem(names[kind]+' medical', byPriv[priv], rows.join(' · ') + ' (exam '+fmtD(exam)+', age '+age+' at exam).', '14 CFR 61.23(d)(' + ({first:1,second:2,third:3})[kind] + ')', 30);
+  if (!byPriv[priv]) { it2.cls='red'; it2.st='Class too low'; it2.detail = 'A '+names[kind].toLowerCase()+' medical does not cover '+(priv==='atp'?'ATP':'commercial')+' privileges. '+it2.detail; }
+  return it2;
+}
+function renderCurrency() {
+  var el = document.getElementById('cur-list');
+  if (!el) return;
+  var items = [];
+  var dayLdg = function(e){ return Math.max(+e.landings||0, (+e.day_landings||0)+(+e.night_landings||0)); };
+  var d = ninetyDay(dayLdg);
+  items.push(curItem('Passenger currency — day', d.exp,
+    d.exp ? 'Third-most-recent landing on '+fmtD(parseD(d.third))+'; current through '+fmtD(d.exp)+'.'
+          : 'Not current: '+d.total+' of 3 takeoffs and landings logged.',
+    '14 CFR 61.57(a) · 3 takeoffs & landings in the preceding 90 days (tailwheel: to a full stop)', 14));
+  if (!d.exp) { items[0].cls='red'; items[0].st='Not current'; }
+  var n = ninetyDay(function(e){ return +e.night_landings||0; });
+  var ni = curItem('Passenger currency — night', n.exp,
+    n.exp ? 'Third-most-recent night full-stop landing on '+fmtD(parseD(n.third))+'; current through '+fmtD(n.exp)+'.'
+          : 'Not current: '+n.total+' of 3 night full-stop landings logged.',
+    '14 CFR 61.57(b) · 3 takeoffs & full-stop landings, 1 hr after sunset to 1 hr before sunrise, preceding 90 days', 14);
+  if (!n.exp) { ni.cls='red'; ni.st='Not current'; }
+  items.push(ni);
+  // Flight review: latest of the manual date and any logbook entry ticked as a review.
+  var fr = parseD(PILOT.flight_review_date), frSrc = 'entered date';
+  LB.entries.forEach(function(e){ var x = e.flight_review && parseD(e.flight_date); if (x && (!fr || x > fr)) { fr = x; frSrc = 'logbook entry'; } });
+  var fri = curItem('Flight review', fr ? endCalMonths(fr, 24) : null,
+    fr ? 'Last review '+fmtD(fr)+' ('+frSrc+'); valid through '+fmtD(endCalMonths(fr,24))+'. A practical test or a WINGS phase can also count — enter its date below.'
+       : 'Enter your last flight review date below, or tick "Flight review" on a logbook entry.',
+    '14 CFR 61.56(c) · within the preceding 24 calendar months', 30);
+  if (!fr) { fri.cls='red'; fri.st='Unknown'; }
+  items.push(fri);
+  items.push(medicalItem(PILOT));
+  // Instrument approaches are informational only: holds and tracking aren't logged here.
+  var since = new Date(Date.UTC(todayD().getUTCFullYear(), todayD().getUTCMonth()-5, 1));
+  var appr = 0; LB.entries.forEach(function(e){ var x=parseD(e.flight_date); if (x && x >= since) appr += (+e.approaches||0); });
+  if (appr || LB.entries.some(function(e){ return +e.approaches; })) {
+    items.push({cls:'', st:appr+' of 6', title:'Instrument approaches', detail: appr+' approach'+(appr===1?'':'es')+' logged since '+fmtD(since)+'. Holding and intercepting/tracking courses are not tracked here.', cite:'14 CFR 61.57(c) · 6 calendar months'});
+  }
+  el.innerHTML = items.map(function(i){
+    return '<div class="cur '+escLb(i.cls)+'"><h3><span>'+escLb(i.title)+'</span><span class="st">'+escLb(i.st)+'</span></h3>'+
+      '<div class="d">'+escLb(i.detail)+'</div><div class="c">'+escLb(i.cite)+'</div></div>';
+  }).join('');
+}
+
+// ---- Pilot settings + digest ----
+function medFormVis() {
+  var k = document.getElementById('ps-med').value;
+  var show = function(cls, on){ document.querySelectorAll(cls).forEach(function(n){ n.style.display = on ? '' : 'none'; }); };
+  show('.med-f', k && k !== 'none');
+  show('.med-c', k === 'first' || k === 'second' || k === 'third');
+  show('.med-b', k === 'basicmed');
+  document.getElementById('ps-exam-l').textContent = k === 'basicmed' ? 'Physician exam (CMEC)' : 'Exam date';
+}
+async function loadPilot() {
+  try {
+    var p = await apiReq('/me/pilot');
+    if (p && !p.error) PILOT = p;
+  } catch(e) {}
+  var v = function(id, val){ document.getElementById(id).value = val == null ? '' : val; };
+  v('ps-fr', PILOT.flight_review_date); v('ps-med', PILOT.medical_kind); v('ps-exam', PILOT.medical_exam_date);
+  v('ps-age', PILOT.medical_age_at_exam); v('ps-priv', PILOT.medical_privileges || 'private'); v('ps-course', PILOT.basicmed_course_date);
+  medFormVis();
+  var hs = document.getElementById('dg-hour');
+  if (!hs.options.length) for (var h=0; h<24; h++) {
+    var o = document.createElement('option'); o.value = h;
+    o.textContent = ((h%12)||12) + ':00 ' + (h<12?'AM':'PM'); hs.appendChild(o);
+  }
+  hs.value = PILOT.digest_hour == null ? 6 : PILOT.digest_hour;
+  var tzSel = document.getElementById('dg-tz');
+  var browserTz = ''; try { browserTz = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch(e) {}
+  var zones = [];
+  try { zones = Intl.supportedValuesOf('timeZone'); } catch(e) {}
+  if (!zones.length) zones = ['America/New_York','America/Chicago','America/Denver','America/Phoenix','America/Los_Angeles','America/Anchorage','Pacific/Honolulu','UTC'];
+  [PILOT.digest_tz, browserTz].forEach(function(z){ if (z && zones.indexOf(z) < 0) zones.unshift(z); });
+  if (!tzSel.options.length) zones.forEach(function(z){ var o=document.createElement('option'); o.value=z; o.textContent=z.replace(/_/g,' '); tzSel.appendChild(o); });
+  tzSel.value = PILOT.digest_tz || browserTz || 'America/Chicago';
+  document.getElementById('dg-on').checked = !!PILOT.digest_enabled;
+  renderCurrency();
+}
+async function savePilotSettings() {
+  var g = function(id){ return document.getElementById(id).value; };
+  var body = { flight_review_date:g('ps-fr')||null, medical_kind:g('ps-med')||null, medical_exam_date:g('ps-exam')||null,
+    medical_age_at_exam:g('ps-age')||null, medical_privileges:g('ps-priv'), basicmed_course_date:g('ps-course')||null };
+  var r = await apiReq('/me/pilot', {method:'PUT', body:JSON.stringify(body)}).catch(function(){ return null; });
+  if (!r || r.error) { toast((r && r.error) || 'Could not save'); return; }
+  toast('Saved'); await loadPilot();
+}
+async function saveDigest(fromToggle) {
+  var on = document.getElementById('dg-on');
+  var body = { digest_enabled: on.checked, digest_hour: parseInt(document.getElementById('dg-hour').value,10), digest_tz: document.getElementById('dg-tz').value };
+  var r = await apiReq('/me/pilot', {method:'PUT', body:JSON.stringify(body)}).catch(function(){ return null; });
+  if (!r || r.error) { if (fromToggle) on.checked = !on.checked; toast((r && r.error) || 'Could not save'); return; }
+  PILOT.digest_enabled = r.digest_enabled;
+  toast(r.digest_enabled ? ('Morning summary on — sent to ' + (r.email || 'your email')) : (fromToggle ? 'Morning summary off' : 'Saved'));
+}
+async function previewDigest(btn) {
+  btn.disabled = true;
+  try {
+    var r = await apiReq('/me/pilot/digest-preview');
+    if (!r || r.error) { toast((r && r.error) || 'Preview unavailable'); return; }
+    var f = document.getElementById('dg-preview');
+    f.srcdoc = r.html; f.style.display = 'block';
+  } catch(e) { toast('Preview unavailable'); }
+  finally { btn.disabled = false; }
+}
+
+// ---- Logbook export (client-side, from /me/logbook/full) ----
+function download(name, text, type) {
+  var url = URL.createObjectURL(new Blob([text], {type: type}));
+  var a = document.createElement('a'); a.href = url; a.download = name;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(function(){ URL.revokeObjectURL(url); }, 4000);
+}
+// CSV cell; text cells get a leading ' if they could be read as a spreadsheet formula.
+function csvCell(v, isText) {
+  var s = v == null ? '' : String(v);
+  if (isText && /^[=+\-@\t\r]/.test(s)) s = "'" + s;
+  return /[",\r\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
+}
+function csvRow(cells, textMask) { return cells.map(function(c,i){ return csvCell(c, textMask ? textMask[i] : true); }).join(','); }
+function stamp() { return new Date().toISOString().slice(0,10); }
+async function freshEntries() {
+  await loadLogbook();
+  if (!LB.entries.length) { toast('No flights to export'); return null; }
+  return LB.entries.slice().sort(function(a,b){ return (a.flight_date||'') < (b.flight_date||'') ? -1 : 1; });
+}
+async function exportCsv() {
+  var es = await freshEntries(); if (!es) return;
+  var head = ['Date','From','To','Route','Aircraft','TotalTime','PIC','NightTime','Landings','DayFullStopLandings','NightFullStopLandings','Approaches','FlightReview','Remarks','Source'];
+  var mask = [true,true,true,true,true,false,false,false,false,false,false,false,true,true,true];
+  var lines = [csvRow(head)].concat(es.map(function(e){
+    return csvRow([e.flight_date, e.dep, e.arr, e.route, e.aircraft, fmtHr(e.total_time), fmtHr(e.pic_time), fmtHr(e.night_time),
+      +e.landings||0, +e.day_landings||0, +e.night_landings||0, +e.approaches||0, e.flight_review?'yes':'', e.remarks, e.source], mask);
+  }));
+  download('openchecklists-logbook-'+stamp()+'.csv', lines.join('\r\n')+'\r\n', 'text/csv');
+}
+// ForeFlight logbook import template: two marker rows, an Aircraft Table and a
+// Flights Table (69 columns), each with a type row followed by a header row.
+var FF_FLIGHT_TYPES = 'Date,Text,Text,Text,Text,HH:MM,HH:MM,HH:MM,HH:MM,HH:MM,HH:MM,Decimal or HH:MM,Decimal or HH:MM,Decimal or HH:MM,Decimal or HH:MM,Decimal or HH:MM,Decimal or HH:MM,Decimal or HH:MM,Decimal or HH:MM,Decimal or HH:MM,Decimal or HH:MM,Decimal or HH:MM,Number,Decimal,Number,Number,Number,Number,Number,Number,Decimal or HH:MM,Decimal or HH:MM,Decimal or HH:MM,Decimal or HH:MM,Decimal,Decimal,Decimal,Decimal,Number,Packed Detail,Packed Detail,Packed Detail,Packed Detail,Packed Detail,Packed Detail,Decimal or HH:MM,Decimal or HH:MM,Decimal or HH:MM,Text,Text,Packed Detail,Packed Detail,Packed Detail,Packed Detail,Packed Detail,Packed Detail,Text,Boolean,Boolean,Boolean,Boolean,Boolean,Text,Decimal,Decimal or HH:MM,Number,Date,DateTime,Boolean'.split(',');
+var FF_FLIGHT_COLS = 'Date,AircraftID,From,To,Route,TimeOut,TimeOff,TimeOn,TimeIn,OnDuty,OffDuty,TotalTime,PIC,SIC,Night,Solo,CrossCountry,PICUS,MultiPilot,IFR,Examiner,NVG,NVGOps,Distance,Takeoff Day,Takeoff Night,Landing Full-Stop Day,Landing Full-Stop Night,Landing Touch-and-Go Day,Landing Touch-and-Go Night,ActualInstrument,SimulatedInstrument,GroundTraining,GroundTrainingGiven,HobbsStart,HobbsEnd,TachStart,TachEnd,Holds,Approach1,Approach2,Approach3,Approach4,Approach5,Approach6,DualGiven,DualReceived,SimulatedFlight,InstructorName,InstructorComments,Person1,Person2,Person3,Person4,Person5,Person6,PilotComments,Flight Review,IPC,Checkride,FAA 61.58,NVG Proficiency,[Text]CustomFieldName,[Numeric]CustomFieldName,[Hours]CustomFieldName,[Counter]CustomFieldName,[Date]CustomFieldName,[DateTime]CustomFieldName,[Toggle]CustomFieldName'.split(',');
+var FF_AC_TYPES = 'Text,Text,Text,YYYY,Text,Text,Text,Text,Text,Boolean,Boolean,Boolean,Boolean'.split(',');
+var FF_AC_COLS = 'AircraftID,equipType,TypeCode,Year,Make,Model,GearType,EngineType,Category/Class,complexAircraft,highPerformance,pressurized,taa'.split(',');
+function ffPad(cells) { var a = cells.slice(); while (a.length < FF_FLIGHT_COLS.length) a.push(''); return a; }
+// Our aircraft field is free text ("N172SK Cessna 172"): a leading token with a
+// digit is taken as the tail number, the rest as make/model.
+function ffAircraft(text) {
+  var t = String(text||'').trim().replace(/\s+/g,' ');
+  if (!t) return {id:'UNKNOWN', make:'', model:''};
+  var parts = t.split(' ');
+  if (/^[A-Za-z0-9-]{2,10}$/.test(parts[0]) && /\d/.test(parts[0])) {
+    return {id: parts[0].toUpperCase(), make: parts[1]||'', model: parts.slice(2).join(' ')};
+  }
+  return {id: t.slice(0,20).toUpperCase(), make: parts[0], model: parts.slice(1).join(' ')};
+}
+async function exportForeFlight() {
+  var es = await freshEntries(); if (!es) return;
+  var cc = document.getElementById('ff-cc').value;
+  var acs = {}, rows = [];
+  rows.push(ffPad(['ForeFlight Logbook Import','This row is required for importing into ForeFlight. Do not delete or modify.']));
+  rows.push(ffPad([]));
+  rows.push(ffPad(['Aircraft Table']));
+  rows.push(ffPad(FF_AC_TYPES)); rows.push(ffPad(FF_AC_COLS));
+  es.forEach(function(e){ var a = ffAircraft(e.aircraft); if (!acs[a.id]) acs[a.id] = a; });
+  Object.keys(acs).forEach(function(id){ var a = acs[id]; rows.push(ffPad([a.id,'aircraft','','',a.make,a.model,'','',cc,'','','',''])); });
+  rows.push(ffPad([]));
+  var marker = ffPad(['Flights Table']);
+  marker[FF_FLIGHT_COLS.indexOf('Approach1')] = '#;type;runway;airport;comments';
+  marker[FF_FLIGHT_COLS.indexOf('Person1')] = 'name;role;email;phone';
+  rows.push(marker); rows.push(FF_FLIGHT_TYPES.slice()); rows.push(FF_FLIGHT_COLS.slice());
+  es.forEach(function(e){
+    var r = ffPad([]), set = function(col, v){ r[FF_FLIGHT_COLS.indexOf(col)] = v; };
+    var dfs = +e.day_landings||0, nfs = +e.night_landings||0;
+    set('Date', e.flight_date||''); set('AircraftID', ffAircraft(e.aircraft).id);
+    set('From', e.dep||''); set('To', e.arr||''); set('Route', e.route||'');
+    set('TotalTime', fmtHr(e.total_time)); set('PIC', fmtHr(e.pic_time));
+    if (+e.night_time) set('Night', fmtHr(e.night_time));
+    if (dfs) set('Landing Full-Stop Day', dfs);
+    if (nfs) set('Landing Full-Stop Night', nfs);
+    // Landings not logged as full-stop are exported as day touch-and-go.
+    var tg = Math.max(0, (+e.landings||0) - dfs - nfs);
+    if (tg) set('Landing Touch-and-Go Day', tg);
+    if (+e.approaches) set('Approach1', (+e.approaches) + ';;;;');
+    if (e.flight_review) set('Flight Review', 'x');
+    set('PilotComments', e.remarks||'');
+    rows.push(r);
+  });
+  download('foreflight-logbook-import-'+stamp()+'.csv', rows.map(function(r){ return csvRow(r); }).join('\r\n')+'\r\n', 'text/csv');
+  toast('Import in ForeFlight Web: Logbook → Import');
+}
+function loadJsPdf() {
+  if (window.jspdf && window.jspdf.jsPDF) return Promise.resolve();
+  return new Promise(function(res, rej){
+    var s = document.createElement('script');
+    s.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+    s.onload = function(){ res(); }; s.onerror = function(){ rej(new Error('jsPDF failed to load')); };
+    document.head.appendChild(s);
+  });
+}
+// jsPDF's built-in fonts are WinAnsi only.
+function pdfTxt(s){ return String(s==null?'':s).replace(/[→]/g,'-').replace(/[^\x20-\x7e\xa0-\xff]/g,'?'); }
+async function exportPdf(btn) {
+  btn.disabled = true;
+  try {
+    var es = await freshEntries(); if (!es) return;
+    await loadJsPdf();
+    var doc = new window.jspdf.jsPDF({unit:'pt', format:'letter', orientation:'landscape'});
+    var W = doc.internal.pageSize.getWidth(), H = doc.internal.pageSize.getHeight(), M = 36;
+    var cols = [['Date',58],['Aircraft',100],['From',38],['To',38],['Route',110],['Total',34,1],['PIC',34,1],['Night',34,1],['Ldg',28,1],['N-Ldg',32,1],['Appr',30,1],['FR',20],['Remarks',0]];
+    var used = cols.reduce(function(s,c){ return s+c[1]; }, 0); cols[cols.length-1][1] = W - 2*M - used;
+    var who = pdfTxt(document.getElementById('greeting').textContent.replace(/^Welcome back,\s*/,''));
+    var page = 1, y;
+    function header() {
+      doc.setFont('helvetica','bold'); doc.setFontSize(14); doc.text('Pilot logbook - ' + who, M, M);
+      doc.setFont('helvetica','normal'); doc.setFontSize(8);
+      doc.text('Exported from openchecklists.net on ' + stamp() + '. Convenience copy of self-entered data; not a substitute for the records required by 14 CFR 61.51.', M, M+14);
+      y = M + 34; var x = M; doc.setFont('helvetica','bold');
+      cols.forEach(function(c){ doc.text(c[0], c[2] ? x + c[1] - 4 : x, y, c[2] ? {align:'right'} : undefined); x += c[1]; });
+      doc.setDrawColor(150); doc.line(M, y+4, W-M, y+4); y += 16; doc.setFont('helvetica','normal');
+    }
+    function footer() { doc.setFontSize(7); doc.text('Page ' + page, W - M, H - 18, {align:'right'}); doc.setFontSize(8); }
+    header();
+    var tot = {t:0,p:0,n:0,l:0,nl:0,a:0};
+    es.forEach(function(e){
+      if (y > H - 50) { footer(); doc.addPage(); page++; header(); }
+      tot.t += +e.total_time||0; tot.p += +e.pic_time||0; tot.n += +e.night_time||0;
+      tot.l += +e.landings||0; tot.nl += +e.night_landings||0; tot.a += +e.approaches||0;
+      var cells = [e.flight_date, e.aircraft, e.dep, e.arr, e.route, fmtHr(e.total_time), fmtHr(e.pic_time), fmtHr(e.night_time),
+        +e.landings||0, +e.night_landings||0, +e.approaches||0, e.flight_review ? 'Y' : '', e.remarks];
+      var x = M;
+      cells.forEach(function(v, i){
+        var c = cols[i], line = doc.splitTextToSize(pdfTxt(v), c[1] - 6)[0] || '';
+        doc.text(line, c[2] ? x + c[1] - 4 : x, y, c[2] ? {align:'right'} : undefined); x += c[1];
+      });
+      doc.setDrawColor(225); doc.line(M, y+4, W-M, y+4); y += 14;
+    });
+    if (y > H - 60) { footer(); doc.addPage(); page++; header(); }
+    doc.setFont('helvetica','bold'); y += 4;
+    doc.text('Totals: ' + es.length + ' flights · ' + fmtHr(tot.t) + ' total · ' + fmtHr(tot.p) + ' PIC · ' + fmtHr(tot.n) + ' night · ' +
+      tot.l + ' landings (' + tot.nl + ' night full-stop) · ' + tot.a + ' approaches', M, y);
+    footer();
+    doc.save('openchecklists-logbook-' + stamp() + '.pdf');
+  } catch(e) { console.error(e); toast('PDF export failed'); }
+  finally { btn.disabled = false; }
 }
 async function deleteLogbookEntry(id) {
   await apiReq('/me/logbook/'+encodeURIComponent(id), {method:'DELETE'}); loadLogbook();
@@ -411,9 +833,9 @@ async function loadAircraft() {
   var el = document.getElementById('aircraft-list');
   if (!aircraft.length) { el.innerHTML='<p class="empty">No aircraft added yet.</p>'; return; }
   el.innerHTML = aircraft.map(function(a){
-    return '<div class="card"><h3>'+(a.make+' '+a.model).trim()+'</h3>'
-      +(a.registration?'<div class="meta">'+a.registration+'</div>':'')
-      +'<div class="actions"><button class="btn danger" onclick="removeAircraft('+a.id+')">Remove</button></div></div>';
+    return '<div class="card"><h3>'+escLb(((a.make||'')+' '+(a.model||'')).trim())+'</h3>'
+      +(a.registration?'<div class="meta">'+escLb(a.registration)+'</div>':'')
+      +'<div class="actions"><button class="btn danger" onclick="removeAircraft('+(parseInt(a.id,10)||0)+')">Remove</button></div></div>';
   }).join('');
 }
 async function addAircraft() {
@@ -435,9 +857,9 @@ async function loadAirports() {
   var el = document.getElementById('airports-list');
   if (!airports.length) { el.innerHTML='<p class="empty">No favorites yet — look up an airport and star it.</p>'; return; }
   el.innerHTML = airports.map(function(a){
-    return '<div class="card"><h3><a href="/airport.html?id='+a.airport_ident+'" style="color:inherit">'+a.airport_ident+'</a></h3>'
-      +(a.airport_name?'<div class="meta">'+a.airport_name+'</div>':'')
-      +'<div class="actions"><button class="btn danger" onclick="removeAirport(\''+a.airport_ident+'\')">Remove</button></div></div>';
+    return '<div class="card"><h3><a href="/airport/?id='+encodeURIComponent(a.airport_ident)+'" style="color:inherit">'+escLb(a.airport_ident)+'</a></h3>'
+      +(a.airport_name?'<div class="meta">'+escLb(a.airport_name)+'</div>':'')
+      +'<div class="actions"><button class="btn danger" onclick="removeAirport('+jsArg(a.airport_ident)+')">Remove</button></div></div>';
   }).join('');
 }
 async function addAirport() {
@@ -448,7 +870,7 @@ async function addAirport() {
   toast('Airport saved!'); loadAirports();
 }
 async function removeAirport(id) {
-  await apiReq('/me/airports/'+id, {method:'DELETE'}); loadAirports();
+  await apiReq('/me/airports/'+encodeURIComponent(id), {method:'DELETE'}); loadAirports();
 }
 
 // ---- Logs ----
@@ -460,10 +882,10 @@ async function loadLogs() {
     var pct = l.items_total>0?Math.round(l.items_checked/l.items_total*100):0;
     var dt  = new Date(l.completed_at).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
     var share = API+'/share/'+l.id;
-    return '<div class="card"><h3>'+(l.checklist_title||l.checklist_id)+'</h3>'
-      +'<div class="meta">'+dt+' &middot; '+l.items_checked+'/'+l.items_total+' items ('+pct+'%)</div>'
+    return '<div class="card"><h3>'+escLb(l.checklist_title||l.checklist_id)+'</h3>'
+      +'<div class="meta">'+escLb(dt)+' &middot; '+(+l.items_checked||0)+'/'+(+l.items_total||0)+' items ('+pct+'%)</div>'
       +'<div class="actions">'
-      +'<button class="btn" onclick="shareLog(\''+l.id+'\',\''+encodeURIComponent(l.checklist_title||l.checklist_id)+'\')">Share</button>'
+      +'<button class="btn" onclick="shareLog('+jsArg(l.id)+','+jsArg(encodeURIComponent(l.checklist_title||l.checklist_id))+')">Share</button>'
       +'</div></div>';
   }).join('')+'</div>';
 }
@@ -481,8 +903,8 @@ function shareLog(id, title) {
 // ---- Username / leaderboard ----
 async function saveUsername() {
   var v = document.getElementById('username-input').value.trim();
-  await apiReq('/me', {method:'PUT', body:JSON.stringify({username:v})});
-  toast('Username saved!');
+  var r = await apiReq('/me', {method:'PUT', body:JSON.stringify({username:v})});
+  toast(r && r.error ? r.error : 'Username saved!');
 }
 async function saveLeaderboard() {
   var v = document.getElementById('share-lb').checked ? 1 : 0;
