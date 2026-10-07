@@ -14,6 +14,7 @@ def rec(name, ok, detail=''):
 async def ctx_for(b, signed=False, mobile=False):
     ctx = await b.new_context(viewport={'width': 390, 'height': 844} if mobile else {'width': 1366, 'height': 900},
                               accept_downloads=True)
+    await ctx.add_init_script("try{localStorage.setItem('umami.disabled','1')}catch(e){}")  # keep test runs out of analytics
     sent = []
     async def api(route):
         u = route.request.url

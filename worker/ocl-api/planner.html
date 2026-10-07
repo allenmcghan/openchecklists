@@ -926,6 +926,7 @@ async function submitPlan(mode) {
     });
     if (!resp.ok) throw new Error('Server error ' + resp.status);
     const data = await resp.json();
+    if (window.oclTrack) oclTrack('plan-generate', { stops: (payload.route || []).length || 2, signed_in: !!tok });
     window.location.href = '/plan/?id=' + data.id;
   } catch (e) {
     alert('Failed to generate plan: ' + e.message);

@@ -1226,6 +1226,64 @@ const routes = {
     });
   },
 
+  // POST /api/requests — "request a checklist for my aircraft" (public, rate-limited)
+  'POST /api/requests': async (req, env, claims) => {
+    if (!(await rateLimit(env.DB, `request:${await sha256Hex(clientIp(req))}`, 10, 86400))) {
+      return err('Too many requests today — thank you!', 429);
+    }
+    const b = await req.json().catch(() => ({}));
+    const t = (v, n) => String(v == null ? '' : v).replace(/[\u0000-\u001f]+/g, ' ').trim().slice(0, n);
+    const make = t(b.make, 60), model = t(b.model, 60);
+    if (!make || !model) return err('Make and model are required', 422);
+    const needs = Array.isArray(b.needs) ? b.needs.map(x => t(x, 30)).filter(Boolean).slice(0, 8).join(',') : '';
+    let notify = null;
+    if (b.notify && b.email) {
+      const e = t(b.email, 254).toLowerCase();
+      if (!/^[^\s@<>"',;]+@[^\s@<>"',;]+\.[^\s@<>"',;]+$/.test(e)) return err('That email address looks wrong', 422);
+      notify = e;
+    }
+    await env.DB.prepare(
+      `INSERT INTO checklist_requests (make, model, variant, category, needs, notes, notify_email, user_id, created_at)
+       VALUES (?,?,?,?,?,?,?,?,?)`
+    ).bind(make, model, t(b.variant, 80) || null, t(b.category, 40) || null, needs || null,
+           t(b.notes, 1000) || null, notify, claims ? claims.sub : null, new Date().toISOString()).run();
+    return json({ ok: true }, 201);
+  },
+
+  // GET /api/admin/summary — real-usage numbers for the owner (verified email on OWNER_EMAILS).
+  'GET /api/admin/summary': async (req, env, claims) => {
+    const email = await verifiedEmail(req, env, claims);
+    const owners = String(env.OWNER_EMAILS || 'allen@keylinkit.com').toLowerCase().split(',').map(x => x.trim());
+    if (!email || !owners.includes(email)) return err('Not found', 404);
+    // Exclude the automated test account (OCL Tester) from every count.
+    const testers = String(env.TEST_USER_IDS || '385819942701760516').split(',');
+    const ph = testers.map(() => '?').join(',');
+    const d7 = new Date(Date.now() - 7 * 86400_000).toISOString(), d30 = new Date(Date.now() - 30 * 86400_000).toISOString();
+    const one = (sql, ...args) => env.DB.prepare(sql).bind(...args).first();
+    const counts = {
+      users: (await one(`SELECT COUNT(*) n FROM users WHERE id NOT IN (${ph})`, ...testers)).n,
+      users_new_30d: (await one(`SELECT COUNT(*) n FROM users WHERE id NOT IN (${ph}) AND joined_at > ?`, ...testers, d30)).n,
+      plans_7d: (await one(`SELECT COUNT(*) n FROM flight_plans WHERE (user_id IS NULL OR user_id NOT IN (${ph})) AND created_at > ?`, ...testers, d7)).n,
+      plans_30d: (await one(`SELECT COUNT(*) n FROM flight_plans WHERE (user_id IS NULL OR user_id NOT IN (${ph})) AND created_at > ?`, ...testers, d30)).n,
+      preflight_logs_30d: (await one(`SELECT COUNT(*) n FROM preflight_logs WHERE user_id NOT IN (${ph}) AND completed_at > ?`, ...testers, d30)).n,
+      logbook_entries: (await one(`SELECT COUNT(*) n FROM logbook_entries WHERE user_id NOT IN (${ph})`, ...testers)).n,
+      community_checklists: (await one(`SELECT COUNT(*) n FROM saved_checklists WHERE user_id NOT IN (${ph})`, ...testers)).n,
+      reviews: (await one(`SELECT COUNT(*) n FROM checklist_reviews WHERE user_id NOT IN (${ph})`, ...testers)).n,
+      quiz_credits: (await one(`SELECT COUNT(*) n FROM quiz_credits WHERE user_id NOT IN (${ph})`, ...testers)).n,
+      digest_subscribers: (await one(`SELECT COUNT(*) n FROM pilot_settings WHERE digest_enabled=1 AND user_id NOT IN (${ph})`, ...testers)).n,
+      checklist_requests: (await one('SELECT COUNT(*) n FROM checklist_requests')).n,
+    };
+    const { results: requests } = await env.DB.prepare(
+      `SELECT make, model, variant, category, needs, notes, notify_email IS NOT NULL AS wants_notice, created_at
+       FROM checklist_requests ORDER BY created_at DESC LIMIT 200`).all();
+    const { results: wanted } = await env.DB.prepare(
+      `SELECT lower(make) || ' ' || lower(model) AS aircraft, COUNT(*) n FROM checklist_requests
+       GROUP BY aircraft ORDER BY n DESC LIMIT 25`).all();
+    const { results: top_used } = await env.DB.prepare(
+      'SELECT checklist_id, uses, updated_at FROM checklist_usage ORDER BY uses DESC LIMIT 25').all();
+    return json({ counts, requests, wanted, top_used });
+  },
+
   // GET /api/checklists — community list, per-id reviews/stats, bulk stats, full JSON.
   // checklist_id is a free-form string: static example slugs and community IDs both work.
   'GET /api/checklists': async (req, env, _claims, params) => {
@@ -1846,7 +1904,7 @@ async function route(req, env, url) {
   const claims = await auth(req, env);
 
   // Routes that don't require auth
-  const publicRoutes = ['GET /api/leaderboard', 'GET /api/unsubscribe', 'GET /api/share', 'GET /api/plan', 'POST /api/me/plans', 'POST /api/plan', 'GET /api/airport', 'POST /api/airport', 'POST /api/log', 'GET /api/proxy', 'GET /api/checklists', 'POST /api/checklists'];
+  const publicRoutes = ['GET /api/leaderboard', 'GET /api/unsubscribe', 'POST /api/requests', 'GET /api/share', 'GET /api/plan', 'POST /api/me/plans', 'POST /api/plan', 'GET /api/airport', 'POST /api/airport', 'POST /api/log', 'GET /api/proxy', 'GET /api/checklists', 'POST /api/checklists'];
 
   // Match most-specific (longest path) routes first so that e.g.
   // `GET /api/me/aircraft` is not swallowed by the `GET /api/me` prefix.

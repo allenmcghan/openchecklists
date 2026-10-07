@@ -236,9 +236,9 @@ footer a{color:var(--muted)}
     </div>
     <div class="lb-export">
       <span style="font-size:.82rem;font-weight:600;color:var(--muted)">Export:</span>
-      <button class="btn" onclick="exportCsv()">CSV</button>
-      <button class="btn" onclick="exportForeFlight()">ForeFlight CSV</button>
-      <button class="btn" onclick="exportPdf(this)">Printable PDF</button>
+      <button class="btn" onclick="exportCsv()" data-umami-event="logbook-export" data-umami-event-format="csv">CSV</button>
+      <button class="btn" onclick="exportForeFlight()" data-umami-event="logbook-export" data-umami-event-format="foreflight">ForeFlight CSV</button>
+      <button class="btn" onclick="exportPdf(this)" data-umami-event="logbook-export" data-umami-event-format="pdf">Printable PDF</button>
       <label for="ff-cc" style="font-size:.75rem;color:var(--muted)">ForeFlight category/class:</label>
       <select id="ff-cc" title="Applied to every aircraft in the ForeFlight file">
         <option value="">(set later in ForeFlight)</option>
@@ -510,6 +510,7 @@ async function addLogbookEntry() {
   ['lb-dep','lb-arr','lb-ac','lb-total','lb-pic','lb-ldg','lb-remarks','lb-dldg','lb-nldg','lb-night','lb-appr'].forEach(function(id){ document.getElementById(id).value=''; });
   document.getElementById('lb-fr').checked = false;
   toast('Flight logged'); loadLogbook();
+  if (window.oclTrack) oclTrack('logbook-add');
 }
 
 // ---- Currency (advisory; 14 CFR 61.56, 61.57, 61.23, 61.113(i)) ----

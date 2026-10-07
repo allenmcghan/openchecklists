@@ -52,8 +52,9 @@ from site_library import CHARTS, PROJECTS, library_page  # noqa: E402
 from site_training import training_page  # noqa: E402
 from site_quiz import write_quiz  # noqa: E402
 import affiliates  # noqa: E402
+import analytics  # noqa: E402
 from site_pages import (  # noqa: E402
-    ABOUT_US, BRAND_NAME, CONTACT, FAVICON_SVG, HERO_CSS, LOGO_SVG, PRIVACY, TAGLINE, TAKEDOWN, TERMS,
+    ABOUT_US, ADMIN, BRAND_NAME, CONTACT, REQUEST_CHECKLIST, FAVICON_SVG, HERO_CSS, LOGO_SVG, PRIVACY, TAGLINE, TAKEDOWN, TERMS,
     contribute_body, landing_body,
 )
 from diff import diff as semantic_diff, render_markdown as diff_markdown  # noqa: E402
@@ -362,6 +363,7 @@ flight. No warranty of any kind &mdash; see <a href="/terms.html">terms</a>.</p>
 <a href="/index.html">Home</a> &middot;
 <a href="/catalogue.html">Catalogue</a> &middot;
 <a href="/aircraft/">Aircraft types</a> &middot;
+<a href="/request-checklist.html">Request a checklist</a> &middot;
 <a href="/us-airports/">Airports by state</a> &middot;
 <a href="/airports.html">Airports</a> &middot;
 <a href="/training.html">Training</a> &middot;
@@ -677,6 +679,7 @@ against that document.</p>
   </select>
   <span class="count" id="count"></span>
 </div>
+<p class="tag">Don't see your aircraft? <a href="/request-checklist.html">Request a checklist</a> — requests decide what gets written next.</p>
 
 <ul class="cards" id="list"></ul>
 
@@ -1108,6 +1111,7 @@ def aircraft_index_page(groups: dict[str, tuple[str, list[dict]]], min_members: 
         f'<p class="lede">{len(groups)} makes and models. Pick yours to see every checklist we '
         "have for it.</p>",
         f'<ul style="columns:3 14rem">{"".join(rows)}</ul>',
+        '<p>Not listed? <a href="/request-checklist.html">Request a checklist for your aircraft</a>.</p>',
         _foot_at("../"),
     ])
 
@@ -1904,6 +1908,12 @@ def main() -> int:
                     help="ingested datasets (airports); pages degrade if absent")
     ap.add_argument("--adsense-pub", default="",
                     help="AdSense publisher id (pub-XXXXXXXXXXXXXXXX); writes ads.txt")
+    ap.add_argument("--umami-id", default="",
+                    help="Umami website id (analytics.keylinkit.net); adds cookieless page/event tracking")
+    ap.add_argument("--umami-src", default="https://analytics.keylinkit.net/t.js",
+                    help="Umami tracker script URL")
+    ap.add_argument("--clarity-id", default="",
+                    help="Microsoft Clarity project id; session replay on public pages only")
     ap.add_argument("--amazon-tag", default="",
                     help="Amazon Associates tag (e.g. openchecklist-20); without it no gear boxes render")
     args = ap.parse_args()
@@ -2022,7 +2032,16 @@ def main() -> int:
         page("contact.html", f"Contact — {BRAND_NAME}", "How to reach Open Checklists.", CONTACT),
         page("about-us.html", f"About — {BRAND_NAME}",
              "Who runs Open Checklists, what it is for, and how it is paid for.", ABOUT_US),
+        page("request-checklist.html", f"Request a checklist for your aircraft — {BRAND_NAME}",
+             "Don't see your aircraft? Request a free checklist for your ultralight, powered parachute, "
+             "kit, experimental or certified aircraft.", REQUEST_CHECKLIST),
     ]
+
+    # Owner-only numbers page: kept out of search and the sitemap.
+    (args.out / "admin.html").write_text(
+        head(f"Site numbers — {BRAND_NAME}", "Owner dashboard.").replace(
+            "<head>", '<head>\n<meta name="robots" content="noindex,nofollow">', 1) + ADMIN + FOOT,
+        encoding="utf-8")
 
     # Airports, frequencies and weather. The page is always generated; it explains
     # itself if the NASR ingest has not been run, rather than failing the build.
@@ -2317,8 +2336,8 @@ def main() -> int:
 
     urls = [
         "", "catalogue.html", "editor.html", "about.html", "contribute.html",
-        "privacy.html", "terms.html", "takedown.html", "contact.html", "about-us.html", "airports.html",
-        "search.html", "charts.html", "projects.html", "training.html",
+        "privacy.html", "terms.html", "takedown.html", "contact.html", "about-us.html", "request-checklist.html",
+        "airports.html", "search.html", "charts.html", "projects.html", "training.html",
     ] + [f"f/{fam}/" for fam in sorted(families)] + [f"c/{e['id']}/" for e in entries] \
       + ["aircraft/"] + [f"aircraft/{t}/" for t in type_pages]
     today = datetime.date.today().isoformat()
@@ -2355,6 +2374,16 @@ def main() -> int:
             filled = affiliates.fill_slots(txt, AMAZON_TAG)
             if filled != txt:
                 qp.write_text(filled, encoding="utf-8")
+
+    # IndexNow ownership file (tools/indexnow.py submits the sitemap URLs).
+    import indexnow
+    (args.out / f"{indexnow.KEY}.txt").write_text(indexnow.KEY + "\n")
+
+    # Analytics last, so it reaches every page incl. ones copied in verbatim.
+    domain = urllib.parse.urlparse(SITE_BASE).hostname or "openchecklists.net"
+    n_pages = analytics.inject(args.out, args.umami_id, args.umami_src, domain, args.clarity_id)
+    print(f"  analytics: {n_pages} pages"
+          f"{' · umami' if args.umami_id else ''}{' · clarity' if args.clarity_id else ''}")
 
     lines = []
     for a in sorted(artifacts):

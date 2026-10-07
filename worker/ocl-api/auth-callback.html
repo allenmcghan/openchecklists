@@ -63,6 +63,7 @@
     // Same-origin only: never bounce a fresh token holder to another site.
     if (!(returnTo.indexOf(location.origin + '/') === 0 || /^\/(?!\/)/.test(returnTo))) returnTo = '/profile.html';
     sessionStorage.removeItem('ocl:return');
+    if (window.oclTrack) oclTrack('sign-in');
     location.href = returnTo;
   })
   .catch(function(e){ showErr('Network error: ' + e.message); });

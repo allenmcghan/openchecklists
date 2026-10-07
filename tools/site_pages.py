@@ -189,7 +189,7 @@ background:#fff;display:flex;flex-direction:column;gap:.35rem}
 
 PRIVACY = """
 <h2>Privacy</h2>
-<p class="tag">Last updated: 2026-10-04</p>
+<p class="tag">Last updated: 2026-10-07</p>
 
 <p>Open Checklists is run by Allen McGhan (contact details on the
 <a href="contact.html">contact</a> page). This page says plainly what the site collects,
@@ -226,6 +226,11 @@ factors. Our database then stores, against an internal account id:</p>
   checklists and reviews are public</strong>, shown with your display name or username.</li>
 </ul>
 
+<h3>Checklist requests</h3>
+<p>If you request a checklist for your aircraft, we store the aircraft details you enter.
+If you also tick "email me when it's available", we keep that email address only for that
+purpose and delete it once we have told you (or on request).</p>
+
 <h3>Email</h3>
 <p>If you ask the site to email you a briefing, a checklist log or a PDF, we send it to
 the verified email address on your account — never to an address typed into the page —
@@ -256,9 +261,21 @@ measure ad performance.</p>
   and can change that choice at any time from the "Privacy and cookie settings" link
   the message adds to the page.</li>
 </ul>
-<p>We do not use analytics or tracking scripts of our own. Our own pages use your
-browser's session storage only to keep you signed in, and local storage for your work as
-described above.</p>
+<h3>Analytics</h3>
+<p>To learn which parts of the site pilots actually use, we measure visits without cookies:</p>
+<ul>
+  <li><strong>Cloudflare Web Analytics</strong> — page views and page-load speed, collected by
+  our host without cookies or fingerprinting.</li>
+  <li><strong>Umami</strong>, run by us at <code>analytics.keylinkit.net</code> — page views,
+  the referring site, browser, device type and country, plus a few anonymous events
+  (for example "checklist downloaded" or "plan generated"). No cookies; visitors are
+  counted with a one-way hash that is rotated regularly, and IP addresses are not stored.</li>
+  <li>If we add <strong>Microsoft Clarity</strong> (heatmaps and anonymised session replay) to
+  public pages, it runs without cookies, masks text you type, and never runs on checklist,
+  editor, account, sign-in or plan-briefing pages. We will list it here before it is turned on.</li>
+</ul>
+<p>Our own pages use your browser's session storage only to keep you signed in, and local
+storage for your work as described above.</p>
 
 <h3>Other services your browser contacts</h3>
 <p>Some pages load live data or libraries straight from other providers, who therefore
@@ -582,3 +599,102 @@ checklist says where it came from and whether anyone has checked it; read
 <p>Questions, corrections or partnership ideas: <a href="contact.html">contact</a>.</p>
 """
 
+
+
+REQUEST_CHECKLIST = """
+<h2>Request a checklist for your aircraft</h2>
+<p class="lede">Don't see your aircraft? Tell us what you fly. Requests decide what gets
+written next — ultralights, powered parachutes, kit and experimental aircraft especially.</p>
+
+<form id="rq" class="rq" novalidate>
+  <div class="f"><label for="rq-make">Make <span class="tag">(required)</span></label>
+    <input id="rq-make" maxlength="60" required placeholder="ParaPlane, Kitfox, Cessna…"></div>
+  <div class="f"><label for="rq-model">Model <span class="tag">(required)</span></label>
+    <input id="rq-model" maxlength="60" required placeholder="PM-2, Series 7, 150…"></div>
+  <div class="f"><label for="rq-variant">Engine / variant / year</label>
+    <input id="rq-variant" maxlength="80" placeholder="Rotax 582, tri-gear, 1978…"></div>
+  <div class="f"><label for="rq-cat">Category</label>
+    <select id="rq-cat">
+      <option value="">—</option>
+      <option>Part 103 ultralight</option><option>Powered parachute</option>
+      <option>Weight-shift trike</option><option>Light-sport</option>
+      <option>Experimental / kit</option><option>Certified airplane</option>
+      <option>Helicopter / gyro</option><option>Glider</option><option>Other</option>
+    </select></div>
+  <fieldset class="f"><legend>What would help most?</legend>
+    <label><input type="checkbox" name="need" value="preflight"> Preflight / walkaround</label>
+    <label><input type="checkbox" name="need" value="normal"> Normal procedures</label>
+    <label><input type="checkbox" name="need" value="emergency"> Emergency procedures</label>
+    <label><input type="checkbox" name="need" value="startup"> Engine start / run-up</label>
+    <label><input type="checkbox" name="need" value="postflight"> Postflight / securing</label>
+  </fieldset>
+  <div class="f"><label for="rq-notes">Anything else? (mods, what's missing, where the manual falls short)</label>
+    <textarea id="rq-notes" maxlength="1000" rows="4"></textarea></div>
+  <div class="f"><label><input type="checkbox" id="rq-notify"> Email me when a checklist for this aircraft is available</label>
+    <input id="rq-email" type="email" maxlength="254" placeholder="you@example.com" style="display:none"></div>
+  <p><button class="cta" type="submit">Send request</button> <span id="rq-msg" role="status"></span></p>
+  <p class="tag">We only use your email to tell you about this aircraft's checklist. See <a href="/privacy.html">privacy</a>.</p>
+</form>
+<p>Have the checklist already? <a href="/editor.html">Write it up in the editor</a> and publish it for other pilots.</p>
+<style>.rq .f{margin:.7rem 0}.rq label{display:block}.rq input:not([type=checkbox]),.rq select,.rq textarea{width:100%;max-width:32rem;font:inherit;padding:.45rem}
+.rq fieldset label{display:block;font-weight:400}#rq-msg{margin-left:.6rem}</style>
+<script>
+(function(){
+  var f = document.getElementById('rq'), msg = document.getElementById('rq-msg');
+  var notify = document.getElementById('rq-notify'), email = document.getElementById('rq-email');
+  function v(id){ return (document.getElementById(id).value || '').trim(); }
+  notify.addEventListener('change', function(){ email.style.display = notify.checked ? 'block' : 'none'; });
+  f.addEventListener('submit', async function(ev){
+    ev.preventDefault();
+    if (!v('rq-make') || !v('rq-model')) { msg.textContent = 'Make and model are required.'; return; }
+    var needs = Array.prototype.map.call(f.querySelectorAll('input[name=need]:checked'), function(x){ return x.value; });
+    var body = {make: v('rq-make'), model: v('rq-model'), variant: v('rq-variant'), category: v('rq-cat'),
+                needs: needs, notes: v('rq-notes'), notify: notify.checked, email: v('rq-email')};
+    var headers = {'Content-Type': 'application/json'};
+    var tok = sessionStorage.getItem('ocl:token'); if (tok) headers.Authorization = 'Bearer ' + tok;
+    msg.textContent = 'Sending…';
+    try {
+      var r = await fetch('https://app.openchecklists.net/api/requests', {method: 'POST', headers: headers, body: JSON.stringify(body)});
+      var d = await r.json().catch(function(){ return {}; });
+      if (!r.ok) { msg.textContent = d.error || 'Something went wrong — try again.'; return; }
+      if (window.oclTrack) oclTrack('checklist-request', {category: body.category || 'unspecified'});
+      f.reset(); email.style.display = 'none';
+      msg.textContent = '✓ Thanks — request received.';
+    } catch (e) { msg.textContent = 'Could not reach the server — check your connection.'; }
+  });
+})();
+</script>
+"""
+
+
+ADMIN = """
+<h2>Site numbers</h2>
+<p class="tag">Owner-only. Real usage from the database (the automated test account is
+excluded). Traffic, referrers and events are in
+<a href="https://analytics.keylinkit.net" rel="noopener">Umami</a> and Cloudflare Web Analytics.</p>
+<div id="adm"><p>Loading…</p></div>
+<style>#adm table{border-collapse:collapse;margin:.4rem 0 1.2rem}#adm td,#adm th{padding:.25rem .6rem;border-bottom:1px solid #e8edf4;text-align:left}</style>
+<script>
+(function(){
+  var root = document.getElementById('adm');
+  function esc(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+  function table(rows, cols){
+    if (!rows || !rows.length) return '<p class="tag">None yet.</p>';
+    return '<table><thead><tr>' + cols.map(function(c){ return '<th>' + esc(c) + '</th>'; }).join('') + '</tr></thead><tbody>' +
+      rows.map(function(r){ return '<tr>' + cols.map(function(c){ return '<td>' + esc(r[c]) + '</td>'; }).join('') + '</tr>'; }).join('') + '</tbody></table>';
+  }
+  var tok = sessionStorage.getItem('ocl:token');
+  if (!tok) { root.innerHTML = '<p><a href="/profile.html">Sign in</a> first.</p>'; return; }
+  fetch('https://app.openchecklists.net/api/admin/summary', {headers: {Authorization: 'Bearer ' + tok}})
+    .then(function(r){ if (!r.ok) throw new Error(r.status); return r.json(); })
+    .then(function(d){
+      var c = d.counts || {};
+      root.innerHTML = '<h3>Counts</h3>' + table(Object.keys(c).map(function(k){ return {metric: k.replace(/_/g, ' '), value: c[k]}; }), ['metric', 'value']) +
+        '<h3>Most-requested aircraft</h3>' + table(d.wanted, ['aircraft', 'n']) +
+        '<h3>Latest checklist requests</h3>' + table(d.requests, ['created_at', 'make', 'model', 'variant', 'category', 'needs', 'notes', 'wants_notice']) +
+        '<h3>Most-used checklists (includes bots and tests)</h3>' + table(d.top_used, ['checklist_id', 'uses', 'updated_at']);
+    })
+    .catch(function(){ root.innerHTML = '<p>Not available for this account.</p>'; });
+})();
+</script>
+"""

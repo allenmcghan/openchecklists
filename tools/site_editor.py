@@ -637,6 +637,7 @@ EDITOR_JS = r"""
     a.href = URL.createObjectURL(blob);
     a.download = doc.id + '.ocl.json';
     a.click(); URL.revokeObjectURL(a.href);
+    if (window.oclTrack) oclTrack('editor-download', {fork: !!(doc.derived_from || doc.lineage)});
   });
 
   el('preview').addEventListener('click', function(){
@@ -830,6 +831,7 @@ EDITOR_JS = r"""
   }
 
   el('publish').addEventListener('click', async function(){
+    if (window.oclTrack) oclTrack('editor-publish-click');
     // Not signed in: publishing is impossible, so say why and send them to sign in.
     if (typeof oclToken !== 'function' || !oclToken()){
       try { sessionStorage['ocl:return'] = location.href; } catch (e) {}

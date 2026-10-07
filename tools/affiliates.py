@@ -263,7 +263,7 @@ def box_html(tag: str, keys: list[str], heading: str = "Gear for this aircraft",
     e = html.escape
     lis = "".join(
         f'<li><a href="{e(search_url(ITEMS[k][2], tag))}" target="_blank" '
-        f'rel="sponsored noopener nofollow">{e(ITEMS[k][0])}</a><span>{e(ITEMS[k][1])}</span></li>'
+        f'rel="sponsored noopener nofollow" data-umami-event="affiliate-click" data-umami-event-item="{e(k)}">{e(ITEMS[k][0])}</a><span>{e(ITEMS[k][1])}</span></li>'
         for k in keys if k in ITEMS
     )
     style = f"<style>{CSS}</style>" if css else ""

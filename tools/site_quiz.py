@@ -241,6 +241,7 @@ PRACTICE_JS = r"""<script>
   function pick(q,l,ol){
     if(run.answers.length>run.i) return;
     var ok=l===q.a; run.answers.push({q:q,pick:l,ok:ok}); store[q.n]=ok?1:0; save();
+    if(window.oclTrack) oclTrack('quiz-answer',{test:D.id,correct:ok});
     ol.querySelectorAll('.qbtn').forEach(function(b){
       b.disabled=true; var bl=b.getAttribute('data-l');
       if(bl===q.a) b.classList.add('right'); else if(bl===l) b.classList.add('wrong');
@@ -262,6 +263,7 @@ PRACTICE_JS = r"""<script>
   function finish(){
     var right=run.answers.filter(function(a){ return a.ok; }).length, n=run.answers.length;
     var pct=Math.round(100*right/n); app.textContent='';
+    if(window.oclTrack) oclTrack('quiz-finish',{test:D.id,questions:n,score:pct});
     app.appendChild(el('p','qmeta',run.label));
     app.appendChild(el('p','qscore',right+' / '+n+' ('+pct+'%)'));
     app.appendChild(el('p',null, D.id==='p103' ? (pct>=70?'Nice work — you know your Part 103 limits.':'Review the rules below and try again.')

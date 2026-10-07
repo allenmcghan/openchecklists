@@ -17,7 +17,8 @@
 #   ./deploy.sh pages      # build + deploy Pages only
 #   ./deploy.sh worker     # deploy Worker only
 #
-# Optional env: ADSENSE_PUB=pub-XXXXXXXXXXXXXXXX turns on ads.txt + AdSense on
+# Optional env: UMAMI_ID (defaults to openchecklists.net's id on analytics.keylinkit.net),
+# CLARITY_ID, AMAZON_TAG=<tag>-20. ADSENSE_PUB=pub-XXXXXXXXXXXXXXXX turns on ads.txt + AdSense on
 # ad-eligible pages; PAGES_BRANCH=preview deploys a preview instead of production.
 set -euo pipefail
 
@@ -43,6 +44,9 @@ build_site() {
     exit 1
   fi
   python3 "$ROOT/tools/build_site.py" --base-url "$BASE_URL" --wx-proxy "$WX_PROXY" \
+    --umami-id "${UMAMI_ID:-fc72c49e-c96d-4854-bd20-e40abe733241}" \
+    ${CLARITY_ID:+--clarity-id "$CLARITY_ID"} \
+    ${AMAZON_TAG:+--amazon-tag "$AMAZON_TAG"} \
     ${ADSENSE_PUB:+--adsense-pub "$ADSENSE_PUB"}
   local n
   n="$(find "$ROOT/build/site" -type f | wc -l | tr -d ' ')"
@@ -59,7 +63,9 @@ deploy_pages() {
   # Run from the repo root: wrangler picks up ./functions (the /airport/<ID>
   # server renderer) relative to the working directory.
   ( cd "$ROOT" && npx --yes wrangler@latest pages deploy build/site \
-    --project-name="$PAGES_PROJECT" --branch="${PAGES_BRANCH:-main}" )
+    --project-name="$PAGES_PROJECT" --branch="${PAGES_BRANCH:-main}" --commit-dirty=true )
+  # Tell Bing/Yandex/Seznam/Naver about new and changed pages (Google needs Search Console).
+  if [[ "${PAGES_BRANCH:-main}" == main ]]; then python3 "$ROOT/tools/indexnow.py" || true; fi
 }
 
 deploy_worker() {

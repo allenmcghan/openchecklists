@@ -201,3 +201,19 @@ CREATE TABLE IF NOT EXISTS quiz_credits (
   earned_at  TEXT NOT NULL,
   PRIMARY KEY (user_id, test_id, question_n)
 );
+
+-- "Request a checklist for my aircraft": the demand signal for what to add next.
+-- notify_email is kept only when the pilot ticks "tell me when it's available".
+CREATE TABLE IF NOT EXISTS checklist_requests (
+  id           INTEGER PRIMARY KEY AUTOINCREMENT,
+  make         TEXT NOT NULL,
+  model        TEXT NOT NULL,
+  variant      TEXT,
+  category     TEXT,
+  needs        TEXT,
+  notes        TEXT,
+  notify_email TEXT,
+  user_id      TEXT,
+  created_at   TEXT NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_checklist_requests_created ON checklist_requests(created_at);

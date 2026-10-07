@@ -25,6 +25,7 @@ async def run():
         b = await pw.chromium.launch()
         for vp, size in (('D', (1366, 900)), ('M', (390, 844))):
             ctx = await b.new_context(viewport={'width': size[0], 'height': size[1]}, is_mobile=vp == 'M')
+            await ctx.add_init_script("try{localStorage.setItem('umami.disabled','1')}catch(e){}")  # keep test runs out of analytics
             if API_LOCAL:
                 async def reroute(route, request=None, ctx=ctx):
                     rq = route.request

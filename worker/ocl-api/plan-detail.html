@@ -649,6 +649,7 @@ function savePlanPdf() {
   var doc = buildPlanPdf();
   if (!doc) { alert('PDF library still loading — try again in a moment.'); return; }
   doc.save(planPdfTitle().replace(/[^\w -]/g, '') + '.pdf');
+  if (window.oclTrack) oclTrack('plan-pdf');
 }
 
 async function emailPlanPdf() {

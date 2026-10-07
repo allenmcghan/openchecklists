@@ -307,6 +307,7 @@ JS = r"""
       if (b.checked) { ticks.set(k, new Date().toISOString()); }
       else { ticks.delete(k); }
       refresh(); save();
+      if (b.checked && ticks.size === boxes.length && window.oclTrack) oclTrack('checklist-complete', {id: meta.id || ''});
     });
   });
   restore(); refresh();
@@ -473,6 +474,7 @@ JS = r"""
     .then(function(d){
       if (d.ok) {
         msgEl.textContent = '✓ Log sent to ' + (d.to || 'your account email');
+        if (window.oclTrack) oclTrack('checklist-email-log');
         msgEl.style.color = 'var(--ok)';
       } else {
         msgEl.textContent = 'Failed: ' + (d.error || 'unknown error');
@@ -578,6 +580,7 @@ JS = r"""
       .then(function(d){
         if (d && d.ok) {
           emailMsg2.textContent = '✓ PDF sent to ' + (d.to || 'your account email');
+          if (window.oclTrack) oclTrack('checklist-email-pdf');
           emailMsg2.style.color = 'var(--ok)';
         } else {
           emailMsg2.textContent = 'Failed: ' + (d.error || 'unknown error');
@@ -790,7 +793,7 @@ def render(doc: dict, paper: str, site_rel: str | None = None, canonical: str | 
     # (this very page, index.html, is the HTML artifact), so that link would 404.
     _dl_formats = ["json", "csv", "tsv", "md", "txt", "xml", "docx"]
     dl_row = "".join(
-        f'<a href="{esc(_stem)}.{fmt}" download>{fmt}</a>' for fmt in _dl_formats
+        f'<a href="{esc(_stem)}.{fmt}" download data-umami-event="checklist-download" data-umami-event-format="{fmt}">{fmt}</a>' for fmt in _dl_formats
     )
 
     w, h, m = PAPER[paper]
