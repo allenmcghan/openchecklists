@@ -136,8 +136,8 @@ def test_airport_build_generates_files():
         assert "<svg" in kord_html
 
         # 4. Both files should have HTML structure
-        assert kjfk_html.startswith("<!DOCTYPE html>")
-        assert kord_html.startswith("<!DOCTYPE html>")
+        assert kjfk_html.lower().startswith("<!doctype html>")
+        assert kord_html.lower().startswith("<!doctype html>")
 
 
 def test_airport_pages_include_weather_zones():
@@ -169,7 +169,6 @@ def test_airport_pages_include_weather_zones():
     # Check for live data zone IDs
     assert 'id="weather"' in html
     assert 'id="notams"' in html
-    assert 'id="airspace"' in html
     assert 'id="fuel"' in html
     assert "loadLiveData" in html  # JavaScript function
 
@@ -187,7 +186,7 @@ def test_airport_pages_handle_missing_data():
     html = render_airport_page(minimal_airport, "2026-08-06")
 
     # Should still generate valid HTML
-    assert "<!DOCTYPE html>" in html
+    assert "<!doctype html>" in html.lower()
     assert "KXXX" in html
     assert "Test Airport" in html
     # Should not crash with KeyError

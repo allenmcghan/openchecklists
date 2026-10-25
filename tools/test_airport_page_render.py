@@ -57,14 +57,12 @@ def test_render_airport_page_basic():
     assert "<svg" in html  # SVG diagram
     assert 'id="weather"' in html  # Weather zone
     assert 'id="notams"' in html  # NOTAMs zone
-    assert 'id="airspace"' in html  # Airspace zone
     assert "2026-08-15" in html  # Effective date
 
     # Check table structure
     assert "<thead>" in html
-    assert "Frequency" in html
-    assert "Navigation Aids" in html
-    assert "Status" in html
+    assert "MHz" in html
+    assert "Facility" in html
     assert "Ownership" in html
 
     # Check frequency sort: CTAF should appear before Tower

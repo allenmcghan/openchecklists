@@ -972,6 +972,7 @@ def airport_app_page(head_fn, effective_date: str = "current cycle") -> str:
 <a href="/airports.html">Airports</a> &middot;
 <a href="/planner.html">Plan a Flight</a> &middot;
 <a href="/training.html">Training</a> &middot;
+<a href="/ground-school/">Ground school</a> &middot;
 <a href="/catalogue.html">Checklists</a> &middot;
 <a href="/privacy.html">Privacy</a> &middot;
 <a href="/terms.html">Terms</a>

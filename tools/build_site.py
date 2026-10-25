@@ -51,6 +51,7 @@ from site_airports import WEATHER_WORKER, airports_page, airport_detail_page  # 
 from site_library import CHARTS, PROJECTS, library_page  # noqa: E402
 from site_training import training_page  # noqa: E402
 from site_quiz import write_quiz  # noqa: E402
+from site_ground_school import write_ground_school  # noqa: E402
 import affiliates  # noqa: E402
 import analytics  # noqa: E402
 from site_pages import (  # noqa: E402
@@ -307,6 +308,7 @@ def head(title: str, desc: str, rel: str = "", path: str | None = None, ads: boo
 <a href="{rel}airports.html">Airports &amp; weather</a>
 <a href="{rel}planner.html">Plan a Flight</a>
 <a href="{rel}training.html">Training</a>
+<a href="/ground-school/">Ground school</a>
 <a href="/quiz/">Test prep</a>
 <a href="{rel}search.html">Troubleshooting</a>
 </nav>
@@ -368,6 +370,7 @@ flight. No warranty of any kind &mdash; see <a href="/terms.html">terms</a>.</p>
 <a href="/us-airports/">Airports by state</a> &middot;
 <a href="/airports.html">Airports</a> &middot;
 <a href="/training.html">Training</a> &middot;
+<a href="/ground-school/">Ground school</a> &middot;
 <a href="/quiz/">Test prep</a> &middot;
 <a href="/search.html">Troubleshooting</a> &middot;
 <a href="/charts.html">Charts</a> &middot;
@@ -1809,6 +1812,7 @@ setTimeout(loadLiveData, 400);
 <a href="/airports.html">Airports</a> &middot;
 <a href="/planner.html">Plan a Flight</a> &middot;
 <a href="/training.html">Training</a> &middot;
+<a href="/ground-school/">Ground school</a> &middot;
 <a href="/quiz/">Test prep</a> &middot;
 <a href="/catalogue.html">Checklists</a> &middot;
 <a href="/privacy.html">Privacy</a> &middot;
@@ -2078,6 +2082,7 @@ def main() -> int:
     (args.out / "training.html").write_text(training_page(functools.partial(head, path="training", ads=True), FOOT,
                                                                affiliates.box_html(AMAZON_TAG, affiliates.GEAR["test_prep"][:9], "Study books and test-prep gear")), encoding="utf-8")
     quiz_paths = write_quiz(args.out, head, FOOT)
+    quiz_paths += write_ground_school(args.out, head, FOOT, base=SITE_BASE)
     static_pages += [
         args.out / "airports.html",
         args.out / "search.html",
@@ -2384,10 +2389,11 @@ def main() -> int:
     )
     artifacts += [args.out / "reviewed.txt", args.out / "unreviewed.txt", args.out / "sitemap.xml"]
 
-    # Quiz pages carry <div class="aff-slot" data-topic="..."> placeholders; fill
-    # them here, after every page is written and before the manifest is hashed.
-    if AMAZON_TAG and (args.out / "quiz").is_dir():
-        for qp in sorted((args.out / "quiz").rglob("*.html")):
+    # Quiz and ground-school pages carry <div class="aff-slot" data-topic="..."> placeholders;
+    # fill them here, after every page is written and before the manifest is hashed.
+    slot_dirs = [args.out / d for d in ("quiz", "ground-school") if (args.out / d).is_dir()]
+    if AMAZON_TAG and slot_dirs:
+        for qp in sorted(p for d in slot_dirs for p in d.rglob("*.html")):
             txt = qp.read_text(encoding="utf-8")
             filled = affiliates.fill_slots(txt, AMAZON_TAG)
             if filled != txt:

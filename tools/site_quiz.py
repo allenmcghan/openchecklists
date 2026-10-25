@@ -13,6 +13,8 @@ import shutil
 from html import escape
 from pathlib import Path
 
+import aha_embed
+
 REPO = Path(__file__).resolve().parent.parent
 SRC = REPO / "quiz"
 ORDER = ["par", "spa", "uag", "p103"]
@@ -27,6 +29,9 @@ BLURB = {
             "14 CFR Part 103. No test required, but every ultralight pilot should know these.",
 }
 SIZES = (10, 20, 60)
+# The matching Aha Trivia game (tools/aha_embed.py) and ground school course for each test.
+AHA = {"par": "pilot", "spa": "sport-pilot", "uag": "drone"}
+GROUND_SCHOOL = {"par": "private-pilot", "spa": "sport-pilot", "uag": "part-107", "p103": "part-103"}
 
 QUIZ_CSS = """<style>
 .crumbs{font-size:.86rem;color:var(--muted);margin:.4rem 0 .2rem}
@@ -348,6 +353,12 @@ def _landing_page(head, foot: str, test: dict, figs: dict) -> str:
             f'Reset</button></p></div>'
             f'<section class="qbox" id="qapp" hidden aria-live="polite"></section>'
             + about
+            + (f'<p>New to the material? Work through the free <a href="/ground-school/{GROUND_SCHOOL[test["id"]]}/">'
+               f'{esc(test["title"])} ground school</a> first: plain-English lessons with references.</p>'
+               if test["id"] in GROUND_SCHOOL else "")
+            + (aha_embed.game_section(AHA[test["id"]], heading=f"Keep it fresh with the Aha Trivia "
+                                      f"{aha_embed.COURSES[AHA[test['id']]]['name']} game")
+               if test["id"] in AHA else "")
             + '<p class="src">Signed in? Correct answers earn points on your '
               '<a href="/profile.html">profile</a> (capped per day).</p>'
             + '<div class="aff-slot" data-topic="test-prep"></div>'
@@ -370,7 +381,10 @@ def _index_page(head, foot: str, tests: list[dict]) -> str:
             f"tests, plus a Part 103 ultralight primer: {total} questions with answers, plain-English "
             "explanations and references to the regulations and FAA handbooks. No account needed.</p>"
             f'<ul class="qcards">{cards}</ul>'
-            "<h2>Where the questions come from</h2>"
+            '<p>Want the lessons behind the questions? The free <a href="/ground-school/">ground school</a> '
+            "has full courses for each test, plus the instrument and commercial written tests.</p>"
+            + aha_embed.game_picker()
+            + "<h2>Where the questions come from</h2>"
             "<p>The test questions are the FAA's published sample questions, and the charts and tables come from the "
             "FAA's own testing supplement (FAA-CT-8080-2H). Both are U.S. Government works in the public domain. "
             "The FAA publishes no answer key, so the answers and explanations here are ours, each with a reference "

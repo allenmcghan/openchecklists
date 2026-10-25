@@ -87,6 +87,7 @@ transition:border-color .1s,background .1s;width:100%}
 .qopt.wrong{border-color:var(--warn);background:var(--warn-weak);color:#7c1c16}
 .qexplain{margin-top:.6rem;font-size:.85rem;color:var(--muted);padding:.6rem .8rem;
 background:var(--card);border-radius:9px;display:none}
+.ptype-gs{display:inline-block;margin-top:.55rem;font-weight:700;font-size:.9rem}
 .qscore{font-size:.95rem;font-weight:700;margin-top:1rem;padding:.7rem 1rem;
 border-radius:12px;background:var(--ok-weak);color:#14521f}
 """
@@ -95,6 +96,11 @@ TRAINING_BODY = """
 <h1>Training &amp; Study</h1>
 <p class="lede">From your first paramotor flight to an ATP certificate — free study
 material, sample test questions, and a logbook hours tracker, all in one place.</p>
+
+<div class="banner okb"><strong>New: free ground school.</strong> Complete courses for Part 103, Part 107,
+Sport, Private, Instrument and Commercial, with plain-English lessons, references, self-check questions,
+study plans and the Aha Trivia practice games built in.
+<a href="/ground-school/">Start ground school &rarr;</a></div>
 
 <h2>What do you want to fly?</h2>
 
@@ -107,6 +113,7 @@ material, sample test questions, and a logbook hours tracker, all in one place.<
     still matter. Start here for the essentials every pilot should know.</p>
     <div class="ptype-tags"><span class="ptag">No exam required</span><span class="ptag">No logbook required</span></div>
     <button class="ptype-btn" onclick="showCertSec('part103')">Study resources &rarr;</button>
+    <a class="ptype-gs" href="/ground-school/part-103/">Free ground school course &rarr;</a>
   </div>
   <div class="ptype">
     <div class="ptype-icon">🚁</div>
@@ -116,6 +123,7 @@ material, sample test questions, and a logbook hours tracker, all in one place.<
     weeks of focused study.</p>
     <div class="ptype-tags"><span class="ptag">Written exam only</span><span class="ptag">No flight hours</span><span class="ptag">Renewable every 2 years</span></div>
     <button class="ptype-btn" onclick="showCertSec('part107')">Study resources &rarr;</button>
+    <a class="ptype-gs" href="/ground-school/part-107/">Free ground school course &rarr;</a>
   </div>
   <div class="ptype">
     <div class="ptype-icon">🪂</div>
@@ -124,6 +132,7 @@ material, sample test questions, and a logbook hours tracker, all in one place.<
     without a medical certificate. Minimum 20 hours, written exam, practical test.</p>
     <div class="ptype-tags"><span class="ptag">Written + flight test</span><span class="ptag">20 hr minimum</span><span class="ptag">No medical</span></div>
     <button class="ptype-btn" onclick="showCertSec('sport')">Study resources &rarr;</button>
+    <a class="ptype-gs" href="/ground-school/sport-pilot/">Free ground school course &rarr;</a>
   </div>
   <div class="ptype">
     <div class="ptype-icon">✈</div>
@@ -132,6 +141,7 @@ material, sample test questions, and a logbook hours tracker, all in one place.<
     day or night, VFR. Minimum 40 hours. The starting point for most GA pilots.</p>
     <div class="ptype-tags"><span class="ptag">Written + flight test</span><span class="ptag">40 hr minimum</span><span class="ptag">3rd class medical</span></div>
     <button class="ptype-btn" onclick="showCertSec('private')">Study resources &rarr;</button>
+    <a class="ptype-gs" href="/ground-school/private-pilot/">Free ground school course &rarr;</a>
   </div>
   <div class="ptype">
     <div class="ptype-icon">🌫</div>
@@ -140,6 +150,7 @@ material, sample test questions, and a logbook hours tracker, all in one place.<
     your PPL. Minimum 50 hours cross-country PIC time plus 40 hours instrument time.</p>
     <div class="ptype-tags"><span class="ptag">Written + flight test</span><span class="ptag">50 hr XC + 40 hr IFR</span></div>
     <button class="ptype-btn" onclick="showCertSec('instrument')">Study resources &rarr;</button>
+    <a class="ptype-gs" href="/ground-school/instrument-rating/">Free ground school course &rarr;</a>
   </div>
   <div class="ptype">
     <div class="ptype-icon">🛫</div>
@@ -149,6 +160,7 @@ material, sample test questions, and a logbook hours tracker, all in one place.<
     of whether they plan a flying career.</p>
     <div class="ptype-tags"><span class="ptag">Written + flight test</span><span class="ptag">250 hr total</span><span class="ptag">2nd class medical</span></div>
     <button class="ptype-btn" onclick="showCertSec('commercial')">Study resources &rarr;</button>
+    <a class="ptype-gs" href="/ground-school/commercial-pilot/">Free ground school course &rarr;</a>
   </div>
 </div>
 

@@ -1,0 +1,173 @@
+{
+  "id": "commercial-pilot",
+  "title": "Commercial Pilot (Airplane)",
+  "short": "Commercial Pilot",
+  "icon": "🧭",
+  "order": 6,
+  "summary": "A complete study path for the FAA Commercial Pilot Airplane knowledge test and the knowledge portions of the practical test.",
+  "who": "This course is for airplane pilots preparing for commercial privileges. It connects Part 61 requirements, advanced aircraft knowledge, professional decision making and the standards tested on the CAX and commercial practical test.",
+  "aha_course": "commercial",
+  "quiz_slug": null,
+  "checked": "2026-10-25",
+  "facts": [
+    {"label":"Minimum certificate age","value":"18","cite":{"label":"14 CFR 61.123(a)","url":"https://www.ecfr.gov/current/title-14/section-61.123"}},
+    {"label":"Knowledge test","value":"CAX: 100 questions, 180 minutes, 70% to pass","cite":{"label":"FAA testing matrix","url":"https://www.faa.gov/sites/faa.gov/files/training_testing/training/testing_matrix.pdf"}},
+    {"label":"Part 61 flight time","value":"250 hours for an airplane single-engine rating","cite":{"label":"14 CFR 61.129(a)","url":"https://www.ecfr.gov/current/title-14/section-61.129"}},
+    {"label":"Pilot-in-command time","value":"100 hours, including 50 hours in airplanes","cite":{"label":"14 CFR 61.129(a)(2)","url":"https://www.ecfr.gov/current/title-14/section-61.129"}},
+    {"label":"Training","value":"20 hours in the areas listed by 61.129(a)(3)","cite":{"label":"14 CFR 61.129(a)(3)","url":"https://www.ecfr.gov/current/title-14/section-61.129"}}
+  ],
+  "knowledge_test": {
+    "code":"CAX", "questions":100, "minutes":180, "passing":"70%",
+    "notes":["An authorized instructor or approved course must endorse your preparation.","Commercial questions expect private-pilot fundamentals plus deeper performance, systems and regulation judgment.","Use current charts and the FAA testing supplement when practicing calculations."],
+    "cites":[{"label":"FAA testing matrix","url":"https://www.faa.gov/sites/faa.gov/files/training_testing/training/testing_matrix.pdf"},{"label":"14 CFR 61.35","url":"https://www.ecfr.gov/current/title-14/section-61.35"}]
+  },
+  "practical_test": {
+    "standard":"Commercial Pilot Airplane ACS (FAA-S-ACS-7)",
+    "url":"https://www.faa.gov/training_testing/testing/acs/commercial_airplane_acs_7.pdf",
+    "notes":["The examiner evaluates knowledge, risk management and flight skills by ACS task.","Commercial maneuvers demand coordinated control, accurate energy management and sound judgment, not memorized control movements alone."]
+  },
+  "requirements": [
+    {"text":"Be at least 18 years old, meet the English requirement and hold at least a private pilot certificate.","cite":{"label":"14 CFR 61.123","url":"https://www.ecfr.gov/current/title-14/section-61.123"}},
+    {"text":"Receive and log the aeronautical knowledge and flight training required by 61.125 and 61.127.","cite":{"label":"14 CFR 61.125","url":"https://www.ecfr.gov/current/title-14/section-61.125"}},
+    {"text":"For an airplane single-engine rating under Part 61, log at least 250 hours with the categories of experience in 61.129(a).","cite":{"label":"14 CFR 61.129(a)","url":"https://www.ecfr.gov/current/title-14/section-61.129"}},
+    {"text":"Complete the required instrument, complex or technically advanced airplane, cross-country, night and practical-test preparation experience.","cite":{"label":"14 CFR 61.129(a)(3)-(4)","url":"https://www.ecfr.gov/current/title-14/section-61.129"}}
+  ],
+  "plan": [
+    {"step":"Week 1","focus":"Learn commercial privileges, limitations and experience requirements.","modules":["privileges-certification","experience-requirements"]},
+    {"step":"Week 2","focus":"Deepen aerodynamic, systems and high-performance airplane knowledge.","modules":["advanced-aerodynamics","systems-equipment"]},
+    {"step":"Week 3","focus":"Master performance calculations and commercial weather decisions.","modules":["performance-loading","weather-operations"]},
+    {"step":"Week 4","focus":"Plan commercial-standard flights and prepare for maneuvers, risk scenarios and the Aha review game.","modules":["navigation-operations","maneuvers-professionalism"]}
+  ],
+  "test_day":["Bring acceptable identification and the required endorsement.","Use the FAA testing supplement and check every chart unit before calculating.","Separate what a certificate permits from what an operating rule or operator certificate permits.","Keep the Airman Knowledge Test Report for your instructor and examiner."],
+  "after":["Review each missed ACS code with your instructor.","Audit your logbook against every line of 61.129 before scheduling the practical test.","Practice commercial maneuvers in realistic scenarios with clear risk controls.","Use the current Commercial Pilot Airplane ACS for oral and flight preparation."],
+  "modules": [
+    {
+      "id":"privileges-certification", "title":"Commercial privileges, limitations and certification", "summary":"Understand what a commercial certificate permits and which operations need separate authority.",
+      "objectives":["Explain commercial pilot privileges.","Distinguish pilot certification from operator certification.","Apply eligibility and medical rules."],
+      "sections":[
+        {"heading":"Certificate privileges","points":["A commercial pilot may act as pilot in command for compensation or hire when qualified for the aircraft and operation. Section 61.133 also lists limitations.","The pilot certificate is only one part of legality. Common carriage or other commercial operations may require an operating certificate under Parts 119, 121 or 135, while specified operations may qualify for an exception."]},
+        {"heading":"Eligibility and responsibility","points":["Section 61.123 requires age 18, English proficiency, an underlying pilot certificate, training, endorsements and successful knowledge and practical tests.","Commercial standards demand accurate records, legal compliance and conservative decisions. Compensation never removes the pilot in command's responsibility under Part 91."]}
+      ],
+      "numbers":[{"item":"Minimum age","value":"18","cite":"14 CFR 61.123(a)"},{"item":"Flight review","value":"Within preceding 24 calendar months","cite":"14 CFR 61.56(c)"}],
+      "traps":["A commercial pilot certificate alone does not authorize every operation for compensation or hire.","Holding out to the public can make an operation common carriage even when the airplane is small."],
+      "read":[{"label":"14 CFR 61.123 and 61.133","url":"https://www.ecfr.gov/current/title-14/section-61.133"},{"label":"14 CFR Part 119","url":"https://www.ecfr.gov/current/title-14/part-119"},{"label":"Commercial Pilot Airplane ACS","url":"https://www.faa.gov/training_testing/testing/acs/commercial_airplane_acs_7.pdf","library":{"doc":"acs-commercial-airplane","q":"privileges limitations eligibility"}}],
+      "check":[
+        {"q":"What is the minimum age for a commercial pilot certificate?","choices":["17","18","21"],"answer":1,"why":"Section 61.123(a) sets the minimum age at 18.","cite":"14 CFR 61.123(a)"},
+        {"q":"Does a commercial pilot certificate alone authorize all common-carriage operations?","choices":["Yes","No, separate operator authority may be required","Only in single-engine airplanes"],"answer":1,"why":"The pilot certificate grants pilot privileges, while Parts 119, 121 and 135 govern many commercial operators and operations.","cite":"14 CFR 119.1"},
+        {"q":"Who remains responsible for determining that an aircraft is safe for flight?","choices":["The dispatcher in every operation","The pilot in command","The passenger paying for the flight"],"answer":1,"why":"Section 91.7 assigns the airworthiness determination to the pilot in command.","cite":"14 CFR 91.7"}
+      ]
+    },
+    {
+      "id":"experience-requirements", "title":"Aeronautical experience and logbook audit", "summary":"Turn the detailed requirements of 61.129 into a checkable training record.",
+      "objectives":["Break down the 250-hour requirement.","Identify required training events.","Audit logbook entries before the checkride."],
+      "sections":[
+        {"heading":"Time categories","points":["For commercial airplane single-engine privileges under Part 61, section 61.129(a) requires 250 total hours, including 100 hours in powered aircraft and 50 in airplanes, plus 100 hours as pilot in command including 50 in airplanes and 50 cross-country.","The categories overlap. A flight may count toward more than one requirement when it genuinely meets each definition, but the same hour cannot become two hours of total time."]},
+        {"heading":"Required training and flights","points":["The 20 hours of training include instrument training, training in a complex airplane, turbine airplane or technically advanced airplane, day and night cross-country training, and recent practical-test preparation.","The required solo time, or duties of pilot in command with an instructor, includes the long cross-country and night takeoffs and landings specified in the rule. Read the exact wording before planning flights."]}
+      ],
+      "numbers":[{"item":"Total time","value":"250 hours","cite":"14 CFR 61.129(a)"},{"item":"Pilot in command","value":"100 hours; 50 in airplanes","cite":"14 CFR 61.129(a)(2)"},{"item":"Training","value":"20 hours","cite":"14 CFR 61.129(a)(3)"},{"item":"Solo or duties of PIC","value":"10 hours","cite":"14 CFR 61.129(a)(4)"}],
+      "traps":["Do not assume a logbook total proves each required subcategory.","The technically advanced airplane option has specific display and autopilot requirements in 61.129(j)."],
+      "read":[{"label":"14 CFR 61.129","url":"https://www.ecfr.gov/current/title-14/section-61.129"},{"label":"14 CFR 61.51","url":"https://www.ecfr.gov/current/title-14/section-61.51"}],
+      "check":[
+        {"q":"What total flight time does 61.129(a) require for this Part 61 rating?","choices":["150 hours","200 hours","250 hours"],"answer":2,"why":"The commercial airplane single-engine requirement in 61.129(a) starts at 250 hours.","cite":"14 CFR 61.129(a)"},
+        {"q":"How much pilot-in-command time is required?","choices":["50 hours","100 hours","150 hours"],"answer":1,"why":"Section 61.129(a)(2) requires 100 hours as pilot in command, including specified airplane and cross-country time.","cite":"14 CFR 61.129(a)(2)"},
+        {"q":"Can one qualifying flight satisfy more than one experience category?","choices":["Never","Yes, if it independently meets each category","Only with examiner approval"],"answer":1,"why":"Experience categories can overlap when the flight meets each rule, but total time is still the actual time flown.","cite":"14 CFR 61.129"}
+      ]
+    },
+    {
+      "id":"advanced-aerodynamics", "title":"Advanced aerodynamics and energy management", "summary":"Apply load factor, stability, lift and drag concepts at commercial maneuver standards.",
+      "objectives":["Relate load factor to stall speed.","Explain stability and control.","Manage energy through commercial maneuvers."],
+      "sections":[
+        {"heading":"Loads and stalls","points":["A level turn needs more lift as bank angle increases, so load factor and stall speed rise. An accelerated stall can occur at any attitude and airspeed when the critical angle of attack is exceeded.","Weight, center of gravity, contamination and configuration change performance and handling. An aft center of gravity reduces longitudinal stability and can make stall and spin recovery more difficult."]},
+        {"heading":"Energy and maneuvering","points":["Commercial maneuvers reveal how well a pilot manages altitude, airspeed, bank, coordination and changing energy. Look outside, clear the area and use references without abandoning the instrument cross-check.","Pivotal altitude varies with groundspeed squared. Wind changes groundspeed around a ground-reference maneuver, so altitude and geometry require active correction."]}
+      ],
+      "numbers":[{"item":"Level 60-degree bank load factor","value":"2 G","cite":"FAA Pilot's Handbook of Aeronautical Knowledge"},{"item":"Critical angle of attack","value":"The stall occurs when it is exceeded, regardless of airspeed","cite":"FAA Pilot's Handbook of Aeronautical Knowledge"}],
+      "traps":["Maneuvering speed does not protect the airplane from every control input or gust.","A nose-low attitude does not prevent an accelerated stall."],
+      "read":[{"label":"Pilot's Handbook of Aeronautical Knowledge","url":"https://www.faa.gov/regulations_policies/handbooks_manuals/aviation/faa-h-8083-25c.pdf","library":{"doc":"faa-phak","q":"load factor stalls stability pivotal altitude"}},{"label":"Airplane Flying Handbook","url":"https://www.faa.gov/regulations_policies/handbooks_manuals/aviation/airplane_handbook"}],
+      "check":[
+        {"q":"What happens to stall speed as load factor increases?","choices":["It decreases","It stays fixed","It increases"],"answer":2,"why":"A higher load factor requires more lift and raises the speed at which the critical angle of attack is reached.","cite":"FAA Pilot's Handbook of Aeronautical Knowledge"},
+        {"q":"What is the approximate load factor in a level 60-degree bank?","choices":["1 G","2 G","4 G"],"answer":1,"why":"A coordinated level 60-degree bank produces about 2 G.","cite":"FAA Pilot's Handbook of Aeronautical Knowledge"},
+        {"q":"How does an aft center of gravity generally affect stability?","choices":["Increases longitudinal stability","Reduces longitudinal stability","Has no effect"],"answer":1,"why":"An aft center of gravity shortens the effective stabilizing arm and reduces longitudinal stability.","cite":"FAA Pilot's Handbook of Aeronautical Knowledge"}
+      ]
+    },
+    {
+      "id":"systems-equipment", "title":"Aircraft systems and advanced equipment", "summary":"Diagnose system behavior in complex, high-performance and technically advanced airplanes.",
+      "objectives":["Explain propeller and landing-gear systems.","Manage high-performance engine limits.","Use automation without losing situational awareness."],
+      "sections":[
+        {"heading":"Engines, propellers and gear","points":["A constant-speed propeller governor changes blade angle to maintain selected rpm within its operating range. Power changes require the sequence recommended by the aircraft manufacturer.","Retractable landing gear uses electrical or hydraulic components, position indications, warning systems and an emergency-extension method. Know the exact checklist for the airplane."]},
+        {"heading":"Technically advanced airplanes","points":["Section 61.129(j) defines the required electronic primary flight display, multifunction display with moving map and integrated two-axis autopilot for the technically advanced airplane option.","Automation changes workload rather than eliminating it. Verify modes, targets and navigation sources, then remain ready to reduce automation when it creates confusion."]}
+      ],
+      "numbers":[{"item":"High-performance airplane","value":"Engine of more than 200 horsepower","cite":"14 CFR 61.31(f)"},{"item":"Complex airplane","value":"Retractable gear, flaps and controllable-pitch propeller, including FADEC equivalents","cite":"14 CFR 61.1"}],
+      "traps":["A 200-horsepower engine is not more than 200 horsepower.","A glass display alone does not meet the technically advanced airplane definition."],
+      "read":[{"label":"14 CFR 61.1 and 61.31","url":"https://www.ecfr.gov/current/title-14/section-61.31"},{"label":"Pilot's Handbook of Aeronautical Knowledge","url":"https://www.faa.gov/regulations_policies/handbooks_manuals/aviation/faa-h-8083-25c.pdf","library":{"doc":"faa-phak","q":"constant speed propeller retractable landing gear automation"}}],
+      "check":[
+        {"q":"What engine power makes an airplane high performance under 61.31?","choices":["200 horsepower or more","More than 200 horsepower","More than 180 horsepower"],"answer":1,"why":"The regulatory definition is an airplane with an engine of more than 200 horsepower.","cite":"14 CFR 61.31(f)"},
+        {"q":"Which feature is required for the technically advanced airplane option?","choices":["A two-axis integrated autopilot","Retractable landing gear","A turbine engine"],"answer":0,"why":"Section 61.129(j) includes an integrated two-axis autopilot among the required systems.","cite":"14 CFR 61.129(j)"},
+        {"q":"What should a pilot verify after every automation change?","choices":["Only the screen brightness","Active and armed modes and targets","Passenger seat position"],"answer":1,"why":"Mode awareness prevents the aircraft from following a different path or target than the pilot expects.","cite":"FAA Risk Management Handbook"}
+      ]
+    },
+    {
+      "id":"performance-loading", "title":"Performance, weight and balance", "summary":"Calculate whether the airplane can safely meet runway, climb, range and loading demands.",
+      "objectives":["Use approved performance data.","Compute loading and center of gravity.","Explain density-altitude effects."],
+      "sections":[
+        {"heading":"Performance planning","points":["Use the aircraft flight manual or pilot's operating handbook for takeoff, climb, cruise and landing planning. Apply every stated condition, correction and limitation.","High density altitude reduces engine power, propeller thrust and wing performance. It increases takeoff distance, reduces climb rate and can turn a familiar runway into an unacceptable plan."]},
+        {"heading":"Loading","points":["Compute each moment from weight and arm, total the weights and moments, and verify both weight and center of gravity for takeoff and landing.","Loading within a published envelope does not guarantee adequate runway or climb performance. Weight-and-balance legality and performance suitability are separate decisions."]}
+      ],
+      "numbers":[{"item":"Moment","value":"Weight multiplied by arm","cite":"FAA Weight and Balance Handbook"},{"item":"Center of gravity","value":"Total moment divided by total weight","cite":"FAA Weight and Balance Handbook"}],
+      "traps":["Do not mix pounds, gallons, inches and moment indexes without converting units.","Interpolation is valid only when the chart instructions and data range support it."],
+      "read":[{"label":"Weight and Balance Handbook","url":"https://www.faa.gov/sites/faa.gov/files/regulations_policies/handbooks_manuals/aviation/FAA-H-8083-1.pdf","library":{"doc":"faa-wb","q":"center of gravity moments loading"}},{"label":"Pilot's Handbook of Aeronautical Knowledge","url":"https://www.faa.gov/regulations_policies/handbooks_manuals/aviation/faa-h-8083-25c.pdf","library":{"doc":"faa-phak","q":"density altitude takeoff climb performance"}}],
+      "check":[
+        {"q":"How is a loading moment calculated?","choices":["Weight divided by arm","Weight multiplied by arm","Arm divided by weight"],"answer":1,"why":"Moment equals weight multiplied by its arm from the datum.","cite":"FAA Weight and Balance Handbook"},
+        {"q":"What usually happens to takeoff distance as density altitude rises?","choices":["It decreases","It stays constant","It increases"],"answer":2,"why":"Reduced air density lowers engine, propeller and wing performance, increasing the takeoff distance.","cite":"FAA Pilot's Handbook of Aeronautical Knowledge"},
+        {"q":"Does loading inside the center-of-gravity envelope prove runway performance is adequate?","choices":["Yes","No","Only at sea level"],"answer":1,"why":"Loading and performance are separate calculations, and both must support the flight.","cite":"FAA Pilot's Handbook of Aeronautical Knowledge"}
+      ]
+    },
+    {
+      "id":"weather-operations", "title":"Weather for commercial operations", "summary":"Read the whole weather system and make decisions that protect passengers, schedule and aircraft.",
+      "objectives":["Integrate observations, forecasts and advisories.","Recognize high-risk weather.","Build operational escape plans."],
+      "sections":[
+        {"heading":"Weather analysis","points":["Start with the large-scale pattern, then connect fronts, pressure, moisture and stability to local observations and forecasts. Compare issue and valid times with each flight phase.","Commercial pressure can turn a marginal trend into a continuation bias. Define ceiling, visibility, wind, convective and icing limits before accepting a trip."]},
+        {"heading":"Hazards and decisions","points":["Thunderstorms can produce turbulence, hail, lightning, icing, wind shear and tornadoes. Avoid severe or embedded cells with generous margins.","Mountain waves, low-level wind shear, freezing precipitation and rapidly lowering ceilings deserve explicit alternate or cancellation decisions, not vague monitoring."]}
+      ],
+      "numbers":[{"item":"Standard sea-level pressure","value":"29.92 inches Hg","cite":"FAA Aviation Weather Handbook"},{"item":"Standard temperature lapse rate","value":"About 2 degrees C per 1,000 feet","cite":"FAA Aviation Weather Handbook"}],
+      "traps":["Radar shows returned energy, not a safe path between cells.","A forecast above legal minimums can still be unsuitable for the pilot, airplane or mission."],
+      "read":[{"label":"Aviation Weather Handbook","url":"https://www.faa.gov/sites/faa.gov/files/FAA-H-8083-28B.pdf","library":{"doc":"faa-awh","q":"commercial operations convection icing wind shear"}},{"label":"Aviation Weather Center","url":"https://aviationweather.gov/"}],
+      "check":[
+        {"q":"What is the best starting point for a weather briefing?","choices":["One airport observation","The large-scale weather pattern","Only the destination wind"],"answer":1,"why":"The broad pattern explains how local weather developed and how it may change along the route.","cite":"FAA Aviation Weather Handbook"},
+        {"q":"Which hazard can occur near thunderstorms even outside visible rain?","choices":["Severe turbulence","Guaranteed smooth air","Lower density altitude"],"answer":0,"why":"Thunderstorm outflows and turbulence can extend beyond the visible cell.","cite":"FAA Aviation Weather Handbook"},
+        {"q":"Why set weather limits before a commercial trip?","choices":["To avoid schedule-driven rationalization","To replace federal rules","To guarantee the forecast"],"answer":0,"why":"Predetermined limits reduce pressure to reinterpret deteriorating conditions after passengers and schedules are involved.","cite":"FAA Risk Management Handbook"}
+      ]
+    },
+    {
+      "id":"navigation-operations", "title":"Navigation, flight planning and operating rules", "summary":"Build a legal route, fuel plan and operational briefing for a commercial-standard flight.",
+      "objectives":["Plan route, altitude, time and fuel.","Apply airspace and airport rules.","Manage diversions and passenger needs."],
+      "sections":[
+        {"heading":"Flight planning","points":["Section 91.103 requires all available information, including weather, fuel, alternatives and known delays. Use current charts, aircraft data and notices.","Calculate headings, groundspeed, time and fuel by leg. Add realistic taxi, climb, reserve and contingency fuel rather than treating the regulatory reserve as a target landing quantity."]},
+        {"heading":"Operational control","points":["Confirm airspace permissions, equipment, runway suitability, airport hours and services. A commercial pilot should brief passengers without allowing passenger urgency to control safety decisions.","Track actual groundspeed and fuel against the plan. Divert while good options remain, then update weather and airport information for the new destination."]}
+      ],
+      "numbers":[{"item":"VFR fuel reserve, day","value":"30 minutes","cite":"14 CFR 91.151"},{"item":"VFR fuel reserve, night","value":"45 minutes","cite":"14 CFR 91.151"},{"item":"Preflight information","value":"All available information concerning the flight","cite":"14 CFR 91.103"}],
+      "traps":["A fuel reserve is a legal floor, not an operational goal.","GPS direct does not prove terrain, airspace, weather or fuel suitability."],
+      "read":[{"label":"14 CFR 91.103 and 91.151","url":"https://www.ecfr.gov/current/title-14/section-91.103"},{"label":"Aeronautical Information Manual","url":"https://www.faa.gov/air_traffic/publications/atpubs/aim/"}],
+      "check":[
+        {"q":"What does 91.103 require before flight?","choices":["Only the destination forecast","All available information concerning the flight","Only fuel price and runway length"],"answer":1,"why":"The rule requires the pilot in command to become familiar with all available information concerning that flight.","cite":"14 CFR 91.103"},
+        {"q":"What is the airplane night VFR fuel reserve?","choices":["20 minutes","30 minutes","45 minutes"],"answer":2,"why":"Section 91.151 requires 45 minutes at normal cruising speed for night VFR.","cite":"14 CFR 91.151"},
+        {"q":"When is the best time to divert?","choices":["While several safe options remain","After the reserve is gone","Only after passengers agree"],"answer":0,"why":"An early diversion preserves fuel, daylight, weather and airport choices.","cite":"FAA Risk Management Handbook"}
+      ]
+    },
+    {
+      "id":"maneuvers-professionalism", "title":"Commercial maneuvers, risk and professionalism", "summary":"Prepare for the practical test while building habits suitable for paid flying.",
+      "objectives":["Explain the purpose of commercial maneuvers.","Use structured risk management.","Set professional passenger and maintenance boundaries."],
+      "sections":[
+        {"heading":"Maneuver preparation","points":["Use the current ACS to understand the objective, references, knowledge, risk elements and skill tolerances for each task. Practice with an instructor rather than reducing a maneuver to a memorized script.","Clear the area, select safe altitudes and references, manage configuration and announce a recovery plan. Stop a maneuver when traffic, weather, altitude or aircraft condition makes it unsafe."]},
+        {"heading":"Professional conduct","points":["Use checklists, record discrepancies clearly and reject pressure to fly an unairworthy or unsuitable aircraft. Explain changes and cancellations to passengers in plain language.","The PAVE and 3P models help identify hazards, process their risk and perform controls. Reassess whenever the plan, aircraft, environment or pilot condition changes."]}
+      ],
+      "numbers":[{"item":"Commercial ACS","value":"Knowledge, risk management and skill are evaluated together","cite":"FAA-S-ACS-7"},{"item":"Recent passenger experience","value":"3 takeoffs and landings within preceding 90 days","cite":"14 CFR 61.57"}],
+      "traps":["Passing a maneuver tolerance does not excuse poor clearing or risk management.","A paying passenger increases pressure, not the airplane's capability."],
+      "read":[{"label":"Commercial Pilot Airplane ACS","url":"https://www.faa.gov/training_testing/testing/acs/commercial_airplane_acs_7.pdf","library":{"doc":"acs-commercial-airplane","q":"maneuvers risk management practical test"}},{"label":"Risk Management Handbook","url":"https://www.faa.gov/sites/faa.gov/files/2022-06/risk_management_handbook_2A.pdf","library":{"doc":"faa-rmh","q":"PAVE 3P professionalism"}}],
+      "check":[
+        {"q":"What does the Commercial Pilot ACS evaluate in each applicable task?","choices":["Skill only","Knowledge, risk management and skill","Aircraft ownership"],"answer":1,"why":"The ACS integrates knowledge, risk management and flight skill instead of treating them as separate goals.","cite":"Commercial Pilot Airplane ACS"},
+        {"q":"What should a pilot do when conditions make a practice maneuver unsafe?","choices":["Continue to preserve the schedule","Stop or modify the maneuver","Reduce the clearing turns"],"answer":1,"why":"Risk management takes priority over completing a planned maneuver.","cite":"Commercial Pilot Airplane ACS"},
+        {"q":"What does PAVE organize?","choices":["Pilot, aircraft, environment and external pressures","Power, avionics, visibility and engine","Passengers, airspeed, vectors and elevation"],"answer":0,"why":"PAVE is a structured check of pilot, aircraft, environment and external pressures.","cite":"FAA Risk Management Handbook"}
+      ]
+    }
+  ]
+}

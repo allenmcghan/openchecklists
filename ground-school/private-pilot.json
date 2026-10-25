@@ -1,0 +1,205 @@
+{
+  "id": "private-pilot",
+  "title": "Private Pilot (Airplane)",
+  "short": "Private Pilot",
+  "icon": "✈️",
+  "order": 4,
+  "summary": "A complete foundation for the FAA Private Pilot Airplane knowledge test and the knowledge portions of the checkride.",
+  "who": "This course is for airplane students working toward a private pilot certificate under Part 61. It teaches the regulations, weather, planning, aircraft knowledge and risk management needed before the written test and practical test.",
+  "aha_course": "pilot",
+  "quiz_slug": "private-pilot",
+  "checked": "2026-10-25",
+  "facts": [
+    {"label": "Minimum certificate age", "value": "17", "cite": {"label": "14 CFR 61.103(a)", "url": "https://www.ecfr.gov/current/title-14/section-61.103"}},
+    {"label": "Knowledge test", "value": "PAR: 60 questions, 150 minutes, 70% to pass", "cite": {"label": "FAA testing matrix", "url": "https://www.faa.gov/sites/faa.gov/files/training_testing/training/testing_matrix.pdf"}},
+    {"label": "Part 61 minimum flight time", "value": "40 hours", "cite": {"label": "14 CFR 61.109(a)", "url": "https://www.ecfr.gov/current/title-14/section-61.109"}},
+    {"label": "Flight training", "value": "At least 20 hours with an authorized instructor", "cite": {"label": "14 CFR 61.109(a)", "url": "https://www.ecfr.gov/current/title-14/section-61.109"}},
+    {"label": "Solo flight", "value": "At least 10 hours", "cite": {"label": "14 CFR 61.109(a)", "url": "https://www.ecfr.gov/current/title-14/section-61.109"}},
+    {"label": "Privileges", "value": "Generally may not carry people or property for compensation or hire", "cite": {"label": "14 CFR 61.113", "url": "https://www.ecfr.gov/current/title-14/section-61.113"}}
+  ],
+  "knowledge_test": {
+    "code": "PAR", "questions": 60, "minutes": 150, "passing": "70%",
+    "notes": ["An authorized instructor or approved course must endorse your preparation before the test.", "You may take the PAR at age 15, but must be 17 to hold the private pilot certificate.", "A satisfactory knowledge test report normally expires after 24 calendar months if you do not complete the practical test."],
+    "cites": [
+      {"label": "FAA testing matrix", "url": "https://www.faa.gov/sites/faa.gov/files/training_testing/training/testing_matrix.pdf"},
+      {"label": "14 CFR 61.35", "url": "https://www.ecfr.gov/current/title-14/section-61.35"},
+      {"label": "14 CFR 61.39", "url": "https://www.ecfr.gov/current/title-14/section-61.39"}
+    ]
+  },
+  "practical_test": {
+    "standard": "Private Pilot Airplane ACS (FAA-S-ACS-6)",
+    "url": "https://www.faa.gov/training_testing/testing/acs/private_airplane_acs_6.pdf",
+    "notes": ["The examiner samples knowledge, risk management and flight skills by ACS task.", "Your instructor must endorse that you meet the aeronautical knowledge, proficiency and experience requirements."]
+  },
+  "requirements": [
+    {"text": "Read, speak, write and understand English.", "cite": {"label": "14 CFR 61.103(b)", "url": "https://www.ecfr.gov/current/title-14/section-61.103"}},
+    {"text": "Receive and log ground training, or complete a home-study course, in the knowledge areas of 61.105.", "cite": {"label": "14 CFR 61.105", "url": "https://www.ecfr.gov/current/title-14/section-61.105"}},
+    {"text": "Log 40 hours that include at least 20 hours of training and 10 hours of solo flight.", "cite": {"label": "14 CFR 61.109(a)", "url": "https://www.ecfr.gov/current/title-14/section-61.109"}},
+    {"text": "Complete the required cross-country, night, instrument and practical-test preparation experience.", "cite": {"label": "14 CFR 61.109(a)(1)-(5)", "url": "https://www.ecfr.gov/current/title-14/section-61.109"}},
+    {"text": "Hold the medical qualification required for the operation, which may include a medical certificate or BasicMed.", "cite": {"label": "14 CFR 61.23", "url": "https://www.ecfr.gov/current/title-14/section-61.23"}}
+  ],
+  "plan": [
+    {"step": "Week 1", "focus": "Learn certification rules, pilot responsibilities and the airplane's basic aerodynamics.", "modules": ["certificate-rules", "aerodynamics"]},
+    {"step": "Week 2", "focus": "Study aircraft systems, instruments, performance and weight and balance.", "modules": ["systems-instruments", "performance-weight-balance"]},
+    {"step": "Week 3", "focus": "Build weather and airspace fluency, then practice reading current reports and charts.", "modules": ["weather", "airspace"]},
+    {"step": "Week 4", "focus": "Plan complete flights and rehearse airport, radio and traffic procedures.", "modules": ["navigation-planning", "airport-operations"]},
+    {"step": "Week 5", "focus": "Finish human factors and emergencies, then use the game and PAR practice test for review.", "modules": ["human-factors-emergencies"]}
+  ],
+  "modules": [
+    {
+      "id": "certificate-rules", "title": "Certificate, documents and operating rules", "summary": "Know what the certificate permits and what the pilot in command must verify before flight.",
+      "objectives": ["Explain private pilot eligibility and privileges.", "Identify required pilot and aircraft documents.", "Apply common Part 91 operating rules."],
+      "sections": [
+        {"heading": "Eligibility and privileges", "points": ["Section 61.103 sets age, English, endorsements, test and experience requirements. A private pilot usually may share only the pro rata operating expenses listed in 61.113(c), and may not act as pilot in command for compensation or hire except where a specific exception applies.", "A private certificate is not a promise that every flight is legal. Category and class ratings, endorsements, medical qualification, recent experience and aircraft limitations still control each operation."]},
+        {"heading": "Documents and airworthiness", "points": ["The pilot must carry a pilot certificate, photo identification and the required medical qualification. The aircraft must have its airworthiness certificate, registration, operating limitations and current weight-and-balance information available.", "The pilot in command determines whether the aircraft is in condition for safe flight. Required inspections include the annual inspection and, when applicable, the 100-hour, ELT, transponder and altimeter/static-system checks."]},
+        {"heading": "Preflight duties and operating rules", "points": ["Section 91.103 requires all available information for the flight. For a flight away from an airport, that includes weather, fuel, alternatives and known delays.", "Learn the rules for right of way, minimum safe altitudes, fuel reserves, alcohol, oxygen, passenger currency and emergency authority. Read the exact rule when a scenario turns on an exception."]}
+      ],
+      "numbers": [{"item": "VFR fuel reserve", "value": "30 minutes by day; 45 minutes by night", "cite": "14 CFR 91.151"}, {"item": "Passenger takeoff and landing currency", "value": "3 within the preceding 90 days", "cite": "14 CFR 61.57(a),(b)"}, {"item": "Flight review", "value": "Within the preceding 24 calendar months", "cite": "14 CFR 61.56(c)"}],
+      "traps": ["Expense sharing requires a common purpose and only the listed operating expenses may be shared.", "Passenger currency and a flight review are different requirements."],
+      "read": [{"label": "14 CFR Part 61", "url": "https://www.ecfr.gov/current/title-14/part-61"}, {"label": "14 CFR Part 91", "url": "https://www.ecfr.gov/current/title-14/part-91"}, {"label": "Private Pilot Airplane ACS", "url": "https://www.faa.gov/training_testing/testing/acs/private_airplane_acs_6.pdf", "library": {"doc": "acs-private-airplane", "q": "certificates documents airworthiness"}}],
+      "check": [
+        {"q": "What rule makes the pilot in command responsible for determining whether an aircraft is safe to fly?", "choices": ["14 CFR 91.7", "14 CFR 91.151", "14 CFR 61.57"], "answer": 0, "why": "Section 91.7 prohibits operating an unairworthy civil aircraft and assigns the pilot in command that determination.", "cite": "14 CFR 91.7"},
+        {"q": "What is the normal daytime VFR fuel reserve for an airplane?", "choices": ["20 minutes", "30 minutes", "45 minutes"], "answer": 1, "why": "Section 91.151 requires enough fuel to reach the first intended landing point and then fly 30 minutes by day.", "cite": "14 CFR 91.151"},
+        {"q": "How many recent takeoffs and landings normally qualify a pilot to carry passengers?", "choices": ["One", "Three", "Five"], "answer": 1, "why": "Section 61.57 requires three takeoffs and three landings within the preceding 90 days in the appropriate category and class.", "cite": "14 CFR 61.57(a)"}
+      ]
+    },
+    {
+      "id": "aerodynamics", "title": "Aerodynamics, stalls and stability", "summary": "Understand why an airplane flies, stalls, turns and responds to loading.",
+      "objectives": ["Relate angle of attack to lift and stalls.", "Explain load factor and accelerated stalls.", "Recognize stability and left-turning tendencies."],
+      "sections": [
+        {"heading": "Lift and angle of attack", "points": ["Lift changes with air density, velocity, wing area, lift coefficient and angle of attack. A wing stalls when it exceeds its critical angle of attack, regardless of indicated airspeed or attitude.", "Pitch, power, configuration, weight and bank change the speed at which the wing reaches the critical angle."]},
+        {"heading": "Turns, load factor and stalls", "points": ["A level turn needs more total lift. Load factor rises with bank angle and raises stall speed. A 60-degree level bank produces about 2 G and a stall speed about 41 percent higher than the one-G value.", "A spin needs both a stall and yaw. Reduce angle of attack and follow the aircraft's approved recovery procedure."]},
+        {"heading": "Stability and control", "points": ["Longitudinal stability acts in pitch, lateral stability in roll and directional stability in yaw. Center-of-gravity location strongly affects stability and control authority.", "Torque, P-factor, spiraling slipstream and gyroscopic precession contribute to left-turning tendency, especially at high power and low airspeed."]}
+      ],
+      "numbers": [{"item": "Load factor in a 60-degree level bank", "value": "2 G", "cite": "PHAK Chapter 5"}],
+      "traps": ["An airplane can stall at any airspeed and attitude.", "Bank angle by itself does not create the full load-factor increase unless altitude is held."],
+      "read": [{"label": "PHAK Chapter 5: Aerodynamics of Flight", "url": "https://www.faa.gov/regulations_policies/handbooks_manuals/aviation/faa-h-8083-25c.pdf", "library": {"doc": "faa-phak", "q": "critical angle of attack load factor stability"}}, {"label": "Airplane Flying Handbook", "url": "https://www.faa.gov/regulations_policies/handbooks_manuals/aviation/airplane_handbook"}],
+      "check": [
+        {"q": "What directly causes an aerodynamic stall?", "choices": ["Airspeed below a fixed number", "Critical angle of attack exceeded", "Engine power reduced"], "answer": 1, "why": "A stall occurs when the wing exceeds its critical angle of attack.", "cite": "PHAK Chapter 5"},
+        {"q": "What is the approximate load factor in a level 60-degree bank?", "choices": ["1.4 G", "2 G", "3 G"], "answer": 1, "why": "The load factor is about 2 G in a coordinated, altitude-holding 60-degree bank.", "cite": "PHAK Chapter 5"},
+        {"q": "What two conditions are required for a spin?", "choices": ["A stall and yaw", "High airspeed and bank", "Low power and flaps"], "answer": 0, "why": "A spin develops when the airplane is stalled while yaw is present.", "cite": "Airplane Flying Handbook, Chapter 5"}
+      ]
+    },
+    {
+      "id": "systems-instruments", "title": "Aircraft systems, engines and instruments", "summary": "Use system knowledge to prevent failures and interpret cockpit indications.",
+      "objectives": ["Explain piston-engine and propeller basics.", "Trace pitot-static and gyroscopic instruments.", "Recognize common electrical, fuel and induction problems."],
+      "sections": [
+        {"heading": "Engine and propeller", "points": ["A four-stroke engine completes intake, compression, power and exhaust strokes. Magnetos provide ignition independently of the aircraft electrical system.", "Detonation is uncontrolled end-gas combustion; preignition starts combustion before the normal spark. Excessive temperature, improper fuel or mixture and high power can contribute."]},
+        {"heading": "Fuel, induction and electrical systems", "points": ["Carburetor icing can occur in moist air over a broad temperature range because the venturi pressure drop and fuel vaporization cool the throat. Apply carburetor heat according to the aircraft procedure.", "Know the aircraft-specific signs of alternator failure, battery limits, fuel selector positions, pump use and unusable fuel."]},
+        {"heading": "Flight instruments", "points": ["The airspeed indicator uses pitot and static pressure. The altimeter and vertical-speed indicator use static pressure only.", "A blocked pitot or static source creates characteristic errors. Glass displays still depend on sensors, power and software, so cross-check independent information."]}
+      ],
+      "numbers": [{"item": "Aviation gasoline planning weight", "value": "About 6 pounds per U.S. gallon", "cite": "PHAK Chapter 10"}],
+      "traps": ["Magnetos do not need the master switch to make a spark.", "Carburetor ice is not limited to freezing outside-air temperatures."],
+      "read": [{"label": "PHAK Chapters 7 and 8", "url": "https://www.faa.gov/regulations_policies/handbooks_manuals/aviation/faa-h-8083-25c.pdf", "library": {"doc": "faa-phak", "q": "engine systems pitot static instruments"}}, {"label": "Private Pilot Airplane ACS: Operation of Systems", "url": "https://www.faa.gov/training_testing/testing/acs/private_airplane_acs_6.pdf", "library": {"doc": "acs-private-airplane", "q": "operation of systems"}}],
+      "check": [
+        {"q": "Which instrument uses both pitot and static pressure?", "choices": ["Altimeter", "Airspeed indicator", "Vertical-speed indicator"], "answer": 1, "why": "The airspeed indicator compares ram pressure from the pitot tube with static pressure.", "cite": "PHAK Chapter 8"},
+        {"q": "Why can the engine run with the aircraft master switch off?", "choices": ["The battery bypasses the switch", "Magnetos generate ignition power", "The alternator powers the spark plugs directly"], "answer": 1, "why": "Magnetos are engine-driven ignition sources independent of the aircraft electrical system.", "cite": "PHAK Chapter 7"},
+        {"q": "What is often the first sign of carburetor ice in a fixed-pitch airplane?", "choices": ["A rise in RPM", "A gradual loss of RPM", "A higher oil temperature"], "answer": 1, "why": "Ice restricts induction airflow, so a fixed-pitch installation commonly shows a gradual RPM drop.", "cite": "PHAK Chapter 7"}
+      ]
+    },
+    {
+      "id": "performance-weight-balance", "title": "Performance, density altitude and weight and balance", "summary": "Compute whether the airplane can safely carry the load and use the available runway.",
+      "objectives": ["Use performance charts with the correct conditions.", "Explain density-altitude effects.", "Calculate weight, moment and center of gravity."],
+      "sections": [
+        {"heading": "Performance data", "points": ["Use the current aircraft flight manual or pilot operating handbook. Apply pressure altitude, temperature, wind, runway slope, surface and obstacle corrections exactly as the chart directs.", "Published numbers assume stated technique and aircraft condition. Add a personal safety margin instead of treating the chart result as a target."]},
+        {"heading": "Density altitude", "points": ["High pressure altitude, high temperature and high humidity reduce air density. The wing, propeller and normally aspirated engine all lose performance.", "A high-density-altitude takeoff needs more ground roll and climbs more slowly even though indicated liftoff speed remains approximately the same."]},
+        {"heading": "Weight and balance", "points": ["Moment equals weight times arm. Center of gravity equals total moment divided by total weight.", "An aft center of gravity generally reduces stability and makes stall or spin recovery more difficult. A forward center of gravity can reduce elevator authority and increase takeoff or landing distance."]}
+      ],
+      "numbers": [{"item": "Moment", "value": "Weight × arm", "cite": "Aircraft Weight and Balance Handbook"}, {"item": "Center of gravity", "value": "Total moment ÷ total weight", "cite": "Aircraft Weight and Balance Handbook"}],
+      "traps": ["Being below maximum gross weight does not prove that the center of gravity is within limits.", "Do not apply a headwind correction unless the chart permits it."],
+      "read": [{"label": "Aircraft Weight and Balance Handbook", "url": "https://www.faa.gov/sites/faa.gov/files/regulations_policies/handbooks_manuals/aviation/FAA-H-8083-1.pdf", "library": {"doc": "faa-wb", "q": "center of gravity moment"}}, {"label": "PHAK Chapter 11: Aircraft Performance", "url": "https://www.faa.gov/regulations_policies/handbooks_manuals/aviation/faa-h-8083-25c.pdf", "library": {"doc": "faa-phak", "q": "density altitude takeoff performance"}}],
+      "check": [
+        {"q": "How do you compute a loading item's moment?", "choices": ["Weight divided by arm", "Weight times arm", "Arm divided by weight"], "answer": 1, "why": "Moment is the product of weight and arm.", "cite": "Aircraft Weight and Balance Handbook"},
+        {"q": "Which condition raises density altitude?", "choices": ["Lower temperature", "Higher temperature", "Higher pressure"], "answer": 1, "why": "Higher temperature lowers air density and raises density altitude.", "cite": "PHAK Chapter 11"},
+        {"q": "What is a common effect of an aft center of gravity?", "choices": ["More longitudinal stability", "Harder stall recovery", "More elevator authority needed to flare"], "answer": 1, "why": "An aft center of gravity reduces longitudinal stability and can make stall and spin recovery more difficult.", "cite": "PHAK Chapter 10"}
+      ]
+    },
+    {
+      "id": "weather", "title": "Weather theory, reports and go or no-go decisions", "summary": "Read aviation weather and connect each hazard to the flight you plan.",
+      "objectives": ["Explain fronts, stability, clouds and fog.", "Decode METARs, TAFs and pilot reports.", "Identify thunderstorm, icing and wind hazards."],
+      "sections": [
+        {"heading": "Atmosphere and weather systems", "points": ["Unequal heating drives pressure patterns and wind. Rising air cools and can reach saturation; stable air favors layers and poor visibility, while unstable air favors turbulence and vertical clouds.", "Fronts, troughs and pressure systems organize winds, ceilings, precipitation and temperature changes. Compare multiple products to see the trend."]},
+        {"heading": "Reports and forecasts", "points": ["A METAR reports observed airport weather. A TAF forecasts conditions near a terminal. Pilot reports add actual cloud, turbulence and icing observations from aircraft.", "Use an official briefing and check NOTAMs. Radar shows precipitation, not cloud-free air, and has latency and coverage limits."]},
+        {"heading": "Hazards and decisions", "points": ["Thunderstorms can bring severe turbulence, lightning, hail, icing, wind shear and tornadoes. Avoid them by a wide margin and never depend on visual penetration.", "Structural ice changes the airfoil and increases drag. Frost can seriously reduce lift. A conservative VFR plan keeps escape options before ceilings, visibility or terrain close them."]}
+      ],
+      "numbers": [{"item": "Standard sea-level pressure", "value": "29.92 inHg", "cite": "PHAK Chapter 12"}, {"item": "Standard sea-level temperature", "value": "15 °C", "cite": "PHAK Chapter 12"}],
+      "traps": ["A ceiling is the lowest broken or overcast layer, or vertical visibility into an obscuration.", "Weather radar does not show all turbulence or every cloud."],
+      "read": [{"label": "Aviation Weather Handbook", "url": "https://www.faa.gov/sites/faa.gov/files/FAA-H-8083-28B.pdf", "library": {"doc": "faa-awh", "q": "fronts METAR TAF thunderstorms icing"}}, {"label": "Aviation Weather Center", "url": "https://aviationweather.gov/"}, {"label": "Flight Service", "url": "https://www.1800wxbrief.com/"}],
+      "check": [
+        {"q": "Which product reports observed weather at an airport?", "choices": ["METAR", "TAF", "GFA forecast"], "answer": 0, "why": "A METAR is an observation; a TAF is a terminal forecast.", "cite": "Aviation Weather Handbook"},
+        {"q": "What cloud coverage counts as a ceiling?", "choices": ["Scattered", "Broken", "Few"], "answer": 1, "why": "The lowest broken or overcast layer, or vertical visibility, defines the ceiling.", "cite": "Aviation Weather Handbook"},
+        {"q": "Which ingredients support thunderstorm development?", "choices": ["Moisture, instability and lift", "Dry air, stability and subsidence", "Cold air, smooth wind and haze"], "answer": 0, "why": "Thunderstorms need sufficient moisture, an unstable lapse rate and a lifting trigger.", "cite": "Aviation Weather Handbook"}
+      ]
+    },
+    {
+      "id": "airspace", "title": "Airspace, weather minimums and flight restrictions", "summary": "Know where you may fly, what equipment or clearance you need and what weather minimums apply.",
+      "objectives": ["Compare Classes A through G.", "Apply VFR weather minimums.", "Recognize special-use airspace and temporary restrictions."],
+      "sections": [
+        {"heading": "Controlled and uncontrolled airspace", "points": ["Class A begins at 18,000 feet MSL in the contiguous United States and requires IFR. Class B requires an explicit ATC clearance. Classes C and D require two-way radio communication before entry.", "Class E is controlled airspace that is not A, B, C or D. Class G is uncontrolled, although operating rules still apply."]},
+        {"heading": "VFR weather minimums", "points": ["The familiar Class C, D and E below 10,000 feet MSL rule is 3 statute miles visibility, 500 feet below, 1,000 feet above and 2,000 feet horizontally from clouds.", "Class B is 3 statute miles and clear of clouds. Class G minimums change with altitude, time and proximity to the surface, so use the table in 91.155."]},
+        {"heading": "Restrictions and chart symbols", "points": ["Prohibited and restricted areas, military operations areas, alert areas and warning areas have different effects. A VFR pilot may cross an active MOA but should use extreme caution.", "Temporary flight restrictions are published by NOTAM. Check current notices before every flight; a sectional chart cannot show a temporary restriction."]}
+      ],
+      "numbers": [{"item": "Class A floor", "value": "18,000 feet MSL", "cite": "14 CFR 71.33"}, {"item": "Class B VFR visibility", "value": "3 statute miles and clear of clouds", "cite": "14 CFR 91.155"}],
+      "traps": ["Hearing your call sign is not the same as receiving the explicit clearance needed for Class B.", "The 3-152 cloud-clearance rule is not universal."],
+      "read": [{"label": "PHAK Chapter 15: Airspace", "url": "https://www.faa.gov/regulations_policies/handbooks_manuals/aviation/faa-h-8083-25c.pdf", "library": {"doc": "faa-phak", "q": "airspace VFR weather minimums"}}, {"label": "14 CFR 91.155", "url": "https://www.ecfr.gov/current/title-14/section-91.155"}, {"label": "FAA TFR list", "url": "https://tfr.faa.gov/"}],
+      "check": [
+        {"q": "What must a VFR pilot receive before entering Class B airspace?", "choices": ["A traffic advisory", "An explicit ATC clearance", "A discrete transponder code only"], "answer": 1, "why": "Section 91.131 requires an ATC clearance before operating in Class B airspace.", "cite": "14 CFR 91.131"},
+        {"q": "What are the basic Class B VFR weather minimums?", "choices": ["1 mile and clear of clouds", "3 miles and clear of clouds", "3 miles and 500-1,000-2,000"], "answer": 1, "why": "Class B requires 3 statute miles flight visibility and clear of clouds.", "cite": "14 CFR 91.155"},
+        {"q": "Where do you check for a temporary flight restriction?", "choices": ["Only the printed sectional", "Current NOTAM information", "The aircraft registration"], "answer": 1, "why": "TFRs are issued through the NOTAM system and can change after a chart is printed.", "cite": "14 CFR 91.103"}
+      ]
+    },
+    {
+      "id": "navigation-planning", "title": "Charts, navigation and cross-country planning", "summary": "Turn weather, performance and navigation data into a complete flight plan.",
+      "objectives": ["Read sectional chart symbols and airport data.", "Compute headings, groundspeed, time and fuel.", "Use pilotage, dead reckoning and electronic navigation together."],
+      "sections": [
+        {"heading": "Charts and course planning", "points": ["A sectional chart shows airspace, terrain, obstacles, airports, navigation facilities and frequencies. Always use current chart data and check the Chart Supplement and NOTAMs.", "Choose checkpoints that are easy to identify. Measure true course, apply wind correction, then variation and compass deviation as the planning method requires."]},
+        {"heading": "Time, speed and fuel", "points": ["Groundspeed equals true airspeed adjusted for wind. Time equals distance divided by groundspeed. Fuel equals planned time times the aircraft's tested fuel flow, plus required reserve and a margin.", "A stronger-than-forecast headwind changes arrival time and fuel remaining. Recalculate in flight instead of defending the original plan."]},
+        {"heading": "Navigation systems", "points": ["Pilotage uses visual references; dead reckoning uses time, speed, distance and direction. VOR and GPS provide electronic position information but require correct setup and cross-checking.", "GPS database currency, integrity indications and equipment approval matter. A magenta line does not protect against airspace, terrain or fuel mistakes."]}
+      ],
+      "numbers": [{"item": "Time", "value": "Distance ÷ groundspeed", "cite": "PHAK Chapter 16"}, {"item": "VFR cruising altitudes", "value": "Magnetic course 0-179: odd thousands +500; 180-359: even thousands +500", "cite": "14 CFR 91.159"}],
+      "traps": ["Wind direction in aviation is normally the direction from which the wind blows.", "True course, magnetic course, magnetic heading and compass heading are not interchangeable."],
+      "read": [{"label": "PHAK Chapter 16: Navigation", "url": "https://www.faa.gov/regulations_policies/handbooks_manuals/aviation/faa-h-8083-25c.pdf", "library": {"doc": "faa-phak", "q": "navigation wind correction groundspeed"}}, {"label": "FAA Aeronautical Chart User's Guide", "url": "https://www.faa.gov/air_traffic/flight_info/aeronav/digital_products/aero_guide/"}],
+      "check": [
+        {"q": "How do you compute estimated time en route?", "choices": ["Distance times groundspeed", "Distance divided by groundspeed", "Groundspeed divided by distance"], "answer": 1, "why": "Time equals distance divided by groundspeed when units are consistent.", "cite": "PHAK Chapter 16"},
+        {"q": "Which navigation method uses visible landmarks?", "choices": ["Pilotage", "Dead reckoning", "Area navigation"], "answer": 0, "why": "Pilotage finds position and course by reference to landmarks.", "cite": "PHAK Chapter 16"},
+        {"q": "Which VFR cruising altitude applies to a magnetic course of 090 degrees above 3,000 feet AGL?", "choices": ["Even thousands plus 500", "Odd thousands plus 500", "Any thousand-foot altitude"], "answer": 1, "why": "Magnetic courses from 0 through 179 degrees use odd thousands plus 500 feet.", "cite": "14 CFR 91.159"}
+      ]
+    },
+    {
+      "id": "airport-operations", "title": "Airport operations, radio and collision avoidance", "summary": "Operate predictably around towered and nontowered airports.",
+      "objectives": ["Interpret runway markings, signs and lights.", "Use standard radio phraseology and light signals.", "Avoid runway incursions, wake turbulence and traffic conflicts."],
+      "sections": [
+        {"heading": "Runways, signs and markings", "points": ["Runway numbers approximate magnetic heading rounded to the nearest ten. A displaced threshold changes where landing may begin but can leave pavement available for taxi, takeoff or rollout as marked.", "A red sign with white characters is mandatory instruction. Hold-short markings have two solid and two dashed yellow lines; stop on the solid-line side unless cleared to cross."]},
+        {"heading": "Communications", "points": ["Listen before transmitting. State the facility, who you are, where you are and what you want. Read back runway assignments, hold-short instructions and clearances accurately.", "At a nontowered airport, use the published CTAF and standard pattern practices. Radio calls improve awareness but do not replace seeing and avoiding traffic."]},
+        {"heading": "Traffic and wake turbulence", "points": ["Maintain an outside scan and clear before maneuvering. Right-of-way rules do not excuse a pilot from taking action to avoid a collision.", "Wake vortices are strongest behind heavy, clean, slow aircraft. Plan to stay above the preceding aircraft's path and land beyond its touchdown point when appropriate."]}
+      ],
+      "numbers": [{"item": "Emergency frequency", "value": "121.5 MHz", "cite": "AIM 6-3-1"}, {"item": "VFR transponder code", "value": "1200", "cite": "AIM 4-1-20"}, {"item": "Radio failure transponder code", "value": "7600", "cite": "AIM 6-4-1"}],
+      "traps": ["A clearance to land does not authorize crossing another runway.", "A self-announced position report does not give traffic priority."],
+      "read": [{"label": "Aeronautical Information Manual", "url": "https://www.faa.gov/air_traffic/publications/atpubs/aim_html/"}, {"label": "PHAK Chapter 14: Airport Operations", "url": "https://www.faa.gov/regulations_policies/handbooks_manuals/aviation/faa-h-8083-25c.pdf", "library": {"doc": "faa-phak", "q": "airport signs markings wake turbulence"}}],
+      "check": [
+        {"q": "What does a red airport sign with white characters indicate?", "choices": ["Direction information", "Mandatory instruction", "Runway distance remaining"], "answer": 1, "why": "Red-and-white signs mark mandatory instructions such as runway holding positions.", "cite": "AIM Chapter 2"},
+        {"q": "Where should a light-airplane pilot land behind a larger aircraft?", "choices": ["Before its touchdown point", "Beyond its touchdown point", "On the same point"], "answer": 1, "why": "Touch down beyond the larger aircraft's touchdown point and stay above its flight path to avoid descending wake vortices.", "cite": "AIM 7-4"},
+        {"q": "What transponder code indicates radio communication failure?", "choices": ["7500", "7600", "7700"], "answer": 1, "why": "Code 7600 identifies lost communications; 7500 is unlawful interference and 7700 is emergency.", "cite": "AIM 6-4-1"}
+      ]
+    },
+    {
+      "id": "human-factors-emergencies", "title": "Human factors, risk management and emergencies", "summary": "Make conservative decisions and manage abnormal situations without losing aircraft control.",
+      "objectives": ["Use practical risk-management tools.", "Recognize impairment and spatial disorientation.", "Prioritize aircraft control during emergencies."],
+      "sections": [
+        {"heading": "Aeromedical factors", "points": ["Hypoxia, carbon monoxide, hyperventilation, dehydration, fatigue, illness, medication, alcohol and stress can degrade judgment before the pilot notices. Use IMSAFE before flight.", "Vision and vestibular illusions become more dangerous at night or without a natural horizon. Trust the instruments only when trained and qualified to do so."]},
+        {"heading": "Decision making", "points": ["PAVE organizes Pilot, Aircraft, enVironment and External pressures. Personal minimums turn broad legal limits into preplanned boundaries suited to the pilot and aircraft.", "Hazardous attitudes have named antidotes, but the larger habit is to notice pressure early, create alternatives and choose the conservative escape while it is easy."]},
+        {"heading": "Emergencies", "points": ["Fly the airplane first. Establish the appropriate airspeed, choose a landing area, run the approved checklist, communicate and secure the airplane when time allows.", "Section 91.3 gives the pilot in command final authority and permits deviation from a rule to the extent required by an in-flight emergency. That authority supports sound action; it does not replace preparation."]}
+      ],
+      "numbers": [{"item": "Bottle to throttle minimum", "value": "8 hours, plus no impairment and below 0.04% blood alcohol", "cite": "14 CFR 91.17"}, {"item": "Supplemental oxygen for required crew", "value": "After 30 minutes above 12,500 through 14,000 feet MSL; continuously above 14,000", "cite": "14 CFR 91.211"}],
+      "traps": ["Hyperventilation and hypoxia can feel similar; use oxygen if available and control breathing.", "Legal weather can still exceed a pilot's skill or leave no safe escape."],
+      "read": [{"label": "Risk Management Handbook", "url": "https://www.faa.gov/sites/faa.gov/files/2022-06/risk_management_handbook_2A.pdf", "library": {"doc": "faa-rmh", "q": "PAVE personal minimums hazardous attitudes"}}, {"label": "PHAK Chapter 17: Aeromedical Factors", "url": "https://www.faa.gov/regulations_policies/handbooks_manuals/aviation/faa-h-8083-25c.pdf", "library": {"doc": "faa-phak", "q": "hypoxia carbon monoxide spatial disorientation"}}],
+      "check": [
+        {"q": "What does the V in PAVE represent?", "choices": ["Visibility", "enVironment", "Velocity"], "answer": 1, "why": "PAVE stands for Pilot, Aircraft, enVironment and External pressures.", "cite": "Risk Management Handbook"},
+        {"q": "What is the first priority after an engine failure?", "choices": ["Call ATC", "Maintain aircraft control", "Restart the engine immediately"], "answer": 1, "why": "Aviate first: control the airplane and establish the correct glide before troubleshooting or communicating.", "cite": "Airplane Flying Handbook"},
+        {"q": "When may the pilot in command deviate from a rule during an emergency?", "choices": ["Whenever it saves time", "Only to the extent required by the emergency", "Only after ATC approval"], "answer": 1, "why": "Section 91.3 permits deviation only to the extent required to meet the in-flight emergency.", "cite": "14 CFR 91.3(b)"}
+      ]
+    }
+  ],
+  "test_day": ["Bring acceptable identification and your instructor or course endorsement.", "Bring the required test fee and know the testing center's rules.", "Read every question fully, mark uncertain items and return to them.", "Use the FAA testing supplement figures supplied at the center.", "Keep the Airman Knowledge Test Report for your instructor and examiner."],
+  "after": ["Review every missed ACS code with your instructor.", "Finish the aeronautical experience and proficiency requirements.", "Complete practical-test preparation within the required calendar-month window.", "Use the Private Pilot Airplane ACS to prepare for the oral and flight portions."]
+}

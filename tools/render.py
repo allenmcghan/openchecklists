@@ -896,6 +896,7 @@ padding:.4rem .65rem;border-radius:999px;text-decoration:none}
       <a href="{_rel}airports.html">Airports</a>
       <a href="{_rel}planner.html">Plan a Flight</a>
       <a href="{_rel}training.html">Training</a>
+      <a href="/ground-school/">Ground school</a>
     </nav>
   </div>
 </header>

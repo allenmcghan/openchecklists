@@ -77,6 +77,9 @@ instrument node at all.
 | [tools/airports.py](tools/airports.py) | FAA NASR ingest: 19,426 airports, runways, 37k radio frequencies, into sharded static JSON |
 | [tools/training.py](tools/training.py) | 14 CFR part 61 certificate requirements, and progress computed from a logbook |
 | [tools/site_training.py](tools/site_training.py) | Flight training page: free study library plus client-side progress tracking |
+| [ground-school/](ground-school/) | Free ground school: one JSON course per test (Part 103, Part 107, Sport, Private, Instrument, Commercial), our own lessons with references and self-checks. Format in [ground-school/README.md](ground-school/README.md) |
+| [tools/site_ground_school.py](tools/site_ground_school.py) | Builds `/ground-school/`: hub, course overviews, lesson pages, printable courses. Refuses invalid content; checked by [tools/test_ground_school.py](tools/test_ground_school.py) |
+| [tools/aha_embed.py](tools/aha_embed.py) | Embeds the Aha Trivia pilot games (ahatrivia.com's own embed mode) on ground school and test prep pages |
 | [tools/library.py](tools/library.py) | Full-text BM25 index over 14 public-domain documents, plus a registry of the ones we cannot host |
 | [tools/site_airports.py](tools/site_airports.py) | Airport/frequency/weather page, and the Cloudflare Worker weather proxy |
 | [tools/site_library.py](tools/site_library.py) | Troubleshooting search page, projects page, charts page |

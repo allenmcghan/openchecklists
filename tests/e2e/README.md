@@ -11,6 +11,7 @@ API tests run against a local `wrangler dev` worker with a local D1.
 | `fakeidp.py` | Local JWKS/issuer on :9911 that mints tokens with bad `aud`/`iss`/`exp`/`alg` for JWT-validation tests |
 | `crawl.py [BASE]` | Every page type, desktop + mobile: console errors, failed requests, overflow, stuck loaders |
 | `features.py [BASE]` | Exercises features: catalogue, checklist ticks/downloads/email, editor fork, airports + live data, planner → plan briefing → PDF, profile, search, training, service worker |
+| `ground_school_e2e.py [BASE]` | Ground school and the embedded Aha Trivia games, desktop + phone: hub picker, course game loads, lesson self-check and mark-complete, progress, print page, practice-test games, no sideways scroll. No sign-in needed |
 
 Typical local run:
 

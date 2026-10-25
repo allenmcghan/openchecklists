@@ -1,0 +1,173 @@
+{
+  "id": "instrument-rating",
+  "title": "Instrument Rating (Airplane)",
+  "short": "Instrument Rating",
+  "icon": "☁️",
+  "order": 5,
+  "summary": "A complete study path for the FAA Instrument Rating Airplane knowledge test and the knowledge portions of the practical test.",
+  "who": "This course is for airplane pilots preparing to fly under IFR. It covers instrument procedures, weather, navigation, regulations, risk management and the aeronautical experience required by Part 61.",
+  "aha_course": "instrument",
+  "quiz_slug": null,
+  "checked": "2026-10-25",
+  "facts": [
+    {"label":"Knowledge test","value":"IRA: 60 questions, 150 minutes, 70% to pass","cite":{"label":"FAA testing matrix","url":"https://www.faa.gov/sites/faa.gov/files/training_testing/training/testing_matrix.pdf"}},
+    {"label":"Cross-country PIC experience","value":"50 hours, including 10 hours in airplanes","cite":{"label":"14 CFR 61.65(d)","url":"https://www.ecfr.gov/current/title-14/section-61.65"}},
+    {"label":"Instrument time","value":"40 hours actual or simulated","cite":{"label":"14 CFR 61.65(d)","url":"https://www.ecfr.gov/current/title-14/section-61.65"}},
+    {"label":"Instrument training with an instructor","value":"15 hours from an authorized instrument instructor","cite":{"label":"14 CFR 61.65(d)","url":"https://www.ecfr.gov/current/title-14/section-61.65"}},
+    {"label":"Recent instrument experience","value":"Within 6 calendar months: 6 approaches, holding, and intercepting and tracking courses","cite":{"label":"14 CFR 61.57(c)","url":"https://www.ecfr.gov/current/title-14/section-61.57"}}
+  ],
+  "knowledge_test": {
+    "code":"IRA", "questions":60, "minutes":150, "passing":"70%",
+    "notes":["An authorized instructor or approved course must endorse your preparation.","Use current charts and the FAA testing supplement while practicing.","A passing report does not replace the instructor endorsements and flight experience required for the practical test."],
+    "cites":[{"label":"FAA testing matrix","url":"https://www.faa.gov/sites/faa.gov/files/training_testing/training/testing_matrix.pdf"},{"label":"14 CFR 61.35","url":"https://www.ecfr.gov/current/title-14/section-61.35"}]
+  },
+  "practical_test": {
+    "standard":"Instrument Rating Airplane ACS (FAA-S-ACS-8)",
+    "url":"https://www.faa.gov/training_testing/testing/acs/instrument_rating_airplane_acs_8.pdf",
+    "notes":["The examiner evaluates knowledge, risk management and flight skills through instrument tasks.","Use the ACS codes on your knowledge test report to target review before the practical test."]
+  },
+  "requirements": [
+    {"text":"Hold at least a private pilot certificate, or apply for it with the instrument rating.","cite":{"label":"14 CFR 61.65(a)","url":"https://www.ecfr.gov/current/title-14/section-61.65"}},
+    {"text":"Complete and log the aeronautical knowledge and flight training required by 61.65.","cite":{"label":"14 CFR 61.65(b)-(d)","url":"https://www.ecfr.gov/current/title-14/section-61.65"}},
+    {"text":"Log 50 hours of cross-country time as pilot in command and 40 hours of actual or simulated instrument time.","cite":{"label":"14 CFR 61.65(d)","url":"https://www.ecfr.gov/current/title-14/section-61.65"}},
+    {"text":"Complete the required 250 nautical mile IFR cross-country with approaches at each airport and three different kinds of approaches.","cite":{"label":"14 CFR 61.65(d)(2)(ii)","url":"https://www.ecfr.gov/current/title-14/section-61.65"}}
+  ],
+  "plan": [
+    {"step":"Week 1","focus":"Build instrument scan, systems and regulation fundamentals.","modules":["eligibility-experience","instruments-attitude-flying"]},
+    {"step":"Week 2","focus":"Read clearances, charts and navigation systems as one connected route.","modules":["ifr-rules-clearances","enroute-navigation"]},
+    {"step":"Week 3","focus":"Practice departures, arrivals, holding and approaches.","modules":["departures-arrivals-holds","instrument-approaches"]},
+    {"step":"Week 4","focus":"Finish weather, icing, emergencies and decision making, then use the Aha game for review.","modules":["weather-icing","emergencies-risk"]}
+  ],
+  "test_day":["Bring acceptable identification and the required endorsement.","Use the supplied testing supplement and verify every chart scale and legend.","Write clear notes for holding entries, wind corrections and approach questions.","Keep the Airman Knowledge Test Report for your instructor and examiner."],
+  "after":["Review each missed ACS code with an instrument instructor.","Complete the experience and recent practical-test preparation in 61.65.","Fly realistic scenarios that join weather, clearances, navigation and missed approaches.","Use the current Instrument Rating Airplane ACS for oral and flight preparation."],
+  "modules": [
+    {
+      "id":"eligibility-experience", "title":"Eligibility, experience and IFR privileges", "summary":"Understand what the rating permits and what experience must be logged before the practical test.",
+      "objectives":["Explain instrument-rating eligibility.","Break down the flight-experience requirements.","Separate rating requirements from instrument currency."],
+      "sections":[
+        {"heading":"Eligibility and training","points":["Section 61.65 requires the appropriate pilot certificate, English proficiency, ground training, flight training, a knowledge test and a practical test.","For airplanes, the aeronautical experience includes 50 hours of cross-country pilot-in-command time, 40 hours of actual or simulated instrument time and 15 hours with an authorized instrument instructor."]},
+        {"heading":"Privileges and currency","points":["An instrument rating lets a properly qualified pilot operate under IFR and in weather below VFR minimums. The aircraft, equipment, inspections and operation must also qualify.","The rating never expires, but recent instrument experience does. Section 61.57 governs currency, and an instrument proficiency check is required after the allowed reestablishment period."]}
+      ],
+      "numbers":[{"item":"Cross-country PIC","value":"50 hours; 10 in airplanes","cite":"14 CFR 61.65(d)"},{"item":"Instrument time","value":"40 hours actual or simulated","cite":"14 CFR 61.65(d)"},{"item":"Recent practical-test preparation","value":"3 hours within the 2 calendar months before the test month","cite":"14 CFR 61.65(d)"}],
+      "traps":["Instrument currency is not the same as an instrument rating.","The 50 cross-country hours are pilot-in-command time, not simply all cross-country time."],
+      "read":[{"label":"14 CFR 61.65","url":"https://www.ecfr.gov/current/title-14/section-61.65"},{"label":"Instrument Rating Airplane ACS","url":"https://www.faa.gov/training_testing/testing/acs/instrument_rating_airplane_acs_8.pdf","library":{"doc":"acs-instrument-airplane","q":"eligibility experience currency"}}],
+      "check":[
+        {"q":"How much cross-country pilot-in-command time does 61.65(d) require?","choices":["25 hours","40 hours","50 hours"],"answer":2,"why":"The airplane instrument-rating requirement is 50 hours of cross-country time as pilot in command, including 10 hours in airplanes.","cite":"14 CFR 61.65(d)"},
+        {"q":"How much instrument time is required for the airplane rating?","choices":["20 hours","30 hours","40 hours"],"answer":2,"why":"Section 61.65(d) requires 40 hours of actual or simulated instrument time.","cite":"14 CFR 61.65(d)"},
+        {"q":"Does an instrument rating expire when recent instrument experience lapses?","choices":["Yes, immediately","No, but IFR privileges require currency","Only after 24 months"],"answer":1,"why":"The rating remains on the certificate, but the pilot must meet 61.57 before acting as pilot in command under IFR or below VFR minimums.","cite":"14 CFR 61.57(c)"}
+      ]
+    },
+    {
+      "id":"instruments-attitude-flying", "title":"Flight instruments and attitude instrument flying", "summary":"Connect instrument-system behavior to a stable scan and reliable aircraft control.",
+      "objectives":["Explain pitot-static and gyroscopic indications.","Recognize common failures.","Apply control and performance concepts."],
+      "sections":[
+        {"heading":"Instrument systems","points":["The airspeed indicator uses pitot and static pressure. The altimeter and vertical-speed indicator use static pressure. Blockages produce different errors depending on which source is blocked.","Electronic flight displays use sensors and computers, but they still require cross-checking. Compare independent sources before trusting a surprising indication."]},
+        {"heading":"Scan and control","points":["Attitude instrument flying uses a continuous cross-check, interpretation and control process. Fixation, omission and emphasis are common scan errors.","Use small corrections, trim the airplane and confirm the trend. Partial-panel flying demands a simpler scan and disciplined use of the instruments that remain reliable."]}
+      ],
+      "numbers":[{"item":"Altimeter check tolerance for IFR","value":"Within 75 feet of a known elevation","cite":"AIM 7-2-3"},{"item":"Standard-rate turn","value":"3 degrees per second","cite":"FAA Instrument Flying Handbook"}],
+      "traps":["A frozen pitot tube and blocked drain can make indicated airspeed behave like an altimeter.","A failed attitude source may look believable during a slow divergence."],
+      "read":[{"label":"Instrument Flying Handbook","url":"https://www.faa.gov/sites/faa.gov/files/regulations_policies/handbooks_manuals/aviation/FAA-H-8083-15B.pdf","library":{"doc":"faa-ifh","q":"flight instruments attitude instrument flying"}},{"label":"AIM Chapter 7","url":"https://www.faa.gov/air_traffic/publications/atpubs/aim_html/chap7_section_2.html"}],
+      "check":[
+        {"q":"Which instruments use only static pressure?","choices":["Airspeed and heading indicators","Altimeter and vertical-speed indicator","Turn coordinator and altimeter"],"answer":1,"why":"The altimeter and vertical-speed indicator are static-system instruments.","cite":"FAA Instrument Flying Handbook"},
+        {"q":"What is fixation in an instrument scan?","choices":["Ignoring every instrument","Staring too long at one instrument","Scanning too quickly to read anything"],"answer":1,"why":"Fixation is concentrating on one instrument at the expense of the rest of the cross-check.","cite":"FAA Instrument Flying Handbook"},
+        {"q":"What is the best response to one unexpected indication?","choices":["Make a large immediate control input","Cross-check independent instruments","Cover every other display"],"answer":1,"why":"Cross-checking independent sources helps distinguish aircraft motion from an instrument failure.","cite":"FAA Instrument Flying Handbook"}
+      ]
+    },
+    {
+      "id":"ifr-rules-clearances", "title":"IFR rules, clearances and flight plans", "summary":"Apply the operating rules and turn an ATC clearance into an accurate plan.",
+      "objectives":["Identify required IFR equipment and inspections.","Read and copy a clearance.","Apply lost-communications priorities."],
+      "sections":[
+        {"heading":"Aircraft and preflight","points":["Section 91.205 lists equipment required for IFR. Sections 91.411 and 91.413 set inspection intervals for altimeter/static systems and transponders.","IFR preflight planning includes weather, fuel, alternatives, delays, runway data and procedures. The filed flight plan is a request; the clearance is the authorization."]},
+        {"heading":"Clearances and lost communications","points":["Copy route, altitude, departure frequency and transponder code in a consistent order. Read back hold-short instructions, runway assignments and items ATC requests.","Under 91.185, use the route priority assigned, vectored, expected, then filed. Use the highest applicable altitude among the minimum IFR altitude, expected altitude and last assigned altitude."]}
+      ],
+      "numbers":[{"item":"Altimeter/static inspection","value":"Every 24 calendar months","cite":"14 CFR 91.411"},{"item":"Transponder inspection","value":"Every 24 calendar months","cite":"14 CFR 91.413"}],
+      "traps":["A filed altitude does not override an assigned altitude.","Lost-communications rules do not require remaining airborne when a safe VFR landing is possible under 91.185(b)."],
+      "read":[{"label":"14 CFR 91.167 through 91.185","url":"https://www.ecfr.gov/current/title-14/part-91/subpart-B"},{"label":"AIM Chapter 5","url":"https://www.faa.gov/air_traffic/publications/atpubs/aim_html/chap5_section_1.html"}],
+      "check":[
+        {"q":"Which item is part of the usual CRAFT clearance-copy sequence?","choices":["Runway length","Transponder code","Passenger count"],"answer":1,"why":"CRAFT ends with transponder code after clearance limit, route, altitude and departure frequency.","cite":"AIM 4-4-3"},
+        {"q":"What is first in the 91.185 lost-communications route priority?","choices":["Filed","Expected","Assigned"],"answer":2,"why":"Use the route assigned in the last ATC clearance before considering vectored, expected or filed routes.","cite":"14 CFR 91.185(c)"},
+        {"q":"How often is the IFR altimeter and static-system inspection normally required?","choices":["12 calendar months","24 calendar months","36 calendar months"],"answer":1,"why":"Section 91.411 sets a 24-calendar-month interval.","cite":"14 CFR 91.411"}
+      ]
+    },
+    {
+      "id":"enroute-navigation", "title":"Enroute charts, navigation and altitude", "summary":"Use charts, navigation systems and altitude rules to remain protected throughout an IFR route.",
+      "objectives":["Interpret enroute-chart symbols.","Choose legal and practical IFR altitudes.","Monitor navigation-system integrity."],
+      "sections":[
+        {"heading":"Routes and altitudes","points":["Low enroute charts depict airways, fixes, navigation facilities, changeover points and published altitudes. Read every legend and note before relying on a symbol.","The MEA supports obstacle clearance and acceptable navigation signal coverage. Other published altitudes, such as MOCA, MRA and MCA, answer different questions."]},
+        {"heading":"Navigation integrity","points":["VOR use under IFR requires the check or inspection in 91.171. Record the date, place, bearing error and signature for an operational check.","GPS operations depend on approved equipment, current data and integrity monitoring. Know what the unit annunciates when integrity is unavailable and what alternate means the operation requires."]}
+      ],
+      "numbers":[{"item":"VOR check for IFR","value":"Within preceding 30 days","cite":"14 CFR 91.171"},{"item":"Obstacle clearance off airways","value":"1,000 feet; 2,000 feet in designated mountainous areas","cite":"14 CFR 91.177"}],
+      "traps":["MOCA navigation-signal coverage is normally assured only within 22 nautical miles of a VOR.","An RNAV fix name does not by itself prove the aircraft is approved for the procedure."],
+      "read":[{"label":"AIM Chapter 1, Navigation Aids","url":"https://www.faa.gov/air_traffic/publications/atpubs/aim_html/chap1_section_1.html"},{"label":"14 CFR 91.171 and 91.177","url":"https://www.ecfr.gov/current/title-14/section-91.171"}],
+      "check":[
+        {"q":"How recently must a VOR have been checked before IFR use?","choices":["Within 10 days","Within 30 days","Within 90 days"],"answer":1,"why":"Section 91.171 requires the VOR equipment to have been checked within the preceding 30 days.","cite":"14 CFR 91.171"},
+        {"q":"What does an MEA primarily provide?","choices":["Obstacle clearance and navigation coverage","Guaranteed radar contact","Guaranteed visual conditions"],"answer":0,"why":"The minimum enroute altitude supplies obstacle clearance and acceptable navigation-signal coverage along the route segment.","cite":"AIM 5-3-4"},
+        {"q":"What must a pilot do when a GPS reports lost integrity for a procedure that needs it?","choices":["Continue because the route is loaded","Use an approved alternative or discontinue the procedure","Cycle the unit until the warning clears"],"answer":1,"why":"A pilot may not rely on navigation guidance when required integrity is unavailable.","cite":"AIM 1-1-17"}
+      ]
+    },
+    {
+      "id":"departures-arrivals-holds", "title":"Departures, arrivals and holding", "summary":"Plan transitions between terminal and enroute flight without losing terrain or traffic protection.",
+      "objectives":["Use obstacle departure and arrival procedures.","Interpret holding instructions.","Correct entries and timing for wind."],
+      "sections":[
+        {"heading":"Departures and arrivals","points":["Obstacle departure procedures provide obstacle clearance when flown as published. Standard instrument departures also organize traffic and require an ATC clearance unless assigned as part of the clearance.","Arrival procedures connect the enroute structure to terminal operations. Check altitude, speed and navigation requirements before accepting one."]},
+        {"heading":"Holding","points":["A holding clearance includes the fix, direction, radial or course, leg length when needed, turn direction and expect-further-clearance time. Ask when any element is unclear.","Entries are recommended techniques, not regulatory boundaries. Prioritize remaining in protected airspace, then adjust heading and timing for wind."]}
+      ],
+      "numbers":[{"item":"Standard holding leg at or below 14,000 feet MSL","value":"1 minute inbound","cite":"AIM 5-3-8"},{"item":"Standard holding leg above 14,000 feet MSL","value":"1.5 minutes inbound","cite":"AIM 5-3-8"},{"item":"Standard holding turns","value":"Right turns unless published or assigned otherwise","cite":"AIM 5-3-8"}],
+      "traps":["A diverse vector area is not an obstacle departure procedure.","Time the outbound leg to produce the correct inbound time after wind correction."],
+      "read":[{"label":"AIM 5-2, Departure Procedures","url":"https://www.faa.gov/air_traffic/publications/atpubs/aim_html/chap5_section_2.html"},{"label":"AIM 5-3, En Route Procedures","url":"https://www.faa.gov/air_traffic/publications/atpubs/aim_html/chap5_section_3.html"}],
+      "check":[
+        {"q":"What is the standard holding turn direction unless otherwise published or assigned?","choices":["Left","Right","Toward the airport"],"answer":1,"why":"Standard holding patterns use right turns.","cite":"AIM 5-3-8"},
+        {"q":"What is the standard inbound leg time at 10,000 feet MSL?","choices":["30 seconds","1 minute","1.5 minutes"],"answer":1,"why":"At or below 14,000 feet MSL, standard holding uses a one-minute inbound leg.","cite":"AIM 5-3-8"},
+        {"q":"What is the first priority in choosing a holding entry?","choices":["Use the prettiest diagram","Remain in protected airspace","Always choose a teardrop"],"answer":1,"why":"Entry guidance supports the real objective: staying within the holding pattern's protected airspace.","cite":"AIM 5-3-8"}
+      ]
+    },
+    {
+      "id":"instrument-approaches", "title":"Instrument approaches and missed approaches", "summary":"Read an approach chart from briefing strip through landing or missed approach.",
+      "objectives":["Brief an approach chart.","Distinguish DA from MDA operations.","Apply landing and missed-approach rules."],
+      "sections":[
+        {"heading":"Approach setup","points":["Confirm chart date, procedure and runway, then brief navigation, frequencies, courses, altitudes, minimums, missed approach and relevant notes. Verify the loaded procedure against the chart.","A precision or approach-with-vertical-guidance procedure commonly uses a decision altitude. A nonprecision approach commonly uses a minimum descent altitude and a missed approach point."]},
+        {"heading":"Landing or missed approach","points":["Section 91.175 requires the aircraft to be continuously in a position for a normal landing, flight visibility at least the published minimum and at least one specified visual reference before descent below minimums.","Start the published missed approach when required and advise ATC. If the missed approach begins before the missed approach point, continue on the final approach course until reaching it unless ATC directs otherwise."]}
+      ],
+      "numbers":[{"item":"Approach below DA or MDA","value":"Position, visibility and visual-reference tests must all be met","cite":"14 CFR 91.175(c)"},{"item":"Runway environment exception","value":"Approach lights alone allow descent only to 100 feet above touchdown-zone elevation","cite":"14 CFR 91.175(c)(3)"}],
+      "traps":["Seeing approach lights does not automatically authorize descent to the runway.","A circling approach uses circling minimums and requires remaining within the protected area."],
+      "read":[{"label":"14 CFR 91.175","url":"https://www.ecfr.gov/current/title-14/section-91.175"},{"label":"AIM 5-4, Arrival Procedures","url":"https://www.faa.gov/air_traffic/publications/atpubs/aim_html/chap5_section_4.html"}],
+      "check":[
+        {"q":"Which three conditions are required to descend below DA or MDA?","choices":["Position, flight visibility and a listed visual reference","ATC approval, radar contact and landing clearance","Autopilot, GPS and approach lights"],"answer":0,"why":"Section 91.175(c) requires a normal-landing position, required flight visibility and at least one listed visual reference.","cite":"14 CFR 91.175(c)"},
+        {"q":"What is normally associated with a nonprecision approach?","choices":["A minimum descent altitude","A decision height only","No missed approach point"],"answer":0,"why":"Nonprecision procedures commonly use an MDA and a missed approach point.","cite":"AIM 5-4-5"},
+        {"q":"What should a pilot verify after loading an approach into the navigator?","choices":["Only the destination airport","The loaded procedure against the current chart","Only the runway length"],"answer":1,"why":"The pilot must catch database, selection or transition errors by comparing the loaded procedure with the chart.","cite":"FAA Instrument Procedures Handbook"}
+      ]
+    },
+    {
+      "id":"weather-icing", "title":"IFR weather, alternates and icing", "summary":"Turn weather products into legal, conservative departure, enroute and approach decisions.",
+      "objectives":["Interpret IFR weather products.","Apply fuel and alternate rules.","Recognize and escape icing hazards."],
+      "sections":[
+        {"heading":"Weather planning","points":["Build the picture from observations, forecasts, pilot reports, radar, satellite and advisories. Compare product valid times with the entire flight, not only departure.","Section 91.169 sets when an alternate is required and the forecast window around estimated arrival. Published alternate minimums or restrictions can replace the standard planning figures."]},
+        {"heading":"Icing and convective weather","points":["Structural icing changes lift, drag, stall behavior and control response. Freezing rain and visible moisture near freezing demand wide margins and an exit plan.","Avoid thunderstorms rather than trying to penetrate cells visually or by airborne radar alone. Treat embedded convection, fast growth and strong echoes as reasons to reroute or land."]}
+      ],
+      "numbers":[{"item":"IFR fuel","value":"Destination, then alternate when required, then 45 minutes at normal cruise","cite":"14 CFR 91.167"},{"item":"Alternate forecast window","value":"1 hour before to 1 hour after estimated arrival","cite":"14 CFR 91.169"},{"item":"Common 1-2-3 alternate trigger","value":"Less than 2,000-foot ceiling or 3 statute miles visibility","cite":"14 CFR 91.169"}],
+      "traps":["The 1-2-3 rule decides whether to list an alternate; it does not set every alternate's filing minimums.","An icing forecast is not permission to fly an aircraft that lacks the required approval and capability."],
+      "read":[{"label":"Aviation Weather Handbook","url":"https://www.faa.gov/sites/faa.gov/files/FAA-H-8083-28B.pdf","library":{"doc":"faa-awh","q":"IFR weather icing thunderstorms alternates"}},{"label":"14 CFR 91.167 and 91.169","url":"https://www.ecfr.gov/current/title-14/section-91.167"}],
+      "check":[
+        {"q":"After destination and required alternate fuel, what reserve does 91.167 require?","choices":["30 minutes","45 minutes at normal cruise","60 minutes at best economy"],"answer":1,"why":"The IFR reserve is fuel for 45 minutes at normal cruising speed after reaching the alternate when one is required.","cite":"14 CFR 91.167"},
+        {"q":"What does the 1-2-3 rule determine?","choices":["Whether an alternate must be listed","Whether an ILS is available","Whether a VOR check is current"],"answer":0,"why":"It uses forecast ceiling and visibility around arrival to determine whether the flight plan needs an alternate.","cite":"14 CFR 91.169"},
+        {"q":"What is the safest basic response to an icing encounter?","choices":["Wait for a large accumulation","Leave the icing conditions promptly","Increase angle of attack"],"answer":1,"why":"Exit the icing conditions before performance and control degrade further.","cite":"FAA Aviation Weather Handbook"}
+      ]
+    },
+    {
+      "id":"emergencies-risk", "title":"Emergencies, human factors and IFR decisions", "summary":"Manage failures, workload and personal limits before they become an instrument emergency.",
+      "objectives":["Prioritize control during equipment failures.","Recognize spatial disorientation.","Use personal minimums and escape plans."],
+      "sections":[
+        {"heading":"Failures and workload","points":["Control the airplane, identify the failure, use the checklist and tell ATC what help is needed. Declare an emergency early when safety requires priority or flexibility.","Electrical, vacuum, pitot-static, navigation and communication failures create different cues. Rehearse each failure using the equipment installed in the airplane you fly."]},
+        {"heading":"Human performance and decisions","points":["Instrument flight can create powerful vestibular illusions. Trust a verified instrument cross-check, not body sensations, and make deliberate changes.","Use personal minimums for ceiling, visibility, wind, icing and alternates. Reassess at decision points and keep a reachable route to better weather."]}
+      ],
+      "numbers":[{"item":"Hypoxia supplemental oxygen threshold for crew","value":"More than 30 minutes above 12,500 feet MSL through 14,000 feet MSL","cite":"14 CFR 91.211"},{"item":"Crew oxygen above","value":"14,000 feet MSL","cite":"14 CFR 91.211"}],
+      "traps":["Troubleshooting must not replace aircraft control.","Legal weather can still exceed a pilot's proficiency or the aircraft's practical capability."],
+      "read":[{"label":"Instrument Flying Handbook","url":"https://www.faa.gov/sites/faa.gov/files/regulations_policies/handbooks_manuals/aviation/FAA-H-8083-15B.pdf","library":{"doc":"faa-ifh","q":"emergencies spatial disorientation aeronautical decision making"}},{"label":"Risk Management Handbook","url":"https://www.faa.gov/sites/faa.gov/files/2022-06/risk_management_handbook_2A.pdf","library":{"doc":"faa-rmh","q":"personal minimums risk management"}}],
+      "check":[
+        {"q":"What comes first after an instrument or system failure?","choices":["Control the aircraft","Call maintenance","Reprogram the route"],"answer":0,"why":"Aircraft control remains the first priority while the pilot identifies and manages the failure.","cite":"FAA Instrument Flying Handbook"},
+        {"q":"What should a pilot trust during spatial disorientation?","choices":["Body sensations","A verified instrument cross-check","The strongest first impression"],"answer":1,"why":"Vestibular sensations can be false in instrument conditions, so verified instruments provide the reliable reference.","cite":"FAA Instrument Flying Handbook"},
+        {"q":"Why set personal minimums before a flight?","choices":["To replace regulations","To make decisions before pressure rises","To guarantee ATC priority"],"answer":1,"why":"Predetermined limits reduce the temptation to rationalize a risky continuation under workload or schedule pressure.","cite":"FAA Risk Management Handbook"}
+      ]
+    }
+  ]
+}

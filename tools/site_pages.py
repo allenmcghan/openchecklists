@@ -120,9 +120,10 @@ so you can decide in seconds whether it's worth opening ForeFlight and calling f
   </div>
   <div class="feat-row-item">
     <strong>Study for your certificate</strong>
-    <span>Every FAA handbook — PHAK, Instrument Flying, Aviation Weather, AC&nbsp;43.13 —
-    indexed and searchable. Sample tests for every certificate level.</span>
-    <a href="training.html">Start studying &rarr;</a>
+    <span>Free ground school from Part 103 to Commercial: plain-English lessons with references,
+    self-checks, study plans and the Aha Trivia pilot games. Plus every FAA handbook, searchable,
+    and FAA sample-question practice tests.</span>
+    <a href="ground-school/">Start ground school &rarr;</a>
   </div>
 </div>
 
@@ -355,6 +356,11 @@ storage for your work as described above.</p>
 see your IP address: aviationweather.gov and the FAA (weather, NOTAMs, charts),
 Open-Meteo and RainViewer (forecast and radar), Esri/ArcGIS and OpenStreetMap (map tiles),
 Windy (embedded wind map), and unpkg.com and cdnjs (Leaflet map and PDF libraries).
+The practice games on the ground school and test prep pages are embedded from
+<a href="https://ahatrivia.com/" rel="noopener">Aha Trivia</a>, a sister project also run by
+Allen McGhan: the game needs no account, keeps your score in your browser's storage for ahatrivia.com,
+and shares nothing with Open Checklists. Its own
+<a href="https://ahatrivia.com/privacy/" rel="noopener">privacy policy</a> covers what it records.
 The site is hosted on Cloudflare, which processes ordinary request logs (IP address,
 time, page) to serve the site and protect it from abuse.</p>
 
