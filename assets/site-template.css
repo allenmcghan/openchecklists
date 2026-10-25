@@ -49,9 +49,15 @@
   --maxw: 72rem;
 }
 
-html { scroll-behavior: smooth; }
+html {
+  max-width: 100%;
+  overflow-x: clip;
+  scroll-behavior: smooth;
+}
 
 body[data-site-template="openchecklists"] {
+  max-width: 100%;
+  overflow-x: clip;
   background:
     radial-gradient(circle at 8% 4%, rgba(65, 182, 230, .11), transparent 30rem),
     radial-gradient(circle at 92% 24%, rgba(255, 181, 71, .08), transparent 26rem),
@@ -146,6 +152,27 @@ body[data-site-template="openchecklists"] .cur {
   background: linear-gradient(145deg, rgba(255,255,255,.98), rgba(247,251,254,.94));
 }
 
+/* Generated cards and planner steps contain long aviation identifiers. Let
+   their grid tracks shrink on phones while preserving local horizontal scrollers. */
+body[data-site-template="openchecklists"] .cards,
+body[data-site-template="openchecklists"] .cards > *,
+body[data-site-template="openchecklists"] .layout,
+body[data-site-template="openchecklists"] .layout > *,
+body[data-site-template="openchecklists"] #main-col,
+body[data-site-template="openchecklists"] .panel,
+body[data-site-template="openchecklists"] .card {
+  min-width: 0;
+}
+
+body[data-site-template="openchecklists"] li.card,
+body[data-site-template="openchecklists"] .card h1,
+body[data-site-template="openchecklists"] .card h2,
+body[data-site-template="openchecklists"] .card p {
+  overflow-wrap: anywhere;
+}
+
+body[data-site-template="openchecklists"] .steps { max-width: 100%; }
+
 body[data-site-template="openchecklists"] .cta,
 body[data-site-template="openchecklists"] .btn.primary,
 body[data-site-template="openchecklists"] button.primary {
@@ -218,6 +245,7 @@ body[data-site-template="openchecklists"] footer.site a { color: #d8eef8; }
   body[data-site-template="openchecklists"] main.wrap > h1:first-child,
   body[data-site-template="openchecklists"] .wrap > h1:first-child { font-size: clamp(2rem, 10vw, 3rem); }
   .template-orbit { display: none; }
+  body[data-site-template="openchecklists"] .meta span { white-space: normal; }
 }
 
 @media (prefers-reduced-motion: reduce) {
