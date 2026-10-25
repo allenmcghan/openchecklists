@@ -83,7 +83,9 @@ async def t_checklist(b):
         await pg.locator('#emailsend2').click(); await pg.wait_for_timeout(800)
         msg = await pg.inner_text('#emailmsg2')
         rec('email log signed-out asks to sign in', 'sign in' in msg.lower() and not ctx.sent, msg)
-    await pg.emulate_media(media='print'); await pg.screenshot(path='/tmp/ocl-e2e/shots/print.png', full_page=False)
+    await pg.emulate_media(media='print')
+    if os.environ.get('OCL_E2E_SCREENSHOT'):
+        await pg.screenshot(path='/tmp/ocl-e2e/shots/print.png', full_page=False)
     rec('checklist no JS errors', not pg.errs, pg.errs)
     await ctx.close()
     # signed in: email goes to worker with auth header
@@ -236,4 +238,5 @@ async def main():
         await b.close()
     f = [r for r in results if not r[1]]
     print(f'== {len(results) - len(f)} passed, {len(f)} failed')
+    raise SystemExit(1 if f else 0)
 asyncio.run(main())

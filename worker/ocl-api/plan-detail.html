@@ -127,11 +127,12 @@ padding:.4rem .65rem;border-radius:999px;text-decoration:none}
 .freq-mini{font-size:.78rem;color:#444;margin:.2rem 0}
 .freq-mini b{font-family:ui-monospace,Menlo,monospace;color:#1f4e79}
 </style>
+<link rel="stylesheet" href="/site-template.css">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
 </head>
-<body>
+<body data-site-template="openchecklists">
 <header class="ocl-site">
   <div class="hw">
     <a class="ocl-brand" href="/index.html">
@@ -744,5 +745,6 @@ load(false);
   nav.appendChild(pill);
 })();
 </script>
+<script src="/site-template.js" defer></script>
 </body>
 </html>

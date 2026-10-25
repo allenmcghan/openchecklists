@@ -48,6 +48,7 @@ async function handleWeather(ident, request) {
     return cached;
   }
 
+  let timeoutId;
   try {
     // Normalize ident (KJFK or KFK, handle 3/4 letter codes)
     const icao = ident.length === 3 ? `K${ident}` : ident;
@@ -56,14 +57,12 @@ async function handleWeather(ident, request) {
     const metarUrl = `${UPSTREAM_WEATHER}metar?ids=${encodeURIComponent(icao)}`;
     const tafUrl = `${UPSTREAM_WEATHER}taf?ids=${encodeURIComponent(icao)}`;
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), FETCH_TIMEOUT);
+    timeoutId = setTimeout(() => controller.abort(), FETCH_TIMEOUT);
 
     const [metarRes, tafRes] = await Promise.all([
       fetch(metarUrl, { signal: controller.signal }),
       fetch(tafUrl, { signal: controller.signal }),
     ]);
-    clearTimeout(timeoutId);
-
     if (!metarRes.ok || !tafRes.ok) {
       throw new Error(`Upstream error: METAR ${metarRes.status}, TAF ${tafRes.status}`);
     }
@@ -107,6 +106,8 @@ async function handleWeather(ident, request) {
         headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" },
       }
     );
+  } finally {
+    if (timeoutId) clearTimeout(timeoutId);
   }
 }
 

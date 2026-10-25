@@ -980,6 +980,7 @@ def airport_app_page(head_fn, effective_date: str = "current cycle") -> str:
 <script>
 if ('serviceWorker' in navigator) { navigator.serviceWorker.register('/sw.js').catch(function(){}); }
 </script>
+<script src="/site-template.js" defer></script>
 </body>
 </html>"""
     )

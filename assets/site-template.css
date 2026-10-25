@@ -1,0 +1,233 @@
+/*
+ * Open Checklists presentation layer.
+ * Adapted from the AI website template's brand-token, section, motion,
+ * accessibility, and reduced-motion contracts. Product-specific controls keep
+ * their local CSS; this file gives every page one coherent visual system.
+ */
+:root {
+  /* AI website template brand contract */
+  --brand-primary: #125d8c;
+  --brand-primary-text: #0b527d;
+  --brand-on-primary: #fff;
+  --brand-secondary: #1686bd;
+  --brand-secondary-text: #0d6b98;
+  --brand-on-secondary: #fff;
+  --brand-accent: #ffb547;
+  --brand-accent-text: #7a4300;
+  --brand-on-accent: #071421;
+  --brand-ink-text: #071421;
+  --brand-muted-text: #536779;
+  --brand-surface: #f7fbfe;
+  --brand-hairline: #d9e8f0;
+  --brand-dark: #071421;
+  --brand-on-dark: #fff;
+  --brand-link-on-dark: #d8eef8;
+  --brand-muted-on-dark: #b8c9d5;
+  --brand-font-body: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --brand-font-display: var(--brand-font-body);
+  --brand-radius: 20px;
+  --ink-950: #071421;
+  --ink-900: #0b2033;
+  --ink-800: #12324d;
+  --sky-500: #41b6e6;
+  --sky-300: #8ed8f1;
+  --sun-400: #ffb547;
+  --cloud-50: #f7fbfe;
+  --cloud-100: #edf6fb;
+  --surface: rgba(255, 255, 255, .92);
+  --flight-shadow: 0 22px 70px rgba(7, 36, 58, .13);
+  --flight-shadow-soft: 0 10px 30px rgba(7, 36, 58, .08);
+  --accent: var(--brand-primary);
+  --accent-2: var(--brand-secondary);
+  --accent-weak: #e0f3fb;
+  --fg: var(--brand-ink-text);
+  --muted: var(--brand-muted-text);
+  --line: var(--brand-hairline);
+  --card: var(--brand-surface);
+  --radius: var(--brand-radius);
+  --radius-sm: 12px;
+  --maxw: 72rem;
+}
+
+html { scroll-behavior: smooth; }
+
+body[data-site-template="openchecklists"] {
+  background:
+    radial-gradient(circle at 8% 4%, rgba(65, 182, 230, .11), transparent 30rem),
+    radial-gradient(circle at 92% 24%, rgba(255, 181, 71, .08), transparent 26rem),
+    linear-gradient(180deg, #fff 0, var(--cloud-50) 44rem, #fff 100%);
+  color: var(--ink-950);
+}
+
+body[data-site-template="openchecklists"]::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: .35;
+  background-image: linear-gradient(rgba(18, 93, 140, .028) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(18, 93, 140, .028) 1px, transparent 1px);
+  background-size: 42px 42px;
+  mask-image: linear-gradient(to bottom, #000, transparent 72%);
+}
+
+body[data-site-template="openchecklists"] header.site,
+body[data-site-template="openchecklists"] header.ocl-site,
+body[data-site-template="openchecklists"] > header:not(.site):not(.ocl-site) {
+  background: rgba(255, 255, 255, .88);
+  border-bottom-color: rgba(18, 93, 140, .12);
+  box-shadow: 0 8px 30px rgba(7, 36, 58, .035);
+  backdrop-filter: saturate(1.4) blur(18px);
+  -webkit-backdrop-filter: saturate(1.4) blur(18px);
+}
+
+body[data-site-template="openchecklists"] .brand .logo,
+body[data-site-template="openchecklists"] .ocl-brand svg { filter: drop-shadow(0 5px 10px rgba(18, 93, 140, .2)); }
+
+body[data-site-template="openchecklists"] .nav a,
+body[data-site-template="openchecklists"] .ocl-nav a,
+body[data-site-template="openchecklists"] .nav-links a { transition: color .18s ease, background .18s ease, transform .18s ease; }
+
+body[data-site-template="openchecklists"] .nav a:hover,
+body[data-site-template="openchecklists"] .ocl-nav a:hover,
+body[data-site-template="openchecklists"] .nav-links a:hover {
+  text-decoration: none;
+  transform: translateY(-1px);
+}
+
+body[data-site-template="openchecklists"] main.wrap { padding-top: 1.1rem; }
+body[data-site-template="openchecklists"] main.wrap:has(> .hero-video) { padding-top: 0; }
+
+body[data-site-template="openchecklists"] main.wrap > h1:first-child,
+body[data-site-template="openchecklists"] .wrap > h1:first-child,
+body[data-site-template="openchecklists"] #profile-content > h1:first-child {
+  max-width: 18ch;
+  margin-top: 1.3rem;
+  font-size: clamp(2.1rem, 5vw, 4rem);
+  line-height: .98;
+  letter-spacing: -.045em;
+  text-wrap: balance;
+}
+
+body[data-site-template="openchecklists"] main.wrap > h1:first-child::before,
+body[data-site-template="openchecklists"] #profile-content > h1:first-child::before {
+  content: "FLIGHT DESK";
+  display: block;
+  margin-bottom: .7rem;
+  color: var(--accent-2);
+  font-size: .7rem;
+  line-height: 1;
+  letter-spacing: .17em;
+  font-weight: 850;
+}
+
+body[data-site-template="openchecklists"] h2 { text-wrap: balance; }
+
+body[data-site-template="openchecklists"] .feat,
+body[data-site-template="openchecklists"] li.card,
+body[data-site-template="openchecklists"] .panel,
+body[data-site-template="openchecklists"] .card,
+body[data-site-template="openchecklists"] .route-card,
+body[data-site-template="openchecklists"] .briefing,
+body[data-site-template="openchecklists"] .level-card,
+body[data-site-template="openchecklists"] .stat,
+body[data-site-template="openchecklists"] .cur {
+  border-color: rgba(18, 93, 140, .14);
+  box-shadow: var(--flight-shadow-soft);
+}
+
+body[data-site-template="openchecklists"] .feat,
+body[data-site-template="openchecklists"] li.card,
+body[data-site-template="openchecklists"] .panel,
+body[data-site-template="openchecklists"] .card,
+body[data-site-template="openchecklists"] .route-card,
+body[data-site-template="openchecklists"] .cur {
+  background: linear-gradient(145deg, rgba(255,255,255,.98), rgba(247,251,254,.94));
+}
+
+body[data-site-template="openchecklists"] .cta,
+body[data-site-template="openchecklists"] .btn.primary,
+body[data-site-template="openchecklists"] button.primary {
+  background: linear-gradient(135deg, var(--accent), #1686bd);
+  box-shadow: 0 10px 25px rgba(18, 93, 140, .2);
+}
+
+body[data-site-template="openchecklists"] input,
+body[data-site-template="openchecklists"] select,
+body[data-site-template="openchecklists"] textarea {
+  border-color: #cfe1eb;
+  border-radius: 12px;
+}
+
+body[data-site-template="openchecklists"] input:focus,
+body[data-site-template="openchecklists"] select:focus,
+body[data-site-template="openchecklists"] textarea:focus {
+  outline: 3px solid rgba(65, 182, 230, .18);
+  border-color: var(--accent-2);
+}
+
+body[data-site-template="openchecklists"] footer.site {
+  color: #b8c9d5;
+  background:
+    radial-gradient(circle at 10% 0, rgba(65,182,230,.18), transparent 30rem),
+    var(--ink-950);
+  border-top: 0;
+}
+
+body[data-site-template="openchecklists"] footer.site strong { color: #fff; }
+body[data-site-template="openchecklists"] footer.site a { color: #d8eef8; }
+
+[data-scroll-effect="rise"] {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity .65s ease var(--motion-delay, 0ms),
+    transform .65s cubic-bezier(.2,.7,.2,1) var(--motion-delay, 0ms);
+}
+
+[data-scroll-effect="rise"].is-visible { opacity: 1; transform: none; }
+
+.template-orbit {
+  position: fixed;
+  right: -9rem;
+  top: 34vh;
+  width: 22rem;
+  height: 22rem;
+  border: 1px solid rgba(65, 182, 230, .14);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.template-orbit::after {
+  content: "";
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  left: 2rem;
+  top: 3rem;
+  border-radius: 50%;
+  background: var(--sky-500);
+  box-shadow: 0 0 0 7px rgba(65,182,230,.12);
+  animation: template-pulse 2.6s ease-in-out infinite;
+}
+
+@keyframes template-pulse { 50% { transform: scale(1.5); opacity: .55; } }
+
+@media (max-width: 700px) {
+  body[data-site-template="openchecklists"] main.wrap > h1:first-child,
+  body[data-site-template="openchecklists"] .wrap > h1:first-child { font-size: clamp(2rem, 10vw, 3rem); }
+  .template-orbit { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  [data-scroll-effect="rise"] { opacity: 1; transform: none; transition: none; }
+  .template-orbit::after { animation: none; }
+}
+
+@media print {
+  body[data-site-template="openchecklists"] { background: #fff; }
+  body[data-site-template="openchecklists"]::before,
+  .template-orbit { display: none !important; }
+}

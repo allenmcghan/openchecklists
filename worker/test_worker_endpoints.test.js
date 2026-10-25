@@ -1,9 +1,9 @@
 /**
  * Tests for airport API worker endpoints
- * Run with: npm test tools/test_worker_endpoints.js
+ * Run with: cd worker && npm test
  */
 
-import { describe, it, expect, beforeEach, afterEach } from '@jest/globals';
+import { describe, it, expect, beforeEach, jest } from '@jest/globals';
 
 // Mock Cloudflare fetch globally for testing
 const mockFetch = jest.fn();
@@ -18,11 +18,11 @@ global.caches = {
 };
 
 // Import worker logic
-import worker from '../worker/airport-api.js';
+import worker from './airport-api.js';
 
 describe('Airport API Worker', () => {
   beforeEach(() => {
-    mockFetch.mockClear();
+    mockFetch.mockReset();
     global.caches.default.match.mockClear();
     global.caches.default.put.mockClear();
   });
@@ -47,6 +47,9 @@ describe('Airport API Worker', () => {
           }),
           { status: 200 }
         )
+      );
+      mockFetch.mockResolvedValueOnce(
+        new Response(JSON.stringify({ results: [{ raw_text: 'KJFK TAF' }] }), { status: 200 })
       );
 
       global.caches.default.match.mockResolvedValueOnce(null); // Cache miss
@@ -76,6 +79,9 @@ describe('Airport API Worker', () => {
           }),
           { status: 200 }
         )
+      );
+      mockFetch.mockResolvedValueOnce(
+        new Response(JSON.stringify({ results: [{ raw_text: 'KJFK TAF' }] }), { status: 200 })
       );
 
       global.caches.default.match.mockResolvedValueOnce(null);
@@ -120,6 +126,9 @@ describe('Airport API Worker', () => {
           }),
           { status: 200 }
         )
+      );
+      mockFetch.mockResolvedValueOnce(
+        new Response(JSON.stringify({ results: [{ raw_text: 'KJFK TAF' }] }), { status: 200 })
       );
 
       global.caches.default.match.mockResolvedValueOnce(null);

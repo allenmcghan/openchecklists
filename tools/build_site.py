@@ -294,8 +294,9 @@ def head(title: str, desc: str, rel: str = "", path: str | None = None, ads: boo
 <link rel="apple-touch-icon" href="{rel}icon-192.png">
 <link rel="manifest" href="{rel}manifest.webmanifest">
 <style>{CSS}</style>
+<link rel="stylesheet" href="/site-template.css">
 </head>
-<body>
+<body data-site-template="openchecklists">
 <a class="skip" href="#main">Skip to content</a>
 {AUTH_PILL_JS}
 <header class="site"><div class="wrap">
@@ -390,6 +391,7 @@ if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('/sw.js').catch(function(){ /* offline is a bonus */ });
 }
 </script>
+<script src="/site-template.js" defer></script>
 </body>
 </html>
 """
@@ -2157,6 +2159,13 @@ def main() -> int:
             _sh.copy2(vsrc, args.out / "video" / vname)
             artifacts.append(args.out / "video" / vname)
 
+    # Shared AI website template layer. Keeping this external lets the account,
+    # planner and plan pages use the same tokens and motion contracts.
+    for template_asset in ("site-template.css", "site-template.js"):
+        template_src = REPO / "assets" / template_asset
+        shutil.copy2(template_src, args.out / template_asset)
+        artifacts.append(args.out / template_asset)
+
     # Per-airport detail page (client-side template, bookmarkable by ?id=ICAO)
     (args.out / "airport.html").write_text(
         airport_detail_page(head, FOOT, args.wx_proxy), encoding="utf-8"
@@ -2254,7 +2263,7 @@ def main() -> int:
         ["index.html", "catalogue.html", "editor.html", "about.html", "contribute.html",
          "privacy.html", "terms.html", "takedown.html", "contact.html", "about-us.html", "airports.html",
          "search.html", "charts.html", "projects.html", "training.html",
-         "manifest.webmanifest", "icon.svg", "api/index.json"]
+         "manifest.webmanifest", "icon.svg", "site-template.css", "site-template.js", "api/index.json"]
         + (["data/airports/index.json", "data/airports/cycle.json", "data/airports/icao.json"]
            if airports_shipped else [])
         + [f"c/{e['id']}/" for e in entries]

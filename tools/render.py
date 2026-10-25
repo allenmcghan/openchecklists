@@ -877,9 +877,10 @@ padding:.4rem .65rem;border-radius:999px;text-decoration:none}
 <style>{CSS}</style>
 <style id="pagesize">@page{{size:{w} {h};margin:{m}}}</style>
 <style>{_nav_css}</style>
+<link rel="stylesheet" href="/site-template.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
 </head>
-<body>
+<body data-site-template="openchecklists">
 {_auth_script}
 <header class="ocl-site">
   <div class="hw">
@@ -988,6 +989,7 @@ padding:.4rem .65rem;border-radius:999px;text-decoration:none}
 
 <script type="application/json" id="oc-meta">{json.dumps(meta)}</script>
 <script>{JS}</script>
+<script src="/site-template.js" defer></script>
 </body>
 </html>
 """

@@ -33,8 +33,8 @@ FAVICON_SVG = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
 
 def landing_body() -> str:
     return """
-<section class="hero hero-video">
-  <video class="hero-vid" autoplay muted loop playsinline preload="metadata" poster="video/hero-poster.jpg"
+<section class="hero hero-video" data-hero>
+  <video class="hero-vid" data-hero-video autoplay muted loop playsinline preload="metadata" poster="video/hero-poster.jpg"
          aria-hidden="true">
     <source src="video/hero.webm" type="video/webm">
     <source src="video/hero.mp4" type="video/mp4">

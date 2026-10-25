@@ -1,10 +1,22 @@
 #!/bin/bash
 # Exercise the ocl-api worker at $B. Uses the real OCL Tester token in ./token.
-B=${B:-http://127.0.0.1:8787}; T=$(cat ${OCL_TOKEN_FILE:-/tmp/ocl-e2e/token}); pass=0; fail=0
+set -u
+SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
+ROOT=$(cd -- "$SCRIPT_DIR/../.." && pwd)
+TOKEN_FILE=${OCL_TOKEN_FILE:-/tmp/ocl-e2e/token}
+if [[ ! -s "$TOKEN_FILE" ]]; then
+  echo "Missing test token: $TOKEN_FILE" >&2
+  exit 2
+fi
+B=${B:-http://127.0.0.1:8787}; T=$(<"$TOKEN_FILE"); pass=0; fail=0
 chk(){ # name expected actual
   if [[ "$3" == $2 ]]; then echo "PASS $1 ($3)"; pass=$((pass+1)); else echo "FAIL $1: expected $2 got $3"; fail=$((fail+1)); fi; }
 code(){ curl -s -o /tmp/r.json -w '%{http_code}' "$@"; }
-D1(){ (cd /workspace/openchecklists/openchecklists/worker/ocl-api && npx wrangler d1 execute openchecklists-users --local --json --command "$1" 2>/dev/null); }
+D1(){
+  local args=(d1 execute openchecklists-users --local --json --command "$1")
+  if [[ -n "${OCL_WRANGLER_PERSIST:-}" ]]; then args+=(--persist-to "$OCL_WRANGLER_PERSIST"); fi
+  (cd "$ROOT/worker/ocl-api" && npx wrangler "${args[@]}" 2>/dev/null)
+}
 A=(-H "Authorization: Bearer $T" -H 'Content-Type: application/json')
 J=(-H 'Content-Type: application/json')
 # CORS
@@ -61,11 +73,12 @@ chk used-bad-id 422 "$(code -X POST "$B/api/checklists/%3Cx%3E/used")"
 # Quiz: real question + correct answer credited once; wrong/unknown not credited
 chk quiz-unknown 422 "$(code -X POST "${A[@]}" $B/api/me/quiz -d '{}')"
 chk quiz-wrong '*"correct":false*' "$(curl -s -X POST "${A[@]}" $B/api/me/quiz -d '{"test":"par","n":1,"answer":"A"}')"
-Q1=$(curl -s -X POST "${A[@]}" $B/api/me/quiz -d '{"test":"p103","n":2,"answer":"'$(python3 -c "import json;print(json.load(open('/workspace/openchecklists/openchecklists/quiz/p103.json'))['questions'][1]['answer'])")'"}')
-Q2=$(curl -s -X POST "${A[@]}" $B/api/me/quiz -d '{"test":"p103","n":2,"answer":"'$(python3 -c "import json;print(json.load(open('/workspace/openchecklists/openchecklists/quiz/p103.json'))['questions'][1]['answer'])")'"}')
+Q1=$(curl -s -X POST "${A[@]}" $B/api/me/quiz -d '{"test":"p103","n":2,"answer":"'$(python3 -c "import json,sys;print(json.load(open(sys.argv[1]))['questions'][1]['answer'])" "$ROOT/quiz/p103.json")'"}')
+Q2=$(curl -s -X POST "${A[@]}" $B/api/me/quiz -d '{"test":"p103","n":2,"answer":"'$(python3 -c "import json,sys;print(json.load(open(sys.argv[1]))['questions'][1]['answer'])" "$ROOT/quiz/p103.json")'"}')
 chk quiz-second-credit-null '*"points":null*' "$Q2"
 # Public reads
 chk checklists-list 200 "$(code $B/api/checklists)"
 chk checklist-stats 200 "$(code "$B/api/checklists/stats?ids=a,b")"
 chk leaderboard 200 "$(code $B/api/leaderboard)"
 echo "== $pass passed, $fail failed"
+(( fail == 0 ))
