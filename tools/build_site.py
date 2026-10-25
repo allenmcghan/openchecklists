@@ -2148,6 +2148,15 @@ def main() -> int:
             _sh.copy2(src, args.out / img_name)
             artifacts.append(args.out / img_name)
 
+    # Hero background video (generated clip + poster) for the landing page
+    (args.out / "video").mkdir(exist_ok=True)
+    for vname in ("hero.mp4", "hero.webm", "hero-poster.jpg"):
+        vsrc = REPO / "assets" / "video" / vname
+        if vsrc.exists():
+            import shutil as _sh
+            _sh.copy2(vsrc, args.out / "video" / vname)
+            artifacts.append(args.out / "video" / vname)
+
     # Per-airport detail page (client-side template, bookmarkable by ?id=ICAO)
     (args.out / "airport.html").write_text(
         airport_detail_page(head, FOOT, args.wx_proxy), encoding="utf-8"

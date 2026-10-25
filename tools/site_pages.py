@@ -33,30 +33,44 @@ FAVICON_SVG = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
 
 def landing_body() -> str:
     return """
-<div class="hero">
-  <div class="hero-img-wrap">
-    <img src="hero.png" alt="Cessna 172 Skyhawk in flight over green farmland"
-         class="hero-img" width="1408" height="768" loading="eager">
-  </div>
+<section class="hero hero-video">
+  <video class="hero-vid" autoplay muted loop playsinline preload="metadata" poster="video/hero-poster.jpg"
+         aria-hidden="true">
+    <source src="video/hero.webm" type="video/webm">
+    <source src="video/hero.mp4" type="video/mp4">
+  </video>
+  <div class="hero-shade"></div>
+  <svg class="hero-path" viewBox="0 0 800 200" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0 170 C 160 160, 240 60, 400 90 S 660 30, 800 40" pathLength="1"/>
+  </svg>
   <div class="hero-text">
+    <p class="hero-kicker">Free &middot; No account &middot; Every US airport</p>
     <h1 class="hero-h">Your 90-second<br>pre-flight check.</h1>
     <p class="hero-p">Weather, NOTAMs, frequencies, runways and flight planning for every US airport,
-    in one place — free, no account. A fast first look before you pull an official briefing,
+    in one place. A fast first look before you pull an official briefing,
     not a replacement for one.</p>
     <p class="hero-cta">
       <a class="cta" href="planner.html">Plan a Flight</a>
-      <a class="cta ghost" href="airports.html">Look Up an Airport</a>
-      <a class="cta ghost" href="catalogue.html">Browse Checklists</a>
+      <a class="cta glass" href="airports.html">Look Up an Airport</a>
+      <a class="cta glass" href="catalogue.html">Browse Checklists</a>
     </p>
-    <p class="tag">19,426 airports &middot; Live METAR &amp; TAF &middot; NOTAMs &middot; Always verify with an <a href="https://www.1800wxbrief.com/" target="_blank" rel="noopener">official briefing</a></p>
+    <button class="vid-toggle" type="button" aria-label="Pause background video" data-vid-toggle>Pause video</button>
   </div>
-</div>
+</section>
+
+<ul class="statbar" aria-label="Site facts">
+  <li><b data-count="19426">19,426</b><span>airports</span></li>
+  <li><b>Live</b><span>METAR &amp; TAF</span></li>
+  <li><b>NOTAMs</b><span>and winds aloft</span></li>
+  <li><b data-count="0">Free</b><span>no account needed</span></li>
+</ul>
+<p class="tag statnote">Always verify with an <a href="https://www.1800wxbrief.com/" target="_blank" rel="noopener">official briefing</a>.</p>
 
 <h2>One page instead of four apps</h2>
 <p class="lede">Every airport page pulls together the research you'd otherwise hunt across several sites —
 so you can decide in seconds whether it's worth opening ForeFlight and calling for a briefing.</p>
 
-<div class="grid3">
+<div class="grid3 reveal-group">
   <div class="feat">
     <h3>🌤 Live weather at every airport</h3>
     <p>METAR, TAF, and winds aloft pulled directly from aviationweather.gov. Airports without
@@ -90,7 +104,7 @@ so you can decide in seconds whether it's worth opening ForeFlight and calling f
   </div>
 </div>
 
-<div class="feat-row">
+<div class="feat-row reveal-group">
   <div class="feat-row-item">
     <strong>Look up any airport</strong>
     <span>Search by name, city, identifier, or state. Every public and private strip in
@@ -113,7 +127,7 @@ so you can decide in seconds whether it's worth opening ForeFlight and calling f
 </div>
 
 <h2>Free checklists for every aircraft</h2>
-<div class="aircraft-types">
+<div class="aircraft-types reveal-group">
   <a class="atype" href="catalogue.html?q=general+aviation">
     <span class="atype-icon">✈</span>
     <span class="atype-label">General Aviation</span>
@@ -153,18 +167,80 @@ shows where it came from and whether someone has compared it item-by-item agains
 <a href="training.html">Study resources</a> &middot;
 <a href="about.html">Verification states</a>
 </p>
+<script>
+(function(){
+  var rm=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var v=document.querySelector('.hero-vid'),t=document.querySelector('[data-vid-toggle]');
+  if(v&&rm){v.removeAttribute('autoplay');v.pause();}
+  if(v&&t){
+    var sync=function(){t.textContent=v.paused?'Play video':'Pause video';
+      t.setAttribute('aria-label',v.paused?'Play background video':'Pause background video');};
+    t.addEventListener('click',function(){v.paused?v.play():v.pause();});
+    v.addEventListener('play',sync);v.addEventListener('pause',sync);sync();
+  }
+  var els=document.querySelectorAll('.reveal-group>*, h2, .lede');
+  if(rm||!('IntersectionObserver' in window)){return;}
+  els.forEach(function(e,i){e.classList.add('rv');e.style.setProperty('--d',(i%6)*70+'ms');});
+  var io=new IntersectionObserver(function(es){es.forEach(function(x){
+    if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target);}});},{threshold:.12});
+  els.forEach(function(e){io.observe(e);});
+  var c=document.querySelector('[data-count]');
+  if(c&&+c.dataset.count>0){var n=+c.dataset.count,s0=null;
+    (function step(ts){s0=s0||ts;var p=Math.min((ts-s0)/1400,1);
+      c.textContent=Math.round(n*(1-Math.pow(1-p,3))).toLocaleString('en-US');
+      if(p<1)requestAnimationFrame(step);})(performance.now());}
+})();
+</script>
 """
 
 
 HERO_CSS = """
-.hero{display:grid;grid-template-columns:1fr;gap:0;margin:0 -1.15rem 1.4rem;
-border-bottom:1px solid var(--line);overflow:hidden}
-.hero-img-wrap{position:relative;max-height:300px;overflow:hidden;background:#1a5ba3}
-.hero-img{width:100%;height:100%;object-fit:cover;object-position:center 38%;display:block}
-.hero-text{padding:1.6rem 1.15rem 1.8rem}
-.hero-h{font-size:clamp(2rem,7vw,3rem);line-height:1.06;letter-spacing:-.032em;
-margin:.1rem 0 .7rem;font-weight:820}
-.hero-p{font-size:1.05rem;color:var(--muted);max-width:42rem;margin:0}
+.hero{margin:0 -1.15rem 1.4rem;overflow:hidden}
+.hero-video{position:relative;isolation:isolate;display:flex;align-items:flex-end;min-height:72vh;
+width:100vw;margin-left:calc(50% - 50vw);margin-right:0;background:#0b1b2e;color:#fff;border-bottom:0}
+.hero-vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-3;
+animation:kenburns 24s ease-in-out infinite alternate}
+.hero-shade{position:absolute;inset:0;z-index:-2;
+background:linear-gradient(180deg,rgba(8,20,36,.35) 0%,rgba(8,20,36,.15) 38%,rgba(8,20,36,.82) 100%),
+linear-gradient(90deg,rgba(8,20,36,.55),transparent 70%)}
+.hero-path{position:absolute;left:0;right:0;bottom:0;width:100%;height:42%;z-index:-1;pointer-events:none}
+.hero-path path{fill:none;stroke:rgba(255,255,255,.55);stroke-width:2;stroke-dasharray:.012 .02;
+stroke-dashoffset:1;animation:flightpath 5s ease-out .6s forwards}
+.hero-text{position:relative;width:100%;max-width:var(--maxw);margin:0 auto;padding:6rem 1.15rem 2.4rem}
+.hero-kicker{display:inline-block;margin:0 0 .9rem;padding:.3rem .8rem;border-radius:var(--pill);
+font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.28);
+backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.hero-h{font-size:clamp(2.2rem,8vw,4rem);line-height:1.02;letter-spacing:-.035em;
+margin:.1rem 0 .8rem;font-weight:830;max-width:14ch;color:#fff;text-shadow:0 2px 24px rgba(0,0,0,.35)}
+.hero-p{font-size:1.1rem;color:rgba(255,255,255,.9);max-width:38rem;margin:0;text-shadow:0 1px 12px rgba(0,0,0,.4)}
+.hero-kicker,.hero-h,.hero-p,.hero-cta,.vid-toggle{animation:riseIn .8s cubic-bezier(.2,.7,.2,1) both}
+.hero-h{animation-delay:.12s}.hero-p{animation-delay:.24s}.hero-cta{animation-delay:.36s}.vid-toggle{animation-delay:.5s}
+.cta.glass{background:rgba(255,255,255,.16);color:#fff;border:1px solid rgba(255,255,255,.38);
+backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.cta.glass:hover{background:rgba(255,255,255,.28);color:#fff}
+.hero-video .cta:not(.glass){background:#fff;color:#12365a}
+.hero-video .cta:not(.glass):hover{background:#eaf1fb}
+.vid-toggle{margin-top:.6rem;font:inherit;font-size:.78rem;color:rgba(255,255,255,.85);cursor:pointer;
+background:rgba(0,0,0,.28);border:1px solid rgba(255,255,255,.3);border-radius:var(--pill);padding:.35rem .8rem;min-height:2.2rem}
+.vid-toggle:hover{background:rgba(0,0,0,.45)}
+.statbar{list-style:none;display:grid;grid-template-columns:repeat(2,1fr);gap:.6rem;margin:-1.6rem 0 .4rem;padding:0;position:relative;z-index:2}
+.statbar li{margin:0;background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+padding:.85rem 1rem;box-shadow:var(--shadow-md);display:flex;flex-direction:column}
+.statbar b{font-size:1.45rem;letter-spacing:-.02em;color:var(--accent);font-variant-numeric:tabular-nums}
+.statbar span{font-size:.8rem;color:var(--muted)}
+.statnote{text-align:center;margin:.6rem 0 0}
+.rv{opacity:0;transform:translateY(22px);transition:opacity .7s ease var(--d,0ms),transform .7s cubic-bezier(.2,.7,.2,1) var(--d,0ms)}
+.rv.in{opacity:1;transform:none}
+.feat,.feat-row-item,.atype{will-change:transform}
+@keyframes riseIn{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+@keyframes flightpath{to{stroke-dashoffset:0}}
+@keyframes kenburns{from{transform:scale(1)}to{transform:scale(1.07)}}
+@media (min-width:700px){.statbar{grid-template-columns:repeat(4,1fr)}.hero-video{min-height:78vh}}
+@media (prefers-reduced-motion:reduce){
+.hero-vid,.hero-kicker,.hero-h,.hero-p,.hero-cta,.vid-toggle{animation:none!important}
+.hero-path path{animation:none!important;stroke-dashoffset:0}
+.rv{opacity:1!important;transform:none!important;transition:none!important}}
 .aircraft-types{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin:1rem 0 1.8rem}
 .atype{display:flex;flex-direction:column;align-items:center;gap:.35rem;text-align:center;
 padding:.8rem .5rem;border:1px solid var(--line);border-radius:14px;
@@ -180,9 +256,6 @@ background:#fff;display:flex;flex-direction:column;gap:.35rem}
 .feat-row-item a{font-size:.88rem;font-weight:600;color:var(--accent)}
 @media(min-width:600px){.aircraft-types{grid-template-columns:repeat(6,1fr)}}
 @media(min-width:800px){
-.hero{grid-template-columns:1fr 1fr}
-.hero-img-wrap{max-height:none;min-height:340px}
-.hero-text{padding:2.2rem 1.5rem 2.2rem}
 .feat-row{grid-template-columns:repeat(3,1fr)}}
 """
 
